@@ -7,11 +7,25 @@
 }
 
 @media (max-width: 600px) {
+	/*DEFAULT*/
+	.containermain{ width:95%; margin:0 auto; }
+
+	/*HEADER*/
 	.head{ padding:10px 8px 8px 8px; }
+
+	/*CONTENT*/
+	.col-signin{ margin:0 auto 0 auto;}
 	.signup text{ display:none; }
-	.note{ margin:8px 5% 12px 5%;}
-	.bgpic{ width:100%; height:auto; background-color: #783033; }
+	.signin{ margin:5% 0% 0 0%; }
+	.note{ margin:8px 1% 12px 1%; font-size:12px;}
+	.titlin{ font-size:18px; }
+	
+	/*FOOTER*/
 	.footer{ position:relative; margin:15px 0; }
+	.footer a{ font-size:10px; }
+
+	/*COMPONENT*/
+	.bgpic{ width:100%; height:auto; background-color: #762e32; }
 }
 
 @media (max-width: 481px) {
