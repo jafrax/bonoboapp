@@ -23,20 +23,26 @@
 	<div class="row">
 		<div class="col s6 m4 l2"><img class="responsive-img" src="images/comp/logo_shadow.png" /></div>
 		<div class="col s6 m8 l10">
-			<p class="signup"><text>Baru datang ke bonobo ?</text><a href="signup.html" class="waves-effect waves-light btn deep-orange darken-1" >Daftar</a></p>
+			<p class="signup"><text>Sudah punya akun ?</text><a href="index.html" class="waves-effect waves-light btn deep-orange darken-1" >Masuk</a></p>
 		</div>
 	</div>
 </header>
 <content>
 	<div class="container">
-		<div class="row col-signin">
-			<h4 class="titlin">Masuk ke bonobo</h4>
+		<div class="row col-signup">
+			<h4 class="titlin">BONOBO IS A SECURE BUSSINESS PLATFORM</h4>
+			<p class="note">Bonobo merupakan tempat berjualan online dimana setiap toko yang tergabung didalamnya bersaing secara sehat dan bersahabat.</p>
 			<div class="col s12 col-btn-fb" align="center">
 				<button class="waves-effect waves-light btn light-blue darken-4"><i class="fa fa-facebook-official left"></i>Masuk dengan facebook</button>
 			</div>
-			<p class="or">Atau akun bonobo</p>
+			<p class="or">Atau gunakan email</p>
 			<form class="signin z-depth-2">
 				<div class="row">
+					<div class="input-field col s12">
+						<input id="nama" type="text" class="validate">
+						<label for="nama">Nama lengkap</label>
+						<label class="error"><i class="fa fa-warning"></i> Harus diisi !</label>
+					</div>
 					<div class="input-field col s12">
 						<input id="email" type="text" class="validate">
 						<label for="email">Email</label>
@@ -46,8 +52,12 @@
 						<label for="password">Password</label>
 					</div>
 					<div class="input-field col s12">
-						<a href="" class="left" >Lupa password ?</a>
-						<button class="waves-effect waves-light btn deep-orange darken-1 right">Masuk</button>
+						<input id="retypepas" type="password" class="validate">
+						<label for="retypepas">Ketik ulang password</label>
+						<label class="error"><i class="fa fa-warning"></i> Sandi tidak sesuai !</label>
+					</div>
+					<div class="input-field col s12">
+						<button class="waves-effect waves-light btn deep-orange darken-1 right">DAFTAR</button>
 					</div>
 				</div>
 			</form>
