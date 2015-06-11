@@ -3,5 +3,13 @@
  */
  
 $(document).ready(function() {
+
+	/*SELECT FIELD*/
 	$('select').material_select();
+	/*END SELECT FIELD*/
+
+	/*MENU SLIDE*/
+	$('.navmob').jPushMenu();
+	/*END MENU SLIDE*/
+
 });

@@ -73,7 +73,7 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
 
 .error { position: absolute; top: 0.8rem; right: 0.75rem; text-align:right; color:#ef5350!important; }
 
-.dropdown-content li span{ font-size:12px; padding:5px; color:#ff7043; }
+.dropdown-content li span{ font-size:12px; padding:5px; color:#313131; }
 
 
 /*ALL ABOUT BG*/
@@ -85,3 +85,7 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
 /*ALL ABOUT DEFAULT IMAGE*/
 .logo{ width:125px; margin:7.5px 0; }
 .userdum{ width:40px; height:40px; border-radius:100%; border:1px solid #efefef; }
+
+/*ALL ABOUT DEFAULT COLOR TEXT*/
+.text-green{ color:#43a047!important; }
+.text-red{ color:#f44336!important; }
