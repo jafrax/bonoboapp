@@ -1,7 +1,11 @@
 <?php
 class response {
-	public function send($response){
-		echo json_encode($response);
+	public function send($response, $encript=FALSE){
+		if($encript){
+			echo base64_encode(json_encode($response));
+		}else{
+			echo json_encode($response);
+		}
 	}
 	
 	public function post($parameter,$clean=TRUE){
@@ -16,6 +20,18 @@ class response {
 		return $input;
 	}
 	
+	public function postDecode($parameter,$clean=TRUE){
+		if(empty($_POST[$parameter])){
+			return "";
+		}
+		
+		$input = $_POST[$parameter];
+		if($clean){
+			$input = $this->clean($input);
+		}
+		return base64_decode($input);
+	}
+	
 	public function get($parameter,$clean=TRUE){
 		if(empty($_GET[$parameter])){
 			return "";
@@ -26,6 +42,18 @@ class response {
 			$input = $this->clean($input);
 		}
 		return $input;
+	}
+	
+	public function getDecode($parameter,$clean=TRUE){
+		if(empty($_GET[$parameter])){
+			return "";
+		}
+		
+		$input = $_GET[$parameter];
+		if($clean){
+			$input = $this->clean($input);
+		}
+		return base64_decode($input);
 	}
 	
 	public function clean($string){

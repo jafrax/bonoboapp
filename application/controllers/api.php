@@ -16,8 +16,21 @@ class Api extends CI_Controller {
         parent::__construct();
     }
 	
+	private function isValidApi($api_key){
+		if($api_key == "BONOBO-APP-01"){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	public function index(){
-		echo "API is Under-Construction";
+		if(!$this->isValidApi($this->response->postDecode("api_key"))){
+			$this->response->send(array("result"=>0,"message"=>"Applikasi anda tidak terdaftar.","messageCode"=>01), true);
+			return;
+		}
+	
+		$this->response->send(array("result"=>1,"products"=>array(1,2,3),"carts"=>array(1,2,3),"messages"=>array(1,2,3)), true);
 	}
 	
 }
