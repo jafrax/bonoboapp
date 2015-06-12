@@ -1,0 +1,6 @@
+HTML
+<input type='text' class='textbox' name='' value='Amsterdam,Washington,Sydney,Beijing,Cairo' data-role='tagsinput' placeholder='To'>
+
+
+REFERENCE
+http://timschlechter.github.io/bootstrap-tagsinput/examples/
