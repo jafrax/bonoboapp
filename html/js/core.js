@@ -12,4 +12,7 @@ $(document).ready(function() {
 	$('.navmob').jPushMenu();
 	/*END MENU SLIDE*/
 
+	/*MODAL*/
+	$('.modal-trigger').leanModal();
+	/*END MODAL*/
 });

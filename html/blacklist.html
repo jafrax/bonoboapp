@@ -16,6 +16,46 @@
 <link type="text/css" rel="stylesheet" href="css/comp.css" />
 
 </head>
+
+<div id="delete_anggota" class="modal confirmation">
+	<div class="modal-header red">
+		<i class="mdi-navigation-close left"></i> Hapus anggota
+	</div>
+	<form class="modal-content">
+		<p>Apakah anda yakin ingin menghapus <b>"nama anggota"</b> ?</p>
+		<p>
+			<input type="checkbox" class="filled-in" id="blacklist" />
+	        <label for="blacklist">Masukan kedalam blacklist</label>
+	    </p>
+	</form>
+	<div class="modal-footer">
+		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">TIDAK</a>
+		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">YA</a>
+	</div>
+</div>
+
+<div id="setting_harga" class="modal confirmation">
+	<div class="modal-header deep-orange">
+		<i class="mdi-action-spellcheck left"></i> Setting harga
+	</div>
+	<form class="modal-content">
+		<p>
+			<div class="input-field col s12">
+				<select>
+					<option value="" disabled selected>Choose your option</option>
+					<option value="1">Option 1</option>
+					<option value="2">Option 2</option>
+					<option value="3">Option 3</option>
+				</select>
+			</div>
+	    </p>
+	</form>
+	<div class="modal-footer">
+		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">TIDAK</a>
+		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">YA</a>
+	</div>
+</div>
+
 <body class="cbp-spmenu-push cbp-spmenu-push-toleft">
 <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left cbp-spmenu-open">
 	<ul class="col s12 navmob mobleft">
@@ -25,8 +65,8 @@
 				<text>James Rodriguez</text>
 			</div>
 		</li>
-		<li class="active"><a class="active" href="">Toko</a></li>
-		<li><a href="">Anggota</a></li>
+		<li><a href="">Toko</a></li>
+		<li class="active"><a class="active" href="">Anggota</a></li>
 		<li><a href="">Produk</a></li>
 		<li><a href="">Nota</a></li>
 		<li><a href="">Pesan</a></li>
@@ -40,8 +80,8 @@
 			<ul class="col s1 navmob toggle-menu menu-left push-body jPushMenuBtn">
 				<li><a href="#"><i class="fa fa-align-justify"></i></a></li>
 			</ul>
-			<div class="col s10 m4 l2"><img class="responsive-img logo" src="images/comp/logo_shadow.png" /></div>
-			<div class="col s1 m8 l10">
+			<div class="col s6 m4 l2"><img class="responsive-img logo" src="images/comp/logo_shadow.png" /></div>
+			<div class="col s6 m8 l10">
 				<div class="usermain right">
 					<img class="responsive-img userdum" src="images/comp/male.png" />
 					<text>James Rodriguez</text>
@@ -52,8 +92,8 @@
 	<nav class="nav grey darken-2">
 		<div class="containermain">
 			<ul class="navmenu">
-				<li class="active"><a class="active" href="">Toko</a></li>
-				<li><a href="">Anggota</a></li>
+				<li><a href="">Toko</a></li>
+				<li class="active"><a class="active" href="">Anggota</a></li>
 				<li><a href="">Produk</a></li>
 				<li><a href="">Nota</a></li>
 				<li><a href="">Pesan</a></li>
@@ -68,49 +108,39 @@
 			<div class="row contentsebenarya">
 				<div class="col s12 m12 l3">
 					<ul class="menucontent">
-						<li><a class="active" href="">INFORMASI TOKO</a></li>
-						<li><a href="">ATUR INFORMASI</a></li>
-						<li><a href="">ATUR PENGURANGAN STOK</a></li>
-						<li><a href="">METODE TRANSAKSI</a></li>
-						<li><a href="">PENGIRIMAN</a></li>
-						<li><a href="">BANK</a></li>
-						<li><a href="">ATUR LEVEL HARGA</a></li>
+						<li><a href="">ANGGOTA BARU</a> <span class="new badge">2</span></li>
+						<li><a href="">KIRIM UNDANGAN</a></li>
+						<li><a class="active" href="">DAFTAR ANGGOTA</a></li>
+						<li><a href="">BLACKLIST</a></li>
 					</ul>
 				</div>
 				<div class="col s12 m12 l9">
-					<form class="formain">
+					<div class="formain">
 						<div class="formhead">
-							<h2 class="titmain">INFORMASI TOKO</h2>
+							<h2 class="titmain">DAFTAR BLACKLIST</h2>
+							<p>Halaman ini menampilkan pembeli yang telah menjadi anggota !</p>
 						</div>
-						<div class="row formbody">
-							<div class="linehead"><i class="fa fa-minus-square-o"></i>Informasi Umum</div>
-							<div class="input-field col s12 m8">
-								<input id="nama" type="text" class="validate">
-								<label for="nama">Nama toko</label>
-							</div>
-							<div class="input-field col s12 m8">
-								<input id="tokoid" type="text" class="validate">
-								<label for="tokoid">Toko Id</label>
-							</div>
-							<div class="input-field col s12 m6">
-								<select>
-									<option value="" disabled selected>Choose your option</option>
-									<option value="1">Option 1</option>
-									<option value="2">Option 2</option>
-									<option value="3">Option 3</option>
-								</select>
-								<label>Pilih kategori</label>
-							</div>
-							<div class="input-field col s12 m8">
-								<input id="katakunci" type="text" class="validate">
-								<label for="katakunci">Kata kunci pencarian</label>
-							</div>
-							<div class="input-field col s12 m8">
-								<textarea id="deskripsi" class="materialize-textarea" ></textarea>
-								<label for="deskripsi">Deskripsi toko</label>
-							</div>
-						</div>
-					</form>
+						<ul class="row formbody">
+							<li class="col s12 listanggodaf">
+								<div class="input-field col s12 m8">
+									<i class="mdi-action-search prefix"></i>
+									<input id="nama" type="text" class="validate">
+									<label for="nama">Cari anggota</label>
+								</div>
+							</li>
+							<li class="col s12 m6 listanggodaf">
+								<div class="col s12 m5 l4">
+									<img src="images/comp/male.png" class="responsive-img userimg">
+								</div>
+								<div class="col s12 m7 l8">
+									<p><a href=""><b class="userangoota">Yegar sahaduta</b></a></p>
+									</p><a href="#setting_harga" class="modal-trigger" ><b>Level : Grosir</b></a></p>
+									<a href="#delete_anggota" class="modal-trigger btn-floating btn-xs waves-effect waves-light red right"><i class="mdi-navigation-close"></i></a>
+								</div>
+							</li>
+							
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>

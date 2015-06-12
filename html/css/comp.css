@@ -85,7 +85,18 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
 /*ALL ABOUT DEFAULT IMAGE*/
 .logo{ width:125px; margin:7.5px 0; }
 .userdum{ width:40px; height:40px; border-radius:100%; border:1px solid #efefef; }
+.userimg{ border:1px solid #efefef;}
 
 /*ALL ABOUT DEFAULT COLOR TEXT*/
 .text-green{ color:#43a047!important; }
 .text-red{ color:#f44336!important; }
+
+/*ALL ABOUT PAGINATION*/
+.pagination li a{ font-size:12px; }
+.pagination li a i{ font-size:18px; } 
+
+/*ALL ABOUT MODAL*/
+.modal.confirmation { max-width:350px; border-radius:none;  }
+.modal .modal-header{ height:45px; padding:0 5px; line-height:45px; color:#fff; font-size:18px; }
+.modal .modal-header i{ font-size:34px; }
+.modal .modal-content .select-dropdown{ z-index:1000; }

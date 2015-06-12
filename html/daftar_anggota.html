@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>Bonobo</title>
+
+<link rel="icon" href="images/comp/icon.ico" type="image/gif" sizes="16x7">
+
+<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+<link type="text/css" rel="stylesheet" href="css/font-awesome.min.css" />
+<link type="text/css" rel="stylesheet" href="css/jpushmenu.css" />
+
+<link type="text/css" rel="stylesheet" href="css/style.css" />
+<link type="text/css" rel="stylesheet" href="css/tablet.css" />
+<link type="text/css" rel="stylesheet" href="css/mobile.css" />
+<link type="text/css" rel="stylesheet" href="css/comp.css" />
+
+</head>
+
+<div id="delete_anggota" class="modal confirmation">
+	<div class="modal-header red">
+		<i class="mdi-navigation-close left"></i> Hapus anggota
+	</div>
+	<form class="modal-content">
+		<p>Apakah anda yakin ingin menghapus <b>"nama anggota"</b> ?</p>
+		<p>
+			<input type="checkbox" class="filled-in" id="blacklist" />
+	        <label for="blacklist">Masukan kedalam blacklist</label>
+	    </p>
+	</form>
+	<div class="modal-footer">
+		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">TIDAK</a>
+		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">YA</a>
+	</div>
+</div>
+
+<div id="setting_harga" class="modal confirmation">
+	<div class="modal-header deep-orange">
+		<i class="mdi-action-spellcheck left"></i> Setting harga
+	</div>
+	<form class="modal-content">
+		<p>
+			<div class="input-field col s12">
+				<select>
+					<option value="" disabled selected>Choose your option</option>
+					<option value="1">Option 1</option>
+					<option value="2">Option 2</option>
+					<option value="3">Option 3</option>
+				</select>
+			</div>
+	    </p>
+	</form>
+	<div class="modal-footer">
+		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">TIDAK</a>
+		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">YA</a>
+	</div>
+</div>
+
+<body class="cbp-spmenu-push cbp-spmenu-push-toleft">
+<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left cbp-spmenu-open">
+	<ul class="col s12 navmob mobleft">
+		<li class="usermob">
+			<div class="usermain left">
+				<img class="responsive-img userdum" src="images/comp/male.png" />
+				<text>James Rodriguez</text>
+			</div>
+		</li>
+		<li><a href="">Toko</a></li>
+		<li class="active"><a class="active" href="">Anggota</a></li>
+		<li><a href="">Produk</a></li>
+		<li><a href="">Nota</a></li>
+		<li><a href="">Pesan</a></li>
+		<li><a href="">Profil</a></li>
+	</ul>
+</nav>
+
+<header>
+	<div class="headmain">
+		<div class="row padhead">
+			<ul class="col s1 navmob toggle-menu menu-left push-body jPushMenuBtn">
+				<li><a href="#"><i class="fa fa-align-justify"></i></a></li>
+			</ul>
+			<div class="col s6 m4 l2"><img class="responsive-img logo" src="images/comp/logo_shadow.png" /></div>
+			<div class="col s6 m8 l10">
+				<div class="usermain right">
+					<img class="responsive-img userdum" src="images/comp/male.png" />
+					<text>James Rodriguez</text>
+				</div>
+			</div>
+		</div>
+	</div>
+	<nav class="nav grey darken-2">
+		<div class="containermain">
+			<ul class="navmenu">
+				<li><a href="">Toko</a></li>
+				<li class="active"><a class="active" href="">Anggota</a></li>
+				<li><a href="">Produk</a></li>
+				<li><a href="">Nota</a></li>
+				<li><a href="">Pesan</a></li>
+				<li><a href="">Profil</a></li>
+			</ul>
+		</div>
+	</nav>
+</header>
+<content>
+	<div class="contentmain">
+		<div class="containermain">
+			<div class="row contentsebenarya">
+				<div class="col s12 m12 l3">
+					<ul class="menucontent">
+						<li><a href="">ANGGOTA BARU</a> <span class="new badge">2</span></li>
+						<li><a href="">KIRIM UNDANGAN</a></li>
+						<li><a class="active" href="">DAFTAR ANGGOTA</a></li>
+						<li><a href="">BLACKLIST</a></li>
+					</ul>
+				</div>
+				<div class="col s12 m12 l9">
+					<div class="formain">
+						<div class="formhead">
+							<h2 class="titmain"><b>DAFTAR ANGGOTA</b> <span>( 25 Anggota )</span></h2>
+							<p>Halaman ini menampilkan pembeli yang telah menjadi anggota !</p>
+						</div>
+						<ul class="row formbody">
+							<li class="col s12 listanggodaf">
+								<div class="input-field col s12 m8">
+									<i class="mdi-action-search prefix"></i>
+									<input id="nama" type="text" class="validate">
+									<label for="nama">Cari anggota</label>
+								</div>
+							</li>
+							<li class="col s12 m6 listanggodaf">
+								<div class="col s12 m5 l4">
+									<img src="images/comp/male.png" class="responsive-img userimg">
+								</div>
+								<div class="col s12 m7 l8">
+									<p><a href=""><b class="userangoota">Yegar sahaduta</b></a></p>
+									</p><a href="#setting_harga" class="modal-trigger" ><b>Level : Grosir</b></a></p>
+									<a href="#delete_anggota" class="modal-trigger btn-floating btn-xs waves-effect waves-light red right"><i class="mdi-navigation-close"></i></a>
+								</div>
+							</li>
+							<li class="col s12 m6 listanggodaf">
+								<div class="col s12 m5 l4">
+									<img src="images/comp/female.png" class="responsive-img userimg">
+								</div>
+								<div class="col s12 m7 l8">
+									<p><a href=""><b class="userangoota">Dian sastro w</b></a></p>
+									</p><a href="#setting_harga" class="modal-trigger" ><b>Level : Grosir</b></a></p>
+									<a href="#delete_anggota" class="modal-trigger btn-floating btn-xs waves-effect waves-light red right"><i class="mdi-navigation-close"></i></a>
+								</div>
+							</li>
+							<li class="col s12 m6 listanggodaf">
+								<div class="col s12 m5 l4">
+									<img src="images/comp/male.png" class="responsive-img userimg">
+								</div>
+								<div class="col s12 m7 l8">
+									<p><a href=""><b class="userangoota">Yegar sahaduta</b></a></p>
+									</p><a href="#setting_harga" class="modal-trigger" ><b>Level : Grosir</b></a></p>
+									<a href="#delete_anggota" class="modal-trigger btn-floating btn-xs waves-effect waves-light red right"><i class="mdi-navigation-close"></i></a>
+								</div>
+							</li>
+							<li class="col s12 m6 listanggodaf">
+								<div class="col s12 m5 l4">
+									<img src="images/comp/female.png" class="responsive-img userimg">
+								</div>
+								<div class="col s12 m7 l8">
+									<p><a href=""><b class="userangoota">Dian sastro w</b></a></p>
+									</p><a href="#setting_harga" class="modal-trigger" ><b>Level : Grosir</b></a></p>
+									<a href="#delete_anggota" class="modal-trigger btn-floating btn-xs waves-effect waves-light red right"><i class="mdi-navigation-close"></i></a>
+								</div>
+							</li>
+							<li class="col s12 m6 listanggodaf">
+								<div class="col s12 m5 l4">
+									<img src="images/comp/female.png" class="responsive-img userimg">
+								</div>
+								<div class="col s12 m7 l8">
+									<p><a href=""><b class="userangoota">Dian sastro w</b></a></p>
+									</p><a href="#setting_harga" class="modal-trigger" ><b>Level : Grosir</b></a></p>
+									<a href="#delete_anggota" class="modal-trigger btn-floating btn-xs waves-effect waves-light red right"><i class="mdi-navigation-close"></i></a>
+								</div>
+							</li>
+							<li class="col s12 m6 listanggodaf">
+								<div class="col s12 m5 l4">
+									<img src="images/comp/female.png" class="responsive-img userimg">
+								</div>
+								<div class="col s12 m7 l8">
+									<p><a href=""><b class="userangoota">Dian sastro w</b></a></p>
+									</p><a href="#setting_harga" class="modal-trigger" ><b>Level : Grosir</b></a></p>
+									<a href="#delete_anggota" class="modal-trigger btn-floating btn-xs waves-effect waves-light red right"><i class="mdi-navigation-close"></i></a>
+								</div>
+							</li>
+							<li class="col s12 m6 listanggodaf">
+								<div class="col s12 m5 l4">
+									<img src="images/comp/male.png" class="responsive-img userimg">
+								</div>
+								<div class="col s12 m7 l8">
+									<p><a href=""><b class="userangoota">Yegar sahaduta</b></a></p>
+									</p><a href="#setting_harga" class="modal-trigger" ><b>Level : Grosir</b></a></p>
+									<a href="#delete_anggota" class="modal-trigger btn-floating btn-xs waves-effect waves-light red right"><i class="mdi-navigation-close"></i></a>
+								</div>
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</content>
+<footer class="page-footer grey darken-3">
+	<div class="container">
+		<div class="row">
+			<div class="col l6 s12">
+				<h5 class="white-text">Footer Content</h5>
+				<p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+			</div>
+			<div class="col l4 offset-l2 s12">
+				<h5 class="white-text">Links</h5>
+				<ul>
+					<li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+					<li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+					<li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+					<li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="footer-copyright grey darken-4">
+		<div class="container"> 2015 Bonobo
+			<a class="grey-text text-lighten-4 right" href="#!">Tentang Kami</a>
+			<a class="grey-text text-lighten-4 right" href="#!">Kebijakan privasi</a>
+			<a class="grey-text text-lighten-4 right" href="#!">Syarat dan ketentuan</a>
+		</div>
+	</div>
+</footer>
+
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script type="text/javascript" src="js/jpushmenu.js"></script>
+
+<script type="text/javascript" src="js/core.js"></script>
+</body>
+</html>
