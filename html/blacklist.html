@@ -19,36 +19,10 @@
 
 <div id="delete_anggota" class="modal confirmation">
 	<div class="modal-header red">
-		<i class="mdi-navigation-close left"></i> Hapus anggota
+		<i class="mdi-navigation-close left"></i> Keluarkan dari blacklist
 	</div>
 	<form class="modal-content">
-		<p>Apakah anda yakin ingin menghapus <b>"nama anggota"</b> ?</p>
-		<p>
-			<input type="checkbox" class="filled-in" id="blacklist" />
-	        <label for="blacklist">Masukan kedalam blacklist</label>
-	    </p>
-	</form>
-	<div class="modal-footer">
-		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">TIDAK</a>
-		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">YA</a>
-	</div>
-</div>
-
-<div id="setting_harga" class="modal confirmation">
-	<div class="modal-header deep-orange">
-		<i class="mdi-action-spellcheck left"></i> Setting harga
-	</div>
-	<form class="modal-content">
-		<p>
-			<div class="input-field col s12">
-				<select>
-					<option value="" disabled selected>Choose your option</option>
-					<option value="1">Option 1</option>
-					<option value="2">Option 2</option>
-					<option value="3">Option 3</option>
-				</select>
-			</div>
-	    </p>
+		<p>Pembeli yang dikeluarkan dari blacklist, dikemudian hari bisa masuk lagi ke toko anda. Lanjutkan ?</p>
 	</form>
 	<div class="modal-footer">
 		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">TIDAK</a>
@@ -117,8 +91,8 @@
 				<div class="col s12 m12 l9">
 					<div class="formain">
 						<div class="formhead">
-							<h2 class="titmain">DAFTAR BLACKLIST</h2>
-							<p>Halaman ini menampilkan pembeli yang telah menjadi anggota !</p>
+							<h2 class="titmain"><b>DAFTAR BLACKLIST</b></h2>
+							<p>Pembeli yang berada dalam blacklist tidak bisa masuk kembali dalam toko anda.</p>
 						</div>
 						<ul class="row formbody">
 							<li class="col s12 listanggodaf">
@@ -134,7 +108,33 @@
 								</div>
 								<div class="col s12 m7 l8">
 									<p><a href=""><b class="userangoota">Yegar sahaduta</b></a></p>
-									</p><a href="#setting_harga" class="modal-trigger" ><b>Level : Grosir</b></a></p>
+									<a href="#delete_anggota" class="modal-trigger btn-floating btn-xs waves-effect waves-light red right"><i class="mdi-navigation-close"></i></a>
+								</div>
+							</li>
+							<li class="col s12 m6 listanggodaf">
+								<div class="col s12 m5 l4">
+									<img src="images/comp/female.png" class="responsive-img userimg">
+								</div>
+								<div class="col s12 m7 l8">
+									<p><a href=""><b class="userangoota">Yegar sahaduta</b></a></p>
+									<a href="#delete_anggota" class="modal-trigger btn-floating btn-xs waves-effect waves-light red right"><i class="mdi-navigation-close"></i></a>
+								</div>
+							</li>
+							<li class="col s12 m6 listanggodaf">
+								<div class="col s12 m5 l4">
+									<img src="images/comp/male.png" class="responsive-img userimg">
+								</div>
+								<div class="col s12 m7 l8">
+									<p><a href=""><b class="userangoota">Yegar sahaduta</b></a></p>
+									<a href="#delete_anggota" class="modal-trigger btn-floating btn-xs waves-effect waves-light red right"><i class="mdi-navigation-close"></i></a>
+								</div>
+							</li>
+							<li class="col s12 m6 listanggodaf">
+								<div class="col s12 m5 l4">
+									<img src="images/comp/male.png" class="responsive-img userimg">
+								</div>
+								<div class="col s12 m7 l8">
+									<p><a href=""><b class="userangoota">Yegar sahaduta</b></a></p>
 									<a href="#delete_anggota" class="modal-trigger btn-floating btn-xs waves-effect waves-light red right"><i class="mdi-navigation-close"></i></a>
 								</div>
 							</li>
