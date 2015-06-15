@@ -111,3 +111,8 @@ header,section,content,footer{ width:100%; }
 
 footer.page-footer{ margin-top: 0px; }
 .footer-copyright a{ margin:0 0 0 5px;}
+
+
+/*DINAR*/
+.div-circle-logo{margin-top: 10px;}
+.circle-logo{border-radius: 50%;width: 100px;height: 100px;text-align: center;border: 1px solid #eee;}

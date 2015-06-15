@@ -25,8 +25,8 @@
 				<text>James Rodriguez</text>
 			</div>
 		</li>
-		<li class="active"><a class="active" href="">Toko</a></li>
-		<li><a href="">Anggota</a></li>
+		<li class="active"><a class="active" href="toko_informasi.html">Toko</a></li>
+		<li><a href="anggota.html">Anggota</a></li>
 		<li><a href="">Produk</a></li>
 		<li><a href="">Nota</a></li>
 		<li><a href="">Pesan</a></li>
@@ -52,8 +52,8 @@
 	<nav class="nav grey darken-2">
 		<div class="containermain">
 			<ul class="navmenu">
-				<li class="active"><a class="active" href="">Toko</a></li>
-				<li><a href="">Anggota</a></li>
+				<li class="active"><a class="active" href="toko_informasi.html">Toko</a></li>
+				<li><a href="anggota.html">Anggota</a></li>
 				<li><a href="">Produk</a></li>
 				<li><a href="">Nota</a></li>
 				<li><a href="">Pesan</a></li>
@@ -136,6 +136,70 @@
 							<div class="input-field col s12 m8">
 								<textarea id="deskripsi" class="materialize-textarea" ></textarea>
 								<label for="deskripsi">Deskripsi toko</label>
+							</div>
+							<div class="input-field col s12 m8">
+								Logo Toko
+								<div class="div-circle-logo">
+									<img src="images/comp/male.png" alt="" class="circle-logo">
+								</div>								
+							</div>
+						</div>
+						<div class="row formbody">
+							<div class="linehead"><i class="fa fa-minus-square-o"></i>Alamat dan Kontak</div>
+							<div class="input-field col s12 m8">
+								<input id="telephone" type="text" class="validate">
+								<label for="telephone">Telephone</label>
+							</div>
+							<div class="input-field col s12 m8">								
+								Kontak Lainnya
+								<div class="row valign-wrapper">
+						            <div class="col s2 m2">
+						             	Nama kontak
+						            </div>
+						            <div class="col s10 m6">
+						              	<input id="kontak" type="text" class="validate">
+						            </div>
+						            <div class="col s2 m2">
+						             	Pin/ID/Nomor
+						            </div>
+						            <div class="col s10 m6">
+						              	<input id="id" type="text" class="validate">
+						            </div>
+						        </div>
+						        <div class="row valign-wrapper">
+						            <div class="col s2 m2">
+						             	
+						            </div>
+						            <div class="col s10 m6">
+						              	<a href="#">Tambah kontak</a>
+						            </div>
+						        </div>
+							</div>
+							<div class="input-field col s12 m8">
+								<select>
+									<option value="" disabled selected>Choose your option</option>
+									<option value="1">Option 1</option>
+									<option value="2">Option 2</option>
+									<option value="3">Option 3</option>
+								</select>
+								<label>Provinsi</label>
+							</div>
+							<div class="input-field col s12 m8">
+								<select>
+									<option value="" disabled selected>Choose your option</option>
+									<option value="1">Option 1</option>
+									<option value="2">Option 2</option>
+									<option value="3">Option 3</option>
+								</select>
+								<label>Kota</label>
+							</div>
+							<div class="input-field col s12 m8">
+								<textarea id="alamat" class="materialize-textarea" ></textarea>
+								<label for="alamat">Alamat toko</label>
+							</div>
+							<div class="input-field col s12 m8">
+								<input id="kodepos" type="text" class="validate">
+								<label for="kodepos">Kodepos</label>
 							</div>
 						</div>
 					</form>
