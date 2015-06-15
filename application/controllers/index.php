@@ -17,7 +17,7 @@ class Index extends CI_Controller {
     }
 	
 	public function index(){
-		echo "This site is Under-Construction";
+		echo"Under-contruction";
 	}
 }
 
