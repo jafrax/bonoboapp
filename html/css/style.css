@@ -116,3 +116,5 @@ footer.page-footer{ margin-top: 0px; }
 /*DINAR*/
 .div-circle-logo{margin-top: 10px;}
 .circle-logo{border-radius: 50%;width: 100px;height: 100px;text-align: center;border: 1px solid #eee;}
+
+.input-field p {color:#aaa;padding-left: 50px;}
