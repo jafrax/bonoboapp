@@ -15,4 +15,5 @@ $(document).ready(function() {
 	/*MODAL*/
 	$('.modal-trigger').leanModal();
 	/*END MODAL*/
+	
 });
