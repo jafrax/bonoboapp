@@ -71,6 +71,8 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
 }
 .input-field label{ font-size: 13px; }
 
+.input-field p {color:#aaa;padding-left: 50px;}
+
 .error { position: absolute; top: 0.8rem; right: 0.75rem; text-align:right; color:#ef5350!important; }
 
 .dropdown-content li span{ font-size:12px; padding:5px; color:#313131; }
@@ -86,6 +88,8 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
 .logo{ width:125px; margin:7.5px 0; }
 .userdum{ width:40px; height:40px; border-radius:100%; border:1px solid #efefef; }
 .userimg{ border:1px solid #efefef;}
+.div-circle-logo{margin-top: 10px;}
+.circle-logo{border-radius: 50%;width: 100px;height: 100px;text-align: center;border: 1px solid #eee;}
 
 /*ALL ABOUT DEFAULT COLOR TEXT*/
 .text-green{ color:#43a047!important; }
@@ -100,3 +104,12 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
 .modal .modal-header{ height:45px; padding:0 5px; line-height:45px; color:#fff; font-size:18px; }
 .modal .modal-header i{ font-size:34px; }
 .modal .modal-content .select-dropdown{ z-index:1000; }
+
+.datetime {width: 100%;border-top: 1px solid #ccc;text-align: center;margin: 10px 0;}
+.datetime p{margin: -10px auto 0;background: #fff;padding: 0 10px;display: table;}
+
+.pesanku {display: block;background: #546e7a;color: #fff; padding: 10px 15px; border-radius: 10px;float: left;font-size: 14px;max-width: 90%;}
+.pesanmu {display: block;background: #ff5722;color: #fff; padding: 10px 15px; border-radius: 10px;float: right;font-size: 14px;max-width: 90%;}
+
+.content-balasan {background: #eceff1 ;overflow: hidden;padding: 20px 0px;border-radius: 10px;}
+.content-balasan textarea{height: 100px;}
