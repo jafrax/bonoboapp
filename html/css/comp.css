@@ -70,7 +70,6 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
 	transition: all .3s;
 }
 .input-field label{ font-size: 13px; }
-
 .error { position: absolute; top: 0.8rem; right: 0.75rem; text-align:right; color:#ef5350!important; }
 
 .dropdown-content li span{ font-size:12px; padding:5px; color:#313131; }
@@ -79,6 +78,10 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
 .button-field{ padding:7.5px 0 0 0!important; }
 
 .nolpad{ padding:0px!important; }
+.label{ color:#fff; padding:4px 5px; border-radius:2px; position: absolute; right:0; top:15px; } 
+
+.checkiniabs{ position: absolute; z-index:1000; top:2px; left:2px; }
+.card { margin:5px; }
 
 /*ALL ABOUT BG*/
 .bgpic{ background-position:center; background-repeat:no-repeat; background-size:cover; }

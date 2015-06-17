@@ -92,7 +92,7 @@ header,section,content,footer{ width:100%; }
 .titmain{ font-size:16px; color: #565a5c; margin:0; line-height:40px; }
 
 .formbody{ padding:15px 15px 0 15px; color:#565a5c!important; }
-.formbody .input-field label{ color:#565a5c!important; }
+.formbody .input-field label{ color:#565a5c; }
 .formbody .input-field textarea:focus{ border-bottom: 1px solid #f4511e!important; box-shadow: 0 1px 0 0 #f4511e!important; }
 
 .formbody li.listanggonew{ margin:0 0 8px 0; padding:5px 0; box-shadow: 0 1px 0 0 #efefef!important; }
@@ -100,7 +100,9 @@ header,section,content,footer{ width:100%; }
 
 .formbody li.listanggodaf{ margin:0 0 8px 0; padding:5px 0; box-shadow: 0 1px 0 0 #efefef!important; }
 .formbody li.listanggodaf .userangoota{ font-size:14px; }
+.formbody li.listanggodaf .titleproduct{ font-size:16px; margin:0 0 8px 0; }
 
+.navthum{ width: 12%!important; float: right!important; }
 .navthum li{ float:right; height: 40px; }
 .navthum li i{ font-size:42px; color:#ddd; }
 

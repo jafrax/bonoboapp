@@ -1,5 +1,8 @@
-@media (max-width: 1000px) {
+@media (max-width: 1124px) {
+	.navthum{ width: 100%!important; }
+}
 
+@media (max-width: 1024px) {
 }
 
 @media (max-width: 991px) {	
