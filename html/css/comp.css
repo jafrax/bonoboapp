@@ -82,6 +82,8 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
 .label{ color:#fff; padding:4px 5px; border-radius:2px; position: absolute; right:0; top:15px; } 
 
 .checkiniabs{ position: absolute; z-index:1000; top:2px; left:2px; }
+.delimg{ position: absolute; z-index:1000; top:0px; right:2px; font-size:14px; cursor:pointer; color:#ef5350; }
+.delimg:hover{ font-size:50px; color:#e53935; }
 .card { margin:5px; }
 
 /*ALL ABOUT BG*/

@@ -108,7 +108,7 @@ header,section,content,footer{ width:100%; }
 .navthum li{ float:right; height: 40px; }
 .navthum li i{ font-size:42px; color:#ddd; }
 
-.linehead{ border-bottom: 1px solid #efefef; font-size:13px; margin:0 0 8px 0;}
+.linehead{ font-weight:bold; float:left; padding:10px 0; width:100%; border-bottom: 1px solid #efefef; font-size:13px; margin:8px 0 18px 0; }
 .linehead .fa{ margin-right:5px; }
 
 .formdetilpup { border-bottom:1px solid #efefef; }
