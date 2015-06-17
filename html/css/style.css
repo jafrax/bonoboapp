@@ -39,6 +39,7 @@ header,section,content,footer{ width:100%; }
 
 .nav{ width:100%; height: 40px; }
 .navmenu li{ height: 40px; }
+.navmenu li span.badge{ position: relative; margin:0 0 0 20px;background-color: #26a69a;border-radius: 2px;color: #fff;font-size: 0.8rem;font-weight: 300; right: 0px;}
 .navmenu li a{ height: 40px; line-height:40px; font-size:14px; color:#cacccd; }
 .navmenu li a.active{ border-bottom:4px solid #cacccd; color:#fff; }
 .navmenu.menucontent{ display:none; }
@@ -87,8 +88,9 @@ header,section,content,footer{ width:100%; }
 }*/
 
 .formain{ border: 1px solid #dce0e0; background-color: #fff; border-radius: 0; }
-.formhead{ background-color: #edefed; padding:0 15px; }
+.formhead{ background-color: #edefed; padding:0 15px; overflow: hidden;}
 .formhead p{ padding:0 0 5px 0; }
+.formhead .pesan{ margin:15px 0 5px 0; }
 .titmain{ font-size:16px; color: #565a5c; margin:0; line-height:40px; }
 
 .formbody{ padding:15px 15px 0 15px; color:#565a5c!important; }
@@ -119,10 +121,3 @@ header,section,content,footer{ width:100%; }
 
 footer.page-footer{ margin-top: 0px; }
 .footer-copyright a{ margin:0 0 0 5px;}
-
-
-/*DINAR*/
-.div-circle-logo{margin-top: 10px;}
-.circle-logo{border-radius: 50%;width: 100px;height: 100px;text-align: center;border: 1px solid #eee;}
-
-.input-field p {color:#aaa;padding-left: 50px;}
