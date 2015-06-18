@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>Bonobo</title>
+
+<link rel="icon" href="images/comp/icon.ico" type="image/gif" sizes="16x7">
+
+<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+<link type="text/css" rel="stylesheet" href="css/font-awesome.min.css" />
+<link type="text/css" rel="stylesheet" href="css/jpushmenu.css" />
+
+<link type="text/css" rel="stylesheet" href="css/style.css" />
+<link type="text/css" rel="stylesheet" href="css/tablet.css" />
+<link type="text/css" rel="stylesheet" href="css/mobile.css" />
+<link type="text/css" rel="stylesheet" href="css/comp.css" />
+
+</head>
+<body class="cbp-spmenu-push cbp-spmenu-push-toleft">
+<div id="bayar" class="modal confirmation">
+	<div class="modal-header red">
+		<i class="mdi-action-label-outline left"></i> Pilih metode transaksi
+	</div>
+	<form class="modal-content">
+		<p>
+			<select id="metode">
+				<option value="" disabled selected>Choose your option</option>
+				<option value="1">Option 1</option>
+				<option value="2">Option 2</option>
+				<option value="3">Option 3</option>
+			</select>
+			<label for="metode"></label>
+		</p>
+	</form>
+	<div class="modal-footer">
+		<a href="#konfirmasi" class="modal-trigger modal-action modal-close waves-effect waves-red btn-flat">Konfirmasi</a>
+		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Batal</a>		
+	</div>
+</div>
+<div id="konfirmasi" class="modal confirmation">
+	<form class="modal-content">
+		<p>No. Transaksi : <span class="blue-text">#13232-123</span></p>
+		<p>Tanggal Konfirmasi : <span class="blue-text">18 Juni 2015</span></p>
+		<p>Jumlah yang di transfer : <span class="blue-text">Rp. 1.800.000,00</span></p>
+		<p>
+			<select id="metode">
+				<option value="" disabled selected>Pilih Rekening Tujuan</option>
+				<option value="1">Option 1</option>
+				<option value="2">Option 2</option>
+				<option value="3">Option 3</option>
+			</select>
+			<label for="metode">Pilih Rekening Tujuan</label>
+		</p>
+	</form>
+	<div class="modal-footer">
+		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Konfirmasi</a>
+		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Batal</a>		
+	</div>
+</div>
+<div id="pengiriman" class="modal confirmation">
+	<form class="modal-content">
+		<div class="input-field col s12 m6">
+			<select>
+				<option value="" disabled selected>Pilih Jenis Pengiriman</option>
+				<option value="1">Option 1</option>
+				<option value="2">Option 2</option>
+				<option value="3">Option 3</option>
+			</select>
+			<label>Jenis Pengiriman</label>
+		</div>
+		<div class="input-field col s12 m8">
+			<input id="nama" type="text" class="validate">
+			<label for="nama">Nama Resi</label>
+		</div>
+		<div class="input-field col s12 m8">
+			<input id="tokoid" type="text" class="validate">
+			<label for="tokoid">Nama Penerima</label>
+		</div>
+		<div class="input-field col s12 m8">
+			<input id="tokoid" type="text" class="validate">
+			<label for="tokoid">Kode Pos</label>
+		</div>
+		<div class="input-field col s12 m6">
+			<select>
+				<option value="" disabled selected>Choose your option</option>
+				<option value="1">Option 1</option>
+				<option value="2">Option 2</option>
+				<option value="3">Option 3</option>
+			</select>
+			<label>Pilih Provinsi</label>
+		</div>
+		<div class="input-field col s12 m6">
+			<select>
+				<option value="" disabled selected>Choose your option</option>
+				<option value="1">Option 1</option>
+				<option value="2">Option 2</option>
+				<option value="3">Option 3</option>
+			</select>
+			<label>Pilih Kota</label>
+		</div>
+		<div class="input-field col s12 m6">
+			<select>
+				<option value="" disabled selected>Choose your option</option>
+				<option value="1">Option 1</option>
+				<option value="2">Option 2</option>
+				<option value="3">Option 3</option>
+			</select>
+			<label>Pilih Kecamatan</label>
+		</div>
+		<div class="input-field col s12 m8">
+			<textarea id="alamat" class="materialize-textarea" ></textarea>
+			<label for="alamat">Alamat Penerima</label>
+		</div>
+	</form>
+	<div class="modal-footer">
+		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Konfirmasi</a>
+		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Batal</a>		
+	</div>
+</div>
+<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left cbp-spmenu-open">
+	<ul class="col s12 navmob mobleft">
+		<li class="usermob">
+			<div class="usermain left">
+				<img class="responsive-img userdum" src="images/comp/male.png" />
+				<text>James Rodriguez</text>
+			</div>
+		</li>
+		<li><a href="toko_informasi.html">Toko</a></li>
+		<li><a href="anggota.html">Anggota</a></li>
+		<li><a href="produk_ready_stock.html">Produk</a></li>
+		<li><a href="nota.html">Nota</a></li>
+		<li><a href="lihat_pesan.html">Pesan<span class="badge red">4</span></a></li>
+		<li><a href="pesanan_pre_order.html">Pre Order</a></li>
+	</ul>
+</nav>
+
+<header>
+	<div class="headmain">
+		<div class="row padhead">
+			<ul class="col s1 navmob toggle-menu menu-left push-body jPushMenuBtn">
+				<li><a href="#"><i class="fa fa-align-justify"></i></a></li>
+			</ul>
+			<div class="col s6 m4 l2"><img class="responsive-img logo" src="images/comp/logo_shadow.png" /></div>
+			<div class="col s6 m8 l10">
+				<div class="usermain right">
+					<img class="responsive-img userdum" src="images/comp/male.png" />
+					<text>James Rodriguez</text>
+				</div>
+			</div>
+		</div>
+	</div>
+	<nav class="nav grey darken-2">
+		<div class="containermain">
+			<ul class="navmenu">
+				<li><a href="toko_informasi.html">Toko</a></li>
+				<li><a href="anggota.html">Anggota</a></li>
+				<li><a href="produk_ready_stock.html">Produk</a></li>
+				<li><a href="nota.html">Nota</a></li>
+				<li><a href="lihat_pesan.html">Pesan<span class="badge red">4</span></a></li>
+		<li><a href="pesanan_pre_order.html">Pre Order</a></li>
+			</ul>
+		</div>
+	</nav>
+</header>
+<content>
+	<div class="contentmain">
+		<div class="containermain">
+			<div class="row contentsebenarya">
+				<div class="col s12 m12 l12">
+					<div class="formain">
+
+
+						<div class="row formbody">
+							<div class="col s12 m6">
+								<div class="input-field col s12 m8 ">
+									<i class="mdi-action-search prefix"></i>
+							        <input id="icon_prefix" type="text" class="validate">
+							        <label for="icon_prefix">Cari</label>
+								</div>								
+							</div>
+							<div class="col s12 m6">
+								<div class="input-field col s12 m3 right">
+									<select>										
+										<option value="1">Paling Baru</option>
+										<option value="2">Paling Lama</option>										
+									</select>									
+								</div>
+								<div class="input-field col s12 m3 right">
+									<select>										
+										<option value="1">Belum Selesai</option>
+										<option value="2">Selesai</option>
+										<option value="3">Semua</option>
+									</select>									
+								</div>
+								<a class="waves-effect orange-text right "><i class="mdi-content-flag col s6 m1 small"></i></a>
+								<a class="waves-effect orange-text right "><i class="mdi-action-star-rate col s6 m1 small"></i></a>
+							</div>
+
+						</div>
+
+						<div class="row formbody">
+							<div class="linehead"><i class="fa fa-minus-square-o"></i></div>
+
+							<!-- nota -->
+							<div class="col s12 m6">								
+      							<div class="input-field col s6 m4">
+									<input type="checkbox" class="filled-in" id="pilih-semua"  />
+      								<label for="pilih-semua">Pilih semua</label>									
+								</div>
+								<div class="input-field col s6 m4">
+									<select>										
+										<option value="">Pilih Tindakan</option>
+										<option value="1">Selesai</option>
+									</select>									
+								</div>
+								<div class="input-field col s12 m4">
+									<button class="btn-flat waves-effect blue-grey darken-1 white-text waves-light" type="button" name="action">Lakukan</button>
+								</div>								
+							</div>
+							<div class="col s12 m6">								
+							</div>
+						</div>
+
+						<div class="row formbody">
+							<!-- nota -->
+							<div class="col s12 m12">								
+      							<div class="card-panel grey lighten-5 z-depth-1">
+						          	<div class="row ">						          		
+							            <div class="col s12 m1">
+							            	<input type="checkbox" class="filled-in" id="product"  />
+      										<label for="product"></label>
+							            </div>
+							            <div class="col s12 m2">
+							              	<img src="images/comp/male.png" alt="" class="circle responsive-img col"> 
+							            </div>
+							            <div class="col s11 m4">
+							              	<h5 class="blue-text">Nama Pembeli</h5>
+							              	<h6 class="blue-text">#123-123</h6>
+							              	<h5>Rp. 123.123,00</h5>							              	
+							            </div>
+							            <div class="col s1 m1">
+							              	<h4><i class="mdi-action-star-rate orange-text"></i></h4>
+							            </div>
+							            <div class="col s12 m4">
+							            	<div class="col s12 m12">
+								              	<p class="blue-grey-text lighten-3 right">28 Mei 2015 (30 Menit yang lalu)</p><br>
+								            </div>
+								            <div class="col s12 m12">
+												<h5 class="red-text right">Belum Lunas</h5>
+											</div>
+											<p class="col s12 m12">
+												<a class="waves-effect red-text waves-blue right "><i class="mdi-action-delete small"></i></a>
+												<a class="waves-effect red-text waves-blue right "><i class="mdi-content-mail small"></i></a>
+												<a class="waves-effect red-text waves-blue right "><i class="mdi-action-print small"></i></a>
+											</p>											
+							            </div>
+						          	</div>
+						          	<div class="row ">						          		
+							            <div class="col m1"><p><br></p></div>
+							            <div class="col s12 m12">
+							            	<div class="col s12 m12">
+									            <ul class="collapsible popout" data-collapsible="accordion">
+										            <li class="">
+										                <div class="collapsible-header truncate"><p class="red-text"><i class="mdi-content-flag"></i> Pembeli telah melakukan konfirmasi. <span class="blue-text">Klik disini</span> untuk detail</p></div>
+										                <div class="collapsible-body" style="display: none;">
+										                	<div class="col s12 m6">										                		
+										                		<p><b>Bank Asal :</b><br>
+										                			Bank Plecit Indonesia<br>
+										                			303058123123<br>
+										                			a.n Dinar Wahyu Wibowo</p>
+										                	</div>
+										                	<div class="col s12 m6">
+										                		<p><b>Bank Tujuan :</b><br>
+										                			Bank Roma Indonesia<br>
+										                			303058123123<br>
+										                			a.n Dinar Wahyu Wibowo</p>
+										                	</div>
+										                </div>
+										            </li>
+										            <li class="">
+										                <div class="collapsible-header"><i class="mdi-action-receipt"></i>Notes</div>
+										                <div class="collapsible-body" style="display: none;"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p></div>
+										            </li>
+										            <li class="">
+										                <div class="collapsible-header"><i class="mdi-action-description"></i>Detail</div>
+										                <div class="collapsible-body" style="display: none;">
+										                	<p>
+											                	<b>Pengiriman : </b> JNE<br>
+											                	<b>Resi : </b> 12345679987654321
+											                </p>
+										                </div>
+										            </li>
+									            </ul>
+									        </div>
+							            </div>
+							            <div class="col s12 m12">						            		
+											<button data-target="bayar" class="btn modal-trigger waves-effect orange darken-1 white-text waves-light right" type="button" name="action">Bayar</button>
+											<button class="btn waves-effect red white-text waves-light right" type="button" name="action">Batal</button>
+							            </div>
+						          	</div>
+						        </div>
+							</div>	
+
+							<!-- nota -->
+							<div class="col s12 m12">								
+      							<div class="card-panel grey lighten-5 z-depth-1">
+						          	<div class="row ">						          		
+							            <div class="col s12 m1">
+							            	<input type="checkbox" class="filled-in" id="product"  />
+      										<label for="product"></label>
+							            </div>
+							            <div class="col s12 m2">
+							              	<img src="images/comp/male.png" alt="" class="circle responsive-img col"> 
+							            </div>
+							            <div class="col s11 m4">
+							              	<h5 class="blue-text">Nama Pembeli</h5>
+							              	<h6 class="blue-text">#123-123</h6>
+							              	<h5>Rp. 123.123,00</h5>							              	
+							            </div>
+							            <div class="col s1 m1">
+							              	<h4><i class="mdi-action-star-rate orange-text"></i></h4>
+							            </div>
+							            <div class="col s12 m4">
+							            	<div class="col s12 m12">
+								              	<p class="blue-grey-text lighten-3 right">28 Mei 2015 (30 Menit yang lalu)</p><br>
+								            </div>
+								            <div class="col s12 m12">
+												<h5 class="green-text right">Lunas</h5>
+											</div>
+											<p class="col s12 m12">
+												<a class="waves-effect red-text waves-blue right "><i class="mdi-action-delete small"></i></a>
+												<a class="waves-effect red-text waves-blue right "><i class="mdi-content-mail small"></i></a>
+												<a class="waves-effect red-text waves-blue right "><i class="mdi-action-print small"></i></a>
+											</p>											
+							            </div>
+						          	</div>
+						          	<div class="row ">						          		
+							            <div class="col m1"><p><br></p></div>
+							            <div class="col s12 m12">
+							            	<div class="col s12 m12">
+									            <ul class="collapsible popout" data-collapsible="accordion">
+										            <li class="">
+										                <div class="collapsible-header"><p class="red-text"><i class="mdi-content-flag"></i> Pembeli telah melakukan konfirmasi. <span class="blue-text">Klik disini</span> untuk detail</p></div>
+										                <div class="collapsible-body" style="display: none;">
+										                	<div class="col s12 m6">										                		
+										                		<p><b>Bank Asal :</b><br>
+										                			Bank Plecit Indonesia<br>
+										                			303058123123<br>
+										                			a.n Dinar Wahyu Wibowo</p>
+										                	</div>
+										                	<div class="col s12 m6">
+										                		<p><b>Bank Tujuan :</b><br>
+										                			Bank Roma Indonesia<br>
+										                			303058123123<br>
+										                			a.n Dinar Wahyu Wibowo</p>
+										                	</div>
+										                </div>
+										            </li>
+										            <li class="">
+										                <div class="collapsible-header truncate"><i class="mdi-action-receipt"></i>Notes</div>
+										                <div class="collapsible-body" style="display: none;"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p></div>
+										            </li>
+										            <li class="">
+										                <div class="collapsible-header"><i class="mdi-action-description"></i>Detail</div>
+										                <div class="collapsible-body" style="display: none;">
+										                	<p>
+											                	<b>Pengiriman : </b> JNE<br>
+											                	<b>Resi : </b> 12345679987654321
+											                </p>
+											                <p>
+											                	<button data-target="pengiriman" class="btn-flat modal-trigger waves-effect blue-text waves-blue" type="button" name="action">Edit Detail</button>
+											                </p>											                
+										                </div>
+										            </li>
+									            </ul>
+									        </div>
+							            </div>
+							            <div class="col s12 m12">
+											<button class="btn waves-effect red white-text waves-light right" type="button" name="action">Batal</button>
+							            </div>
+						          	</div>
+						        </div>
+							</div>						
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</content>
+<footer class="page-footer grey darken-3">
+	<div class="container">
+		<div class="row">
+			<div class="col l6 s12">
+				<h5 class="white-text">Footer Content</h5>
+				<p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+			</div>
+			<div class="col l4 offset-l2 s12">
+				<h5 class="white-text">Links</h5>
+				<ul>
+					<li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+					<li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+					<li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+					<li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="footer-copyright grey darken-4">
+		<div class="container"> 2015 Bonobo
+			<a class="grey-text text-lighten-4 right" href="#!">Tentang Kami</a>
+			<a class="grey-text text-lighten-4 right" href="#!">Kebijakan privasi</a>
+			<a class="grey-text text-lighten-4 right" href="#!">Syarat dan ketentuan</a>
+		</div>
+	</div>
+</footer>
+
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script type="text/javascript" src="js/jpushmenu.js"></script>
+
+<script type="text/javascript" src="js/core.js"></script>
+</body>
+</html>
