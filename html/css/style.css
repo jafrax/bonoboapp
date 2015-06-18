@@ -115,6 +115,8 @@ header,section,content,footer{ width:100%; }
 .formdetilpup { border-bottom:1px solid #efefef; }
 .formdetilpup p b{ padding:0 5px 0 0; }
 
+.varsto{ padding:5px; margin:10px 0 20px 0; width: 100%; float:left; }
+
 /*FOOTER*/
 .footer{ position:fixed; bottom:0; right:0; }
 .footer a{ font-size:14px; color:#fff; margin:0 5px; }
