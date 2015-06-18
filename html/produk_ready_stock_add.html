@@ -206,9 +206,8 @@
 								<div class="input-field col s12 m6">
 									<select>
 										<option value="" disabled selected>Choose your option</option>
-										<option value="1">Option 1</option>
-										<option value="2">Option 2</option>
-										<option value="3">Option 3</option>
+										<option value="1">Stok selalu tersedia</option>
+										<option value="2">Gunakan stok</option>
 									</select>
 									<label>Tipe stok</label>
 								</div>
@@ -217,11 +216,51 @@
 									<label for="gunakan_varian">Gunakan varian</label>
 								</div>
 								<ul class="col s12 m12">
-									<li class="input-field col s12 m6">
-										<input id="varian" type="text" placeholder="Misal: Lusin, Pcs" class="validate">
-										<label for="varian">Varian <span></span></label>
+									<li class="varsto">
+										<div class="input-field col s12 m6">
+											<input id="varian" type="text" placeholder="Misal: Lusin, Pcs" class="validate">
+											<label for="varian">Varian <span></span></label>
+										</div>
+										<div class="input-field col s12 m6">
+											<label for="varian">Stok : <span class="text-green">selalu tersedia</span></label>
+										</div>
 									</li>
-									
+									<li class="varsto">
+										<div class="input-field col s12 m6">
+											<input id="varian" type="text" placeholder="Misal: Lusin, Pcs" class="validate">
+											<label for="varian">Varian <span></span></label>
+										</div>
+										<div class="input-field col s12 m6">
+											<label for="varian">Stok : <span class="text-green">selalu tersedia</span></label>
+										</div>
+									</li>
+									<li class="varsto">
+										<div class="input-field col s12 m6">
+											<input id="varian" type="text" placeholder="Misal: Lusin, Pcs" class="validate">
+											<label for="varian">Varian <span></span></label>
+										</div>
+										<div class="input-field col s12 m6">
+											<label for="varian">Stok : <span class="text-green">selalu tersedia</span></label>
+										</div>
+									</li>
+									<li class="input-field col s12 m12">
+										<a class="waves-effect btn-flat right"><b class="text-blue"><i class="mdi-content-add-box left"></i>TAMBAH VARIAN</b></a>
+									</li>
+								</ul>
+								<ul class="col s12 m12">
+									<li class="varsto">
+										<div class="input-field col s12 m6">
+											<input id="varian" type="text" placeholder="Misal: Lusin, Pcs" class="validate">
+											<label for="varian">Varian <span></span></label>
+										</div>
+										<div class="input-field col s12 m6">
+											<input id="varian" type="text" placeholder="Jumlah stok" class="validate">
+											<label for="varian">Stok <span></span></label>
+										</div>
+									</li>
+									<li class="input-field col s12 m12">
+										<a class="waves-effect btn-flat right"><b class="text-blue"><i class="mdi-content-add-box left"></i>TAMBAH VARIAN</b></a>
+									</li>
 								</ul>
 							</div>
 							<div class="row formbody">
@@ -230,15 +269,7 @@
 									<input id="harga_pembelian" type="text" class="validate">
 									<label for="harga_pembelian">Harga pembelian</label>
 								</div>
-								<ul class="col s12 m12">
-									<li class="input-field col s12 m6">
-										<select>
-											<input id="harga_pembelian" type="text" class="validate">
-											<label for="harga_pembelian">Harga pembelian</label>
-										</select>
-									</li>
-									
-								</ul>
+								
 							</div>
 						</div>
 					</form>
