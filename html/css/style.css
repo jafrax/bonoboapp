@@ -124,3 +124,7 @@ header,section,content,footer{ width:100%; }
 
 footer.page-footer{ margin-top: 0px; }
 .footer-copyright a{ margin:0 0 0 5px;}
+
+.select-wrapper .mdi-navigation-arrow-drop-down {
+    right: -17px;
+}
