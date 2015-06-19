@@ -445,11 +445,6 @@ class Api extends CI_Controller {
 			return;
 		}
 		
-		if($this->response->post("page") == "" || $this->response->postDecode("page") == ""){
-			$this->response->send(array("result"=>0,"message"=>"Halaman tidak ditemukan","messageCode"=>1), true);
-			return;
-		}
-		
 		if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
 			return;
@@ -467,9 +462,8 @@ class Api extends CI_Controller {
 		*	------------------------------------------------------------------------------
 		*/
 		$QProduct = $this->db;
-		$QProduct = $QProduct->select("tp.*,tkcp.id as category_id, tkcp.name as category_name, tk.id as toko_id");
+		$QProduct = $QProduct->select("tp.*,tkcp.id as category_id, tkcp.name as category_name, tkcp.toko_id as toko_id");
 		$QProduct = $QProduct->join("tb_toko_category_product tkcp","tkcp.id = tp.toko_category_product_id");
-		$QProduct = $QProduct->join("tb_toko tk","tk.id = tkcp.toko_id");
 		
 		if($this->response->post("keyword") != "" && $this->response->postDecode("keyword") != ""){
 			$QProduct = $QProduct->like("tp.name",$this->response->postDecode("keyword"));
@@ -478,9 +472,6 @@ class Api extends CI_Controller {
 		if($this->response->post("stock_type") != "" && $this->response->postDecode("stock_type") != ""){
 			$QProduct = $QProduct->where("tp.stock_type",$this->response->postDecode("stock_type"));
 		}
-		
-		$QProductReal = $QProduct->get("tb_product tp");
-		$QProductReals = $QProductReal->result();
 		
 		if($this->response->post("page") != "" && $this->response->postDecode("page") != ""){
 			$QProduct = $QProduct->limit(10,$this->response->postDecode("page"));
@@ -587,7 +578,7 @@ class Api extends CI_Controller {
 				array_push($Products,$Product);
 			}
 		
-			$this->response->send(array("result"=>1,"total"=>sizeOf($QProductReals),"size"=>sizeOf($QProducts),"products"=>$Products), true);
+			$this->response->send(array("result"=>1,"total"=>sizeOf($QProducts),"size"=>sizeOf($QProducts),"products"=>$Products), true);
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada produk yang ditemukan","messageCode"=>4), true);
 		}
@@ -704,9 +695,6 @@ class Api extends CI_Controller {
 			}
 		}
 		
-		$QShopReal = $QShops->get("tb_toko tt");
-		$QShopReals = $QShopReal->result();
-		
 		if($this->response->post("page") != "" && $this->response->postDecode("page") != ""){
 			$QShops = $QShops->limit(10,$this->response->postDecode("page"));
 		}else{
@@ -774,7 +762,7 @@ class Api extends CI_Controller {
 				array_push($Shops,$Shop);
 			}
 			
-			$this->response->send(array("result"=>1,"total"=>sizeOf($QShopReals),"size"=>sizeOf($QShops),"shops"=>$Shops), true);
+			$this->response->send(array("result"=>1,"total"=>sizeOf($QShops),"size"=>sizeOf($QShops),"shops"=>$Shops), true);
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada toko yang ditemukan","messageCode"=>3), true);
 		}
@@ -946,9 +934,8 @@ class Api extends CI_Controller {
 		*	------------------------------------------------------------------------------
 		*/
 		$QProduct = $this->db;
-		$QProduct = $QProduct->select("tp.*,tkcp.id as category_id, tkcp.name as category_name, tk.id as toko_id");
+		$QProduct = $QProduct->select("tp.*,tkcp.id as category_id, tkcp.name as category_name, tkcp.toko_id as toko_id");
 		$QProduct = $QProduct->join("tb_toko_category_product tkcp","tkcp.id = tp.toko_category_product_id");
-		$QProduct = $QProduct->join("tb_toko tk","tk.id = tkcp.toko_id");
 		$QProduct = $QProduct->where("tk.id",$QShop->id);
 		
 		if($this->response->post("keyword") != "" && $this->response->postDecode("keyword") != ""){
@@ -958,9 +945,6 @@ class Api extends CI_Controller {
 		if($this->response->post("stock_type") != "" && $this->response->postDecode("stock_type") != ""){
 			$QProduct = $QProduct->where("tp.stock_type",$this->response->postDecode("stock_type"));
 		}
-		
-		$QProductReal = $QProduct->get("tb_product tp");
-		$QProductReals = $QProductReal->result();
 		
 		if($this->response->post("page") != "" && $this->response->postDecode("page") != ""){
 			$QProduct = $QProduct->limit(10,$this->response->postDecode("page"));
@@ -1034,7 +1018,7 @@ class Api extends CI_Controller {
 				array_push($Products,$Product);
 			}
 		
-			$this->response->send(array("result"=>1,"total"=>sizeOf($QProductReals),"size"=>sizeOf($QProducts),"products"=>$Products), true);
+			$this->response->send(array("result"=>1,"total"=>sizeOf($QProducts),"size"=>sizeOf($QProducts),"products"=>$Products), true);
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada produk yang ditemukan","messageCode"=>4), true);
 		}
@@ -1144,5 +1128,155 @@ class Api extends CI_Controller {
 		}
 	}
 	
+	
+	public function getFavoriteProducts(){
+		/*
+		*	------------------------------------------------------------------------------
+		*	Validation POST data
+		*	------------------------------------------------------------------------------
+		*/
+		if(!$this->isValidApi($this->response->postDecode("api_key"))){
+			return;
+		}
+		
+		if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+			return;
+		}
+		
+		$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+		if(empty($QUser)){
+			$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>3), true);
+			return;
+		}
+		
+		/*
+		*	------------------------------------------------------------------------------
+		*	Query mengambil data produk berdasarkan filter dan paging
+		*	------------------------------------------------------------------------------
+		*/
+		$QProduct = $this->db;
+		$QProduct = $QProduct->select("tp.*,tkcp.id as category_id, tkcp.name as category_name, tkcp.toko_id as toko_id");
+		$QProduct = $QProduct->join("tb_toko_category_product tkcp","tp.toko_category_product_id = tkcp.id");
+		$QProduct = $QProduct->where("tp.id IN (SELECT id FROM tb_favorite WHERE member_id = ".$QUser->id.")");
+		
+		if($this->response->post("keyword") != "" && $this->response->postDecode("keyword") != ""){
+			$QProduct = $QProduct->like("tp.name",$this->response->postDecode("keyword"));
+		}
+		
+		if($this->response->post("stock_type") != "" && $this->response->postDecode("stock_type") != ""){
+			$QProduct = $QProduct->where("tp.stock_type",$this->response->postDecode("stock_type"));
+		}
+		
+		if($this->response->post("page") != "" && $this->response->postDecode("page") != ""){
+			$QProduct = $QProduct->limit(10,$this->response->postDecode("page"));
+		}else{
+			$QProduct = $QProduct->limit(10,0);
+		}
+		
+		$QProduct = $QProduct->get("tb_product tp");
+		$QProducts = $QProduct->result();
+		
+		if(sizeOf($QProducts) > 0){
+			$Products = array();
+			foreach($QProducts as $QProduct){
+				/*
+				*	------------------------------------------------------------------------------
+				*	Query mengambil data produk image 
+				*	------------------------------------------------------------------------------
+				*/
+				$QProductImages = $this->db
+								->where("product_id", $QProduct->id)
+								->get("tb_product_image")
+								->result();
+								
+				$ProductImages = array();
+				foreach($QProductImages as $QProductImage){
+					$ProductImage = array(
+								"id"=>$QProductImage->id,
+								"imageUrl"=>base_url("image.php?q=100&fe=".base64_encode(base_url("assets/pic/product/".$QProductImage->file))),
+							);
+
+					array_push($ProductImages,$ProductImage);
+				}
+				
+				/*
+				*	------------------------------------------------------------------------------
+				*	Query mengambil data produk varian 
+				*	------------------------------------------------------------------------------
+				*/
+				$ProductVarians = $this->db
+								->where("product_id", $QProduct->id)
+								->get("tb_product_varian")
+								->result();
+				
+				/*
+				*	------------------------------------------------------------------------------
+				*	Query mengambil data produk toko 
+				*	------------------------------------------------------------------------------
+				*/
+				$QProductShop = $this->db
+								->select("tk.*, ml.id as location_id, ml.kecamatan as location_kecamatan, ml.city as location_city, ml.province as location_province, ml.postal_code as location_postal, mc.id as category_id, mc.name as category_name")
+								->join("ms_location ml","ml.id = tk.location_id")
+								->join("ms_category mc","mc.id = tk.category_id")
+								->where("tk.id",$QProduct->toko_id)
+								->get("tb_toko tk")
+								->row();
+								
+				$ProductShop = array(
+								"id"=>$QProductShop->id,
+								"name"=>$QProductShop->name,
+								"description"=>$QProductShop->description,
+								"phone"=>$QProductShop->phone,
+								"tag_name"=>$QProductShop->tag_name,
+								"keyword"=>$QProductShop->keyword,
+								"location"=>array(
+										"id"=>$QProductShop->location_id,
+										"kecamatan"=>$QProductShop->location_kecamatan,
+										"city"=>$QProductShop->location_city,
+										"province"=>$QProductShop->location_province,
+										"postal"=>$QProductShop->location_postal,
+									),
+								"category"=>array(
+										"id"=>$QProductShop->category_id,
+										"name"=>$QProductShop->category_name,
+									),
+							);
+			
+				/*
+				*	------------------------------------------------------------------------------
+				*	Membuat object produk
+				*	------------------------------------------------------------------------------
+				*/
+				$Product = array(
+						"id"=>$QProduct->id,
+						"name"=>$QProduct->name,
+						"description"=>$QProduct->description,
+						"sku_no"=>$QProduct->sku_no,
+						"weight"=>$QProduct->weight,
+						"unit"=>$QProduct->unit,
+						"min_order"=>$QProduct->min_order,
+						"stock_type"=>$QProduct->stock_type,
+						"stock_type_detail"=>$QProduct->stock_type_detail,
+						"active"=>$QProduct->active,
+						"price_base"=>$QProduct->price_base,
+						"price_1"=>$QProduct->price_1,
+						"price_2"=>$QProduct->price_2,
+						"price_3"=>$QProduct->price_3,
+						"price_4"=>$QProduct->price_4,
+						"price_5"=>$QProduct->price_5,
+						"images"=>$ProductImages,
+						"varians"=>$ProductVarians,
+						"shop"=>$ProductShop,
+					);
+						
+				array_push($Products,$Product);
+			}
+		
+			$this->response->send(array("result"=>1,"total"=>sizeOf($QProducts),"size"=>sizeOf($QProducts),"products"=>$Products), true);
+		}else{
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada produk yang ditemukan","messageCode"=>4), true);
+		}
+	}
 }
 
