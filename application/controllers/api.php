@@ -25,6 +25,172 @@ class Api extends CI_Controller {
 		}
 	}
 	
+	private function getUserById($id){
+		/*
+		*	------------------------------------------------------------------------------
+		*	Query mencari data user
+		*	------------------------------------------------------------------------------
+		*/
+		$QUser = $this->db
+			->where("id",$id)
+			->get("tb_member")
+			->row();
+			
+		if(empty($QUser)){
+			return null;
+		}else{
+			if(@getimagesize(base_url("assets/pic/user/".$QUser->image))){
+				$UserImageUrl = base_url("image.php?q=50&fe=".base64_encode(base_url("assets/pic/user/".$QUser->image)));
+			}else{
+				$UserImageUrl = base_url("image.php?q=50&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+			}
+				
+			/*
+			*	------------------------------------------------------------------------------
+			*	get data member attribute
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$QAttributes = $this->db
+					->where("tma.member_id",$QUser->id)
+					->get("tb_member_attribute tma")
+					->result();
+			
+			$Attributes = array();
+			foreach($QAttributes as $QAttribute){
+				$Attribute = array(
+						"id"=>$QAttribute->id,
+						"name"=>$QAttribute->name,
+						"value"=>$QAttribute->value,
+					);
+					
+				array_push($Attributes,$Attribute);
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	get data member banks
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$QBanks = $this->db
+					->select("mb.id, tmb.acc_name as acc_name, tmb.acc_no as acc_no, mb.id as bank_id, mb.name as bank_name")
+					->join("ms_bank mb","tmb.bank_id = mb.id")
+					->where("tmb.member_id",$QUser->id)
+					->get("tb_member_bank tmb")
+					->result();
+			
+			$Banks = array();
+			foreach($QBanks as $QBank){
+				if(@getimagesize(base_url("assets/pic/bank/".$QBank->image))){
+					$BankImageUrl = base_url("image.php?q=50&fe=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
+				}else{
+					$BankImageUrl = base_url("image.php?q=50&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+				}
+			
+				$Bank = array(
+						"id"=>$QBank->id,
+						"accName"=>$QBank->acc_name,
+						"accNo"=>$QBank->acc_no,
+						"bank_name"=>$QBank->bank_name,
+						"imageUrl"=>$BankImageUrl,
+					);
+					
+				array_push($Banks,$Bank);
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	get data member locations
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$QLocations = $this->db
+					->select("ml.*")
+					->join("ms_location ml","tml.location_id = ml.id")
+					->where("tml.member_id",$QUser->id)
+					->get("tb_member_location tml")
+					->result();
+			
+			$Locations = array();
+			foreach($QLocations as $QLocation){
+				$Location = array(
+						"id"=>$QLocation->id,
+						"postal"=>$QLocation->postal_code,
+						"kelurahan"=>$QLocation->kelurahan,
+						"kecamatan"=>$QLocation->kecamatan,
+						"city"=>$QLocation->city,
+						"province"=>$QLocation->province,
+					);
+					
+				array_push($Locations,$Location);
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	set data member
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$User = array(
+					"id"=>$QUser->id,
+					"name"=>$QUser->name,
+					"email"=>$QUser->email,
+					"phone"=>$QUser->phone,
+					"countShop"=>10,
+					"countProduct"=>10,
+					"imageUrl"=>$UserImageUrl,
+					"contacts"=>$Attributes,
+					"banks"=>$Banks,
+					"locations"=>$Locations,
+				);
+				
+			return $User;
+		}
+	}
+	
+	private function getShopById($id){
+		/*
+		*	------------------------------------------------------------------------------
+		*	Query mencari data shop
+		*	------------------------------------------------------------------------------
+		*/
+		$QShop = $this->db
+			->select("tk.*, ml.id as location_id, ml.kecamatan as location_kecamatan, ml.city as location_city, ml.province as location_province, ml.postal_code as location_postal, mc.id as category_id, mc.name as category_name")
+			->join("ms_location ml","ml.id = tk.location_id")
+			->join("ms_category mc","mc.id = tk.category_id")
+			->where("tk.id",$id)
+			->get("tb_toko tk")
+			->row();
+			
+		if(empty($QShop)){
+			return null;
+		}else{
+			$Shop = array(
+				"id"=>$QShop->id,
+				"name"=>$QShop->name,
+				"description"=>$QShop->description,
+				"phone"=>$QShop->phone,
+				"tag_name"=>$QShop->tag_name,
+				"keyword"=>$QShop->keyword,
+				"location"=>array(
+						"id"=>$QShop->location_id,
+						"kecamatan"=>$QShop->location_kecamatan,
+						"city"=>$QShop->location_city,
+						"province"=>$QShop->location_province,
+						"postal"=>$QShop->location_postal,
+					),
+				"category"=>array(
+						"id"=>$QShop->category_id,
+						"name"=>$QShop->category_name,
+					),
+			);
+			
+			return $Shop;
+		}
+	}
+	
+	
 	public function index(){
 		try {
 		
@@ -128,111 +294,8 @@ class Api extends CI_Controller {
 				->row();
 				
 			if(!empty($QUser)){
-				if(@getimagesize(base_url("assets/pic/user/".$QUser->image))){
-						$UserImageUrl = base_url("image.php?q=50&fe=".base64_encode(base_url("assets/pic/user/".$QUser->image)));
-					}else{
-						$UserImageUrl = base_url("image.php?q=50&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
-					}
-					
-					/*
-					*	------------------------------------------------------------------------------
-					*	get data member attribute
-					*	------------------------------------------------------------------------------
-					*/
-					
-					$QAttributes = $this->db
-							->where("tma.member_id",$QUser->id)
-							->get("tb_member_attribute tma")
-							->result();
-					
-					$Attributes = array();
-					foreach($QAttributes as $QAttribute){
-						$Attribute = array(
-								"id"=>$QAttribute->id,
-								"name"=>$QAttribute->name,
-								"value"=>$QAttribute->value,
-							);
-							
-						array_push($Attributes,$Attribute);
-					}
-				
-					/*
-					*	------------------------------------------------------------------------------
-					*	get data member banks
-					*	------------------------------------------------------------------------------
-					*/
-					
-					$QBanks = $this->db
-							->select("mb.id, tmb.acc_name as acc_name, tmb.acc_no as acc_no, mb.id as bank_id, mb.name as bank_name")
-							->join("ms_bank mb","tmb.bank_id = mb.id")
-							->where("tmb.member_id",$QUser->id)
-							->get("tb_member_bank tmb")
-							->result();
-					
-					$Banks = array();
-					foreach($QBanks as $QBank){
-						if(@getimagesize(base_url("assets/pic/bank/".$QBank->image))){
-							$BankImageUrl = base_url("image.php?q=50&fe=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
-						}else{
-							$BankImageUrl = base_url("image.php?q=50&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
-						}
-					
-						$Bank = array(
-								"id"=>$QBank->id,
-								"accName"=>$QBank->acc_name,
-								"accNo"=>$QBank->acc_no,
-								"bank_name"=>$QBank->bank_name,
-								"imageUrl"=>$BankImageUrl,
-							);
-							
-						array_push($Banks,$Bank);
-					}
-					
-					/*
-					*	------------------------------------------------------------------------------
-					*	get data member locations
-					*	------------------------------------------------------------------------------
-					*/
-					
-					$QLocations = $this->db
-							->select("ml.*")
-							->join("ms_location ml","tml.location_id = ml.id")
-							->where("tml.member_id",$QUser->id)
-							->get("tb_member_location tml")
-							->result();
-					
-					$Locations = array();
-					foreach($QLocations as $QLocation){
-						$Location = array(
-								"id"=>$QLocation->id,
-								"postal"=>$QLocation->postal_code,
-								"kelurahan"=>$QLocation->kelurahan,
-								"kecamatan"=>$QLocation->kecamatan,
-								"city"=>$QLocation->city,
-								"province"=>$QLocation->province,
-							);
-							
-						array_push($Locations,$Location);
-					}
-					
-					/*
-					*	------------------------------------------------------------------------------
-					*	set data member
-					*	------------------------------------------------------------------------------
-					*/
-					
-					$User = array(
-							"id"=>$QUser->id,
-							"name"=>$QUser->name,
-							"email"=>$QUser->email,
-							"phone"=>$QUser->phone,
-							"imageUrl"=>$UserImageUrl,
-							"contacts"=>$Attributes,
-							"banks"=>$Banks,
-							"locations"=>$Locations,
-						);
-					
-					$this->response->send(array("result"=>1,"user"=>$User), true);
+				$User = $this->getUserById($QUser->id);
+				$this->response->send(array("result"=>1,"user"=>$User), true);
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Email / password anda tidak sesuai","messageCode"=>3), true);
 			}
@@ -314,110 +377,7 @@ class Api extends CI_Controller {
 						->row();
 				
 				if(!empty($QUser)){
-					if(@getimagesize(base_url("assets/pic/user/".$QUser->image))){
-						$UserImageUrl = base_url("image.php?q=50&fe=".base64_encode(base_url("assets/pic/user/".$QUser->image)));
-					}else{
-						$UserImageUrl = base_url("image.php?q=50&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
-					}
-					
-					/*
-					*	------------------------------------------------------------------------------
-					*	get data member attribute
-					*	------------------------------------------------------------------------------
-					*/
-					
-					$QAttributes = $this->db
-							->where("tma.member_id",$QUser->id)
-							->get("tb_member_attribute tma")
-							->result();
-					
-					$Attributes = array();
-					foreach($QAttributes as $QAttribute){
-						$Attribute = array(
-								"id"=>$QAttribute->id,
-								"name"=>$QAttribute->name,
-								"value"=>$QAttribute->value,
-							);
-							
-						array_push($Attributes,$Attribute);
-					}
-					
-					/*
-					*	------------------------------------------------------------------------------
-					*	get data member banks
-					*	------------------------------------------------------------------------------
-					*/
-					
-					$QBanks = $this->db
-							->select("mb.id, tmb.acc_name as acc_name, tmb.acc_no as acc_no, mb.id as bank_id, mb.name as bank_name")
-							->join("ms_bank mb","tmb.bank_id = mb.id")
-							->where("tmb.member_id",$QUser->id)
-							->get("tb_member_bank tmb")
-							->result();
-					
-					$Banks = array();
-					foreach($QBanks as $QBank){
-						if(@getimagesize(base_url("assets/pic/bank/".$QBank->image))){
-							$BankImageUrl = base_url("image.php?q=50&ff=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
-						}else{
-							$BankImageUrl = base_url("image.php?q=50&ff=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
-						}
-						
-						$Bank = array(
-								"id"=>$QBank->id,
-								"accName"=>$QBank->acc_name,
-								"accNo"=>$QBank->acc_no,
-								"bank_name"=>$QBank->bank_name,
-								"imageUrl"=>$BankImageUrl,
-							);
-							
-						array_push($Banks,$Bank);
-					}
-					
-					/*
-					*	------------------------------------------------------------------------------
-					*	get data member locations
-					*	------------------------------------------------------------------------------
-					*/
-					
-					$QLocations = $this->db
-							->select("ml.*")
-							->join("ms_location ml","tml.location_id = ml.id")
-							->where("tml.member_id",$QUser->id)
-							->get("tb_member_location tml")
-							->result();
-					
-					$Locations = array();
-					foreach($QLocations as $QLocation){
-						$Location = array(
-								"id"=>$QLocation->id,
-								"postal"=>$QLocation->postal_code,
-								"kelurahan"=>$QLocation->kelurahan,
-								"kecamatan"=>$QLocation->kecamatan,
-								"city"=>$QLocation->city,
-								"province"=>$QLocation->province,
-							);
-							
-						array_push($Locations,$Location);
-					}
-					
-					/*
-					*	------------------------------------------------------------------------------
-					*	set data member
-					*	------------------------------------------------------------------------------
-					*/
-					
-					$User = array(
-							"id"=>$QUser->id,
-							"name"=>$QUser->name,
-							"email"=>$QUser->email,
-							"phone"=>$QUser->phone,
-							"imageUrl"=>$UserImageUrl,
-							"contacts"=>$Attributes,
-							"banks"=>$Banks,
-							"locations"=>$Locations,
-						);
-					
+					$User = $this->getUserById($QUser->id);
 					$this->response->send(array("result"=>1,"user"=>$User), true);
 				}else{
 					$this->response->send(array("result"=>0,"message"=>"Pendaftaran tidak berhasil","messageCode"=>7), true);
@@ -596,33 +556,7 @@ class Api extends CI_Controller {
 					*	Query mengambil data produk toko 
 					*	------------------------------------------------------------------------------
 					*/
-					$QProductShop = $this->db
-									->select("tk.*, ml.id as location_id, ml.kecamatan as location_kecamatan, ml.city as location_city, ml.province as location_province, ml.postal_code as location_postal, mc.id as category_id, mc.name as category_name")
-									->join("ms_location ml","ml.id = tk.location_id")
-									->join("ms_category mc","mc.id = tk.category_id")
-									->where("tk.id",$QProduct->toko_id)
-									->get("tb_toko tk")
-									->row();
-									
-					$ProductShop = array(
-									"id"=>$QProductShop->id,
-									"name"=>$QProductShop->name,
-									"description"=>$QProductShop->description,
-									"phone"=>$QProductShop->phone,
-									"tag_name"=>$QProductShop->tag_name,
-									"keyword"=>$QProductShop->keyword,
-									"location"=>array(
-											"id"=>$QProductShop->location_id,
-											"kecamatan"=>$QProductShop->location_kecamatan,
-											"city"=>$QProductShop->location_city,
-											"province"=>$QProductShop->location_province,
-											"postal"=>$QProductShop->location_postal,
-										),
-									"category"=>array(
-											"id"=>$QProductShop->category_id,
-											"name"=>$QProductShop->category_name,
-										),
-								);
+					$ProductShop = $this->getShopById($QProduct->toko_id);
 				
 					/*
 					*	------------------------------------------------------------------------------
@@ -661,7 +595,7 @@ class Api extends CI_Controller {
 		
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
-		}
+		} 
 	}
 	
 	public function doProductFavorite(){
@@ -1327,33 +1261,8 @@ class Api extends CI_Controller {
 					*	Query mengambil data produk toko 
 					*	------------------------------------------------------------------------------
 					*/
-					$QProductShop = $this->db
-									->select("tk.*, ml.id as location_id, ml.kecamatan as location_kecamatan, ml.city as location_city, ml.province as location_province, ml.postal_code as location_postal, mc.id as category_id, mc.name as category_name")
-									->join("ms_location ml","ml.id = tk.location_id")
-									->join("ms_category mc","mc.id = tk.category_id")
-									->where("tk.id",$QProduct->toko_id)
-									->get("tb_toko tk")
-									->row();
 									
-					$ProductShop = array(
-									"id"=>$QProductShop->id,
-									"name"=>$QProductShop->name,
-									"description"=>$QProductShop->description,
-									"phone"=>$QProductShop->phone,
-									"tag_name"=>$QProductShop->tag_name,
-									"keyword"=>$QProductShop->keyword,
-									"location"=>array(
-											"id"=>$QProductShop->location_id,
-											"kecamatan"=>$QProductShop->location_kecamatan,
-											"city"=>$QProductShop->location_city,
-											"province"=>$QProductShop->location_province,
-											"postal"=>$QProductShop->location_postal,
-										),
-									"category"=>array(
-											"id"=>$QProductShop->category_id,
-											"name"=>$QProductShop->category_name,
-										),
-								);
+					$ProductShop = $this->getShopById($QProduct->toko_id);
 				
 					/*
 					*	------------------------------------------------------------------------------
@@ -1470,33 +1379,8 @@ class Api extends CI_Controller {
 			*	Query mengambil data produk toko 
 			*	------------------------------------------------------------------------------
 			*/
-			$QProductShop = $this->db
-							->select("tk.*, ml.id as location_id, ml.kecamatan as location_kecamatan, ml.city as location_city, ml.province as location_province, ml.postal_code as location_postal, mc.id as category_id, mc.name as category_name")
-							->join("ms_location ml","ml.id = tk.location_id")
-							->join("ms_category mc","mc.id = tk.category_id")
-							->where("tk.id",$QProduct->toko_id)
-							->get("tb_toko tk")
-							->row();
 							
-			$ProductShop = array(
-							"id"=>$QProductShop->id,
-							"name"=>$QProductShop->name,
-							"description"=>$QProductShop->description,
-							"phone"=>$QProductShop->phone,
-							"tag_name"=>$QProductShop->tag_name,
-							"keyword"=>$QProductShop->keyword,
-							"location"=>array(
-									"id"=>$QProductShop->location_id,
-									"kecamatan"=>$QProductShop->location_kecamatan,
-									"city"=>$QProductShop->location_city,
-									"province"=>$QProductShop->location_province,
-									"postal"=>$QProductShop->location_postal,
-								),
-							"category"=>array(
-									"id"=>$QProductShop->category_id,
-									"name"=>$QProductShop->category_name,
-								),
-						);
+			$ProductShop = $this->getShopById($QProduct->toko_id);
 		
 			/*
 			*	------------------------------------------------------------------------------
@@ -1549,128 +1433,495 @@ class Api extends CI_Controller {
 				return;
 			}
 			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
 			/*
 			*	------------------------------------------------------------------------------
 			*	Query mencari data user
 			*	------------------------------------------------------------------------------
 			*/
-			$QUser = $this->db
-				->where("id",$this->response->postDecode("user"))
-				->get("tb_member")
-				->row();
-				
+			$User = $this->getUserById($QUser->id);
+			$this->response->send(array("result"=>1,"user"=>$User), true);
+			
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function doUserProfileSave(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
 			if(empty($QUser)){
-				$this->response->send(array("result"=>0,"message"=>"User belum terdaftar.","messageCode"=>2), true);
-			}else{
-				if(@getimagesize(base_url("assets/pic/user/".$QUser->image))){
-					$UserImageUrl = base_url("image.php?q=50&fe=".base64_encode(base_url("assets/pic/user/".$QUser->image)));
-				}else{
-					$UserImageUrl = base_url("image.php?q=50&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
-				}
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Simpan data user
+			*	------------------------------------------------------------------------------
+			*/
+			$Data = array(
+					"name"=>$this->response->postDecode("name"),
+					"email"=>$this->response->postDecode("email"),
+					"phone"=>$this->response->postDecode("phone"),
+				);
+			
+			$Save = $this->db->where("id",$QUser->id)->update("tb_member",$Data);
+			if($Save){
+				/*
+				*	------------------------------------------------------------------------------
+				*	Simpan data kontak user
+				*	------------------------------------------------------------------------------
+				*/
+				$Contacts = $this->response->postDecode("contacts");
+				if($Contacts > 0){
+					$id = $this->response->postDecode("contact".$i."_id");
 					
-				/*
-				*	------------------------------------------------------------------------------
-				*	get data member attribute
-				*	------------------------------------------------------------------------------
-				*/
-				
-				$QAttributes = $this->db
-						->where("tma.member_id",$QUser->id)
-						->get("tb_member_attribute tma")
-						->result();
-				
-				$Attributes = array();
-				foreach($QAttributes as $QAttribute){
-					$Attribute = array(
-							"id"=>$QAttribute->id,
-							"name"=>$QAttribute->name,
-							"value"=>$QAttribute->value,
-						);
-						
-					array_push($Attributes,$Attribute);
-				}
-				
-				/*
-				*	------------------------------------------------------------------------------
-				*	get data member banks
-				*	------------------------------------------------------------------------------
-				*/
-				
-				$QBanks = $this->db
-						->select("mb.id, tmb.acc_name as acc_name, tmb.acc_no as acc_no, mb.id as bank_id, mb.name as bank_name")
-						->join("ms_bank mb","tmb.bank_id = mb.id")
-						->where("tmb.member_id",$QUser->id)
-						->get("tb_member_bank tmb")
-						->result();
-				
-				$Banks = array();
-				foreach($QBanks as $QBank){
-					if(@getimagesize(base_url("assets/pic/bank/".$QBank->image))){
-						$BankImageUrl = base_url("image.php?q=50&fe=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
-					}else{
-						$BankImageUrl = base_url("image.php?q=50&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+					for($i=1;$i <= $Contacts;$i++){
+						if(empty($id)){
+							$Data = array(
+								"member_id"=>$QUser->id,
+								"name"=>$this->response->postDecode("contact".$i."_name"),
+								"value"=>$this->response->postDecode("contact".$i."_value"),
+								"create_date"=>date("Y-m-d H:i:s"),
+								"create_user"=>$QUser->email,
+								"update_date"=>date("Y-m-d H:i:s"),
+								"update_user"=>$QUser->email,
+							);
+							
+							$this->db->insert("tb_member_attribute",$Data);
+						}else{
+							$Data = array(
+								"name"=>$this->response->postDecode("contact".$i."_name"),
+								"value"=>$this->response->postDecode("contact".$i."_value"),
+								"update_date"=>date("Y-m-d H:i:s"),
+								"update_user"=>$QUser->email,
+							);
+							
+							$this->db->where("id",$id)->update("tb_member_attribute",$Data);
+						}
 					}
-				
-					$Bank = array(
-							"id"=>$QBank->id,
-							"accName"=>$QBank->acc_name,
-							"accNo"=>$QBank->acc_no,
-							"bank_name"=>$QBank->bank_name,
-							"imageUrl"=>$BankImageUrl,
-						);
-						
-					array_push($Banks,$Bank);
 				}
 				
-				/*
-				*	------------------------------------------------------------------------------
-				*	get data member locations
-				*	------------------------------------------------------------------------------
-				*/
-				
-				$QLocations = $this->db
-						->select("ml.*")
-						->join("ms_location ml","tml.location_id = ml.id")
-						->where("tml.member_id",$QUser->id)
-						->get("tb_member_location tml")
-						->result();
-				
-				$Locations = array();
-				foreach($QLocations as $QLocation){
-					$Location = array(
-							"id"=>$QLocation->id,
-							"postal"=>$QLocation->postal_code,
-							"kelurahan"=>$QLocation->kelurahan,
-							"kecamatan"=>$QLocation->kecamatan,
-							"city"=>$QLocation->city,
-							"province"=>$QLocation->province,
-						);
-						
-					array_push($Locations,$Location);
-				}
-				
-				/*
-				*	------------------------------------------------------------------------------
-				*	set data member
-				*	------------------------------------------------------------------------------
-				*/
-				
-				$User = array(
-						"id"=>$QUser->id,
-						"name"=>$QUser->name,
-						"email"=>$QUser->email,
-						"phone"=>$QUser->phone,
-						"countShop"=>10,
-						"countProduct"=>10,
-						"imageUrl"=>$UserImageUrl,
-						"contacts"=>$Attributes,
-						"banks"=>$Banks,
-						"locations"=>$Locations,
+				$User = $this->getUserById($QUser->id);
+				$this->response->send(array("result"=>1,"message"=>"Data user telah diubah","messageCode"=>4,"user"=>$User), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Data user tidak dapat disimpan","messageCode"=>5), true);
+			}
+			
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function doUserShipmentSave(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Simpan data shipment
+			*	------------------------------------------------------------------------------
+			*/
+			$Save = false;
+			
+			if($this->response->post("user_location_id") == "" || $this->response->postDecode("user_location_id") == ""){
+				$Data = array(
+						"location_id"=>$this->response->postDecode("kecamatan"),
+						"member_id"=>$QUser->id,
+						"name"=>$this->response->postDecode("name"),
+						"address"=>$this->response->postDecode("address"),
+						"phone"=>$this->response->postDecode("phone"),
+						"create_date"=>date("Y-m-d H:i:s"),
+						"create_user"=>$QUser->email,
+						"update_date"=>date("Y-m-d H:i:s"),
+						"update_user"=>$QUser->email,
 					);
 				
-				$this->response->send(array("result"=>1,"user"=>$User), true);
+				$Save = $this->db->insert("tb_member_location",$Data);
+			}else{
+				$Data = array(
+						"location_id"=>$this->response->postDecode("kecamatan"),
+						"member_id"=>$QUser->id,
+						"name"=>$this->response->postDecode("name"),
+						"address"=>$this->response->postDecode("address"),
+						"phone"=>$this->response->postDecode("phone"),
+						"update_date"=>date("Y-m-d H:i:s"),
+						"update_user"=>$QUser->email,
+					);
+				$Save = $this->db->where("id",$this->response->postDecode("user_location_id"))->update("tb_member_location",$Data);
 			}
-		
+			
+			if($Save){
+				$User = $this->getUserById($QUser->id);
+					
+				$this->response->send(array("result"=>1,"message"=>"Data shipment telah diubah","messageCode"=>4,"user"=>$User), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Data shipment tidak dapat disimpan","messageCode"=>5), true);
+			}
+			
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function doUserShipmentDelete(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			if($this->response->post("user_location_id") == "" || $this->response->postDecode("user_location_id") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada lokasi user yang dipilih","messageCode"=>3), true);
+				return;
+			}
+			
+			$QUserLocation = $this->db->where("id",$this->response->postDecode("user_location_id"))->get("tb_member_location")->row();
+			if(empty($QUserLocation)){
+				$this->response->send(array("result"=>0,"message"=>"Data lokasi user tidak ditemukan","messageCode"=>4), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Delete data shipment
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$Delete = $this->db->where("id",$this->response->postDecode("user_location_id"))->delete("tb_member_location");
+			if($Delete){
+				$this->response->send(array("result"=>1,"message"=>"Data lokasi user telah dihapus","messageCode"=>5), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Data lokasi user tidak dapat dihapus","messageCode"=>6), true);
+			}
+			
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function doUserBankSave(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Simpan data shipment
+			*	------------------------------------------------------------------------------
+			*/
+			$Save = false;
+			
+			if($this->response->post("user_bank_id") == "" || $this->response->postDecode("user_bank_id") == ""){
+				$Data = array(
+						"bank_id"=>$this->response->postDecode("bank_id"),
+						"member_id"=>$QUser->id,
+						"acc_name"=>$this->response->postDecode("acc_name"),
+						"acc_no"=>$this->response->postDecode("acc_no"),
+						"create_date"=>date("Y-m-d H:i:s"),
+						"create_user"=>$QUser->email,
+						"update_date"=>date("Y-m-d H:i:s"),
+						"update_user"=>$QUser->email,
+					);
+				
+				$Save = $this->db->insert("tb_member_location",$Data);
+			}else{
+				$Data = array(
+						"bank_id"=>$this->response->postDecode("bank_id"),
+						"member_id"=>$QUser->id,
+						"acc_name"=>$this->response->postDecode("acc_name"),
+						"acc_no"=>$this->response->postDecode("acc_no"),
+						"update_date"=>date("Y-m-d H:i:s"),
+						"update_user"=>$QUser->email,
+					);
+				$Save = $this->db->where("id",$this->response->postDecode("user_bank_id"))->update("tb_member_bank",$Data);
+			}
+			
+			if($Save){
+				$User = $this->getUserById($QUser->id);
+				$this->response->send(array("result"=>1,"message"=>"Data bank telah diubah","messageCode"=>3,"user"=>$User), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Data bank tidak dapat disimpan","messageCode"=>4), true);
+			}
+			
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function doUserBankDelete(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			if($this->response->post("user_bank_id") == "" || $this->response->postDecode("user_bank_id") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada bank user yang dipilih","messageCode"=>3), true);
+				return;
+			}
+			
+			$QUserBank = $this->db->where("id",$this->response->postDecode("user_bank_id"))->get("tb_member_bank")->row();
+			if(empty($QUserBank)){
+				$this->response->send(array("result"=>0,"message"=>"Data bank user tidak ditemukan","messageCode"=>4), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Delete data shipment
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$Delete = $this->db->where("id",$this->response->postDecode("user_bank_id"))->delete("tb_member_bank");
+			if($Delete){
+				$this->response->send(array("result"=>1,"message"=>"Data bank user telah dihapus","messageCode"=>5), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Data bank user tidak dapat dihapus","messageCode"=>6), true);
+			}
+			
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function doUserPasswordSave(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			if($this->response->post("password_old") == "" || $this->response->postDecode("password_old") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Masukkan password lama anda","messageCode"=>3), true);
+				return;
+			}
+			
+			if($this->response->post("password_new") == "" || $this->response->postDecode("password_new") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Masukkan password baru anda","messageCode"=>4), true);
+				return;
+			}
+			
+			if($this->response->post("password_renew") == "" || $this->response->postDecode("password_renew") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Masukkan ulangi password baru anda","messageCode"=>5), true);
+				return;
+			}
+			
+			if(md5($this->response->postDecode("password_old")) != $QUser->password){
+				$this->response->send(array("result"=>0,"message"=>"Password lama anda tidak sesuai","messageCode"=>6), true);
+				return;
+			}
+			
+			if($this->response->post("password_new") != $this->response->post("password_renew")){
+				$this->response->send(array("result"=>0,"message"=>"Password baru anda tidak sesuai","messageCode"=>7), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Delete data shipment
+			*	------------------------------------------------------------------------------
+			*/
+			$Data = array(
+					"password"=>md5($this->response->postDecode("password_old")),
+				);
+			
+			$Save = $this->db->where("id",$QUser->id)->update("tb_member",$Data);
+			
+			if($Save){
+				$this->response->send(array("result"=>1,"message"=>"Password anda telah diubah","messageCode"=>8), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Password anda tidak dapat diubah","messageCode"=>9), true);
+			}
+			
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function getCarts(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Query mengambil data carts
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$QCarts = $this->db;
+			$QCarts = $QCarts->where("tc.member_id",$QUser->id);
+			$QCarts = $QCarts->get("tb_cart tc");
+			$QCarts = $QCarts->result();
+			
+			if(sizeOf($QCarts) <= 0){
+				$this->response->send(array("result"=>0,"message"=>"Anda tidak memiliki daftar belanja","messageCode"=>3), true);
+			}else{
+				$Carts = array();
+				foreach($QCarts as $QCart){
+					$Shop = $this->getShopById($QCart->toko_id);
+					
+					$QCartProducts = $this->db
+									->select("tcp.*,tp.id as product_id, tp.name as product_name, tpv.id as product_varian_id, tpv.name as product_varian_name")
+									->join("tb_product_varian tpv","tpv.id = tcp.product_varian_id")
+									->join("tb_product tp","tp.id = tpv.product_id")
+									->where("tcp.cart_id",$QCart->id)
+									->get("tb_cart_product tcp")
+									->result();
+					
+					$CartProducts = array();
+					foreach($QCartProducts as $QCartProduct){
+						$CartProduct = array(
+									"id"=>$QCartProduct->id,
+									"price_product"=>$QCartProduct->price_product,
+									"quantity"=>$QCartProduct->quantity,
+									"productId"=>$QCartProduct->product_id,
+									"productName"=>$QCartProduct->product_name,
+									"productVarianId"=>$QCartProduct->product_varian_id,
+									"productVarianName"=>$QCartProduct->product_varian_name,
+								);
+						
+						array_push($CartProducts,$CartProduct);
+					}
+					
+					$Cart = array(
+							"id"=>$QCart->id,
+							"price_total"=>$QCart->price_total,
+							"shop"=>$Shop,
+							"cartProducts"=>$CartProducts,
+						);
+					
+					array_push($Carts,$Cart);
+				}
+				
+				$this->response->send(array(
+						"result"=>0,
+						"total"=>sizeOf($QCarts),
+						"size"=>sizeOf($QCarts),
+						"countProduct"=>100,
+						"countShop"=>10,
+						"carts"=>$Carts,
+					), true);
+			}
+			
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
