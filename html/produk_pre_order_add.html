@@ -113,7 +113,7 @@
 				<div class="col s12 m12 l9">
 					<form class="formain">
 						<div class="formhead">
-							<h2 class="titmain"><b>BUAT BARANG BARU READY STOK</b></h2>
+							<h2 class="titmain"><b>BUAT BARANG BARU PRE ORDER</b></h2>
 						</div>
 						<div class="row formbody">
 							<div class="col s12">
@@ -134,6 +134,11 @@
 									<input id="nomor_sku" type="text" class="validate">
 									<label for="nomor_sku">Nomor SKU <span class="text-red">*</span></label>
 								</div>
+								<div class="input-field col s12">
+									<input id="date_fin" type="date" class="datepicker validate">
+									<label for="date_fin">Tanggal selesai PRE ORDER</label>
+								</div>
+
 								<div class="input-field col s12 m6">
 									<select>
 										<option value="" disabled selected>Choose your option</option>
@@ -143,9 +148,7 @@
 									</select>
 									<label>Kategori barang</label>
 								</div>
-								<div class="input-field col s12 m6">
-									<a class="waves-effect btn-flat right"><b class="text-blue"><i class="mdi-content-add-box left"></i>BUAT KATEGORI BARU</b></a>
-								</div>
+								
 								<div class="input-field col s12">
 									<div class="col s6 m4 l3">
 										<div class="card">
@@ -201,68 +204,7 @@
 								</div>
 								
 							</div>
-							<div class="row formbody">
-								<div class="linehead"><i class="fa fa-minus-square-o"></i>Stok Barang</div>
-								<div class="input-field col s12 m6">
-									<select>
-										<option value="" disabled selected>Choose your option</option>
-										<option value="1">Stok selalu tersedia</option>
-										<option value="2">Gunakan stok</option>
-									</select>
-									<label>Tipe stok</label>
-								</div>
-								<div class="input-field col s12 m12">
-									<input type="checkbox" id="gunakan_varian" />
-									<label for="gunakan_varian">Gunakan varian</label>
-								</div>
-								<ul class="col s12 m12">
-									<li class="varsto">
-										<div class="input-field col s12 m6">
-											<input id="varian" type="text" placeholder="Misal: Lusin, Pcs" class="validate">
-											<label for="varian">Varian <span></span></label>
-										</div>
-										<div class="input-field col s12 m6">
-											<label for="varian">Stok : <span class="text-green">selalu tersedia</span></label>
-										</div>
-									</li>
-									<li class="varsto">
-										<div class="input-field col s12 m6">
-											<input id="varian" type="text" placeholder="Misal: Lusin, Pcs" class="validate">
-											<label for="varian">Varian <span></span></label>
-										</div>
-										<div class="input-field col s12 m6">
-											<label for="varian">Stok : <span class="text-green">selalu tersedia</span></label>
-										</div>
-									</li>
-									<li class="varsto">
-										<div class="input-field col s12 m6">
-											<input id="varian" type="text" placeholder="Misal: Lusin, Pcs" class="validate">
-											<label for="varian">Varian <span></span></label>
-										</div>
-										<div class="input-field col s12 m6">
-											<label for="varian">Stok : <span class="text-green">selalu tersedia</span></label>
-										</div>
-									</li>
-									<li class="input-field col s12 m12">
-										<a class="waves-effect btn-flat right"><b class="text-blue"><i class="mdi-content-add-box left"></i>TAMBAH VARIAN</b></a>
-									</li>
-								</ul>
-								<ul class="col s12 m12">
-									<li class="varsto">
-										<div class="input-field col s12 m6">
-											<input id="varian" type="text" placeholder="Misal: Lusin, Pcs" class="validate">
-											<label for="varian">Varian <span></span></label>
-										</div>
-										<div class="input-field col s12 m6">
-											<input id="varian" type="text" placeholder="Jumlah stok" class="validate">
-											<label for="varian">Stok <span></span></label>
-										</div>
-									</li>
-									<li class="input-field col s12 m12">
-										<a class="waves-effect btn-flat right"><b class="text-blue"><i class="mdi-content-add-box left"></i>TAMBAH VARIAN</b></a>
-									</li>
-								</ul>
-							</div>
+							
 							<div class="row formbody">
 								<div class="linehead"><i class="fa fa-minus-square-o"></i>Harga Barang</div>
 								<div class="input-field col s12 m6">
