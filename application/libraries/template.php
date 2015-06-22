@@ -1,129 +1,30 @@
 <?php class Template{
 	
 	# START TEMPLATE #
-	function admin($view=null,$data=null){
+	function bonobo_step($view=null,$data=null){
         $ci =& get_instance();
-        $ci->load->view('admin/templates/bg_top', $data);
-		$ci->load->view('admin/templates/bg_header', $data);
+        $ci->load->model('Facebook_Model', 'fb');
+        $ci->getFbUser = $ci->fb->getUser();
+        $ci->data['getFbUser'] = $ci->getFbUser;
+        $data['recaptcha'] = $ci->recaptcha->recaptcha_get_html();
+        $ci->load->view('template/bg_header', $data);
+		$ci->load->view('template/bg_nav_step', $data);
 		$ci->load->view($view, $data);
-		$ci->load->view('admin/templates/bg_bottom', $data);
-	}
-	
-	function user($view=null,$data=null){
-        $ci =& get_instance();
-		$ci->load->model('Facebook_Model', 'fb');
-        $ci->getFbUser = $ci->fb->getUser();
-        $ci->data['getFbUser'] = $ci->getFbUser;
-		$data['recaptcha'] = $ci->recaptcha->recaptcha_get_html();
-        $ci->load->view('enduser/templates/bg_top', $data);
-		$ci->load->view('enduser/templates/bg_header', $data);
-		$ci->load->view('enduser/'.$view, $data);
-		$ci->load->view('enduser/templates/bg_bottom', $data);
-	}
-	
-	function user2($view=null,$data=null){
-        $ci =& get_instance();
-		$ci->load->model('Facebook_Model', 'fb');
-        $ci->getFbUser = $ci->fb->getUser();
-        $ci->data['getFbUser'] = $ci->getFbUser;
-		$data['recaptcha'] = $ci->recaptcha->recaptcha_get_html();
-		$ci->load->view('enduser/templates/bg_top', $data);
-		$ci->load->view('enduser/templates/bg_header_small', $data);
-		$ci->load->view('enduser/'.$view, $data);
-		$ci->load->view('enduser/templates/bg_bottom', $data);
+		$ci->load->view('template/bg_footer', $data);
 	}
 
-    function user_website($view=null,$data=null){
+    function bonobo($view=null,$data=null){
         $ci =& get_instance();
-		$ci->load->model('Facebook_Model', 'fb');
+        $ci->load->model('Facebook_Model', 'fb');
         $ci->getFbUser = $ci->fb->getUser();
         $ci->data['getFbUser'] = $ci->getFbUser;
-		$data['recaptcha'] = $ci->recaptcha->recaptcha_get_html();
-        $ci->load->view('enduser/templates/bg_top', $data);
-        $ci->load->view('enduser/templates/bg_slidder', $data);
-        $ci->load->view('enduser/'.$view, $data);
-        $ci->load->view('enduser/templates/bg_bottom', $data);
-    }
+        $data['recaptcha'] = $ci->recaptcha->recaptcha_get_html();
+        $ci->load->view('template/bg_header', $data);        
+        $ci->load->view($view, $data);
+        $ci->load->view('template/bg_footer', $data);
+    }		
 	# END TEMPLATE #
-	
-    # START TEMPLATE #    
-    function v2_user($view=null,$data=null){
-        $ci =& get_instance();
-        $ci->load->model('Facebook_Model', 'fb');
-        $ci->getFbUser = $ci->fb->getUser();
-        $ci->data['getFbUser'] = $ci->getFbUser;
-        $data['recaptcha'] = $ci->recaptcha->recaptcha_get_html();
-        $ci->load->view('v2/templates/bg_top', $data);
-        $ci->load->view('v2/templates/bg_header', $data);
-        $ci->load->view('v2/templates/bg_left_home', $data);
-        $ci->load->view('v2/'.$view, $data);
-        $ci->load->view('v2/templates/bg_bottom', $data);
-    }
-    
-    function v2_user2($view=null,$data=null){
-        $ci =& get_instance();
-        $ci->load->model('Facebook_Model', 'fb');
-        $ci->getFbUser = $ci->fb->getUser();
-        $ci->data['getFbUser'] = $ci->getFbUser;
-        $data['recaptcha'] = $ci->recaptcha->recaptcha_get_html();
-        $ci->load->view('v2/templates/bg_top', $data);
-        $ci->load->view('v2/templates/bg_header', $data);
-        $ci->load->view('v2/'.$view, $data);
-        $ci->load->view('v2/templates/bg_bottom', $data);
-    }
-
-    function v2_user_search($view=null,$data=null){
-        $ci =& get_instance();
-        $ci->load->model('Facebook_Model', 'fb');
-        $ci->getFbUser = $ci->fb->getUser();
-        $ci->data['getFbUser'] = $ci->getFbUser;
-        $data['recaptcha'] = $ci->recaptcha->recaptcha_get_html();
-        $ci->load->view('v2/templates/bg_top', $data);
-        $ci->load->view('v2/templates/bg_header_small', $data);
-        $ci->load->view('v2/'.$view, $data);
-        $ci->load->view('v2/templates/bg_bottom', $data);
-    }
-
-    function v2_buyer($view=null,$data=null){
-        $ci =& get_instance();
-        $ci->load->model('Facebook_Model', 'fb');
-        $ci->getFbUser = $ci->fb->getUser();
-        $ci->data['getFbUser'] = $ci->getFbUser;
-        $data['recaptcha'] = $ci->recaptcha->recaptcha_get_html();
-        $ci->load->view('v2/templates/bg_top', $data);
-        $ci->load->view('v2/templates/bg_header_small', $data);
-        $ci->load->view('v2/'.$view, $data);
-        $ci->load->view('v2/templates/bg_bottom', $data);
-    }
-
-    function v2_user_website($view=null,$data=null){
-        $ci =& get_instance();
-        $ci->load->model('Facebook_Model', 'fb');
-        $ci->getFbUser = $ci->fb->getUser();
-        $ci->data['getFbUser'] = $ci->getFbUser;
-        $data['recaptcha'] = $ci->recaptcha->recaptcha_get_html();
-        $ci->load->view('v2/templates/bg_top', $data);
-        $ci->load->view('v2/templates/bg_slidder', $data);
-        $ci->load->view('v2/'.$view, $data);
-        $ci->load->view('enduser/templates/bg_bottom', $data);
-    }
-	
-	function company($view=null,$data=null){
-		$ci =& get_instance();
-		
-		$ci->load->model('Facebook_Model', 'fb');
-		$ci->getFbUser = $ci->fb->getUser();
-        $ci->data['getFbUser'] = $ci->getFbUser;
-        $data['recaptcha'] = $ci->recaptcha->recaptcha_get_html();
-		
-        $ci->load->view('v2/templates/bg_top', $data);
-		$ci->load->view('v2/templates/c_header', $data);
-        $ci->load->view('v2/'.$view, $data);
-        $ci->load->view('v2/templates/bg_bottom', $data);
-	}
-    # END TEMPLATE #
-
-
+	    
     function paging($total,$uri,$url,$limit){
         $ci 						=& get_instance();
 		$config['base_url'] 		= base_url($url);

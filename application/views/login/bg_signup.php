@@ -1,0 +1,84 @@
+<?php
+echo"
+<!DOCTYPE html>
+<html>
+<head>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'/>
+<title>Bonobo</title>
+
+<link rel='icon' href='".base_url()."html/images/comp/icon.ico' type='image/gif' sizes='16x7'>
+
+<link type='text/css' rel='stylesheet' href='".base_url()."html/css/materialize.min.css'  media='screen,projection'/>
+<link type='text/css' rel='stylesheet' href='".base_url()."html/css/font-awesome.min.css' />
+
+<link type='text/css' rel='stylesheet' href='".base_url()."html/css/style.css' />
+<link type='text/css' rel='stylesheet' href='".base_url()."html/css/tablet.css' />
+<link type='text/css' rel='stylesheet' href='".base_url()."html/css/mobile.css' />
+<link type='text/css' rel='stylesheet' href='".base_url()."html/css/comp.css' />
+
+<style>html{ width:100%; height:100%; }</style>
+
+</head>
+<body class='bgpic' style='background-image: url(".base_url()."html/images/data/iphone.jpg);'>
+<section class='absolute bgop'>
+<header class='head'>
+	<div class='row'>
+		<div class='col s6 m4 l2'><img class='responsive-img' src='".base_url()."html/images/comp/logo_shadow.png' /></div>
+		<div class='col s6 m8 l10'>
+			<p class='signup'><text>Sudah punya akun ?</text><a href='".base_url()."index' class='waves-effect waves-light btn deep-orange darken-1' >Masuk</a></p>
+		</div>
+	</div>
+</header>
+<content>
+	<div class='containermain'>
+		<div class='row col-signup'>
+			<h4 class='titlin'>BONOBO IS A SECURE BUSSINESS PLATFORM</h4>
+			<p class='note'>Bonobo merupakan tempat berjualan online dimana setiap toko yang tergabung didalamnya bersaing secara sehat dan bersahabat.</p>
+			<div class='col s12 col-btn-fb' align='center'>
+				<button class='waves-effect waves-light btn light-blue darken-4'><i class='fa fa-facebook-official left'></i>Masuk dengan facebook</button>
+			</div>
+			<p class='or'>Atau gunakan email</p>
+			<form class='signin z-depth-2'>
+				<div class='row'>
+					<div class='input-field col s12'>
+						<input id='nama' type='text' class='validate'>
+						<label for='nama'>Nama lengkap</label>
+						<label class='error'><i class='fa fa-warning'></i> Harus diisi !</label>
+					</div>
+					<div class='input-field col s12'>
+						<input id='email' type='text' class='validate'>
+						<label for='email'>Email</label>
+					</div>
+					<div class='input-field col s12'>
+						<input id='password' type='password' class='validate'>
+						<label for='password'>Password</label>
+					</div>
+					<div class='input-field col s12'>
+						<input id='retypepas' type='password' class='validate'>
+						<label for='retypepas'>Ketik ulang password</label>
+						<label class='error'><i class='fa fa-warning'></i> Sandi tidak sesuai !</label>
+					</div>
+					<div class='input-field col s12'>
+						<button class='waves-effect waves-light btn deep-orange darken-1 right'>DAFTAR</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</content>
+<footer>
+	<div class='row footer'>
+		<div class='col s12' align='right'>
+			<a href='' >Syarat dan ketentuan</a>
+			<a href='' >Kebijakan privasi</a>
+			<a href='' >Tentang kami</a>
+		</div>
+	</div>
+</footer>
+</section>
+<script type='text/javascript' src='".base_url()."html/js/jquery-2.1.4.min.js'></script>
+<script type='text/javascript' src='".base_url()."html/js/materialize.min.js'></script>
+</body>
+</html>
+";
+?>
