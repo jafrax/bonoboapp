@@ -38,7 +38,7 @@ echo"
 				<button class='waves-effect waves-light btn light-blue darken-4'><i class='fa fa-facebook-official left'></i>Masuk dengan facebook</button>
 			</div>
 			<p class='or'>Atau gunakan email</p>
-			<form class='signin z-depth-2'>
+			<form class='signin z-depth-2' action='' method='post'>
 				<div class='row'>
 					<div class='input-field col s12'>
 						<input id='nama' type='text' class='validate'>
