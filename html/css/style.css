@@ -24,7 +24,7 @@ div { word-wrap:break-word;}
 p{ padding:0; margin:0; }
 
 header,section,content,footer{ width:100%; }
-.containermain{ width:80%; margin:0 auto; }
+.containermain{ width:90%; margin:0 auto; }
 
 /*HEADER*/
 .head{ padding:15px 20px 8px 20px; }
@@ -75,6 +75,28 @@ header,section,content,footer{ width:100%; }
 .menucontent .langkah .card-panel > span, .menucontent .langkah .card-panel > i{ color:#cdcdcd!important; }
 .menucontent .langkah.active .card-panel > span, .menucontent .langkah.active .card-panel > i{ color:#ffffff!important; }
 .menucontent .langkah.active .card-panel .mdi-hardware-keyboard-arrow-right:before{ content: "\e899"; }
+
+/*CUSTOM*/
+.menucontent .collapsible{
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	box-shadow:none;
+	margin:0;
+}
+.menucontent .collapsible .collapsible-header{ 
+	display: block;
+	cursor: pointer;
+	height: 1.2rem;
+	line-height: 1.2rem;
+	padding: 0;
+	background:none;
+	border-bottom:none;
+}
+.menucontent .collapsible .collapsible-body { padding:8px 0 0 0; }
+.menucontent .collapsible .collapsible-header{ font-size:13px; color:#82888a; }
+.menucontent .collapsible .collapsible-header:hover{ color:#039be5; }
+.menucontent .collapsible .collapsible-header.active{ color:#313131; font-weight:bold; }
 
 /*.menucontent .langkah .white-text:before{
 	content: '';
