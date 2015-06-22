@@ -16,6 +16,20 @@
 <link type="text/css" rel="stylesheet" href="css/comp.css" />
 
 </head>
+
+<div id="delete_anggota" class="modal confirmation">
+	<div class="modal-header red">
+		<i class="mdi-navigation-close left"></i> Hapus semua anggota
+	</div>
+	<form class="modal-content">
+		<p>Apakah anda yakin ingin menghapus semua anggota ?</p>
+	</form>
+	<div class="modal-footer">
+		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">TIDAK</a>
+		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">YA</a>
+	</div>
+</div>
+
 <body class="cbp-spmenu-push cbp-spmenu-push-toleft">
 <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left cbp-spmenu-open">
 	<ul class="col s12 navmob mobleft">
@@ -79,7 +93,7 @@
 						<div class="formhead">
 							<h2 class="titmain"><b>ANGGOTA BARU</b></h2>
 							<p>Pantau kedatangan anggota baru di toko anda !</p>
-							<a class="right" href=""><b>Bersihkan semua</b></a><br>
+							<a href="#delete_anggota" class="modal-trigger right"><b>Hapus semua</b></a><br>
 						</div>
 						<ul class="row formbody">
 							<li class="col s12 listanggonew">
@@ -87,8 +101,8 @@
 									<time>19 MEI 2015 18.00 WIB</time>
 								</div>
 								<div class="col s12 m4">
+									<button class="waves-effect waves-light btn right">Terima</button>
 									<button class="waves-effect waves-light btn red lighten-1 right">Tolak</button>
-									<button class="waves-effect waves-light btn deep-orange darken-1 right">Terima</button>
 								</div>
 							</li>
 							<li class="col s12 listanggonew">
@@ -104,8 +118,8 @@
 									<time>19 MEI 2015 18.00 WIB</time>
 								</div>
 								<div class="col s12 m4">
+									<button class="waves-effect waves-light btn right">Terima</button>
 									<button class="waves-effect waves-light btn red lighten-1 right">Tolak</button>
-									<button class="waves-effect waves-light btn deep-orange darken-1 right">Terima</button>
 								</div>
 							</li>
 							<li class="col s12 listanggonew">
