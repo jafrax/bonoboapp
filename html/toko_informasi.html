@@ -25,7 +25,7 @@
 				<text>James Rodriguez</text>
 			</div>
 		</li>
-		<li><a href="toko_informasi.html">Toko</a></li>
+		<li class="active"><a class="active" href="toko_informasi.html">Toko</a></li>
 		<li><a href="anggota.html">Anggota</a></li>
 		<li><a href="produk_ready_stock.html">Produk</a></li>
 		<li><a href="nota.html">Nota</a></li>
@@ -52,7 +52,7 @@
 	<nav class="nav grey darken-2">
 		<div class="containermain">
 			<ul class="navmenu">
-				<li><a href="toko_informasi.html">Toko</a></li>
+				<li class="active"><a class="active" href="toko_informasi.html">Toko</a></li>
 				<li><a href="anggota.html">Anggota</a></li>
 				<li><a href="produk_ready_stock.html">Produk</a></li>
 				<li><a href="nota.html">Nota</a></li>
@@ -75,7 +75,7 @@
 						</a></li>
 						<li class="col s12 m5 l4 langkah"><a href="">
 							<div class="card-panel ">
-								<span class="white-text">ATUR INFORMASI</span><i class="mdi-hardware-keyboard-arrow-right right"></i>
+								<span class="white-text">ATUR PRIVASI</span><i class="mdi-hardware-keyboard-arrow-right right"></i>
 							</div>
 						</a></li>
 						<li class="col s12 m5 l4 langkah"><a href="">
@@ -114,11 +114,11 @@
 							<div class="linehead"><i class="fa fa-minus-square-o"></i>Informasi Umum</div>
 							<div class="input-field col s12 m8">
 								<input id="nama" type="text" class="validate">
-								<label for="nama">Nama toko</label>
+								<label for="nama">Nama toko *</label>
 							</div>
 							<div class="input-field col s12 m8">
 								<input id="tokoid" type="text" class="validate">
-								<label for="tokoid">Toko Id</label>
+								<label for="tokoid">Toko Id *</label>
 							</div>
 							<div class="input-field col s12 m6">
 								<select>
@@ -127,7 +127,7 @@
 									<option value="2">Option 2</option>
 									<option value="3">Option 3</option>
 								</select>
-								<label>Pilih kategori</label>
+								<label>Pilih kategori *</label>
 							</div>
 							<div class="input-field col s12 m8">
 								<input id="katakunci" type="text" class="validate">
@@ -153,16 +153,16 @@
 							<div class="input-field col s12 m8">								
 								Kontak Lainnya
 								<div class="row valign-wrapper">
-						            <div class="col s2 m2">
+						            <div class="col s12 m3">
 						             	Nama kontak
 						            </div>
-						            <div class="col s10 m6">
+						            <div class="col s12 m5">
 						              	<input id="kontak" type="text" class="validate">
 						            </div>
-						            <div class="col s2 m2">
+						            <div class="col s12 m3">
 						             	Pin/ID/Nomor
 						            </div>
-						            <div class="col s10 m6">
+						            <div class="col s12 m5">
 						              	<input id="id" type="text" class="validate">
 						            </div>
 						        </div>
@@ -174,6 +174,10 @@
 						              	<a href="#">Tambah kontak</a>
 						            </div>
 						        </div>
+							</div>
+							<div class="input-field col s12 m8">
+								<input id="kodepos" type="text" class="validate">
+								<label for="kodepos">Kodepos</label>
 							</div>
 							<div class="input-field col s12 m8">
 								<select>
@@ -196,10 +200,6 @@
 							<div class="input-field col s12 m8">
 								<textarea id="alamat" class="materialize-textarea" ></textarea>
 								<label for="alamat">Alamat toko</label>
-							</div>
-							<div class="input-field col s12 m8">
-								<input id="kodepos" type="text" class="validate">
-								<label for="kodepos">Kodepos</label>
 							</div>
 							<div class="input-field col s12 m8">
 								<button class="btn waves-effect waves-light" type="button" name="action" onclick="location.href='atur_privasi.html'">Selanjutnya

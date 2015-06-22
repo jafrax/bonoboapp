@@ -41,8 +41,7 @@
 		$ci->pagination->initialize($config);
 		return $ci->pagination->create_links();
     }
-	
-	
+		
 	function paging1($pg,$uri,$url,$limit){
         $ci =& get_instance();
         $pg=$pg;
