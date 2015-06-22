@@ -90,8 +90,8 @@ class Api extends CI_Controller {
 			
 				$Bank = array(
 						"id"=>$QBank->id,
-						"accName"=>$QBank->acc_name,
-						"accNo"=>$QBank->acc_no,
+						"acc_name"=>$QBank->acc_name,
+						"acc_no"=>$QBank->acc_no,
 						"bank_name"=>$QBank->bank_name,
 						"imageUrl"=>$BankImageUrl,
 					);
@@ -137,9 +137,9 @@ class Api extends CI_Controller {
 					"name"=>$QUser->name,
 					"email"=>$QUser->email,
 					"phone"=>$QUser->phone,
-					"countShop"=>10,
-					"countProduct"=>10,
-					"imageUrl"=>$UserImageUrl,
+					"count_shop"=>10,
+					"count_product"=>10,
+					"image_url"=>$UserImageUrl,
 					"contacts"=>$Attributes,
 					"banks"=>$Banks,
 					"locations"=>$Locations,
@@ -2482,6 +2482,253 @@ class Api extends CI_Controller {
 				$this->response->send(array("result"=>0,"message"=>"Data cart tidak dapat disimpan ke dalam invoice","messageCode"=>5), true);
 			}
 			
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function getMessages(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Query ambil data messages
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$QMessages = $this->db;
+			$QMessages = $QMessages->select("tmm.*,tm.message");
+			$QMessages = $QMessages->join("tb_message tm","tmm.message_id = tm.id");
+			$QMessages = $QMessages->where("tmm.member_id",$QUser->id);
+			$QMessages = $QMessages->order_by("tmm.id","DESC");
+			$QMessages = $QMessages->group_by("tmm.toko_id");
+			
+			
+			if($this->response->post("page") != "" && $this->response->postDecode("page") != ""){
+				$QMessages = $QMessages->limit(10,$this->response->postDecode("page"));
+			}else{
+				$QMessages = $QMessages->limit(10,0);
+			}
+			
+			$QMessages = $QMessages->get("tb_member_message tmm")->result();
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Membentuk object Messages
+			*	------------------------------------------------------------------------------
+			*/
+			$Messages = array();
+			foreach($QMessages as $QMessage){
+				$Shop = $this->getShopById($QMessage->toko_id);
+			
+				$Message = array(
+						"id"=>$QMessage->id,
+						"shop_name"=>$QMessage->toko_name,
+						"message"=>$QMessage->message,
+						"flag_from"=>$QMessage->flag_from,
+						"flag_read"=>$QMessage->flag_read,
+						"shop"=>$Shop,
+					);
+				
+				array_push($Messages,$Message);
+			}
+			
+			if(sizeOf($QMessages) > 0){
+				$this->response->send(array("result"=>1,"total"=>sizeOf($Messages),"size"=>sizeOf($Messages),"messages"=>$Messages), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada pesan untuk anda","messageCode"=>3), true);
+			}
+			
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function doMessageDelete(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			if($this->response->post("shop") == "" || $this->response->postDecode("shop") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada toko yang dipilih","messageCode"=>3), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Query delete messages
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$Delete = $this->db
+					->where("member_id",$QUser->id)
+					->where("toko_id",$this->response->postDecode("shop"))
+					->delete("tb_member_message");
+					
+			if($Delete){
+				$this->response->send(array("result"=>1,"message"=>"Pesan telah dihapus","messageCode"=>4), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Pesan tidak dapat dihapus.","messageCode"=>5), true);
+			}
+			
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function doMessageSave(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			if($this->response->post("shop") == "" || $this->response->postDecode("shop") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada toko yang dipilih","messageCode"=>3), true);
+				return;
+			}
+			
+			$QShop = $this->db->where("id",$this->response->postDecode("shop"))->get("tb_toko")->row();
+			if(empty($QShop)){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data toko yang ditemukan","messageCode"=>4), true);
+				return;
+			}
+			
+			if($this->response->post("message") == "" || $this->response->postDecode("message") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada pesan yang anda kirimkan","messageCode"=>5), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Menyimpan data message parent
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$Data = array(
+					"message"=>$this->response->postDecode("message"),
+					"create_date"=>date("Y-m-d H:i:s"),
+					"create_user"=>$QUser->email,
+					"update_date"=>date("Y-m-d H:i:s"),
+					"update_user"=>$QUser->email,
+				);
+			
+			$Save = $this->db->insert("tb_message",$Data);
+			if($Save){
+				$QMessage = $this->db
+							->where("message",$this->response->postDecode("message"))
+							->get("tb_message")
+							->row();
+				
+				if(!empty($QMessage)){
+					$Data1 = array(
+							"member_id"=>$QUser->id,
+							"message_id"=>$QMessage->id,
+							"toko_id"=>$QShop->id,
+							"toko_name"=>$QShop->name,
+							"flag_from"=>1,
+							"flag_read"=>1,
+							"create_date"=>date("Y-m-d H:i:s"),
+							"create_user"=>$QUser->email,
+							"update_date"=>date("Y-m-d H:i:s"),
+							"update_user"=>$QUser->email,
+						);
+						
+					$Data2 = array(
+							"member_id"=>$QUser->id,
+							"message_id"=>$QMessage->id,
+							"toko_id"=>$QShop->id,
+							"member_name"=>$QUser->name,
+							"flag_from"=>0,
+							"flag_read"=>0,
+							"create_date"=>date("Y-m-d H:i:s"),
+							"create_user"=>$QUser->email,
+							"update_date"=>date("Y-m-d H:i:s"),
+							"update_user"=>$QUser->email,
+						);
+						
+					$this->db->insert("tb_member_message",$Data1);
+					$this->db->insert("tb_toko_message",$Data2);
+					
+					$QUserMessage = $this->db
+								->where("member_id",$QUser->id)
+								->where("message_id",$QMessage->id)
+								->where("toko_id",$QShop->id)
+								->where("toko_name",$QShop->name)
+								->where("flag_from",1)
+								->where("flag_read",1)
+								->get("tb_member_message")
+								->row();
+					
+					$Shop = $this->getShopById($QUserMessage->toko_id);
+					
+					$Messages = array(
+								"id"=>$QUserMessage->id,
+								"shop_name"=>$QUserMessage->toko_name,
+								"message"=>$QMessage->message,
+								"flag_from"=>$QUserMessage->flag_from,
+								"flag_read"=>$QUserMessage->flag_read,
+								"shop"=>$Shop,
+							);
+					
+					$this->response->send(array("result"=>1,"message"=>"Pesan telah dikirim","messageCode"=>6,"messages"=>$Messages), true);
+				}else{
+					$this->response->send(array("result"=>0,"message"=>"Pesan tidak valid","messageCode"=>7), true);
+				}
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Pesan tidak dapat dikirim","messageCode"=>8), true);
+			}
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
