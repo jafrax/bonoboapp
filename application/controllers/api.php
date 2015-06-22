@@ -1869,6 +1869,13 @@ class Api extends CI_Controller {
 			
 			$QCarts = $this->db;
 			$QCarts = $QCarts->where("tc.member_id",$QUser->id);
+			
+			if($this->response->post("page") != "" && $this->response->postDecode("page") != ""){
+				$QCarts = $QCarts->limit(10,$this->response->postDecode("page"));
+			}else{
+				$QCarts = $QCarts->limit(10,0);
+			}
+			
 			$QCarts = $QCarts->get("tb_cart tc");
 			$QCarts = $QCarts->result();
 			
@@ -1879,6 +1886,11 @@ class Api extends CI_Controller {
 				foreach($QCarts as $QCart){
 					$Shop = $this->getShopById($QCart->toko_id);
 					
+					/*
+					*	------------------------------------------------------------------------------
+					*	Query mengambil data cart products
+					*	------------------------------------------------------------------------------
+					*/
 					$QCartProducts = $this->db
 									->select("tcp.*,tp.id as product_id, tp.name as product_name, tpv.id as product_varian_id, tpv.name as product_varian_name")
 									->join("tb_product_varian tpv","tpv.id = tcp.product_varian_id")
@@ -1893,31 +1905,41 @@ class Api extends CI_Controller {
 									"id"=>$QCartProduct->id,
 									"price_product"=>$QCartProduct->price_product,
 									"quantity"=>$QCartProduct->quantity,
-									"productId"=>$QCartProduct->product_id,
-									"productName"=>$QCartProduct->product_name,
-									"productVarianId"=>$QCartProduct->product_varian_id,
-									"productVarianName"=>$QCartProduct->product_varian_name,
+									"product_id"=>$QCartProduct->product_id,
+									"product_name"=>$QCartProduct->product_name,
+									"product_varian_id"=>$QCartProduct->product_varian_id,
+									"product_varian_name"=>$QCartProduct->product_varian_name,
 								);
 						
 						array_push($CartProducts,$CartProduct);
 					}
 					
+					/*
+					*	------------------------------------------------------------------------------
+					*	Membentuk object cart
+					*	------------------------------------------------------------------------------
+					*/
 					$Cart = array(
 							"id"=>$QCart->id,
 							"price_total"=>$QCart->price_total,
 							"shop"=>$Shop,
-							"cartProducts"=>$CartProducts,
+							"cart_products"=>$CartProducts,
 						);
 					
 					array_push($Carts,$Cart);
 				}
 				
+				/*
+				*	------------------------------------------------------------------------------
+				*	Menampilkan response API
+				*	------------------------------------------------------------------------------
+				*/
 				$this->response->send(array(
 						"result"=>0,
 						"total"=>sizeOf($QCarts),
 						"size"=>sizeOf($QCarts),
-						"countProduct"=>100,
-						"countShop"=>10,
+						"count_product"=>100,
+						"count_shop"=>10,
 						"carts"=>$Carts,
 					), true);
 			}
@@ -1927,5 +1949,542 @@ class Api extends CI_Controller {
 		}
 	}
 	
+	public function getNotas(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Query mengambil data invoice
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$QInvoices = $this->db;
+			$QInvoices = $QInvoices->where("ti.member_id",$QUser->id);
+			
+			if($this->response->post("page") != "" && $this->response->postDecode("page") != ""){
+				$QInvoices = $QInvoices->limit(10,$this->response->postDecode("page"));
+			}else{
+				$QInvoices = $QInvoices->limit(10,0);
+			}
+			
+			$QInvoices = $QInvoices->get("tb_invoice ti");
+			$QInvoices = $QInvoices->result();
+			
+			if(sizeOf($QInvoices) <= 0){
+				$this->response->send(array("result"=>0,"message"=>"Anda tidak memiliki daftar nota","messageCode"=>3), true);
+			}else{
+				$Invoices = array();
+				foreach($QInvoices as $QInvoice){
+					$Shop = $this->getShopById($QInvoice->toko_id);
+					
+					$QInvoiceProducts = $this->db
+									->select("tip.*,tp.id as product_id, tp.name as product_name, tpv.id as product_varian_id, tpv.name as product_varian_name")
+									->join("tb_product_varian tpv","tpv.id = tip.product_varian_id")
+									->join("tb_product tp","tp.id = tpv.product_id")
+									->where("tip.invoice_id",$QInvoice->id)
+									->get("tb_invoice_product tip")
+									->result();
+					
+					$InvoiceProducts = array();
+					foreach($QInvoiceProducts as $QInvoiceProduct){
+						$InvoiceProduct = array(
+									"id"=>$QInvoiceProduct->id,
+									"quantity"=>$QInvoiceProduct->quantity,
+									"product_id"=>$QInvoiceProduct->product_id,
+									"product_name"=>$QInvoiceProduct->product_name,
+									"product_varian_id"=>$QInvoiceProduct->product_varian_id,
+									"product_varian_name"=>$QInvoiceProduct->product_varian_name,
+								);
+						
+						array_push($InvoiceProducts,$InvoiceProduct);
+					}
+					
+					$Invoice = array(
+							"id"=>$QInvoice->id,
+							"number"=>$QInvoice->invoice_no,
+							"member_name"=>$QInvoice->member_name,
+							"member_email"=>$QInvoice->member_email,
+							"member_confirm"=>$QInvoice->member_confirm,
+							"price_total"=>$QInvoice->price_total,
+							"price_shipment"=>$QInvoice->price_shipment,
+							"notes"=>$QInvoice->notes,
+							"shipment_no"=>$QInvoice->shipment_no,
+							"shipment_service"=>$QInvoice->shipment_service,
+							"recipient_name"=>$QInvoice->recipient_name,
+							"recipient_phone"=>$QInvoice->recipient_phone,
+							"location_to_province"=>$QInvoice->location_to_province,
+							"location_to_city"=>$QInvoice->location_to_city,
+							"location_to_kecamatan"=>$QInvoice->location_to_kecamatan,
+							"location_to_postal"=>$QInvoice->location_to_postal,
+							"status"=>$QInvoice->status,
+							"shop"=>$Shop,
+							"invoice_products"=>$InvoiceProducts,
+						);
+					
+					array_push($Invoices,$Invoice);
+				}
+				
+				$this->response->send(array(
+						"result"=>0,
+						"total"=>sizeOf($Invoices),
+						"size"=>sizeOf($QInvoices),
+						"notas"=>$Invoices,
+					), true);
+			}
+			
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function doCartProductDelete(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			if($this->response->post("cart_product") == "" || $this->response->postDecode("cart_product") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data cart produk yang dipilih","messageCode"=>3), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Query menghapus data cart product
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$Delete = $this->db->where("id", $this->response->postDecode("cart_product"))->delete("tb_cart_product");
+			
+			if($Delete){
+				$this->response->send(array("result"=>1,"message"=>"Data produk belanja ttelah dihapus","messageCode"=>4), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Data produk belanja tidak dapat dihapus","messageCode"=>5), true);
+			}
+			
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function getShopCouriers(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			if($this->response->post("shop") == "" || $this->response->postDecode("shop") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data toko yang dipilih","messageCode"=>3), true);
+				return;
+			}
+			
+			$QShop = $this->db->where("id",$this->response->postDecode("shop"))->get("tb_toko")->row();
+			if(empty($QShop)){
+				$this->response->send(array("result"=>0,"message"=>"Toko yang anda cari tidak ditemukan","messageCode"=>2), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Query data courier toko
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$QShopCouriers = $this->db
+							->select("mc.*")
+							->join("ms_courier mc","mc.id = ttc.courier_id")
+							->where("ttc.toko_id",$QShop->id)
+							->get("tb_toko_courier ttc")
+							->result();
+			
+			if(sizeOf($QShopCouriers) > 0){
+				$Couriers = array();
+				foreach($QShopCouriers as $QShopCourier){
+					$Courier = array(
+								"id"=>$QShopCourier->id,
+								"name"=>$QShopCourier->name,
+							);
+					array_push($Couriers,$Courier);
+				}
+				
+				$this->response->send(array("result"=>1,"total"=>sizeOf($QShopCouriers),"size"=>sizeOf($QShopCouriers),"couriers"=>$Couriers), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data courier yang di temukan","messageCode"=>5), true);
+			}
+			
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function doCartSave(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			if($this->response->post("cart") == "" || $this->response->postDecode("cart") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data belanja yang dipilih","messageCode"=>3), true);
+				return;
+			}
+			
+			$QCart = $this->db
+				->where("id",$this->response->postDecode("cart"))
+				->where("member_id",$this->response->postDecode("user"))
+				->get("tb_cart")
+				->row();
+				
+			if(empty($QCart)){
+				$this->response->send(array("result"=>0,"message"=>"Keranjang belanja yang anda cari tidak ditemukan","messageCode"=>2), true);
+				return;
+			}
+			
+			if($this->response->post("courier") == "" || $this->response->postDecode("courier") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data kurir yang dipilih","messageCode"=>3), true);
+				return;
+			}
+			
+			$QCourier = $this->db->where("id",$this->response->postDecode("courier"))->get("ms_courier")->row();
+			if(empty($QCourier)){
+				$this->response->send(array("result"=>0,"message"=>"Data kurir tidak ditemukan","messageCode"=>2), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Ambil data alamat tujuan pengiriman
+			*	------------------------------------------------------------------------------
+			*/
+			
+			if($this->response->postDecode("user_location_id") != ""){
+				$QUserLocation = $this->db
+					->select("tml.*, ml.kecamatan as location_kecamatan, ml.city as location_city, ml.province as location_province, ml.postal_code as location_postal")
+					->join("ms_location ml","tml.location_id = ml.id")
+					->where("tml.id",$this->response->postDecode("user_location_id"))
+					->get("tb_member_location tml")
+					->row();
+					
+			}else{
+				$QLocation = $this->db
+						->where("kelurahan",$this->response->postDecode("location_kelurahan"))
+						->where("city",$this->response->postDecode("location_city"))
+						->where("province",$this->response->postDecode("location_province"))
+						->where("postal_code",$this->response->postDecode("location_postal"))
+						->get("ms_location")
+						->row();
+						
+				if(empty($QLocation)){
+					$QLocation = $this->db
+						->where("kelurahan",$this->response->postDecode("location_kelurahan"))
+						->where("city",$this->response->postDecode("location_city"))
+						->where("province",$this->response->postDecode("location_province"))
+						->get("ms_location")
+						->row();
+						
+					$Data = array(
+						"member_id"=>$QUser->id,
+						"location_id"=>$QLocation->id,
+						"name"=>$this->response->postDecode("user_location_name"),
+						"address"=>$this->response->postDecode("user_location_address"),
+						"phone"=>$this->response->postDecode("user_location_phone"),
+						"postal"=>$QLocation->postal_code,
+						"create_date"=>date("Y-m-d H:i:s"),
+						"create_user"=>$QUser->email, 
+						"update_date"=>date("Y-m-d H:i:s"),
+						"update_user"=>$QUser->email,
+					);
+					
+					$Save = $this->db->insert("tb_member_location",$Data);
+					
+					$QUserLocation = $this->db
+						->select("tml.*, ml.kecamatan as location_kecamatan, ml.city as location_city, ml.province as location_province, ml.postal_code as location_postal")
+						->join("ms_location ml","tml.location_id = ml.id")
+						->where("tml.member_id",$QUser->id)
+						->where("tml.location_id",$QLocation->id)
+						->where("tml.name",$this->response->postDecode("user_location_name"))
+						->where("tml.address",$this->response->postDecode("user_location_address"))
+						->where("tml.phone",$this->response->postDecode("user_location_phone"))
+						->where("tml.postal",$QLocation->postal_code)
+						->get("tb_member_location tml")
+						->row();
+				}else{
+					$Data = array(
+						"member_id"=>$QUser->id,
+						"location_id"=>$QLocation->id,
+						"name"=>$this->response->postDecode("user_location_name"),
+						"address"=>$this->response->postDecode("user_location_address"),
+						"phone"=>$this->response->postDecode("user_location_phone"),
+						"postal"=>$this->response->postDecode("location_postal"),
+						"create_date"=>date("Y-m-d H:i:s"),
+						"create_user"=>$QUser->email, 
+						"update_date"=>date("Y-m-d H:i:s"),
+						"update_user"=>$QUser->email,
+					);
+				
+					$Save = $this->db->insert("tb_member_location",$Data);
+					
+					$QUserLocation = $this->db
+						->select("tml.*, ml.kecamatan as location_kecamatan, ml.city as location_city, ml.province as location_province, ml.postal_code as location_postal")
+						->join("ms_location ml","tml.location_id = ml.id")
+						->where("tml.member_id",$QUser->id)
+						->where("tml.location_id",$QLocation->id)
+						->where("tml.name",$this->response->postDecode("user_location_name"))
+						->where("tml.address",$this->response->postDecode("user_location_address"))
+						->where("tml.phone",$this->response->postDecode("user_location_phone"))
+						->where("tml.postal",$this->response->postDecode("location_postal"))
+						->get("tb_member_location tml")
+						->row();
+				}
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Hitung Harga Total, Harga Pengiriman, Harga Unik dari tabel Cart Product
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$invoice_no = "123456789";
+			$price_total = 0;
+			$price_shipment = 0;
+			$price_unique = 0;
+			
+			$QCartProducts = $this->db
+					->select("tcp.*, tpv.id as varian_id, tpv.name as varian_name, tp.id as product_id, tp.name as product_name, tp.description as product_description")
+					->join("tb_product_varian tpv","tcp.product_varian_id = tpv.id")
+					->join("tb_product tp","tpv.product_id = tp.id")
+					->where("tcp.cart_id",$QCart->id)
+					->get("tb_cart_product tcp")
+					->result();
+			
+			foreach($QCartProducts as $QCartProduct){
+				$price_total = $price_total + ($QCartProduct->quantity + $QCartProduct->price_product);
+			}
+			
+			
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Simpan data cart ke invoice
+			*	------------------------------------------------------------------------------
+			*/
+			$Data = array(
+					"toko_id"=>$QCart->toko_id,
+					"member_id"=>$QCart->member_id,
+					"invoice_no"=>$invoice_no,
+					"notes"=>$this->response->postDecode("note"),
+					"member_name"=>$QUser->name,
+					"member_email"=>$QUser->email,
+					"member_confirm"=>0,
+					"status"=>0,
+					"price_total"=>$price_total,
+					"price_shipment"=>$price_shipment,
+					"price_unique"=>$price_unique,
+					"shipment_no"=>$QCourier->id,
+					"shipment_service"=>$QCourier->name,
+					"recipient_name"=>$QUserLocation->name,
+					"recipient_phone"=>$QUserLocation->phone,
+					"location_to_province"=>$QUserLocation->location_province,
+					"location_to_city"=>$QUserLocation->location_city,
+					"location_to_kecamatan"=>$QUserLocation->location_kecamatan,
+					"location_to_postal"=>$QUserLocation->location_postal,
+					"create_date"=>date("Y-m-d H:i:s"),
+					"create_user"=>$QUser->email,
+					"update_date"=>date("Y-m-d H:i:s"),
+					"update_user"=>$QUser->email,
+				);
+				
+			$Save = $this->db->insert("tb_invoice",$Data);
+			
+			if($Save){
+				/*
+				*	------------------------------------------------------------------------------
+				*	Hapus data Cart dan ambil data Toko
+				*	------------------------------------------------------------------------------
+				*/
+				
+				//$this->db->where("id",$QCart->id)->delete("tb_cart");
+				
+				$Shop = $this->getShopById($QCart->toko_id);
+				
+				/*
+				*	------------------------------------------------------------------------------
+				*	Query ambil data Invoice Terbaru
+				*	------------------------------------------------------------------------------
+				*/
+				$QInvoice = $this->db
+						->where("toko_id",$QCart->toko_id)
+						->where("member_id",$QCart->member_id)
+						->where("invoice_no",$invoice_no)
+						->where("notes",$this->response->postDecode("note"))
+						->where("member_name",$QUser->name)
+						->where("member_email",$QUser->email)
+						->where("member_confirm",0)
+						->where("status",0)
+						->where("price_total",$price_total)
+						->where("price_shipment",$price_shipment)
+						->where("price_unique",$price_unique)
+						->where("shipment_no",$QCourier->id)
+						->where("shipment_service",$QCourier->name)
+						->where("recipient_name",$QUserLocation->name)
+						->where("recipient_phone",$QUserLocation->phone)
+						->where("location_to_province",$QUserLocation->location_province)
+						->where("location_to_city",$QUserLocation->location_city)
+						->where("location_to_kecamatan",$QUserLocation->location_kecamatan)
+						->where("location_to_postal",$QUserLocation->location_postal)
+						->get("tb_invoice")
+						->row();
+				
+				/*
+				*	------------------------------------------------------------------------------
+				*	Simpan data cart produk menjadi invoice product
+				*	------------------------------------------------------------------------------
+				*/
+				foreach($QCartProducts as $QCartProduct){
+					$Data = array(
+							"invoice_id"=>$QInvoice->id,
+							"product_varian_id"=>$QCartProduct->product_varian_id,
+							"product_name"=>$QCartProduct->product_name,
+							"product_description"=>$QCartProduct->product_description,
+							"varian_name"=>$QCartProduct->varian_name,
+							"price"=>$QCartProduct->price_product,
+							"quantity"=>$QCartProduct->quantity,
+							"create_date"=>date("Y-m-d H:i:s"),
+							"create_user"=>$QUser->email,
+							"update_date"=>date("Y-m-d H:i:s"),
+							"update_user"=>$QUser->email,
+						);
+					
+					$this->db->insert("tb_invoice_product",$Data);
+				}
+				
+				/*
+				*	------------------------------------------------------------------------------
+				*	Ambil data Nota Product
+				*	------------------------------------------------------------------------------
+				*/
+				
+				$QNotaProducts = $this->db
+							->where("tip.invoice_id",$QInvoice->id)
+							->get("tb_invoice_product tip")
+							->result();
+				
+				$NotaProducts = array();
+				foreach($QNotaProducts as $QNotaProduct){
+					$NotaProduct = array(
+							"id"=>$QNotaProduct->id,
+							"name"=>$QNotaProduct->product_name,
+							"description"=>$QNotaProduct->product_description,
+							"varian"=>$QNotaProduct->varian_name,
+							"price"=>$QNotaProduct->price,
+							"quantity"=>$QNotaProduct->quantity,
+						);
+					
+					array_push($NotaProducts,$NotaProduct);
+				}
+				
+				/*
+				*	------------------------------------------------------------------------------
+				*	Buat object Nota
+				*	------------------------------------------------------------------------------
+				*/
+				$Nota = array(
+						"id"=>$QInvoice->id,
+						"invoice_no"=>$QInvoice->invoice_no,
+						"notes"=>$QInvoice->notes,
+						"member_name"=>$QInvoice->member_name,
+						"member_email"=>$QInvoice->member_email,
+						"member_confirm"=>$QInvoice->member_confirm,
+						"status"=>$QInvoice->status,
+						"price_total"=>$QInvoice->price_total,
+						"price_shipment"=>$QInvoice->price_shipment,
+						"price_unique"=>$QInvoice->price_unique,
+						"shipment_no"=>$QInvoice->shipment_no,
+						"shipment_service"=>$QInvoice->shipment_service,
+						"recipient_name"=>$QInvoice->recipient_name,
+						"recipient_phone"=>$QInvoice->recipient_phone,
+						"location_to_province"=>$QInvoice->location_to_province,
+						"location_to_city"=>$QInvoice->location_to_city,
+						"location_to_kecamatan"=>$QInvoice->location_to_kecamatan,
+						"location_to_postal"=>$QInvoice->location_to_postal,
+						"shop"=>$Shop,
+						"invoice_products"=>$NotaProducts,
+					);
+				
+				$this->response->send(array("result"=>0,"message"=>"Invoice telah disimpan","messageCode"=>5,"invoice"=>$Nota), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Data cart tidak dapat disimpan ke dalam invoice","messageCode"=>5), true);
+			}
+			
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
 }
 

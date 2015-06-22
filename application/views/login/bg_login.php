@@ -37,14 +37,14 @@ echo "
 				<button class='waves-effect waves-light btn light-blue darken-4'><i class='fa fa-facebook-official left'></i>Masuk dengan facebook</button>
 			</div>
 			<p class='or'>Atau akun bonobo</p>
-			<form class='signin z-depth-2'>
+			<form class='signin z-depth-2' action='' method=''>
 				<div class='row'>
 					<div class='input-field col s12'>
-						<input id='email' type='text' class='validate'>
+						<input id='email' type='text' name='uname' class='validate'>
 						<label for='email'>Email</label>
 					</div>
 					<div class='input-field col s12'>
-						<input id='password' type='password' class='validate'>
+						<input id='password' name='passwd' type='text' class='validate'>
 						<label for='password'>Password</label>
 					</div>
 					<div class='input-field col s12'>
