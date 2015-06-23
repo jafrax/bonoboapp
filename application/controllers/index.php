@@ -7,10 +7,8 @@
 * Log Activity : ~ Create your log if you change this controller ~
 * 1. Create 12 Juni 2015 by Heri Siswanto, Create controller
 * 2. Change 22 Juni 2015 by Dinar Wahyu Wibowo, Change Index
-* 3. Change 23 Juni 2015 by Heri Siswanto, Coding Signup, Coding Signin
+* 3. Change 23 Juni 2015 by Heri Siswanto, Coding Signup, Coding Signin, Signup Facebook, Signin Facebook
 */
-
-set_time_limit (99999999999);
 
 class Index extends CI_Controller {
 
@@ -124,14 +122,12 @@ class Index extends CI_Controller {
 		$email          = $fb_profile->email;
         $uid			= $this->fb->getUser();
 		
-		
 		$Save = $this->signup_facebook($fb_profile,$uid);
 		if($Save){
 			$this->signup();
 		}else{
 			$this->signup();
 		}
-		
 	}
 	
 	public function signin_fb(){
