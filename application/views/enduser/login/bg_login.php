@@ -60,7 +60,7 @@ echo "
 							<label id='notifPassword' class='error' style='display:none;'><i class='fa fa-warning'></i> Harus diisi !</label>
 						</div>
 						<div class='input-field col s12'>
-							<a href='#' class='left' >Lupa password ?</a>
+							<a href='#reset_password' class='modal-trigger left' >Lupa password ?</a>
 							<button id='btnSave' type='button' class='waves-effect waves-light btn deep-orange darken-1 right'>Masuk</button>
 						</div>
 					</div>
@@ -78,6 +78,21 @@ echo "
 		</div>
 	</footer>
 	</section>
+
+	<div id='reset_password' class='modal confirmation'>
+		<div class='modal-header deep-orange darken-1'>
+			<i class='mdi-av-not-interested left'></i> Reset password
+		</div>
+		<form class='modal-content'>
+			<div class='input-field col s12'>
+				<input id='repassword' type='password' class='validate'>
+				<label for='repassword'>Reset Password</label>
+			</div>
+		</form>
+		<div class='modal-footer'>
+			<a href='#!' class=' modal-action modal-close waves-effect waves-tiles btn'>RESET PASSWORD</a>
+		</div>
+	</div>
 
 </body>
 </html>

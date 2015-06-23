@@ -97,6 +97,8 @@ function CtrlSignin(){
 		formSigninJQuery = $("#formSignin");
 		notifEmail = $("#notifEmail");
 		notifPassword = $("#notifPassword");
+		
+		$('.modal-trigger').leanModal();
 	}
 	
 	function initEventlistener(){
