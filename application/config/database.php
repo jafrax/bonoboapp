@@ -14,9 +14,9 @@ if($active_online){
 		$db['default']['database'] = 'bonobo_production';
 	}else{
 		$db['default']['hostname'] = 'localhost';
-		$db['default']['username'] = 'bonobo_trial';
+		$db['default']['username'] = 'bonoboxa_trial';
 		$db['default']['password'] = '[@v1510n3@]';
-		$db['default']['database'] = 'bonobo_trial';
+		$db['default']['database'] = 'bonoboxa_trial';
 	}
 }else{
 	$db['default']['hostname'] = '192.168.0.253';
