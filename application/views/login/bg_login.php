@@ -34,7 +34,7 @@ echo "
 		<div class='row col-signin'>
 			<h4 class='titlin'>Masuk ke bonobo</h4>
 			<div class='col s12 col-btn-fb' align='center'>
-				<button class='waves-effect waves-light btn light-blue darken-4'><i class='fa fa-facebook-official left'></i>Masuk dengan facebook</button>
+				<a href='' class='waves-effect waves-light btn light-blue darken-4'><i class='fa fa-facebook-official left'></i>Masuk dengan facebook</a>
 			</div>
 			<p class='or'>Atau akun bonobo</p>
 			<form class='signin z-depth-2' action='' method=''>
@@ -68,6 +68,7 @@ echo "
 </section>
 <script type='text/javascript' src='".base_url()."html/js/jquery-2.1.4.min.js'></script>
 <script type='text/javascript' src='".base_url()."html/js/materialize.min.js'></script>
+<script type='text/javascript' src='".base_url()."assets/js/signin.js'></script>
 </body>
 </html>
 ";
