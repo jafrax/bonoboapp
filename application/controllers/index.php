@@ -28,6 +28,7 @@ class Index extends CI_Controller {
 			redirect('toko/');
 			return;
 		}
+
 	}
 	
 	public function signup(){
