@@ -24,7 +24,7 @@ class Toko extends CI_Controller {
     }
 	
 	public function index(){
-		$this->template->bonobo_step("toko/bg_dashboard");
+		$this->template->bonobo_step("enduser/toko/bg_dashboard");
 	}
 	
 	

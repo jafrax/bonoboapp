@@ -37,7 +37,7 @@ class Index extends CI_Controller {
 				redirect('index/signin');
 			}
 			
-			$this->load->view("login/bg_signup");
+			$this->load->view("enduser/login/bg_signup");
 		}else{
 			$this->form_validation->set_rules('name', '', 'max_length[50]');
 			$this->form_validation->set_rules('email', '', 'required|max_length[50]|valid_email|is_unique[tb_toko.email]');
@@ -87,7 +87,7 @@ class Index extends CI_Controller {
 	
 	public function signin(){
 		if(!$_POST){
-			$this->load->view("login/bg_login");
+			$this->load->view("enduser/login/bg_login");
         }else{
             $this->form_validation->set_rules('email', '', 'required');
             $this->form_validation->set_rules('password', '', 'required');
