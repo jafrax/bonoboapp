@@ -16,6 +16,7 @@ class Index extends CI_Controller {
         parent::__construct();
 		
 		$this->load->model("enduser/model_toko");
+		$this->load->model('Facebook_Model', 'fb');
     }
 	
 	public function index(){
@@ -31,10 +32,6 @@ class Index extends CI_Controller {
 	
 	public function signup(){
 		if(!$_POST){
-			if(empty($_SESSION['bonobo'])){
-				redirect('index/signin');
-			}
-			
 			$this->load->view("enduser/login/bg_signup");
 		}else{
 			$this->form_validation->set_rules('name', '', 'max_length[50]');
@@ -119,6 +116,12 @@ class Index extends CI_Controller {
 	public function signup_fb(){
 		$fb_profile     = $this->fb->userProfile();
         $SignedRequest  = $this->fb->getSignedRequest();
+		
+		if(empty($fb_profile->email)){
+			echo "Respon API facebook tidak valid <a href='".base_url("index/signup")."'>[ Ulangi Signup ]</a>";
+			return;
+		}
+		
 		$email          = $fb_profile->email;
         $uid			= $this->fb->getUser();
 		
@@ -133,6 +136,12 @@ class Index extends CI_Controller {
 	public function signin_fb(){
 		$fb_profile     = $this->fb->userProfile();
         $SignedRequest  = $this->fb->getSignedRequest();
+		
+		if(empty($fb_profile->email)){
+			echo "Respon API facebook tidak valid <a href='".base_url("index/signin")."'>[ Ulangi Login ]</a>";
+			return;
+		}
+		
 		$email          = $fb_profile->email;
         $uid			= $this->fb->getUser();
 		
@@ -171,7 +180,7 @@ class Index extends CI_Controller {
 	}
 	
 	private function signup_facebook($fb_profile,$uid){
-		$QShop  = $this->model_toko->get_by_email($email)->row();
+		$QShop  = $this->model_toko->get_by_email($fb_profile->email)->row();
 		
         if(empty($QShop)){
             if(isset($fb_profile->email)){

@@ -1,4 +1,7 @@
 <?php
+
+$fb_params = array('scope' => 'email,user_birthday,user_location,read_stream', 'redirect_uri' => base_url("index/signin_fb"));
+
 echo "
 <!DOCTYPE html>
 <html>
@@ -39,7 +42,7 @@ echo "
 			<div class='row col-signin'>
 				<h4 class='titlin'>Masuk ke bonobo</h4>
 				<div class='col s12 col-btn-fb' align='center'>
-					<a href='https://www.facebook.com/dialog/oauth?client_id=1058125220883314&redirect_uri=http%3A%2F%2Fbonobo.com%2Findex%2Fsignin_fb&state=734221baac4520653feb862321cd7113&scope=email'>
+					<a href='".$this->facebook->getLoginUrl($fb_params)."'>
 						<button class='waves-effect waves-light btn light-blue darken-4'><i class='fa fa-facebook-official left'></i>Masuk dengan facebook</button>
 					</a>
 				</div>
