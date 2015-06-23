@@ -129,3 +129,6 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
 
 .content-balasan {background: #eceff1 ;overflow: hidden;padding: 20px 0px;border-radius: 10px;}
 .content-balasan textarea{height: 100px;}
+
+.dropdown-content{ margin-top:40px; }
+.dropdown-content li a{ font-size:12px; }

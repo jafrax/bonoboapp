@@ -8,7 +8,7 @@
 . 1. Create 12 Juni 2015 by Heri Siswanto, Create controller
 */
 
-
+set_time_limit (99999999999);
 
 class Api extends CI_Controller {
 

@@ -16,6 +16,21 @@
 
 <style>html{ width:100%; height:100%; }</style>
 
+<div id="reset_password" class="modal confirmation">
+	<div class="modal-header deep-orange darken-1">
+		<i class="mdi-av-not-interested left"></i> Reset password
+	</div>
+	<form class="modal-content">
+		<div class="input-field col s12">
+			<input id="repassword" type="password" class="validate">
+			<label for="repassword">Reset Password</label>
+		</div>
+	</form>
+	<div class="modal-footer">
+		<a href="#!" class=" modal-action modal-close waves-effect waves-tiles btn">RESET PASSWORD</a>
+	</div>
+</div>
+
 </head>
 <body class="bgpic" style="background-image: url(images/data/iphone.jpg);">
 <section class="absolute bgop">
@@ -46,7 +61,7 @@
 						<label for="password">Password</label>
 					</div>
 					<div class="input-field col s12">
-						<a href="" class="left" >Lupa password ?</a>
+						<a href="#reset_password" class="modal-trigger left" >Lupa password ?</a>
 						<!-- <button class="waves-effect waves-light btn deep-orange darken-1 right">Masuk</button> -->
 						<a class="waves-effect waves-light btn deep-orange darken-1 right" href="toko_informasi.html">Masuk</a>
 					</div>
@@ -67,5 +82,8 @@
 </section>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
+<script type="text/javascript" src="js/jpushmenu.js"></script>
+
+<script type="text/javascript" src="js/core.js"></script>
 </body>
 </html>

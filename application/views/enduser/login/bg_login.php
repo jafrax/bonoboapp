@@ -1,4 +1,7 @@
 <?php
+
+$fb_params = array('scope' => 'email,user_birthday,user_location,read_stream', 'redirect_uri' => base_url("index/signin_fb"));
+
 echo "
 <!DOCTYPE html>
 <html>
@@ -39,11 +42,14 @@ echo "
 			<div class='row col-signin'>
 				<h4 class='titlin'>Masuk ke bonobo</h4>
 				<div class='col s12 col-btn-fb' align='center'>
-					<button class='waves-effect waves-light btn light-blue darken-4'><i class='fa fa-facebook-official left'></i>Masuk dengan facebook</button>
+					<a href='".$this->facebook->getLoginUrl($fb_params)."'>
+						<button class='waves-effect waves-light btn light-blue darken-4'><i class='fa fa-facebook-official left'></i>Masuk dengan facebook</button>
+					</a>
 				</div>
 				<p class='or'>Atau akun bonobo</p>
 				<form id='formSignin' class='signin z-depth-2'>
 					<div class='row'>
+						<div id='lblNotif' class='input-field col s12'></div>
 						<div class='input-field col s12'>
 							<input id='email' name='email' type='text' class='validate'>
 							<label for='email'>Email</label>
@@ -55,7 +61,7 @@ echo "
 							<label id='notifPassword' class='error' style='display:none;'><i class='fa fa-warning'></i> Harus diisi !</label>
 						</div>
 						<div class='input-field col s12'>
-							<a href='#' class='left' >Lupa password ?</a>
+							<a href='#reset_password' class='modal-trigger left' >Lupa password ?</a>
 							<button id='btnSave' type='button' class='waves-effect waves-light btn deep-orange darken-1 right'>Masuk</button>
 						</div>
 					</div>
@@ -73,6 +79,21 @@ echo "
 		</div>
 	</footer>
 	</section>
+
+	<div id='reset_password' class='modal confirmation'>
+		<div class='modal-header deep-orange darken-1'>
+			<i class='mdi-av-not-interested left'></i> Reset password
+		</div>
+		<form class='modal-content'>
+			<div class='input-field col s12'>
+				<input id='repassword' type='password' class='validate'>
+				<label for='repassword'>Reset Password</label>
+			</div>
+		</form>
+		<div class='modal-footer'>
+			<a href='#!' class=' modal-action modal-close waves-effect waves-tiles btn'>RESET PASSWORD</a>
+		</div>
+	</div>
 
 </body>
 </html>

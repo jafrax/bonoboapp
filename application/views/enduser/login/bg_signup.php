@@ -1,4 +1,6 @@
 <?php
+$fb_params = array('scope' => 'email,user_birthday,user_location,read_stream', 'redirect_uri' => base_url("index/signup_fb"));
+
 echo"
 <!DOCTYPE html>
 <html>
@@ -40,11 +42,14 @@ echo"
 				<h4 class='titlin'>BONOBO IS A SECURE BUSSINESS PLATFORM</h4>
 				<p class='note'>Bonobo merupakan tempat berjualan online dimana setiap toko yang tergabung didalamnya bersaing secara sehat dan bersahabat.</p>
 				<div class='col s12 col-btn-fb' align='center'>
-					<button class='waves-effect waves-light btn light-blue darken-4'><i class='fa fa-facebook-official left'></i>Masuk dengan facebook</button>
+					<a href='".$this->facebook->getLoginUrl($fb_params)."'>
+						<button class='waves-effect waves-light btn light-blue darken-4'><i class='fa fa-facebook-official left'></i>Masuk dengan facebook</button>
+					</a>
 				</div>
 				<p class='or'>Atau gunakan email</p>
 				<form id='formSignup' class='signin z-depth-2'>
 					<div class='row'>
+						<div id='lblNotif' class='input-field col s12'></div>
 						<div class='input-field col s12'>
 							<input id='name' name='name' type='text' class='validate'>
 							<label for='name'>Nama Toko</label>

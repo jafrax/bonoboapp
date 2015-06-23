@@ -7,16 +7,16 @@ $active_online 			= FALSE;
 $active_production		= FALSE;
 
 if($active_online){
-	if($hosted){
+	if($active_production){
 		$db['default']['hostname'] = 'localhost';
 		$db['default']['username'] = 'bonobo_production';
 		$db['default']['password'] = '[@v1510n3@]';
 		$db['default']['database'] = 'bonobo_production';
 	}else{
 		$db['default']['hostname'] = 'localhost';
-		$db['default']['username'] = 'bonobo_trial';
+		$db['default']['username'] = 'bonoboxa_trial';
 		$db['default']['password'] = '[@v1510n3@]';
-		$db['default']['database'] = 'bonobo_trial';
+		$db['default']['database'] = 'bonoboxa_trial';
 	}
 }else{
 	$db['default']['hostname'] = '192.168.0.253';
