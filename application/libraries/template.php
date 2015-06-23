@@ -4,9 +4,11 @@
 	function bonobo_step($view=null,$data=null){
         $ci =& get_instance();
         $ci->load->model('Facebook_Model', 'fb');
-        $ci->getFbUser = $ci->fb->getUser();
+        
+		$ci->getFbUser = $ci->fb->getUser();
         $ci->data['getFbUser'] = $ci->getFbUser;
         $data['recaptcha'] = $ci->recaptcha->recaptcha_get_html();
+		
         $ci->load->view('template/bg_header', $data);
 		$ci->load->view('template/bg_nav_step', $data);
 		$ci->load->view($view, $data);
@@ -16,10 +18,12 @@
     function bonobo($view=null,$data=null){
         $ci =& get_instance();
         $ci->load->model('Facebook_Model', 'fb');
-        $ci->getFbUser = $ci->fb->getUser();
+        
+		$ci->getFbUser = $ci->fb->getUser();
         $ci->data['getFbUser'] = $ci->getFbUser;
         $data['recaptcha'] = $ci->recaptcha->recaptcha_get_html();
-        $ci->load->view('template/bg_header', $data);        
+        
+		$ci->load->view('template/bg_header', $data);        
         $ci->load->view($view, $data);
         $ci->load->view('template/bg_footer', $data);
     }		
@@ -65,7 +69,8 @@
 	function send_email($to,$subject,$message,$from=null,$nama=null){
         $ci = & get_instance();
         $ci->load->library('email');
-        $config['protocol'] = "smtps";
+        
+		$config['protocol'] = "smtps";
         $config['smtp_host'] = "ssl://smtp.gmail.com";
         $config['smtp_port'] = "465";
         $config['smtp_user'] = "ifarsolo@gmail.com"; 
@@ -75,17 +80,21 @@
         $config['newline'] = "\r\n";
         $config['wordwrap'] = TRUE;
         $ci->email->initialize($config);
-        if($from != null){
+        
+		if($from != null){
             $ci->email->from($from,$nama);
         }else{
             $ci->email->from('no-reply@vertibox.com','no-reply@vertibox.com');
         }
-        $ci->email->to($to);
+        
+		$ci->email->to($to);
         $ci->email->subject($subject);
         $ci->email->message($message);
-        $send = $ci->email->send();
-		if($send){
-			return 'sent';
+        
+		if($ci->email->send()){
+			return true;
+		}else{
+			return false;
 		}
     }
 	

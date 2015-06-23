@@ -37,6 +37,7 @@ $lang["email_password_failed"] = "Oops! email/username or password is not valid"
 $lang["password_failed"] = "Oops! Your password is not valid";
 $lang["renew_password_matches"] = "Oops! your New Password and Retype New Password are not match";
 $lang["account_not_verified"] = "Your account has not been verified, please check your email.";
+$lang["account_not_activated"] = "Your account has not been activated by provider, please contact provider bonobo.com";
 $lang["account_suspended"] = "Oops! Semething goes wrong, your Account is suspended, please email us at contact@vertibox.com for further detail";
 $lang["account_fb_empty"] = "Your facebook account has not been registered";
 $lang["signup_success"] = "Congratulation! Next, you have to check your email to activate your account";
