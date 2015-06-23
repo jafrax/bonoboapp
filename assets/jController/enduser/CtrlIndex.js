@@ -4,7 +4,7 @@ function CtrlSignup(){
 	var btnSave;
 	var formSignup,formSignupJQuery;
 	var notifName,notifEmail,notifPassword,notifRepassword;
-	
+	var lblNotif;
 	
 	function init(){
 		initComponent();
@@ -19,6 +19,7 @@ function CtrlSignup(){
 		notifEmail = $("#notifEmail");
 		notifPassword = $("#notifPassword");
 		notifRepassword = $("#notifRepassword");
+		lblNotif = $("#lblNotif");
 	}
 	
 	function initEventlistener(){
@@ -68,10 +69,14 @@ function CtrlSignup(){
 				success: function(result) {
 					var response = JSON.parse(result);
 					if(response.result == 1){
-						alert(response.message);
+					
 					}else{
-						alert(response.message);
+					
 					}
+					
+					lblNotif.html(response.message);
+					lblNotif.slideDown();
+					lblNotif.delay(5000).slideUp('slow');
 				}
 			});
 		}
@@ -84,8 +89,8 @@ function CtrlSignin(){
 	var btnSave;
 	var formSignin,formSigninJQuery;
 	var notifEmail,notifPassword;
-	
-	
+	var lblNotif;
+		
 	function init(){
 		initComponent();
 		initEventlistener();
@@ -94,9 +99,11 @@ function CtrlSignin(){
 	function initComponent(){
 		btnSave = $hs("btnSave");
 		formSignin = $hs("formSignin");
+		
 		formSigninJQuery = $("#formSignin");
 		notifEmail = $("#notifEmail");
 		notifPassword = $("#notifPassword");
+		lblNotif = $("#lblNotif");
 		
 		$('.modal-trigger').leanModal();
 	}
@@ -132,7 +139,9 @@ function CtrlSignin(){
 					if(response.result == 1){
 						top.location.href = base_url+'index';
 					}else{
-						alert(response.message);
+						lblNotif.html(response.message);
+						lblNotif.slideDown();
+						lblNotif.delay(5000).slideUp('slow');
 					}
 				}
 			});
