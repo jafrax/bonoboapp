@@ -39,7 +39,9 @@ echo "
 			<div class='row col-signin'>
 				<h4 class='titlin'>Masuk ke bonobo</h4>
 				<div class='col s12 col-btn-fb' align='center'>
-					<button class='waves-effect waves-light btn light-blue darken-4'><i class='fa fa-facebook-official left'></i>Masuk dengan facebook</button>
+					<a href='https://www.facebook.com/dialog/oauth?client_id=1058125220883314&redirect_uri=http%3A%2F%2Fbonobo.com%2Findex%2Fsignin_fb&state=734221baac4520653feb862321cd7113&scope=email'>
+						<button class='waves-effect waves-light btn light-blue darken-4'><i class='fa fa-facebook-official left'></i>Masuk dengan facebook</button>
+					</a>
 				</div>
 				<p class='or'>Atau akun bonobo</p>
 				<form id='formSignin' class='signin z-depth-2'>

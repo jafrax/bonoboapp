@@ -118,6 +118,52 @@ class Index extends CI_Controller {
         }
 	}
 	
+	public function signup_fb(){
+		$fb_profile     = $this->fb->userProfile();
+        $SignedRequest  = $this->fb->getSignedRequest();
+		$email          = $fb_profile->email;
+        $uid			= $this->fb->getUser();
+		
+		
+		$Save = $this->signup_facebook($fb_profile,$uid);
+		if($Save){
+			$this->signup();
+		}else{
+			$this->signup();
+		}
+		
+	}
+	
+	public function signin_fb(){
+		$fb_profile     = $this->fb->userProfile();
+        $SignedRequest  = $this->fb->getSignedRequest();
+		$email          = $fb_profile->email;
+        $uid			= $this->fb->getUser();
+		
+		$QShop  = $this->model_toko->get_by_email($email)->row();
+		
+        if(!empty($QShop)){
+			if($QShop->status == 0){
+				$this->response->send(array("result"=>0,"message"=>$this->template->notif("account_not_verified"),"messageCode"=>1));
+			}elseif($QShop->status == 1){
+				$this->response->send(array("result"=>0,"message"=>$this->template->notif("account_not_activated"),"messageCode"=>2));
+			}elseif($QShop->status == 3){
+				$this->response->send(array("result"=>0,"message"=>$this->template->notif("account_suspended"),"messageCode"=>3));
+			}else{
+				$_SESSION['bonobo']['id'] = $QShop->id;
+				$_SESSION['bonobo']['name'] = $QShop->name;
+				$_SESSION['bonobo']['email'] = $QShop->email;
+				$_SESSION['bonobo']['image'] = $QShop->image;				
+				$_SESSION['bonobo']['facebook'] = $QShop->facebook;
+				
+				$this->index();
+			}
+		}else{
+			$this->signup_facebook($fb_profile,$uid);
+			$this->signin_fb();
+		}
+	}
+	
 	public function logout(){
 		$_SESSION['bonobo']['id'] = null;
 		$_SESSION['bonobo']['name'] = null;
@@ -126,6 +172,45 @@ class Index extends CI_Controller {
 		$_SESSION['bonobo']['facebook'] = null;
 		
 		redirect('index/');
+	}
+	
+	private function signup_facebook($fb_profile,$uid){
+		$QShop  = $this->model_toko->get_by_email($email)->row();
+		
+        if(empty($QShop)){
+            if(isset($fb_profile->email)){
+                $email      = $fb_profile->email;
+                $contact    = $fb_profile->name;
+				$profile_pic =  "http://graph.facebook.com/".$uid."/picture?type=large";
+				
+				$img 	= file_get_contents('https://graph.facebook.com/'.$uid.'/picture?type=large');
+				$img2 	= file_get_contents('https://graph.facebook.com/'.$uid.'/picture');
+				
+				$file 	= 'assets/pic/shop/'.$uid.'.jpg';
+				$file2 	= 'assets/pic/shop/resize/'.$uid.'.jpg';
+				
+				file_put_contents($file, $img);
+				file_put_contents($file2, $img2);
+				
+                $Save = $this->db->set('email',$email)
+					->set('name',$contact)
+					->set('image',$uid.'.jpg')
+					->set('facebook',1)
+					->set('status',2)
+					->set('create_date',date('Y-m-d'))
+					->insert('tb_toko');
+					
+				if($Save){
+					return true;
+				}else{
+					return false;
+				}
+            }else{
+				return false;
+			}
+        }else{
+			return false;
+		}
 	}
 	
 }

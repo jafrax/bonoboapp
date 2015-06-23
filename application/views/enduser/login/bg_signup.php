@@ -40,7 +40,9 @@ echo"
 				<h4 class='titlin'>BONOBO IS A SECURE BUSSINESS PLATFORM</h4>
 				<p class='note'>Bonobo merupakan tempat berjualan online dimana setiap toko yang tergabung didalamnya bersaing secara sehat dan bersahabat.</p>
 				<div class='col s12 col-btn-fb' align='center'>
-					<button class='waves-effect waves-light btn light-blue darken-4'><i class='fa fa-facebook-official left'></i>Masuk dengan facebook</button>
+					<a href='https://www.facebook.com/dialog/oauth?client_id=1058125220883314&redirect_uri=http%3A%2F%2Fbonobo.com%2Findex%2Fsignup_fb&state=734221baac4520653feb862321cd7113&scope=email'>
+						<button class='waves-effect waves-light btn light-blue darken-4'><i class='fa fa-facebook-official left'></i>Masuk dengan facebook</button>
+					</a>
 				</div>
 				<p class='or'>Atau gunakan email</p>
 				<form id='formSignup' class='signin z-depth-2'>
