@@ -36,12 +36,13 @@ echo"
 					<text>James Rodriguez</text>
 				</div>
 			</li>
-			<li><a href='toko_informasi.html'>Toko</a></li>
-			<li><a href='anggota.html'>Anggota</a></li>
-			<li><a href='produk_ready_stock.html'>Produk</a></li>
-			<li><a href='nota.html'>Nota</a></li>
-			<li><a href='lihat_pesan.html'>Pesan</a></li>
-			<li><a href='pesanan_pre_order.html'>Pre Order</a></li>
+			<li><a href='#'>Toko</a></li>
+			<li><a href='#'>Anggota</a></li>
+			<li><a href='#'>Produk</a></li>
+			<li><a href='#'>Nota</a></li>
+			<li><a href='#'>Pesan</a></li>
+			<li><a href='#'>Pre Order</a></li>
+			<li><a href='".base_url("index/logout")."'>Logout</a></li>
 		</ul>
 	</nav>
 
@@ -51,7 +52,11 @@ echo"
 				<ul class='col s1 navmob toggle-menu menu-left push-body jPushMenuBtn'>
 					<li><a href='#'><i class='fa fa-align-justify'></i></a></li>
 				</ul>
-				<div class='col s6 m4 l2'><img class='responsive-img logo' src='".base_url()."html/images/comp/logo_shadow.png' /></div>
+				<div class='col s6 m4 l2'>
+					<a href='".base_url("/")."'>
+						<img class='responsive-img logo' src='".base_url()."html/images/comp/logo_shadow.png' />
+					</a>
+				</div>
 				<div class='col s6 m8 l10'>
 					<a href='".base_url("index/logout")."'>
 						<div class='usermain right'>
@@ -65,12 +70,12 @@ echo"
 		<nav class='nav grey darken-2'>
 			<div class='containermain'>
 				<ul class='navmenu'>
-					<li><a href='toko_informasi.html'>Toko</a></li>
-					<li><a href='anggota.html'>Anggota</a></li>
-					<li><a href='produk_ready_stock.html'>Produk</a></li>
-					<li><a href='nota.html'>Nota</a></li>
-					<li><a href='lihat_pesan.html'>Pesan</a></li>
-					<li><a href='pesanan_pre_order.html'>Pre Order</a></li>
+					<li><a href='#'>Toko</a></li>
+					<li><a href='#'>Anggota</a></li>
+					<li><a href='#'>Produk</a></li>
+					<li><a href='#'>Nota</a></li>
+					<li><a href='#'>Pesan</a></li>
+					<li><a href='#'>Pre Order</a></li>
 				</ul>
 			</div>
 		</nav>
