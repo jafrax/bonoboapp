@@ -38,16 +38,16 @@ class Index extends CI_Controller {
 					}elseif($row->status == 2){
 						echo $this->template->notif("account_suspended");;
 					}else{
-						$_SESSION['vertibox']['id']				= $row->id;
-						$_SESSION['vertibox']['company_id']		= $row->company_id;
-						$_SESSION['vertibox']['company_name']	= $row->company;
-						$_SESSION['vertibox']['hastag']			= $row->hastag;
-						$_SESSION['vertibox']['username']		= $row->email;
-						$_SESSION['vertibox']['email']			= $row->email;
-						$_SESSION['vertibox']['name']			= $row->fullname;
-						$_SESSION['vertibox']['image']			= $row->image;				
-						$_SESSION['vertibox']['fb']				= $row->facebook;
-						$_SESSION['vertibox']['facebook']		= 0;
+						$_SESSION['bonobo']['id']				= $row->id;
+						$_SESSION['bonobo']['company_id']		= $row->company_id;
+						$_SESSION['bonobo']['company_name']	= $row->company;
+						$_SESSION['bonobo']['hastag']			= $row->hastag;
+						$_SESSION['bonobo']['username']		= $row->email;
+						$_SESSION['bonobo']['email']			= $row->email;
+						$_SESSION['bonobo']['name']			= $row->fullname;
+						$_SESSION['bonobo']['image']			= $row->image;				
+						$_SESSION['bonobo']['fb']				= $row->facebook;
+						$_SESSION['bonobo']['facebook']		= 0;
 						echo 'sukses';
 					}
 				}

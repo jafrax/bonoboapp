@@ -49,8 +49,7 @@ echo "
 					</div>
 					<div class='input-field col s12'>
 						<a href='' class='left' >Lupa password ?</a>
-						<!-- <button class='waves-effect waves-light btn deep-orange darken-1 right'>Masuk</button> -->
-						<a class='waves-effect waves-light btn deep-orange darken-1 right' href='toko_informasi.html'>Masuk</a>
+						<button type='button' class='waves-effect waves-light btn deep-orange darken-1 right' >Masuk</button>
 					</div>
 				</div>
 			</form>
