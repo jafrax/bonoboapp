@@ -9,10 +9,10 @@
         $ci->data['getFbUser'] = $ci->getFbUser;
         $data['recaptcha'] = $ci->recaptcha->recaptcha_get_html();
 		
-        $ci->load->view('template/bg_header', $data);
-		$ci->load->view('template/bg_nav_step', $data);
+        $ci->load->view('enduser/template/bg_header', $data);
+		$ci->load->view('enduser/template/bg_nav_step', $data);
 		$ci->load->view($view, $data);
-		$ci->load->view('template/bg_footer', $data);
+		$ci->load->view('enduser/template/bg_footer', $data);
 	}
 
     function bonobo($view=null,$data=null){
@@ -23,9 +23,9 @@
         $ci->data['getFbUser'] = $ci->getFbUser;
         $data['recaptcha'] = $ci->recaptcha->recaptcha_get_html();
         
-		$ci->load->view('template/bg_header', $data);        
+		$ci->load->view('enduser/template/bg_header', $data);        
         $ci->load->view($view, $data);
-        $ci->load->view('template/bg_footer', $data);
+        $ci->load->view('enduser/template/bg_footer', $data);
     }		
 	# END TEMPLATE #
 	    
