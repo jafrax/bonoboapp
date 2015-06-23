@@ -16,6 +16,74 @@
 <link type="text/css" rel="stylesheet" href="css/comp.css" />
 
 </head>
+
+<div id="jasa_pengiriman" class="modal">
+	<div class="modal-header red">
+		<i class="material-icons dp48 left"></i> Tambah pengiriman
+	</div>
+	<form class="modal-content">
+		<div class="row formbody">
+			<div class="col m12">
+				<div class="input-field col s12 m4">							
+					Provinsi								
+				</div>
+				<div class="input-field col s12 m8">
+					<p>
+						<select>
+							<option value="" disabled selected>Choose your option</option>
+							<option value="1">Option 1</option>
+							<option value="2">Option 2</option>
+							<option value="3">Option 3</option>
+						</select>
+					</p>
+				</div>
+				<div class="input-field col s12 m4">							
+					Kota								
+				</div>
+				<div class="input-field col s12 m8">
+					<p>
+						<select>
+							<option value="" disabled selected>Choose your option</option>
+							<option value="1">Option 1</option>
+							<option value="2">Option 2</option>
+							<option value="3">Option 3</option>
+						</select>
+					</p>
+				</div>
+				<div class="input-field col s12 m4">							
+					Kecamatan								
+				</div>
+				<div class="input-field col s12 m8">
+					<p>
+						<select>
+							<option value="" disabled selected>Choose your option</option>
+							<option value="1">Option 1</option>
+							<option value="2">Option 2</option>
+							<option value="3">Option 3</option>
+						</select>									
+					</p>
+				</div>
+				<div class="input-field col s12 m4">							
+					Ongkos Kirim								
+				</div>
+				<div class="input-field col s12 m8">
+					<p>
+						<input id="nama" type="text" class="validate">										
+					</p>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="modal-footer">
+		<button class="btn waves-effect waves-light" type="submit" name="action">Simpan
+		    <i class="mdi-content-save left"></i>
+		</button>
+		<button class="modal-action modal-close btn waves-effect waves-light red" type="submit" name="action">
+		    <i class="mdi-navigation-cancel left"></i> Batal
+		</button>
+	</div>
+</div>
+
 <body class="cbp-spmenu-push cbp-spmenu-push-toleft">
 <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left cbp-spmenu-open">
 	<ul class="col s12 navmob mobleft">
@@ -116,7 +184,7 @@
 								<label for="nama">Nama Jasa</label>
 							</div>
 							<div class="input-field col s12 m12">
-								<button class="waves-effect waves-light btn deep-orange darken-1 right">TAMBAH BARU</button>
+								<a href="#jasa_pengiriman" class="modal-trigger waves-effect waves-light btn deep-orange darken-1 right">TAMBAH BARU</a>
 							</div>	
 							<div class="input-field col s12 m12">
 								<table class="responsive-table">
