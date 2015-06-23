@@ -31,29 +31,23 @@
 			</select>
 			<label for="metode"></label>
 		</p>
+		<form class="modal-content">
+			<p>No. Transaksi : <span class="blue-text">#13232-123</span></p>
+			<p>Tanggal Konfirmasi : <span class="blue-text">18 Juni 2015</span></p>
+			<p>Jumlah yang di transfer : <span class="blue-text">Rp. 1.800.000,00</span></p>
+			<p>
+				<select id="metode">
+					<option value="" disabled selected>Pilih Rekening Tujuan</option>
+					<option value="1">Option 1</option>
+					<option value="2">Option 2</option>
+					<option value="3">Option 3</option>
+				</select>
+				<label for="metode">Pilih Rekening Tujuan</label>
+			</p>
+		</form>
 	</form>
 	<div class="modal-footer">
-		<a href="#konfirmasi" class="modal-trigger modal-action modal-close waves-effect waves-red btn-flat">Konfirmasi</a>
-		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Batal</a>		
-	</div>
-</div>
-<div id="konfirmasi" class="modal confirmation">
-	<form class="modal-content">
-		<p>No. Transaksi : <span class="blue-text">#13232-123</span></p>
-		<p>Tanggal Konfirmasi : <span class="blue-text">18 Juni 2015</span></p>
-		<p>Jumlah yang di transfer : <span class="blue-text">Rp. 1.800.000,00</span></p>
-		<p>
-			<select id="metode">
-				<option value="" disabled selected>Pilih Rekening Tujuan</option>
-				<option value="1">Option 1</option>
-				<option value="2">Option 2</option>
-				<option value="3">Option 3</option>
-			</select>
-			<label for="metode">Pilih Rekening Tujuan</label>
-		</p>
-	</form>
-	<div class="modal-footer">
-		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Konfirmasi</a>
+		<a href="#" class="waves-effect waves-red btn-flat">Konfirmasi</a>
 		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Batal</a>		
 	</div>
 </div>
@@ -157,7 +151,7 @@
 				<li><a href="produk_ready_stock.html">Produk</a></li>
 				<li><a href="nota.html">Nota</a></li>
 				<li><a href="lihat_pesan.html">Pesan<span class="badge red">4</span></a></li>
-		<li><a href="pesanan_pre_order.html">Pre Order</a></li>
+				<li><a href="pesanan_pre_order.html">Pre Order</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -168,46 +162,40 @@
 			<div class="row contentsebenarya">
 				<div class="col s12 m12 l12">
 					<div class="formain">
-
-
-						<div class="row formbody">
-							<div class="col s12 m6">
-								<div class="input-field col s12 m8 ">
-									<i class="mdi-action-search prefix"></i>
-							        <input id="icon_prefix" type="text" class="validate">
-							        <label for="icon_prefix">Cari</label>
-								</div>								
-							</div>
-							<div class="col s12 m6">
-								<div class="input-field col s12 m3 right">
-									<select>										
-										<option value="1">Paling Baru</option>
-										<option value="2">Paling Lama</option>										
-									</select>									
-								</div>
-								<div class="input-field col s12 m3 right">
-									<select>										
-										<option value="1">Belum Selesai</option>
-										<option value="2">Selesai</option>
-										<option value="3">Semua</option>
-									</select>									
-								</div>
-								<a class="waves-effect orange-text right "><i class="mdi-content-flag col s6 m1 small"></i></a>
-								<a class="waves-effect orange-text right "><i class="mdi-action-star-rate col s6 m1 small"></i></a>
-							</div>
-
+						<div class="formhead">
+							<h2 class="titmain"><b>NOTA PEMBELIAN</b></h2>
 						</div>
-
 						<div class="row formbody">
-							<div class="linehead"><i class="fa fa-minus-square-o"></i></div>
-
-							<!-- nota -->
-							<div class="col s12 m6">								
-      							<div class="input-field col s6 m4">
+							<div class="col s12 listline">
+								<div class="input-field col s12 m12 l6 nolpad">
+									<i class="mdi-action-search prefix"></i>
+									<input id="nama" type="text" class="validate">
+									<label for="nama">Cari</label>
+								</div>
+								<div class="input-field col s12 m12 l6 nolpad">
+									<div class="input-field col s12 m3 right">
+										<select >										
+											<option value="1">Paling Baru</option>
+											<option value="2">Paling Lama</option>										
+										</select>									
+									</div>
+									<div class="input-field col s12 m3 right">
+										<select>										
+											<option value="1">Belum Selesai</option>
+											<option value="2">Selesai</option>
+											<option value="3">Semua</option>
+										</select>									
+									</div>
+									<a class="waves-effect orange-text right "><i class="mdi-content-flag col s6 m1 small"></i></a>
+									<a class="waves-effect orange-text right "><i class="mdi-action-star-rate col s6 m1 small"></i></a>
+								</div>
+							</div>
+							<div class="col s12 listline">								
+      							<div class="input-field col s6 m2">
 									<input type="checkbox" class="filled-in" id="pilih-semua"  />
       								<label for="pilih-semua">Pilih semua</label>									
 								</div>
-								<div class="input-field col s6 m4">
+								<div class="input-field col s6 m3">
 									<select>										
 										<option value="">Pilih Tindakan</option>
 										<option value="1">Selesai</option>
@@ -216,8 +204,6 @@
 								<div class="input-field col s12 m4">
 									<button class="btn-flat waves-effect blue-grey darken-1 white-text waves-light" type="button" name="action">Lakukan</button>
 								</div>								
-							</div>
-							<div class="col s12 m6">								
 							</div>
 						</div>
 
@@ -249,9 +235,9 @@
 												<h5 class="red-text right">Belum Lunas</h5>
 											</div>
 											<p class="col s12 m12">
-												<a class="waves-effect red-text waves-blue right "><i class="mdi-action-delete small"></i></a>
-												<a class="waves-effect red-text waves-blue right "><i class="mdi-content-mail small"></i></a>
-												<a class="waves-effect red-text waves-blue right "><i class="mdi-action-print small"></i></a>
+												<a class="waves-effect red-text waves-blue right "><i class="mdi-action-delete col s1 small"></i></a>
+												<a class="waves-effect red-text waves-blue right "><i class="mdi-content-mail col s1 small"></i></a>
+												<a class="waves-effect red-text waves-blue right "><i class="mdi-action-print col s1 small"></i></a>
 											</p>											
 							            </div>
 						          	</div>
@@ -328,9 +314,9 @@
 												<h5 class="green-text right">Lunas</h5>
 											</div>
 											<p class="col s12 m12">
-												<a class="waves-effect red-text waves-blue right "><i class="mdi-action-delete small"></i></a>
-												<a class="waves-effect red-text waves-blue right "><i class="mdi-content-mail small"></i></a>
-												<a class="waves-effect red-text waves-blue right "><i class="mdi-action-print small"></i></a>
+												<a class="waves-effect red-text waves-blue right "><i class="mdi-action-delete col s1 small"></i></a>
+												<a class="waves-effect red-text waves-blue right "><i class="mdi-content-mail col s1 small"></i></a>
+												<a class="waves-effect red-text waves-blue right "><i class="mdi-action-print col s1 small"></i></a>
 											</p>											
 							            </div>
 						          	</div>

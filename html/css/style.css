@@ -126,6 +126,8 @@ header,section,content,footer{ width:100%; }
 .formbody li.listanggodaf .userangoota{ font-size:14px; }
 .formbody li.listanggodaf .titleproduct{ font-size:16px; margin:0 0 8px 0; }
 
+.formbody .listline{ margin:0 0 8px 0; padding:5px 0; box-shadow: 0 1px 0 0 #efefef!important; }
+
 .navthum{ width: 12%!important; float: right!important; }
 .navthum li{ float:right; height: 40px; }
 .navthum li i{ font-size:42px; color:#ddd; }
