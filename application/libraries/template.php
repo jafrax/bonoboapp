@@ -53,13 +53,17 @@
 		$config['base_url'] = base_url($url);
 		$config['total_rows'] = $pg->num_rows();
 		$config['per_page']=$limit;
-		$config['full_tag_open']='<div id="pagination">';
-		$config['full_tag_close']='</div>';
 		$config['uri_segment']=$uri;
-		$config['first_link']='First';
-		$config['last_link']='Last';
-		$config['next_link']='>>';
-		$config['prev_link']='<<';
+		$config['full_tag_open']="<ul class='pagination'>";
+		$config['full_tag_close']='</ul>';
+		$config['num_tag_open'] = "<li class='waves-effect'>";
+		$config['num_tag_close'] = "</li>";
+		$config['cur_tag_open'] = "<li class='active'>";
+		$config['cur_tag_lose'] = "</li>";
+		$config['first_link']="<li class='waves-effect'>First</li>";
+		$config['last_link']="<li class='waves-effect'>Last</li>";
+		$config['next_link']="<li class='waves-effect'><i class='mdi-navigation-chevron-right'></i></li>";
+		$config['prev_link']="<li class='waves-effect'><i class='mdi-navigation-chevron-left'></i></li>";
 		
 		$ci->pagination->initialize($config);
 		return $ci->pagination->create_links();

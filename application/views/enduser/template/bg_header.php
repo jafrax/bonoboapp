@@ -28,6 +28,7 @@ echo"
 	<script type='text/javascript' src='".base_url("assets/jLib/jQuery/additional-methods.js")."'></script>
 	<script type='text/javascript' src='".base_url("assets/jLib/jQuery/jquery.validate.js")."'></script>
 	<script type='text/javascript' src='".base_url("assets/jController/CtrlSystem.js")."'></script>
+	<script type='text/javascript' src='".base_url("assets/jController/enduser/CtrlAnggota.js")."'></script>
 </head>
 
 <body class='cbp-spmenu-push cbp-spmenu-push-toleft'>
@@ -39,8 +40,8 @@ echo"
 					<text>James Rodriguez</text>
 				</div>
 			</li>
-			<li><a href='#'>Toko</a></li>
-			<li><a href='#'>Anggota</a></li>
+			<li><a href='".base_url()."'>Toko</a></li>
+			<li><a href='".base_url("anggota")."'>Anggota</a></li>
 			<li><a href='#'>Produk</a></li>
 			<li><a href='#'>Nota</a></li>
 			<li><a href='#'>Pesan</a></li>
@@ -73,8 +74,8 @@ echo"
 		<nav class='nav grey darken-2'>
 			<div class='containermain'>
 				<ul class='navmenu'>
-					<li><a href='#'>Toko</a></li>
-					<li><a href='#'>Anggota</a></li>
+					<li><a href='".base_url()."'>Toko</a></li>
+					<li><a href='".base_url("anggota")."'>Anggota</a></li>
 					<li><a href='#'>Produk</a></li>
 					<li><a href='#'>Nota</a></li>
 					<li><a href='#'>Pesan</a></li>
