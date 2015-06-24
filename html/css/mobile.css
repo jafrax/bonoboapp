@@ -28,6 +28,7 @@
 
 	/*COMPONENT*/
 	.bgpic{ width:100%; height:auto; background-color: #762e32; }
+	.img-product{ height:140px!important; }
 }
 
 @media (max-width: 481px) {
@@ -53,6 +54,7 @@
 	.notacard{ padding:8px; }
 
 	.center-mobile {text-align: center;float: none;}	
+
 }
 
 
