@@ -56,7 +56,7 @@ class Anggota extends CI_Controller {
 		$data['pagination'] = $this->template->paging1($objects,$uri,$url,$limit);
 		$data["joinins"] = $this->model_joinin->get_limit_by_shop($_SESSION['bonobo']['id'],$this->limit,$offset)->result();
 		
-		$this->template->bonobo("enduser/anggota/bg_joinin",$data);
+		$this->template->bonobo("anggota/bg_joinin",$data);
 	}
 	
 	public function invite(){
@@ -111,21 +111,21 @@ class Anggota extends CI_Controller {
 			}
 		}
 		
-		$this->template->bonobo("enduser/anggota/bg_invite",$data);
+		$this->template->bonobo("anggota/bg_invite",$data);
 	}
 	
 	public function members(){
 		$data["shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 		$data["countNewMember"] = $this->countNewMember();
 		
-		$this->template->bonobo("enduser/anggota/bg_members",$data);
+		$this->template->bonobo("anggota/bg_members",$data);
 	}
 	
 	public function blacklist(){
 		$data["shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 		$data["countNewMember"] = $this->countNewMember();
 		
-		$this->template->bonobo("enduser/anggota/bg_blacklist",$data);
+		$this->template->bonobo("anggota/bg_blacklist",$data);
 	}
 	
 	public function doJoininDelete(){
