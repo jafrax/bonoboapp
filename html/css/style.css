@@ -147,6 +147,7 @@ header,section,content,footer{ width:100%; }
 .line{ margin:10px 0 5px 0; width:100%; border-bottom: 1px solid #eee; overflow: hidden; }
 .linehead{ font-weight:bold; float:left; padding:10px 0; width:100%; border-bottom: 1px solid #efefef; font-size:15px; margin:8px 0 18px 0; }
 .linehead .fa{ margin-right:5px; }
+.linehead .labelisasi{ padding:0 18px 0 0 ; }
 
 .formdetilpup { border-bottom:1px solid #efefef; }
 .formdetilpup p b{ padding:0 5px 0 0; }
