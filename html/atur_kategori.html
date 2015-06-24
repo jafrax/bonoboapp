@@ -17,38 +17,52 @@
 
 </head>
 
-<div id="delete_produk" class="modal confirmation">
+<div id="delete_kategori" class="modal confirmation">
 	<div class="modal-header red">
 		<i class="mdi-navigation-close left"></i> Hapus produk
 	</div>
 	<form class="modal-content">
-		<p>Apakah anda yakin ingin menghapus <b>"nama produk"</b> ?</p>
+		<p>Apakah anda yakin ingin menghapus <b>"kategori produk"</b> ?</p>
 	</form>
 	<div class="modal-footer">
-		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">TIDAK</a>
 		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">YA</a>
+		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">TIDAK</a>
 	</div>
 </div>
 
-<div id="setting_harga" class="modal confirmation">
+<div id="edit_kategori" class="modal confirmation">
 	<div class="modal-header deep-orange">
-		<i class="mdi-action-spellcheck left"></i> Setting harga
+		<i class="mdi-action-spellcheck left"></i> Edit kategori
 	</div>
 	<form class="modal-content">
 		<p>
 			<div class="input-field col s12">
-				<select>
-					<option value="" disabled selected>Choose your option</option>
-					<option value="1">Option 1</option>
-					<option value="2">Option 2</option>
-					<option value="3">Option 3</option>
-				</select>
+				<input id="nama" type="text" class="validate">
+				<label for="nama">Kategori</label>
 			</div>
 	    </p>
 	</form>
 	<div class="modal-footer">
-		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">TIDAK</a>
 		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">YA</a>
+		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">TIDAK</a>
+	</div>
+</div>
+
+<div id="tambah_kategori" class="modal confirmation">
+	<div class="modal-header deep-orange">
+		<i class="mdi-action-spellcheck left"></i> Tambah kategori
+	</div>
+	<form class="modal-content">
+		<p>
+			<div class="input-field col s12">
+				<input id="nama" type="text" class="validate">
+				<label for="nama">Kategori</label>
+			</div>
+	    </p>
+	</form>
+	<div class="modal-footer">
+		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">YA</a>
+		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">TIDAK</a>
 	</div>
 </div>
 
@@ -129,21 +143,21 @@
 						</div>
 						<ul class="row formbody">
 							<li class="col s12 listanggodaf">
-								<div class="input-field col s10 m8">
+								<div class="input-field col s12 m2 l2 left">
+									<button href="#tambah_kategori" class="modal-trigger waves-effect waves-light btn deep-orange darken-1 right">TAMBAH</button>
+								</div>
+								<div class="input-field col s10 m8 right">
 									<i class="mdi-action-search prefix"></i>
 									<input id="nama" type="text" class="validate">
 									<label for="nama">Cari kategori</label>
-								</div>
-								<div class="input-field col s12 m2 l2 right">
-									<button class="waves-effect waves-light btn deep-orange darken-1 right">TAMBAH</button>
 								</div>
 							</li>
 							<li class="col s12 listanggonew">
 								<div class="col s12 m8"><p><b>Kategori 1</b> <i>25 Produk</i></p>
 								</div>
 								<div class="col s12 m4">
-									<a class="waves-effect btn-flat right"><b class="text-red"><i class="mdi-av-not-interested left"></i>Hapus</b></a>
-									<a class="waves-effect btn-flat right"><b class="blue-text"><i class="mdi-editor-border-color left"></i>Edit</b></a>
+									<a href="#delete_kategori" class="modal-trigger waves-effect btn-flat right"><b class="text-red"><i class="mdi-av-not-interested left"></i>Hapus</b></a>
+									<a href="#edit_kategori" class="modal-trigger waves-effect btn-flat right"><b class="blue-text"><i class="mdi-editor-border-color left"></i>Edit</b></a>
 								</div>
 							</li>
 							<li class="col s12 listanggonew">

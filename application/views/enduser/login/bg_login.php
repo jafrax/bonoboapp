@@ -49,7 +49,7 @@ echo "
 				<p class='or'>Atau akun bonobo</p>
 				<form id='formSignin' class='signin z-depth-2'>
 					<div class='row'>
-						<div id='lblNotif' class='input-field col s12'></div>
+						<div id='lblNotif' class='notif-error'></div>
 						<div class='input-field col s12'>
 							<input id='email' name='email' type='text' class='validate'>
 							<label for='email'>Email</label>
