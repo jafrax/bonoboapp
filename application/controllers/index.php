@@ -218,5 +218,37 @@ class Index extends CI_Controller {
 		}
 	}
 	
+	function doForgotPassword(){
+		if($this->response->post("email") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Email harus diisi !","messageCode"=>1));
+			return;
+		}
+		
+		$QShop = $this->model_toko->get_by_email($this->response->post("email"))->row();
+		if(!empty($QShop)){
+			$NewPassword = $this->template->rand(6);
+			$Data = array(
+						"password"=>md5($NewPassword)
+					);
+			
+			$Save = $this->db->where("id",$QShop->id)->update("tb_toko",$Data);
+			if($Save){
+				$message ="Hi ".$QShop->name.", this is your new password in Bonobo.com<br>
+						Email : ".$QShop->email."<br>
+						Password : ".$NewPassword."<br><br>
+						Thanks, Bonobo.com
+					";
+					
+				$this->template->send_email($QShop->email,'New Password Account Bonobo', $message);
+				
+				$this->response->send(array("result"=>1,"message"=>"Password anda telah diatur ulang, silahkan lihat pesan kami di email anda!","messageCode"=>1));
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Password anda gagal diatur ulang !","messageCode"=>1));
+			}
+		}else{
+			$this->response->send(array("result"=>0,"message"=>"Email yang anda masukkan tidak terdaftar !","messageCode"=>1));
+		}
+	}
+	
 }
 

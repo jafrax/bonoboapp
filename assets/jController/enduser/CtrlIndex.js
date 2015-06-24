@@ -90,6 +90,7 @@ function CtrlSignin(){
 	var formSignin,formSigninJQuery;
 	var notifEmail,notifPassword;
 	var lblNotif;
+	var txtForgotEmail, aForgotSubmit, notifForgotPassword;
 		
 	function init(){
 		initComponent();
@@ -105,12 +106,20 @@ function CtrlSignin(){
 		notifPassword = $("#notifPassword");
 		lblNotif = $("#lblNotif");
 		
+		txtForgotEmail = $hs("txtForgotEmail");
+		aForgotSubmit = $hs("aForgotSubmit");
+		notifForgotPassword = $("#notifForgotPassword");
+		
 		$('.modal-trigger').leanModal();
 	}
 	
 	function initEventlistener(){
 		btnSave.onclick = function(){
 			doSave();
+		};
+		
+		aForgotSubmit.onclick = function(){
+			doForgotPassword();
 		};
 	}
 	
@@ -146,5 +155,33 @@ function CtrlSignin(){
 				}
 			});
 		}
+	}
+	
+	function doForgotPassword(){
+		if(txtForgotEmail.value == ""){
+			notifForgotPassword.html("<i class='fa fa-warning'></i> Email harus diisi !");
+			notifForgotPassword.slideDown();
+			notifForgotPassword.delay(5000).slideUp('slow');
+			return;
+		}
+		
+		$.ajax({
+			type: 'POST',
+			data: "email="+txtForgotEmail.value,
+			url: base_url+'index/doForgotPassword',
+			success: function(result) {
+				var response = JSON.parse(result);
+				if(response.result == 1){
+					txtForgotEmail.value = "";
+					notifForgotPassword.html("<div style='color:blue;'>"+response.message+"</div>");
+					notifForgotPassword.slideDown();
+					notifForgotPassword.delay(5000).slideUp('slow');
+				}else{
+					notifForgotPassword.html("<i class='fa fa-warning'></i> "+response.message);
+					notifForgotPassword.slideDown();
+					notifForgotPassword.delay(5000).slideUp('slow');
+				}
+			}
+		});
 	}
 }
