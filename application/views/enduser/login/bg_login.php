@@ -86,12 +86,13 @@ echo "
 		</div>
 		<form class='modal-content'>
 			<div class='input-field col s12'>
-				<input id='repassword' type='password' class='validate'>
-				<label for='repassword'>Reset Password</label>
+				<input id='txtForgotEmail' type='text' class='validate'>
+				<label for='txtForgotEmail'>Reset Password</label>
 			</div>
+			<label id='notifForgotPassword' style='display:none;'></label>
 		</form>
 		<div class='modal-footer'>
-			<a href='#!' class=' modal-action modal-close waves-effect waves-tiles btn'>RESET PASSWORD</a>
+			<a href='javascript:void(0);' id='aForgotSubmit' class=' modal-action waves-effect waves-tiles btn'>RESET PASSWORD</a>
 		</div>
 	</div>
 
