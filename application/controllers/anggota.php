@@ -119,7 +119,7 @@ class Anggota extends CI_Controller {
 		$data["shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 		$data["countNewMember"] = $this->countNewMember();
 		
-		$data["members"] = $this->model_toko_member->get_members_by_shop($data["shop"]->id)->result();
+		$data["Members"] = $this->model_toko_member->get_members_by_shop($data["shop"]->id)->result();
 		
 		$this->template->bonobo("anggota/bg_members",$data);
 	}

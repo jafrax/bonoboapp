@@ -14,10 +14,11 @@ echo"
 	<div class='col s12 m12 l9'>
 		<div class='formain'>
 			<div class='formhead'>
-				<h2 class='titmain'><b>DAFTAR ANGGOTA</b> <span>( 25 Anggota )</span></h2>
+				<h2 class='titmain'><b>DAFTAR ANGGOTA</b> <span>( ".sizeOf($Members)." Anggota )</span></h2>
 				<p>Halaman ini menampilkan pembeli yang telah menjadi anggota !</p>
 			</div>
 			<ul class='row formbody'>
+			
 				<li class='col s12 listanggodaf'>
 					<div class='input-field col s12 m8'>
 						<i class='mdi-action-search prefix'></i>
@@ -25,76 +26,25 @@ echo"
 						<label for='nama'>Cari anggota</label>
 					</div>
 				</li>
-				<li class='col s12 m6 l4 listanggodaf'>
-					<div class='col s12 m5 l4'>
-						<img src='images/comp/male.png' class='responsive-img userimg'>
-					</div>
-					<div class='col s12 m7 l8'>
-						<p><a href='#detail_anggota' class='modal-trigger' href=''><b class='userangoota'>Yegar sahaduta</b></a></p>
-						</p><a href='#setting_harga' class='modal-trigger' ><b>Level : Grosir</b></a></p>
-						<a href='#delete_anggota' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
-					</div>
-				</li>
-				<li class='col s12 m6 l4 listanggodaf'>
-					<div class='col s12 m5 l4'>
-						<img src='images/comp/female.png' class='responsive-img userimg'>
-					</div>
-					<div class='col s12 m7 l8'>
-						<p><a href=''><b class='userangoota'>Dian sastro w</b></a></p>
-						</p><a href='#setting_harga' class='modal-trigger' ><b>Level : Grosir</b></a></p>
-						<a href='#delete_anggota' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
-					</div>
-				</li>
-				<li class='col s12 m6 l4 listanggodaf'>
-					<div class='col s12 m5 l4'>
-						<img src='images/comp/male.png' class='responsive-img userimg'>
-					</div>
-					<div class='col s12 m7 l8'>
-						<p><a href=''><b class='userangoota'>Yegar sahaduta</b></a></p>
-						</p><a href='#setting_harga' class='modal-trigger' ><b>Level : Grosir</b></a></p>
-						<a href='#delete_anggota' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
-					</div>
-				</li>
-				<li class='col s12 m6 l4 listanggodaf'>
-					<div class='col s12 m5 l4'>
-						<img src='images/comp/female.png' class='responsive-img userimg'>
-					</div>
-					<div class='col s12 m7 l8'>
-						<p><a href=''><b class='userangoota'>Dian sastro w</b></a></p>
-						</p><a href='#setting_harga' class='modal-trigger' ><b>Level : Grosir</b></a></p>
-						<a href='#delete_anggota' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
-					</div>
-				</li>
-				<li class='col s12 m6 l4 listanggodaf'>
-					<div class='col s12 m5 l4'>
-						<img src='images/comp/female.png' class='responsive-img userimg'>
-					</div>
-					<div class='col s12 m7 l8'>
-						<p><a href=''><b class='userangoota'>Dian sastro w</b></a></p>
-						</p><a href='#setting_harga' class='modal-trigger' ><b>Level : Grosir</b></a></p>
-						<a href='#delete_anggota' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
-					</div>
-				</li>
-				<li class='col s12 m6 l4 listanggodaf'>
-					<div class='col s12 m5 l4'>
-						<img src='images/comp/female.png' class='responsive-img userimg'>
-					</div>
-					<div class='col s12 m7 l8'>
-						<p><a href=''><b class='userangoota'>Dian sastro w</b></a></p>
-						</p><a href='#setting_harga' class='modal-trigger' ><b>Level : Grosir</b></a></p>
-						<a href='#delete_anggota' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
-					</div>
-				</li>
-				<li class='col s12 m6 l4 listanggodaf'>
-					<div class='col s12 m5 l4'>
-						<img src='images/comp/male.png' class='responsive-img userimg'>
-					</div>
-					<div class='col s12 m7 l8'>
-						<p><a href=''><b class='userangoota'>Yegar sahaduta</b></a></p>
-						</p><a href='#setting_harga' class='modal-trigger' ><b>Level : Grosir</b></a></p>
-						<a href='#delete_anggota' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
-					</div>
-				</li>
+				
+";
+
+foreach($Members as $Member){
+	echo"
+			<li class='col s12 m6 l4 listanggodaf'>
+				<div class='col s12 m5 l4'>
+					<img src='images/comp/male.png' class='responsive-img userimg'>
+				</div>
+				<div class='col s12 m7 l8'>
+					<p><a href='#detail_anggota' class='modal-trigger' href=''><b class='userangoota'>".$Member->name."</b></a></p>
+					</p><a href='#setting_harga' class='modal-trigger' ><b>Level : Grosir</b></a></p>
+					<a href='#delete_anggota' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
+				</div>
+			</li>
+	";
+}
+
+echo"
 				
 			</ul>
 		</div>

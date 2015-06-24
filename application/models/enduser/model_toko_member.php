@@ -10,8 +10,8 @@
 class Model_toko_member extends CI_Model {
 	
 	public function get_members_by_shop($shop){
-		return $this->db->select('tm.*')
-						->where("tm.id IN (SELECT ttm.member_id FROM tb_toko_member ttm WHERE ttm.toko_id = ".$shop.")")
+		return $this->db->select("tm.*")
+						->where("tm.id IN (SELECT ttm.member_id FROM tb_toko_member ttm WHERE ttm.toko_id = ".$shop.")",null,false)
 						->get("tb_member tm");
 	}
 	
