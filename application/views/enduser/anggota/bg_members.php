@@ -62,7 +62,7 @@ if(sizeOf($Members) <= 0){
 				<div class='col s12 m7 l8'>
 					<p><a href='#popupMembers' onclick=ctrlAnggotaMembers.popupDetail(".$Member->id."); class='modal-trigger'><b class='userangoota'>".$Member->name."</b></a></p>
 					</p><a href='#setting_harga' class='modal-trigger' ><b>Level : ".$Level."</b></a></p>
-					<a href='#delete_anggota' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
+					<a href='#popupDelete' onclick=ctrlAnggotaMembers.popupDelete(".$Member->id."); class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
 				</div>
 			</li>
 		";
@@ -76,20 +76,21 @@ echo"
 	
 	<div id='popupMembers' class='modal modal-fixed-footer'></div>
 	
-	<div id='delete_anggota' class='modal confirmation'>
+	<div id='popupDelete' class='modal confirmation'>
 		<div class='modal-header red'>
 			<i class='mdi-navigation-close left'></i> Hapus anggota
 		</div>
 		<form class='modal-content'>
+			<input id='memberDeleteID' type='hidden'>
 			<p>Apakah anda yakin ingin menghapus <b>'nama anggota'</b> ?</p>
 			<p>
-				<input type='checkbox' class='filled-in' id='blacklist' />
+				<input id='memberDeleteBlacklist' type='checkbox' class='filled-in' id='blacklist' />
 				<label for='blacklist'>Masukan kedalam blacklist</label>
 			</p>
 		</form>
 		<div class='modal-footer'>
-			<a href='#!' class=' modal-action modal-close waves-effect waves-teal lighten-2 btn-flat'>YA</a>
-			<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
+			<a href='javascript:void(0);' id='aMemberDeleteYes' class=' modal-action modal-close waves-effect waves-teal lighten-2 btn-flat'>YA</a>
+			<a href='javascript:void(0);' id='aMemberDeleteNo' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
 		</div>
 	</div>
 	

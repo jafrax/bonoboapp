@@ -29,7 +29,6 @@ class Anggota extends CI_Controller {
 			redirect('index/');
 			return;
 		}
-		
     }
 	
 	private function countNewMember(){
@@ -238,6 +237,10 @@ class Anggota extends CI_Controller {
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada data permintaan yang ditemukan","messageCode"=>4));
 		}
+	}
+	
+	public function doMemberDelete(){
+		$this->response->send(array("result"=>0,"message"=>"Under contruction","messageCode"=>4));
 	}
 }
 

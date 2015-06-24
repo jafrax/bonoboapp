@@ -187,8 +187,11 @@ function CtrlAnggotaJoinin(){
 function CtrlAnggotaMembers(){
 	this.init = init;
 	this.popupDetail = popupDetail;
+	this.popupDelete = popupDelete;
 	
 	var popupMembers;
+	var memberDeleteID,memberDeleteBlacklist;
+	var aMemberDeleteYes,aMemberDeleteNo;
 	
 	function init(){
 		initComponent();
@@ -197,10 +200,20 @@ function CtrlAnggotaMembers(){
 	
 	function initComponent(){
 		popupMembers = $("#popupMembers");
+		memberDeleteID = $hs("memberDeleteID");
+		memberDeleteBlacklist = $hs("memberDeleteBlacklist");
+		aMemberDeleteYes = $hs("aMemberDeleteYes");
+		aMemberDeleteNo = $hs("aMemberDeleteNo");
 	}
 	
 	function initEventlistener(){
+		aMemberDeleteYes.onclick = function(){
+			doDelete();
+		};
 		
+		aMemberDeleteNo.onclick = function(){
+			doDeleteCancel();
+		};
 	}
 	
 	function popupDetail(e){
@@ -212,5 +225,36 @@ function CtrlAnggotaMembers(){
 				popupMembers.html(result);
 			}
 		});
+	}
+	
+	function popupDelete(e){
+		memberDeleteID.value = e;
+		memberDeleteBlacklist.checked = false;
+	}
+	
+	function doDelete(){
+		$.ajax({
+			type: 'POST',
+			data: "id="+memberDeleteID.value+"&blacklist="+memberDeleteBlacklist.checked,
+			url: base_url+'anggota/doMemberDelete',
+			success: function(result) {
+				var response = JSON.parse(result);
+				if(response.result == 1){
+					top.location.href = base_url+"anggota/members/";
+				}else{
+					alert(response.message);
+					/*
+					notifJoinin.html(response.message);
+					notifJoinin.slideDown();
+					notifJoinin.delay(5000).slideUp('slow');
+					*/
+				}
+			}
+		});
+	}
+	
+	function doDeleteCancel(){
+		memberDeleteID.value = "";
+		memberDeleteBlacklist.checked = false;
 	}
 }
