@@ -12,13 +12,14 @@ set_time_limit (99999999999);
 
 class Anggota extends CI_Controller {
 	
-	var $limit = 20;
+	var $limit = 1;
 	var $offset = 0;
 	
 	function __construct(){
         parent::__construct();
 		
 		$this->load->model("enduser/model_toko");
+		$this->load->model("enduser/model_toko_member");
 		$this->load->model("enduser/model_joinin");
 		
 		if(empty($_SESSION['bonobo']) || empty($_SESSION['bonobo']['id'])){
@@ -117,6 +118,8 @@ class Anggota extends CI_Controller {
 	public function members(){
 		$data["shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 		$data["countNewMember"] = $this->countNewMember();
+		
+		$data["members"] = $this->model_toko_member->get_members_by_shop($data["shop"]->id)->result();
 		
 		$this->template->bonobo("anggota/bg_members",$data);
 	}

@@ -58,8 +58,8 @@
 		$config['full_tag_close']='</ul>';
 		$config['num_tag_open'] = "<li class='waves-effect'>";
 		$config['num_tag_close'] = "</li>";
-		$config['cur_tag_open'] = "<li class='active'>";
-		$config['cur_tag_lose'] = "</li>";
+		$config['cur_tag_open'] = "<li class='active'><a href='javascript:void(0);'>";
+		$config['cur_tag_lose'] = "</a></li>";
 		$config['first_link']="<li class='waves-effect'>First</li>";
 		$config['last_link']="<li class='waves-effect'>Last</li>";
 		$config['next_link']="<li class='waves-effect'><i class='mdi-navigation-chevron-right'></i></li>";
