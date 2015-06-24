@@ -62,6 +62,54 @@ class Anggota extends CI_Controller {
 	public function invite(){
 		$data["shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 		$data["countNewMember"] = $this->countNewMember();
+		$data["notif"] = "";
+		$data["email"] = $this->response->post("email");
+		$data["message"] = $this->response->post("message");
+		
+		if($_POST && !empty($data["shop"])){
+			$valid = true;
+			
+			if($data["message"] == ""){
+				$data["notif"] = "<label class='text-red'>Message harus diisi !</label>";
+				$valid = false;
+			}
+			
+			if($data["email"] == ""){
+				$data["notif"] = "<label class='text-red'>Email harus diisi !</label>";
+				$valid = false;
+			}
+			
+			if($valid){
+				$Data = array(
+						"toko_id"=>$_SESSION['bonobo']['id'],
+						"email"=>$data["email"],
+						"message"=>$data["message"],
+						"create_date"=>date("Y-m-d H:i:s"),
+						"create_user"=>$_SESSION['bonobo']['email'],
+						"update_date"=>date("Y-m-d H:i:s"),
+						"update_user"=>$_SESSION['bonobo']['email'],
+					);
+				
+				$Save = $this->db->insert("tb_invite",$Data);
+				if($Save){
+					$message ="Hi ".$data["email"].",<br><br>
+						Anda mendapat undangan untuk bergabung dengan Toko ".$data["shop"]->name.".<br><br>
+						<b>Pesan :</b><br>
+						<i>\"".$data["message"]."\"</i><br><br>
+						<a href='".base_url()."' style='background:#eaeaea;padding:7px;'>BERGABUNG</a><br><br>
+						Thanks, Bonobo.com
+					";
+					
+					$this->template->send_email($data["email"],'Undangan dari Toko '.$data["shop"]->name, $message);
+				
+					$data["notif"] = "<label class='text-green'>Undangan anda telah dikirim ke email : ".$data["email"]."</label>";
+					$data["email"] = "";
+					$data["message"] = "";
+				}else{
+					$data["notif"] = "<label class='text-red'>Undangan anda tidak dapat dikirim !</label>";
+				}
+			}
+		}
 		
 		$this->template->bonobo("enduser/anggota/bg_invite",$data);
 	}
