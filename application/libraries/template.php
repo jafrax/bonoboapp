@@ -24,7 +24,7 @@
         $data['recaptcha'] = $ci->recaptcha->recaptcha_get_html();
         
 		$ci->load->view('enduser/template/bg_header', $data);        
-        $ci->load->view($view, $data);
+        $ci->load->view('enduser/'.$view, $data);
         $ci->load->view('enduser/template/bg_footer', $data);
     }		
 	# END TEMPLATE #
