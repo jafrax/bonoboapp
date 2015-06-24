@@ -18,38 +18,63 @@ echo"
 				<p>Halaman ini menampilkan pembeli yang telah menjadi anggota !</p>
 			</div>
 			<ul class='row formbody'>
-			
+				<form method='POST' action='".base_url("anggota/members/")."'>
 				<li class='col s12 listanggodaf'>
 					<div class='input-field col s12 m8'>
 						<i class='mdi-action-search prefix'></i>
-						<input id='nama' type='text' class='validate'>
-						<label for='nama'>Cari anggota</label>
+						<input id='keyword' name='keyword' type='text' class='validate' value='".$keyword."'>
+						<label for='keyword'>Cari anggota</label>
 					</div>
 				</li>
-				
+				</form>
 ";
-
-foreach($Members as $Member){
-	echo"
+if(sizeOf($Members) <= 0){
+	echo"Data tidak ditemukan";
+}else{
+	foreach($Members as $Member){
+		$Level = "Unknown";
+		$MemberImage = base_url("assets/image/img_default_photo.jpg");
+		
+		if(!empty($Member->image) && file_exists("./assets/pic/user/".$Member->image)){
+			$MemberImage = base_url("assets/pic/user/resize/".$Member->image);
+		}
+		
+		$ShopMember = $this->model_toko_member->get_by_shop_member($shop->id,$Member->id)->row();
+		if(!empty($ShopMember)){
+			if($ShopMember->price_level == 1){
+				$Level = $shop->level_1_name;
+			}elseif($ShopMember->price_level == 2){
+				$Level = $shop->level_2_name;
+			}elseif($ShopMember->price_level == 3){
+				$Level = $shop->level_3_name;
+			}elseif($ShopMember->price_level == 4){
+				$Level = $shop->level_4_name;
+			}elseif($ShopMember->price_level == 5){
+				$Level = $shop->level_5_name;
+			}
+		}
+		
+		echo"
 			<li class='col s12 m6 l4 listanggodaf'>
 				<div class='col s12 m5 l4'>
-					<img src='images/comp/male.png' class='responsive-img userimg'>
+					<img src='".$MemberImage."' class='responsive-img userimg'>
 				</div>
 				<div class='col s12 m7 l8'>
-					<p><a href='#detail_anggota' class='modal-trigger' href=''><b class='userangoota'>".$Member->name."</b></a></p>
-					</p><a href='#setting_harga' class='modal-trigger' ><b>Level : Grosir</b></a></p>
+					<p><a href='#popupMembers' onclick=ctrlAnggotaMembers.popupDetail(".$Member->id."); class='modal-trigger'><b class='userangoota'>".$Member->name."</b></a></p>
+					</p><a href='#setting_harga' class='modal-trigger' ><b>Level : ".$Level."</b></a></p>
 					<a href='#delete_anggota' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
 				</div>
 			</li>
-	";
+		";
+	}
 }
-
 echo"
 				
 			</ul>
 		</div>
 	</div>
 	
+	<div id='popupMembers' class='modal modal-fixed-footer'></div>
 	
 	<div id='delete_anggota' class='modal confirmation'>
 		<div class='modal-header red'>
@@ -67,32 +92,8 @@ echo"
 			<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
 		</div>
 	</div>
-
-	<div id='detail_anggota' class='modal modal-fixed-footer'>
-		<div class='row modal-content'>
-			<div class='col s12 m3 l3'>
-				<img src='images/comp/female.png' class='responsive-img userimg'>
-			</div>
-			<div class='col s12 m9 l9 formdetilpup'>
-				<p><b>Email :</b>dian@gmail.com</p>
-				<p><b>Nama :</b>Dian sastro w</p>
-				<p><b>Hand Phone :</b>08383838345</p>
-				<p><b>Whats Up :</b>08383838345</p>
-				<p><b>Line :</b>dians</p>
-			</div>
-			<div class='col s12 m12 l12 formdetilpup'>
-				<h6><b>Alamat</b></h6>
-				<p><b>Propinsi :</b>Jawa Tengah</p>
-				<p><b>Kota :</b>Surakarta</p>
-				<p><b>Kecamatan :</b>Kalimu Gedi</p>
-				<p><b>Alamat :</b>Jl. Kaliurang No. 303</p>
-				<p><b>Kodepos :</b>33322</p>
-			</div>
-		</div>
-		<div class='modal-footer'>
-			<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>KELUAR</a>
-		</div>
-	</div>
+	
+	
 
 	<div id='setting_harga' class='modal confirmation'>
 		<div class='modal-header deep-orange'>
@@ -115,6 +116,11 @@ echo"
 			<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
 		</div>
 	</div>
+	
+	<script>
+		var ctrlAnggotaMembers = new CtrlAnggotaMembers();
+		ctrlAnggotaMembers.init();
+	</script>
 ";
 
 ?>

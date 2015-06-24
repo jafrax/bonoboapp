@@ -21,6 +21,9 @@ class Anggota extends CI_Controller {
 		$this->load->model("enduser/model_toko");
 		$this->load->model("enduser/model_toko_member");
 		$this->load->model("enduser/model_joinin");
+		$this->load->model("enduser/model_member");
+		$this->load->model("enduser/model_member_attribute");
+		$this->load->model("enduser/model_member_location");
 		
 		if(empty($_SESSION['bonobo']) || empty($_SESSION['bonobo']['id'])){
 			redirect('index/');
@@ -116,10 +119,15 @@ class Anggota extends CI_Controller {
 	}
 	
 	public function members(){
+		$data["keyword"] = "";
 		$data["shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 		$data["countNewMember"] = $this->countNewMember();
 		
-		$data["Members"] = $this->model_toko_member->get_members_by_shop($data["shop"]->id)->result();
+		if($this->response->post("keyword") != ""){
+			$data["keyword"] = $this->response->post("keyword");
+		}
+		
+		$data["Members"] = $this->model_toko_member->get_member_by_shop($data["shop"]->id, $data["keyword"])->result();
 		
 		$this->template->bonobo("anggota/bg_members",$data);
 	}
@@ -129,6 +137,12 @@ class Anggota extends CI_Controller {
 		$data["countNewMember"] = $this->countNewMember();
 		
 		$this->template->bonobo("anggota/bg_blacklist",$data);
+	}
+	
+	public function members_detail(){
+		$data["Member"] = $this->model_member->get_by_id($this->response->post("id"))->row();
+		
+		$this->load->view("enduser/anggota/bg_members_detail",$data);
 	}
 	
 	public function doJoininDelete(){

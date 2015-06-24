@@ -9,10 +9,19 @@
 
 class Model_toko_member extends CI_Model {
 	
-	public function get_members_by_shop($shop){
+	public function get_member_by_shop($shop,$keyword=""){
 		return $this->db->select("tm.*")
-						->where("tm.id IN (SELECT ttm.member_id FROM tb_toko_member ttm WHERE ttm.toko_id = ".$shop.")",null,false)
+						->where("tm.id IN (SELECT ttm.member_id FROM tb_toko_member ttm WHERE ttm.toko_id = ".$shop.")",null)
+						->like("tm.name",$keyword)
 						->get("tb_member tm");
+	}
+	
+	public function get_by_shop_member($shop,$member){
+		return $this->db
+					->select("ttm.*")
+					->where("ttm.toko_id",$shop)
+					->where("ttm.member_id",$member)
+					->get("tb_toko_member ttm");
 	}
 	
 }

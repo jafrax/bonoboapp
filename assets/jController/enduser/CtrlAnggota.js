@@ -177,5 +177,40 @@ function CtrlAnggotaJoinin(){
 			});
 		}
 	}
+}
+
+
+
+
+
+
+function CtrlAnggotaMembers(){
+	this.init = init;
+	this.popupDetail = popupDetail;
 	
+	var popupMembers;
+	
+	function init(){
+		initComponent();
+		initEventlistener();
+	}
+	
+	function initComponent(){
+		popupMembers = $("#popupMembers");
+	}
+	
+	function initEventlistener(){
+		
+	}
+	
+	function popupDetail(e){
+		$.ajax({
+			type: 'POST',
+			data: "id="+e,
+			url: base_url+'anggota/members_detail',
+			success: function(result) {
+				popupMembers.html(result);
+			}
+		});
+	}
 }
