@@ -38,7 +38,7 @@ header,section,content,footer{ width:100%; }
 .containermain{ width:90%; margin:0 auto; }
 
 /*HEADER*/
-.head{ padding:15px 20px 8px 20px; }
+.head{ padding:15px 20px 0px 20px; }
 .signup{ text-align:right; padding:8px 0; }
 .signup text{ font-size:16px; color:#fff; margin: 0 15px 0 0;}
 
@@ -63,7 +63,7 @@ header,section,content,footer{ width:100%; }
 .titlin{ text-align:center; color:#fff; margin:8px 0; }
 .col-btn-fb{ margin:0 0 4px 0; }
 .or{ text-align:center; color:#fff; margin:12px 0 -8px 0; }
-.note{ text-align:center; color:#fff; margin:8px 30% 12px 30%; font-size: 13px; }
+.note{ text-align:center; color:#fff; margin:8px 30% 12px 30%; font-size: 15px; }
 .signin{ margin:15px 30% 0 30%; padding:8px 12px; background-color:rgba(239, 239, 239, 0.90); }
 .signin input[type=text], .signin input[type=password]{ border-bottom: 1px solid #ff7043; }
 
