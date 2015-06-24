@@ -25,8 +25,8 @@ echo"
 	<script type='text/javascript' src='".base_url("html/js/materialize.min.js")."'></script>
 	<script type='text/javascript' src='".base_url("html/js/materialize-tags.min.js")."'></script>
 	<script type='text/javascript' src='".base_url("html/js/jpushmenu.js")."'></script>
+	<script type='text/javascript' src='".base_url("assets/jLib/jQuery/jquery.validate.js")."'></script>	
 	<script type='text/javascript' src='".base_url("assets/jLib/jQuery/additional-methods.js")."'></script>
-	<script type='text/javascript' src='".base_url("assets/jLib/jQuery/jquery.validate.js")."'></script>
 	<script type='text/javascript' src='".base_url("assets/jController/CtrlSystem.js")."'></script>
 	<script type='text/javascript' src='".base_url("assets/jController/enduser/CtrlAnggota.js")."'></script>
 </head>
