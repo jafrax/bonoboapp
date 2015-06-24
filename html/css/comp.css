@@ -121,7 +121,7 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
 .text-red{ color:#f44336!important; }
 
 /*ALL ABOUT PAGINATION*/
-.pagination li a{ font-size:12px; }
+.pagination li a{ font-size:12px; padding:8px 10px; }
 .pagination li a i{ font-size:18px; } 
 
 /*ALL ABOUT MODAL*/
