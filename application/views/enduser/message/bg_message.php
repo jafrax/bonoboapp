@@ -109,9 +109,11 @@ echo"
 ";
 
 $Message = $Messages->row();
-echo"
-	<script>
-		ctrlMessage.showMessageDetail(".$Message->member_id.");
-	</script>
-";
+if(!empty($Message)){
+	echo"
+		<script>
+			ctrlMessage.showMessageDetail(".$Message->member_id.");
+		</script>
+	";
+}
 ?>
