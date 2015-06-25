@@ -55,31 +55,31 @@ echo "
 						</div>
 						<div class='row formbody'>
 							<div class='col s12'>
-								<div class='input-field col s12 m6'>
+								<div class='col s12 m6'>
+									<label>Tipe barang</label>
 									<select name='tipe'>
 										<option value='' disabled selected>Choose your option</option>
 										<option value='1' "; if ($uri3 == 1) echo "selected"; echo">Ready Stock</option>
-										<option value='2' "; if ($uri3 == 2) echo "selected"; echo">Pre Order</option>										
-									</select>
-									<label>Tipe barang</label>
+										<option value='0' "; if ($uri3 == 2) echo "selected"; echo">Pre Order</option>										
+									</select>									
 								</div>
 								<div class='input-field col s12'>
-									<input id='nama_barang' name='nama' type='text' class='validate'>
+									<input id='nama_barang' name='nama' type='text' class='validate' length='50'>
 									<label for='nama_barang'>Nama barang <span class='text-red'>*</span></label>
 								</div>
 								<div class='input-field col s12'>
-									<input id='nomor_sku' type='text' name='sku' class='validate'>
+									<input id='nomor_sku' type='text' name='sku' class='validate' length='20'>
 									<label for='nomor_sku'>Nomor SKU</label>
 								</div>
-								<div class='input-field col s12 m6' id='tempat-kategori'>
+								<div class='col s12 m6' id='tempat-kategori'>
+									<label>Kategori barang</label>
 									<select name='kategori' id='select-kategori'>
-										<option value='' disabled selected>Choose your option</option>";
+										<option value='0' disabled selected>Choose your option</option>";
 										foreach ($kategori->result() as $row_ktgri) {
 											echo "<option value='".$row_ktgri->id."'>".$row_ktgri->name."</option>";
 										}
 										echo"
-									</select>
-									<label>Kategori barang</label>
+									</select>									
 								</div>
 								<div class='input-field col s12 m6'>
 									<a href='#add_kategori' class='waves-effect btn-flat right modal-trigger'><b class='text-blue'><i class='mdi-content-add-box left'></i>BUAT KATEGORI BARU</b></a>
@@ -100,50 +100,52 @@ echo "
 									<a class='waves-effect btn-flat right' onclick=javascript:add_picture()><b class='text-blue'><i class='mdi-content-add-box left'></i>TAMBAH GAMBAR</b></a>
 								</div>
 								<div class='input-field col s12'>
-									<input id='perkiraan_berat' type='text' class='validate'>
+									<input id='perkiraan_berat' placeholder='0.00' type='text' name='berat' class='validate'>
 									<label for='perkiraan_berat'>Perkiraan berat <span>( Kilogram)</span></label>
 								</div>
 								<div class='input-field col s12'>
-									<input id='satuan' type='text' placeholder='Misal: Lusin, Pcs' class='validate'>
+									<input id='satuan' type='text' name='satuan' placeholder='Misal: Lusin, Pcs' class='validate' length='5'>
 									<label for='satuan'>Satuan <span></span></label>
 								</div>
 								<div class='input-field col s12'>
-									<input id='min_order' type='text' class='validate'>
+									<input id='min_order' placeholder='1' type='text' name='min_order' class='validate'>
 									<label for='min_order'>Min order</label>
 								</div>
 								<div class='input-field col s12'>
-									<textarea id='deskripsi' class='materialize-textarea'></textarea>
+									<textarea id='deskripsi' name='deskripsi' class='materialize-textarea' length='250'></textarea>
 									<label for='deskripsi'>Deskripsi</label>
 								</div>
 								
 							</div>
 							<div class='row formbody'>
-								<div class='linehead'><i class='fa fa-minus-square-o'></i>Stok Barang</div>
-								<div class='input-field col s12 m6'>
+								<div class='linehead'>Stok Barang</div>
+								<div class=' col s12 m6'>
+								<label>Tipe stok</label>
 									<select name='stok' id='stok' OnChange=javascript:change_stok()>										
 										<option value='1' selected>Stok selalu tersedia</option>
 										<option value='0'>Gunakan stok</option>
-									</select>
-									<label>Tipe stok</label>
+									</select>									
 								</div>
 								<div class='input-field col s12 m12'>
-									<input type='checkbox' id='gunakan_varian' onclick=javascript:setVarian() />
+									<input type='checkbox' id='gunakan_varian' name='gunakan_varian' onclick=javascript:setVarian() />
 									<label for='gunakan_varian'>Gunakan varian</label>
 								</div>
 								<input type='hidden' name='tot_varian' value='1' id='tot_varian' />
 								<ul class='col s12 m12 cek-stok' id='tempat-varian' style='display:none'>
-									<li class='varsto'>
-										<div class='input-field col s12 m6'>
+									<li class='varsto' id='li_varian_1'>
+										<div class='input-field col s12 m5'>
 											<input id='varian' name='nama_varian_1' type='text' placeholder='Misal: Lusin, Pcs' class='validate'>
 											<label for='varian'>Varian <span></span></label>
 										</div>
-										<div class='input-field col s12 m6 tersedia'>
+										<div class='input-field col s11 m5 tersedia'>
 											<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
 										</div>
-										<div class='input-field col s12 m6 pakai-stok'  style='display:none'>
+										<div class='input-field col s11 m5 pakai-stok'  style='display:none'>
 											<input id='varian' name='stok_varian_1' type='text' placeholder='Jumlah stok' class='validate'>
-											<label for='varian'>Stok <span></span></label>
-											<a href='#delete_varian' class='modal-trigger btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
+											<label for='varian'>Stok <span></span></label>											
+										</div>
+										<div class='input-field col s1 m1' >
+											<a onclick=javascript:deleteVarian('li_varian_1'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
 										</div>
 									</li>
 								</ul>
@@ -158,57 +160,59 @@ echo "
 											<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
 										</div>
 										<div class='input-field col s12 m6 pakai-stok' style='display:none'>
-											<input id='varian' type='text' placeholder='Jumlah stok' class='validate'>
+											<input id='varian' name='stok_utama' type='text' placeholder='Jumlah stok' class='validate'>
 											<label for='varian'>Stok <span></span></label>
 										</div>
 									</li>
 								</ul>
 							</div>
 							<div class='row formbody'>
-								<div class='linehead'><i class='fa fa-minus-square-o'></i>Harga Barang</div>
+								<div class='linehead'>Harga Barang</div>
 								<div class='input-field col s12 m6'>
-									<input id='harga_pembelian' type='text' class='validate'>
+									<input id='harga_pembelian' name='harga_pembelian' type='text' class='validate'>
 									<label for='harga_pembelian'>Harga pembelian</label>
 								</div>
 								<div class='input-field col s12 m12 varsto'>
 									<label for='harga_jual'>Harga jual <span class='text-red'>*</span></label>
 								</div>
+
 								<ul class='col s12 m12'>
 									<li class='varsto'>
+										<p><br></p>
 										<div class='input-field col s12 m6'>
-											<input id='varian' type='text' placeholder='0' class='validate'>
-											<label for='varian'>Harga level 1 <span class='text-red'>*</span></label>
+											<input id='varian' name='harga_level_1' type='text' placeholder='0' class='validate'>
+											<label for='varian'>Harga "; if ($level_harga->level_1_name != '') {echo $level_harga->level_1_name;}else{echo "level 1";} echo" <span class='text-red'>*</span></label>
 										</div>
 									</li>
 									<li class='varsto'>
 										<div class='input-field col s12 m6'>
-											<input id='varian' type='text' placeholder='0' class='validate'>
-											<label for='varian'>Harga level 2 <span class='text-red'>*</span></label>
+											<input id='varian' name='harga_level_2' type='text' placeholder='0' class='validate'>
+											<label for='varian'>Harga "; if ($level_harga->level_2_name != '') {echo $level_harga->level_1_name;}else{echo "level 2";} echo" <span class='text-red'>*</span></label>
 										</div>
 									</li>
 									<li class='varsto'>
 										<div class='input-field col s12 m6'>
-											<input id='varian' type='text' placeholder='0' class='validate'>
-											<label for='varian'>Harga level 3 <span class='text-red'>*</span></label>
+											<input id='varian' name='harga_level_3' type='text' placeholder='0' class='validate'>
+											<label for='varian'>Harga "; if ($level_harga->level_3_name != '') {echo $level_harga->level_1_name;}else{echo "level 3";} echo" <span class='text-red'>*</span></label>
 										</div>
 									</li>
 									<li class='varsto'>
 										<div class='input-field col s12 m6'>
-											<input id='varian' type='text' placeholder='0' class='validate'>
-											<label for='varian'>Harga level 4 <span class='text-red'>*</span></label>
+											<input id='varian' name='harga_level_4' type='text' placeholder='0' class='validate'>
+											<label for='varian'>Harga "; if ($level_harga->level_4_name != '') {echo $level_harga->level_1_name;}else{echo "level 4";} echo" <span class='text-red'>*</span></label>
 										</div>
 									</li>
 									<li class='varsto'>
 										<div class='input-field col s12 m6'>
-											<input id='varian' type='text' placeholder='0' class='validate'>
-											<label for='varian'>Harga level 5 <span class='text-red'>*</span></label>
+											<input id='varian' name='harga_level_5' type='text' placeholder='0' class='validate'>
+											<label for='varian'>Harga "; if ($level_harga->level_5_name != '') {echo $level_harga->level_1_name;}else{echo "level 5";} echo" <span class='text-red'>*</span></label>
 										</div>
 									</li>
 								</ul>
 								<div class='input-field col s12 m12 varsto'>
+									<button class='btn waves-effect waves-light right col s12 m3' type='submit' value='1' name='action'>Simpan<i class='mdi-content-send right'></i></button>																		
+									<button class='btn waves-effect waves-light yellow darken-3 right col s12 m3' value='0' type='submit' name='action'>Simpan Draft<i class='mdi-content-drafts right'></i></button>
 									<button class='btn waves-effect waves-light red right col s12 m3' type='submit' name='action'>Batal<i class='mdi-content-clear right'></i></button>
-									<button class='btn waves-effect waves-light yellow darken-3 right col s12 m3' type='submit' name='action'>Simpan Draft<i class='mdi-content-drafts right'></i></button>
-									<button class='btn waves-effect waves-light right col s12 m3' type='submit' name='action'>Simpan<i class='mdi-content-send right'></i></button>
 								</div>
 							</div>
 						</div>
