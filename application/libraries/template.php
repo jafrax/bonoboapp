@@ -209,6 +209,12 @@
     
         return $text;
     }
+
+    function clearInput($text){
+        $name   = mysql_real_escape_string($text);
+        $name   = preg_replace('/\\\\/', '', $name);
+        return $name;
+    }
 	
 	function limitChar($content, $limit=15){
 		if (strlen($content) <= $limit) {

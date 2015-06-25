@@ -15,14 +15,15 @@
         });
    });
 
+  document.getElementById("gunakan_varian").checked = false; 
 })();
 
 var tot_picture = 1;
 function add_picture() {
-    tot_picture = tot_picture+1;
-    $('#total_picture').val(tot_picture);
+    tot_picture = tot_picture+1;    
     var hitung = $('.picture-area .card').length;
     if (hitung < 3) {
+        $('#total_picture').val(tot_picture);
         $('.picture-area').append(box_picture(tot_picture));
         /*$('.label-area').append(box_alert(tot_picture));
         $('input[name="pic_'+tot_picture+'"]').each(function () {
@@ -71,10 +72,11 @@ function change_stok() {
    var stok = $('#stok').val();
 
    if (stok == 1) {
-      $('.stok').html("<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>");
+      $('.tersedia').show();
+      $('.pakai-stok').hide();
    }else if (stok == 0) {
-      $('.stok').html("<input id='varian' type='text' placeholder='Jumlah stok' class='validate'>"
-                        +"<label for='varian'>Stok <span></span></label>");
+      $('.pakai-stok').show();
+      $('.tersedia').hide();
    }
 }
 
@@ -87,38 +89,57 @@ function setVarian() {
       $('.cek-stok').hide();
    };
 }
-var tot_stok = 1;
-function addVarian() {
-  var stok = $('#stok').val();
 
+var tot_varian= 1;
+function addVarian() {  
+  tot_varian = tot_varian+1;
+  
+  $('#tempat-varian').append(boxVarian(tot_varian));
+  $('#tot_varian').val(tot_varian);
+}
+
+function boxVarian(id) {
+  var stok      = $('#stok').val();
   if (stok == 1) {
-      var varian = "<li class='varsto'><div class='input-field col s12 m6'>"
-                      +"<input id='varian' name='nama_varian_1' type='text' placeholder='Misal: Lusin, Pcs' class='validate'>"
+      var varian = "<li class='varsto' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5'>"
+                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' placeholder='Misal: Lusin, Pcs' class='validate'>"
                       +"<label for='varian'>Varian <span></span></label>"
                     +"</div>"
-                    +"<div class='input-field col s12 m6 tersedia'>"
+                    +"<div class='input-field col s11 m5 tersedia'>"
                         +"<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>"
                       +"</div>"
-                      +"<div class='input-field col s12 m6 pakai-stok'  style='display:none'>"
-                        +"<input id='varian' name='stok_varian_1' type='text' placeholder='Jumlah stok' class='validate'>"
+                      +"<div class='input-field col s11 m5 pakai-stok'  style='display:none'>"
+                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='text' placeholder='Jumlah stok' class='validate'>"
                         +"<label for='varian'>Stok <span></span></label>"
-                        +"<a href='#delete_varian' class='modal-trigger btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
-                      +"</div></li>";
+                      +"</div>"
+                      +"<div class='input-field col s1 m1' >"
+                      +"<a onclick=javascript:deleteVarian('li_varian_"+tot_varian+"'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
+                    +"</div>"
+                    +"</li>";
    }else if (stok == 0) {
-      var varian = "<li class='varsto'><div class='input-field col s12 m6'>"
-                      +"<input id='varian' name='nama_varian_1' type='text' placeholder='Misal: Lusin, Pcs' class='validate'>"
+      var varian = "<li class='varsto' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5'>"
+                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' placeholder='Misal: Lusin, Pcs' class='validate'>"
                       +"<label for='varian'>Varian <span></span></label>"
                     +"</div>"
-                    +"<div class='input-field col s12 m6 tersedia' style='display:none'>"
+                    +"<div class='input-field col s11 m5 tersedia' style='display:none'>"
                         +"<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>"
                       +"</div>"
-                      +"<div class='input-field col s12 m6 pakai-stok'>"
-                        +"<input id='varian' name='stok_varian_1' type='text' placeholder='Jumlah stok' class='validate'>"
+                      +"<div class='input-field col s11 m5 pakai-stok'>"
+                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='text' placeholder='Jumlah stok' class='validate'>"
                         +"<label for='varian'>Stok <span></span></label>"
-                        +"<a href='#delete_varian' class='modal-trigger btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
-                      +"</div></li>";
-   }  
+                      +"</div>"
+                      +"<div class='input-field col s1 m1' >"
+                      +"<a onclick=javascript:deleteVarian('li_varian_"+tot_varian+"'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
+                    +"</div>"
+                      +"</li>";
+   }
+   return varian;   
+}
 
-  $('#tot_varian').
-  $('#tempat-varian').append(varian);
+function deleteVarian(varian) {
+  $('#'+varian).remove();
+  var jmlh = $('#tempat-varian li').length;
+  
+  if (jmlh == 0) {$('#tempat-varian').append(boxVarian(jmlh));};
+  
 }

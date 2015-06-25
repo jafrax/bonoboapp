@@ -11,6 +11,10 @@ class Model_produk extends CI_Model
 	function get_kategori($id){
 		return $this->db->where('toko_id',$id)->get('tb_toko_category_product');
 	}
+
+	function get_toko($id){
+		return $this->db->where('id',$id)->get('tb_toko');
+	}
 	
 
 }
