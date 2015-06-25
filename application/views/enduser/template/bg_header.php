@@ -1,4 +1,5 @@
 <?php 
+$uri = $this->uri->segment(1);
 echo"
 <!DOCTYPE html>
 <html>
@@ -43,13 +44,13 @@ echo"
 					<text>James Rodriguez</text>
 				</div>
 			</li>
-			<li><a href='".base_url()."'>Toko</a></li>
-			<li><a href='".base_url("anggota")."'>Anggota</a></li>
-			<li><a href='#'>Produk</a></li>
-			<li><a href='#'>Nota</a></li>
-			<li><a href='".base_url("message")."'>Pesan</a></li>
-			<li><a href='#'>Pre Order</a></li>
-			<li><a href='".base_url("index/logout")."'>Logout</a></li>
+			<li "; if ($uri == 'toko') echo"class='active'"; echo"><a "; if ($uri == 'toko') echo"class='active'"; echo" href='".base_url()."'>Toko</a></li>
+			<li "; if ($uri == 'anggota') echo"class='active'"; echo"><a "; if ($uri == 'anggota') echo"class='active'"; echo" href='".base_url("anggota")."'>Anggota</a></li>
+			<li "; if ($uri == 'produk') echo"class='active'"; echo"><a "; if ($uri == 'produk') echo"class='active'"; echo" href='".base_url("produk")."'>Produk</a></li>
+			<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='#'>Nota</a></li>
+			<li "; if ($uri == 'message') echo"class='active'"; echo"><a "; if ($uri == 'message') echo"class='active'"; echo" href='".base_url("message")."'>Pesan</a></li>
+			<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='#'>Pre Order</a></li>
+			<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='".base_url("index/logout")."'>Logout</a></li>
 		</ul>
 	</nav>
 
@@ -77,12 +78,13 @@ echo"
 		<nav class='nav grey darken-2'>
 			<div class='containermain'>
 				<ul class='navmenu'>
-					<li><a href='".base_url()."'>Toko</a></li>
-					<li><a href='".base_url("anggota")."'>Anggota</a></li>
-					<li><a href='#'>Produk</a></li>
-					<li><a href='#'>Nota</a></li>
-					<li><a href='".base_url("message")."'>Pesan</a></li>
-					<li><a href='#'>Pre Order</a></li>
+					<li "; if ($uri == 'toko') echo"class='active'"; echo"><a "; if ($uri == 'toko') echo"class='active'"; echo" href='".base_url()."'>Toko</a></li>
+					<li "; if ($uri == 'anggota') echo"class='active'"; echo"><a "; if ($uri == 'anggota') echo"class='active'"; echo" href='".base_url("anggota")."'>Anggota</a></li>
+					<li "; if ($uri == 'produk') echo"class='active'"; echo"><a "; if ($uri == 'produk') echo"class='active'"; echo" href='".base_url("produk")."'>Produk</a></li>
+					<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='#'>Nota</a></li>
+					<li "; if ($uri == 'message') echo"class='active'"; echo"><a "; if ($uri == 'message') echo"class='active'"; echo" href='".base_url("message")."'>Pesan</a></li>
+					<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='#'>Pre Order</a></li>
+					<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='".base_url("index/logout")."'>Logout</a></li>
 				</ul>
 			</div>
 		</nav>
