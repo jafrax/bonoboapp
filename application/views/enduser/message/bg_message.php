@@ -35,7 +35,7 @@ echo"
 						</li>
 ";
 
-	foreach($Messages as $Message){
+	foreach($Messages->result() as $Message){
 		$MessageStatus = "";
 		$MemberImage = base_url("assets/image/img_default_photo.jpg");
 		
@@ -108,4 +108,10 @@ echo"
 	</script>
 ";
 
+$Message = $Messages->row();
+echo"
+	<script>
+		ctrlMessage.showMessageDetail(".$Message->member_id.");
+	</script>
+";
 ?>
