@@ -31,6 +31,7 @@ echo"
 	<script type='text/javascript' src='".base_url("assets/jLib/jQuery/additional-methods.js")."'></script>
 	<script type='text/javascript' src='".base_url("assets/jController/CtrlSystem.js")."'></script>
 	<script type='text/javascript' src='".base_url("assets/jController/enduser/CtrlAnggota.js")."'></script>
+	<script type='text/javascript' src='".base_url("assets/jController/enduser/CtrlMessage.js")."'></script>
 </head>
 
 <body class='cbp-spmenu-push cbp-spmenu-push-toleft'>
@@ -46,7 +47,7 @@ echo"
 			<li><a href='".base_url("anggota")."'>Anggota</a></li>
 			<li><a href='#'>Produk</a></li>
 			<li><a href='#'>Nota</a></li>
-			<li><a href='#'>Pesan</a></li>
+			<li><a href='".base_url("message")."'>Pesan</a></li>
 			<li><a href='#'>Pre Order</a></li>
 			<li><a href='".base_url("index/logout")."'>Logout</a></li>
 		</ul>
@@ -80,7 +81,7 @@ echo"
 					<li><a href='".base_url("anggota")."'>Anggota</a></li>
 					<li><a href='#'>Produk</a></li>
 					<li><a href='#'>Nota</a></li>
-					<li><a href='#'>Pesan</a></li>
+					<li><a href='".base_url("message")."'>Pesan</a></li>
 					<li><a href='#'>Pre Order</a></li>
 				</ul>
 			</div>
