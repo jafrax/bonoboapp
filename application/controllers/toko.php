@@ -5,7 +5,7 @@
 * This controler for screen dashboard
 *
 * Log Activity : ~ Create your log if you change this controller ~
-* 1. Create 23 Juni 2015 by Heri Siswanto, Create controller
+* 1. Create 23 Juni 2015 by Heri Siswanto, Create function : index
 */
 
 set_time_limit (99999999999);

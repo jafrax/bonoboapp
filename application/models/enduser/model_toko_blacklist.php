@@ -1,10 +1,10 @@
 <?php
 
 /*
-* MODEL TOKO MEMBER
+* MODEL TOKO BLACKLIST
 *
 * Log Activity : ~ Create your log if you change this controller ~
-* 1. Create 25 Juni 2015 by Heri Siswanto, Create function : get_members_by_shop, get_by_shop_member
+* 1. Create 25 Juni 2015 by Heri Siswanto, Create function : get_by_id, get_members_by_shop, get_by_shop_member
 */
 
 class Model_toko_blacklist extends CI_Model {

@@ -4,7 +4,7 @@
 * MODEL JOIN-IN
 * 
 * Log Activity : ~ Create your log if you change this controller ~
-* 1. Create 24 Juni 2015 by Heri Siswanto, Create function : get_by_shop
+* 1. Create 24 Juni 2015 by Heri Siswanto, Create function : get_by_id, get_by_shop, get_limit_by_shop, get_news
 */
 
 class Model_joinin extends CI_Model {

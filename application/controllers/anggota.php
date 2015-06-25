@@ -5,7 +5,8 @@
 * This controler for screen anggota
 *
 * Log Activity : ~ Create your log if you change this controller ~
-* 1. Create 24 Juni 2015 by Heri Siswanto, Create controller
+* 1. Create 24 Juni 2015 by Heri Siswanto, Create function : index, joinin, invite, members, members_detail, doJoininDelete, doJoininDeletes, doJoininAccept, doJoininReject
+* 2. Update 25 Juni 2015 by Heri Siswanto, Create function : blacklist, doMemberDelete, doBlacklistDelete.
 */
 
 set_time_limit (99999999999);
