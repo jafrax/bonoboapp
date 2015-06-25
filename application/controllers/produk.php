@@ -95,7 +95,7 @@ class Produk extends CI_Controller {
 						}
 					}
 
-					if ($stok == 1) {
+					if ($gunakan_varian) {
 						$this->db->set('product_id',$id)
 								->set('name','null')
 								->set('stock_qty',$stok_utama)
