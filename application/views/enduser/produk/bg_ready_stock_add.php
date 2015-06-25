@@ -13,6 +13,18 @@ echo "
 		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
 	</div>
 </div>
+<div id='delete_varian' class='modal confirmation'>
+	<div class='modal-header red'>
+		<i class='mdi-navigation-close left'></i> Hapus varian
+	</div>
+	<form class='modal-content'>
+		<p>Apakah anda yakin ingin menghapus varian ini ?</p>
+	</form>
+	<div class='modal-footer'>		
+		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
+		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
+	</div>
+</div>
 
 <div id='add_kategori' class='modal confirmation'>	
 	<div class='modal-header red'>
@@ -72,18 +84,18 @@ echo "
 								<div class='input-field col s12 m6'>
 									<a href='#add_kategori' class='waves-effect btn-flat right modal-trigger'><b class='text-blue'><i class='mdi-content-add-box left'></i>BUAT KATEGORI BARU</b></a>
 								</div>
-								<div class='input-field col s12'>
-									<div class='col s6 m4 l3 picture-area'>
-										<div class='card' id='div_pic_1'>
+								<div class='input-field col s12 picture-area'>
+									<div class='col s6 m4 l3' id='div_pic_1'>
+										<div class='card' >
 											<a class='delimg' onclick=javascript:remove_picture('pic_1')><i class='mdi-content-backspace'></i></a>
-											<div class='card-image waves-effect waves-block waves-light'>
+											<div class='card-image img-product waves-effect waves-block waves-light'>
 												<img id='img_pic_1' onclick=javascript:click_picture('pic_1') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
 												<input type='file' class='pic_product' name='pic_1' id='pic_1' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
 											</div>
 										</div>
 									</div>
-									<input type='hidden' name='total_picture' id='total_picture' value='1'/>
 								</div>
+								<input type='hidden' name='total_picture' id='total_picture' value='1'/>
 								<div class='input-field col s12 m12'>
 									<a class='waves-effect btn-flat right' onclick=javascript:add_picture()><b class='text-blue'><i class='mdi-content-add-box left'></i>TAMBAH GAMBAR</b></a>
 								</div>
@@ -108,62 +120,47 @@ echo "
 							<div class='row formbody'>
 								<div class='linehead'><i class='fa fa-minus-square-o'></i>Stok Barang</div>
 								<div class='input-field col s12 m6'>
-									<select>
-										<option value='' disabled selected>Choose your option</option>
-										<option value='1'>Stok selalu tersedia</option>
-										<option value='2'>Gunakan stok</option>
+									<select name='stok' id='stok' OnChange=javascript:change_stok()>										
+										<option value='1' selected>Stok selalu tersedia</option>
+										<option value='0'>Gunakan stok</option>
 									</select>
 									<label>Tipe stok</label>
 								</div>
 								<div class='input-field col s12 m12'>
-									<input type='checkbox' id='gunakan_varian' />
+									<input type='checkbox' id='gunakan_varian' onclick=javascript:setVarian() />
 									<label for='gunakan_varian'>Gunakan varian</label>
 								</div>
-								<ul class='col s12 m12'>
+								<input type='hidden' name='tot_varian' value='1' id='tot_varian' />
+								<ul class='col s12 m12 cek-stok' id='tempat-varian' style='display:none'>
 									<li class='varsto'>
 										<div class='input-field col s12 m6'>
-											<input id='varian' type='text' placeholder='Misal: Lusin, Pcs' class='validate'>
+											<input id='varian' name='nama_varian_1' type='text' placeholder='Misal: Lusin, Pcs' class='validate'>
 											<label for='varian'>Varian <span></span></label>
 										</div>
-										<div class='input-field col s12 m6'>
+										<div class='input-field col s12 m6 tersedia'>
 											<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
 										</div>
-									</li>
-									<li class='varsto'>
-										<div class='input-field col s12 m6'>
-											<input id='varian' type='text' placeholder='Misal: Lusin, Pcs' class='validate'>
-											<label for='varian'>Varian <span></span></label>
+										<div class='input-field col s12 m6 pakai-stok'  style='display:none'>
+											<input id='varian' name='stok_varian_1' type='text' placeholder='Jumlah stok' class='validate'>
+											<label for='varian'>Stok <span></span></label>
+											<a href='#delete_varian' class='modal-trigger btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
 										</div>
-										<div class='input-field col s12 m6'>
-											<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
-										</div>
-									</li>
-									<li class='varsto'>
-										<div class='input-field col s12 m6'>
-											<input id='varian' type='text' placeholder='Misal: Lusin, Pcs' class='validate'>
-											<label for='varian'>Varian <span></span></label>
-										</div>
-										<div class='input-field col s12 m6'>
-											<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
-										</div>
-									</li>
-									<li class='input-field col s12 m12'>
-										<a class='waves-effect btn-flat right'><b class='text-blue'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
 									</li>
 								</ul>
-								<ul class='col s12 m12'>
+								<ul class='col s12 m12 cek-stok' style='display:none'>								
+									<li class='input-field col s12 m12'>
+										<a class='waves-effect btn-flat left' onclick=javascript:addVarian()><b class='text-blue'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
+									</li>
+								</ul>
+								<ul class='col s12 m12 uncek-stok' >
 									<li class='varsto'>
-										<div class='input-field col s12 m6'>
-											<input id='varian' type='text' placeholder='Misal: Lusin, Pcs' class='validate'>
-											<label for='varian'>Varian <span></span></label>
+										<div class='input-field col s12 m6 tersedia'>
+											<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
 										</div>
-										<div class='input-field col s12 m6'>
+										<div class='input-field col s12 m6 pakai-stok' style='display:none'>
 											<input id='varian' type='text' placeholder='Jumlah stok' class='validate'>
 											<label for='varian'>Stok <span></span></label>
 										</div>
-									</li>
-									<li class='input-field col s12 m12'>
-										<a class='waves-effect btn-flat right'><b class='text-blue'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
 									</li>
 								</ul>
 							</div>
@@ -193,6 +190,18 @@ echo "
 										<div class='input-field col s12 m6'>
 											<input id='varian' type='text' placeholder='0' class='validate'>
 											<label for='varian'>Harga level 3 <span class='text-red'>*</span></label>
+										</div>
+									</li>
+									<li class='varsto'>
+										<div class='input-field col s12 m6'>
+											<input id='varian' type='text' placeholder='0' class='validate'>
+											<label for='varian'>Harga level 4 <span class='text-red'>*</span></label>
+										</div>
+									</li>
+									<li class='varsto'>
+										<div class='input-field col s12 m6'>
+											<input id='varian' type='text' placeholder='0' class='validate'>
+											<label for='varian'>Harga level 5 <span class='text-red'>*</span></label>
 										</div>
 									</li>
 								</ul>

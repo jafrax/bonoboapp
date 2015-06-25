@@ -23,7 +23,7 @@ echo"
 		</div>
 	</div>
 	<div class='footer-copyright grey darken-4'>
-		<div class='container'>© 2015 Vertibox, Inc. All rights reserved.
+		<div class='container'>© 2015 Bonobo, Inc. All rights reserved.
 			<a class='grey-text text-lighten-4 right' href='#!'>Tentang Kami</a>
 			<a class='grey-text text-lighten-4 right' href='#!'>Kebijakan privasi</a>
 			<a class='grey-text text-lighten-4 right' href='#!'>Syarat dan ketentuan</a>

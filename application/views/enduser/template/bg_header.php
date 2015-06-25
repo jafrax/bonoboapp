@@ -15,6 +15,7 @@ echo"
 	<link type='text/css' rel='stylesheet' href='".base_url("html/css/font-awesome.min.css")."' />
 	<link type='text/css' rel='stylesheet' href='".base_url("html/css/materialize-tags.min.css")."'/>
 	<link type='text/css' rel='stylesheet' href='".base_url("html/css/jpushmenu.css")."' />
+	<link type='text/css' rel='stylesheet' href='".base_url("html/css/chosen.css")."' />
 	<link type='text/css' rel='stylesheet' href='".base_url("html/css/style.css")."' />
 	<link type='text/css' rel='stylesheet' href='".base_url("html/css/tablet.css")."' />
 	<link type='text/css' rel='stylesheet' href='".base_url("html/css/mobile.css")."' />

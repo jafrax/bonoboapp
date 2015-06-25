@@ -37,13 +37,13 @@ function add_picture() {
 }
 
 function box_picture(id) {
-    var box = "<div class='card' id='div_pic_"+total_picture+"'>"
-                  +"<a class='delimg' onclick=javascript:remove_picture('pic_"+total_picture+"')><i class='mdi-content-backspace'></i></a>"
-                  +"<div class='card-image waves-effect waves-block waves-light'>"
-                     +"<img id='img_pic_"+total_picture+"' onclick=javascript:click_picture('pic_"+total_picture+"') class='img-product responsive-img' src='"+base_url+"html/images/comp/product_large.png'>"
-                     +"<input type='file' class='pic_product' name='pic_"+total_picture+"' id='pic_"+total_picture+"' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>"
+    var box = "<div class='col s6 m4 l3' id='div_pic_"+tot_picture+"'><div class='card' >"
+                  +"<a class='delimg' onclick=javascript:remove_picture('pic_"+tot_picture+"')><i class='mdi-content-backspace'></i></a>"
+                  +"<div class='card-image img-product waves-effect waves-block waves-light'>"
+                     +"<img id='img_pic_"+tot_picture+"' onclick=javascript:click_picture('pic_"+tot_picture+"') class='img-product responsive-img' src='"+base_url+"html/images/comp/product_large.png'>"
+                     +"<input type='file' class='pic_product' name='pic_"+tot_picture+"' id='pic_"+tot_picture+"' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>"
                   +"</div>"
-               +"</div>";
+               +"</div></div>";
     return box;
 }
 
@@ -65,4 +65,60 @@ function remove_picture(id) {
         tot_picture = tot_picture+1;
         $('.picture-area').append(box_picture(tot_picture));
     }
+}
+
+function change_stok() {
+   var stok = $('#stok').val();
+
+   if (stok == 1) {
+      $('.stok').html("<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>");
+   }else if (stok == 0) {
+      $('.stok').html("<input id='varian' type='text' placeholder='Jumlah stok' class='validate'>"
+                        +"<label for='varian'>Stok <span></span></label>");
+   }
+}
+
+function setVarian() {
+   if ($('#gunakan_varian').is(":checked")) {
+      $('.cek-stok').show();
+      $('.uncek-stok').hide();
+   }else{
+      $('.uncek-stok').show();
+      $('.cek-stok').hide();
+   };
+}
+var tot_stok = 1;
+function addVarian() {
+  var stok = $('#stok').val();
+
+  if (stok == 1) {
+      var varian = "<li class='varsto'><div class='input-field col s12 m6'>"
+                      +"<input id='varian' name='nama_varian_1' type='text' placeholder='Misal: Lusin, Pcs' class='validate'>"
+                      +"<label for='varian'>Varian <span></span></label>"
+                    +"</div>"
+                    +"<div class='input-field col s12 m6 tersedia'>"
+                        +"<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>"
+                      +"</div>"
+                      +"<div class='input-field col s12 m6 pakai-stok'  style='display:none'>"
+                        +"<input id='varian' name='stok_varian_1' type='text' placeholder='Jumlah stok' class='validate'>"
+                        +"<label for='varian'>Stok <span></span></label>"
+                        +"<a href='#delete_varian' class='modal-trigger btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
+                      +"</div></li>";
+   }else if (stok == 0) {
+      var varian = "<li class='varsto'><div class='input-field col s12 m6'>"
+                      +"<input id='varian' name='nama_varian_1' type='text' placeholder='Misal: Lusin, Pcs' class='validate'>"
+                      +"<label for='varian'>Varian <span></span></label>"
+                    +"</div>"
+                    +"<div class='input-field col s12 m6 tersedia' style='display:none'>"
+                        +"<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>"
+                      +"</div>"
+                      +"<div class='input-field col s12 m6 pakai-stok'>"
+                        +"<input id='varian' name='stok_varian_1' type='text' placeholder='Jumlah stok' class='validate'>"
+                        +"<label for='varian'>Stok <span></span></label>"
+                        +"<a href='#delete_varian' class='modal-trigger btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
+                      +"</div></li>";
+   }  
+
+  $('#tot_varian').
+  $('#tempat-varian').append(varian);
 }
