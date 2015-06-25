@@ -190,7 +190,7 @@ function CtrlAnggotaMembers(){
 	this.popupDelete = popupDelete;
 	
 	var popupMembers;
-	var memberDeleteID,memberDeleteBlacklist;
+	var memberDeleteID,memberDeleteName,memberDeleteBlacklist;
 	var aMemberDeleteYes,aMemberDeleteNo;
 	
 	function init(){
@@ -201,9 +201,12 @@ function CtrlAnggotaMembers(){
 	function initComponent(){
 		popupMembers = $("#popupMembers");
 		memberDeleteID = $hs("memberDeleteID");
+		memberDeleteName = $hs("memberDeleteName");
 		memberDeleteBlacklist = $hs("memberDeleteBlacklist");
 		aMemberDeleteYes = $hs("aMemberDeleteYes");
 		aMemberDeleteNo = $hs("aMemberDeleteNo");
+		
+		initComboBox();
 	}
 	
 	function initEventlistener(){
@@ -227,15 +230,22 @@ function CtrlAnggotaMembers(){
 		});
 	}
 	
-	function popupDelete(e){
+	function popupDelete(e,n){
 		memberDeleteID.value = e;
-		memberDeleteBlacklist.checked = false;
+		memberDeleteName.innerHTML = "'"+n.replace("+"," ")+"'";
+		memberDeleteBlacklist.checked = true;
 	}
 	
 	function doDelete(){
+		var checked = "0";
+		
+		if(memberDeleteBlacklist.checked){
+			checked = "1";
+		}
+		
 		$.ajax({
 			type: 'POST',
-			data: "id="+memberDeleteID.value+"&blacklist="+memberDeleteBlacklist.checked,
+			data: "id="+memberDeleteID.value+"&blacklist="+checked,
 			url: base_url+'anggota/doMemberDelete',
 			success: function(result) {
 				var response = JSON.parse(result);
@@ -255,6 +265,79 @@ function CtrlAnggotaMembers(){
 	
 	function doDeleteCancel(){
 		memberDeleteID.value = "";
+		memberDeleteName.innerHTML = "";
 		memberDeleteBlacklist.checked = false;
+	}
+}
+
+
+
+
+function CtrlAnggotaBlacklist(){
+	this.init = init;
+	this.popupDetail = popupDetail;
+	this.popupDelete = popupDelete;
+	
+	var popupBlacklist;
+	var blacklistDeleteID;
+	var aBlacklistDeleteYes,aBlacklistDeleteNo;
+	
+	function init(){
+		initComponent();
+		initEventlistener();
+	}
+	
+	function initComponent(){
+		popupBlacklist = $("#popupBlacklist");
+		blacklistDeleteID = $hs("blacklistDeleteID");
+		aBlacklistDeleteYes = $hs("aBlacklistDeleteYes");
+		aBlacklistDeleteNo = $hs("aBlacklistDeleteNo");
+		
+		initComboBox();
+	}
+	
+	function initEventlistener(){
+		aBlacklistDeleteYes.onclick = function(){
+			doDelete();
+		};
+		
+		aBlacklistDeleteNo.onclick = function(){
+			doDeleteCancel();
+		};
+	}
+	
+	function popupDetail(e){
+		$.ajax({
+			type: 'POST',
+			data: "id="+e,
+			url: base_url+'anggota/members_detail',
+			success: function(result) {
+				popupBlacklist.html(result);
+			}
+		});
+	}
+	
+	function popupDelete(e,n){
+		blacklistDeleteID.value = e;
+	}
+	
+	function doDelete(){
+		$.ajax({
+			type: 'POST',
+			data: "id="+blacklistDeleteID.value,
+			url: base_url+'anggota/doBlacklistDelete',
+			success: function(result) {
+				var response = JSON.parse(result);
+				if(response.result == 1){
+					top.location.href = base_url+"anggota/blacklist/";
+				}else{
+					alert(response.message);
+				}
+			}
+		});
+	}
+	
+	function doDeleteCancel(){
+		blacklistDeleteID.value = "";
 	}
 }

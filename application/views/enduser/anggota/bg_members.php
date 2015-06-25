@@ -61,8 +61,8 @@ if(sizeOf($Members) <= 0){
 				</div>
 				<div class='col s12 m7 l8'>
 					<p><a href='#popupMembers' onclick=ctrlAnggotaMembers.popupDetail(".$Member->id."); class='modal-trigger'><b class='userangoota'>".$Member->name."</b></a></p>
-					</p><a href='#setting_harga' class='modal-trigger' ><b>Level : ".$Level."</b></a></p>
-					<a href='#popupDelete' onclick=ctrlAnggotaMembers.popupDelete(".$Member->id."); class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
+					<p><a href='#setting_harga' class='modal-trigger' ><b>Level : ".$Level."</b></a></p>
+					<a href='#popupDelete' onclick=ctrlAnggotaMembers.popupDelete(".$Member->id.",'".urlencode($Member->name)."'); class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
 				</div>
 			</li>
 		";
@@ -82,10 +82,10 @@ echo"
 		</div>
 		<form class='modal-content'>
 			<input id='memberDeleteID' type='hidden'>
-			<p>Apakah anda yakin ingin menghapus <b>'nama anggota'</b> ?</p>
+			<p>Apakah anda yakin ingin menghapus <b id='memberDeleteName'></b> ?</p>
 			<p>
 				<input id='memberDeleteBlacklist' type='checkbox' class='filled-in' id='blacklist' />
-				<label for='blacklist'>Masukan kedalam blacklist</label>
+				<label for='memberDeleteBlacklist'>Masukan kedalam blacklist</label>
 			</p>
 		</form>
 		<div class='modal-footer'>
@@ -94,27 +94,28 @@ echo"
 		</div>
 	</div>
 	
-	
-
 	<div id='setting_harga' class='modal confirmation'>
 		<div class='modal-header deep-orange'>
 			<i class='mdi-action-spellcheck left'></i> Setting harga
 		</div>
-		<form class='modal-content'>
+		<form id='formMemberLevel' class='modal-content'>
+			<input name='id' type='hidden' value=''>
 			<p>
 				<div class='input-field col s12'>
-					<select>
+					<select name='level' class='chzn-select'>
 						<option value='' disabled selected>Choose your option</option>
-						<option value='1'>Option 1</option>
-						<option value='2'>Option 2</option>
-						<option value='3'>Option 3</option>
+						<option value='1'>".$shop->level_1_name."</option>
+						<option value='2'>".$shop->level_2_name."</option>
+						<option value='3'>".$shop->level_3_name."</option>
+						<option value='4'>".$shop->level_4_name."</option>
+						<option value='5'>".$shop->level_5_name."</option>
 					</select>
 				</div>
 			</p>
 		</form>
 		<div class='modal-footer'>
-			<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
-			<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
+			<a href='javascript:void(0);' id='aMemberLevelNo' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
+			<a href='javascript:void(0);' id='aMemberLevelYes' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
 		</div>
 	</div>
 	

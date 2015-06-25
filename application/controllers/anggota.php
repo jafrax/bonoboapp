@@ -12,7 +12,7 @@ set_time_limit (99999999999);
 
 class Anggota extends CI_Controller {
 	
-	var $limit = 1;
+	var $limit = 15;
 	var $offset = 0;
 	
 	function __construct(){
@@ -20,6 +20,7 @@ class Anggota extends CI_Controller {
 		
 		$this->load->model("enduser/model_toko");
 		$this->load->model("enduser/model_toko_member");
+		$this->load->model("enduser/model_toko_blacklist");
 		$this->load->model("enduser/model_joinin");
 		$this->load->model("enduser/model_member");
 		$this->load->model("enduser/model_member_attribute");
@@ -132,8 +133,15 @@ class Anggota extends CI_Controller {
 	}
 	
 	public function blacklist(){
+		$data["keyword"] = "";
 		$data["shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 		$data["countNewMember"] = $this->countNewMember();
+		
+		if($this->response->post("keyword") != ""){
+			$data["keyword"] = $this->response->post("keyword");
+		}
+		
+		$data["Members"] = $this->model_toko_blacklist->get_member_by_shop($data["shop"]->id, $data["keyword"])->result();
 		
 		$this->template->bonobo("anggota/bg_blacklist",$data);
 	}
@@ -240,7 +248,54 @@ class Anggota extends CI_Controller {
 	}
 	
 	public function doMemberDelete(){
-		$this->response->send(array("result"=>0,"message"=>"Under contruction","messageCode"=>4));
+		if($this->response->post("id") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada data yang dipilih","messageCode"=>1));
+			return;
+		}
+		
+		$QMember = $this->model_member->get_by_id($this->response->post("id"))->row();
+		if(!empty($QMember)){
+			if($this->response->post("blacklist") == 1){
+				$Data = array(
+						"toko_id"=>$_SESSION['bonobo']['id'],
+						"member_id"=>$QMember->id,
+						"create_date"=>date("Y-m-d H:i:s"),
+						"create_user"=>$_SESSION['bonobo']['email'],
+						"update_date"=>date("Y-m-d H:i:s"),
+						"update_user"=>$_SESSION['bonobo']['email'],
+					);
+					
+				$Save = $this->db->insert("tb_toko_blacklist",$Data);
+			}
+			
+			$Delete = $this->db->where("toko_id",$_SESSION['bonobo']['id'])->where("member_id",$QMember->id)->delete("tb_toko_member");
+			if($Delete){
+				$this->response->send(array("result"=>1,"message"=>"Member telah dihapus dari daftar keanggotaan","messageCode"=>4));
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Member tidak dapat di hapus","messageCode"=>4));
+			}
+		}else{
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada data yang ditemukan","messageCode"=>4));
+		}
+	}
+	
+	public function doBlacklistDelete(){
+		if($this->response->post("id") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada data yang dipilih","messageCode"=>1));
+			return;
+		}
+		
+		$QMember = $this->model_member->get_by_id($this->response->post("id"))->row();
+		if(!empty($QMember)){
+			$Delete = $this->db->where("toko_id",$_SESSION['bonobo']['id'])->where("member_id",$QMember->id)->delete("tb_toko_blacklist");
+			if($Delete){
+				$this->response->send(array("result"=>1,"message"=>"Member telah dihapus dari daftar blacklist","messageCode"=>4));
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Member tidak dapat di hapus","messageCode"=>4));
+			}
+		}else{
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada data yang ditemukan","messageCode"=>4));
+		}
 	}
 }
 
