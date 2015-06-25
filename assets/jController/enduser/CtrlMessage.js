@@ -177,3 +177,68 @@ function CtrlMessageDetail(){
 	}
 }
 
+
+function CtrlMessageNew(){
+	this.init = init;
+	
+	var cmbMessageAnggota, emailsTo, txtMessage;
+	var btnSend;
+	var divEmailsTo;
+	
+	function init(){
+		initComponent();
+		initEventlistener();
+	}
+	
+	function initComponent(){
+		divEmailsTo = $("#divEmailsTo");
+		emailsTo = $('#emailsTo');
+		cmbMessageAnggota = $hs("cmbMessageAnggota");
+		txtMessage = $hs("txtMessage");
+		btnSend = $hs("btnSend");
+		
+		emailsTo.materialtags();
+	}
+	
+	function initEventlistener(){
+		btnSend.onclick = function(){
+			doSend();
+		};
+		
+		cmbMessageAnggota.onclick = function(){
+			if(cmbMessageAnggota.checked){
+				divEmailsTo.slideUp("slow");
+			}else{
+				divEmailsTo.slideDown("slow");
+			}
+		};
+	}
+	
+	function doSend(){
+		var checked = "0";
+		
+		if(txtMessage.value == ""){
+			alert("Belum ada pesan yang anda tulis");
+			return;
+		}
+		
+		if(cmbMessageAnggota.checked){
+			checked = "1";
+		}
+		
+		$.ajax({
+			type: 'POST',
+			data: "emails="+emailsTo.val()+"&message="+txtMessage.value+"&checkbox="+checked,
+			url: base_url+'message/doMessageNewSend',
+			success: function(result) {
+				var response = JSON.parse(result);
+				if(response.result == 1){
+					top.location.href = base_url+"message";
+				}else{
+					alert(response.message);
+				}
+			}
+		});
+	}
+}
+

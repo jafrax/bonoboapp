@@ -24,6 +24,13 @@ class Model_toko_member extends CI_Model {
 						->get("tb_member tm");
 	}
 	
+	public function get_member_by_emails($shop,$emails){
+		return $this->db->select("tm.*")
+						->where("tm.id IN (SELECT ttm.member_id FROM tb_toko_member ttm WHERE ttm.toko_id = ".$shop.")",null)
+						->where("tm.email IN (".$emails.")",null)
+						->get("tb_member tm");
+	}
+	
 	public function get_by_shop_member($shop,$member){
 		return $this->db
 					->select("ttm.*")
