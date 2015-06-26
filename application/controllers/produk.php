@@ -105,25 +105,23 @@ class Produk extends CI_Controller {
 					}else{
 						$var=1;
 						for($i=1;$i<=$total_varian;$i++){
-							if($var <= 3){
-								if(isset($_POST['nama_varian_'.$i])){
-									$nama_varian = $this->template->clearInput($this->input->post('nama_varian_'.$i));
-									$stok_varian = $this->template->clearInput($this->input->post('stok_varian_'.$i));
+							if(isset($_POST['nama_varian_'.$i])){
+								$nama_varian = $this->template->clearInput($this->input->post('nama_varian_'.$i));
+								$stok_varian = $this->template->clearInput($this->input->post('stok_varian_'.$i));
 
-									$this->db->set('product_id',$id)
-										->set('name',$nama_varian)
-										->set('stock_qty',$stok_varian)
-										->set('create_user',$_SESSION['bonobo']['email'])
-										->set('update_user',$_SESSION['bonobo']['email'])
-										->insert('tb_product_varian');
-									echo $nama_varian.'<br>';
-									$var++;
-								}
-							}
+								$this->db->set('product_id',$id)
+									->set('name',$nama_varian)
+									->set('stock_qty',$stok_varian)
+									->set('create_user',$_SESSION['bonobo']['email'])
+									->set('update_user',$_SESSION['bonobo']['email'])
+									->insert('tb_product_varian');
+								echo $nama_varian.'<br>';
+								$var++;
+							}							
 						}
 					}
 				}
-				//redirect('produk');
+				redirect('produk');
 			}
 		}
 
@@ -180,10 +178,10 @@ class Produk extends CI_Controller {
 		$this->form_validation->set_rules('kategori', '', 'max_length[100]');
 		$this->form_validation->set_rules('berat', '', 'max_length[100]');
 		$this->form_validation->set_rules('satuan', '', 'max_length[5]');
-		$this->form_validation->set_rules('min_order', '', 'numeric|max_length[100]');
+		$this->form_validation->set_rules('min_order', '', 'max_length[100]');
 		$this->form_validation->set_rules('deskripsi', '', 'max_length[250]');
-		$this->form_validation->set_rules('stok', '', 'numeric|max_length[100]');
-		$this->form_validation->set_rules('harga_pembelian', '', 'numeric|max_length[100]');
+		$this->form_validation->set_rules('stok', '', 'max_length[100]');
+		$this->form_validation->set_rules('harga_pembelian', '', 'max_length[100]');
 	}
 
 	

@@ -74,7 +74,7 @@ echo "
 								</div>
 								<div class='col s12 m6' id='tempat-kategori'>
 									<label>Kategori barang <span class='text-red'>*</span></label>
-									<label class='error error-chosen' for='select-kategori'>asdasdsa</label>
+									<label class='error error-chosen' for='select-kategori'></label>
 									<select name='kategori' id='select-kategori' required>
 										<option value='' disabled selected>Choose your option</option>";
 										foreach ($kategori->result() as $row_ktgri) {
@@ -135,7 +135,7 @@ echo "
 									<input type='checkbox' id='gunakan_varian' name='gunakan_varian' onclick=javascript:setVarian() />
 									<label for='gunakan_varian'>Gunakan varian</label>
 								</div>
-								<input type='hidden' name='tot_varian' value='1' id='tot_varian' />
+								<input type='hidden' name='total_varian' value='1' id='tot_varian' />
 								<ul class='col s12 m12 cek-stok' id='tempat-varian' style='display:none'>
 									<li class='varsto' id='li_varian_1'>
 										<div class='input-field col s12 m5'>
