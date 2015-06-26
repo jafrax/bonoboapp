@@ -111,7 +111,8 @@ class Message extends CI_Controller {
 	}
 	
 	public function showNewMessage(){
-		$this->load->view("enduser/message/bg_message_new");
+		$data["Members"] = $this->model_toko_member->get_member_by_shop($_SESSION["bonobo"]["id"])->result();
+		$this->load->view("enduser/message/bg_message_new",$data);
 	}
 	
 	public function showMessageDetail(){
@@ -192,7 +193,7 @@ class Message extends CI_Controller {
 	public function doMessageNewSend(){
 		if($this->response->post("checkbox") == "1"){
 			if($this->response->post("message") == ""){
-				$this->response->send(array("result"=>0,"message"=>"Tidak ada pesan yang dikirim","messageCode"=>3));
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada pesan yang dikirim","messageCode"=>1));
 				return;
 			}
 			
@@ -201,32 +202,43 @@ class Message extends CI_Controller {
 				$this->doMessageAdd($_SESSION["bonobo"]["id"], $Member->id, $this->response->post("message"));
 			}
 			
-			$this->response->send(array("result"=>1,"message"=>"Pesan telah dikirim","messageCode"=>3));
+			$this->response->send(array("result"=>1,"message"=>"Pesan telah dikirim","messageCode"=>2));
 		}else{
-			if($this->response->post("emails") == ""){
-				$this->response->send(array("result"=>0,"message"=>"Tidak ada email tujuan","messageCode"=>1));
+			if($this->response->post("member") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada anggota yang dipilih","messageCode"=>1));
 				return;
 			}
 			
 			if($this->response->post("message") == ""){
-				$this->response->send(array("result"=>0,"message"=>"Tidak ada pesan yang dikirim","messageCode"=>3));
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada pesan yang dikirim","messageCode"=>2));
 				return;
 			}
 			
-			$pEmails = explode(",",$this->response->post("emails"));
-			$Emails = "";
-			for($i = 0 ; $i < count($pEmails); $i++){
-				$Emails = $Emails."'".$pEmails[$i]."',";
-			}
-			$Emails = $Emails."#";
-			$Emails = str_replace(",#","",$Emails);
-						
-			$Members = $this->model_toko_member->get_member_by_emails($_SESSION["bonobo"]["id"],$Emails)->result();
-			foreach($Members as $Member){
-				$this->doMessageAdd($_SESSION["bonobo"]["id"], $Member->id, $this->response->post("message"));
-			}
 			
-			$this->response->send(array("result"=>1,"message"=>"Pesan telah dikirim","messageCode"=>3));
+			/*
+			* Multiple Email
+			*
+			
+				$pEmails = explode(",",$this->response->post("emails"));
+				$Emails = "";
+				for($i = 0 ; $i < count($pEmails); $i++){
+					$Emails = $Emails."'".$pEmails[$i]."',";
+				}
+				$Emails = $Emails."#";
+				$Emails = str_replace(",#","",$Emails);
+				
+				$Members = $this->model_toko_member->get_member_by_emails($_SESSION["bonobo"]["id"],$Emails)->result();
+				foreach($Members as $Member){
+					$this->doMessageAdd($_SESSION["bonobo"]["id"], $Member->id, $this->response->post("message"));
+				}
+			*/
+			
+			$Save = $this->doMessageAdd($_SESSION["bonobo"]["id"], $this->response->post("member"), $this->response->post("message"));
+			if($Save){
+				$this->response->send(array("result"=>1,"message"=>"Pesan telah dikirim","messageCode"=>3));
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Pesan tidak dapat dikirim","messageCode"=>4));
+			}
 		}
 	}
 	

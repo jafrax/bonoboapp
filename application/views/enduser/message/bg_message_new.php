@@ -6,10 +6,21 @@ echo"
 		<label for='cmbMessageAnggota'>Kirim ke semua anggota</label>
 	</div>				
 					
-	<div style='height:120px'>
+	<div style='height:100px;width:350px'>
 		<div id='divEmailsTo' class='content-pesan'>
 			<h5>Kepada : </h5>
-			<input id='emailsTo' type='text' data-role='materialtags'/>
+			<select id='memberTo' class='chzn-select' >
+				<option value='' disabled selected>Pilih Anggota</option>
+";
+
+	foreach($Members as $Member){
+		echo"
+			<option value='".$Member->id."'>".$Member->name."</option>
+		";
+	}
+
+echo"
+			</select>
 		</div>
 	</div>
 	
@@ -28,6 +39,12 @@ echo"
 			</div>
 		</form>
 	</div>
+	
+	
+	<!--
+		<input id='emailsTo' type='text' data-role='materialtags'/>
+		<script>emailsTo.materialtags();</script>
+	-->
 	
 	<script>
 		var ctrlMessageNew = new CtrlMessageNew();

@@ -181,9 +181,9 @@ function CtrlMessageDetail(){
 function CtrlMessageNew(){
 	this.init = init;
 	
-	var cmbMessageAnggota, emailsTo, txtMessage;
+	var cmbMessageAnggota, memberTo, txtMessage;
 	var btnSend;
-	var divEmailsTo;
+	var divEmailTo;
 	
 	function init(){
 		initComponent();
@@ -192,12 +192,12 @@ function CtrlMessageNew(){
 	
 	function initComponent(){
 		divEmailsTo = $("#divEmailsTo");
-		emailsTo = $('#emailsTo');
+		memberTo = $hs('memberTo');
 		cmbMessageAnggota = $hs("cmbMessageAnggota");
 		txtMessage = $hs("txtMessage");
 		btnSend = $hs("btnSend");
 		
-		emailsTo.materialtags();
+		initComboBox();
 	}
 	
 	function initEventlistener(){
@@ -228,7 +228,7 @@ function CtrlMessageNew(){
 		
 		$.ajax({
 			type: 'POST',
-			data: "emails="+emailsTo.val()+"&message="+txtMessage.value+"&checkbox="+checked,
+			data: "member="+memberTo.value+"&message="+txtMessage.value+"&checkbox="+checked,
 			url: base_url+'message/doMessageNewSend',
 			success: function(result) {
 				var response = JSON.parse(result);
