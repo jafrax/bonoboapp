@@ -95,7 +95,7 @@ class Produk extends CI_Controller {
 						}
 					}
 
-					if ($gunakan_varian) {
+					if ($gunakan_varian != 'on') {
 						$this->db->set('product_id',$id)
 								->set('name','null')
 								->set('stock_qty',$stok_utama)
@@ -116,14 +116,14 @@ class Produk extends CI_Controller {
 										->set('create_user',$_SESSION['bonobo']['email'])
 										->set('update_user',$_SESSION['bonobo']['email'])
 										->insert('tb_product_varian');
-									//echo $category.'<br>';
+									echo $nama_varian.'<br>';
 									$var++;
 								}
 							}
 						}
 					}
 				}
-				redirect('produk');
+				//redirect('produk');
 			}
 		}
 
@@ -178,7 +178,7 @@ class Produk extends CI_Controller {
 		$this->form_validation->set_rules('nama', '', 'required|max_length[50]');
 		$this->form_validation->set_rules('sku', '', 'max_length[20]');
 		$this->form_validation->set_rules('kategori', '', 'max_length[100]');
-		$this->form_validation->set_rules('berat', '', 'required|max_length[100]');
+		$this->form_validation->set_rules('berat', '', 'max_length[100]');
 		$this->form_validation->set_rules('satuan', '', 'max_length[5]');
 		$this->form_validation->set_rules('min_order', '', 'numeric|max_length[100]');
 		$this->form_validation->set_rules('deskripsi', '', 'max_length[250]');

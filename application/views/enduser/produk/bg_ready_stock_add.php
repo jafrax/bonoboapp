@@ -49,14 +49,15 @@ echo "
 					</ul>
 				</div>
 				<div class='col s12 m12 l9'>
-					<form class='formain' method='post' action='' enctype='multipart/form-data'>
+					<form class='formain'id='form-ready' method='post' action='' enctype='multipart/form-data'>
 						<div class='formhead'>
 							<h2 class='titmain'><b>BUAT BARANG BARU PRE ORDER</b></h2>
 						</div>
 						<div class='row formbody'>
 							<div class='col s12'>
 								<div class='col s12 m6'>
-									<label>Tipe barang</label>
+									<label>Tipe barang <span class='text-red'>*</span></label>
+									<label class='error error-chosen' for='tipe'></label>
 									<select name='tipe'>
 										<option value='' disabled selected>Choose your option</option>
 										<option value='1' "; if ($uri3 == 1) echo "selected"; echo">Ready Stock</option>
@@ -64,22 +65,23 @@ echo "
 									</select>									
 								</div>
 								<div class='input-field col s12'>
-									<input id='nama_barang' name='nama' type='text' class='validate' length='50'>
-									<label for='nama_barang'>Nama barang <span class='text-red'>*</span></label>
+									<input id='nama_barang' name='nama' type='text' class='validate' length='50' required>
+									<label for='nama_barang'>Nama barang <span class='text-red'>*</span></label>									
 								</div>
 								<div class='input-field col s12'>
 									<input id='nomor_sku' type='text' name='sku' class='validate' length='20'>
 									<label for='nomor_sku'>Nomor SKU</label>
 								</div>
 								<div class='col s12 m6' id='tempat-kategori'>
-									<label>Kategori barang</label>
-									<select name='kategori' id='select-kategori'>
-										<option value='0' disabled selected>Choose your option</option>";
+									<label>Kategori barang <span class='text-red'>*</span></label>
+									<label class='error error-chosen' for='select-kategori'>asdasdsa</label>
+									<select name='kategori' id='select-kategori' required>
+										<option value='' disabled selected>Choose your option</option>";
 										foreach ($kategori->result() as $row_ktgri) {
 											echo "<option value='".$row_ktgri->id."'>".$row_ktgri->name."</option>";
 										}
 										echo"
-									</select>									
+									</select>
 								</div>
 								<div class='input-field col s12 m6'>
 									<a href='#add_kategori' class='waves-effect btn-flat right modal-trigger'><b class='text-blue'><i class='mdi-content-add-box left'></i>BUAT KATEGORI BARU</b></a>
@@ -92,6 +94,8 @@ echo "
 												<img id='img_pic_1' onclick=javascript:click_picture('pic_1') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
 												<input type='file' class='pic_product' name='pic_1' id='pic_1' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
 											</div>
+											<label for='pic_1' class='error' generated='true'></label>
+                                            <span class='label-area'></span>
 										</div>
 									</div>
 								</div>
@@ -120,8 +124,9 @@ echo "
 							<div class='row formbody'>
 								<div class='linehead'>Stok Barang</div>
 								<div class=' col s12 m6'>
-								<label>Tipe stok</label>
-									<select name='stok' id='stok' OnChange=javascript:change_stok()>										
+								<label>Tipe stok <span class='text-red'>*</span></label>
+								<label class='error error-chosen' for='stok'></label>
+									<select name='stok' id='stok' required OnChange=javascript:change_stok()>										
 										<option value='1' selected>Stok selalu tersedia</option>
 										<option value='0'>Gunakan stok</option>
 									</select>									
@@ -180,39 +185,39 @@ echo "
 									<li class='varsto'>
 										<p><br></p>
 										<div class='input-field col s12 m6'>
-											<input id='varian' name='harga_level_1' type='text' placeholder='0' class='validate'>
+											<input id='varian' name='harga_level_1' type='text' placeholder='0' class='validate' required>
 											<label for='varian'>Harga "; if ($level_harga->level_1_name != '') {echo $level_harga->level_1_name;}else{echo "level 1";} echo" <span class='text-red'>*</span></label>
 										</div>
 									</li>
 									<li class='varsto'>
 										<div class='input-field col s12 m6'>
-											<input id='varian' name='harga_level_2' type='text' placeholder='0' class='validate'>
-											<label for='varian'>Harga "; if ($level_harga->level_2_name != '') {echo $level_harga->level_1_name;}else{echo "level 2";} echo" <span class='text-red'>*</span></label>
+											<input id='varian' name='harga_level_2' type='text' placeholder='0' class='validate' >
+											<label for='varian'>Harga "; if ($level_harga->level_2_name != '') {echo $level_harga->level_2_name;}else{echo "level 2";} echo"</label>
 										</div>
 									</li>
 									<li class='varsto'>
 										<div class='input-field col s12 m6'>
-											<input id='varian' name='harga_level_3' type='text' placeholder='0' class='validate'>
-											<label for='varian'>Harga "; if ($level_harga->level_3_name != '') {echo $level_harga->level_1_name;}else{echo "level 3";} echo" <span class='text-red'>*</span></label>
+											<input id='varian' name='harga_level_3' type='text' placeholder='0' class='validate' >
+											<label for='varian'>Harga "; if ($level_harga->level_3_name != '') {echo $level_harga->level_3_name;}else{echo "level 3";} echo"</label>
 										</div>
 									</li>
 									<li class='varsto'>
 										<div class='input-field col s12 m6'>
-											<input id='varian' name='harga_level_4' type='text' placeholder='0' class='validate'>
-											<label for='varian'>Harga "; if ($level_harga->level_4_name != '') {echo $level_harga->level_1_name;}else{echo "level 4";} echo" <span class='text-red'>*</span></label>
+											<input id='varian' name='harga_level_4' type='text' placeholder='0' class='validate' >
+											<label for='varian'>Harga "; if ($level_harga->level_4_name != '') {echo $level_harga->level_4_name;}else{echo "level 4";} echo"</label>
 										</div>
 									</li>
 									<li class='varsto'>
 										<div class='input-field col s12 m6'>
-											<input id='varian' name='harga_level_5' type='text' placeholder='0' class='validate'>
-											<label for='varian'>Harga "; if ($level_harga->level_5_name != '') {echo $level_harga->level_1_name;}else{echo "level 5";} echo" <span class='text-red'>*</span></label>
+											<input id='varian' name='harga_level_5' type='text' placeholder='0' class='validate' >
+											<label for='varian'>Harga "; if ($level_harga->level_5_name != '') {echo $level_harga->level_5_name;}else{echo "level 5";} echo"</label>
 										</div>
 									</li>
 								</ul>
 								<div class='input-field col s12 m12 varsto'>
 									<button class='btn waves-effect waves-light right col s12 m3' type='submit' value='1' name='action'>Simpan<i class='mdi-content-send right'></i></button>																		
 									<button class='btn waves-effect waves-light yellow darken-3 right col s12 m3' value='0' type='submit' name='action'>Simpan Draft<i class='mdi-content-drafts right'></i></button>
-									<button class='btn waves-effect waves-light red right col s12 m3' type='submit' name='action'>Batal<i class='mdi-content-clear right'></i></button>
+									<button class='btn waves-effect waves-light red right col s12 m3' type='button' name='action' onclick='location.href=\"".base_url()."produk/\"'>Batal<i class='mdi-content-clear right'></i></button>
 								</div>
 							</div>
 						</div>

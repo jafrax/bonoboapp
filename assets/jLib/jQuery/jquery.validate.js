@@ -253,7 +253,7 @@ $.extend( $.validator, {
 		errorContainer: $( [] ),
 		errorLabelContainer: $( [] ),
 		onsubmit: true,
-		ignore: ":hidden",
+		ignore: ":hidden:not(.selectpicker)",
 		ignoreTitle: false,
 		onfocusin: function( element ) {
 			this.lastActive = element;
@@ -292,7 +292,7 @@ $.extend( $.validator, {
 			if ( element.type === "radio" ) {
 				this.findByName( element.name ).addClass( errorClass ).removeClass( validClass );
 			} else {
-				$( element ).addClass( errorClass ).removeClass( validClass );
+				$( element ).removeClass( validClass );
 			}
 		},
 		unhighlight: function( element, errorClass, validClass ) {
@@ -310,18 +310,18 @@ $.extend( $.validator, {
 	},
 
 	messages: {
-		required: message_alert("This field is required."),
+		required: message_alert("Harus diisi."),
 		remote: message_alert("Please fix this field."),
-		email: message_alert("Please enter a valid email address."),
+		email: message_alert("Silahkan masukkan email yang valid."),
 		url: message_alert("Please enter a valid URL."),
 		date: message_alert("Please enter a valid date."),
 		dateISO: message_alert("Please enter a valid date ( ISO )."),
-		number: message_alert("Please enter a valid number."),
-		digits: message_alert("Please enter only digits."),
+		number: message_alert("Silahkan masukkan angka desimal. ex:123.12"),
+		digits: message_alert("Silahkan masukkan angka. ex:12345"),
 		creditcard: message_alert("Please enter a valid credit card number."),
 		equalTo: message_alert("Please enter the same value again."),
-		maxlength: $.validator.format( message_alert("Please enter no more than {0} characters." )),
-		minlength: $.validator.format( message_alert("Please enter at least {0} characters." )),
+		maxlength: $.validator.format( message_alert("Data tidak boleh lebih dari {0} karakter." )),
+		minlength: $.validator.format( message_alert("Data tidak boleh kurang dari {0} karakter." )),
 		rangelength: $.validator.format( message_alert("Please enter a value between {0} and {1} characters long." )),
 		range: $.validator.format( message_alert("Please enter a value between {0} and {1}." )),
 		max: $.validator.format( message_alert("Please enter a value less than or equal to {0}." )),
@@ -1365,7 +1365,7 @@ $.extend($.fn, {
 }));
 
 function message_alert(e) {
-	return "<label class='error-universal eu-red'><span class='glyphicon glyphicon-exclamation-sign'></span>"+e+"</label>";
+	return "<i class='fa fa-warning'></i> "+e+" !";
 }
 /*
 function message_alert(e) {
