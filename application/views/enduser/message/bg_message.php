@@ -17,7 +17,7 @@ echo"
 					</a>
 				</div>
 			</div>
-
+			<div id='notifMessage' align='center' style='display:none;'></div>
 			<div class='row formbody'>
 				<div class='col s12 m4'>
 					<ul class='row formbody'>

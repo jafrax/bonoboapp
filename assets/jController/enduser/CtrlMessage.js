@@ -83,7 +83,9 @@ function CtrlMessage(){
 				if(response.result == 1){
 					top.location.href = base_url+"message";
 				}else{
-					alert(response.message);
+					$("#notifMessage").html(response.message);
+					$("#notifMessage").slideDown("slow");
+					$("#notifMessage").delay(5000).slideUp("slow");
 				}
 			}
 		});
@@ -99,7 +101,9 @@ function CtrlMessage(){
 				if(response.result == 1){
 					top.location.href = base_url+"message";
 				}else{
-					alert(response.message);
+					$("#notifMessage").html(response.message);
+					$("#notifMessage").slideDown("slow");
+					$("#notifMessage").delay(5000).slideUp("slow");
 				}
 			}
 		});
@@ -120,7 +124,9 @@ function CtrlMessage(){
 				if(response.result == 1){
 					top.location.href = base_url+"message";
 				}else{
-					alert(response.message);
+					$("#notifMessage").html(response.message);
+					$("#notifMessage").slideDown("slow");
+					$("#notifMessage").delay(5000).slideUp("slow");
 				}
 			}
 		});
@@ -153,7 +159,9 @@ function CtrlMessageDetail(){
 	
 	function doSend(){
 		if(formMessageDetail.txtMessage.value == ""){
-			alert("Anda belum menulis pesan");
+			$("#notifMessage").html("Anda belum menulis pesan");
+			$("#notifMessage").slideDown("slow");
+			$("#notifMessage").delay(5000).slideUp("slow");
 			return;
 		}
 		
@@ -166,7 +174,9 @@ function CtrlMessageDetail(){
 				if(response.result == 1){
 					ctrlMessage.showMessageDetail(member);
 				}else{
-					alert(response.message);
+					$("#notifMessage").html(response.message);
+					$("#notifMessage").slideDown("slow");
+					$("#notifMessage").delay(5000).slideUp("slow");
 				}
 			}
 		});
@@ -218,7 +228,9 @@ function CtrlMessageNew(){
 		var checked = "0";
 		
 		if(txtMessage.value == ""){
-			alert("Belum ada pesan yang anda tulis");
+			$("#notifMessage").html("Belum ada pesan yang anda tulis");
+			$("#notifMessage").slideDown("slow");
+			$("#notifMessage").delay(5000).slideUp("slow");
 			return;
 		}
 		
@@ -235,7 +247,9 @@ function CtrlMessageNew(){
 				if(response.result == 1){
 					top.location.href = base_url+"message";
 				}else{
-					alert(response.message);
+					$("#notifMessage").html(response.message);
+					$("#notifMessage").slideDown("slow");
+					$("#notifMessage").delay(5000).slideUp("slow");
 				}
 			}
 		});
