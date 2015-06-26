@@ -66,12 +66,15 @@ echo"
 					</a>
 				</div>
 				<div class='col s6 m8 l10'>
-					<a href='".base_url("index/logout")."'>
-						<div class='usermain right'>
-							<img class='responsive-img userdum' src='".base_url()."html/images/comp/male.png' />
+					<div class='usermain right'>
+						<img class='responsive-img userdum' src='".base_url()."html/images/comp/male.png' />
+						<a class='dropdown-button right' data-beloworigin='true' href='#' data-activates='duser' >
 							<text>James Rodriguez</text>
-						</div>
-					</a>
+						</a>
+						<ul id='duser' class='dropdown-content right'>
+							<li><a href='".base_url("index/logout")."'>Logout</a></li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -84,7 +87,6 @@ echo"
 					<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='#'>Nota</a></li>
 					<li "; if ($uri == 'message') echo"class='active'"; echo"><a "; if ($uri == 'message') echo"class='active'"; echo" href='".base_url("message")."'>Pesan</a></li>
 					<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='#'>Pre Order</a></li>
-					<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='".base_url("index/logout")."'>Logout</a></li>
 				</ul>
 			</div>
 		</nav>

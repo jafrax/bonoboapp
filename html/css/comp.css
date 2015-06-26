@@ -79,6 +79,7 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
 .input-field p { color:#aaa; padding-left: 50px;}
 .input-field.table { padding:0 12px 0 0; }
 .error { position: absolute; top: 0.8rem; right: 0.75rem; text-align:right; color:#ef5350!important; }
+.error-chosen{ position: relative!important; top: 0; right: 0.75rem; text-align:right; }
 .notif-error{ position: relative; padding:8px 0 10px 0; text-align:center; color:#ef5350!important;  }
 
 .select-wrapper input.select-dropdown{ position: relative!important; z-index:1!important;}
@@ -140,4 +141,7 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
 .pesanmu img{width: 300px;}
 
 .content-balasan {background: #eceff1 ;overflow: hidden;padding: 20px 0px;border-radius: 10px;}
-.content-balasan textarea{height: 100px;}
+.content-balasan textarea{height: 100px; }
+
+.vote{ line-height: 15px; }
+
