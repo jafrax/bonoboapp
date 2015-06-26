@@ -67,6 +67,8 @@ class Toko extends CI_Controller {
 	}
 	
 	public function step7(){
+		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+		
 		$this->template->bonobo_step("enduser/toko/bg_step_7",$data);
 	}
 	
