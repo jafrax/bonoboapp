@@ -52,61 +52,64 @@
 		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Batal</a>		
 	</div>
 </div>
-<div id="pengiriman" class="modal confirmation">
-	<form class="modal-content">
-		<div class="input-field col s12 m6">
-			<select>
-				<option value="" disabled selected>Pilih Jenis Pengiriman</option>
-				<option value="1">Option 1</option>
-				<option value="2">Option 2</option>
-				<option value="3">Option 3</option>
-			</select>
-			<label>Jenis Pengiriman</label>
-		</div>
-		<div class="input-field col s12 m8">
-			<input id="nama" type="text" class="validate">
-			<label for="nama">Nama Resi</label>
-		</div>
-		<div class="input-field col s12 m8">
-			<input id="tokoid" type="text" class="validate">
-			<label for="tokoid">Nama Penerima</label>
-		</div>
-		<div class="input-field col s12 m8">
-			<input id="tokoid" type="text" class="validate">
-			<label for="tokoid">Kode Pos</label>
-		</div>
-		<div class="input-field col s12 m6">
-			<select>
-				<option value="" disabled selected>Choose your option</option>
-				<option value="1">Option 1</option>
-				<option value="2">Option 2</option>
-				<option value="3">Option 3</option>
-			</select>
-			<label>Pilih Provinsi</label>
-		</div>
-		<div class="input-field col s12 m6">
-			<select>
-				<option value="" disabled selected>Choose your option</option>
-				<option value="1">Option 1</option>
-				<option value="2">Option 2</option>
-				<option value="3">Option 3</option>
-			</select>
-			<label>Pilih Kota</label>
-		</div>
-		<div class="input-field col s12 m6">
-			<select>
-				<option value="" disabled selected>Choose your option</option>
-				<option value="1">Option 1</option>
-				<option value="2">Option 2</option>
-				<option value="3">Option 3</option>
-			</select>
-			<label>Pilih Kecamatan</label>
-		</div>
-		<div class="input-field col s12 m8">
-			<textarea id="alamat" class="materialize-textarea" ></textarea>
-			<label for="alamat">Alamat Penerima</label>
-		</div>
-	</form>
+<div id="pengiriman" class="modal modal-fixed-footer">
+	<div class="modal-content">
+		<form class="col s12 m6">
+			<div class="input-field col s12 m6">
+				<label>Jenis Pengiriman</label>
+				<select>
+					<option value="" disabled selected>Pilih Jenis Pengiriman</option>
+					<option value="1">Option 1</option>
+					<option value="2">Option 2</option>
+					<option value="3">Option 3</option>
+				</select>
+			</div>
+			<div class="input-field col s12 m8">
+				<input id="nama" type="text" class="validate">
+				<label for="nama">Nama Resi</label>
+			</div>
+			<div class="input-field col s12 m8">
+				<input id="tokoid" type="text" class="validate">
+				<label for="tokoid">Nama Penerima</label>
+			</div>
+			<div class="input-field col s12 m8">
+				<input id="tokoid" type="text" class="validate">
+				<label for="tokoid">Kode Pos</label>
+			</div>
+			<div class="input-field col s12 m6">
+				<label>Pilih Provinsi</label>
+				<select>
+					<option value="" disabled selected>Pilih Provinsi</option>
+					<option value="1">Option 1</option>
+					<option value="2">Option 2</option>
+					<option value="3">Option 3</option>
+				</select>
+			</div>
+			<div class="input-field col s12 m6">
+				<label>Pilih Kota</label>
+				<select>
+					<option value="" disabled selected>Pilih Kota</option>
+					<option value="1">Option 1</option>
+					<option value="2">Option 2</option>
+					<option value="3">Option 3</option>
+				</select>
+			</div>
+			<div class="input-field col s12 m6">
+				<label>Pilih Kecamatan</label>
+				<select>
+					<option value="" disabled selected>Pilih Kecamatan</option>
+					<option value="1">Option 1</option>
+					<option value="2">Option 2</option>
+					<option value="3">Option 3</option>
+				</select>
+			</div>
+			<div class="input-field col s12 m8">
+				<textarea id="alamat" class="materialize-textarea" ></textarea>
+				<label for="alamat">Alamat Penerima</label>
+			</div>
+			<br><br><br><br>
+		</form>
+	</div>
 	<div class="modal-footer">
 		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Konfirmasi</a>
 		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Batal</a>		

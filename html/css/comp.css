@@ -77,7 +77,6 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
 }
 .input-field label{ font-size: 14px; }
 .input-field p { color:#aaa; padding-left: 50px;}
-.col p{ padding-left:0; }
 .input-field.table { padding:0 12px 0 0; }
 .error { position: absolute; top: 0.8rem; right: 0.75rem; text-align:right; color:#ef5350!important; }
 .error-chosen{ position: relative!important; top: 0; right: 0.75rem; text-align:right; }
