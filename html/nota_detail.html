@@ -17,6 +17,7 @@
 <link type="text/css" rel="stylesheet" href="css/comp.css" />
 
 </head>
+
 <body class="cbp-spmenu-push cbp-spmenu-push-toleft">
 <div id="bayar" class="modal confirmation">
 	<div class="modal-header red">
@@ -44,13 +45,13 @@
 		<p>Tanggal Konfirmasi : <span class="blue-text">18 Juni 2015</span></p>
 		<p>Jumlah yang di transfer : <span class="blue-text">Rp. 1.800.000,00</span></p>
 		<p>
+			<label for="metode">Pilih Rekening Tujuan</label>
 			<select id="metode">
 				<option value="" disabled selected>Pilih Rekening Tujuan</option>
 				<option value="1">Option 1</option>
 				<option value="2">Option 2</option>
 				<option value="3">Option 3</option>
 			</select>
-			<label for="metode">Pilih Rekening Tujuan</label>
 		</p>
 	</form>
 	<div class="modal-footer">
@@ -58,61 +59,64 @@
 		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Batal</a>		
 	</div>
 </div>
-<div id="pengiriman" class="modal confirmation">
-	<form class="modal-content">
-		<div class="input-field col s12 m6">
-			<select>
-				<option value="" disabled selected>Pilih Jenis Pengiriman</option>
-				<option value="1">Option 1</option>
-				<option value="2">Option 2</option>
-				<option value="3">Option 3</option>
-			</select>
-			<label>Jenis Pengiriman</label>
-		</div>
-		<div class="input-field col s12 m8">
-			<input id="nama" type="text" class="validate">
-			<label for="nama">Nama Resi</label>
-		</div>
-		<div class="input-field col s12 m8">
-			<input id="tokoid" type="text" class="validate">
-			<label for="tokoid">Nama Penerima</label>
-		</div>
-		<div class="input-field col s12 m8">
-			<input id="tokoid" type="text" class="validate">
-			<label for="tokoid">Kode Pos</label>
-		</div>
-		<div class="input-field col s12 m6">
-			<select>
-				<option value="" disabled selected>Choose your option</option>
-				<option value="1">Option 1</option>
-				<option value="2">Option 2</option>
-				<option value="3">Option 3</option>
-			</select>
-			<label>Pilih Provinsi</label>
-		</div>
-		<div class="input-field col s12 m6">
-			<select>
-				<option value="" disabled selected>Choose your option</option>
-				<option value="1">Option 1</option>
-				<option value="2">Option 2</option>
-				<option value="3">Option 3</option>
-			</select>
-			<label>Pilih Kota</label>
-		</div>
-		<div class="input-field col s12 m6">
-			<select>
-				<option value="" disabled selected>Choose your option</option>
-				<option value="1">Option 1</option>
-				<option value="2">Option 2</option>
-				<option value="3">Option 3</option>
-			</select>
-			<label>Pilih Kecamatan</label>
-		</div>
-		<div class="input-field col s12 m8">
-			<textarea id="alamat" class="materialize-textarea" ></textarea>
-			<label for="alamat">Alamat Penerima</label>
-		</div>
-	</form>
+<div id="pengiriman" class="modal modal-fixed-footer">
+	<div class="modal-content">
+		<form class="col s12 m6">
+			<div class="input-field col s12 m6">
+				<label>Jenis Pengiriman</label>
+				<select>
+					<option value="" disabled selected>Pilih Jenis Pengiriman</option>
+					<option value="1">Option 1</option>
+					<option value="2">Option 2</option>
+					<option value="3">Option 3</option>
+				</select>
+			</div>
+			<div class="input-field col s12 m8">
+				<input id="nama" type="text" class="validate">
+				<label for="nama">Nama Resi</label>
+			</div>
+			<div class="input-field col s12 m8">
+				<input id="tokoid" type="text" class="validate">
+				<label for="tokoid">Nama Penerima</label>
+			</div>
+			<div class="input-field col s12 m8">
+				<input id="tokoid" type="text" class="validate">
+				<label for="tokoid">Kode Pos</label>
+			</div>
+			<div class="input-field col s12 m6">
+				<label>Pilih Provinsi</label>
+				<select>
+					<option value="" disabled selected>Pilih Provinsi</option>
+					<option value="1">Option 1</option>
+					<option value="2">Option 2</option>
+					<option value="3">Option 3</option>
+				</select>
+			</div>
+			<div class="input-field col s12 m6">
+				<label>Pilih Kota</label>
+				<select>
+					<option value="" disabled selected>Pilih Kota</option>
+					<option value="1">Option 1</option>
+					<option value="2">Option 2</option>
+					<option value="3">Option 3</option>
+				</select>
+			</div>
+			<div class="input-field col s12 m6">
+				<label>Pilih Kecamatan</label>
+				<select>
+					<option value="" disabled selected>Pilih Kecamatan</option>
+					<option value="1">Option 1</option>
+					<option value="2">Option 2</option>
+					<option value="3">Option 3</option>
+				</select>
+			</div>
+			<div class="input-field col s12 m8">
+				<textarea id="alamat" class="materialize-textarea" ></textarea>
+				<label for="alamat">Alamat Penerima</label>
+			</div>
+			<br><br><br><br>
+		</form>
+	</div>
 	<div class="modal-footer">
 		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Konfirmasi</a>
 		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Batal</a>		
@@ -279,7 +283,7 @@
 									<p>Provinsi :</p>									
 								</div>
 								<div class="col s6 m6 right-align">
-									<a href="#" >edit</a>
+									<a href="#pengiriman" class="modal-trigger" >edit</a>
 									<p>JNE</p>									
 									<p>socb15289872132</p>									
 									<p>Dinar</p>									
