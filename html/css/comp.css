@@ -140,4 +140,7 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
 .pesanmu img{width: 300px;}
 
 .content-balasan {background: #eceff1 ;overflow: hidden;padding: 20px 0px;border-radius: 10px;}
-.content-balasan textarea{height: 100px;}
+.content-balasan textarea{height: 100px; }
+
+.vote{ line-height: 15px; }
+
