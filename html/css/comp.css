@@ -83,7 +83,7 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
 
 .select-wrapper input.select-dropdown{ position: relative!important; z-index:1!important;}
 
-.dropdown-content{ z-index:999!important; margin-top:40px; }
+.dropdown-content{ z-index:999!important; }
 .dropdown-content.active{ z-index:1001!important; }
 .dropdown-content li a{ font-size:14px; }
 .dropdown-content li span{ font-size:14px; padding:5px; color:#313131; }
