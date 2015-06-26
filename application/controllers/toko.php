@@ -6,6 +6,7 @@
 *
 * Log Activity : ~ Create your log if you change this controller ~
 * 1. Create 23 Juni 2015 by Heri Siswanto, Create function : index
+* 2. Create 26 Juni 2015 by Heri Siswanto, Create function : step2, step3, step4
 */
 
 set_time_limit (99999999999);
@@ -15,6 +16,8 @@ class Toko extends CI_Controller {
 	function __construct(){
         parent::__construct();
 		
+		$this->load->model("enduser/model_category");
+		$this->load->model("enduser/model_location");
 		$this->load->model("enduser/model_toko");
 		
 		if(empty($_SESSION['bonobo']) || empty($_SESSION['bonobo']['id'])){
@@ -24,9 +27,155 @@ class Toko extends CI_Controller {
     }
 	
 	public function index(){
-		$this->template->bonobo_step("enduser/toko/bg_dashboard");
+		$data["Categories"] = $this->model_category->get()->result();
+		$data["Provinces"] = $this->model_location->get_provinces()->result();
+		$data["Cities"] = $this->model_location->get_cities()->result();
+		$data["Kecamatans"] = $this->model_location->get_kecamatans()->result();
+		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+		
+		$this->template->bonobo_step("enduser/toko/bg_step_1",$data);
+	}
+	
+	public function step2(){
+		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+		
+		$this->template->bonobo_step("enduser/toko/bg_step_2",$data);
+	}
+	
+	public function step3(){
+		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+		
+		$this->template->bonobo_step("enduser/toko/bg_step_3",$data);
+	}
+	
+	public function step4(){
+		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+		
+		$this->template->bonobo_step("enduser/toko/bg_step_4",$data);
+	}
+	
+	public function step5(){
+		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+		
+		$this->template->bonobo_step("enduser/toko/bg_step_5",$data);
+	}
+	
+	public function step6(){
+		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+		
+		$this->template->bonobo_step("enduser/toko/bg_step_6",$data);
+	}
+	
+	public function step7(){
+		$this->template->bonobo_step("enduser/toko/bg_step_7",$data);
 	}
 	
 	
+	public function doStep1Save(){
+		if($this->response->post("txtName") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Field nama masih kosong","messageCode"=>1));
+			return;
+		}
+		
+		if($this->response->post("txtTagname") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Field toko ID masih kosong","messageCode"=>1));
+			return;
+		}
+		
+		if($this->response->post("cmbCategory") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Field kategory masih kosong","messageCode"=>1));
+			return;
+		}
+		
+		if($this->response->post("cmbProvince") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Field propinsi masih kosong","messageCode"=>1));
+			return;
+		}
+		
+		if($this->response->post("cmbCity") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Field kota masih kosong","messageCode"=>1));
+			return;
+		}
+		
+		if($this->response->post("cmbKecamatan") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Field kecamatan masih kosong","messageCode"=>1));
+			return;
+		}
+		
+		$QCategory = $this->model_category->get_by_id($this->response->post("cmbCategory"))->row();
+		if(!empty($QCategory)){
+			$Category = $QCategory->id;
+		}else{
+			$Category = null;
+		}
+		
+		$postal = $this->response->post("txtPostal");
+		$kecamatan = $this->response->post("cmbKecamatan");
+		$city = $this->response->post("cmbCity");
+		$province = $this->response->post("cmbProvince");
+		
+		$QLocation = $this->model_location->get_by_filter($postal,$kecamatan,$city,$province)->row();
+		if(!empty($QLocation)){
+			$Location = $QLocation->id;
+		}else{
+			$QLocation = $this->model_location->get_by_filter(null,$kecamatan,$city,$province)->row();
+			if(!empty($QLocation)){
+				$Location = $QLocation->id;
+			}else{
+				$Location = null;
+			}
+		}
+		
+		$Data = array(
+				"name"=>$this->response->post("txtName"),
+				"tag_name"=>$this->response->post("txtTagname"),
+				"keyword"=>$this->response->post("txtKeyword"),
+				"description"=>$this->response->post("txtDescription"),
+				"phone"=>$this->response->post("txtPhone"),
+				"address"=>$this->response->post("txtAddress"),
+				"postal"=>$this->response->post("txtPostal"),
+				"category_id"=>$Category,
+				"location_id"=>$Location,
+			);
+			
+		$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
+		if($Save){
+			$this->response->send(array("result"=>1,"message"=>"Informasi toko telah disimpan","messageCode"=>1));
+		}else{
+			$this->response->send(array("result"=>0,"message"=>"Informasi tidak dapat disimpan","messageCode"=>1));
+		}
+	}
+	
+	public function comboboxCity(){
+		$Cities = $this->model_location->get_cities_by_province($this->response->post("province"))->result();
+		
+		echo"<select name='cmbCity' onChange=ctrlShopStep1.loadComboboxKecamatan(); class='chzn-select'><option value='' disabled selected>Pilih Kota</option>";
+
+		foreach($Cities as $City){
+			echo"<option value='".$City->city."'>".$City->city."</option>";
+		}
+			
+		echo"
+			</select>
+			<label id='notifCity' class='error' style='display:none;'></label>
+			<script>initComboBox();</script>
+		";
+	}
+	
+	public function comboboxKecamatan(){
+		$Kecamatans = $this->model_location->get_kecamatans_by_city_province($this->response->post("city"),$this->response->post("province"))->result();
+		
+		echo"<select name='cmbKecamatan' class='chzn-select'><option value='' disabled selected>Pilih Kecamatan</option>";
+
+		foreach($Kecamatans as $Kecamatan){
+			echo"<option value='".$Kecamatan->kecamatan."'>".$Kecamatan->kecamatan."</option>";
+		}
+			
+		echo"
+			</select>
+			<label id='notifKecamatan' class='error' style='display:none;'></label>
+			<script>initComboBox();</script>
+		";
+	}
 }
 

@@ -24,7 +24,9 @@ class Model_toko extends CI_Model {
 	}
 	
 	public function get_by_id($id){
-		return $this->db->select('tt.*')
+		return $this->db->select('tt.*, mc.name as category_name, ml.kecamatan as location_kecamatan, ml.city as location_city, ml.province as location_province')
+						->join("ms_location ml","tt.location_id = ml.id","LEFT")
+						->join("ms_category mc","tt.category_id = mc.id","LEFT")
 						->where("tt.id",$id)
 						->get("tb_toko tt");
 	}
