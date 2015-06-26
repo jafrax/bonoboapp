@@ -39,6 +39,7 @@
 	.navmenu li.active{ display:block; width:100%; background-color:#616161; }
 	.navmenu li.active a{ border:none; }
 	.navmob{ display:block; }
+	.navmob li .badge{ color:#fff; border-radius:2px; }
 	.menu-left .fa{ font-size:34px; margin: 5px 0 0 -25px; color:#818181; }
 	.padhead { padding:0; }
 
