@@ -20,8 +20,10 @@ class Produk extends CI_Controller {
 		$this->load->model("enduser/model_produk");		
     }
 	
-	public function index(){		
-		$this->template->bonobo('produk/bg_ready_stock');
+	public function index(){
+
+		$data['produk'] = $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id']);
+		$this->template->bonobo('produk/bg_ready_stock',$data);
 	}
 
 	public function add(){
@@ -115,7 +117,7 @@ class Produk extends CI_Controller {
 									->set('create_user',$_SESSION['bonobo']['email'])
 									->set('update_user',$_SESSION['bonobo']['email'])
 									->insert('tb_product_varian');
-								echo $nama_varian.'<br>';
+								//echo $nama_varian.'<br>';
 								$var++;
 							}							
 						}
