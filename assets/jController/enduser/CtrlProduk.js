@@ -42,8 +42,10 @@
               }
       }
   });
-
-  document.getElementById("gunakan_varian").checked = false; 
+  if ($('#gunakan_varian').length > 0) {
+    document.getElementById("gunakan_varian").checked = false; 
+  };
+  
 })();
 
 var tot_picture = 1;
@@ -175,4 +177,50 @@ function deleteVarian(varian) {
   
   if (jmlh == 0) {$('#tempat-varian').append(boxVarian(jmlh));};
   
+}
+
+
+// view ready stock============================================================================
+
+function change_stock(id){
+  var invalidChars = /[^0-9]/gi
+  if(invalidChars.test(id.value)) {
+            id.value = id.value.replace(invalidChars,"");
+      }
+  var stok = $('#stok-'+id).val();
+  if (stok != '') {
+    $.ajax({
+      type: 'POST',
+      data: 'id='+id+'&stok='+stok,
+      url: base_url+'produk/change_stock',
+      success: function(msg) {
+        if (stok == 0) {
+          $('#habis-'+id).fadeIn();
+        }else{
+          $('#habis-'+id).fadeOut();
+        };
+        $('#ok-'+id).fadeIn();
+        $('#ok-'+id).delay(500).fadeOut();        
+      }
+    }); 
+  }
+}
+
+function delete_produk(id){
+  $.ajax({
+    type: 'POST',
+    data: 'id='+id,
+    url: base_url+'produk/delete_product',
+    success: function(msg) {
+      if (msg == 0) {
+        $('#produk-'+id).fadeIn();
+      }else{
+        $('#produk-'+id).fadeOut().remove();
+      }      
+    }
+  }); 
+}
+
+function cek_all(){
+  $('.cek_produk').click();
 }

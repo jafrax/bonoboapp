@@ -71,6 +71,7 @@ class Produk extends CI_Controller {
 					'price_4'					=> $harga_level_4,
 					'price_5'					=> $harga_level_5,
 					'create_user'				=> $_SESSION['bonobo']['email'],
+					'create_date'				=> date('Y-m-d H:i:s'),
 					'update_user'				=> $_SESSION['bonobo']['email']
 					);
 
@@ -89,6 +90,7 @@ class Produk extends CI_Controller {
 									$this->db->set('file',$picture)
 										->set('product_id',$id)
 										->set('create_user',$_SESSION['bonobo']['email'])
+										->set('create_date',date('Y-m-d H:i:s'))
 										->set('update_user',$_SESSION['bonobo']['email'])
 										->insert('tb_product_image');
 								}
@@ -102,6 +104,7 @@ class Produk extends CI_Controller {
 								->set('name','null')
 								->set('stock_qty',$stok_utama)
 								->set('create_user',$_SESSION['bonobo']['email'])
+								->set('create_date',date('Y-m-d H:i:s'))
 								->set('update_user',$_SESSION['bonobo']['email'])
 								->insert('tb_product_varian');
 					}else{
@@ -115,6 +118,7 @@ class Produk extends CI_Controller {
 									->set('name',$nama_varian)
 									->set('stock_qty',$stok_varian)
 									->set('create_user',$_SESSION['bonobo']['email'])
+									->set('create_date',date('Y-m-d H:i:s'))
 									->set('update_user',$_SESSION['bonobo']['email'])
 									->insert('tb_product_varian');
 								//echo $nama_varian.'<br>';
@@ -153,6 +157,7 @@ class Produk extends CI_Controller {
 			'toko_id'		=> $id,
 			'name'			=> $nama,
 			'create_user'	=> $_SESSION['bonobo']['email'],
+			'create_date'	=> date('Y-m-d H:i:s'),
 			'update_user'	=> $_SESSION['bonobo']['email']
 			);
 
@@ -186,6 +191,30 @@ class Produk extends CI_Controller {
 		$this->form_validation->set_rules('harga_pembelian', '', 'max_length[100]');
 	}
 
+
+	public function change_stock(){
+		$id = $this->input->post('id');
+		$stok = $this->input->post('stok');
+
+		$this->db->where('id',$id)->set('stock_qty',$stok)->update('tb_product_varian');
+		echo $stok;
+	}
+
+	public function delete_product(){
+		$id 	= $this->input->post('id');
+		$url   	= 'assets/pic/product/';
+		$image 	= $this->model_produk->get_one_image($id);
+		foreach ($image->result() as $row) {
+			$picture = $row->file;
+			@unlink($url.$picture);
+        	@unlink($url."resize/$picture");
+		}
+
+		$delete = $this->db->where('id',$id)->delete('tb_product');
+		if ($delete) {
+			echo "1";	
+		}		
+	}
 	
 }
 

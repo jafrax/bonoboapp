@@ -1,18 +1,5 @@
 <?php
 echo"
-<div id='delete_produk' class='modal confirmation'>
-	<div class='modal-header red'>
-		<i class='mdi-navigation-close left'></i> Hapus produk
-	</div>
-	<form class='modal-content'>
-		<p>Apakah anda yakin ingin menghapus <b>'nama produk'</b> ?</p>
-	</form>
-	<div class='modal-footer'>
-		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
-		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
-	</div>
-</div>
-
 			<div class='col s12 m12 l3'>
 					<ul class='menucontent'>
 						<li><a class='active' href='produk_ready_stock.html'>READY STOK</a></li>
@@ -35,7 +22,7 @@ echo"
 							<li class='col s12 listanggodaf'>
 								<div class='input-field col s12 m6 l6 nolpad'>
 									<div class='input-field col s12 m8 l6'>
-										<select class=''>
+										<select class='lectfilter'>
 											<option value='' disabled selected>Pilih filter</option>
 											<option value='1'>Published</option>
 											<option value='0'>Draft</option>											
@@ -52,7 +39,7 @@ echo"
 							<li class='col s12 listanggodaf'>
 								<div class='col s12 m12 l9 nolpad'>
 									<p class='col s1 m1 l1'>
-										<input type='checkbox' class='filled-in' id='filled-in-box' />
+										<input type='checkbox' class='filled-in' onclick=javascript:cek_all() id='filled-in-box' />
 										<label for='filled-in-box'></label>
 									</p>
 									<div class='input-field col s8 m4 l5'>
@@ -80,7 +67,7 @@ echo"
 								$i++;
 								$image = $this->model_produk->get_one_image($row->id)->row();
 								echo"
-								<li class='col s12 m12 listanggodaf'>
+								<li class='col s12 m12 listanggodaf' id='produk-".$row->id."'>
 									<p class='col s1 m1 l1'>
 										<input type='checkbox' class='filled-in cek_produk' name='cek_produk_".$row->id."' id='cek-$i' />
 										<label for='cek-$i'></label>
@@ -100,16 +87,18 @@ echo"
 											$stok =  $this->model_produk->get_varian_produk($row->id);
 											foreach ($stok->result() as $row_stok) {
 												echo"
-												<p class='input-field col s12 m12 l6 nolpad'>
-													<input id='stok' type='text' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate'>";
+												<p class='input-field col s12 m12 l7 nolpad'>
+													<input id='stok-".$row_stok->id."' onkeyup=javascript:change_stock(".$row_stok->id.") type='text' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate'>";
 													if ($row_stok->name != 'null') {
 														echo "<label for='stok'>".$row_stok->name."</label>";
 													}
 													
 													if ($row_stok->stock_qty == 0) {
-														echo"<span class='label red right'>Stok habis</span>";
+														echo"<span class='label red right' id='habis-".$row_stok->id."'>Stok habis</span>";
+													}else{
+														echo"<span class='label red right ' id='habis-".$row_stok->id."' style='display:none'>Stok habis</span>";
 													}
-												echo"	
+												echo"<i class='fa fa-check-circle green-text ' id='ok-".$row_stok->id."' style='display:none'> </i>
 												</p>";
 											}											
 										}else{
@@ -125,7 +114,19 @@ echo"
 											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled'>DRAFT</button>";
 										}											
 											echo"
-											<a href='#delete_produk' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
+											<a href='#delete_produk_".$row->id."' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
+											<div id='delete_produk_".$row->id."' class='modal confirmation'>
+												<div class='modal-header red'>
+													<i class='mdi-navigation-close left'></i> Hapus produk
+												</div>
+												<form class='modal-content'>
+													<p>Apakah anda yakin ingin menghapus <b>'".$row->name."'</b> ?</p>
+												</form>
+												<div class='modal-footer'>
+													<a href='#!' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
+													<button type='button' onclick=javascript:delete_produk(".$row->id.") class='btn-flat modal-action modal-close waves-effect '>YA</button>
+												</div>
+											</div>
 										</div>
 									</div>
 								</li>";
@@ -189,5 +190,6 @@ echo"
 						</ul>
 					</div>
 				</div>
+				<script type='text/javascript' src='".base_url("")."assets/jController/enduser/CtrlProduk.js'></script>
 ";
 ?>		
