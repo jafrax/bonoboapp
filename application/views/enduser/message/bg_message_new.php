@@ -15,7 +15,7 @@ echo"
 
 	foreach($Members as $Member){
 		echo"
-			<option value='".$Member->id."'>".$Member->name."</option>
+			<option value='".$Member->id."'>".$Member->name." (".$Member->email.")</option>
 		";
 	}
 
