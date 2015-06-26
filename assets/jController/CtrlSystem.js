@@ -73,17 +73,11 @@ function $hs_base64_decode(a){
 	return a;
 }
 
-function Messagebox_alert(e){
-	return "<div class='messagebox messagebox-alert'><div class='o'><img src='"+base_url+"assets/icon/icon_alert_red.png' /></div><div class='o'>"+e+"</div></div>";
-}
-
-function Messagebox_info(e){
-	return "<div class='messagebox messagebox-info'><div class='o'><img src='"+base_url+"assets/icon/icon_info_black.png' /></div><div class='o'>"+e+"</div></div>";
-}
-
-function Messagebox_timer(){
-	$('.messagebox').delay(5000).slideUp('slow');
-	$('.alert').delay(5000).slideUp('slow');
+function $hs_notif(c,e){
+	var component = $(c);
+	component.html(e);
+	component.slideDown("slow");
+	component.delay(5000).slideUp("slow");
 }
 
 function $hs_getDate4String(a){

@@ -83,9 +83,7 @@ function CtrlMessage(){
 				if(response.result == 1){
 					top.location.href = base_url+"message";
 				}else{
-					$("#notifMessage").html(response.message);
-					$("#notifMessage").slideDown("slow");
-					$("#notifMessage").delay(5000).slideUp("slow");
+					$hs_notif("#notifMessage",response.message);
 				}
 			}
 		});
@@ -101,9 +99,7 @@ function CtrlMessage(){
 				if(response.result == 1){
 					top.location.href = base_url+"message";
 				}else{
-					$("#notifMessage").html(response.message);
-					$("#notifMessage").slideDown("slow");
-					$("#notifMessage").delay(5000).slideUp("slow");
+					$hs_notif("#notifMessage",response.message);
 				}
 			}
 		});
@@ -124,9 +120,7 @@ function CtrlMessage(){
 				if(response.result == 1){
 					top.location.href = base_url+"message";
 				}else{
-					$("#notifMessage").html(response.message);
-					$("#notifMessage").slideDown("slow");
-					$("#notifMessage").delay(5000).slideUp("slow");
+					$hs_notif("#notifMessage",response.message);
 				}
 			}
 		});
@@ -159,9 +153,7 @@ function CtrlMessageDetail(){
 	
 	function doSend(){
 		if(formMessageDetail.txtMessage.value == ""){
-			$("#notifMessage").html("Anda belum menulis pesan");
-			$("#notifMessage").slideDown("slow");
-			$("#notifMessage").delay(5000).slideUp("slow");
+			$hs_notif("#notifMessage","Anda belum menulis pesan");
 			return;
 		}
 		
@@ -174,9 +166,7 @@ function CtrlMessageDetail(){
 				if(response.result == 1){
 					ctrlMessage.showMessageDetail(member);
 				}else{
-					$("#notifMessage").html(response.message);
-					$("#notifMessage").slideDown("slow");
-					$("#notifMessage").delay(5000).slideUp("slow");
+					$hs_notif("#notifMessage",response.message);
 				}
 			}
 		});
@@ -228,9 +218,7 @@ function CtrlMessageNew(){
 		var checked = "0";
 		
 		if(txtMessage.value == ""){
-			$("#notifMessage").html("Belum ada pesan yang anda tulis");
-			$("#notifMessage").slideDown("slow");
-			$("#notifMessage").delay(5000).slideUp("slow");
+			$hs_notif("#notifMessage","Belum ada pesan yang anda tulis");
 			return;
 		}
 		
@@ -247,9 +235,7 @@ function CtrlMessageNew(){
 				if(response.result == 1){
 					top.location.href = base_url+"message";
 				}else{
-					$("#notifMessage").html(response.message);
-					$("#notifMessage").slideDown("slow");
-					$("#notifMessage").delay(5000).slideUp("slow");
+					$hs_notif("#notifMessage",response.message);
 				}
 			}
 		});

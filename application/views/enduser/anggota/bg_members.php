@@ -17,6 +17,7 @@ echo"
 				<h2 class='titmain'><b>DAFTAR ANGGOTA</b> <span>( ".sizeOf($Members)." Anggota )</span></h2>
 				<p>Halaman ini menampilkan pembeli yang telah menjadi anggota !</p>
 			</div>
+			<div id='notifMember' align='center' style='display:none;'></div>
 			<ul class='row formbody'>
 				<form method='POST' action='".base_url("anggota/members/")."'>
 				<li class='col s12 listanggodaf'>

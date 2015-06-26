@@ -6,7 +6,6 @@ function CtrlAnggotaJoinin(){
 	this.doAccept = doAccept;
 	this.doReject = doReject;
 	
-	var notifJoinin;
 	var formJoininLevel;
 	var aJoinLevelYes,aJoinLevelNo;
 		
@@ -16,7 +15,6 @@ function CtrlAnggotaJoinin(){
 	}
 	
 	function initComponent(){
-		notifJoinin = $("#notifJoinin");
 		formJoininLevel = $hs("formJoininLevel");
 		aJoinLevelYes = $hs("aJoinLevelYes");
 		aJoinLevelNo = $hs("aJoinLevelNo");
@@ -42,9 +40,7 @@ function CtrlAnggotaJoinin(){
 		var valid = true;
 		
 		if(e == ""){
-			notifJoinin.html("Data yang dipilih tidak valid");
-			notifJoinin.slideDown();
-			notifJoinin.delay(5000).slideUp('slow');
+			$hs_notif("#notifJoinin","Data yang dipilih tidak valid");
 			valid = false;
 		}
 		
@@ -58,9 +54,7 @@ function CtrlAnggotaJoinin(){
 					if(response.result == 1){
 						top.location.href = base_url+"anggota";
 					}else{
-						notifJoinin.html(response.message);
-						notifJoinin.slideDown();
-						notifJoinin.delay(5000).slideUp('slow');
+						$hs_notif("#notifJoinin",response.message);
 					}
 				}
 			});
@@ -71,9 +65,7 @@ function CtrlAnggotaJoinin(){
 		var valid = true;
 		
 		if(e == ""){
-			notifJoinin.html("Data toko yang dipilih tidak valid");
-			notifJoinin.slideDown();
-			notifJoinin.delay(5000).slideUp('slow');
+			$hs_notif("#notifJoinin","Data toko yang dipilih tidak valid");
 			valid = false;
 		}
 		
@@ -87,9 +79,7 @@ function CtrlAnggotaJoinin(){
 					if(response.result == 1){
 						top.location.href = base_url+"anggota";
 					}else{
-						notifJoinin.html(response.message);
-						notifJoinin.slideDown();
-						notifJoinin.delay(5000).slideUp('slow');
+						$hs_notif("#notifJoinin",response.message);
 					}
 				}
 			});
@@ -101,23 +91,17 @@ function CtrlAnggotaJoinin(){
 		var divButton = $("#divButton"+formJoininLevel.id.value);
 		
 		if(formJoininLevel.id.value == ""){
-			notifJoinin.html("Data yang dipilih tidak valid");
-			notifJoinin.slideDown();
-			notifJoinin.delay(5000).slideUp('slow');
+			$hs_notif("#notifJoinin","Data yang dipilih tidak valid");
 			valid = false;
 		}
 		
 		if(formJoininLevel.level.value == ""){
-			notifJoinin.html("Level harus dipilih !");
-			notifJoinin.slideDown();
-			notifJoinin.delay(5000).slideUp('slow');
+			$hs_notif("#notifJoinin","Level harus dipilih !");
 			valid = false;
 		}
 		
 		if(divButton == null){
-			notifJoinin.html("Komponen tidak ditemukan");
-			notifJoinin.slideDown();
-			notifJoinin.delay(5000).slideUp('slow');
+			$hs_notif("#notifJoinin","Komponen tidak ditemukan");
 			valid = false;
 		}
 		
@@ -132,9 +116,7 @@ function CtrlAnggotaJoinin(){
 						divButton.html("<a class='waves-effect btn-flat right' onclick=ctrlAnggotaJoinin.doDelete("+formJoininLevel.id.value+")><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>");
 						formJoininLevel.id.value = "";
 					}else{
-						notifJoinin.html(response.message);
-						notifJoinin.slideDown();
-						notifJoinin.delay(5000).slideUp('slow');
+						$hs_notif("#notifJoinin",response.message);
 					}
 				}
 			});
@@ -146,16 +128,12 @@ function CtrlAnggotaJoinin(){
 		var divButton = $("#divButton"+e);
 		
 		if(e == ""){
-			notifJoinin.html("Data yang dipilih tidak valid");
-			notifJoinin.slideDown();
-			notifJoinin.delay(5000).slideUp('slow');
+			$hs_notif("#notifJoinin","Data yang dipilih tidak valid");
 			valid = false;
 		}
 		
 		if(divButton == null){
-			notifJoinin.html("Komponen tidak ditemukan");
-			notifJoinin.slideDown();
-			notifJoinin.delay(5000).slideUp('slow');
+			$hs_notif("#notifJoinin","Komponen tidak ditemukan");
 			valid = false;
 		}
 		
@@ -169,9 +147,7 @@ function CtrlAnggotaJoinin(){
 					if(response.result == 1){
 						divButton.html("<a class='waves-effect btn-flat right' onclick=ctrlAnggotaJoinin.doDelete("+e+")><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>");
 					}else{
-						notifJoinin.html(response.message);
-						notifJoinin.slideDown();
-						notifJoinin.delay(5000).slideUp('slow');
+						$hs_notif("#notifJoinin",response.message);
 					}
 				}
 			});
@@ -252,12 +228,7 @@ function CtrlAnggotaMembers(){
 				if(response.result == 1){
 					top.location.href = base_url+"anggota/members/";
 				}else{
-					alert(response.message);
-					/*
-					notifJoinin.html(response.message);
-					notifJoinin.slideDown();
-					notifJoinin.delay(5000).slideUp('slow');
-					*/
+					$hs_notif("#notifMember",response.message);
 				}
 			}
 		});
@@ -331,7 +302,7 @@ function CtrlAnggotaBlacklist(){
 				if(response.result == 1){
 					top.location.href = base_url+"anggota/blacklist/";
 				}else{
-					alert(response.message);
+					$hs_notif("#notifBlacklist",response.message);
 				}
 			}
 		});

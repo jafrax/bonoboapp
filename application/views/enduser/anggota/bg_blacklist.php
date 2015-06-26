@@ -17,6 +17,7 @@ echo"
 				<h2 class='titmain'><b>DAFTAR BLACKLIST</b></h2>
 				<p>Pembeli yang berada dalam blacklist tidak bisa masuk kembali dalam toko anda.</p>
 			</div>
+			<div id='notifBlacklist' align='center' style='display:none;'></div>
 			<ul class='row formbody'>
 				<form method='POST' action='".base_url("anggota/blacklist/")."'>
 				<li class='col s12 listanggodaf'>
