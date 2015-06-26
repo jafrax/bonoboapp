@@ -11,7 +11,7 @@ echo"
 ";
 
 foreach($Messages as $Message){
-	if($Message->flag_from == 1){
+	if($Message->flag_from == 0){
 		echo"<div class='row'><div class='pesanku'>".$Message->message."</div></div>";
 	}else{
 		echo"<div class='row'><div class='pesanmu'>".$Message->message."</div></div>";
