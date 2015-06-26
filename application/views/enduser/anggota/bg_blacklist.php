@@ -21,7 +21,7 @@ echo"
 			<ul class='row formbody'>
 				<form method='POST' action='".base_url("anggota/blacklist/")."'>
 				<li class='col s12 listanggodaf'>
-					<div class='input-field col s12 m8'>
+					<div class='input-field col s12 m8 right'>
 						<i class='mdi-action-search prefix'></i>
 						<input id='keyword' name='keyword' type='text' class='validate' value='".$keyword."'>
 						<label for='keyword'>Cari anggota</label>

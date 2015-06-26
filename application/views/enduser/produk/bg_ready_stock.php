@@ -24,25 +24,26 @@ echo"
 				<div class='col s12 m12 l9'>
 					<div class='formain'>
 						<div class='formhead'>
+						<div class='input-field col right'>
+								<button class='waves-effect waves-light btn deep-orange darken-1 right' onclick='location.href=\"".base_url()."produk/add/1\"'><i class='mdi-content-add-circle-outline left'></i>TAMBAH PRODUK</button>
+							</div>
 							<h2 class='titmain'><b>READY STOK</b> <span>( 25 Produk )</span></h2>
 							<p>Halaman ini menampilkan barang-barang ready stok yang ada di toko anda !</p>
+
 						</div>
 						<ul class='row formbody'>
 							<li class='col s12 listanggodaf'>
-								<div class='input-field col s12 m12 l6 nolpad'>
+								<div class='input-field col s12 m6 l6 nolpad'>
 									<div class='input-field col s12 m8 l6'>
-										<select class='lectfilter'>
-											<option value='' disabled selected>Published</option>
-											<option value='1'>Option 1</option>
-											<option value='2'>Option 2</option>
-											<option value='3'>Option 3</option>
+										<select class=''>
+											<option value='' disabled selected>Pilih filter</option>
+											<option value='1'>Published</option>
+											<option value='0'>Draft</option>											
 										</select>
 									</div>
-									<div class='input-field col s12 m4 l6'>
-										<button class='waves-effect waves-light btn deep-orange darken-1 left' onclick='location.href=\"".base_url()."produk/add/1\"'>TAMBAH</button>
-									</div>
-								</div>
-								<div class='input-field col s12 m12 l6 nolpad'>
+									
+								</div>								
+								<div class='input-field col s12 m6 l3 nolpad right'>
 									<i class='mdi-action-search prefix'></i>
 									<input id='nama' type='text' class='validate'>
 									<label for='nama'>Cari produk</label>
@@ -50,16 +51,17 @@ echo"
 							</li>
 							<li class='col s12 listanggodaf'>
 								<div class='col s12 m12 l9 nolpad'>
-									<p class='col s4 m4 l4'>
-										<input type='checkbox' class='filled-in' id='filled-in-box' checked='checked' />
-										<label for='filled-in-box'>Pilih semua</label>
+									<p class='col s1 m1 l1'>
+										<input type='checkbox' class='filled-in' id='filled-in-box' />
+										<label for='filled-in-box'></label>
 									</p>
 									<div class='input-field col s8 m4 l5'>
 										<select class='lectfilter'>
 											<option value='' disabled selected>Pilih tindakan</option>
-											<option value='1'>Option 1</option>
-											<option value='2'>Option 2</option>
-											<option value='3'>Option 3</option>
+											<option value='1'>Hapus</option>
+											<option value='2'>Pindah ke Draft</option>
+											<option value='3'>Pindah ke Publish</option>
+											<option value='4'>Pindah ke Ready Stock</option>
 										</select>
 									</div>
 									<div class='input-field col s12 m4 l3'>
@@ -72,48 +74,63 @@ echo"
 								</ul>
 							</li>
 
-							<div id='satu'>
+							<div id='satu'>";
+							$i=0;
+							foreach ($produk->result() as $row) {
+								$i++;
+								$image = $this->model_produk->get_one_image($row->id)->row();
+								echo"
 								<li class='col s12 m12 listanggodaf'>
 									<p class='col s1 m1 l1'>
-										<input type='checkbox' class='filled-in' id='filled-in-box-item-1' checked='checked' />
-										<label for='filled-in-box-item-1'></label>
+										<input type='checkbox' class='filled-in cek_produk' name='cek_produk_".$row->id."' id='cek-$i' />
+										<label for='cek-$i'></label>
 									</p>
-									<div class='col s12 m3 l2'>
-										<img src='images/comp/product.png' class='responsive-img userimg'>
+									<div class='col s12 m3 l2'>";
+										if ($image) {
+											echo "<img src='".base_url()."assets/pic/product/resize/".$image->file."' class='responsive-img userimg'>";											
+										}else{
+											echo "<img src='".base_url()."html/images/comp/product.png' class='responsive-img userimg'>";
+										}
+									echo"	
 									</div>
 									<div class='col s12 m8 l9'>
-										<p class='titleproduct'><a href=''><b >Candy Men</b></a></p>
-										</p>
-										<p class='input-field col s12 m12 l6 nolpad'>
-											<input id='stok' type='text' value='0' placeholder='Stok' class='validate'>
-											<span class='label red right'>Stok habis</span>
-										</p>
-										<div class='col s12 m12 l12 '>
-											<button class='waves-effect waves-light btn-flat grey lighten-2 disabled'>DRAFT</button>
+										<p class='titleproduct'><a href=''><b >".$row->name."</b></a></p>
+										</p>";
+										if ($row->stock_type == 0) {
+											$stok =  $this->model_produk->get_varian_produk($row->id);
+											foreach ($stok->result() as $row_stok) {
+												echo"
+												<p class='input-field col s12 m12 l6 nolpad'>
+													<input id='stok' type='text' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate'>";
+													if ($row_stok->name != 'null') {
+														echo "<label for='stok'>".$row_stok->name."</label>";
+													}
+													
+													if ($row_stok->stock_qty == 0) {
+														echo"<span class='label red right'>Stok habis</span>";
+													}
+												echo"	
+												</p>";
+											}											
+										}else{
+											echo "
+											<div class='input-field col s12 m6'>
+												<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
+											</div>
+											";
+										}
+										echo"
+										<div class='col s12 m12 l12 '>";
+										if ($row->active == 0) {
+											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled'>DRAFT</button>";
+										}											
+											echo"
 											<a href='#delete_produk' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
 										</div>
 									</div>
-								</li>
-								<li class='col s12 m12 listanggodaf'>
-									<p class='col s1 m1 l1'>
-										<input type='checkbox' class='filled-in' id='filled-in-box-item-2' checked='checked' />
-										<label for='filled-in-box-item-2'></label>
-									</p>
-									<div class='col s12 m3 l2'>
-										<img src='images/comp/product.png' class='responsive-img userimg'>
-									</div>
-									<div class='col s12 m8 l9'>
-										<p class='titleproduct'><a href=''><b >Candy Men</b></a></p>
-										</p>
-										<p class='input-field col s12 m12 l6 nolpad'>
-											<input id='stok' type='text' value='20' placeholder='Stok'  class='validate'>
-										</p>
-										<div class='col s12 m12 l12 '>
-											<button class='waves-effect waves-light btn-flat grey lighten-2 disabled'>DRAFT</button>
-											<a href='#delete_produk' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
-										</div>
-									</div>
-								</li>
+								</li>";
+							}
+							echo"
 							</div>
 							<div id='dua'>
 								<div class='card col s12 m4 l3 nolpad'>

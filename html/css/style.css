@@ -153,6 +153,8 @@ header,section,content,footer{ width:100%; }
 .formdetilpup p b{ padding:0 5px 0 0; }
 
 .varsto{ padding:5px; margin:10px 0 20px 0; width: 100%; float:left; }
+.nota-product{ margin:0 0 8px 0; }
+.nota-product p{ padding-left:0px; }
 
 /*FOOTER*/
 .footer{ position:fixed; bottom:0; right:0; }
