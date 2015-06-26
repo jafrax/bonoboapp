@@ -21,7 +21,7 @@ class Model_toko_message extends CI_Model {
 						->join("tb_message tm","ttm.message_id = tm.id")
 						->join("tb_member tmm","ttm.member_id = tmm.id")
 						->where("ttm.toko_id",$shop)
-						->like("tm.message",$keyword)
+						->like("tmm.name",$keyword)
 						->get("tb_toko_message ttm");
 	}
 	
@@ -30,8 +30,9 @@ class Model_toko_message extends CI_Model {
 						->join("tb_message tm","ttm.message_id = tm.id")
 						->join("tb_member tmm","ttm.member_id = tmm.id")
 						->where("ttm.toko_id",$shop)
-						->like("tm.message",$keyword)
+						->like("tmm.name",$keyword)
 						->group_by("ttm.member_id")
+						->order_by("max(ttm.id)","DESC")
 						->get("tb_toko_message ttm");
 	}
 	
