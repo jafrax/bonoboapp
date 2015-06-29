@@ -63,13 +63,12 @@ echo"
 					Logo Toko
 					
 					<div class='card div-circle-logo col s6 m4 l3'>
-						<a class='delimg'><i class='mdi-content-backspace'></i></a>
+						<a id='aShopLogoDelete' class='delimg' style='display:none;'><i class='mdi-content-backspace'></i></a>
 						<div class='card-image waves-effect waves-block waves-light'>
 							<img id='imgShopLogo' src='".$ShopImage."' class='circle-logo' style='cursor:pointer;'>
 							<input id='txtShopLogoFile' type='file' style='display:none;'>
 						</div>
 					</div>
-					
 					
 				</div>
 			</div>
