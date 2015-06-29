@@ -55,21 +55,82 @@ class Toko extends CI_Controller {
 	}
 	
 	public function step3(){
-		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
-		
-		$this->template->bonobo_step("enduser/toko/bg_step_3",$data);
+		if(!$_POST){
+			$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+			
+			$this->template->bonobo_step("enduser/toko/bg_step_3",$data);
+		}else{
+			$Data = array(
+					"stock_adjust"=>$this->response->post("rdgStock"),
+				);
+			
+			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
+			
+			redirect("toko/step4");
+		}
 	}
 	
 	public function step4(){
-		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
-		
-		$this->template->bonobo_step("enduser/toko/bg_step_4",$data);
+		if(!$_POST){
+			$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+			
+			$this->template->bonobo_step("enduser/toko/bg_step_4",$data);
+		}else{
+			$pm_store_payment = 0;
+			$pm_transfer = 0;
+			
+			if($this->response->post("chkPaymentCash") != ""){
+				$pm_store_payment = 1;
+			}
+			
+			if($this->response->post("chkPaymentTransfer") != ""){
+				$pm_transfer = 1;
+			}
+			
+			$Data = array(
+					"pm_store_payment"=>$pm_store_payment,
+					"pm_transfer"=>$pm_transfer,
+				);
+			
+			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
+			
+			redirect("toko/step5");
+		}
 	}
 	
 	public function step5(){
-		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
-		
-		$this->template->bonobo_step("enduser/toko/bg_step_5",$data);
+		if(!$_POST){
+			$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+			
+			$this->template->bonobo_step("enduser/toko/bg_step_5",$data);
+		}else{
+			$dm_pick_up_store = 0;
+			$dm_expedition = 0;
+			$dm_store_delivery = 0;
+			
+			
+			if($this->response->post("chkPickUpStore") != ""){
+				$dm_pick_up_store = 1;
+			}
+			
+			if($this->response->post("chkExpedition") != ""){
+				$dm_expedition = 1;
+			}
+			
+			if($this->response->post("chkStoreDelivery") != ""){
+				$dm_store_delivery = 1;
+			}
+			
+			$Data = array(
+					"dm_pick_up_store"=>$dm_pick_up_store,
+					"dm_expedition"=>$dm_expedition,
+					"dm_store_delivery"=>$dm_store_delivery,
+				);
+			
+			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
+			
+			redirect("toko/step6");
+		}
 	}
 	
 	public function step6(){

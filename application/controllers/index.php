@@ -51,6 +51,8 @@ class Index extends CI_Controller {
 					"email"=>$email,
 					"password"=> md5($password),
 					"verified_code"=>$verify,
+					"pm_store_payment"=>1,
+					"pm_transfer"=>1,
 					"status"=> 0,
 					"create_date"=>date("Y-m-d H:i:s"),
 					"create_user"=>$email,
@@ -197,13 +199,21 @@ class Index extends CI_Controller {
 				file_put_contents($file, $img);
 				file_put_contents($file2, $img2);
 				
-                $Save = $this->db->set('email',$email)
-					->set('name',$contact)
-					->set('image',$uid.'.jpg')
-					->set('facebook',1)
-					->set('status',2)
-					->set('create_date',date('Y-m-d'))
-					->insert('tb_toko');
+				$Data = array(
+						"name"=>$contact,
+						"email"=>$email,
+						"image"=>$uid.'.jpg',
+						"pm_store_payment"=>1,
+						"pm_transfer"=>1,
+						"facebook"=>1,
+						"status"=>2,
+						"create_date"=>date("Y-m-d H:i:s"),
+						"create_user"=>$email,
+						"update_date"=>date("Y-m-d H:i:s"),
+						"update_user"=>$email,
+					);
+				
+                $Save = $this->db->insert('tb_toko',$Data);
 					
 				if($Save){
 					return true;

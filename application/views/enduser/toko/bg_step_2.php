@@ -15,7 +15,7 @@ echo"
 			</div>
 			<div class='row formbody'>
 				<div class='input-field col s12 m8'>
-					<input id='rdgPrivate' name='rdgPrivation' value='1' type='radio' class='with-gap' ".($Shop->privacy == 1 ? "checked" : "").">
+					<input id='rdgPrivate' name='rdgPrivation' value='0' type='radio' class='with-gap' ".($Shop->privacy == 0 ? "checked" : "").">
 					<label for='rdgPrivate'>Toko Privat</label>
 				</div>	
 				<div class='input-field col s12 m8'>
@@ -23,7 +23,7 @@ echo"
 				</div>
 
 				<div class='input-field col s12 m8'>
-					<input id='rdgPublic' name='rdgPrivation' value='0' type='radio' class='with-gap'  ".($Shop->privacy == 0 ? "checked" : "").">
+					<input id='rdgPublic' name='rdgPrivation' value='1' type='radio' class='with-gap'  ".($Shop->privacy == 1 ? "checked" : "").">
 					<label for='rdgPublic'>Toko Publik</label>
 				</div>
 				<div class='input-field col s12 m8'>

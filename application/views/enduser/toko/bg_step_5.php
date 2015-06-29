@@ -1,23 +1,30 @@
 <?php
 
+if($Shop->flag_information == 0){
+	$Button = "<a href='".base_url("toko/step4")."' class='btn waves-effect waves-light red'><i class='mdi-navigation-chevron-left left'></i> Kembali</a><button class='btn waves-effect waves-light'>Selanjutnya<i class='mdi-navigation-chevron-right right'></i></button>";
+}else{
+	$Button = "<button class='btn waves-effect waves-light'>Simpan<i class='mdi-navigation-chevron-right right'></i></button>";
+}
+
 echo"
 	<div class='col s12 m12 l12'>
-		<form class='formain'>
+		<form class='formain' method='POST' action='".base_url("toko/step5/")."'>
+			<input type='hidden' name='submit' value='submited'/>
 			<div class='formhead'>
 				<h2 class='titmain'><b>PENGIRIMAN</b></h2>
 				<p>Pilih jasa pengiriman ayng didukung oleh toko Anda.</p>
 			</div>
 			<div class='row formbody'>
 				<div class='input-field col s12 m8'>
-					<input type='checkbox' class='filled-in' id='bayar-di-tempat'  />
-					<label for='bayar-di-tempat'>Ambil di toko</label>
+					<input type='checkbox' class='filled-in' id='chkPickUpStore' name='chkPickUpStore' ".($Shop->dm_pick_up_store == 1 ? "checked" : "")."/>
+					<label for='chkPickUpStore'>Ambil di toko</label>
 				</div>
 				<div class='input-field col s12 m8'>
 					<p>Pembeli akan datang ke alamat Toko Anda untuk mengambil pesanannya.</p>
 				</div>
 				<div class='input-field col s12 m8'>
-					<input type='checkbox' class='filled-in' id='via-bank'  />
-					<label for='via-bank'>Jasa ekspedisi</label>
+					<input type='checkbox' class='filled-in' id='chkExpedition' name='chkExpedition' ".($Shop->dm_expedition == 1 ? "checked" : "")."/>
+					<label for='chkExpedition'>Jasa ekspedisi</label>
 				</div>	
 				<div class='input-field col s12 m8'>
 					<p>Silahkan pilih jasa ekspedisi berikut. Ongkos kirim sesuai kebijakan Perusahaan Ekspedisi yang bersangkutan.
@@ -43,8 +50,8 @@ echo"
 				</div>
 				<div class='input-field col s12 m8'><p></p></div>
 				<div class='input-field col s12 m8'>
-					<input type='checkbox' class='filled-in' id='via-bank'  />
-					<label for='via-bank'>Jasa pengiriman Toko</label>
+					<input type='checkbox' class='filled-in' id='chkStoreDelivery' name='chkStoreDelivery' ".($Shop->dm_store_delivery == 1 ? "checked" : "")."/>
+					<label for='chkStoreDelivery'>Jasa pengiriman Toko</label>
 				</div>	
 				<div class='input-field col s12 m8'>
 					<p>Anda bisa memasukkan jasa pengiriman lain jika memilikinya.
@@ -65,12 +72,7 @@ echo"
 				</div>
 				<div class='input-field col s12 m8'><p><br></p></div>
 				<div class='input-field col s12 m8'>
-					<button class='btn waves-effect waves-light red' type='button' onclick='location.href='metode_transaksi.html'' name='action'>
-						<i class='mdi-navigation-chevron-left left'></i> Kembali
-					</button>
-					<button class='btn waves-effect waves-light' type='button' onclick='location.href='bank.html'' name='action'>Selanjutnya
-						<i class='mdi-navigation-chevron-right right'></i>
-					</button>
+					".$Button."
 				</div>					
 			</div>
 		</form>
