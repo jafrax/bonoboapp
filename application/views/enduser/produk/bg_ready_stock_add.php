@@ -93,10 +93,9 @@ echo "
 											<div class='card-image img-product waves-effect waves-block waves-light'>
 												<img id='img_pic_1' onclick=javascript:click_picture('pic_1') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
 												<input type='file' class='pic_product' name='pic_1' id='pic_1' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
-											</div>
-											<label for='pic_1' class='error' generated='true'></label>
-                                            <span class='label-area'></span>
+											</div>											
 										</div>
+										<label for='pic_1' class='error' generated='true'></label>
 									</div>
 								</div>
 								<input type='hidden' name='total_picture' id='total_picture' value='1'/>
@@ -112,7 +111,7 @@ echo "
 									<label for='satuan'>Satuan <span></span></label>
 								</div>
 								<div class='input-field col s12'>
-									<input id='min_order' placeholder='1' type='text' name='min_order' class='validate'>
+									<input id='min_order' placeholder='1' type='text' name='min_order' class='validate numbersOnly'>
 									<label for='min_order'>Min order</label>
 								</div>
 								<div class='input-field col s12'>
@@ -146,7 +145,7 @@ echo "
 											<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
 										</div>
 										<div class='input-field col s11 m5 pakai-stok'  style='display:none'>
-											<input id='varian' name='stok_varian_1' type='text' placeholder='Jumlah stok' class='validate'>
+											<input id='varian' name='stok_varian_1' type='text' placeholder='Jumlah stok' class='validate numbersOnly'>
 											<label for='varian'>Stok <span></span></label>											
 										</div>
 										<div class='input-field col s1 m1' >
@@ -165,7 +164,7 @@ echo "
 											<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
 										</div>
 										<div class='input-field col s12 m6 pakai-stok' style='display:none'>
-											<input id='varian' name='stok_utama' type='text' placeholder='Jumlah stok' class='validate'>
+											<input id='varian' name='stok_utama' type='text' placeholder='Jumlah stok' class='validate numbersOnly'>
 											<label for='varian'>Stok <span></span></label>
 										</div>
 									</li>
@@ -174,7 +173,7 @@ echo "
 							<div class='row formbody'>
 								<div class='linehead'>Harga Barang</div>
 								<div class='input-field col s12 m6'>
-									<input id='harga_pembelian' name='harga_pembelian' type='text' class='validate'>
+									<input id='harga_pembelian' name='harga_pembelian' type='text' class='validate numbersOnly'>
 									<label for='harga_pembelian'>Harga pembelian</label>
 								</div>
 								<div class='input-field col s12 m12 varsto'>
@@ -185,31 +184,31 @@ echo "
 									<li class='varsto'>
 										<p><br></p>
 										<div class='input-field col s12 m6'>
-											<input id='varian' name='harga_level_1' type='text' placeholder='0' class='validate' required>
+											<input id='varian' name='harga_level_1' type='text' placeholder='0' class='validate numbersOnly' required>
 											<label for='varian'>Harga "; if ($level_harga->level_1_name != '') {echo $level_harga->level_1_name;}else{echo "level 1";} echo" <span class='text-red'>*</span></label>
 										</div>
 									</li>
 									<li class='varsto'>
 										<div class='input-field col s12 m6'>
-											<input id='varian' name='harga_level_2' type='text' placeholder='0' class='validate' >
+											<input id='varian' name='harga_level_2' type='text' placeholder='0' class='validate numbersOnly' >
 											<label for='varian'>Harga "; if ($level_harga->level_2_name != '') {echo $level_harga->level_2_name;}else{echo "level 2";} echo"</label>
 										</div>
 									</li>
 									<li class='varsto'>
 										<div class='input-field col s12 m6'>
-											<input id='varian' name='harga_level_3' type='text' placeholder='0' class='validate' >
+											<input id='varian' name='harga_level_3' type='text' placeholder='0' class='validate numbersOnly' >
 											<label for='varian'>Harga "; if ($level_harga->level_3_name != '') {echo $level_harga->level_3_name;}else{echo "level 3";} echo"</label>
 										</div>
 									</li>
 									<li class='varsto'>
 										<div class='input-field col s12 m6'>
-											<input id='varian' name='harga_level_4' type='text' placeholder='0' class='validate' >
+											<input id='varian' name='harga_level_4' type='text' placeholder='0' class='validate numbersOnly' >
 											<label for='varian'>Harga "; if ($level_harga->level_4_name != '') {echo $level_harga->level_4_name;}else{echo "level 4";} echo"</label>
 										</div>
 									</li>
 									<li class='varsto'>
 										<div class='input-field col s12 m6'>
-											<input id='varian' name='harga_level_5' type='text' placeholder='0' class='validate' >
+											<input id='varian' name='harga_level_5' type='text' placeholder='0' class='validate numbersOnly' >
 											<label for='varian'>Harga "; if ($level_harga->level_5_name != '') {echo $level_harga->level_5_name;}else{echo "level 5";} echo"</label>
 										</div>
 									</li>

@@ -21,8 +21,13 @@ class Produk extends CI_Controller {
     }
 	
 	public function index(){
-
-		$data['produk'] = $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id']);
+		$uri =  $this->uri->segment(3);
+		if ($uri != '') {
+			$data['produk'] = $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],$uri);
+		}else{
+			$data['produk'] = $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id']);			
+		}
+		
 		$this->template->bonobo('produk/bg_ready_stock',$data);
 	}
 
@@ -200,6 +205,9 @@ class Produk extends CI_Controller {
 		echo $stok;
 	}
 
+
+// Option GO =========================================================================
+
 	public function delete_product(){
 		$id 	= $this->input->post('id');
 		$url   	= 'assets/pic/product/';
@@ -214,6 +222,38 @@ class Produk extends CI_Controller {
 		if ($delete) {
 			echo "1";	
 		}		
+	}
+
+	public function draft_product(){
+		$id 	= $this->input->post('id');
+
+		$this->db->where('id',$id)->set('active',0)->update('tb_product');
+		echo "2";
+	}
+
+	public function publish_product(){
+		$id 	= $this->input->post('id');
+
+		$this->db->where('id',$id)->set('active',1)->update('tb_product');
+		echo "3";	
+	}
+
+	public function ready_product(){
+		$id 	= $this->input->post('id');
+
+		$this->db->where('id',$id)->set('stock_type',1)->update('tb_product');
+		echo "4";
+	}
+
+	public function pre_order_product(){
+		$id 	= $this->input->post('id');
+
+		$this->db->where('id',$id)->set('stock_type',0)->update('tb_product');
+		echo "5";
+	}
+
+	public function set_search(){
+		$_SESSION['keyword'] = $this->input->post('keyword');
 	}
 	
 }

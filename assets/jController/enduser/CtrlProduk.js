@@ -42,10 +42,31 @@
               }
       }
   });
+
+
   if ($('#gunakan_varian').length > 0) {
     document.getElementById("gunakan_varian").checked = false; 
   };
-  
+
+  if ($('.cek_produk').length > 0) {
+    $('.cek_produk').prop('checked',false);
+    document.getElementById("cek_all").checked = false; 
+  };
+
+
+  $('#keyword').keypress(function(e) {
+    if (e.which == 13) {
+      var keyword = $('#keyword').val();
+      $.ajax({
+        type: 'POST',
+        data: 'keyword='+keyword,
+        url: base_url+'produk/set_search',
+        success: function(msg) {
+          location.reload();
+        } 
+      });
+    }
+  });
 })();
 
 var tot_picture = 1;
@@ -55,12 +76,12 @@ function add_picture() {
     if (hitung < 3) {
         $('#total_picture').val(tot_picture);
         $('.picture-area').append(box_picture(tot_picture));
-        $('.label-area').append(box_alert(tot_picture));
+        //$('.label-area').append(box_alert(tot_picture));
         $('input[name="pic_'+tot_picture+'"]').each(function () {
             $(this).rules("add", {
                 accept: 'image/*',filesize: 1000000,
                 messages: {
-                    filesize: message_alert("Valid max size is 1 Mega Bytes"),  
+                    filesize: message_alert("Ukuran file terlalu besar, maksimal 1 MB"),  
                 },
             });
         });
@@ -74,7 +95,7 @@ function box_picture(id) {
                      +"<img id='img_pic_"+tot_picture+"' onclick=javascript:click_picture('pic_"+tot_picture+"') class='img-product responsive-img' src='"+base_url+"html/images/comp/product_large.png'>"
                      +"<input type='file' class='pic_product' name='pic_"+tot_picture+"' id='pic_"+tot_picture+"' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>"
                   +"</div>"
-               +"</div></div>";
+               +"</div><label id='label_pic_"+tot_picture+"' for='pic_"+tot_picture+"' class='error' generated='true'></label></div>";
     return box;
 }
 
@@ -183,11 +204,7 @@ function deleteVarian(varian) {
 // view ready stock============================================================================
 
 function change_stock(id){
-  var invalidChars = /[^0-9]/gi
-  if(invalidChars.test(id.value)) {
-            id.value = id.value.replace(invalidChars,"");
-      }
-  var stok = $('#stok-'+id).val();
+  var stok = $('.stok-'+id).val();
   if (stok != '') {
     $.ajax({
       type: 'POST',
@@ -195,12 +212,13 @@ function change_stock(id){
       url: base_url+'produk/change_stock',
       success: function(msg) {
         if (stok == 0) {
-          $('#habis-'+id).fadeIn();
+          $('.habis-'+id).fadeIn();
         }else{
-          $('#habis-'+id).fadeOut();
+          $('.habis-'+id).fadeOut();
         };
-        $('#ok-'+id).fadeIn();
-        $('#ok-'+id).delay(500).fadeOut();        
+        $('.stok-'+id).val(msg);
+        $('.ok-'+id).fadeIn();
+        $('.ok-'+id).delay(500).fadeOut();        
       }
     }); 
   }
@@ -213,14 +231,78 @@ function delete_produk(id){
     url: base_url+'produk/delete_product',
     success: function(msg) {
       if (msg == 0) {
-        $('#produk-'+id).fadeIn();
+        $('.produk-'+id).fadeIn();
       }else{
-        $('#produk-'+id).fadeOut().remove();
+        $('.produk-'+id).fadeOut().remove();
       }      
     }
   }); 
 }
 
-function cek_all(){
-  $('.cek_produk').click();
+function cek_all(){  
+  if ($('#cek_all').is(":checked")) {
+    $('.cek_produk').prop('checked',true);
+  }else{
+    $('.cek_produk').prop('checked',false);
+  }
+}
+
+function ngeklik(a,b){
+  if ($('#'+b).is(":checked")) {
+    $('#'+a).prop('checked',true);
+  }else{
+    $('#'+a).prop('checked',false);
+  }  
+}
+
+
+// cek option============================================================================
+
+function go(){
+  var total_produk  = $('#total_produk').val();
+  var option        = $('#option-go').val();
+  var url           = '';
+
+  if (option == 1) {
+    url = base_url+'produk/delete_product';
+  } else if (option == 2) {
+    url = base_url+'produk/draft_product';
+  } else if (option == 3) {
+    url = base_url+'produk/publish_product';
+  } else if (option == 4) {
+    url = base_url+'produk/ready_product';
+  } else if (option == 5) {
+    url = base_url+'produk/pre_order_product';
+  }   
+
+  for (var i = 1 ; i <= total_produk; i++) {
+    if ($('#cek-1-'+i).is(":checked")) {
+      var id = $('#cek-'+i).val();
+      if (option == 1) {
+        $('.produk-'+id).fadeOut().remove();
+      } else if (option == 2) {            
+        $('#draft-'+id).fadeIn();        
+      } else if (option == 3) {            
+        $('#draft-'+id).fadeOut();
+      } else if (option == 4) {
+        $('.produk-'+id).fadeOut().remove();
+      } else if (option == 5) {
+        $('.produk-'+id).fadeOut().remove();
+      }
+      $.ajax({
+        type: 'POST',
+        data: 'id='+id,
+        url: url,
+        success: function(msg) {
+          
+        } 
+      });
+    }
+  }    
+}
+
+
+function change_active(){
+  var active_type = $('#active_type').val();
+  window.location.href = base_url+'produk/index/'+active_type;  
 }
