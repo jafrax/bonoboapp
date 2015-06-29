@@ -39,9 +39,19 @@ class Toko extends CI_Controller {
 	}
 	
 	public function step2(){
-		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+		if(!$_POST){
+			$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 		
-		$this->template->bonobo_step("enduser/toko/bg_step_2",$data);
+			$this->template->bonobo_step("enduser/toko/bg_step_2",$data);
+		}else{
+			$Data = array(
+					"privacy"=>$this->response->post("rdgPrivation"),
+				);
+			
+			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
+			
+			redirect("toko/step3");
+		}
 	}
 	
 	public function step3(){
