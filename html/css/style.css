@@ -65,7 +65,7 @@ header,section,content,footer{ width:100%; }
 .or{ text-align:center; color:#fff; margin:12px 0 -8px 0; }
 .note{ text-align:center; color:#fff; margin:8px 30% 12px 30%; font-size: 15px; }
 .signin{ margin:15px 30% 0 30%; padding:8px 12px; background-color:rgba(239, 239, 239, 0.90); }
-.signin input[type=text], .signin input[type=password]{ border-bottom: 1px solid #ff7043; }
+.signin input[type=text], .signin input[type=password]{ border-bottom: 1px solid #565a5c; }
 
 .contentmain{ width:100%; background-color: #f5f5f5; padding:5px 0; }
 .contentsebenarya{ margin:25px 0; }
@@ -129,7 +129,7 @@ header,section,content,footer{ width:100%; }
 
 .formbody{ padding:15px 15px 0 15px; color:#565a5c!important; }
 .formbody .input-field label{ color:#565a5c; }
-.formbody .input-field textarea:focus{ border-bottom: 1px solid #f4511e!important; box-shadow: 0 1px 0 0 #f4511e!important; }
+.formbody .input-field textarea:focus{ border-bottom: 1px solid #565a5c!important; box-shadow: 0 1px 0 0 #565a5c!important; }
 
 .formbody li.listanggonew{ margin:0 0 8px 0; padding:5px 0; box-shadow: 0 1px 0 0 #efefef!important; }
 .formbody button{ margin:0 4px 0 0;}

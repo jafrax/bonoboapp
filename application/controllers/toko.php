@@ -19,6 +19,7 @@ class Toko extends CI_Controller {
 		$this->load->model("enduser/model_category");
 		$this->load->model("enduser/model_location");
 		$this->load->model("enduser/model_toko");
+		$this->load->model("enduser/model_toko_attribute");
 		
 		if(empty($_SESSION['bonobo']) || empty($_SESSION['bonobo']['id'])){
 			redirect('index/');
@@ -32,14 +33,25 @@ class Toko extends CI_Controller {
 		$data["Cities"] = $this->model_location->get_cities()->result();
 		$data["Kecamatans"] = $this->model_location->get_kecamatans()->result();
 		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+		$data["Attributes"] = $this->model_toko_attribute->get_by_shop($_SESSION["bonobo"]["id"])->result();
 		
 		$this->template->bonobo_step("enduser/toko/bg_step_1",$data);
 	}
 	
 	public function step2(){
-		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+		if(!$_POST){
+			$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 		
-		$this->template->bonobo_step("enduser/toko/bg_step_2",$data);
+			$this->template->bonobo_step("enduser/toko/bg_step_2",$data);
+		}else{
+			$Data = array(
+					"privacy"=>$this->response->post("rdgPrivation"),
+				);
+			
+			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
+			
+			redirect("toko/step3");
+		}
 	}
 	
 	public function step3(){
@@ -128,7 +140,28 @@ class Toko extends CI_Controller {
 			}
 		}
 		
-		$Data = array(
+		if(!empty($_FILES['txtShopLogoFile']) && isset($_FILES['txtShopLogoFile']['name']) && !empty($_FILES['txtShopLogoFile']['name'])){
+			$UploadPath    = 'assets/pic/shop/';
+			$Upload = $this->template->upload_picture($UploadPath,"txtShopLogoFile");
+			
+			if($Upload == 'error'){
+				$Upload = "";
+			}
+			
+			$Data = array(
+				"name"=>$this->response->post("txtName"),
+				"tag_name"=>$this->response->post("txtTagname"),
+				"keyword"=>$this->response->post("txtKeyword"),
+				"description"=>$this->response->post("txtDescription"),
+				"phone"=>$this->response->post("txtPhone"),
+				"address"=>$this->response->post("txtAddress"),
+				"postal"=>$this->response->post("txtPostal"),
+				"image"=>$Upload,
+				"category_id"=>$Category,
+				"location_id"=>$Location,
+			);
+		}else{
+			$Data = array(
 				"name"=>$this->response->post("txtName"),
 				"tag_name"=>$this->response->post("txtTagname"),
 				"keyword"=>$this->response->post("txtKeyword"),
@@ -139,10 +172,40 @@ class Toko extends CI_Controller {
 				"category_id"=>$Category,
 				"location_id"=>$Location,
 			);
+		}
 			
 		$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
 		if($Save){
-			$this->response->send(array("result"=>1,"message"=>"Informasi toko telah disimpan","messageCode"=>1));
+			if($this->response->post("intAttributeCount") > 0){
+				for($i=1;$i<=$this->response->post("intAttributeCount");$i++){
+					if($this->response->post("txtAttributeName".$i) != "" && $this->response->post("txtAttributeValue".$i) != ""){
+						if($this->response->post("txtAttributeId".$i) == ""){						
+							$Data = array(
+								"toko_id"=>$_SESSION["bonobo"]["id"],
+								"name"=>$this->response->post("txtAttributeName".$i),
+								"value"=>$this->response->post("txtAttributeValue".$i),
+								"create_date"=>date("Y-m-d H:i:s"),
+								"create_user"=>$_SESSION['bonobo']['email'],
+								"update_date"=>date("Y-m-d H:i:s"),
+								"update_user"=>$_SESSION['bonobo']['email'],
+							);
+							
+							$Save = $this->db->insert("tb_toko_attribute",$Data);
+						}else{
+							$Data = array(
+								"toko_id"=>$_SESSION["bonobo"]["id"],
+								"name"=>$this->response->post("txtAttributeName".$i),
+								"value"=>$this->response->post("txtAttributeValue".$i),
+								"update_user"=>$_SESSION['bonobo']['email'],
+							);
+							
+							$Save = $this->db->where("id",$this->response->post("txtAttributeId".$i))->update("tb_toko_attribute",$Data);
+						}
+					}
+				}
+			}
+		
+			$this->response->send(array("result"=>1,"message"=>"Informasi toko telah disimpan : ","messageCode"=>1));
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Informasi tidak dapat disimpan","messageCode"=>1));
 		}

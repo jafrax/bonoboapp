@@ -145,15 +145,18 @@
 		$ci = & get_instance();
         $ci->load->library('upload');
 		$ci->load->library('image_lib');
+		
         $config['upload_path'] 		= $url; 
         $config['allowed_types'] 	= "gif|jpg|png|jpeg|bmp";
         $config['max_size'] 		= 3000;
         $config['encrypt_name'] 	= TRUE;
         $ci->upload->initialize($config);
-        $logo='';
+        
+		$result = '';
         if($ci->upload->do_upload($name)){
             $data=$ci->upload->data();
             $ci->image_lib->clear();
+			
             $image['image_library'] = "GD2";
             $image['source_image'] 	= $data['full_path'];
             $image['new_image'] 	= $url.'resize/'.$data['file_name'];
@@ -162,17 +165,20 @@
 			$image['master_dim'] 	= 'auto';
 			$image['width'] 		= $width;
 			$image['height'] 		= $height;
-            $ci->image_lib->initialize($image);
+            
+			$ci->image_lib->initialize($image);
             $ci->image_lib->resize();
-            $logo 	= $data['file_name'];
-            if($picture!=null){
+            $result 	= $data['file_name'];
+            
+			if($picture!=null){
                 @unlink($url.$picture);
-                @unlink($url."resize/$picture");
+                @unlink($url."resize/".$picture);
             }
         }else{
-			$logo = 'error';
+			$result = 'error';
 		}
-        return $logo;
+		
+        return $result;
     }
 	
 	function sluggify($url){

@@ -4,8 +4,11 @@ function CtrlShopStep1(){
 	this.loadComboboxKecamatan = loadComboboxKecamatan;
 	
 	var formStep1;
-	var divCity, divKecamatan;
+	var intAttributeCount;
+	var divCity, divKecamatan, divAttributes;
+	var imgShopLogo, txtShopLogoFile, aShopLogoDelete;
 	var btnNext, btnSave;
+	var aAttributeAdd;
 	
 	function init(){
 		initComponent();
@@ -16,12 +19,20 @@ function CtrlShopStep1(){
 		formStep1 = $hs("formStep1");
 		divCity = $("#divCity");
 		divKecamatan = $("#divKecamatan");
+		divAttributes = $("#divAttributes");
+		
+		imgShopLogo = $hs("imgShopLogo");
+		txtShopLogoFile = $hs("txtShopLogoFile");
+		intAttributeCount = $hs("intAttributeCount");
 		
 		notifName = $("#notifName");
 		notifTagname = $("#notifTagname");
 		
 		btnNext = $hs("btnNext");
 		btnSave = $hs("btnSave");
+		
+		aShopLogoDelete = $hs("aShopLogoDelete");
+		aAttributeAdd = $hs("aAttributeAdd");
 	}
 	
 	function initEventlistener(){
@@ -36,6 +47,28 @@ function CtrlShopStep1(){
 				doSave();
 			};
 		}
+		
+		imgShopLogo.onclick = function(){
+			txtShopLogoFile.click();
+		};
+		
+		txtShopLogoFile.onchange = function(){
+			doImageUpload();
+		};
+		
+		aShopLogoDelete.onclick = function(){
+			doImageDelete();
+		};
+		
+		aAttributeAdd.onclick = function(){
+			var sequence = parseInt(intAttributeCount.value)+1;
+			var div = document.createElement("div");
+			
+			div.innerHTML = "<div class='col s12 m3'>Nama kontak</div><div class='col s12 m5'><input name='txtAttributeId"+sequence+"' type='hidden' value=''><input name='txtAttributeName"+sequence+"' type='text' class='validate'></div><div class='col s12 m3'>Pin/ID/Nomor</div><div class='col s12 m5'><input name='txtAttributeValue"+sequence+"' type='text' class='validate'></div>";
+			div.setAttribute("class","row valign-wrapper");
+			divAttributes.append(div);
+			intAttributeCount.value = sequence;
+		};
 	}
 	
 	function doNext(){
@@ -72,10 +105,15 @@ function CtrlShopStep1(){
 		}
 		
 		if(valid){
+			var formData = new FormData($hs("formStep1"));
+			
 			$.ajax({
 				type: 'POST',
-				data: $("#formStep1").serialize(),
+				data: formData,
 				url: base_url+'toko/doStep1Save/',
+				cache:false,
+				contentType: false,
+				processData: false,
 				success: function(result) {
 					var response = JSON.parse(result);
 					if(response.result == 1){
@@ -122,10 +160,15 @@ function CtrlShopStep1(){
 		}
 		
 		if(valid){
+			var formData = new FormData($hs("formStep1"));
+			
 			$.ajax({
 				type: 'POST',
-				data: $("#formStep1").serialize(),
+				data: formData,
 				url: base_url+'toko/doStep1Save/',
+				cache:false,
+				contentType: false,
+				processData: false,
 				success: function(result) {
 					var response = JSON.parse(result);
 					if(response.result == 1){
@@ -159,5 +202,15 @@ function CtrlShopStep1(){
 				divKecamatan.html(result);
 			}
 		});
+	}
+	
+	function doImageUpload(){
+		var URL = window.URL || window.webkitURL;
+			
+		imgShopLogo.src = URL.createObjectURL(txtShopLogoFile.files[0]);
+	}
+	
+	function doImageDelete(){
+		imgShopLogo.src = base_url+"assets/image/img_default_photo.jpg";
 	}
 }
