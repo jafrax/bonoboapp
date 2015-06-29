@@ -22,6 +22,11 @@ class Model_produk extends CI_Model
 		return	$this->db->where('p.active',$active)->join('tb_toko_category_product c','c.id=p.toko_category_product_id')->get('tb_product p');
 	}
 
+	function get_one_produk($id){
+		$this->db->select('*')->where('p.id',$id);				
+		return	$this->db->join('tb_toko_category_product c','c.id=p.toko_category_product_id')->get('tb_product p');
+	}
+
 	function get_one_image($id){
 		return $this->db->where('product_id',$id)->get('tb_product_image');
 	}

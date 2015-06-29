@@ -95,7 +95,7 @@ function box_picture(id) {
                      +"<img id='img_pic_"+tot_picture+"' onclick=javascript:click_picture('pic_"+tot_picture+"') class='img-product responsive-img' src='"+base_url+"html/images/comp/product_large.png'>"
                      +"<input type='file' class='pic_product' name='pic_"+tot_picture+"' id='pic_"+tot_picture+"' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>"
                   +"</div>"
-               +"</div><label id='label_pic_"+tot_picture+"' for='pic_"+tot_picture+"' class='error' generated='true'></label></div>";
+               +"<label id='label_pic_"+tot_picture+"' for='pic_"+tot_picture+"' class='error error-image' generated='true'></label></div></div>";
     return box;
 }
 

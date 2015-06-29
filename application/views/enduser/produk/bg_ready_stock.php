@@ -84,7 +84,7 @@ echo"
 									echo"	
 									</div>
 									<div class='col s12 m8 l9'>
-										<p class='titleproduct'><a href=''><b >".$row->name."</b></a></p>
+										<p class='titleproduct'><a href='".base_url()."produk/edit/".base64_encode($row->id)."'><b >".$row->name."</b></a></p>
 										</p>";
 										if ($row->stock_type == 0) {
 											$stok =  $this->model_produk->get_varian_produk($row->id);
@@ -163,7 +163,7 @@ echo"
 									</div>
 									<div class='card-content'>
 										<span class='card-title activator grey-text text-darken-4'>".$row->name." <i class='mdi-navigation-more-vert right'></i></span>
-										<p><a href='#'>Sunting Produk</a></p>
+										<p><a href='".base_url()."produk/edit/".base64_encode($row->id)."'>Sunting Produk</a></p>
 									</div>
 									<div class='card-reveal'>
 										<span class='card-title grey-text text-darken-4'>".$row->name." <i class='mdi-navigation-close right'></i></span>
