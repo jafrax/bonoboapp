@@ -14,7 +14,7 @@ if($Shop->flag_information == 0){
 
 echo"
 	<div class='col s12 m12 l12'>
-		<form id='formStep1' class='formain'>
+		<form id='formStep1' class='formain' enctype='multipart/form-data'>
 			<div class='formhead'>
 				<h2 class='titmain'><b>INFORMASI TOKO</b></h2>
 			</div>
@@ -37,7 +37,7 @@ echo"
 ";
 
 	if(!empty($Shop->category_name)){
-		echo"<option value='".$Shop->category_id."' disabled selected>".$Shop->category_name."</option>";
+		echo"<option value='".$Shop->category_id."' selected>".$Shop->category_name."</option>";
 	}else{
 		echo"<option value='' disabled selected>Pilih Kategori</option>";
 	}
@@ -63,10 +63,10 @@ echo"
 					Logo Toko
 					
 					<div class='card div-circle-logo col s6 m4 l3'>
-						<a id='aShopLogoDelete' class='delimg' style='display:none;'><i class='mdi-content-backspace'></i></a>
+						<a id='aShopLogoDelete' class='delimg'><i class='mdi-content-backspace'></i></a>
 						<div class='card-image waves-effect waves-block waves-light'>
 							<img id='imgShopLogo' src='".$ShopImage."' class='circle-logo' style='cursor:pointer;'>
-							<input id='txtShopLogoFile' type='file' style='display:none;'>
+							<input id='txtShopLogoFile' name='txtShopLogoFile' type='file' style='display:none;'>
 						</div>
 					</div>
 					
@@ -80,26 +80,63 @@ echo"
 				</div>
 				<div class='input-field col s12 m8'>								
 					Kontak Lainnya
-					<div class='row valign-wrapper'>
-						<div class='col s12 m3'>
-							Nama kontak
-						</div>
-						<div class='col s12 m5'>
-							<input id='kontak' type='text' class='validate'>
-						</div>
-						<div class='col s12 m3'>
-							Pin/ID/Nomor
-						</div>
-						<div class='col s12 m5'>
-							<input id='id' type='text' class='validate'>
-						</div>
+					
+					<div id='divAttributes'>
+";
+
+if(sizeOf($Attributes) <= 0){
+	echo"
+		<input type='hidden' id='intAttributeCount' name='intAttributeCount' value='1'>
+		<div class='row valign-wrapper'>
+			<div class='col s12 m3'>
+				Nama kontak
+			</div>
+			<div class='col s12 m5'>
+				<input name='txtAttributeId1' type='hidden' value=''>
+				<input name='txtAttributeName1' type='text' class='validate'>
+			</div>
+			<div class='col s12 m3'>
+				Pin/ID/Nomor
+			</div>
+			<div class='col s12 m5'>
+				<input name='txtAttributeValue1' type='text' class='validate'>
+			</div>
+		</div>
+	";
+}else{
+	echo"<input type='hidden' id='intAttributeCount' name='intAttributeCount' value='".sizeOf($Attributes)."'>";
+	
+	$no = 1;
+	foreach($Attributes as $Attribute){
+		echo"
+			<div class='row valign-wrapper'>
+				<div class='col s12 m3'>
+					Nama kontak
+				</div>
+				<div class='col s12 m5'>
+					<input name='txtAttributeId".$no."' type='hidden' value='".$Attribute->id."'>
+					<input name='txtAttributeName".$no."' type='text' class='validate' value='".$Attribute->name."'>
+				</div>
+				<div class='col s12 m3'>
+					Pin/ID/Nomor
+				</div>
+				<div class='col s12 m5'>
+					<input name='txtAttributeValue".$no."' type='text' class='validate' value='".$Attribute->value."'>
+				</div>
+			</div>
+		";
+		$no++;
+	}
+}
+
+echo"
 					</div>
 					<div class='row valign-wrapper'>
 						<div class='col s2 m2'>
 							
 						</div>
 						<div class='col s10 m6'>
-							<a href='#'>Tambah kontak</a>
+							<a href='javascript:void(0);' id='aAttributeAdd'>Tambah kontak</a>
 						</div>
 					</div>
 				</div>
@@ -110,11 +147,11 @@ echo"
 				<div class=' col s12 m8'>
 					<label>Provinsi</label>
 					<div id='divProvince' class='input-field'>
-						<select name='cmbProvince' onChange=ctrlShopStep1.loadComboboxCity(); class=''>
+						<select name='cmbProvince' onChange=ctrlShopStep1.loadComboboxCity();>
 ";
 
 	if(!empty($Shop->location_province)){
-		echo"<option value='".$Shop->location_province."' disabled selected>".$Shop->location_province."</option>";
+		echo"<option value='".$Shop->location_province."' selected>".$Shop->location_province."</option>";
 	}else{
 		echo"<option value='' disabled selected>Pilih Provinsi</option>";
 	}
@@ -135,7 +172,7 @@ echo"
 ";
 
 	if(!empty($Shop->location_city)){
-		echo"<option value='".$Shop->location_city."' disabled selected>".$Shop->location_city."</option>";
+		echo"<option value='".$Shop->location_city."' selected>".$Shop->location_city."</option>";
 	}else{
 		echo"<option value='' disabled selected>Pilih Kota</option>";
 	}
@@ -156,7 +193,7 @@ echo"
 ";
 
 	if(!empty($Shop->location_kecamatan)){
-		echo"<option value='".$Shop->location_kecamatan."' disabled selected>".$Shop->location_kecamatan."</option>";
+		echo"<option value='".$Shop->location_kecamatan."' selected>".$Shop->location_kecamatan."</option>";
 	}else{
 		echo"<option value='' disabled selected>Pilih Kecamatan</option>";
 	}
