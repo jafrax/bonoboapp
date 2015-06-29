@@ -84,7 +84,7 @@ echo "
 									</select>
 								</div>
 								<div class='input-field col s12 m6'>
-									<a href='#add_kategori' class='waves-effect btn-flat right modal-trigger'><b class='text-blue'><i class='mdi-content-add-box left'></i>BUAT KATEGORI BARU</b></a>
+									<a href='#add_kategori' class='btn-flat right modal-trigger'><b class='blue-text'><i class='mdi-content-add-box left'></i>BUAT KATEGORI BARU</b></a>
 								</div>
 								<div class='input-field col s12 picture-area'>
 									<div class='col s6 m4 l3' id='div_pic_1'>
@@ -101,7 +101,7 @@ echo "
 								</div>
 								<input type='hidden' name='total_picture' id='total_picture' value='1'/>
 								<div class='input-field col s12 m12'>
-									<a class='waves-effect btn-flat right' onclick=javascript:add_picture()><b class='text-blue'><i class='mdi-content-add-box left'></i>TAMBAH GAMBAR</b></a>
+									<a class='btn-flat right' onclick=javascript:add_picture()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH GAMBAR</b></a>
 								</div>
 								<div class='input-field col s12'>
 									<input id='perkiraan_berat' placeholder='0.00' type='text' name='berat' class='validate'>
@@ -156,7 +156,7 @@ echo "
 								</ul>
 								<ul class='col s12 m12 cek-stok' style='display:none'>								
 									<li class='input-field col s12 m12'>
-										<a class='waves-effect btn-flat left' onclick=javascript:addVarian()><b class='text-blue'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
+										<a class='btn-flat left' onclick=javascript:addVarian()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
 									</li>
 								</ul>
 								<ul class='col s12 m12 uncek-stok' >

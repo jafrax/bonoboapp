@@ -6,11 +6,11 @@
 /*ALL ABOUT FORM*/
 /* label color */
 .input-field label {
-	color: #565a5c;
+	color: #565a5c!important;
 	font-size:15px;
 }
 .input-field label.active {
-	color: #565a5c;
+	color: #565a5c!important;
 	font-size:14px;
 }
 /* label focus color */
@@ -79,10 +79,14 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
 .input-field p { color:#aaa; padding-left: 50px;}
 .input-field.table { padding:0 12px 0 0; }
 .error { position: absolute; top: 0.8rem; right: 0.75rem; text-align:right; color:#ef5350!important; }
-.error-chosen{ position: relative!important; top: 0; right: 0.75rem; text-align:right; }
+.input-field label.error { position: absolute; top: 0.8rem; right: 0.75rem; text-align:right; color:#ef5350!important; }
+.error-chosen{ position: relative!important; top: 0; right: -50%; text-align:right; }
 .notif-error{ position: relative; padding:8px 0 10px 0; text-align:center; color:#ef5350!important;  }
 
+label{ font-size: 14px; color: #565a5c; }
+
 .select-wrapper input.select-dropdown{ position: relative!important; z-index:1!important;}
+.chosen-container{ margin:0 0 10px 0;}
 
 .dropdown-content{ z-index:999!important; }
 .dropdown-content.active{ z-index:1001!important; }
