@@ -61,9 +61,16 @@ echo"
 				</div>
 				<div class='input-field col s12 m8'>
 					Logo Toko
-					<div class='div-circle-logo'>
-						<img src='".$ShopImage."' alt='' class='circle-logo'>
-					</div>								
+					
+					<div class='card div-circle-logo col s6 m4 l3'>
+						<a class='delimg'><i class='mdi-content-backspace'></i></a>
+						<div class='card-image waves-effect waves-block waves-light'>
+							<img id='imgShopLogo' src='".$ShopImage."' class='circle-logo' style='cursor:pointer;'>
+							<input id='txtShopLogoFile' type='file' style='display:none;'>
+						</div>
+					</div>
+					
+					
 				</div>
 			</div>
 			<div class='row formbody'>

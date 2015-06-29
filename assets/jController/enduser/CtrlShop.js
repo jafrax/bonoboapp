@@ -5,6 +5,7 @@ function CtrlShopStep1(){
 	
 	var formStep1;
 	var divCity, divKecamatan;
+	var imgShopLogo,txtShopLogoFile;
 	var btnNext, btnSave;
 	
 	function init(){
@@ -16,6 +17,9 @@ function CtrlShopStep1(){
 		formStep1 = $hs("formStep1");
 		divCity = $("#divCity");
 		divKecamatan = $("#divKecamatan");
+		
+		imgShopLogo = $hs("imgShopLogo");
+		txtShopLogoFile = $hs("txtShopLogoFile");
 		
 		notifName = $("#notifName");
 		notifTagname = $("#notifTagname");
@@ -36,6 +40,21 @@ function CtrlShopStep1(){
 				doSave();
 			};
 		}
+		
+		imgShopLogo.onclick = function(){
+			txtShopLogoFile.click();
+		};
+		
+		txtShopLogoFile.onchange = function(){
+			var URL = window.URL || window.webkitURL;
+			
+			imgShopLogo.src = URL.createObjectURL(txtShopLogoFile.files[0]);
+			
+			imgShopLogo.addEventListener('load', function () {
+				//$('#delete_'+id).show();
+				URL.revokeObjectURL(this.src);
+			});
+		};
 	}
 	
 	function doNext(){
