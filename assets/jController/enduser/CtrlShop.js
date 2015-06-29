@@ -5,7 +5,7 @@ function CtrlShopStep1(){
 	
 	var formStep1;
 	var divCity, divKecamatan;
-	var imgShopLogo,txtShopLogoFile;
+	var imgShopLogo, txtShopLogoFile, aShopLogoDelete;
 	var btnNext, btnSave;
 	
 	function init(){
@@ -20,6 +20,7 @@ function CtrlShopStep1(){
 		
 		imgShopLogo = $hs("imgShopLogo");
 		txtShopLogoFile = $hs("txtShopLogoFile");
+		aShopLogoDelete = $hs("aShopLogoDelete");
 		
 		notifName = $("#notifName");
 		notifTagname = $("#notifTagname");
@@ -46,14 +47,11 @@ function CtrlShopStep1(){
 		};
 		
 		txtShopLogoFile.onchange = function(){
-			var URL = window.URL || window.webkitURL;
-			
-			imgShopLogo.src = URL.createObjectURL(txtShopLogoFile.files[0]);
-			
-			imgShopLogo.addEventListener('load', function () {
-				//$('#delete_'+id).show();
-				URL.revokeObjectURL(this.src);
-			});
+			doImageUpload();
+		};
+		
+		aShopLogoDelete.onclick = function(){
+			doImageDelete();
 		};
 	}
 	
@@ -178,5 +176,17 @@ function CtrlShopStep1(){
 				divKecamatan.html(result);
 			}
 		});
+	}
+	
+	function doImageUpload(){
+		var URL = window.URL || window.webkitURL;
+			
+		imgShopLogo.src = URL.createObjectURL(txtShopLogoFile.files[0]);
+		aShopLogoDelete.style.display = 'block';
+	}
+	
+	function doImageDelete(){
+		imgShopLogo.src = base_url+"assets/image/img_default_photo.jpg";
+		aShopLogoDelete.style.display = 'none';
 	}
 }
