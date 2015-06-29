@@ -60,12 +60,12 @@ echo"
 					<label for='txtDescription'>Deskripsi toko</label>
 				</div>
 				<div class='input-field col s12 m8'>
-					Logo Toko
+					<label class='left'>Logo Toko</label><br>
 					
-					<div class='card div-circle-logo col s6 m4 l3'>
+					<div class='card div-circle-logo col s6 m4 l3 nolpad'>
 						<a id='aShopLogoDelete' class='delimg'><i class='mdi-content-backspace'></i></a>
 						<div class='card-image waves-effect waves-block waves-light'>
-							<img id='imgShopLogo' src='".$ShopImage."' class='circle-logo' style='cursor:pointer;'>
+							<img id='imgShopLogo' src='".$ShopImage."' class='responsive-img' style='cursor:pointer; width:100%;'>
 							<input id='txtShopLogoFile' name='txtShopLogoFile' type='file' style='display:none;'>
 						</div>
 					</div>
