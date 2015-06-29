@@ -129,7 +129,7 @@ header,section,content,footer{ width:100%; }
 
 .formbody{ padding:15px 15px 0 15px; color:#565a5c!important; }
 .formbody .input-field label{ color:#565a5c; }
-.formbody .input-field textarea:focus{ border-bottom: 1px solid #f4511e!important; box-shadow: 0 1px 0 0 #f4511e!important; }
+.formbody .input-field textarea:focus{ border-bottom: 1px solid #565a5c!important; box-shadow: 0 1px 0 0 #565a5c!important; }
 
 .formbody li.listanggonew{ margin:0 0 8px 0; padding:5px 0; box-shadow: 0 1px 0 0 #efefef!important; }
 .formbody button{ margin:0 4px 0 0;}
