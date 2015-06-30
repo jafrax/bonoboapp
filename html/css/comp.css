@@ -5,6 +5,7 @@
 
 /*ALL ABOUT FORM*/
 .input-field{ margin-bottom:16px; }
+.input-field .label-stock{ margin:0 0 5px 0;}
 
 /* label color */
 .input-field label {
@@ -116,6 +117,12 @@ label{ font-size: 14px; color: #565a5c; }
 .card { margin:5px; }
 .card .card-title { font-size: 14px; }
 .card-image img{ height:160px; }
+.notacard { box-shadow:none; border: 1px solid #ddd; }
+.notacard .collapsible{ box-shadow:none; }
+.tool a{ border: 1px solid #ddd;  background: #fff;}
+.tool a:hover{ background: #efefef;}
+.tool a i{ font-size:20px; }
+ 
 
 /*ALL ABOUT BG*/
 .bgpic{ background-position:center; background-repeat:no-repeat; background-size:cover; }

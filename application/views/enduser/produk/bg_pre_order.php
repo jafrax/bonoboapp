@@ -4,8 +4,8 @@ $uri3 = $this->uri->segment(3);
 echo"
 			<div class='col s12 m12 l3'>
 					<ul class='menucontent'>
-						<li><a class='active' href='".base_url()."produk/'>READY STOK</a></li>
-						<li><a href='".base_url()."produk/pre_order'>PRE ORDER</a></li>
+						<li><a href='".base_url()."produk/'>READY STOK</a></li>
+						<li><a class='active' href='".base_url()."produk/pre_order'>PRE ORDER</a></li>
 						<li><a href='".base_url()."produk/atur_kateogri'>ATUR KATEGORI</a></li>
 						<li><a href='".base_url()."produk/kategori'>KATEGORI</a></li>
 					</ul>
@@ -29,6 +29,7 @@ echo"
 											<option value='1' "; if ($uri3 == '' || $uri3 == '1'){ echo "selected";} echo">Published</option>
 											<option value='0' "; if ($uri3 != '' && $uri3 == '0'){ echo "selected";} echo">Draft</option>											
 										</select>
+
 									</div>
 									<div class='input-field col s12 m8 l6'>
 										<select class='lectfilter'>
