@@ -17,6 +17,7 @@ class Toko extends CI_Controller {
         parent::__construct();
 		
 		$this->load->model("enduser/model_courier");
+		$this->load->model("enduser/model_courier_custom");
 		$this->load->model("enduser/model_category");
 		$this->load->model("enduser/model_location");
 		$this->load->model("enduser/model_toko");
@@ -104,6 +105,7 @@ class Toko extends CI_Controller {
 		if(!$_POST){
 			$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 			$data["Couriers"] = $this->model_courier->get()->result();
+			$data["CustomeCouriers"] = $this->model_courier_custom->get_by_shop($_SESSION['bonobo']['id'])->result();
 			
 			$this->template->bonobo_step("enduser/toko/bg_step_5",$data);
 		}else{
@@ -162,29 +164,10 @@ class Toko extends CI_Controller {
 					}
 				}
 				
-				/*
-				*	Save Shop Custome Courier 
-				*/
-				
-				
-				if($this->response->post("txtCustomeCourierCount") != "" && $this->response->post("txtCustomeCourierCount") > 0){
-					for($i=1; $i<=$this->response->post("txtCustomeCourierCount"); $i++){
-						if($this->response->post("aa")){
-							
-						}
-					}
-				}
-				
 			}
 			
 			redirect("toko/step6");
 		}
-	}
-	
-	public function step5CourierAdd(){
-		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
-		
-		$this->template->bonobo_step("enduser/toko/bg_step_5_courier_add",$data);
 	}
 	
 	public function step6(){

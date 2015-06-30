@@ -58,23 +58,50 @@ echo"
 				</div>	
 				<div class='input-field col s12 m8'>
 					<p>Anda bisa memasukkan jasa pengiriman lain jika memilikinya.
-						<input type='hidden' id='txtCustomeCourierCount' name='txtCustomeCourierCount' value='1'>
+						
 						<div id='divCustomCourier' style='margin-left:30px;width:100%'>
 							<div id='notifStep5'></div>
-							
-							<div id='divCourier1' class='input-field col s9 m9'>
-								<div class='input-field col s8 m6'>
-									<input type='hidden' id='txtCourierId1' name='txtCourierId1'>
-									<input type='text' id='txtCourierName1' name='txtCourierName1'>
-									<label for='txtCourierName1'>Nama Jasa Pengiriman</label>
-								</div>
-								<div class='input-field col s4 m6'>
-									<a class='left blue-text' href='javascript:void(0);' onclick=ctrlShopStep5.doCourierSave(1);><i class='mdi-action-delete'></i>Simpan</a> 
-									<a class='left red-text' href='javascript:void(0);' onclick=ctrlShopStep5.doCourierDelete(1);><i class='mdi-action-delete'></i>Hapus</a> 
-									<a class='left black-text' id='aCourierDetail1' href='javascript:void(0);' onclick=ctrlShopStep5.showDetail(1); style='display:none;'><i class='mdi-action-delete'></i>Detail</a> 
-								</div>
-							</div>
-							
+";
+
+	$no = 1;
+	if(sizeOf($CustomeCouriers) <= 0){
+		echo"
+				<input type='hidden' id='txtCustomeCourierCount' name='txtCustomeCourierCount' value='".$no."'>
+				<div id='divCourier".$no."' class='input-field col s9 m9'>
+					<div class='input-field col s8 m6'>
+						<input type='hidden' id='txtCourierId".$no."' name='txtCourierId".$no."'>
+						<input type='text' id='txtCourierName".$no."' name='txtCourierName".$no."'>
+						<label for='txtCourierName".$no."'>Nama Jasa Pengiriman</label>
+					</div>
+					<div class='input-field col s4 m6'>
+						<a class='left blue-text' href='javascript:void(0);' onclick=ctrlShopStep5.doCourierSave(".$no.");><i class='mdi-action-delete'></i>Simpan</a> 
+						<a class='left red-text' href='javascript:void(0);' onclick=ctrlShopStep5.doCourierDelete(".$no.");><i class='mdi-action-delete'></i>Hapus</a> 
+						<a class='left black-text' id='aCourierDetail".$no."' href='javascript:void(0);' onclick=ctrlShopStep5.showDetail(".$no."); style='display:none;'><i class='mdi-action-delete'></i>Detail</a> 
+					</div>
+				</div>
+		";
+	}else{
+		foreach($CustomeCouriers as $CustomeCourier){
+			echo"
+				<div id='divCourier".$no."' class='input-field col s9 m9'>
+					<div class='input-field col s8 m6'>
+						<input type='hidden' id='txtCourierId".$no."' name='txtCourierId".$no."'  value='".$CustomeCourier->id."'>
+						<input type='text' id='txtCourierName".$no."' name='txtCourierName".$no."' value='".$CustomeCourier->name."'>
+						<label for='txtCourierName".$no."'>Nama Jasa Pengiriman</label>
+					</div>
+					<div class='input-field col s4 m6'>
+						<a class='left blue-text' href='javascript:void(0);' onclick=ctrlShopStep5.doCourierSave(".$no.");><i class='mdi-action-delete'></i>Simpan</a> 
+						<a class='left red-text' href='javascript:void(0);' onclick=ctrlShopStep5.doCourierDelete(".$no.");><i class='mdi-action-delete'></i>Hapus</a> 
+						<a class='left black-text' id='aCourierDetail1' href='javascript:void(0);' onclick=ctrlShopStep5.showDetail(".$no."); style='display:none;'><i class='mdi-action-delete'></i>Detail</a> 
+					</div>
+				</div>
+			";
+			$no++;
+		}
+		echo"<input type='hidden' id='txtCustomeCourierCount' name='txtCustomeCourierCount' value='".sizeOf($CustomeCouriers)."'>";
+	}
+	
+	echo"
 						</div>
 					</p>
 					<p style='margin-left:30px;width:100%' class='input-field col s12 m8'><a href='javascript:void(0);' id='aCustomeCourierAdd'>Tambah Baru</a></p>
