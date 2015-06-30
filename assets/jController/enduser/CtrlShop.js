@@ -218,9 +218,13 @@ function CtrlShopStep1(){
 function CtrlShopStep5(){
 	this.init = init;
 	this.setSequence = setSequence;
+	this.showDetail = showDetail;
+	this.hideDetail = hideDetail;
+	this.doCourierSave = doCourierSave;
+	this.doCourierDelete = doCourierDelete;
 	
 	var sequence = 1;
-	var divCustomCourier;
+	var divCustomCourier,divShipment,divDetail;
 	var txtCustomeCourierCount;
 	var aCustomeCourierAdd;
 	
@@ -232,6 +236,8 @@ function CtrlShopStep5(){
 	function initComponent(){
 		aCustomeCourierAdd = $hs("aCustomeCourierAdd");
 		divCustomCourier = $("#divCustomCourier");
+		divShipment = $("#divShipment");
+		divDetail = $("#divDetail");
 		txtCustomeCourierCount = $hs("txtCustomeCourierCount");
 	}
 	
@@ -251,9 +257,63 @@ function CtrlShopStep5(){
 		
 		sequence = sequence+1;
 		
-		div.innerHTML = "<div class='input-field col s9 m9'><div class='input-field col s8 m6'><input type='text' id='txtCustomeCourier"+sequence+"' name='txtCustomeCourier"+sequence+"'><label for='txtCustomeCourier"+sequence+"'>Nama Jasa Pengiriman</label></div><div class='input-field col s4 m6'><a class='left red-text' href=''><i class='mdi-action-delete'></i>Hapus</a> </div></div>";
+		div.innerHTML = "<div id='divCourier"+sequence+"' class='input-field col s9 m9'><div class='input-field col s8 m6'><input type='hidden' id='txtCourierId"+sequence+"' name='txtCourierId1'><input type='text' id='txtCourierName"+sequence+"' name='txtCourierName1'><label for='txtCourierName"+sequence+"'>Nama Jasa Pengiriman</label></div><div class='input-field col s4 m6'><a class='left blue-text' href='javascript:void(0);' onclick=ctrlShopStep5.doCourierSave("+sequence+");><i class='mdi-action-delete'></i>Simpan</a> <a class='left red-text' href='javascript:void(0);' onclick=ctrlShopStep5.doCourierDelete("+sequence+");><i class='mdi-action-delete'></i>Hapus</a> <a class='left black-text' id='aCourierDetail"+sequence+"' href='javascript:void(0);' onclick=ctrlShopStep5.showDetail("+sequence+"); style='display:none;'><i class='mdi-action-delete'></i>Detail</a> </div></div>";
 		
 		divCustomCourier.append(div);
 		txtCustomeCourierCount.value = sequence;
+	}
+	
+	function showDetail(){
+		divShipment.slideUp("slow");
+		divDetail.slideDown("slow");
+	}
+	
+	function hideDetail(){
+		divShipment.slideDown("slow");
+		divDetail.slideUp("slow");
+	}
+	
+	function doCourierSave(e){
+		var txtCourierId = $hs("txtCourierId"+e);
+		var txtCourierName = $hs("txtCourierName"+e);
+		var aCourierDetail = $("#aCourierDetail"+e);
+		
+		$.ajax({
+			type: 'POST',
+			data: "id="+txtCourierId.value+"&name="+txtCourierName.value,
+			url: base_url+'toko/doStep5CourierSave/',
+			success: function(result) {
+				var response = JSON.parse(result);
+				if(response.result == 1){
+					aCourierDetail.slideDown("slow");
+					txtCourierId.value = response.id;
+				}else{
+					$hs_notif("#notifStep5",response.message);
+				}
+			}
+		});
+	}
+	
+	function doCourierDelete(e){
+		var txtCourierId = $hs("txtCourierId"+e);
+		var divCourier = $("#divCourier"+e);
+		
+		if(txtCourierId.value == ""){
+			divCourier.slideUp("slow");
+		}else{
+			$.ajax({
+				type: 'POST',
+				data: "id="+txtCourierId.value,
+				url: base_url+'toko/doStep5CourierDelete/',
+				success: function(result) {
+					var response = JSON.parse(result);
+					if(response.result == 1){
+						divCourier.slideUp("slow");
+					}else{
+						$hs_notif("#notifStep5",response.message);
+					}
+				}
+			});
+		}
 	}
 }
