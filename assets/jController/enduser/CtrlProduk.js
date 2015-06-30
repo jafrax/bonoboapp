@@ -41,12 +41,7 @@
                 filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
               }
       }
-  });
-
-
-  if ($('#gunakan_varian').length > 0) {
-    document.getElementById("gunakan_varian").checked = false; 
-  };
+  });  
 
   if ($('.cek_produk').length > 0) {
     $('.cek_produk').prop('checked',false);
@@ -120,6 +115,7 @@ function remove_picture(id) {
     var hitung = $('.picture-area .card').length;
     if (hitung == 0) {
         tot_picture = tot_picture+1;
+        $('#total_picture').val(tot_picture);
         $('.picture-area').append(box_picture(tot_picture));
     }
 }
@@ -196,7 +192,7 @@ function deleteVarian(varian) {
   $('#'+varian).remove();
   var jmlh = $('#tempat-varian li').length;
   
-  if (jmlh == 0) {$('#tempat-varian').append(boxVarian(jmlh));};
+  if (jmlh == 0) {$('#tot_varian').val(tot_varian);$('#tempat-varian').append(boxVarian(jmlh));};
   
 }
 

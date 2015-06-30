@@ -59,7 +59,7 @@ class Produk extends CI_Controller {
 				$harga_level_5 	= $this->template->clearInput($this->input->post('harga_level_5'));
 
 				$data = array(
-					'stock_type_detail'			=> $tipe,
+					'stock_type_detail'			=> $stok,
 					'toko_category_product_id'	=> $kategori,
 					'active'					=> $action,
 					'name'						=> $nama,
@@ -68,7 +68,7 @@ class Produk extends CI_Controller {
 					'unit'						=> $satuan,
 					'min_order'					=> $min_order,
 					'description'				=> $deskripsi,
-					'stock_type'				=> $stok,
+					'stock_type'				=> $tipe,
 					'price_base'				=> $harga_pembelian,
 					'price_1'					=> $harga_level_1,
 					'price_2'					=> $harga_level_2,
@@ -150,6 +150,151 @@ class Produk extends CI_Controller {
 		if ($produk->num_rows == 0) {
 			redirect('error');
 		}
+
+		if ($_POST) {
+			$this->rules();
+
+			if ($this->form_validation->run() == TRUE) {
+				$tipe 			= $this->template->clearInput($this->input->post('tipe'));
+				$nama 			= $this->template->clearInput($this->input->post('nama'));
+				$sku 			= $this->template->clearInput($this->input->post('sku'));
+				$kategori 		= $this->template->clearInput($this->input->post('kategori'));
+				$berat 			= $this->template->clearInput($this->input->post('berat'));
+				$satuan 		= $this->template->clearInput($this->input->post('satuan'));
+				$min_order 		= $this->template->clearInput($this->input->post('min_order'));
+				$deskripsi 		= $this->template->clearInput($this->input->post('deskripsi'));
+				$stok 			= $this->template->clearInput($this->input->post('stok'));
+				$stok_utama 	= $this->template->clearInput($this->input->post('stok_utama'));
+				$harga_pembelian= $this->template->clearInput($this->input->post('harga_pembelian'));
+
+				$total_picture 	= $this->template->clearInput($this->input->post('total_picture'));
+				$total_varian 	= $this->template->clearInput($this->input->post('total_varian'));
+				$gunakan_varian = $this->template->clearInput($this->input->post('gunakan_varian'));
+				$action 		= $this->template->clearInput($this->input->post('action'));
+				$harga_level_1 	= $this->template->clearInput($this->input->post('harga_level_1'));
+				$harga_level_2 	= $this->template->clearInput($this->input->post('harga_level_2'));
+				$harga_level_3 	= $this->template->clearInput($this->input->post('harga_level_3'));
+				$harga_level_4 	= $this->template->clearInput($this->input->post('harga_level_4'));
+				$harga_level_5 	= $this->template->clearInput($this->input->post('harga_level_5'));
+
+				$data = array(
+					'stock_type_detail'			=> $stok,
+					'toko_category_product_id'	=> $kategori,
+					'active'					=> $action,
+					'name'						=> $nama,
+					'sku_no'					=> $sku,
+					'weight'					=> $berat,
+					'unit'						=> $satuan,
+					'min_order'					=> $min_order,
+					'description'				=> $deskripsi,
+					'stock_type'				=> $tipe,
+					'price_base'				=> $harga_pembelian,
+					'price_1'					=> $harga_level_1,
+					'price_2'					=> $harga_level_2,
+					'price_3'					=> $harga_level_3,
+					'price_4'					=> $harga_level_4,
+					'price_5'					=> $harga_level_5,
+					'create_user'				=> $_SESSION['bonobo']['email'],
+					'create_date'				=> date('Y-m-d H:i:s'),
+					'update_user'				=> $_SESSION['bonobo']['email']
+					);
+
+				$update = $this->db->where('id',$uri)->update('tb_product',$data);
+				
+				if ($update) {
+					$id = $uri;
+
+					$url    = 'assets/pic/product/';
+					$pic 	= $this->model_produk->get_one_image($id);
+					foreach($pic->result() as $item){
+						if(isset($_FILES['pic_edit_'.$item->id]['name'])){
+							$picture = $this->template->upload_picture($url,'pic_edit_'.$item->id,$item->image);
+							if($picture != 'error'){
+								$this->db->set('file',$picture)
+									->set('update_user',$_SESSION['bonobo']['email'])
+									->where('id',$item->id)->update('tb_product_image');
+							}
+						}else{
+							$delete = $this->db->where('id',$item->id)->delete('tb_product_image');
+							if($delete){
+								@unlink($url.$item->image);
+								@unlink($url."resize/".$item->image);
+							}
+						}
+					}
+
+					$pic 	= 1;
+					
+					for($i=1;$i<=$total_picture;$i++){
+						if($pic <= 3){
+							if(isset($_FILES['pic_'.$i]['name'])){
+								$picture = $this->template->upload_picture($url,'pic_'.$i);
+								if($picture != 'error'){
+									$this->db->set('file',$picture)
+										->set('product_id',$id)
+										->set('create_user',$_SESSION['bonobo']['email'])
+										->set('create_date',date('Y-m-d H:i:s'))
+										->set('update_user',$_SESSION['bonobo']['email'])
+										->insert('tb_product_image');
+								}
+								$pic++;								
+							}
+						}
+					}
+
+					if ($gunakan_varian != 'on') {
+						$no_varian = $this->model_produk->get_varian_produk_null($id);
+
+						if ($no_varian->num_rows() > 0) {
+							$this->db->set('stock_qty',$stok_utama)->where('product_id',$id)->where('name','null')->update('tb_product_varian');
+						}else{
+							$this->db->set('product_id',$id)
+								->set('name','null')
+								->set('stock_qty',$stok_utama)
+								->set('create_user',$_SESSION['bonobo']['email'])
+								->set('create_date',date('Y-m-d H:i:s'))
+								->set('update_user',$_SESSION['bonobo']['email'])
+								->insert('tb_product_varian');
+						}						
+					}else{
+
+						$desc = $this->model_produk->get_varian_produk($id);
+						foreach($desc->result() as $item){
+							if(isset($_POST['nama_edit_varian_'.$item->id]) || isset($_POST['stok_edit_varian_'.$item->id])){
+								$title 	= ($this->input->post('nama_edit_varian_'.$item->id));
+								$content= ($this->input->post('stok_edit_varian_'.$item->id));
+								if($item->name != $title || $item->description != $content ){
+									$this->db->set('name',$title)->set('stock_qty',$content)->set('update_user',$_SESSION['bonobo']['email'])->where('id',$item->id)->update('tb_product_varian');
+								}
+							}else{
+								$this->db->where('id',$item->id)->delete('tb_product_varian');
+							}
+						}
+						
+						$var=1;
+						for($i=1;$i<=$total_varian;$i++){
+							if(isset($_POST['nama_varian_'.$i])){
+								$nama_varian = $this->template->clearInput($this->input->post('nama_varian_'.$i));
+								$stok_varian = $this->template->clearInput($this->input->post('stok_varian_'.$i));
+
+								$this->db->set('product_id',$id)
+									->set('name',$nama_varian)
+									->set('stock_qty',$stok_varian)
+									->set('create_user',$_SESSION['bonobo']['email'])
+									->set('create_date',date('Y-m-d H:i:s'))
+									->set('update_user',$_SESSION['bonobo']['email'])
+									->insert('tb_product_varian');
+								//echo $nama_varian.'<br>';
+								$var++;
+							}							
+						}
+					}
+				}
+				redirect('produk');
+			}
+		}
+
+
 		$data['produk']			= $produk->row();
 		$data['kategori']		= $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
 		$data['level_harga']	= $this->model_produk->get_toko($_SESSION['bonobo']['id'])->row();

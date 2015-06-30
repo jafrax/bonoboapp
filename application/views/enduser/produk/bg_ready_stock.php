@@ -105,12 +105,26 @@ echo"
 												</p>";
 											}											
 										}else{
-											echo "
-											<div class='input-field col s12 m6'>
-												<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
-												<h5><br></h5>
-											</div>
-											";
+											$stok =  $this->model_produk->get_varian_produk($row->id);
+												foreach ($stok->result() as $row_stok) {
+													echo"
+													<p class='col s12 m12 l12 '>	";													
+														if ($row_stok->name != 'null') {
+															echo "
+															<div class='input-field col s12 m12'>
+																<b>".$row_stok->name."</b>
+																<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
+															</div>";
+														}else{
+															echo "
+															<div class='input-field col s12 m12'>																
+																<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
+															</div>";
+														}
+
+													echo"
+													</p>";
+												}
 										}
 										echo"
 
@@ -193,11 +207,26 @@ echo"
 													</p>";
 												}											
 											}else{
-												echo "
-												<div class='input-field col s12 m12'>
-													<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
-												</div>
-												";
+												$stok =  $this->model_produk->get_varian_produk($row->id);
+												foreach ($stok->result() as $row_stok) {
+													echo"
+													<p class='col s12 m12 l12 '>	";													
+														if ($row_stok->name != 'null') {
+															echo "
+															<div class='input-field col s12 m12'>
+																<b>".$row_stok->name."</b>
+																<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
+															</div>";
+														}else{
+															echo "
+															<div class='input-field col s12 m12'>																
+																<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
+															</div>";
+														}
+
+													echo"
+													</p>";
+												}
 											}
 											echo"
 										</div>

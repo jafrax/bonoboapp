@@ -35,5 +35,9 @@ class Model_produk extends CI_Model
 	function get_varian_produk($id){
 		return $this->db->where('product_id',$id)->get('tb_product_varian');	
 	}
-	
+
+	function get_varian_produk_null($id){
+		return $this->db->where('product_id',$id)->where('name','null')->get('tb_product_varian');
+	}
+
 }

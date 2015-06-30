@@ -9,8 +9,8 @@ echo "
 		<p>Apakah anda yakin ingin menghapus <b>'nama produk'</b> ?</p>
 	</form>
 	<div class='modal-footer'>
-		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
-		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
+		<a class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
+		<a class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
 	</div>
 </div>
 <div id='delete_varian' class='modal confirmation'>
@@ -21,8 +21,8 @@ echo "
 		<p>Apakah anda yakin ingin menghapus varian ini ?</p>
 	</form>
 	<div class='modal-footer'>		
-		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
-		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
+		<a class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
+		<a class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
 	</div>
 </div>
 
@@ -35,8 +35,8 @@ echo "
 		<input id='nama-kategori' name='nama' type='text' class='validate'>
 		<label for='nama-kategori'>Nama kategori <span class='text-red'>*</span></label>	
 	<div class='modal-footer'>
-		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>TUTUP</a>
-		<button type='button' id='tambah-kategori' class='modal-action modal-close waves-effect waves-red btn-flat'>TAMBAH</a>
+		<button type='button' class=' modal-action modal-close waves-effect waves-red btn-flat'>TUTUP</button>
+		<button type='button' id='tambah-kategori' class='modal-action modal-close waves-effect waves-red btn-flat'>TAMBAH</button>
 	</div>
 	</form>
 </div>
@@ -94,14 +94,14 @@ echo "
                                     if(count($pic->result())>0){
                                         foreach($pic->result() as $item){
                                            echo "
-	                                           	<div class='col s6 m4 l3' id='div_pic_".$item->id."'>
+	                                           	<div class='col s6 m4 l3' id='div_pic_edit_".$item->id."'>
 													<div class='card' >
-														<a class='delimg' onclick=javascript:remove_picture('pic_".$item->id."')><i class='mdi-content-backspace'></i></a>
+														<a class='delimg' onclick=javascript:remove_picture('pic_edit_".$item->id."')><i class='mdi-content-backspace'></i></a>
 														<div class='card-image img-product waves-effect waves-block waves-light'>
-															<img id='img_pic_".$item->id."' onclick=javascript:click_picture('pic_".$item->id."') class='responsive-img img-product' src='".base_url()."assets/pic/product/resize/".$item->file."'>
-															<input type='file' class='pic_product' name='pic_".$item->id."' id='pic_".$item->id."' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
+															<img id='img_pic_edit_".$item->id."' onclick=javascript:click_picture('pic_edit_".$item->id."') class='responsive-img img-product' src='".base_url()."assets/pic/product/resize/".$item->file."'>
+															<input type='file' class='pic_edit_product' name='pic_edit_".$item->id."' id='pic_edit_".$item->id."' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
 														</div>
-														<label for='pic_".$item->id."' class='error error-image' generated='true'></label>										
+														<label for='pic_edit_".$item->id."' class='error error-image' generated='true'></label>										
 													</div>										
 												</div>
                                             ";
@@ -165,43 +165,78 @@ echo "
 									$tersedia = 'none';
 									$guna_stok= 'block';
 								};
+
+								$varian_null = $this->model_produk->get_varian_produk_null($produk->id);
+								if ($varian_null->num_rows() > 0) {
+									$checked 	= '';
+									$cek_stok 	= 'none';
+									$uncek_stok	= 'block';
+								}else{
+									$checked 	= 'checked';
+									$cek_stok 	= 'block';
+									$uncek_stok	= 'none';
+								}
+								
 								$varian = $this->model_produk->get_varian_produk($produk->id);
-								if ($produk->tipe_stok == 1) {};
 								echo"
 								<div class='input-field col s12 m12'>
-									<input type='checkbox' id='gunakan_varian' name='gunakan_varian' onclick=javascript:setVarian() />
+									<input type='checkbox' id='gunakan_varian' name='gunakan_varian' onclick=javascript:setVarian() $checked/>
 									<label for='gunakan_varian'>Gunakan varian</label>
 								</div>
 								<input type='hidden' name='total_varian' value='1' id='tot_varian' />
-								<ul class='col s12 m12 cek-stok' id='tempat-varian' style='display:none'>
-									<li class='varsto' id='li_varian_1'>
-										<div class='input-field col s12 m5'>
-											<input id='varian' name='nama_varian_1' type='text' placeholder='Misal: Lusin, Pcs' class='validate'>
-											<label for='varian'>Varian <span></span></label>
-										</div>
-										<div class='input-field col s11 m5 tersedia'>
-											<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
-										</div>
-										<div class='input-field col s11 m5 pakai-stok'  style='display:none'>
-											<input id='varian' name='stok_varian_1' type='text' placeholder='Jumlah stok' class='validate numbersOnly'>
-											<label for='varian'>Stok <span></span></label>											
-										</div>
-										<div class='input-field col s1 m1' >
-											<a onclick=javascript:deleteVarian('li_varian_1'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
-										</div>
-									</li>
+								<ul class='col s12 m12 cek-stok' id='tempat-varian' style='display:$cek_stok'>";
+									if ($varian_null->num_rows() == 0) {
+										foreach ($varian->result() as $row_var) {
+											echo"<li class='varsto' id='li_edit_varian_".$row_var->id."'>
+													<div class='input-field col s12 m5'>
+														<input id='varian' name='nama_edit_varian_".$row_var->id."' value='".$row_var->name."' type='text' placeholder='Misal: Lusin, Pcs' class='validate'>
+														<label for='varian'>Varian <span></span></label>
+													</div>
+													<div class='input-field col s11 m5 tersedia' style='display:$tersedia'>
+														<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
+													</div>
+													<div class='input-field col s11 m5 pakai-stok' style='display:$guna_stok'>
+														<input id='varian' name='stok_edit_varian_".$row_var->id."' value='".$row_var->stock_qty."' type='text' placeholder='Jumlah stok' class='validate numbersOnly'>
+														<label for='varian'>Stok <span></span></label>											
+													</div>
+													<div class='input-field col s1 m1' >
+														<a onclick=javascript:deleteVarian('li_edit_varian_".$row_var->id."'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
+													</div>
+												</li>";
+										}
+									}else{
+									echo"<li class='varsto' id='li_varian_1'>
+											<div class='input-field col s12 m5'>
+												<input id='varian' name='nama_varian_1' type='text' placeholder='Misal: Lusin, Pcs' class='validate'>
+												<label for='varian'>Varian <span></span></label>
+											</div>
+											<div class='input-field col s11 m5 tersedia' style='display:$tersedia'>
+												<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
+											</div>
+											<div class='input-field col s11 m5 pakai-stok' style='display:$guna_stok'>
+												<input id='varian' name='stok_varian_1' type='text' placeholder='Jumlah stok' class='validate numbersOnly'>
+												<label for='varian'>Stok <span></span></label>											
+											</div>
+											<div class='input-field col s1 m1' >
+												<a onclick=javascript:deleteVarian('li_varian_1'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
+											</div>
+										</li>";
+									}
+									
+									
+									echo"
 								</ul>
-								<ul class='col s12 m12 cek-stok' style='display:none'>								
+								<ul class='col s12 m12 cek-stok' style='display:$cek_stok'>								
 									<li class='input-field col s12 m12'>
 										<a class='btn-flat left' onclick=javascript:addVarian()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
 									</li>
 								</ul>
-								<ul class='col s12 m12 uncek-stok' >
+								<ul class='col s12 m12 uncek-stok' style='display:$uncek_stok'>
 									<li class='varsto'>
-										<div class='input-field col s12 m6 tersedia'>
+										<div class='input-field col s12 m6 tersedia' style='display:$tersedia'>
 											<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
 										</div>
-										<div class='input-field col s12 m6 pakai-stok' style='display:none'>
+										<div class='input-field col s12 m6 pakai-stok' style='display:$guna_stok'>
 											<input id='varian' name='stok_utama' type='text' placeholder='Jumlah stok' class='validate numbersOnly'>
 											<label for='varian'>Stok <span></span></label>
 										</div>
