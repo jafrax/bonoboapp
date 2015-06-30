@@ -75,12 +75,17 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
 	box-sizing: content-box;
 	transition: all .3s;
 }
+input.valid[type="text"], input.valid[type="text"]:focus, input.valid[type="password"], input.valid[type="password"]:focus, input.valid[type="email"], input.valid[type="email"]:focus, input.valid[type="url"], input.valid[type="url"]:focus, input.valid[type="time"], input.valid[type="time"]:focus, input.valid[type="date"], input.valid[type="date"]:focus, input.valid[type="datetime-local"], input.valid[type="datetime-local"]:focus, input.valid[type="tel"], input.valid[type="tel"]:focus, input.valid[type="number"], input.valid[type="number"]:focus, input.valid[type="search"], input.valid[type="search"]:focus, textarea.materialize-textarea.valid, textarea.materialize-textarea.valid:focus {
+    background-color: transparent;
+    border-bottom: 1px solid #565a5c;
+    box-shadow: 0 1px 0 0 #565a5c;
+}
 .input-field label{ font-size: 14px; }
 .input-field p { color:#aaa; padding-left: 50px;}
 .input-field.table { padding:0 12px 0 0; }
 .error { position: absolute; top: 0.8rem; right: 0.75rem; text-align:right; color:#ef5350!important; }
 .input-field label.error { position: absolute; top: 0.8rem; right: 0.75rem; text-align:right; color:#ef5350!important; }
-.error-chosen{ position: relative!important; top: 0; right: -50%; text-align:right; }
+.error-chosen{ position: relative!important; top: 0; right:0; text-align:right; }
 .notif-error{ position: relative; padding:8px 0 10px 0; text-align:center; color:#ef5350!important;  }
 .error-image{ position: relative!important; color:#ef5350!important; top:-5px!important;}
 
@@ -105,8 +110,10 @@ label{ font-size: 14px; color: #565a5c; }
 .checkiniabs{ position: absolute; z-index:998; top:2px; left:2px; }
 .delimg{ position: absolute; z-index:998; top:0px; right:2px; font-size:14px; cursor:pointer; color:#ef5350; }
 .delimg:hover{ font-size:25px; color:#e53935; }
+.input-field .card { margin:5px; box-shadow:none; }
 .card { margin:5px; }
 .card .card-title { font-size: 14px; }
+.card-image img{ height:160px; }
 
 /*ALL ABOUT BG*/
 .bgpic{ background-position:center; background-repeat:no-repeat; background-size:cover; }
