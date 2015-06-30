@@ -1,19 +1,4 @@
-(function() {
-   $('#tambah-kategori').on('click', function() {
-   		var nama 	= $('#nama-kategori').val();
-   		var id 		= $('#id-toko').val();
-
-   		$.ajax({
-            type: 'POST',
-            data: 'nama='+nama+'&id='+id,
-            url: base_url+'produk/add_kategori',
-            success: function(msg) {
-            	Materialize.toast('Kategori telah ditambahkan', 4000);
-            	$('#tempat-kategori').html(msg);
-               $('#select-kategori').material_select();
-            }
-        });
-   });
+(function() {   
 
   $("#form-ready").validate({
       errorClass:'error',
@@ -154,7 +139,7 @@ function boxVarian(id) {
   var stok      = $('#stok').val();
   if (stok == 1) {
       var varian = "<li class='varsto' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5'>"
-                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' placeholder='Misal: Lusin, Pcs' class='validate'>"
+                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' placeholder='Masukkan varian' class='validate'>"
                       +"<label for='varian'>Varian <span></span></label>"
                     +"</div>"
                     +"<div class='input-field col s11 m5 tersedia'>"
@@ -170,7 +155,7 @@ function boxVarian(id) {
                     +"</li>";
    }else if (stok == 0) {
       var varian = "<li class='varsto' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5'>"
-                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' placeholder='Misal: Lusin, Pcs' class='validate'>"
+                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' placeholder='Masukkan varian' class='validate'>"
                       +"<label for='varian'>Varian <span></span></label>"
                     +"</div>"
                     +"<div class='input-field col s11 m5 tersedia' style='display:none'>"
@@ -301,4 +286,21 @@ function go(){
 function change_active(){
   var active_type = $('#active_type').val();
   window.location.href = base_url+'produk/index/'+active_type;  
+}
+
+
+function tambah_kategori(){
+  var nama  = $('#nama-kategori').val();
+  var id    = $('#id-toko').val();
+
+  $.ajax({
+        type: 'POST',
+        data: 'nama='+nama+'&id='+id,
+        url: base_url+'produk/add_kategori',
+        success: function(msg) {
+          Materialize.toast('Kategori telah ditambahkan', 4000);
+          $('#tempat-kategori').html(msg);
+           $('#select-kategori').material_select();
+        }
+    });
 }

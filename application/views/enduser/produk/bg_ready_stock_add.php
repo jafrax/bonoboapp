@@ -36,16 +36,16 @@ echo "
 		<label for='nama-kategori'>Nama kategori <span class='text-red'>*</span></label>	
 	<div class='modal-footer'>
 		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>TUTUP</a>
-		<button type='button' id='tambah-kategori' class='modal-action modal-close waves-effect waves-red btn-flat'>TAMBAH</a>
+		<button type='button' onclick=javascript:tambah_kategori() id='tambah-kategori' class='modal-action modal-close waves-effect waves-red btn-flat'>TAMBAH</a>
 	</div>
 	</form>
 </div>
 				<div class='col s12 m12 l3'>
 					<ul class='menucontent'>
-						<li><a class='active' href='produk_ready_stock.html'>READY STOK</a></li>
-						<li><a href='produk_pre_order.html'>PRE ORDER</a></li>
-						<li><a href='.html'>ATUR KATEGORI</a></li>
-						<li><a href='.html'>PILIH KATEGORI</a></li>
+						<li><a class='active' href='".base_url()."produk/'>READY STOK</a></li>
+						<li><a href='".base_url()."produk/pre_order'>PRE ORDER</a></li>
+						<li><a href='".base_url()."produk/atur_kateogri'>ATUR KATEGORI</a></li>
+						<li><a href='".base_url()."produk/kategori'>KATEGORI</a></li>
 					</ul>
 				</div>
 				<div class='col s12 m12 l9'>
@@ -138,7 +138,7 @@ echo "
 								<ul class='col s12 m12 cek-stok' id='tempat-varian' style='display:none'>
 									<li class='varsto' id='li_varian_1'>
 										<div class='input-field col s12 m5'>
-											<input id='varian' name='nama_varian_1' type='text' placeholder='Misal: Lusin, Pcs' class='validate'>
+											<input id='varian' name='nama_varian_1' type='text' placeholder='Masukkan varian' class='validate'>
 											<label for='varian'>Varian <span></span></label>
 										</div>
 										<div class='input-field col s11 m5 tersedia'>
