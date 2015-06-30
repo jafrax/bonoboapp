@@ -29,10 +29,18 @@ echo"
 											<option value='1' "; if ($uri3 == '' || $uri3 == '1'){ echo "selected";} echo">Published</option>
 											<option value='0' "; if ($uri3 != '' && $uri3 == '0'){ echo "selected";} echo">Draft</option>											
 										</select>
+
 									</div>
-									
+									<div class='input-field col s12 m8 l6'>
+									<select class='lectfilter'>
+											<option value='' disabled >Pilih filter</option>
+											<option >Fashion</option>
+											<option >Otomotif</option>
+											<option >Electronic</option>
+										</select>
+									</div>
 								</div>								
-								<div class='input-field col s12 m6 l3 nolpad right'>
+								<div class='input-field col s12 m6 l4 nolpad right'>
 									<i class='mdi-action-search prefix'></i>
 									<input id='keyword' type='text' class='validate' value='"; if (isset($_SESSION['keyword'])) {echo $_SESSION['keyword'];unset($_SESSION['keyword']);} echo"'>
 									<label for='keyword'>Cari produk</label >

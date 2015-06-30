@@ -5,6 +5,7 @@
 
 /*ALL ABOUT FORM*/
 .input-field{ margin-bottom:16px; }
+.input-field .label-stock{ margin:0 0 5px 0;}
 
 /* label color */
 .input-field label {
