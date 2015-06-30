@@ -12,9 +12,9 @@ echo"
 				</div>
 				</form>
 				<div class='col s6 m8'>
-					<a href='javascript:void(0);' id='aMessageNew' class='btn deep-orange darken-1 waves-effect waves-light right pesan' type='button' name='action'>
+					<button id='aMessageNew' class='btn deep-orange darken-1 waves-effect waves-light right pesan' type='button' name='action'>
 						<i class='mdi-content-add-circle-outline left'></i> Pesan baru
-					</a>
+					</button>
 				</div>
 			</div>
 			<div id='notifMessage' align='center' style='display:none;'></div>
