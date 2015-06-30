@@ -29,23 +29,26 @@ echo"
 				<div class='input-field col s12 m8'>
 					<p>Silahkan pilih jasa ekspedisi berikut. Ongkos kirim sesuai kebijakan Perusahaan Ekspedisi yang bersangkutan.
 						<div class='input-field col s2 m2'><p></p></div>
-						<div class='input-field col s5 m2'>
-							<input type='checkbox' id='jne'  />
-							<label for='jne'>JNE</label>
-						</div>
-						<div class='input-field col s5 m8'>
-							<input type='checkbox' id='tiki'  />
-							<label for='tiki'>TIKI</label>
-						</div>
-						<div class='input-field col s2 m2'><p></p></div>
-						<div class='input-field col s5 m2'>
-							<input type='checkbox' id='pos'  />
-							<label for='pos'>Pos Indonesia</label>
-						</div>
-						<div class='input-field col s5 m8'>
-							<input type='checkbox' id='cargo'  />
-							<label for='cargo'>Cargo</label>
-						</div>
+";
+
+foreach($Couriers as $Courier){
+	$QCourier = $this->model_toko_courier->get_by_shop_courier($_SESSION["bonobo"]["id"],$Courier->id)->row();
+	
+	if(!empty($QCourier)){
+		$checked = "checked";
+	}else{
+		$checked = "";
+	}
+	
+	echo"
+		<div class='input-field col s5 m2'>
+			<input type='checkbox' id='chkCourier".$Courier->id."'  name='chkCourier".$Courier->id."' ".$checked."/>
+			<label for='chkCourier".$Courier->id."'>".$Courier->name."</label>
+		</div>
+	";
+}
+
+echo"	
 					</p>
 				</div>
 				<div class='input-field col s12 m8'><p></p></div>
@@ -55,21 +58,22 @@ echo"
 				</div>	
 				<div class='input-field col s12 m8'>
 					<p>Anda bisa memasukkan jasa pengiriman lain jika memilikinya.
-						<div class='input-field col s8 m6'>
-							Kurir Toko <a href=''><i class='mdi-editor-border-color'></i></a>
-						</div>
-						<div class='input-field col s4 m6'>
-							<a class='left red-text' href=''><i class='mdi-action-delete'></i>Hapus</a> 
-						</div>
-						<div class='input-field col s8 m6'>
-							Kurir Toko 2 <a href=''><i class='mdi-editor-border-color'></i></a>
-						</div>
-						<div class='input-field col s4 m6'>
-							<a class='left red-text' href=''><i class='mdi-action-delete'></i>Hapus</a> 
+						<input type='hidden' id='txtCustomeCourierCount' name='txtCustomeCourierCount' value='1'>
+						<div id='divCustomCourier' style='margin-left:30px;width:100%'>
+							<div class='input-field col s9 m9'>
+								<div class='input-field col s8 m6'>
+									<input type='text' id='txtCustomeCourier1' name='txtCustomeCourier1'>
+									<label for='txtCustomeCourier1'>Nama Jasa Pengiriman</label>
+								</div>
+								<div class='input-field col s4 m6'>
+									<a class='left red-text' href=''><i class='mdi-action-delete'></i>Hapus</a> 
+								</div>
+							</div>
 						</div>
 					</p>
-					<p><a href='#'>Tambah Baru</a></p>
+					<p style='margin-left:30px;width:100%' class='input-field col s12 m8'><a href='javascript:void(0);' id='aCustomeCourierAdd'>Tambah Baru</a></p>
 				</div>
+				
 				<div class='input-field col s12 m8'><p><br></p></div>
 				<div class='input-field col s12 m8'>
 					".$Button."
@@ -77,6 +81,11 @@ echo"
 			</div>
 		</form>
 	</div>
+	
+	<script>
+		var ctrlShopStep5 = new CtrlShopStep5();
+		ctrlShopStep5.init();
+	</script>
 ";
 
 ?>

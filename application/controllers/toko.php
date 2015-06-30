@@ -16,10 +16,12 @@ class Toko extends CI_Controller {
 	function __construct(){
         parent::__construct();
 		
+		$this->load->model("enduser/model_courier");
 		$this->load->model("enduser/model_category");
 		$this->load->model("enduser/model_location");
 		$this->load->model("enduser/model_toko");
 		$this->load->model("enduser/model_toko_attribute");
+		$this->load->model("enduser/model_toko_courier");
 		
 		if(empty($_SESSION['bonobo']) || empty($_SESSION['bonobo']['id'])){
 			redirect('index/');
@@ -101,6 +103,7 @@ class Toko extends CI_Controller {
 	public function step5(){
 		if(!$_POST){
 			$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+			$data["Couriers"] = $this->model_courier->get()->result();
 			
 			$this->template->bonobo_step("enduser/toko/bg_step_5",$data);
 		}else{
@@ -129,8 +132,51 @@ class Toko extends CI_Controller {
 			
 			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
 			
+			if($Save){
+				/*
+				*	Save Shop Courier
+				*/
+				$Couriers = $this->model_courier->get()->result();
+				
+				foreach($Couriers as $Courier){
+					if($this->response->post("chkCourier".$Courier->id) != ""){
+						$QCourier = $this->model_toko_courier->get_by_shop_courier($_SESSION["bonobo"]["id"],$Courier->id)->row();
+						
+						if(empty($QCourier)){
+							$Data = array(
+									"toko_id"=>$_SESSION["bonobo"]["id"],
+									"courier_id"=>$Courier->id,
+									"create_date"=>date("Y-m-d H:i:s"),
+									"create_user"=>$_SESSION['bonobo']['email'],
+									"update_date"=>date("Y-m-d H:i:s"),
+									"update_user"=>$_SESSION['bonobo']['email'],
+								);
+								
+							$Insert = $this->db->insert("tb_toko_courier",$Data);
+						}
+					}else{
+						$Delete = $this->db
+							->where("toko_id",$_SESSION["bonobo"]["id"])
+							->where("courier_id",$Courier->id)
+							->delete("tb_toko_courier");
+					}
+				}
+				
+				/*
+				*	Save Shop Custome Courier 
+				*/
+				
+				
+			}
+			
 			redirect("toko/step6");
 		}
+	}
+	
+	public function step5CourierAdd(){
+		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+		
+		$this->template->bonobo_step("enduser/toko/bg_step_5_courier_add",$data);
 	}
 	
 	public function step6(){

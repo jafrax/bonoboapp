@@ -214,3 +214,46 @@ function CtrlShopStep1(){
 		imgShopLogo.src = base_url+"assets/image/img_default_photo.jpg";
 	}
 }
+
+function CtrlShopStep5(){
+	this.init = init;
+	this.setSequence = setSequence;
+	
+	var sequence = 1;
+	var divCustomCourier;
+	var txtCustomeCourierCount;
+	var aCustomeCourierAdd;
+	
+	function init(){
+		initComponent();
+		initEventlistener();
+	}
+	
+	function initComponent(){
+		aCustomeCourierAdd = $hs("aCustomeCourierAdd");
+		divCustomCourier = $("#divCustomCourier");
+		txtCustomeCourierCount = $hs("txtCustomeCourierCount");
+	}
+	
+	function initEventlistener(){
+		aCustomeCourierAdd.onclick = function(){
+			addCustomeCourier();
+		};
+	}
+	
+	function setSequence(e){
+		sequence = e;
+		txtCustomeCourierCount.value = sequence;
+	}
+	
+	function addCustomeCourier(){
+		var div = document.createElement('div');
+		
+		sequence = sequence+1;
+		
+		div.innerHTML = "<div class='input-field col s9 m9'><div class='input-field col s8 m6'><input type='text' id='txtCustomeCourier"+sequence+"' name='txtCustomeCourier"+sequence+"'><label for='txtCustomeCourier"+sequence+"'>Nama Jasa Pengiriman</label></div><div class='input-field col s4 m6'><a class='left red-text' href=''><i class='mdi-action-delete'></i>Hapus</a> </div></div>";
+		
+		divCustomCourier.append(div);
+		txtCustomeCourierCount.value = sequence;
+	}
+}
