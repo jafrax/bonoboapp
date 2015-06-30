@@ -82,7 +82,18 @@ echo"
 		<nav class='nav grey darken-2'>
 			<div class='containermain'>
 				<ul class='navmenu'>
-					<li "; if ($uri == 'toko') echo"class='active'"; echo"><a "; if ($uri == 'toko') echo"class='active'"; echo" href='".base_url()."'>Toko</a></li>
+					<li class='menuutama"; if ($uri == 'toko') echo" active"; echo"'>
+						<a "; if ($uri == 'toko') echo"class='active'"; echo" href='".base_url()."'>Toko</a>
+						<ul class='subnemuutama grey darken-1'>
+							<li><a href='#'>Informasi Toko</a></li>
+							<li><a href='#'>Atur Privasi</a></li>
+							<li><a href='#'>Atur Pengurangan Stok</a></li>
+							<li><a href='#'>Metode Transaksi</a></li>
+							<li><a href='#'>Pengiriman</a></li>
+							<li><a href='#'>Bank</a></li>
+							<li><a href='#'>Atur Level Harga</a></li>
+						</ul>
+					</li>
 					<li "; if ($uri == 'anggota') echo"class='active'"; echo"><a "; if ($uri == 'anggota') echo"class='active'"; echo" href='".base_url("anggota")."'>Anggota</a></li>
 					<li "; if ($uri == 'produk') echo"class='active'"; echo"><a "; if ($uri == 'produk') echo"class='active'"; echo" href='".base_url("produk")."'>Produk</a></li>
 					<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='#'>Nota</a></li>
