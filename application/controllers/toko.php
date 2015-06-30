@@ -326,6 +326,73 @@ class Toko extends CI_Controller {
 		}
 	}
 	
+	public function doStep5CourierSave(){
+		if($this->response->post("name") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Nama masih kosong","messageCode"=>1));
+			return;
+		}
+		
+		if($this->response->post("id") == ""){
+			$date = date("Y-m-d H:i:s");
+			$Data = array(
+					"toko_id"=>$_SESSION["bonobo"]["id"],
+					"name"=>$this->response->post("name"),
+					"status"=>1,
+					"create_date"=>$date,
+					"create_user"=>$_SESSION['bonobo']['email'],
+					"update_date"=>$date,
+					"update_user"=>$_SESSION['bonobo']['email'],
+				);
+				
+			$Save = $this->db->insert("tb_courier_custom",$Data);
+			if($Save){
+				$Courier = $this->db
+						->where("toko_id",$_SESSION["bonobo"]["id"])
+						->where("name",$this->response->post("name"))
+						->where("status",1)
+						->where("create_date",$date)
+						->where("create_user",$_SESSION['bonobo']['email'])
+						->where("update_date",$date)
+						->where("update_user",$_SESSION['bonobo']['email'])
+						->get("tb_courier_custom")
+						->row();
+				
+				if(!empty($Courier)){
+					$this->response->send(array("result"=>1,"message"=>"Data telah disimpan","messageCode"=>1,"id"=>$Courier->id));
+				}else{
+					$this->response->send(array("result"=>0,"message"=>"Data telah disimpan","messageCode"=>1));
+				}
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Tidak dapat disimpan","messageCode"=>1));
+			}
+		}else{
+			$Data = array(
+					"name"=>$this->response->post("name"),
+				);
+				
+			$Save = $this->db->where("id",$this->response->post("id"))->update("tb_courier_custom",$Data);
+			if($Save){
+				$this->response->send(array("result"=>1,"message"=>"Data telah disimpan","messageCode"=>1));
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Tidak dapat disimpan","messageCode"=>1));
+			}
+		}
+	}
+	
+	public function doStep5CourierDelete(){
+		if($this->response->post("id") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada data yang dipilih","messageCode"=>1));
+			return;
+		}
+		
+		$Delete = $this->db->where("id",$this->response->post("id"))->delete("tb_courier_custom");
+		if($Delete){
+			$this->response->send(array("result"=>1,"message"=>"Data telah dihapus","messageCode"=>1));
+		}else{
+			$this->response->send(array("result"=>0,"message"=>"Tidak dapat dihapus","messageCode"=>1));
+		}
+	}
+	
 	public function comboboxCity(){
 		$Cities = $this->model_location->get_cities_by_province($this->response->post("province"))->result();
 		
