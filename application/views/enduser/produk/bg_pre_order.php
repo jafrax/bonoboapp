@@ -32,7 +32,7 @@ echo"
 
 									</div>
 									<div class='input-field col s12 m8 l6'>
-									<select class='lectfilter'>
+										<select class='lectfilter'>
 											<option value='' disabled >Pilih filter</option>
 											<option >Fashion</option>
 											<option >Otomotif</option>
