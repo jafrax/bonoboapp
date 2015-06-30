@@ -4,6 +4,8 @@
  */
 
 /*ALL ABOUT FORM*/
+.input-field{ margin-bottom:16px; }
+
 /* label color */
 .input-field label {
 	color: #565a5c!important;
