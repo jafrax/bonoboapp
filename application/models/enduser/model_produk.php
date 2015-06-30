@@ -23,7 +23,8 @@ class Model_produk extends CI_Model
 	}
 
 	function get_one_produk($id){
-		$this->db->select('*')->where('p.id',$id);				
+		$this->db->select('p.id id,p.name name,p.stock_type stock_type,p.active active,c.name kategori,p.sku_no sku_no,p.toko_category_product_id kategori,p.weight berat,p.unit satuan,p.min_order min_order,p.description description,p.stock_type_detail tipe_stok,p.price_base harga_pembelian,p.price_1 harga_1,p.price_2 harga_2,p.price_3 harga_3,p.price_4 harga_4,p.price_5 harga_5')
+		->where('p.id',$id);				
 		return	$this->db->join('tb_toko_category_product c','c.id=p.toko_category_product_id')->get('tb_product p');
 	}
 
@@ -34,5 +35,5 @@ class Model_produk extends CI_Model
 	function get_varian_produk($id){
 		return $this->db->where('product_id',$id)->get('tb_product_varian');	
 	}
-
+	
 }

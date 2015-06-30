@@ -18,7 +18,7 @@ echo"
 			<div class='formhead'>
 				<h2 class='titmain'><b>INFORMASI TOKO</b></h2>
 			</div>
-			<div class='row formbody'>
+			<div class='row formbody '>
 				<div class='linehead'>Informasi Umum</div>
 				<div class='input-field col s12 m8'>
 					<input id='txtName' name='txtName' type='text' class='validate' value='".$Shop->name."'>
@@ -30,8 +30,9 @@ echo"
 					<label for='txtTagname'>Toko Id *</label>
 					<label id='notifTagname' class='error' style='display:none;'></label>
 				</div>
-				<div class='col s12 m6'>
+				<div class='col s12 m8'>
 					<label>Pilih kategori *</label>
+					<label id='notifCategory' class='error error-chosen' style='display:none;'></label>
 					<div class='input-field'>
 						<select name='cmbCategory'>
 ";
@@ -48,7 +49,6 @@ echo"
 
 echo"
 						</select>
-						<label id='notifCategory' class='error' style='display:none;'></label>
 					</div>
 				</div>
 				<div class='input-field col s12 m8'>
@@ -146,6 +146,7 @@ echo"
 				</div>
 				<div class=' col s12 m8'>
 					<label>Provinsi</label>
+					<label id='notifProvince' class='error error-chosen' style='display:none;'></label>
 					<div id='divProvince' class='input-field'>
 						<select name='cmbProvince' onChange=ctrlShopStep1.loadComboboxCity();>
 ";
@@ -162,11 +163,11 @@ echo"
 	
 echo"
 						</select>
-						<label id='notifProvince' class='error' style='display:none;'></label>
 					</div>
 				</div>
 				<div class=' col s12 m8'>
 					<label>Kota</label>
+					<label id='notifCity' class='error error-chosen' style='display:none;'></label>
 					<div id='divCity' class='input-field'>
 						<select name='cmbCity' onChange=ctrlShopStep1.loadComboboxKecamatan();>
 ";
@@ -183,11 +184,11 @@ echo"
 	
 echo"
 						</select>
-						<label id='notifCity' class='error' style='display:none;'></label>
 					</div>
 				</div>
 				<div class=' col s12 m8'>
 					<label>Kecamatan</label>
+					<label id='notifKecamatan' class='error error-chosen' style='display:none;'></label>
 					<div id='divKecamatan' class='input-field'>
 						<select name='cmbKecamatan'>
 ";
@@ -204,7 +205,6 @@ echo"
 	
 echo"
 						</select>
-						<label id='notifKecamatan' class='error' style='display:none;'></label>
 					</div>
 				</div>
 				<div class='input-field col s12 m8'>
