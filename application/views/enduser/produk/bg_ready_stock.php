@@ -38,6 +38,7 @@ echo"
 											<option >Electronic</option>
 										</select>
 									</div>
+									
 								</div>								
 								<div class='input-field col s12 m6 l4 nolpad right'>
 									<i class='mdi-action-search prefix'></i>

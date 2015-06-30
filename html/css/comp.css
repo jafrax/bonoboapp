@@ -95,7 +95,7 @@ input.valid[type="text"], input.valid[type="text"]:focus, input.valid[type="pass
 label{ font-size: 14px; color: #565a5c; }
 
 .select-wrapper input.select-dropdown{ position: relative!important; z-index:1!important;}
-.chosen-container{ margin:0 0 10px 0;}
+.chosen-container{ margin:0 0 16px 0;}
 
 .dropdown-content{ z-index:999!important; }
 .dropdown-content.active{ z-index:1001!important; }
