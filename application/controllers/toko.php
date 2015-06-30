@@ -167,6 +167,14 @@ class Toko extends CI_Controller {
 				*/
 				
 				
+				if($this->response->post("txtCustomeCourierCount") != "" && $this->response->post("txtCustomeCourierCount") > 0){
+					for($i=1; $i<=$this->response->post("txtCustomeCourierCount"); $i++){
+						if($this->response->post("aa")){
+							
+						}
+					}
+				}
+				
 			}
 			
 			redirect("toko/step6");
