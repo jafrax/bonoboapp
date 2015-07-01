@@ -1,5 +1,11 @@
 <?php
 
+if($Shop->flag_information == 0){
+	$Button = "<a href='".base_url("toko/step5")."' class='btn waves-effect waves-light red'><i class='mdi-navigation-chevron-left left'></i> Kembali</a><a href='".base_url("toko/step7")."' class='btn waves-effect waves-light'>Selanjutnya<i class='mdi-navigation-chevron-right right'></i></a>";
+}else{
+	$Button = "<button class='btn waves-effect waves-light'>Simpan<i class='mdi-navigation-chevron-right right'></i></button>";
+}
+
 echo"
 	<div class='col s12 m12 l12'>
 		<form class='formain'>
@@ -55,12 +61,7 @@ echo"
 
 				<div class='input-field col s12 m12'><p><br></p></div>
 				<div class='input-field col s12 m12'>
-					<button class='btn waves-effect waves-light red' type='button' onclick='location.href='pengiriman.html'' name='action'>
-						<i class='mdi-navigation-chevron-left left'></i> Kembali
-					</button>
-					<button class='btn waves-effect waves-light' type='button' onclick='location.href='level_harga.html'' name='action'>Selanjutnya
-						<i class='mdi-navigation-chevron-right right'></i>
-					</button>
+					".$Button."
 				</div>	
 			</div>
 		</form>
