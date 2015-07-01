@@ -54,15 +54,6 @@ echo "
 						</div>
 						<div class='row formbody'>
 							<div class='col s12'>
-								<div class='col s12 m6'>
-									<label>Tipe barang <span class='text-red'>*</span></label>
-									<label class='error error-chosen' for='tipe'></label>
-									<select name='tipe'>
-										<option value='' disabled selected>Choose your option</option>
-										<option value='1' "; if ($produk->stock_type == 0) echo "selected"; echo">Ready Stock</option>
-										<option value='0' "; if ($produk->stock_type == 1) echo "selected"; echo">Pre Order</option>										
-									</select>									
-								</div>
 								<div class='input-field col s12'>
 									<input id='nama_barang' name='nama' type='text' class='validate' length='50' value='".$produk->name."' required>
 									<label for='nama_barang'>Nama barang <span class='text-red'>*</span></label>									

@@ -23,9 +23,9 @@ class Produk extends CI_Controller {
 	public function index(){
 		$uri =  $this->uri->segment(3);
 		if ($uri != '') {
-			$data['produk'] = $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],$uri);
+			$data['produk'] = $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],1,$uri);
 		}else{
-			$data['produk'] = $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id']);			
+			$data['produk'] = $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],1);			
 		}
 		
 		$this->template->bonobo('produk/bg_ready_stock',$data);
@@ -186,8 +186,7 @@ class Produk extends CI_Controller {
 					'weight'					=> $berat,
 					'unit'						=> $satuan,
 					'min_order'					=> $min_order,
-					'description'				=> $deskripsi,
-					'stock_type'				=> $tipe,
+					'description'				=> $deskripsi,					
 					'price_base'				=> $harga_pembelian,
 					'price_1'					=> $harga_level_1,
 					'price_2'					=> $harga_level_2,
@@ -438,9 +437,9 @@ class Produk extends CI_Controller {
 	public function pre_order(){
 		$uri =  $this->uri->segment(3);
 		if ($uri != '') {
-			$data['produk'] = $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],$uri);
+			$data['produk'] = $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],0,$uri);
 		}else{
-			$data['produk'] = $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id']);			
+			$data['produk'] = $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],0);			
 		}
 		
 		$this->template->bonobo('produk/bg_pre_order',$data);
@@ -555,7 +554,7 @@ class Produk extends CI_Controller {
 		$data['kategori']		= $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
 		$data['level_harga']	= $this->model_produk->get_toko($_SESSION['bonobo']['id'])->row();
 
-		$this->template->bonobo('produk/bg_ready_stock_add',$data);
+		$this->template->bonobo('produk/bg_pre_order_add',$data);
 	}
 
 	public function edit_pre_order(){
