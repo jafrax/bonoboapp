@@ -9,8 +9,8 @@ echo "
 		<p>Apakah anda yakin ingin menghapus <b>'nama produk'</b> ?</p>
 	</form>
 	<div class='modal-footer'>
-		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
-		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
+		<a  class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
+		<a  class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
 	</div>
 </div>
 <div id='delete_varian' class='modal confirmation'>
@@ -21,8 +21,8 @@ echo "
 		<p>Apakah anda yakin ingin menghapus varian ini ?</p>
 	</form>
 	<div class='modal-footer'>		
-		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
-		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
+		<a  class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
+		<a  class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
 	</div>
 </div>
 
@@ -44,8 +44,7 @@ echo "
 					<ul class='menucontent'>
 						<li><a class='active' href='".base_url()."produk/'>READY STOK</a></li>
 						<li><a href='".base_url()."produk/pre_order'>PRE ORDER</a></li>
-						<li><a href='".base_url()."produk/atur_kateogri'>ATUR KATEGORI</a></li>
-						<li><a href='".base_url()."produk/kategori'>KATEGORI</a></li>
+						<li><a href='".base_url()."produk/atur_kategori'>ATUR KATEGORI</a></li>	
 					</ul>
 				</div>
 				<div class='col s12 m12 l9'>
@@ -55,16 +54,8 @@ echo "
 						</div>
 						<div class='row formbody'>
 							<div class='col s12'>
-								<div class='col s12 m6'>
-									<label>Tipe barang <span class='text-red'>*</span></label>
-									<label class='error error-chosen' for='tipe'></label>
-									<select name='tipe'>
-										<option value='' disabled selected>Choose your option</option>
-										<option value='1' "; if ($uri3 == 1) echo "selected"; echo">Ready Stock</option>
-										<option value='0' "; if ($uri3 == 2) echo "selected"; echo">Pre Order</option>
-									</select>
-								</div>
 								<div class='input-field col s12'>
+									<input name='tipe' type='hidden' value='".$uri3."' class='validate'>
 									<input id='nama_barang' name='nama' type='text' class='validate' length='50' required>
 									<label for='nama_barang'>Nama barang <span class='text-red'>*</span></label>
 								</div>

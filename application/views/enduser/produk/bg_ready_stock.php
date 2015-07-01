@@ -6,14 +6,13 @@ echo"
 					<ul class='menucontent'>
 						<li><a class='active' href='".base_url()."produk/'>READY STOK</a></li>
 						<li><a href='".base_url()."produk/pre_order'>PRE ORDER</a></li>
-						<li><a href='".base_url()."produk/atur_kateogri'>ATUR KATEGORI</a></li>
-						<li><a href='".base_url()."produk/kategori'>KATEGORI</a></li>
+						<li><a href='".base_url()."produk/atur_kategori'>ATUR KATEGORI</a></li>	
 					</ul>
 				</div>
 				<div class='col s12 m12 l9'>
 					<div class='formain'>
 						<div class='formhead'>
-						<div class='input-field col right'>
+							<div class='input-field col right'>
 								<button class='waves-effect waves-light btn deep-orange darken-1 right' onclick='location.href=\"".base_url()."produk/add/1\"'><i class='mdi-content-add-circle-outline left'></i>TAMBAH PRODUK</button>
 							</div>
 							<h2 class='titmain'><b>READY STOK</b> <span>( ".$produk->num_rows()." Produk )</span></h2>
