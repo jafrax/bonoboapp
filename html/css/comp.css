@@ -123,6 +123,7 @@ label{ font-size: 14px; color: #565a5c; }
 .tool a:hover{ background: #efefef;}
 .tool a i{ font-size:20px; }
 .checkallbox{ margin:12px 0 0 0;}
+.checkallboxnota{ margin:12px 0 0 22px; width:30px; }
 .checkitem{ padding:0!important; margin:0!important; }
  
 
