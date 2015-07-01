@@ -148,8 +148,7 @@ echo"
 			</div>
 		</form>
 	</div>
-	
-<<<<<<< HEAD
+
 	<div id='divFormRate' class='modal' style='height:500px'>
 		<div class='modal-header red'>
 			<i class='material-icons dp48 left'></i> Tambah pengiriman
@@ -163,65 +162,6 @@ echo"
 			<button class='modal-action modal-close btn waves-effect waves-light red' type='submit' name='action'>
 				<i class='mdi-navigation-cancel left'></i> Batal
 			</button>
-=======
-	
-	
-	<div id='jasa_pengiriman' class='modal'>
-	<div class='modal-header red'>
-		<i class='material-icons dp48 left'></i> Tambah pengiriman
-	</div>
-	<form class='modal-content'>
-		<div class='row formbody'>
-			<div class='col m12'>
-				<div class='input-field col s12 m4'>							
-					Provinsi								
-				</div>
-				<div class='input-field col s12 m8'>
-					<p>
-						<select class='chosen-select'>
-							<option value='' disabled selected>Choose your option</option>
-							<option value='1'>Option 1</option>
-							<option value='2'>Option 2</option>
-							<option value='3'>Option 3</option>
-						</select>
-					</p>
-				</div>
-				<div class='input-field col s12 m4'>							
-					Kota								
-				</div>
-				<div class='input-field col s12 m8'>
-					<p>
-						<select class='chosen-select'>
-							<option value='' disabled selected>Choose your option</option>
-							<option value='1'>Option 1</option>
-							<option value='2'>Option 2</option>
-							<option value='3'>Option 3</option>
-						</select>
-					</p>
-				</div>
-				<div class='input-field col s12 m4'>							
-					Kecamatan								
-				</div>
-				<div class='input-field col s12 m8'>
-					<p>
-						<select class='chosen-select'>
-							<option value='' disabled selected>Choose your option</option>
-							<option value='1'>Option 1</option>
-							<option value='2'>Option 2</option>
-							<option value='3'>Option 3</option>
-						</select>									
-					</p>
-				</div>
-				<div class='input-field col s12 m4'>							
-					Ongkos Kirim								
-				</div>
-				<div class='input-field col s12 m8'>
-					<p>
-						<input id='nama' type='text' class='validate'>										
-					</p>
-				</div>
-			</div>
->>>>>>> 3c377354eef7d6b63b3184684b6027475e086a40
 		</div>
 	</div>
 ";
