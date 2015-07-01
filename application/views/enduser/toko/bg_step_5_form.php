@@ -2,7 +2,7 @@
 
 echo"
 	<form id='formStep5Rate' class='modal-content'>
-		<input type='hidden' name='txtRateId' value=''>
+		<input type='hidden' name='txtRateId' value='".(empty($Rate) ? "" : $Rate->id != null ? $Rate->id : "")."'>
 		<div class='row formbody'>
 			<div class='col m12'>
 				<div class='input-field col s12 m4'>							
@@ -12,6 +12,12 @@ echo"
 					<p>
 						<select name='cmbProvince' onChange=ctrlShopStep5.loadComboboxCity(); class='chzn-select'>
 ";
+
+	if(!empty($Rate)){
+		echo"<option value='".$Rate->location_to_province."' selected>".$Rate->location_to_province."</option>";
+	}else{
+		echo"<option value='' disabled selected>Pilih Provinsi</option>";
+	}
 
 	foreach($Provinces as $Province){
 		echo"<option value='".$Province->province."'>".$Province->province."</option>";
@@ -29,6 +35,12 @@ echo"
 						<select name='cmbCity' onChange=ctrlShopStep5.loadComboboxKecamatan(); class='chzn-select'>
 ";
 
+	if(!empty($Rate)){
+		echo"<option value='".$Rate->location_to_city."' selected>".$Rate->location_to_city."</option>";
+	}else{
+		echo"<option value='' disabled selected>Pilih Kota</option>";
+	}
+	
 	foreach($Cities as $City){
 		echo"<option value='".$City->city."'>".$City->city."</option>";
 	}
@@ -45,6 +57,12 @@ echo"
 						<select name='cmbKecamatan' class='chzn-select'>
 ";
 
+	if(!empty($Rate)){
+		echo"<option value='".$Rate->location_to_kecamatan."' selected>".$Rate->location_to_kecamatan."</option>";
+	}else{
+		echo"<option value='' disabled selected>Pilih Kecamatan</option>";
+	}
+	
 	foreach($Kecamatans as $Kecamatan){
 		echo"<option value='".$Kecamatan->kecamatan."'>".$Kecamatan->kecamatan."</option>";
 	}
@@ -58,7 +76,7 @@ echo"
 				</div>
 				<div class='input-field col s12 m8'>
 					<p>
-						<input name='txtRatePrice' type='text' class='validate'>										
+						<input name='txtRatePrice' type='text' class='validate' value='".(empty($Rate) ? "" : $Rate->id != null ? $Rate->price : "")."'>										
 					</p>
 				</div>
 			</div>

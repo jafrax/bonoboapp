@@ -225,13 +225,14 @@ function CtrlShopStep5(){
 	this.doCourierDelete = doCourierDelete;
 	this.loadComboboxCity = loadComboboxCity;
 	this.loadComboboxKecamatan = loadComboboxKecamatan;
+	this.initPopupRateAdd = initPopupRateAdd;
 	
 	var sequence = 1;
 	var divCustomCourier,divShipment,divDetail,divCustomeCourierTable,divFormRateContent,divCity,divKecamatan;
 	var txtCustomeCourierCount, txtCustomCourierId;
 	var lblCustomCourierName;
 	var aCustomeCourierAdd,aCustomeCourierRate;
-	var btnFormRateSave;
+	var btnFormRateSave,btnStep5Back;
 	
 	function init(){
 		initComponent();
@@ -242,6 +243,7 @@ function CtrlShopStep5(){
 		aCustomeCourierAdd = $hs("aCustomeCourierAdd");
 		aCustomeCourierRate = $hs("aCustomeCourierRate");
 		btnFormRateSave = $hs("btnFormRateSave");
+		btnStep5Back = $hs("btnStep5Back");
 		divCustomCourier = $("#divCustomCourier");
 		divShipment = $("#divShipment");
 		divDetail = $("#divDetail");
@@ -258,11 +260,14 @@ function CtrlShopStep5(){
 		};
 		
 		aCustomeCourierRate.onclick = function(){
-			initPopupRateAdd();
+			initPopupRateAdd("empty");
 		};
 		
 		btnFormRateSave.onclick = function(){
 			doRateSave();
+		};
+		btnStep5Back.onclick = function(){
+			hideDetail();
 		};
 	}
 	
@@ -397,10 +402,10 @@ function CtrlShopStep5(){
 		});
 	}
 	
-	function initPopupRateAdd(){
+	function initPopupRateAdd(e){
 		$.ajax({
 			type: 'POST',
-			data: "",
+			data: "id="+e,
 			url: base_url+'toko/step5Form/',
 			success: function(result) {
 				divFormRateContent.html(result);

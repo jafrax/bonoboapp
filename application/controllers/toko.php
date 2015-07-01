@@ -203,7 +203,8 @@ class Toko extends CI_Controller {
 		$data["Provinces"] = $this->model_location->get_provinces()->result();
 		$data["Cities"] = $this->model_location->get_cities()->result();
 		$data["Kecamatans"] = $this->model_location->get_kecamatans()->result();
-			
+		$data["Rate"] = $this->model_courier_custom_rate->get_by_id($this->response->post("id"))->row();
+		
 		$this->load->view("enduser/toko/bg_step_5_form",$data);
 	}
 	
