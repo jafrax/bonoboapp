@@ -118,13 +118,13 @@ echo"
 													<p class='col s12 m12 l12 '>	";													
 														if ($row_stok->name != 'null') {
 															echo "
-															<div class='input-field col s12 m12'>
+															<div class=' col s12 m12'>
 																
 																<label for='varian'><b class='label-stock'>".$row_stok->name."</b> Stok : <span class='text-green'>selalu tersedia</span></label>
 															</div>";
 														}else{
 															echo "
-															<div class='input-field col s12 m12'>																
+															<div class=' col s12 m12'>																
 																<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
 															</div>";
 														}

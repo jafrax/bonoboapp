@@ -48,21 +48,12 @@ echo "
 					</ul>
 				</div>
 				<div class='col s12 m12 l9'>
-					<form class='formain'id='form-ready' method='post' action='' enctype='multipart/form-data'>
+					<form class='formain' id='form-ready' method='post' action='' enctype='multipart/form-data'>
 						<div class='formhead'>
-							<h2 class='titmain'><b>BUAT BARANG BARU READY STOCK</b></h2>
+							<h2 class='titmain'><b>BUAT BARANG BARU PRE ORDER</b></h2>
 						</div>
 						<div class='row formbody'>
 							<div class='col s12'>
-								<div class='col s12 m6'>
-									<label>Tipe barang <span class='text-red'>*</span></label>
-									<label class='error error-chosen' for='tipe'></label>
-									<select name='tipe'>
-										<option value='' disabled selected>Choose your option</option>
-										<option value='1' "; if ($uri3 == 1) echo "selected"; echo">Ready Stock</option>
-										<option value='0' "; if ($uri3 == 2) echo "selected"; echo">Pre Order</option>
-									</select>
-								</div>
 								<div class='input-field col s12'>
 									<input id='nama_barang' name='nama' type='text' class='validate' length='50' required>
 									<label for='nama_barang'>Nama barang <span class='text-red'>*</span></label>
@@ -71,10 +62,14 @@ echo "
 									<input id='nomor_sku' type='text' name='sku' class='validate' length='20'>
 									<label for='nomor_sku'>Nomor SKU</label>
 								</div>
+								<div class='input-field col s12'>
+									<input id='date_fin' name='tgl_pre_order' type='text' placeholder='Tanggal selesai PRE ORDER' class='datepicker validate'>
+									<label for='date_fin'>Tanggal selesai PRE ORDER</label>
+								</div>
 								<div class='col s12 m6' id='tempat-kategori'>
 									<label>Kategori barang <span class='text-red'>*</span></label>
 									<label class='error error-chosen' for='select-kategori'></label>
-									<select name='kategori' id='select-kategori' required>
+									<select name='kategori' id='select-kategori' class='chosen-select' required>
 										<option value='' disabled selected>Choose your option</option>";
 										foreach ($kategori->result() as $row_ktgri) {
 											echo "<option value='".$row_ktgri->id."'>".$row_ktgri->name."</option>";
@@ -119,56 +114,7 @@ echo "
 								</div>
 								
 							</div>
-							<div class='row formbody'>
-								<div class='linehead'>Stok Barang</div>
-								<div class=' col s12 m6'>
-								<label>Tipe stok <span class='text-red'>*</span></label>
-								<label class='error error-chosen' for='stok'></label>
-									<select name='stok' id='stok' required OnChange=javascript:change_stok()>										
-										<option value='1' selected>Stok selalu tersedia</option>
-										<option value='0'>Gunakan stok</option>
-									</select>									
-								</div>
-								<div class='input-field col s12 m12'>
-									<input type='checkbox' id='gunakan_varian' name='gunakan_varian' onclick=javascript:setVarian() />
-									<label for='gunakan_varian'>Gunakan varian</label>
-								</div>
-								<input type='hidden' name='total_varian' value='1' id='tot_varian' />
-								<ul class='col s12 m12 cek-stok' id='tempat-varian' style='display:none'>
-									<li class='varsto' id='li_varian_1'>
-										<div class='input-field col s12 m5'>
-											<input id='varian' name='nama_varian_1' type='text' placeholder='Masukkan varian' class='validate'>
-											<label for='varian'>Varian <span></span></label>
-										</div>
-										<div class='input-field col s11 m5 tersedia'>
-											<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
-										</div>
-										<div class='input-field col s11 m5 pakai-stok'  style='display:none'>
-											<input id='varian' name='stok_varian_1' type='text' placeholder='Jumlah stok' class='validate numbersOnly'>
-											<label for='varian'>Stok <span></span></label>											
-										</div>
-										<div class='input-field col s1 m1' >
-											<a onclick=javascript:deleteVarian('li_varian_1'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
-										</div>
-									</li>
-								</ul>
-								<ul class='col s12 m12 cek-stok' style='display:none'>								
-									<li class='input-field col s12 m12'>
-										<a class='btn-flat left' onclick=javascript:addVarian()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
-									</li>
-								</ul>
-								<ul class='col s12 m12 uncek-stok' >
-									<li class='varsto'>
-										<div class='input-field col s12 m6 tersedia'>
-											<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
-										</div>
-										<div class='input-field col s12 m6 pakai-stok' style='display:none'>
-											<input id='varian' name='stok_utama' type='text' placeholder='Jumlah stok' class='validate numbersOnly'>
-											<label for='varian'>Stok <span></span></label>
-										</div>
-									</li>
-								</ul>
-							</div>
+							
 							<div class='row formbody'>
 								<div class='linehead'>Harga Barang</div>
 								<div class='input-field col s12 m6'>

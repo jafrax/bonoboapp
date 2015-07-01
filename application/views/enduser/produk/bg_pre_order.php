@@ -13,10 +13,10 @@ echo"
 					<div class='formain'>
 						<div class='formhead'>
 						<div class='input-field col right'>
-								<button class='waves-effect waves-light btn deep-orange darken-1 right' onclick='location.href=\"".base_url()."produk/add/1\"'><i class='mdi-content-add-circle-outline left'></i>TAMBAH PRODUK</button>
+								<button class='waves-effect waves-light btn deep-orange darken-1 right' onclick='location.href=\"".base_url()."produk/add_pre_order\"'><i class='mdi-content-add-circle-outline left'></i>TAMBAH PRODUK</button>
 							</div>
-							<h2 class='titmain'><b>READY STOK</b> <span>( ".$produk->num_rows()." Produk )</span></h2>
-							<p>Halaman ini menampilkan barang-barang ready stok yang ada di toko anda !</p>
+							<h2 class='titmain'><b>PRE ORDER</b> <span>( ".$produk->num_rows()." Produk )</span></h2>
+							<p>Halaman ini menampilkan barang-barang pre order yang ada di toko anda !</p>
 
 						</div>
 						<ul class='row formbody'>
@@ -57,7 +57,7 @@ echo"
 											<option value='1'>Hapus</option>
 											<option value='2'>Pindah ke Draft</option>
 											<option value='3'>Pindah ke Publish</option>
-											<option value='5'>Pindah ke Pre Order</option>
+											<option value='4'>Pindah ke Ready Stock</option>
 										</select>
 									</div>
 									<div class='input-field col s12 m4 l3'>
@@ -92,48 +92,11 @@ echo"
 									</div>
 									<div class='col s12 m8 l9'>
 										<p class='titleproduct'><a href='".base_url()."produk/edit/".base64_encode($row->id)."'><b >".$row->name."</b></a></p>
-										</p>";
-										if ($row->stock_type == 0) {
-											$stok =  $this->model_produk->get_varian_produk($row->id);
-											foreach ($stok->result() as $row_stok) {
-												echo"
-												<p class='input-field col s12 m12 l7 nolpad'>
-													<input onkeyup=javascript:change_stock(".$row_stok->id.") type='text' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate numbersOnly stok-".$row_stok->id."'>";
-													if ($row_stok->name != 'null') {
-														echo "<label for='stok'>".$row_stok->name."</label>";
-													}
-													
-													if ($row_stok->stock_qty == 0) {
-														echo"<span class='label red right habis-".$row_stok->id."'>Stok habis</span>";
-													}else{
-														echo"<span class='label red right habis-".$row_stok->id."' style='display:none'>Stok habis</span>";
-													}
-												echo"<i class='fa fa-check-circle green-text ok-".$row_stok->id."' style='display:none'> </i>
-												</p>";
-											}											
-										}else{
-											$stok =  $this->model_produk->get_varian_produk($row->id);
-												foreach ($stok->result() as $row_stok) {
-													echo"
-													<p class='col s12 m12 l12 '>	";													
-														if ($row_stok->name != 'null') {
-															echo "
-															<div class='input-field col s12 m12'>
-																
-																<label for='varian'><b class='label-stock'>".$row_stok->name."</b> Stok : <span class='text-green'>selalu tersedia</span></label>
-															</div>";
-														}else{
-															echo "
-															<div class='input-field col s12 m12'>																
-																<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
-															</div>";
-														}
-
-													echo"
-													</p>";
-												}
-										}
-										echo"
+										</p>
+										<p class='input-field col s12 m12 l6 nolpad'>
+											<input id='tanggal' type='text' value='".$row->end_date."' placeholder='Tanggal Berakhir' class='validate datepicker'>
+											<span class='label red right'>Kadaluarsa</span>
+										</p>
 
 										<div class='col s12 m12 l12 '>";
 										if ($row->active == 0) {

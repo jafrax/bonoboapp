@@ -94,7 +94,7 @@ input.valid[type="text"], input.valid[type="text"]:focus, input.valid[type="pass
 
 label{ font-size: 14px; color: #565a5c; }
 
-.select-wrapper input.select-dropdown{ position: relative!important; z-index:1!important;}
+.select-wrapper input.select-dropdown{ position: relative!important; z-index:1!important; font-size:14px!important; }
 .chosen-container{ margin:0 0 16px 0;}
 
 .dropdown-content{ z-index:999!important; }
@@ -123,6 +123,7 @@ label{ font-size: 14px; color: #565a5c; }
 .tool a:hover{ background: #efefef;}
 .tool a i{ font-size:20px; }
 .checkallbox{ margin:12px 0 0 0;}
+.checkallboxnota{ margin:12px 0 0 22px; width:30px; }
 .checkitem{ padding:0!important; margin:0!important; }
  
 
@@ -167,3 +168,4 @@ label{ font-size: 14px; color: #565a5c; }
 .content-balasan textarea{height: 100px; }
 
 .vote{ line-height: 15px; }
+.labelbudge{ padding:5px; border-radius:2px; color:#fff; }
