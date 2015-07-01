@@ -48,7 +48,7 @@ echo "
 					</ul>
 				</div>
 				<div class='col s12 m12 l9'>
-					<form class='formain'id='form-ready' method='post' action='' enctype='multipart/form-data'>
+					<form class='formain' id='form-ready' method='post' action='' enctype='multipart/form-data'>
 						<div class='formhead'>
 							<h2 class='titmain'><b>BUAT BARANG BARU PRE ORDER</b></h2>
 						</div>
@@ -63,7 +63,7 @@ echo "
 									<label for='nomor_sku'>Nomor SKU</label>
 								</div>
 								<div class='input-field col s12'>
-									<input id='date_fin' type='date' class='datepicker validate'>
+									<input id='date_fin' name='tgl_pre_order' type='text' placeholder='Tanggal selesai PRE ORDER' class='datepicker validate'>
 									<label for='date_fin'>Tanggal selesai PRE ORDER</label>
 								</div>
 								<div class='col s12 m6' id='tempat-kategori'>
