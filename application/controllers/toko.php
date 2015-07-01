@@ -18,6 +18,7 @@ class Toko extends CI_Controller {
 		
 		$this->load->model("enduser/model_courier");
 		$this->load->model("enduser/model_courier_custom");
+		$this->load->model("enduser/model_courier_custom_rate");
 		$this->load->model("enduser/model_category");
 		$this->load->model("enduser/model_location");
 		$this->load->model("enduser/model_toko");
@@ -106,6 +107,9 @@ class Toko extends CI_Controller {
 			$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 			$data["Couriers"] = $this->model_courier->get()->result();
 			$data["CustomeCouriers"] = $this->model_courier_custom->get_by_shop($_SESSION['bonobo']['id'])->result();
+			$data["Provinces"] = $this->model_location->get_provinces()->result();
+			$data["Cities"] = $this->model_location->get_cities()->result();
+			$data["Kecamatans"] = $this->model_location->get_kecamatans()->result();
 			
 			$this->template->bonobo_step("enduser/toko/bg_step_5",$data);
 		}else{
@@ -163,7 +167,6 @@ class Toko extends CI_Controller {
 							->delete("tb_toko_courier");
 					}
 				}
-				
 			}
 			
 			redirect("toko/step6");
@@ -182,6 +185,37 @@ class Toko extends CI_Controller {
 		$this->template->bonobo_step("enduser/toko/bg_step_7",$data);
 	}
 	
+	public function step5Detail(){
+		if($this->response->post("id") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada data yang dipilih","messageCode"=>1));
+			return;
+		}
+		
+		$Courier = $this->model_courier_custom->get_by_id($this->response->post("id"))->row();
+		if(!empty($Courier)){
+			$this->response->send(array("result"=>1,"id"=>$Courier->id,"name"=>$Courier->name,"messageCode"=>1));
+		}else{
+			$this->response->send(array("result"=>0,"message"=>"Data tidak ditemukan","messageCode"=>1));
+		}
+	}
+	
+	public function step5Form(){
+		$data["Provinces"] = $this->model_location->get_provinces()->result();
+		$data["Cities"] = $this->model_location->get_cities()->result();
+		$data["Kecamatans"] = $this->model_location->get_kecamatans()->result();
+			
+		$this->load->view("enduser/toko/bg_step_5_form",$data);
+	}
+	
+	public function step5Table(){
+		if($this->response->post("courier") == ""){
+			echo "Tidak ada data";
+			return;
+		}
+		
+		$data["Rates"] = $this->model_courier_custom_rate->get_by_courier($this->response->post("courier"))->result();
+		$this->load->view("enduser/toko/bg_step_5_table",$data);
+	}
 	
 	public function doStep1Save(){
 		if($this->response->post("txtName") == ""){
@@ -376,6 +410,66 @@ class Toko extends CI_Controller {
 		}
 	}
 	
+	public function doStep5RateSave(){
+		if($this->response->post("customCourier") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada data courier yang dipilih","messageCode"=>1));
+			return;
+		}
+		
+		if($this->response->post("cmbProvince") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada propinsi yang dipilih","messageCode"=>2));
+			return;
+		}
+		
+		if($this->response->post("cmbCity") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada kota yang dipilih","messageCode"=>3));
+			return;
+		}
+		
+		if($this->response->post("cmbKecamatan") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada kecamatan yang dipilih","messageCode"=>4));
+			return;
+		}
+				
+		if($this->response->post("txtRateId") == ""){
+			$Data = array(
+					"courier_custom_id"=>$this->response->post("customCourier"),
+					"location_to_province"=>$this->response->post("cmbProvince"),
+					"location_to_city"=>$this->response->post("cmbCity"),
+					"location_to_kecamatan"=>$this->response->post("cmbKecamatan"),
+					"price"=>$this->response->post("txtRatePrice"),
+					"create_date"=>date("Y-m-d H:i:s"),
+					"create_user"=>$_SESSION['bonobo']['email'],
+					"update_date"=>date("Y-m-d H:i:s"),
+					"update_user"=>$_SESSION['bonobo']['email'],
+				);
+			
+			$Save = $this->db->insert("tb_courier_custom_rate",$Data);
+			if($Save){
+				$this->response->send(array("result"=>1,"message"=>"Rate telah disimpan","messageCode"=>4));
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Rate tidak dapat disimpan","messageCode"=>5));
+			}
+		}else{
+			$Data = array(
+					"courier_custom_id"=>$this->response->post("customCourier"),
+					"location_to_province"=>$this->response->post("cmbProvince"),
+					"location_to_city"=>$this->response->post("cmbCity"),
+					"location_to_kecamatan"=>$this->response->post("cmbKecamatan"),
+					"price"=>$this->response->post("txtRatePrice"),
+					"update_user"=>$_SESSION['bonobo']['email'],
+				);
+			
+			$Save = $this->db->where("id",$this->response->post("txtRateId"))->update("tb_courier_custom_rate",$Data);
+			if($Save){
+				$this->response->send(array("result"=>1,"message"=>"Rate telah disimpan","messageCode"=>6));
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Rate tidak dapat disimpan","messageCode"=>7));
+			}
+		}
+		
+	}
+	
 	public function comboboxCity(){
 		$Cities = $this->model_location->get_cities_by_province($this->response->post("province"))->result();
 		
@@ -406,6 +500,30 @@ class Toko extends CI_Controller {
 			<label id='notifKecamatan' class='error' style='display:none;'></label>
 			<script>initComboBox();</script>
 		";
+	}
+	
+	public function step5ComboboxCity(){
+		$Cities = $this->model_location->get_cities_by_province($this->response->post("province"))->result();
+		
+		echo"<p><select name='cmbCity' onChange=ctrlShopStep5.loadComboboxKecamatan(); class='chzn-select'><option value='' disabled selected>Pilih Kota</option>";
+
+		foreach($Cities as $City){
+			echo"<option value='".$City->city."'>".$City->city."</option>";
+		}
+			
+		echo"</select></p><script>initComboBox();</script>";
+	}
+	
+	public function step5ComboboxKecamatan(){
+		$Kecamatans = $this->model_location->get_kecamatans_by_city_province($this->response->post("city"),$this->response->post("province"))->result();
+		
+		echo"<p><select name='cmbKecamatan' class='chzn-select'><option value='' disabled selected>Pilih Kecamatan</option>";
+
+		foreach($Kecamatans as $Kecamatan){
+			echo"<option value='".$Kecamatan->kecamatan."'>".$Kecamatan->kecamatan."</option>";
+		}
+			
+		echo"</select></p><script>initComboBox();</script>";
 	}
 }
 

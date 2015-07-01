@@ -49,18 +49,18 @@ foreach($Couriers as $Courier){
 }
 
 echo"	
-					</p>
-				</div>
-				<div class='input-field col s12 m8'><p></p></div>
-				<div class='input-field col s12 m8'>
-					<input type='checkbox' class='filled-in' id='chkStoreDelivery' name='chkStoreDelivery' ".($Shop->dm_store_delivery == 1 ? "checked" : "")."/>
-					<label for='chkStoreDelivery'>Jasa pengiriman Toko</label>
-				</div>	
-				<div class='input-field col s12 m8'>
-					<p>Anda bisa memasukkan jasa pengiriman lain jika memilikinya.
-						
-						<div id='divCustomCourier' style='margin-left:30px;width:100%'>
-							<div id='notifStep5'></div>
+		</p>
+	</div>
+	<div class='input-field col s12 m8'><p></p></div>
+	<div class='input-field col s12 m8'>
+		<input type='checkbox' class='filled-in' id='chkStoreDelivery' name='chkStoreDelivery' ".($Shop->dm_store_delivery == 1 ? "checked" : "")."/>
+		<label for='chkStoreDelivery'>Jasa pengiriman Toko</label>
+	</div>	
+	<div class='input-field col s12 m8'>
+		<p>Anda bisa memasukkan jasa pengiriman lain jika memilikinya.
+			
+			<div id='divCustomCourier' style='margin-left:30px;width:100%'>
+				<div id='notifStep5'></div>
 ";
 
 	$no = 1;
@@ -92,7 +92,7 @@ echo"
 					<div class='input-field col s4 m6'>
 						<a class='left blue-text' href='javascript:void(0);' onclick=ctrlShopStep5.doCourierSave(".$no.");><i class='mdi-action-delete'></i>Simpan</a> 
 						<a class='left red-text' href='javascript:void(0);' onclick=ctrlShopStep5.doCourierDelete(".$no.");><i class='mdi-action-delete'></i>Hapus</a> 
-						<a class='left black-text' id='aCourierDetail1' href='javascript:void(0);' onclick=ctrlShopStep5.showDetail(".$no."); style='display:none;'><i class='mdi-action-delete'></i>Detail</a> 
+						<a class='left black-text' id='aCourierDetail1' href='javascript:void(0);' onclick=ctrlShopStep5.showDetail(".$CustomeCourier->id.");><i class='mdi-action-delete'></i>Detail</a> 
 					</div>
 				</div>
 			";
@@ -124,10 +124,11 @@ echo"
 			</div>
 			<div class='row formbody'>
 				<div class='input-field col s12 m4'>
-					Nama Jasa Pengiriman
+					<input type='hidden' id='txtCustomCourierId' value=''>
+					<b><label id='lblCustomCourierName'></label></b>
 				</div>
 				<div class='input-field col s12 m12'>
-					<a href='#jasa_pengiriman' class='modal-trigger waves-effect waves-light btn deep-orange darken-1 right'>TAMBAH BARU</a>
+					<a href='#divFormRate' id='aCustomeCourierRate' class='modal-trigger waves-effect waves-light btn deep-orange darken-1 right'>TAMBAH BARU</a>
 				</div>	
 				<div class='input-field col s12 m12'>
 					<table class='responsive-table'>
@@ -137,133 +138,32 @@ echo"
 								<th data-field='kota'>Kota</th>
 								<th data-field='kecamatan'>Kecamatan</th>
 								<th data-field='price'>Ongkos kirim per KG</th>
+								<th data-field='action'>Aksi</th>
 							</tr>
 						</thead>
 
-						<tbody>
-							<tr>
-								<td>
-									<div class='input-field table'>
-										Jawa Tengah
-									</div>
-								</td>
-								<td>
-									<div class='input-field table'>
-										Surakarta
-									</div>
-								</td>
-								<td>
-									<div class='input-field table'>
-										Teras
-									</div>
-								</td>
-								<td>
-									<div class='input-field table'>
-										2000
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<div class='input-field table'>
-										DKI Jakarta
-									</div>
-								</td>
-								<td>
-									<div class='input-field table'>
-										Jakarta Utara
-									</div>
-								</td>
-								<td>
-									<div class='input-field table'>
-										Kebun Jeruk
-									</div>
-								</td>
-								<td>
-									<div class='input-field table'>
-										10000
-									</div>
-								</td>
-							</tr>
-						</tbody>
+						<tbody id='divCustomeCourierTable'></tbody>
 					</table>		
-				</div>
-				<div class='input-field col s12 m12'>
-					<button class='waves-effect waves-light btn left' onclick=ctrlShopStep5.hideDetail();>SIMPAN</button>
-					<button class='waves-effect waves-light btn red left' onclick=ctrlShopStep5.hideDetail();>BATAL</button>
 				</div>
 			</div>
 		</form>
 	</div>
 	
-	
-	
-	<div id='jasa_pengiriman' class='modal'>
-	<div class='modal-header red'>
-		<i class='material-icons dp48 left'></i> Tambah pengiriman
-	</div>
-	<form class='modal-content'>
-		<div class='row formbody'>
-			<div class='col m12'>
-				<div class='input-field col s12 m4'>							
-					Provinsi								
-				</div>
-				<div class='input-field col s12 m8'>
-					<p>
-						<select>
-							<option value='' disabled selected>Choose your option</option>
-							<option value='1'>Option 1</option>
-							<option value='2'>Option 2</option>
-							<option value='3'>Option 3</option>
-						</select>
-					</p>
-				</div>
-				<div class='input-field col s12 m4'>							
-					Kota								
-				</div>
-				<div class='input-field col s12 m8'>
-					<p>
-						<select>
-							<option value='' disabled selected>Choose your option</option>
-							<option value='1'>Option 1</option>
-							<option value='2'>Option 2</option>
-							<option value='3'>Option 3</option>
-						</select>
-					</p>
-				</div>
-				<div class='input-field col s12 m4'>							
-					Kecamatan								
-				</div>
-				<div class='input-field col s12 m8'>
-					<p>
-						<select>
-							<option value='' disabled selected>Choose your option</option>
-							<option value='1'>Option 1</option>
-							<option value='2'>Option 2</option>
-							<option value='3'>Option 3</option>
-						</select>									
-					</p>
-				</div>
-				<div class='input-field col s12 m4'>							
-					Ongkos Kirim								
-				</div>
-				<div class='input-field col s12 m8'>
-					<p>
-						<input id='nama' type='text' class='validate'>										
-					</p>
-				</div>
-			</div>
+	<div id='divFormRate' class='modal' style='height:500px'>
+		<div class='modal-header red'>
+			<i class='material-icons dp48 left'></i> Tambah pengiriman
 		</div>
-	</form>
-	<div class='modal-footer'>
-		<button class='btn waves-effect waves-light' type='submit' name='action'>Simpan
-		    <i class='mdi-content-save left'></i>
-		</button>
-		<button class='modal-action modal-close btn waves-effect waves-light red' type='submit' name='action'>
-		    <i class='mdi-navigation-cancel left'></i> Batal
-		</button>
+		<div id='divFormRateContent'>
+		</div>
+		<div class='modal-footer'>
+			<button id='btnFormRateSave' class='btn modal-close waves-effect waves-light' type='submit' name='action'>Simpan
+				<i class='mdi-content-save left'></i>
+			</button>
+			<button class='modal-action modal-close btn waves-effect waves-light red' type='submit' name='action'>
+				<i class='mdi-navigation-cancel left'></i> Batal
+			</button>
+		</div>
 	</div>
-</div>
 ";
 
 echo"

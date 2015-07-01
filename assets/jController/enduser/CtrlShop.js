@@ -222,11 +222,15 @@ function CtrlShopStep5(){
 	this.hideDetail = hideDetail;
 	this.doCourierSave = doCourierSave;
 	this.doCourierDelete = doCourierDelete;
+	this.loadComboboxCity = loadComboboxCity;
+	this.loadComboboxKecamatan = loadComboboxKecamatan;
 	
 	var sequence = 1;
-	var divCustomCourier,divShipment,divDetail;
-	var txtCustomeCourierCount;
-	var aCustomeCourierAdd;
+	var divCustomCourier,divShipment,divDetail,divCustomeCourierTable,divFormRateContent,divCity,divKecamatan;
+	var txtCustomeCourierCount, txtCustomCourierId;
+	var lblCustomCourierName;
+	var aCustomeCourierAdd,aCustomeCourierRate;
+	var btnFormRateSave;
 	
 	function init(){
 		initComponent();
@@ -235,15 +239,29 @@ function CtrlShopStep5(){
 	
 	function initComponent(){
 		aCustomeCourierAdd = $hs("aCustomeCourierAdd");
+		aCustomeCourierRate = $hs("aCustomeCourierRate");
+		btnFormRateSave = $hs("btnFormRateSave");
 		divCustomCourier = $("#divCustomCourier");
 		divShipment = $("#divShipment");
 		divDetail = $("#divDetail");
+		divFormRateContent = $("#divFormRateContent");
+		divCustomeCourierTable = $("#divCustomeCourierTable");
 		txtCustomeCourierCount = $hs("txtCustomeCourierCount");
+		txtCustomCourierId = $hs("txtCustomCourierId");
+		lblCustomCourierName = $hs("lblCustomCourierName");
 	}
 	
 	function initEventlistener(){
 		aCustomeCourierAdd.onclick = function(){
 			addCustomeCourier();
+		};
+		
+		aCustomeCourierRate.onclick = function(){
+			initPopupRateAdd();
+		};
+		
+		btnFormRateSave.onclick = function(){
+			doRateSave();
 		};
 	}
 	
@@ -263,9 +281,11 @@ function CtrlShopStep5(){
 		txtCustomeCourierCount.value = sequence;
 	}
 	
-	function showDetail(){
+	function showDetail(e){
 		divShipment.slideUp("slow");
 		divDetail.slideDown("slow");
+		
+		initCustomeCourierDetail(e);
 	}
 	
 	function hideDetail(){
@@ -315,5 +335,87 @@ function CtrlShopStep5(){
 				}
 			});
 		}
+	}
+	
+	function doRateSave(){
+		$.ajax({
+			type: 'POST',
+			data: $('#formStep5Rate').serialize()+"&customCourier="+txtCustomCourierId.value,
+			url: base_url+'toko/doStep5RateSave/',
+			success: function(result) {
+				var response = JSON.parse(result);
+				if(response.result == 1){
+					initCustomeCourierTable(txtCustomCourierId.value);
+				}else{
+					alert(response.message);
+				}
+			}
+		});
+	}
+	
+	function initCustomeCourierDetail(e){
+		$.ajax({
+			type: 'POST',
+			data: "id="+e,
+			url: base_url+'toko/step5Detail/',
+			success: function(result) {
+				var response = JSON.parse(result);
+				if(response.result == 1){
+					txtCustomCourierId.value = response.id;
+					lblCustomCourierName.innerHTML = response.name;
+					initCustomeCourierTable(e);
+				}
+			}
+		});
+	}
+	
+	function initCustomeCourierTable(e){
+		$.ajax({
+			type: 'POST',
+			data: "courier="+e,
+			url: base_url+'toko/step5Table/',
+			success: function(result) {
+				divCustomeCourierTable.html(result);
+			}
+		});
+	}
+	
+	function initPopupRateAdd(){
+		$.ajax({
+			type: 'POST',
+			data: "",
+			url: base_url+'toko/step5Form/',
+			success: function(result) {
+				divFormRateContent.html(result);
+				
+				divCity = $("#divCity");
+				divKecamatan = $("#divKecamatan");
+				
+				initComboBox();
+			}
+		});
+	}
+	
+	function loadComboboxCity(){
+		$.ajax({
+			type: 'POST',
+			data: "province="+$hs('formStep5Rate').cmbProvince.value,
+			url: base_url+'toko/step5ComboboxCity/',
+			success: function(result) {
+				divCity.html(result);
+				loadComboboxKecamatan();
+			}
+		});
+	}
+	
+	function loadComboboxKecamatan(){
+		$.ajax({
+			type: 'POST',
+			data: "province="+$hs('formStep5Rate').cmbProvince.value+"&city="+$hs('formStep5Rate').cmbCity.value,
+			url: base_url+'toko/step5ComboboxKecamatan/',
+			success: function(result) {
+				divKecamatan.html(result);
+			}
+		});
 	}
 }

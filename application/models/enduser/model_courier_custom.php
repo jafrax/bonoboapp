@@ -13,6 +13,9 @@ class Model_courier_custom extends CI_Model {
 		return $this->db->where("toko_id",$shop)->get("tb_courier_custom");
 	}
 	
+	public function get_by_id($id){
+		return $this->db->where("id",$id)->get("tb_courier_custom");
+	}
 }
 
 ?>
