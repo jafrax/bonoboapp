@@ -69,7 +69,7 @@ echo "
 								<div class='col s12 m6' id='tempat-kategori'>
 									<label>Kategori barang <span class='text-red'>*</span></label>
 									<label class='error error-chosen' for='select-kategori'></label>
-									<select name='kategori' id='select-kategori' required>
+									<select name='kategori' id='select-kategori' class='chosen-select' required>
 										<option value='' disabled selected>Choose your option</option>";
 										foreach ($kategori->result() as $row_ktgri) {
 											echo "<option value='".$row_ktgri->id."'>".$row_ktgri->name."</option>";
