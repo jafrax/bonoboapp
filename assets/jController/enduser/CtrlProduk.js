@@ -256,6 +256,7 @@ function go(){
     url = base_url+'produk/pre_order_product';
   }   
 
+
   for (var i = 1 ; i <= total_produk; i++) {
     if ($('#cek-1-'+i).is(":checked")) {
       var id = $('#cek-'+i).val();
@@ -273,13 +274,14 @@ function go(){
       $.ajax({
         type: 'POST',
         data: 'id='+id,
+        async: false,
         url: url,
         success: function(msg) {
           
-        } 
+        }
       });
-    }
-  }    
+    }   if (i == total_produk) {location.reload();}; 
+  }
 }
 
 
