@@ -39,7 +39,7 @@
 	<form class="modal-content">
 		<p>
 			<div class="input-field col s12">
-				<select>
+				<select class='chosen-select'>
 					<option value="" disabled selected>Choose your option</option>
 					<option value="1">Option 1</option>
 					<option value="2">Option 2</option>
@@ -68,7 +68,7 @@
 		<li><a href="produk_ready_stock.html">Produk</a></li>
 		<li><a href="nota.html">Nota</a></li>
 		<li><a href="lihat_pesan.html">Pesan<span class="badge red">4</span></a></li>
-		<li><a href="pesanan_pre_order.html">Pre Order</a></li>
+		<li><a href="pesanan_pre_order.html">Pemesanan Pre Order</a></li>
 	</ul>
 </nav>
 
@@ -92,10 +92,10 @@
 			<ul class="navmenu">
 				<li><a href="toko_informasi.html">Toko</a></li>
 				<li><a href="anggota.html">Anggota</a></li>
-				<li><a href="produk_ready_stock.html">Produk</a></li>
+				<li class="active"><a class="active" href="produk_ready_stock.html">Produk</a></li>
 				<li><a href="nota.html">Nota</a></li>
 				<li><a href="lihat_pesan.html">Pesan<span class="badge red">4</span></a></li>
-				<li><a href="pesanan_pre_order.html">Pre Order</a></li>
+				<li><a href="pesanan_pre_order.html">Pemesanan Pre Order</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -127,13 +127,16 @@
 				<div class="col s12 m12 l9">
 					<div class="formain">
 						<div class="formhead">
+							<div class="input-field col right">
+								<button class="waves-effect waves-light btn deep-orange darken-1 right"><i class="mdi-content-add-circle-outline left"></i>TAMBAH PRODUK</button>
+							</div>
 							<h2 class="titmain"><b>READY STOK</b> <span>( 25 Produk )</span></h2>
 							<p>Halaman ini menampilkan barang-barang ready stok yang ada di toko anda !</p>
 						</div>
 						<ul class="row formbody">
 							<li class="col s12 listanggodaf">
 								<div class="input-field col s12 m12 l6 nolpad">
-									<div class="input-field col s12 m8 l6">
+									<div class="col s12 m8 l6">
 										<select class="chosen-select lectfilter">
 											<option value="" disabled selected>Published</option>
 											<option value="1">Option 1</option>
@@ -142,10 +145,7 @@
 										</select>
 									</div>									
 								</div>
-								<div class="input-field col s12 m4 l3">
-									<button class="waves-effect waves-light btn deep-orange darken-1 right">TAMBAH</button>
-								</div>
-								<div class="input-field col s12 m8 l3 nolpad">
+								<div class="input-field col s12 m8 l6 nolpad">
 									<i class="mdi-action-search prefix"></i>
 									<input id="nama" type="text" class="validate">
 									<label for="nama">Cari produk</label>
@@ -153,12 +153,12 @@
 							</li>
 							<li class="col s12 listanggodaf">
 								<div class="col s12 m12 l9 nolpad">
-									<div class="input-field col s1 m1 l1">
+									<p class="checkallbox col s1 m1 l1">
 										<input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
 										<label for="filled-in-box"></label>
-									</div>
+									</p>
 									<div class="input-field col s8 m4 l5">
-										<select class="lectfilter">
+										<select class="select-standar lectfilter">
 											<option value="" disabled selected>Pilih tindakan</option>
 											<option value="1">Option 1</option>
 											<option value="2">Option 2</option>

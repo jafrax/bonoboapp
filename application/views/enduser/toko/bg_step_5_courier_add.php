@@ -29,7 +29,7 @@ echo"
 							<tr>
 								<td>
 									<div class='input-field table'>
-										<select>
+										<select class='chosen-select'>
 											<option value='' disabled selected>Choose your option</option>
 											<option value='1'>Option 1</option>
 											<option value='2'>Option 2</option>
@@ -39,7 +39,7 @@ echo"
 								</td>
 								<td>
 									<div class='input-field table'>
-										<select>
+										<select class='chosen-select'>
 											<option value='' disabled selected>Choose your option</option>
 											<option value='1'>Option 1</option>
 											<option value='2'>Option 2</option>
@@ -49,7 +49,7 @@ echo"
 								</td>
 								<td>
 									<div class='input-field table'>
-										<select>
+										<select class='chosen-select'>
 											<option value='' disabled selected>Choose your option</option>
 											<option value='1'>Option 1</option>
 											<option value='2'>Option 2</option>
@@ -66,7 +66,7 @@ echo"
 							<tr>
 								<td>
 									<div class='input-field table'>
-										<select>
+										<select class='chosen-select'>
 											<option value='' disabled selected>Choose your option</option>
 											<option value='1'>Option 1</option>
 											<option value='2'>Option 2</option>
@@ -76,7 +76,7 @@ echo"
 								</td>
 								<td>
 									<div class='input-field table'>
-										<select>
+										<select class='chosen-select'>
 											<option value='' disabled selected>Choose your option</option>
 											<option value='1'>Option 1</option>
 											<option value='2'>Option 2</option>
@@ -86,7 +86,7 @@ echo"
 								</td>
 								<td>
 									<div class='input-field table'>
-										<select>
+										<select class='chosen-select'>
 											<option value='' disabled selected>Choose your option</option>
 											<option value='1'>Option 1</option>
 											<option value='2'>Option 2</option>
