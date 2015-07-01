@@ -442,3 +442,108 @@ function CtrlShopStep5(){
 	}
 }
 
+function CtrlShopStep6(){
+	this.init = init;
+	this.formEdit = formEdit;
+	this.doDelete = doDelete;
+	
+	var btnAddNew,btnSave;
+	var formStep6Add;
+	
+	function init(){
+		initComponent();
+		initEventlistener();
+	}
+	
+	function initComponent(){
+		formStep6Add = $hs("formStep6Add");
+		btnAddNew = $hs("btnAddNew");
+		btnSave = $hs("btnSave");
+	}
+	
+	function initEventlistener(){
+		btnAddNew.onclick = function(){
+			formClear();
+		};
+		
+		btnSave.onclick = function(){
+			doSave();
+		};
+	}
+	
+	function formClear(){
+		formStep6Add.txtId.value = "";
+		formStep6Add.txtName.value = "";
+		formStep6Add.txtNo.value = "";
+		
+		$.ajax({
+			type: 'POST',
+			data: "id="+e,
+			url: base_url+'toko/step6ComboboxBank/',
+			success: function(result) {
+				$("#divCmbBank").html(result);
+			}
+		});
+	}
+	
+	function formEdit(e){
+		$.ajax({
+			type: 'POST',
+			data: "id="+e,
+			url: base_url+'toko/step6ComboboxBank/',
+			success: function(result) {
+				$("#divCmbBank").html(result);
+			}
+		});
+		
+		$.ajax({
+			type: 'POST',
+			data: "id="+e,
+			url: base_url+'toko/step6GetData/',
+			success: function(result) {
+				var response = JSON.parse(result);
+				if(response.result == 1){
+					formStep6Add = $hs("formStep6Add");
+					formStep6Add.txtId.value = response.id;
+					formStep6Add.txtName.value = response.acc_name;
+					formStep6Add.txtNo.value = response.acc_no;
+				}else{
+					formClear();
+					alert(response.message);
+				}
+			}
+		});
+	}
+	
+	function doSave(){
+		$.ajax({
+			type: 'POST',
+			data: $("#formStep6Add").serialize(),
+			url: base_url+'toko/step6Save/',
+			success: function(result) {
+				var response = JSON.parse(result);
+				if(response.result == 1){
+					top.location.href = base_url+"toko/step6/";
+				}else{
+					alert(response.message);
+				}
+			}
+		});
+	}
+	
+	function doDelete(e){
+		$.ajax({
+			type: 'POST',
+			data: "id="+e,
+			url: base_url+'toko/step6Delete/',
+			success: function(result) {
+				var response = JSON.parse(result);
+				if(response.result == 1){
+					top.location.href = base_url+"toko/step6/";
+				}else{
+					alert(response.message);
+				}
+			}
+		});
+	}
+}
