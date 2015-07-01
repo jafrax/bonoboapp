@@ -467,7 +467,20 @@ class Toko extends CI_Controller {
 				$this->response->send(array("result"=>0,"message"=>"Rate tidak dapat disimpan","messageCode"=>7));
 			}
 		}
+	}
+	
+	public function doStep5RateDelete(){
+		if($this->response->post("rate") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada data rate yang dipilih","messageCode"=>1));
+			return;
+		}
 		
+		$Delete = $this->db->where("id",$this->response->post("rate"))->delete("tb_courier_custom_rate");
+		if($Delete){
+			$this->response->send(array("result"=>1,"message"=>"Data telah dihapus","messageCode"=>2));
+		}else{
+			$this->response->send(array("result"=>0,"message"=>"Data tidak dapat dihapus","messageCode"=>3));
+		}
 	}
 	
 	public function comboboxCity(){

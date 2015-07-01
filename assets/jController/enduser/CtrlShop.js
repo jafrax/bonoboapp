@@ -220,6 +220,7 @@ function CtrlShopStep5(){
 	this.setSequence = setSequence;
 	this.showDetail = showDetail;
 	this.hideDetail = hideDetail;
+	this.doRateDelete = doRateDelete;
 	this.doCourierSave = doCourierSave;
 	this.doCourierDelete = doCourierDelete;
 	this.loadComboboxCity = loadComboboxCity;
@@ -353,6 +354,22 @@ function CtrlShopStep5(){
 		});
 	}
 	
+	function doRateDelete(e){
+		$.ajax({
+			type: 'POST',
+			data: "rate="+e,
+			url: base_url+'toko/doStep5RateDelete/',
+			success: function(result) {
+				var response = JSON.parse(result);
+				if(response.result == 1){
+					initCustomeCourierTable(txtCustomCourierId.value);
+				}else{
+					alert(response.message);
+				}
+			}
+		});
+	}
+	
 	function initCustomeCourierDetail(e){
 		$.ajax({
 			type: 'POST',
@@ -419,3 +436,4 @@ function CtrlShopStep5(){
 		});
 	}
 }
+

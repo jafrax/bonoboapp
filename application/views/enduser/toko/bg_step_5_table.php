@@ -26,7 +26,7 @@ foreach($Rates as $Rate){
 			<td>
 				<div class='input-field table'>
 					<a href='#'>Edit</a>
-					<a href='#'>Hapus</a>
+					<a href='javascript:void(0);' onclick=ctrlShopStep5.doRateDelete(".$Rate->id.")>Hapus</a>
 				</div>
 			</td>
 		</tr>
