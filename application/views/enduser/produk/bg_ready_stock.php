@@ -93,7 +93,7 @@ echo"
 									<div class='col s12 m8 l9'>
 										<p class='titleproduct'><a href='".base_url()."produk/edit/".base64_encode($row->id)."'><b >".$row->name."</b></a></p>
 										</p>";
-										if ($row->stock_type == 0) {
+										if ($row->stock_type_detail == 0) {
 											$stok =  $this->model_produk->get_varian_produk($row->id);
 											foreach ($stok->result() as $row_stok) {
 												echo"
@@ -195,7 +195,7 @@ echo"
 											<div class='col s6'>".$row->kategori."</div>
 											<div class='col s12'><b>Stok</b></div>
 											<div class='col s12'>";
-											if ($row->stock_type == 0) {
+											if ($row->stock_type_detail == 0) {
 												$stok =  $this->model_produk->get_varian_produk($row->id);
 												foreach ($stok->result() as $row_stok) {
 													echo"
