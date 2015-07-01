@@ -50,7 +50,7 @@ echo"
 			<li "; if ($uri == 'produk') echo"class='active'"; echo"><a "; if ($uri == 'produk') echo"class='active'"; echo" href='".base_url("produk")."'>Produk</a></li>
 			<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='#'>Nota</a></li>
 			<li "; if ($uri == 'message') echo"class='active'"; echo"><a "; if ($uri == 'message') echo"class='active'"; echo" href='".base_url("message")."'>Pesan</a></li>
-			<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='#'>Pre Order</a></li>
+			<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='#'>Pemesanan Pre Order</a></li>
 			<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='".base_url("index/logout")."'>Logout</a></li>
 		</ul>
 	</nav>
@@ -98,7 +98,7 @@ echo"
 					<li "; if ($uri == 'produk') echo"class='active'"; echo"><a "; if ($uri == 'produk') echo"class='active'"; echo" href='".base_url("produk")."'>Produk</a></li>
 					<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='#'>Nota</a></li>
 					<li "; if ($uri == 'message') echo"class='active'"; echo"><a "; if ($uri == 'message') echo"class='active'"; echo" href='".base_url("message")."'>Pesan</a></li>
-					<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='#'>Pre Order</a></li>
+					<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='#'>Pemesanan Pre Order</a></li>
 				</ul>
 			</div>
 		</nav>
