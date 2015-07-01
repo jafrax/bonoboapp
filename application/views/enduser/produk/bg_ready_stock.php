@@ -23,15 +23,15 @@ echo"
 						<ul class='row formbody'>
 							<li class='col s12 listanggodaf'>
 								<div class='input-field col s12 m6 l6 nolpad'>
-									<div class='input-field col s12 m8 l6'>
-										<select class='lectfilter' onchange=javascript:change_active() id='active_type'>
+									<div class='col s12 m8 l6'>
+										<select class='select-standar lectfilter' onchange=javascript:change_active() id='active_type'>
 											<option value='' disabled >Pilih filter</option>
 											<option value='1' "; if ($uri3 == '' || $uri3 == '1'){ echo "selected";} echo">Published</option>
 											<option value='0' "; if ($uri3 != '' && $uri3 == '0'){ echo "selected";} echo">Draft</option>											
 										</select>
 									</div>
-									<div class='input-field col s12 m8 l6'>
-										<select class='lectfilter'>
+									<div class='col s12 m8 l6'>
+										<select class='select-standar lectfilter'>
 											<option value='' disabled >Pilih filter</option>
 											<option >Fashion</option>
 											<option >Otomotif</option>
@@ -53,7 +53,7 @@ echo"
 										<label for='cek_all'></label>
 									</p>
 									<div class='input-field col s8 m4 l5'>
-										<select class='lectfilter' id='option-go'>
+										<select class='select-standar lectfilter' id='option-go'>
 											<option value='' disabled selected>Pilih tindakan</option>
 											<option value='1'>Hapus</option>
 											<option value='2'>Pindah ke Draft</option>

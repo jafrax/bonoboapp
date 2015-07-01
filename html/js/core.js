@@ -5,7 +5,7 @@
 $(document).ready(function() {
 
 	/*SELECT FIELD*/
-	//$('select').material_select();
+	$('.select-standar').material_select();
 	/*END SELECT FIELD*/
 
 	/*MENU SLIDE*/
@@ -39,7 +39,7 @@ $(document).ready(function() {
 
 	/*CHOSEN SELECT*/
 	var config = {
-      'select'           		 : {},
+      '.chosen-select'           : {},
       '.chosen-select-deselect'  : {allow_single_deselect:true},
       '.chosen-select-no-single' : {disable_search_threshold:10},
       '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
