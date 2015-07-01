@@ -9,7 +9,11 @@ class Model_produk extends CI_Model
 	}
 	
 	function get_kategori($id){
-		return $this->db->where('toko_id',$id)->get('tb_toko_category_product');
+		 $this->db->where('toko_id',$id);
+		if (isset($_SESSION['search_kategori'])) {
+		 	$this->db->like('name',$_SESSION['search_kategori']);
+		 }
+		 return $this->db->get('tb_toko_category_product');
 	}
 
 	function get_toko($id){
@@ -38,6 +42,10 @@ class Model_produk extends CI_Model
 
 	function get_varian_produk_null($id){
 		return $this->db->where('product_id',$id)->where('name','null')->get('tb_product_varian');
+	}
+
+	function count_product_by_category($id){
+		return $this->db->where('toko_category_product_id',$id)->get('tb_product')->num_rows();
 	}
 
 }

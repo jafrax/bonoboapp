@@ -412,6 +412,22 @@ class Produk extends CI_Controller {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* =========================================================================================================================
 /* =========================================================================================================================
 * PRE ORDER
@@ -759,5 +775,128 @@ class Produk extends CI_Controller {
 	}
 	
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================================================================================================
+/* =========================================================================================================================
+* Atur Kategori
+*
+* Create 1 Juli 2015 by Dinar Wahyu Wibowo
+*/
+
+	function atur_kategori(){
+		$data['kategori']	= $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
+		unset($_SESSION['search_kategori']);
+		$this->template->bonobo('produk/bg_atur_kategori',$data);
+	}
+
+	public function add_kategori2() {
+		$id 	= $this->input->post('id');
+		$nama 	= $this->input->post('nama');
+
+		$data	= array(
+			'toko_id'		=> $id,
+			'name'			=> $nama,
+			'create_user'	=> $_SESSION['bonobo']['email'],
+			'create_date'	=> date('Y-m-d H:i:s'),
+			'update_user'	=> $_SESSION['bonobo']['email']
+			);
+
+		$insert	= $this->db->insert('tb_toko_category_product',$data);
+
+		if ($insert) {
+			$this->print_kategori();
+		}
+	}
+
+	private function print_kategori(){
+		$kategori = $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
+
+			foreach ($kategori->result() as $row) {
+				$count = $this->model_produk->count_product_by_category($row->id);
+				echo"									
+				<li class='col s12 listanggonew' id='kategori-".$row->id."'>
+					<div class='col s12 m8'><p><b>".$row->name."</b> <i> $count Produk</i></p>
+					</div>
+					<div class='col s12 m4'>
+						<a href='#delete_kategori_".$row->id."' class='modal-trigger waves-effect btn-flat right'><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>
+						<a href='#edit_kategori_".$row->id."' class='modal-trigger waves-effect btn-flat right'><b class='blue-text'><i class='mdi-editor-border-color left'></i>Edit</b></a>
+						<div id='delete_kategori_".$row->id."' class='modal confirmation'>
+							<div class='modal-header red'>
+								<i class='mdi-navigation-close left'></i> Hapus produk
+							</div>
+							<form class='modal-content'>
+								<p>Apakah anda yakin ingin menghapus <b>'".$row->name."'</b> ?</p>
+							</form>
+							<div class='modal-footer'>
+								<a onclick=javascript:delete_kategori('".$row->id."') class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
+								<a  class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
+							</div>
+						</div>
+
+						<div id='edit_kategori_".$row->id."' class='modal confirmation'>
+							<div class='modal-header deep-orange'>
+								<i class='mdi-action-spellcheck left'></i> Edit kategori
+							</div>
+							<form class='modal-content'>
+								<p>
+									<div class='input-field col s12'>														
+										<input id='nama_".$row->id."' type='text' value='".$row->name."' class='validate'>
+										<label for='nama_".$row->id."'>Kategori</label>
+									</div>
+							    </p>
+							</form>
+							<div class='modal-footer'>
+								<a onclick=javascript:edit_kategori('".$row->id."') class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
+								<a  class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
+							</div>
+						</div>
+					</div>
+				</li>";
+			}
+	}
+
+
+	public function delete_kategori(){
+		$id = $this->input->post('id');
+		$delete = $this->db->where('id',$id)->delete('tb_toko_category_product');
+		if ($delete) {
+			echo "1";
+		}else{
+			echo "0";
+		}
+	}
+
+	public function edit_kategori(){
+		$id = $this->input->post('id');
+		$nama = $this->input->post('nama');
+		$edit = $this->db->where('id',$id)->set('name',$nama)->update('tb_toko_category_product');
+		if ($edit) {
+			$this->print_kategori();
+		}
+	}
+
+	public function set_search_kategori(){
+		$keyword = $this->input->post('keyword');
+		$_SESSION['search_kategori'] = $keyword;
+
+		$this->print_kategori();
+	}
+
 }
 

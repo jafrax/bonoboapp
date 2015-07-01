@@ -304,3 +304,62 @@ function tambah_kategori(){
         }
     });
 }
+
+function tambah_kategori_atur(){
+  var nama  = $('#nama-kategori').val();
+  var id    = $('#id-toko').val();
+
+  $.ajax({
+        type: 'POST',
+        data: 'nama='+nama+'&id='+id,
+        url: base_url+'produk/add_kategori2',
+        success: function(msg) {
+          Materialize.toast('Kategori telah ditambahkan', 4000);
+          $('#tempat-kategori').html(msg);           
+        }
+    });
+}
+
+function delete_kategori(id){
+  $.ajax({
+        type: 'POST',
+        data: 'id='+id,
+        url: base_url+'produk/delete_kategori',
+        success: function(msg) {
+          if (msg == 1) {
+            Materialize.toast('Kategori telah dihapus', 4000);
+            $('#kategori-'+id).fadeOut().remove();
+          }else{
+            Materialize.toast('Gagal menghapus kategori', 4000);            
+          };          
+        }
+  });
+}
+
+function edit_kategori(id){
+  var nama  = $('#nama_'+id).val();  
+
+  $.ajax({
+        type: 'POST',
+        data: 'nama='+nama+'&id='+id,
+        url: base_url+'produk/edit_kategori',
+        success: function(msg) {
+          Materialize.toast('Kategori telah disunting', 4000);
+          $('#tempat-kategori').html(msg);           
+        }
+    });
+}
+
+function cari_kategori(e){
+  if (e.which == 13) {
+      var keyword = $('#keyword-kategori').val();
+      $.ajax({
+        type: 'POST',
+        data: 'keyword='+keyword,
+        url: base_url+'produk/set_search_kategori',
+        success: function(msg) {
+          $('#tempat-kategori').html(msg); 
+        } 
+      });
+    }
+}

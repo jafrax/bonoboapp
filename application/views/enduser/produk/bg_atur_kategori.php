@@ -1,0 +1,93 @@
+<?php
+
+echo"
+<div id='tambah_kategori' class='modal confirmation'>
+	<div class='modal-header deep-orange'>
+		<i class='mdi-action-spellcheck left'></i> Tambah kategori
+	</div>
+	<form class='modal-content' id='form_add_kategori'>
+		<input id='id-toko' name='nama' type='hidden' value='".$_SESSION['bonobo']['id']."' >
+		<input id='nama-kategori' name='nama' type='text' class='validate'>
+		<label for='nama-kategori'>Nama kategori <span class='text-red'>*</span></label>
+	</form>
+	<div class='modal-footer'>
+		<a onclick=javascript:tambah_kategori_atur() class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
+		<a  class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
+	</div>
+</div>
+<div class='col s12 m12 l3'>
+					<ul class='menucontent'>
+						<li><a href='".base_url()."produk/'>READY STOK</a></li>
+						<li><a href='".base_url()."produk/pre_order'>PRE ORDER</a></li>
+						<li><a class='active' href='".base_url()."produk/atur_kategori'>ATUR KATEGORI</a></li>						
+					</ul>
+				</div>
+				<div class='col s12 m12 l9'>
+					<div class='formain'>
+						<div class='formhead'>							
+							<div class='input-field col s12 m4 right'>
+								<button href='#tambah_kategori' class='modal-trigger waves-effect waves-light btn deep-orange darken-1 right'><i class='mdi-content-add-circle-outline left'></i>TAMBAH KATEGORI</button>
+							</div>
+							<h2 class='titmain'><b>ATUR KATEGORI</b></h2>
+							<p>Halaman ini untuk membuat dan menghapus kategori produk di toko anda !</p>
+						</div>
+						<ul class='row formbody'>
+							<li class='col s12 listanggodaf'>								
+								<div class='input-field col s10 m3 right'>
+									<i class='mdi-action-search prefix'></i>
+									<input id='keyword-kategori' onkeypress=javascript:cari_kategori(event) type='text' class='validate'>
+									<label for='keyword-kategori'>Cari kategori</label>
+								</div>
+							</li>
+							<div id='tempat-kategori'>
+							";
+							foreach ($kategori->result() as $row) {
+								$count = $this->model_produk->count_product_by_category($row->id);
+								echo"									
+								<li class='col s12 listanggonew' id='kategori-".$row->id."'>
+									<div class='col s12 m8'><p><b>".$row->name."</b> <i> $count Produk</i></p>
+									</div>
+									<div class='col s12 m4'>
+										<a href='#delete_kategori_".$row->id."' class='modal-trigger waves-effect btn-flat right'><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>
+										<a href='#edit_kategori_".$row->id."' class='modal-trigger waves-effect btn-flat right'><b class='blue-text'><i class='mdi-editor-border-color left'></i>Edit</b></a>
+										<div id='delete_kategori_".$row->id."' class='modal confirmation'>
+											<div class='modal-header red'>
+												<i class='mdi-navigation-close left'></i> Hapus produk
+											</div>
+											<form class='modal-content'>
+												<p>Apakah anda yakin ingin menghapus <b>'".$row->name."'</b> ?</p>
+											</form>
+											<div class='modal-footer'>
+												<a onclick=javascript:delete_kategori('".$row->id."') class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
+												<a  class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
+											</div>
+										</div>
+
+										<div id='edit_kategori_".$row->id."' class='modal confirmation'>
+											<div class='modal-header deep-orange'>
+												<i class='mdi-action-spellcheck left'></i> Edit kategori
+											</div>
+											<form class='modal-content'>
+												<p>
+													<div class='input-field col s12'>														
+														<input id='nama_".$row->id."' type='text' value='".$row->name."' class='validate'>
+														<label for='nama_".$row->id."'>Kategori</label>
+													</div>
+											    </p>
+											</form>
+											<div class='modal-footer'>
+												<a onclick=javascript:edit_kategori('".$row->id."') class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
+												<a  class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
+											</div>
+										</div>
+									</div>
+								</li>";
+							}
+						echo"
+						</div>
+						</ul>
+					</div>
+				</div>
+				<script type='text/javascript' src='".base_url("")."assets/jController/enduser/CtrlProduk.js'></script>";
+
+?>				

@@ -42,10 +42,9 @@ echo "
 </div>
 				<div class='col s12 m12 l3'>
 					<ul class='menucontent'>
-						<li><a class='active' href='".base_url()."produk/'>READY STOK</a></li>
-						<li><a href='".base_url()."produk/pre_order'>PRE ORDER</a></li>
-						<li><a href='".base_url()."produk/atur_kateogri'>ATUR KATEGORI</a></li>
-						<li><a href='".base_url()."produk/kategori'>KATEGORI</a></li>
+						<li><a href='".base_url()."produk/'>READY STOK</a></li>
+						<li><a class='active' href='".base_url()."produk/pre_order'>PRE ORDER</a></li>
+						<li><a href='".base_url()."produk/atur_kategori'>ATUR KATEGORI</a></li>	
 					</ul>
 				</div>
 				<div class='col s12 m12 l9'>
