@@ -17,7 +17,7 @@ echo"
 				<h2 class='titmain'><b>KIRIM UNDANGAN</b></h2>
 				<p>Ajak teman dan calon pelanggan anda untuk bergabung di toko anda !</p>
 			</div>
-			<form class='row formbody' method='POST' action='".base_url("anggota/invite")."'>
+			<form id='formInvite' class='row formbody'>
 				<div class='input-field col s12 m8'>
 					<input id='email' name='email' type='text' class='validate' value='".$email."'>
 					<label for='email'>Email tujuan</label>
@@ -27,11 +27,16 @@ echo"
 					<label for='message'>Pesan</label>
 				</div>
 				<div class='input-field col s12 m8'>
-					".$notif."<button class='waves-effect waves-light btn deep-orange darken-1 right'>Kirim</button>
+					".$notif."<button id='btnSave' type='button' class='waves-effect waves-light btn deep-orange darken-1 right'>Kirim</button>
 				</div>
 			</form>
 		</div>
 	</div>
+	
+	<script>
+		var ctrlAnggotaInvite = new CtrlAnggotaInvite();
+		ctrlAnggotaInvite.init();
+	</script>
 ";
 
 ?>

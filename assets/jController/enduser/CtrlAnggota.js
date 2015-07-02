@@ -156,7 +156,63 @@ function CtrlAnggotaJoinin(){
 }
 
 
-
+function CtrlAnggotaInvite(){
+	this.init = init;
+	
+	var form;
+	var btnSave;
+	
+	function init(){
+		initComponent();
+		initEventlistener();
+		initValidation();
+	}
+	
+	function initComponent(){
+		form = $("#formInvite");
+		btnSave = $hs('btnSave');
+	}
+	
+	function initEventlistener(){
+		btnSave.onclick = function(){
+			doSave();
+		};
+	}
+	
+	function initValidation(){
+		form.validate({
+			rules:{
+				email: {
+					required: true,
+					email: true,
+				},
+				message: {
+					required: true,
+				}
+			},
+			messages: {
+				email:{
+					required: Messagebox_alert("Field ini dibutuhkan"),
+					email: Messagebox_alert("Email tidak valid"),
+				},
+				message:{
+					required: Messagebox_alert("Field ini dibutuhkan"),
+				}
+			}
+		});
+	}
+	
+	function doSave(){
+		if(!form.valid()){
+			Messagebox_timer();
+			return;
+		}else{
+			form.attr("method","POST");
+			form.attr("action",base_url+"anggota/invite");
+			form.submit();
+		}
+	}
+}
 
 
 

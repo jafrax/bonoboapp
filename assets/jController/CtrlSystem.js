@@ -80,6 +80,19 @@ function $hs_notif(c,e){
 	component.delay(5000).slideUp("slow");
 }
 
+function Messagebox_alert(e){
+	return "<div class='messagebox messagebox-alert'><div class='o'>"+e+"</div></div>";
+}
+
+function Messagebox_info(e){
+	return "<div class='messagebox messagebox-info'><div class='o'>"+e+"</div></div>";
+}
+
+function Messagebox_timer(){
+	$('.messagebox').delay(5000).slideUp('slow');
+	$('.alert').delay(5000).slideUp('slow');
+}
+
 function $hs_getDate4String(a){
 	var list = a.split('-');
 	return list[2]+' '+getMonth4String(list[1])+' '+list[0];
