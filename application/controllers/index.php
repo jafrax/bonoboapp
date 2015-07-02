@@ -38,10 +38,6 @@ class Index extends CI_Controller {
 			$this->form_validation->set_rules('email', '', 'required|max_length[50]|valid_email|is_unique[tb_toko.email]');
 			$this->form_validation->set_rules('password', '', 'required|min_length[5]|max_length[50]');
 			$this->form_validation->set_rules('rePassword', '', 'required|matches[password]');
-			$this->form_validation->set_message('is_unique','Email ini telah digunakan, silakan coba email lainnya');
-			$this->form_validation->set_message('matches','Mohon masukkan password yang sama');
-			$this->form_validation->set_message('min_length','Input %s minimal 5 karakter');////membaca input
-			$this->form_validation->set_message('max_length','Input %s maksimal 50 karakter');///membaca input
 			
 			if ($this->form_validation->run() == TRUE){
 				$name    	= mysql_real_escape_string($this->input->post('name'));

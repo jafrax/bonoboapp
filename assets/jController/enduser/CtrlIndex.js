@@ -9,6 +9,7 @@ function CtrlSignup(){
 	function init(){
 		initComponent();
 		initEventlistener();
+		initValidation();
 	}
 	
 	function initComponent(){
@@ -26,6 +27,55 @@ function CtrlSignup(){
 		btnSave.onclick = function(){
 			doSave();
 		};
+	}
+	
+	function initValidation(){
+		formSignupJQuery.validate({
+			rules:{
+				name : {
+					required: true,
+					minlength:5,
+					maxlength:50,
+				},
+				email: {
+					required: true,
+					email: true,
+					maxlength:50,
+				},
+				password: {
+					required: true,
+					minlength:5,
+					maxlength:50,
+				},
+				rePassword: {
+					required: true,
+					minlength:5,
+					maxlength:50,
+				},
+			},
+			messages: {
+				name:{
+					required: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i> Field ini dibutuhkan</label>"),
+					minlength: Messagebox_alert("Masukkan minimal 5 karakter"),
+					maxlength: Messagebox_alert("Masukkan maksimal 50 karakter"),
+				},
+				email:{
+					required: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i> Field ini dibutuhkan</label>"),
+					email: Messagebox_alert("Email tidak valid"),
+					maxlength: Messagebox_alert("Masukkan maksimal 50 karakter"),
+				},
+				password:{
+					required: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i> Field ini dibutuhkan</label>"),
+					minlength: Messagebox_alert("Masukkan minimal 5 karakter"),
+					maxlength: Messagebox_alert("Masukkan maksimal 50 karakter"),
+				},
+				rePassword:{
+					required: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i> Field ini dibutuhkan</label>"),
+					minlength: Messagebox_alert("Masukkan minimal 5 karakter"),
+					maxlength: Messagebox_alert("Masukkan maksimal 50 karakter"),
+				},
+			}
+		});
 	}
 	
 	function doSave(){
@@ -61,19 +111,14 @@ function CtrlSignup(){
 			valid = false;
 		}
 		
-		if(valid){
+		if(!formSignupJQuery.valid()){
+			return;
+		}else{
 			$.ajax({
 				type: 'POST',
 				data: formSignupJQuery.serialize(),
 				url: base_url+'index/signup/',
 				success: function(result) {
-					var response = JSON.parse(result);
-					if(response.result == 1){
-					
-					}else{
-					
-					}
-					
 					lblNotif.html(response.message);
 					lblNotif.slideDown();
 					lblNotif.delay(5000).slideUp('slow');
