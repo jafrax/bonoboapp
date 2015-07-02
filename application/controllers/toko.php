@@ -16,6 +16,7 @@ class Toko extends CI_Controller {
 	function __construct(){
         parent::__construct();
 		
+		$this->load->model("enduser/model_bank");
 		$this->load->model("enduser/model_courier");
 		$this->load->model("enduser/model_courier_custom");
 		$this->load->model("enduser/model_courier_custom_rate");
@@ -24,6 +25,7 @@ class Toko extends CI_Controller {
 		$this->load->model("enduser/model_toko");
 		$this->load->model("enduser/model_toko_attribute");
 		$this->load->model("enduser/model_toko_courier");
+		$this->load->model("enduser/model_toko_bank");
 		
 		if(empty($_SESSION['bonobo']) || empty($_SESSION['bonobo']['id'])){
 			redirect('index/');
@@ -175,6 +177,8 @@ class Toko extends CI_Controller {
 	
 	public function step6(){
 		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+		$data["Banks"] = $this->model_bank->get()->result();
+		$data["ShopBanks"] = $this->model_toko_bank->get_by_shop($_SESSION["bonobo"]["id"])->result();
 		
 		$this->template->bonobo_step("enduser/toko/bg_step_6",$data);
 	}
@@ -484,6 +488,133 @@ class Toko extends CI_Controller {
 		}
 	}
 	
+	public function step6GetData(){
+		if($this->response->post("id") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada data yang dipilih","messageCode"=>1));
+			return;
+		}
+		
+		$ShopBank = $this->model_toko_bank->get_by_id($this->response->post("id"))->row();
+		if(!empty($ShopBank)){
+			$this->response->send(array("result"=>1,"id"=>$ShopBank->id,"acc_name"=>$ShopBank->acc_name,"acc_no"=>$ShopBank->acc_no,"bank_id"=>$ShopBank->bank_id,"bank_name"=>$ShopBank->bank_name,"messageCode"=>1));
+		}else{
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada data yang ditemukan","messageCode"=>1));
+		}
+	}
+
+	public function doStep6Save(){
+		if($this->response->post("cmbBank") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada bank yang dipilih","messageCode"=>1));
+			return;
+		}
+		
+		if($this->response->post("txtName") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Nama pemilik rekening masih kosong","messageCode"=>2));
+			return;
+		}
+		
+		if($this->response->post("txtNo") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Nomor rekening masih kosong","messageCode"=>3));
+			return;
+		}
+		
+		if($this->response->post("txtId") == ""){
+			$Data = array(
+					"toko_id"=>$_SESSION["bonobo"]["id"],
+					"bank_id"=>$this->response->post("cmbBank"),
+					"acc_name"=>$this->response->post("txtName"),
+					"acc_no"=>$this->response->post("txtNo"),
+					"create_date"=>date("Y-m-d H:i:s"),
+					"create_user"=>$_SESSION['bonobo']['email'],
+					"update_date"=>date("Y-m-d H:i:s"),
+					"update_user"=>$_SESSION['bonobo']['email'],
+				);
+			$Save = $this->db->insert("tb_toko_bank",$Data);
+			if($Save){
+				$this->response->send(array("result"=>1,"message"=>"Bank telah disimpan","messageCode"=>4));
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Tidak dapat menyimpan data bank","messageCode"=>5));
+			}
+		}else{
+			$Data = array(
+					"toko_id"=>$_SESSION["bonobo"]["id"],
+					"bank_id"=>$this->response->post("cmbBank"),
+					"acc_name"=>$this->response->post("txtName"),
+					"acc_no"=>$this->response->post("txtNo"),
+					"update_user"=>$_SESSION['bonobo']['email'],
+				);
+			$Save = $this->db->where("id",$this->response->post("txtId"))->update("tb_toko_bank",$Data);
+			if($Save){
+				$this->response->send(array("result"=>1,"message"=>"Bank telah disimpan","messageCode"=>6));
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Tidak dapat menyimpan data bank","messageCode"=>7));
+			}
+		}
+	}
+	
+	public function doStep6Delete(){
+		if($this->response->post("id") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada data bank yang dipilih","messageCode"=>1));
+			return;
+		}
+		
+		$Delete = $this->db->where("id",$this->response->post("id"))->delete("tb_toko_bank");
+		if($Delete){
+			$this->response->send(array("result"=>1,"message"=>"Data telah dihapus","messageCode"=>2));
+		}else{
+			$this->response->send(array("result"=>0,"message"=>"Data tidak dapat dihapus","messageCode"=>3));
+		}
+		
+	}
+	
+	public function doStep7Save(){
+		$chkLevel1 = 0;
+		$chkLevel2 = 0;
+		$chkLevel3 = 0;
+		$chkLevel4 = 0;
+		$chkLevel5 = 0;
+		
+		if($this->response->post("chkLevel1") != ""){
+			$chkLevel1 = 1;
+		}
+		if($this->response->post("chkLevel2") != ""){
+			$chkLevel2 = 1;
+		}
+		if($this->response->post("chkLevel3") != ""){
+			$chkLevel3 = 1;
+		}
+		if($this->response->post("chkLevel4") != ""){
+			$chkLevel4 = 1;
+		}
+		if($this->response->post("chkLevel5") != ""){
+			$chkLevel5 = 1;
+		}
+	
+		$Data = array(
+				"level_1_name"=>$this->response->post("txtLevel1"),
+				"level_2_name"=>$this->response->post("txtLevel2"),
+				"level_3_name"=>$this->response->post("txtLevel3"),
+				"level_4_name"=>$this->response->post("txtLevel4"),
+				"level_5_name"=>$this->response->post("txtLevel5"),
+				"level_1_active"=>$chkLevel1,
+				"level_2_active"=>$chkLevel2,
+				"level_3_active"=>$chkLevel3,
+				"level_4_active"=>$chkLevel4,
+				"level_5_active"=>$chkLevel5,
+				"create_date"=>date("Y-m-d H:i:s"),
+				"create_user"=>$_SESSION['bonobo']['email'],
+				"update_date"=>date("Y-m-d H:i:s"),
+				"update_user"=>$_SESSION['bonobo']['email'],
+			);
+			
+		$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
+		if($Save){
+			$this->response->send(array("result"=>1,"message"=>"Data telah disimpan","messageCode"=>0));
+		}else{
+			$this->response->send(array("result"=>0,"message"=>"Data tidak dapat disimpan","messageCode"=>0));
+		}
+	}
+	
 	public function comboboxCity(){
 		$Cities = $this->model_location->get_cities_by_province($this->response->post("province"))->result();
 		
@@ -538,6 +669,27 @@ class Toko extends CI_Controller {
 		}
 			
 		echo"</select></p><script>initComboBox();</script>";
+	}
+	
+	public function step6ComboboxBank(){
+		$Banks = $this->model_bank->get()->result();
+		$ShopBank = $this->model_toko_bank->get_by_id($this->response->post("id"))->row();
+		
+		echo"<select id='cmbBank' name='cmbBank' class='select-standar'><option value='' disabled selected>Pilih Bank</option>";
+		
+		foreach($Banks as $Bank){
+			if(!empty($ShopBank)){
+				if($Bank->id != $ShopBank->bank_id){
+					echo"<option value='".$Bank->id."'>".$Bank->name."</option>";
+				}else{
+					echo "<option value='".$ShopBank->bank_id."' selected>".$ShopBank->bank_name."</option>";
+				}
+			}else{
+				echo"<option value='".$Bank->id."'>".$Bank->name."</option>";
+			}
+		}
+			
+		echo"</select><script>$('.select-standar').material_select();</script>";
 	}
 }
 

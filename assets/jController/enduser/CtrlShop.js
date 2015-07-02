@@ -353,7 +353,7 @@ function CtrlShopStep5(){
 				if(response.result == 1){
 					initCustomeCourierTable(txtCustomCourierId.value);
 				}else{
-					alert(response.message);
+					$hs_notif("#notifStep5Rate",response.message);
 				}
 			}
 		});
@@ -369,7 +369,7 @@ function CtrlShopStep5(){
 				if(response.result == 1){
 					initCustomeCourierTable(txtCustomCourierId.value);
 				}else{
-					alert(response.message);
+					$hs_notif("#notifStep5Rate",response.message);
 				}
 			}
 		});
@@ -442,3 +442,147 @@ function CtrlShopStep5(){
 	}
 }
 
+function CtrlShopStep6(){
+	this.init = init;
+	this.formEdit = formEdit;
+	this.doDelete = doDelete;
+	
+	var btnAddNew,btnSave;
+	var formStep6Add;
+	
+	function init(){
+		initComponent();
+		initEventlistener();
+	}
+	
+	function initComponent(){
+		formStep6Add = $hs("formStep6Add");
+		btnAddNew = $hs("btnAddNew");
+		btnSave = $hs("btnSave");
+	}
+	
+	function initEventlistener(){
+		btnAddNew.onclick = function(){
+			formClear();
+		};
+		
+		btnSave.onclick = function(){
+			doSave();
+		};
+	}
+	
+	function formClear(){
+		formStep6Add.txtId.value = "";
+		formStep6Add.txtName.value = "";
+		formStep6Add.txtNo.value = "";
+		
+		$.ajax({
+			type: 'POST',
+			data: "id="+e,
+			url: base_url+'toko/step6ComboboxBank/',
+			success: function(result) {
+				$("#divCmbBank").html(result);
+			}
+		});
+	}
+	
+	function formEdit(e){
+		$.ajax({
+			type: 'POST',
+			data: "id="+e,
+			url: base_url+'toko/step6ComboboxBank/',
+			success: function(result) {
+				$("#divCmbBank").html(result);
+			}
+		});
+		
+		$.ajax({
+			type: 'POST',
+			data: "id="+e,
+			url: base_url+'toko/step6GetData/',
+			success: function(result) {
+				var response = JSON.parse(result);
+				if(response.result == 1){
+					formStep6Add = $hs("formStep6Add");
+					formStep6Add.txtId.value = response.id;
+					formStep6Add.txtName.value = response.acc_name;
+					formStep6Add.txtNo.value = response.acc_no;
+				}else{
+					formClear();
+					$hs_notif("#notifStep6",response.message);
+				}
+			}
+		});
+	}
+	
+	function doSave(){
+		$.ajax({
+			type: 'POST',
+			data: $("#formStep6Add").serialize(),
+			url: base_url+'toko/doStep6Save/',
+			success: function(result) {
+				var response = JSON.parse(result);
+				if(response.result == 1){
+					top.location.href = base_url+"toko/step6/";
+				}else{
+					$hs_notif("#notifStep6",response.message);
+				}
+			}
+		});
+	}
+	
+	function doDelete(e){
+		$.ajax({
+			type: 'POST',
+			data: "id="+e,
+			url: base_url+'toko/doStep6Delete/',
+			success: function(result) {
+				var response = JSON.parse(result);
+				if(response.result == 1){
+					top.location.href = base_url+"toko/step6/";
+				}else{
+					$hs_notif("#notifStep6",response.message);
+				}
+			}
+		});
+	}
+}
+
+function CtrlShopStep7(){
+	this.init = init;
+	
+	var formStep7;
+	var btnSave;
+	
+	function init(){
+		initComponent();
+		initEventlistener();
+	}
+	
+	function initComponent(){
+		formStep7 = $("#formStep7");
+		btnSave = $hs("btnSave");
+	}
+	
+	function initEventlistener(){
+		btnSave.onclick = function(){
+			doSave();
+		};
+	}
+	
+	function doSave(){
+		$.ajax({
+			type: 'POST',
+			data: formStep7.serialize(),
+			url: base_url+'toko/doStep7Save/',
+			success: function(result) {
+				var response = JSON.parse(result);
+				if(response.result == 1){
+					$hs_notif("#notifStep7",response.message);
+				}else{
+					$hs_notif("#notifStep7",response.message);
+				}
+			}
+		});
+	}
+}

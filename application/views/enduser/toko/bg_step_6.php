@@ -1,5 +1,11 @@
 <?php
 
+if($Shop->flag_information == 0){
+	$Button = "<a href='".base_url("toko/step5")."' class='btn waves-effect waves-light red'><i class='mdi-navigation-chevron-left left'></i> Kembali</a><a href='".base_url("toko/step7")."' class='btn waves-effect waves-light'>Selanjutnya<i class='mdi-navigation-chevron-right right'></i></a>";
+}else{
+	$Button = "<button class='btn waves-effect waves-light'>Simpan<i class='mdi-navigation-chevron-right right'></i></button>";
+}
+
 echo"
 	<div class='col s12 m12 l12'>
 		<form class='formain'>
@@ -9,66 +15,38 @@ echo"
 			</div>
 			<div class='row formbody'>
 				<div class='input-field col s12 m12'>
-					<button data-target='modal1' class='btn waves-effect waves-light modal-trigger' type='button' name='action'>
+					<button id='btnAddNew' data-target='popupFormAdd' class='btn waves-effect waves-light modal-trigger' type='button'>
 						<i class='mdi-content-add-circle-outline left'></i> Tambah baru
 					</button>
-					<!-- Modal Structure -->
-					<div id='modal1' class='modal'>
-						<div class='modal-header red'>
-							<i class='mdi-maps-local-atm left'></i> Akun Baru
-						</div>
-						<div class='modal-content'>								      
-							<div class='col s12 m12 l12'>
-								<form class='formain'>
-									<div class='row formbody'>
-										<div class='col m12'>
-											<div class='input-field col s12 m12'>							
-												Nama Bank								
-											</div>
-											<div class='input-field col s12 m12'>																
-												<select class='chosen-select'>
-													<option value='' disabled selected>Choose your option</option>
-													<option value='1'>Option 1</option>
-													<option value='2'>Option 2</option>
-													<option value='3'>Option 3</option>
-												</select>																
-											</div>
-											<div class='input-field col s12 m12'>
-												<input id='nama' type='text' class='validate'>
-												<label for='nama'>Nama Pemilik Rekening</label>
-											</div>
-											<div class='input-field col s12 m12'>
-												<input id='nama' type='text' class='validate'>
-												<label for='nama'>Nomor Rekening</label>
-											</div>															
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-						<div class='modal-footer'>
-							<a href='#!' class='modal-action modal-close waves-effect waves-green btn-flat '>Simpan</a>
-							<a href='#!' class='modal-action modal-close waves-effect waves-red btn-flat '>Batal</a>
-						</div>
-					</div>
+					<label id='notifStep6'></label>
 				</div>
+";
+
+foreach($ShopBanks as $ShopBank){
+	$BankImage = base_url("assets/image/img_default_photo.jpg");
+	
+	if(!empty($ShopBank->bank_image) && file_exists("./assets/pic/bank/".$ShopBank->bank_image)){
+		$BankImage = base_url("assets/pic/user/resize/".$ShopBank->bank_image);
+	}
+		
+	echo"
 				<div class='col s12 m8 l4'>
 					<div class='card-panel grey lighten-5 z-depth-1'>
 						<div class='row valign-wrapper'>
 							<div class='col s4'>
-								<img src='images/comp/male.png' alt='' class='circle responsive-img'>
+								<img src='".$BankImage."' alt='' class='circle responsive-img'>
 							</div>
 							<div class='col s10'>
 								<blockquote>
-									<h5>BRO</h5>
-									<h6>Dinar Wahyu W</h6>
-									<h6>6911-123-4156-789-1</h6>
+									<h5>".$ShopBank->bank_name."</h5>
+									<h6>".$ShopBank->acc_name."</h6>
+									<h6>".$ShopBank->acc_no."</h6>
 								</blockquote>
 								<div class='input-field col s6 m12'>
-									<button class='btn-flat waves-effect waves-light' type='button' name='action'>
+									<button onclick=ctrlShopStep6.formEdit(".$ShopBank->id."); data-target='popupFormAdd' class='btn-flat waves-effect waves-light modal-trigger' type='button'>
 										<i class='mdi-editor-border-color'></i>
 									</button>
-									<button class='btn-flat waves-effect waves-light' type='button' name='action'>
+									<button onclick=ctrlShopStep6.doDelete(".$ShopBank->id."); class='btn-flat waves-effect waves-light' type='button' name='action'>
 										<i class='mdi-action-delete'></i>
 									</button>
 								</div>
@@ -76,91 +54,74 @@ echo"
 						</div>
 					</div>
 				</div>
-				<div class='col s12 m8 l4'>
-					<div class='card-panel grey lighten-5 z-depth-1'>
-						<div class='row valign-wrapper'>
-							<div class='col s4'>
-								<img src='images/comp/male.png' alt='' class='circle responsive-img'>
-							</div>
-							<div class='col s10'>
-								<blockquote>
-									<h5>BRO</h5>
-									<h6>Dinar Wahyu W</h6>
-									<h6>6911-123-4156-789-1</h6>
-								</blockquote>
-								<div class='input-field col s6 m12'>
-									<button class='btn-flat waves-effect waves-light' type='button' name='action'>
-										<i class='mdi-editor-border-color'></i>
-									</button>
-									<button class='btn-flat waves-effect waves-light' type='button' name='action'>
-										<i class='mdi-action-delete'></i>
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class='col s12 m8 l4'>
-					<div class='card-panel grey lighten-5 z-depth-1'>
-						<div class='row valign-wrapper'>
-							<div class='col s4'>
-								<img src='images/comp/male.png' alt='' class='circle responsive-img'>
-							</div>
-							<div class='col s10'>
-								<blockquote>
-									<h5>BRO</h5>
-									<h6>Dinar Wahyu W</h6>
-									<h6>6911-123-4156-789-1</h6>
-								</blockquote>
-								<div class='input-field col s6 m12'>
-									<button class='btn-flat waves-effect waves-light' type='button' name='action'>
-										<i class='mdi-editor-border-color'></i>
-									</button>
-									<button class='btn-flat waves-effect waves-light' type='button' name='action'>
-										<i class='mdi-action-delete'></i>
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class='col s12 m8 l4'>
-					<div class='card-panel grey lighten-5 z-depth-1'>
-						<div class='row valign-wrapper'>
-							<div class='col s4'>
-								<img src='images/comp/male.png' alt='' class='circle responsive-img'>
-							</div>
-							<div class='col s10'>
-								<blockquote>
-									<h5>BRO</h5>
-									<h6>Dinar Wahyu W</h6>
-									<h6>6911-123-4156-789-1</h6>
-								</blockquote>
-								<div class='input-field col s6 m12'>
-									<button class='btn-flat waves-effect waves-light' type='button' name='action'>
-										<i class='mdi-editor-border-color'></i>
-									</button>
-									<button class='btn-flat waves-effect waves-light' type='button' name='action'>
-										<i class='mdi-action-delete'></i>
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				
+	";
+}
+
+echo"
 
 				<div class='input-field col s12 m12'><p><br></p></div>
 				<div class='input-field col s12 m12'>
-					<button class='btn waves-effect waves-light red' type='button' onclick='location.href='pengiriman.html'' name='action'>
-						<i class='mdi-navigation-chevron-left left'></i> Kembali
-					</button>
-					<button class='btn waves-effect waves-light' type='button' onclick='location.href='level_harga.html'' name='action'>Selanjutnya
-						<i class='mdi-navigation-chevron-right right'></i>
-					</button>
+					".$Button."
 				</div>	
 			</div>
 		</form>
 	</div>
+	
+	
+	<!-- Modal Structure -->
+	<div id='popupFormAdd' class='modal'>
+		<div class='modal-header red'>
+			<i class='mdi-maps-local-atm left'></i> Akun Baru
+		</div>
+		<div class='modal-content'>								      
+			<div class='col s12 m12 l12'>
+				<form id='formStep6Add'>
+					<input type='hidden' name='txtId' value=''>
+					<div class='row formbody'>
+						<div class='col m12'>
+							<div class='input-field col s12 m12'>							
+								Nama Bank								
+							</div>
+							<div id='divCmbBank' class='input-field col s12 m12'>																
+								<select name='cmbBank' class='chosen-select'>
+									<option value='' disabled selected>Pilih Bank</option>
+";
+	
+	foreach($Banks as $Bank){
+		echo"	
+			<option value='".$Bank->id."'>".$Bank->name."</option>
+		";
+	}
+	
+echo"
+								</select>																
+							</div>
+							<div class='input-field col s12 m12'>
+								<input id='txtName' name='txtName' type='text' class='validate'>
+								<label for='txtName'>Nama Pemilik Rekening</label>
+							</div>
+							<div class='input-field col s12 m12'>
+								<input id='txtNo' name='txtNo' type='text' class='validate'>
+								<label for='txtNo'>Nomor Rekening</label>
+							</div>															
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class='modal-footer'>
+			<a href='javascript:void(0);' id='btnSave' class='modal-action modal-close waves-effect waves-green btn-flat '>Simpan</a>
+			<a href='javascript:void(0);' class='modal-action modal-close waves-effect waves-red btn-flat '>Batal</a>
+		</div>
+	</div>
+";
+
+echo"
+	<script>
+		var ctrlShopStep6 = new CtrlShopStep6();
+		ctrlShopStep6.init();
+	</script>
 ";
 
 ?>
