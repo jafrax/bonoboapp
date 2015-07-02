@@ -290,6 +290,11 @@ function change_active(){
   window.location.href = base_url+'produk/index/'+active_type;  
 }
 
+function change_active_pre(){
+  var active_type = $('#active_type').val();
+  window.location.href = base_url+'produk/pre_order/'+active_type;  
+}
+
 
 function tambah_kategori(){
   var nama  = $('#nama-kategori').val();
@@ -364,4 +369,24 @@ function cari_kategori(e){
         } 
       });
     }
+}
+
+function change_date(id){
+  var date = $('#tanggal-'+id).val();
+
+  $.ajax({
+    type: 'POST',
+    async: false,
+    data: 'date='+date+'&id='+id,
+    url: base_url+'produk/change_date',
+    success: function(msg) {
+      if (msg == 'sukses') {
+        $('#draft-'+id).fadeOut();
+        $('.kadal-'+id).fadeOut();        
+      }else{
+        $('#draft-'+id).fadeIn();
+        $('.kadal-'+id).fadeIn();        
+      };
+    } 
+  });
 }
