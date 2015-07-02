@@ -31,11 +31,12 @@ echo"
 
 									</div>
 									<div class=' col s12 m8 l6'>
-									<select class='select-standar lectfilter'>
-											<option value='' disabled >Pilih filter</option>
-											<option >Fashion</option>
-											<option >Otomotif</option>
-											<option >Electronic</option>
+										<select class='select-standar lectfilter' id='filter-kategori'>											
+											<option value='0'>Semua Kategori</option>";
+											foreach ($kategori->result() as $row_kt) {
+												echo "<option value='".$row_kt->id."' >".$row_kt->name."</option>";
+											}
+											echo"
 										</select>
 									</div>
 								</div>								

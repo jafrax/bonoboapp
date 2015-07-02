@@ -27,7 +27,7 @@ class Produk extends CI_Controller {
 		}else{
 			$data['produk'] = $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],1);			
 		}
-		
+		$data['kategori']		= $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
 		$this->template->bonobo('produk/bg_ready_stock',$data);
 	}
 
@@ -438,7 +438,7 @@ class Produk extends CI_Controller {
 		}else{
 			$data['produk'] = $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],0);			
 		}
-		
+		$data['kategori']		= $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
 		$this->template->bonobo('produk/bg_pre_order',$data);
 	}
 
