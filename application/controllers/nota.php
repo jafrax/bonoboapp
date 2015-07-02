@@ -17,11 +17,11 @@ class Nota extends CI_Controller {
 			return;
 		}
 
-		//$this->load->model("enduser/model_nota");		
+		$this->load->model("enduser/model_nota");		
     }
 	
 	public function index(){
-		$data='';
+		$data['nota']	= $this->model_nota->get_nota();		
 
 		$this->template->bonobo('nota/bg_nota',$data);
 	}
