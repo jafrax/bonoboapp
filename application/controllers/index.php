@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+ 
 /*
 * CONTROLLER INDEX WEBSITE
 * This controler for screen index
