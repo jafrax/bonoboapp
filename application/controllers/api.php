@@ -20,7 +20,7 @@ class Api extends CI_Controller {
 		if($api_key == "BONOBO-APP-01"){
 			return true;
 		}else{
-			$this->response->send(array("result"=>0,"message"=>"Applikasi anda tidak terdaftar.","messageCode"=>0), true);
+			$this->response->send(array("result"=>0,"message"=>"Applikasi anda tidak terdaftar","messageCode"=>0), true);
 			return false;
 		}
 	}
