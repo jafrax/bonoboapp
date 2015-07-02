@@ -31,11 +31,16 @@ echo"
 
 									</div>
 									<div class=' col s12 m8 l6'>
-									<select class='select-standar lectfilter'>
-											<option value='' disabled >Pilih filter</option>
-											<option >Fashion</option>
-											<option >Otomotif</option>
-											<option >Electronic</option>
+										<select class='select-standar lectfilter' onchange=javascript:filter_kategori() id='filter-kategori'>											
+											<option value=''>Semua Kategori</option>";
+											foreach ($kategori->result() as $row_kt) {
+												$select = '';
+												if (isset($_SESSION['filter_kategori'])) {
+													if ($_SESSION['filter_kategori'] == $row_kt->id) {$select = 'selected';unset($_SESSION['filter_kategori']);}
+												}
+												echo "<option value='".$row_kt->id."' $select>".$row_kt->name."</option>";
+											}
+											echo"
 										</select>
 									</div>
 								</div>								

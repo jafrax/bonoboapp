@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /*
-* CONTROLLER INDEX WEBSITE
+* CONTROLLER PRODUK WEBSITE
 * This controler for screen index
 *
 * Log Activity : ~ Create your log if you change this controller ~
@@ -27,7 +27,7 @@ class Produk extends CI_Controller {
 		}else{
 			$data['produk'] = $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],1);			
 		}
-		
+		$data['kategori']		= $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
 		$this->template->bonobo('produk/bg_ready_stock',$data);
 	}
 
@@ -438,7 +438,7 @@ class Produk extends CI_Controller {
 		}else{
 			$data['produk'] = $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],0);			
 		}
-		
+		$data['kategori']		= $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
 		$this->template->bonobo('produk/bg_pre_order',$data);
 	}
 
@@ -791,6 +791,12 @@ class Produk extends CI_Controller {
 		$_SESSION['search_kategori'] = $keyword;
 
 		$this->print_kategori();
+	}	
+
+
+	public function set_filter_kategori(){
+		$kategori = $this->input->post('kategori');
+		$_SESSION['filter_kategori'] = $kategori;		
 	}	
 }
 
