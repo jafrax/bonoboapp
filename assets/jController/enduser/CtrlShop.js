@@ -353,7 +353,7 @@ function CtrlShopStep5(){
 				if(response.result == 1){
 					initCustomeCourierTable(txtCustomCourierId.value);
 				}else{
-					alert(response.message);
+					$hs_notif("#notifStep5Rate",response.message);
 				}
 			}
 		});
@@ -369,7 +369,7 @@ function CtrlShopStep5(){
 				if(response.result == 1){
 					initCustomeCourierTable(txtCustomCourierId.value);
 				}else{
-					alert(response.message);
+					$hs_notif("#notifStep5Rate",response.message);
 				}
 			}
 		});
@@ -509,7 +509,7 @@ function CtrlShopStep6(){
 					formStep6Add.txtNo.value = response.acc_no;
 				}else{
 					formClear();
-					alert(response.message);
+					$hs_notif("#notifStep6",response.message);
 				}
 			}
 		});
@@ -525,7 +525,7 @@ function CtrlShopStep6(){
 				if(response.result == 1){
 					top.location.href = base_url+"toko/step6/";
 				}else{
-					alert(response.message);
+					$hs_notif("#notifStep6",response.message);
 				}
 			}
 		});
@@ -541,7 +541,7 @@ function CtrlShopStep6(){
 				if(response.result == 1){
 					top.location.href = base_url+"toko/step6/";
 				}else{
-					alert(response.message);
+					$hs_notif("#notifStep6",response.message);
 				}
 			}
 		});

@@ -18,6 +18,7 @@ echo"
 					<button id='btnAddNew' data-target='popupFormAdd' class='btn waves-effect waves-light modal-trigger' type='button'>
 						<i class='mdi-content-add-circle-outline left'></i> Tambah baru
 					</button>
+					<label id='notifStep6'></label>
 				</div>
 ";
 

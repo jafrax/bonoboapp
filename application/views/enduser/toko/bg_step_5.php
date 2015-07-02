@@ -60,7 +60,7 @@ echo"
 		<p>Anda bisa memasukkan jasa pengiriman lain jika memilikinya.
 			
 			<div id='divCustomCourier' style='margin-left:30px;width:100%'>
-				<div id='notifStep5'></div>
+				<label id='notifStep5'></label>
 ";
 
 	$no = 1;
@@ -130,6 +130,9 @@ echo"
 				<div class='input-field col s12 m12'>
 					<a href='#divFormRate' id='aCustomeCourierRate' class='modal-trigger waves-effect waves-light btn deep-orange darken-1 right'>TAMBAH BARU</a>
 				</div>	
+				<div class='input-field col s12 m12'>
+					<label id='notifStep5Rate'></label>
+				</div>
 				<div class='input-field col s12 m12'>
 					<table class='responsive-table'>
 						<thead>
