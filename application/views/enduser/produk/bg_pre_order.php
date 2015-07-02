@@ -23,7 +23,7 @@ echo"
 							<li class='col s12 listanggodaf'>
 								<div class='input-field col s12 m6 l6 nolpad'>
 									<div class=' col s12 m8 l6'>
-										<select class='select-standar lectfilter' onchange=javascript:change_active() id='active_type'>
+										<select class='select-standar lectfilter' onchange=javascript:change_active_pre() id='active_type'>
 											<option value='' disabled >Pilih filter</option>
 											<option value='1' "; if ($uri3 == '' || $uri3 == '1'){ echo "selected";} echo">Published</option>
 											<option value='0' "; if ($uri3 != '' && $uri3 == '0'){ echo "selected";} echo">Draft</option>											
@@ -75,6 +75,16 @@ echo"
 							foreach ($produk->result() as $row) {
 								$i++;
 								$image = $this->model_produk->get_one_image($row->id)->row();
+								
+								$old_date = $row->end_date;
+								$old_date_timestamp = strtotime($old_date);
+								$date = date('d F, Y', $old_date_timestamp);
+
+								if (date('Y-m-d') > $row->end_date) {
+									$kadal = "block";
+								}else{
+									$kadal = "none";
+								}
 								echo"
 								<li class='col s12 m12 listanggodaf produk-".$row->id."'>
 									<p class='col s1 m1 l1'>
@@ -91,11 +101,11 @@ echo"
 									echo"	
 									</div>
 									<div class='col s12 m8 l9'>
-										<p class='titleproduct'><a href='".base_url()."produk/edit/".base64_encode($row->id)."'><b >".$row->name."</b></a></p>
+										<p class='titleproduct'><a href='".base_url()."produk/edit_pre_order/".base64_encode($row->id)."'><b >".$row->name."</b></a></p>
 										</p>
 										<p class='input-field col s12 m12 l6 nolpad'>
-											<input id='tanggal' type='text' value='".$row->end_date."' placeholder='Tanggal Berakhir' class='validate datepicker'>
-											<span class='label red right'>Kadaluarsa</span>
+											<input id='tanggal-".$row->id."' onchange=javascript:change_date(".$row->id.") type='text' value='".$date."' placeholder='Tanggal Berakhir' class='validate datepicker date-".$row->id."'>
+											<span class='label red right kadal-".$row->id."' style='display:$kadal'>Kadaluarsa</span>
 										</p>
 
 										<div class='col s12 m12 l12 '>";
@@ -156,49 +166,11 @@ echo"
 											<div class='col s6'>".$row->sku_no."</div>
 											<div class='col s6'><b>Kategori</b></div>
 											<div class='col s6'>".$row->kategori."</div>
-											<div class='col s12'><b>Stok</b></div>
-											<div class='col s12'>";
-											if ($row->stock_type == 0) {
-												$stok =  $this->model_produk->get_varian_produk($row->id);
-												foreach ($stok->result() as $row_stok) {
-													echo"
-													<p class='input-field col s12 m12 l12 nolpad'>
-														<input onkeyup=javascript:change_stock(".$row_stok->id.") type='text' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate numbersOnly stok-".$row_stok->id."'>";
-														if ($row_stok->name != 'null') {
-															echo "<label for='stok'>".$row_stok->name."</label>";
-														}
-														
-														if ($row_stok->stock_qty == 0) {
-															echo"<span class='label red right habis-".$row_stok->id."'>Stok habis</span>";
-														}else{
-															echo"<span class='label red right habis-".$row_stok->id."' style='display:none'>Stok habis</span>";
-														}
-													echo"<i class='fa fa-check-circle green-text ok-".$row_stok->id."' style='display:none'> </i>
-													</p>";
-												}											
-											}else{
-												$stok =  $this->model_produk->get_varian_produk($row->id);
-												foreach ($stok->result() as $row_stok) {
-													echo"
-													<p class='col s12 m12 l12 '>	";													
-														if ($row_stok->name != 'null') {
-															echo "
-															<div class='input-field col s12 m12'>
-																<label for='varian'><b class='label-stock'>".$row_stok->name."</b> Stok : <span class='text-green'>selalu tersedia</span></label>
-															</div>";
-														}else{
-															echo "
-															<div class='input-field col s12 m12'>																
-																<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
-															</div>";
-														}
-
-													echo"
-													</p>";
-												}
-											}
-											echo"
-										</div>
+											<div class='col s12'><b>Tanggal Berakhir</b></div>
+											<div class='input-field col s12'>
+												<label class='date-".$row->id."'>".$row->end_date."</label>
+												<span class='label red right kadal-".$row->id."' style='display:$kadal'>Kadaluarsa</span>
+											</div>
 										</p>
 									</div>
 								</div>";

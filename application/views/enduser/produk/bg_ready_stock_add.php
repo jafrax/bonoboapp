@@ -55,7 +55,7 @@ echo "
 						<div class='row formbody'>
 							<div class='col s12'>
 								<div class='input-field col s12'>
-									<input name='tipe' type='hidden' value='".$uri3."' class='validate'>
+									<input name='tipe' type='hidden' value='1' class='validate'>
 									<input id='nama_barang' name='nama' type='text' class='validate' length='50' required>
 									<label for='nama_barang'>Nama barang <span class='text-red'>*</span></label>
 								</div>
