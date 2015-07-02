@@ -519,7 +519,7 @@ function CtrlShopStep6(){
 		$.ajax({
 			type: 'POST',
 			data: $("#formStep6Add").serialize(),
-			url: base_url+'toko/step6Save/',
+			url: base_url+'toko/doStep6Save/',
 			success: function(result) {
 				var response = JSON.parse(result);
 				if(response.result == 1){
@@ -535,13 +535,52 @@ function CtrlShopStep6(){
 		$.ajax({
 			type: 'POST',
 			data: "id="+e,
-			url: base_url+'toko/step6Delete/',
+			url: base_url+'toko/doStep6Delete/',
 			success: function(result) {
 				var response = JSON.parse(result);
 				if(response.result == 1){
 					top.location.href = base_url+"toko/step6/";
 				}else{
 					alert(response.message);
+				}
+			}
+		});
+	}
+}
+
+function CtrlShopStep7(){
+	this.init = init;
+	
+	var formStep7;
+	var btnSave;
+	
+	function init(){
+		initComponent();
+		initEventlistener();
+	}
+	
+	function initComponent(){
+		formStep7 = $("#formStep7");
+		btnSave = $hs("btnSave");
+	}
+	
+	function initEventlistener(){
+		btnSave.onclick = function(){
+			doSave();
+		};
+	}
+	
+	function doSave(){
+		$.ajax({
+			type: 'POST',
+			data: formStep7.serialize(),
+			url: base_url+'toko/doStep7Save/',
+			success: function(result) {
+				var response = JSON.parse(result);
+				if(response.result == 1){
+					$hs_notif("#notifStep7",response.message);
+				}else{
+					$hs_notif("#notifStep7",response.message);
 				}
 			}
 		});
