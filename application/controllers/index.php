@@ -63,7 +63,7 @@ class Index extends CI_Controller {
 				
 				$Save = $this->db->insert('tb_toko',$param);
 				if($Save){
-					$message ="Hi ".$name.", Thank you for registering on vertibox <br>
+					$message ="Hi ".$name.", Thank you for registering on bonobo <br>
 						To verified your account, you can access this link below :<br><br>
 						<a href='".base_url("index/signup_verification/".$email."/".$verify)."'>".base_url("index/signup_verification/".$email."/".$verify)."</a><br><br>
 						And then use your email or username to login. <br><br>

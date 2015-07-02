@@ -390,3 +390,16 @@ function change_date(id){
     } 
   });
 }
+
+function filter_kategori(){
+  var kategori = $('#filter-kategori').val();
+  
+  $.ajax({
+    type: 'POST',
+    data: 'kategori='+kategori,
+    url: base_url+'produk/set_filter_kategori',
+    success: function(msg) {
+      location.reload();
+    } 
+  });
+}
