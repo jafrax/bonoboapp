@@ -792,5 +792,11 @@ class Produk extends CI_Controller {
 
 		$this->print_kategori();
 	}	
+
+
+	public function set_filter_kategori(){
+		$kategori = $this->input->post('kategori');
+		$_SESSION['filter_kategori'] = $kategori;		
+	}	
 }
 
