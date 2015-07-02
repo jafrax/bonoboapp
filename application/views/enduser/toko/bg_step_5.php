@@ -56,7 +56,7 @@ echo"
 		<input type='checkbox' class='filled-in' id='chkStoreDelivery' name='chkStoreDelivery' ".($Shop->dm_store_delivery == 1 ? "checked" : "")."/>
 		<label for='chkStoreDelivery'>Jasa pengiriman Toko</label>
 	</div>	
-	<div class='input-field col s12 m8'>
+	<div class='input-field col s12 m12'>
 		<p>Anda bisa memasukkan jasa pengiriman lain jika memilikinya.
 			
 			<div id='divCustomCourier' style='margin-left:30px;width:100%'>
@@ -67,32 +67,32 @@ echo"
 	if(sizeOf($CustomeCouriers) <= 0){
 		echo"
 				<input type='hidden' id='txtCustomeCourierCount' name='txtCustomeCourierCount' value='".$no."'>
-				<div id='divCourier".$no."' class='input-field col s9 m9'>
+				<div id='divCourier".$no."' class='input-field col s12 m12'>
 					<div class='input-field col s8 m6'>
 						<input type='hidden' id='txtCourierId".$no."' name='txtCourierId".$no."'>
 						<input type='text' id='txtCourierName".$no."' name='txtCourierName".$no."'>
 						<label for='txtCourierName".$no."'>Nama Jasa Pengiriman</label>
 					</div>
 					<div class='input-field col s4 m6'>
-						<a class='left blue-text' href='javascript:void(0);' onclick=ctrlShopStep5.doCourierSave(".$no.");><i class='mdi-action-delete'></i>Simpan</a> 
-						<a class='left red-text' href='javascript:void(0);' onclick=ctrlShopStep5.doCourierDelete(".$no.");><i class='mdi-action-delete'></i>Hapus</a> 
-						<a class='left black-text' id='aCourierDetail".$no."' href='javascript:void(0);' onclick=ctrlShopStep5.showDetail(".$no."); style='display:none;'><i class='mdi-action-delete'></i>Detail</a> 
+						<button type='button' class='waves-effect waves-light btn ' href='javascript:void(0);' onclick=ctrlShopStep5.doCourierSave(".$no.");><i class='material-icons left'>library_add</i>Simpan</button> 
+						<button type='button' class='waves-effect waves-light btn red' href='javascript:void(0);' onclick=ctrlShopStep5.doCourierDelete(".$no.");><i class='mdi-action-delete left'></i>Hapus</button> 
+						<button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail".$no."' href='javascript:void(0);' onclick=ctrlShopStep5.showDetail(".$no."); style='display:none;'><i class='material-icons left'>list</i>Detail</button> 
 					</div>
 				</div>
 		";
 	}else{
 		foreach($CustomeCouriers as $CustomeCourier){
 			echo"
-				<div id='divCourier".$no."' class='input-field col s9 m9'>
+				<div id='divCourier".$no."' class='input-field col s12 m12'>
 					<div class='input-field col s8 m6'>
 						<input type='hidden' id='txtCourierId".$no."' name='txtCourierId".$no."'  value='".$CustomeCourier->id."'>
 						<input type='text' id='txtCourierName".$no."' name='txtCourierName".$no."' value='".$CustomeCourier->name."'>
 						<label for='txtCourierName".$no."'>Nama Jasa Pengiriman</label>
 					</div>
 					<div class='input-field col s4 m6'>
-						<a class='left blue-text' href='javascript:void(0);' onclick=ctrlShopStep5.doCourierSave(".$no.");><i class='mdi-action-delete'></i>Simpan</a> 
-						<a class='left red-text' href='javascript:void(0);' onclick=ctrlShopStep5.doCourierDelete(".$no.");><i class='mdi-action-delete'></i>Hapus</a> 
-						<a class='left black-text' id='aCourierDetail1' href='javascript:void(0);' onclick=ctrlShopStep5.showDetail(".$CustomeCourier->id.");><i class='mdi-action-delete'></i>Detail</a> 
+						<button type='button' class='waves-effect waves-light btn ' href='javascript:void(0);' onclick=ctrlShopStep5.doCourierSave(".$no.");><i class='material-icons left'>library_add</i>Simpan</button> 
+						<button type='button' class='waves-effect waves-light btn red' href='javascript:void(0);' onclick=ctrlShopStep5.doCourierDelete(".$no.");><i class='mdi-action-delete left'></i>Hapus</button> 
+						<button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail1' href='javascript:void(0);' onclick=ctrlShopStep5.showDetail(".$CustomeCourier->id.");><i class='material-icons left'>list</i>Detail</button> 
 					</div>
 				</div>
 			";

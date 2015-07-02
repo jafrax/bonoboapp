@@ -13,6 +13,7 @@ echo"
 	<link rel='icon' type='image/gif' sizes='16x7' href='".base_url("html/images/comp/icon.ico")."'>
 
 	<link type='text/css' rel='stylesheet' href='".base_url("html/css/materialize.min.css")."'  media='screen,projection'/>
+	<link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons' >
 	<link type='text/css' rel='stylesheet' href='".base_url("html/css/font-awesome.min.css")."' />
 	<link type='text/css' rel='stylesheet' href='".base_url("html/css/materialize-tags.min.css")."'/>
 	<link type='text/css' rel='stylesheet' href='".base_url("html/css/jpushmenu.css")."' />
