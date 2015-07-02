@@ -38,6 +38,7 @@ class Index extends CI_Controller {
 			$this->form_validation->set_rules('email', '', 'required|max_length[50]|valid_email|is_unique[tb_toko.email]');
 			$this->form_validation->set_rules('password', '', 'required|min_length[5]|max_length[50]');
 			$this->form_validation->set_rules('rePassword', '', 'required|matches[password]');
+			$this->form_validation->set_message('is_unique', 'Mohon masukkan password yang sama');
 			
 			if ($this->form_validation->run() == TRUE){
 				$name    	= mysql_real_escape_string($this->input->post('name'));
@@ -77,10 +78,11 @@ class Index extends CI_Controller {
 					$this->response->send(array("result"=>0,"message"=>"Pendaftaran anda tidak berhasil, coba ulangi lagi","messageCode"=>1));
 				}
 			}else{
-				$this->response->send(array("result"=>0,"message"=>validation_errors(),"messageCode"=>1));
+				$this->response->send(array("result"=>0,"message"=>validation_errors(),"messageCode"=>1));//json error
 			}
 		}
 	}
+	
 
 	
 	public function signin(){

@@ -56,23 +56,23 @@ function CtrlSignup(){
 			messages: {
 				name:{
 					required: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i> Field ini dibutuhkan</label>"),
-					minlength: Messagebox_alert("Masukkan minimal 5 karakter"),
-					maxlength: Messagebox_alert("Masukkan maksimal 50 karakter"),
+					minlength: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i>Masukkan minimal 5 karakter</label>"),
+					maxlength: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i>Masukkan maksimal 50 karakter</label>"),
 				},
 				email:{
 					required: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i> Field ini dibutuhkan</label>"),
-					email: Messagebox_alert("Email tidak valid"),
-					maxlength: Messagebox_alert("Masukkan maksimal 50 karakter"),
+					email: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i>Email tidak valid</label>"),
+					maxlength: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i>Masukkan maksimal 50 karakter</label>"),
 				},
 				password:{
 					required: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i> Field ini dibutuhkan</label>"),
-					minlength: Messagebox_alert("Masukkan minimal 5 karakter"),
-					maxlength: Messagebox_alert("Masukkan maksimal 50 karakter"),
+					minlength: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i>Masukkan minimal 5 karakter</label>"),
+					maxlength: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i>Masukkan maksimal 50 karakter</label>"),
 				},
 				rePassword:{
 					required: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i> Field ini dibutuhkan</label>"),
-					minlength: Messagebox_alert("Masukkan minimal 5 karakter"),
-					maxlength: Messagebox_alert("Masukkan maksimal 50 karakter"),
+					minlength: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i>Masukkan minimal 5 karakter</label>"),
+					maxlength: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i>Masukkan maksimal 50 karakter</label>"),
 				},
 			}
 		});
