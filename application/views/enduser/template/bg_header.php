@@ -85,13 +85,13 @@ echo"
 					<li class='menuutama"; if ($uri == 'toko') echo" active"; echo"'>
 						<a "; if ($uri == 'toko') echo"class='active'"; echo" href='".base_url()."'>Toko</a>
 						<ul class='subnemuutama grey darken-1'>
-							<li><a href='#'>Informasi Toko</a></li>
-							<li><a href='#'>Atur Privasi</a></li>
-							<li><a href='#'>Atur Pengurangan Stok</a></li>
-							<li><a href='#'>Metode Transaksi</a></li>
-							<li><a href='#'>Pengiriman</a></li>
-							<li><a href='#'>Bank</a></li>
-							<li><a href='#'>Atur Level Harga</a></li>
+							<li><a href='".base_url("toko/")."'>Informasi Toko</a></li>
+							<li><a href='".base_url("toko/step2")."'>Atur Privasi</a></li>
+							<li><a href='".base_url("toko/step3")."'>Atur Pengurangan Stok</a></li>
+							<li><a href='".base_url("toko/step4")."'>Metode Transaksi</a></li>
+							<li><a href='".base_url("toko/step5")."'>Pengiriman</a></li>
+							<li><a href='".base_url("toko/step6")."'>Bank</a></li>
+							<li><a href='".base_url("toko/step7")."'>Atur Level Harga</a></li>
 						</ul>
 					</li>
 					<li "; if ($uri == 'anggota') echo"class='active'"; echo"><a "; if ($uri == 'anggota') echo"class='active'"; echo" href='".base_url("anggota")."'>Anggota</a></li>
