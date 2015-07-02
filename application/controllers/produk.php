@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /*
-* CONTROLLER INDEX WEBSITE
+* CONTROLLER PRODUK WEBSITE
 * This controler for screen index
 *
 * Log Activity : ~ Create your log if you change this controller ~
