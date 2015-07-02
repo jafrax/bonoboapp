@@ -137,7 +137,7 @@ label{ font-size: 14px; color: #565a5c; }
 .logo{ width:125px; margin:7.5px 0; }
 .userdum{ width:40px; height:40px; border-radius:100%; border:1px solid #efefef; }
 .userimg{ border:1px solid #efefef;}
-.div-circle-logo{margin-top: 10px;}
+.div-circle-logo{ margin-top: 10px!important; }
 .circle-logo{border-radius: 50%;width: 100px;height: 100px;text-align: center;border: 1px solid #eee;}
 .img-product{ height:160px; }
 
