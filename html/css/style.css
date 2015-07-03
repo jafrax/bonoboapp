@@ -29,7 +29,7 @@
 /*Style Tag Document*/
 html,* { margin:0; padding:0; -webkit-font-smoothing: antialiased; -webkit-text-stroke:0; }
 body{ width:100%; font-family: Calibri; font-weight:normal; padding:0; margin:0; font-size:15px; }
-a{ text-decoration:none; }
+a{ text-decoration:none; cursor: pointer!important;}
 a:hover { text-decoration:none; -webkit-transition: all 200ms ease-in-out; transition: all 200ms ease-in-out; }
 div { word-wrap:break-word;}
 p{ padding:0; margin:0; }

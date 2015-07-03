@@ -1,5 +1,6 @@
 function CtrlSignup(){
 	this.init = init;
+	this.onEnter= onEnter;
 	
 	var btnSave;
 	var formSignup,formSignupJQuery;
@@ -27,8 +28,17 @@ function CtrlSignup(){
 		btnSave.onclick = function(){
 			doSave();
 		};
+		
+
 	}
 	
+	function onEnter(event){
+		if ($hs_onEnter(event)){
+			doSave();
+		}
+	
+	}
+
 	function initValidation(){
 		formSignupJQuery.validate({
 			rules:{
@@ -41,6 +51,7 @@ function CtrlSignup(){
 					required: true,
 					email: true,
 					maxlength:50,
+					remote:base_url+'index/cek_mail',
 				},
 				password: {
 					required: true,
@@ -63,6 +74,7 @@ function CtrlSignup(){
 					required: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i> Field ini dibutuhkan</label>"),
 					email: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i>Email tidak valid</label>"),
 					maxlength: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i>Masukkan maksimal 50 karakter</label>"),
+					remote: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i>Maaf email sudah digunakan, silahkan masukkan email lainnya</label>"),
 				},
 				password:{
 					required: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i> Field ini dibutuhkan</label>"),

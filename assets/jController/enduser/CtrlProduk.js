@@ -1,3 +1,6 @@
+// Created by : dinarwahyu13@gmail.com
+
+
 (function() {   
 
   $("#form-ready").validate({

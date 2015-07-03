@@ -2,6 +2,11 @@
 
 $fb_params = array('scope' => 'email,user_birthday,user_location,read_stream', 'redirect_uri' => base_url("index/signin_fb"));
 
+if (!empty(	$_SESSION['bonobo']['message_mail_varification'])){						
+	$pesan=	$_SESSION['bonobo']['message_mail_varification'];
+	$_SESSION['bonobo']['message_mail_varification']=null;
+}
+
 echo "
 <!DOCTYPE html>
 <html>
@@ -49,6 +54,7 @@ echo "
 				<p class='or'>Atau akun bonobo</p>
 				<form id='formSignin' class='signin z-depth-2'>
 					<div class='row'>
+					<div class='notif-error'><label class='error'><i class='fa fa-warning'></i>".$pesan."</label></div>
 						<div id='lblNotif' class='notif-error'></div>
 						<div class='input-field col s12'>
 							<input id='email' name='email' type='text' class='validate'>

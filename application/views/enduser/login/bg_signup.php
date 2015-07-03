@@ -52,27 +52,27 @@ echo"
 					<div class='row'>
 						<div id='lblNotif' class='notif-error'></div>
 						<div class='input-field col s12'>
-							<input id='name' name='name' type='text' class='validate'>
+							<input id='name' name='name' type='text' class='validate' data-index='1'>
 							<label for='name'>Nama Toko</label>
 							<label id='notifName' class='error' style='display:none;'><i class='fa fa-warning'></i> Harus diisi !</label>
 						</div>
 						<div class='input-field col s12'>
-							<input id='email' name='email' type='text' class='validate'>
+							<input id='email' name='email' type='text' class='validate' data-index='2'>
 							<label for='email'>Email</label>
 							<label id='notifEmail' class='error' style='display:none;'><i class='fa fa-warning'></i> Harus diisi !</label>
 						</div>
 						<div class='input-field col s12'>
-							<input id='password' name='password' type='password' class='validate'>
+							<input id='password' name='password' type='password' class='validate' data-index='3'>
 							<label for='password'>Password</label>
 							<label id='notifPassword' class='error' style='display:none;'><i class='fa fa-warning'></i> Harus diisi !</label>
 						</div>
 						<div class='input-field col s12'>
-							<input id='rePassword' name='rePassword' type='password' class='validate'>
+							<input id='rePassword' name='rePassword' type='password' class='validate' data-index='4' onkeyup=ctrlSignup.onEnter(event);>
 							<label for='rePassword'>Ketik ulang password</label>
 							<label id='notifRepassword' class='error' style='display:none;'><i class='fa fa-warning'></i> Sandi tidak sesuai !</label>
 						</div>
 						<div class='input-field col s12'>
-							<button id='btnSave' type='button' class='waves-effect waves-light btn deep-orange darken-1 right'>DAFTAR</button>
+							<button id='btnSave' type='button' class='waves-effect waves-light btn deep-orange darken-1 right' >DAFTAR</button>
 						</div>
 					</div>
 				</form>
