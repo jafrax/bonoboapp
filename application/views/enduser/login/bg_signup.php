@@ -1,6 +1,12 @@
 <?php
 $fb_params = array('scope' => 'email,user_birthday,user_location,read_stream', 'redirect_uri' => base_url("index/signup_fb"));
 
+$pesan="";
+if (!empty($_SESSION['bonobo']['notifikasi'])){						
+	$pesan =	$_SESSION['bonobo']['notifikasi'];
+	$_SESSION['bonobo']['notifikasi']=null;
+}
+
 echo"
 <!DOCTYPE html>
 <html>
