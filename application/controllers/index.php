@@ -146,37 +146,27 @@ class Index extends CI_Controller {
         $SignedRequest  = $this->fb->getSignedRequest();
 		
 		if(empty($fb_profile->email)){
-			echo "Respon API facebook tidak valid <a href='".base_url("index/signup")."'>[ Ulangi Signup ]</a>";
+			$_SESSION['bonobo']['notifikasi']="<div class='notif-error'><label class='error'><i class='fa fa-warning'></i>Response dari akun facebook anda tidak valid.</label></div>";
+			$this->signup();
 			return;
 		}
 		
 		$email          = $fb_profile->email;
         $uid			= $this->fb->getUser();
 		
+		
 		$Save = $this->signup_facebook($fb_profile,$uid);
-		if($Save){
-			$QShop  = $this->model_toko->get_by_email($email)->row();		
-			if(!empty($QShop)){
-				if($QShop->status == 0){
-					$this->response->send(array("result"=>0,"message"=>$this->template->notif("account_not_verified"),"messageCode"=>1));
-				}elseif($QShop->status == 1){
-					$this->response->send(array("result"=>0,"message"=>$this->template->notif("account_not_activated"),"messageCode"=>2));
-				}elseif($QShop->status == 3){
-					$this->response->send(array("result"=>0,"message"=>$this->template->notif("account_suspended"),"messageCode"=>3));
-				}else{
-					$_SESSION['bonobo']['id'] = $QShop->id;
-					$_SESSION['bonobo']['name'] = $QShop->name;
-					$_SESSION['bonobo']['email'] = $QShop->email;
-					$_SESSION['bonobo']['image'] = $QShop->image;				
-					$_SESSION['bonobo']['facebook'] = $QShop->facebook;
-					
-					$this->index();
-				}
-			}else{
-				$_SESSION['bonobo']['notifikasi']="<div id='lblNotif' class='notif-error'><label class='error'><i class='fa fa-warning'></i>Akun Facebook beluum terdaftar</label></div>";
-				redirect('index/signin');
-			}
+		$QShop  = $this->model_toko->get_by_email($email)->row();		
+		if(!empty($QShop)){				
+			$_SESSION['bonobo']['id'] = $QShop->id;
+			$_SESSION['bonobo']['name'] = $QShop->name;
+			$_SESSION['bonobo']['email'] = $QShop->email;
+			$_SESSION['bonobo']['image'] = $QShop->image;				
+			$_SESSION['bonobo']['facebook'] = $QShop->facebook;
+			
+			$this->index();
 		}else{
+			$_SESSION['bonobo']['notifikasi']="<div class='notif-error'><label class='error'><i class='fa fa-warning'></i>Akun Facebook tidak dapat didaftarkan</label></div>";
 			$this->signup();
 		}
 	}
