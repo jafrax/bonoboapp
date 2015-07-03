@@ -16,4 +16,8 @@ class Model_nota extends CI_Model
 		return $this->db->where('id',$id)->get('tb_invoice');
 	}
 
+	function get_image($id){
+		return $this->db->where('id',$id)->get('tb_member');
+	}
+
 }

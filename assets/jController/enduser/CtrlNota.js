@@ -59,6 +59,20 @@ function batal_nota(id){
 
 }
 
+function delete_nota(id){
+	$.ajax({
+        type: 'POST',
+        data: 'id='+id,
+        url: base_url+'nota/nota_delete',
+        success: function(msg) {
+        	if (msg == 1) {        		
+        		$('#nota-'+id).fadeOut().remove();
+        		Materialize.toast('Nota telah dihapus', 4000);
+        	};          	
+        } 
+    });
+}
+
 function go(){
   var total_nota  = $('#total-nota').val();
   var option        = $('#option-go').val();

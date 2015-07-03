@@ -71,8 +71,15 @@ echo"
       										<label for='cek-nota-".$i."'></label>
       										<input type='hidden' id='cek-$i' value='".$row->id."' />
 							            </div>
-							            <div class='col s12 m2'>
-							              	<img src='html/images/comp/male.png' alt='' class='circle responsive-img col'> 
+							            <div class='col s12 m2'>";
+										$image = $this->model_nota->get_image($row->member_id);
+
+							            if ($image->num_rows() > 0) {
+							            	echo "<img src='".base_url()."assets/pic/user/resize/".$image->row()->image."' alt='' class='circle responsive-img col'> ";
+							            }else{
+							            	echo "<img src='html/images/comp/male.png' alt='' class='circle responsive-img col'> ";
+							            }
+							              echo"
 							            </div>
 							            <div class='col s11 m4'>
 							              	<h5 class='blue-text'><a href='#' >".$row->invoice_no."</a></h5>
@@ -105,8 +112,20 @@ echo"
 											if ($row->status != 2) {
 											echo"						            		
 												<button id='btn-bayar-".$row->id."' data-target='bayar-".$row->id."' class='btn modal-trigger waves-effect orange darken-1 white-text waves-light right' type='button' name='action'>Bayar</button>
-												<button id='btn-batal-".$row->id."' class='btn waves-effect red white-text waves-light right' type='button' onclick=javascript:batal_nota(".$row->id.") name='action' >Batal</button>
+												<button id='btn-batal-".$row->id."' data-target='batal_nota_".$row->id."' class='btn modal-trigger waves-effect red white-text waves-light right' type='button' name='action' >Batal</button>
 								            </div>
+								            <div id='batal_nota_".$row->id."' class='modal confirmation'>
+												<div class='modal-header red'>
+													<i class='mdi-navigation-close left'></i> Hapus produk
+												</div>
+												<form class='modal-content'>
+													<p>Apakah Anda yakin ingin membatalkan pesanan?</p>
+												</form>
+												<div class='modal-footer'>
+													<a class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
+													<button type='button' onclick=javascript:batal_nota(".$row->id.") class='btn-flat modal-action modal-close waves-effect '>YA</button>
+												</div>
+											</div>
 								            <div id='bayar-".$row->id."' class='modal confirmation modal-fixed-footer'>
 												<div class='modal-header red'>
 													<i class='mdi-action-label-outline left'></i> Pilih metode transaksi
@@ -149,9 +168,21 @@ echo"
 											</div>
 
 											<p class='tool col s12 m5'>
-												<a class=' red-text right ' href='#'><i class='mdi-action-delete col s1 small'></i></a>
-												<a class=' red-text right ' href='#'><i class='mdi-content-mail col s1 small'></i></a>
-												<a class=' red-text right ' href='#'><i class='mdi-action-print col s1 small'></i></a>
+												<a href='#delete_nota_".$row->id."' class='modal-trigger red-text right '><i class='mdi-action-delete col s1 small'></i></a>
+												<a class=' red-text right '><i class='mdi-content-mail col s1 small'></i></a>
+												<a class=' red-text right '><i class='mdi-action-print col s1 small'></i></a>
+												<div id='delete_nota_".$row->id."' class='modal confirmation'>
+													<div class='modal-header red'>
+														<i class='mdi-navigation-close left'></i> Hapus produk
+													</div>
+													<form class='modal-content'>
+														<p>Apakah anda yakin ingin menghapus nota dari <b>'".$row->member_name."'</b> ?</p>
+													</form>
+													<div class='modal-footer'>
+														<a href='#!' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
+														<button type='button' onclick=javascript:delete_nota(".$row->id.") class='btn-flat modal-action modal-close waves-effect '>YA</button>
+													</div>
+												</div>
 											</p>											
 							            </div>
 						          	</div>
