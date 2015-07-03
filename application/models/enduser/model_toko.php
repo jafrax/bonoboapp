@@ -33,8 +33,8 @@ class Model_toko extends CI_Model {
 	}
 	public function get_by_verf($uri_mail,$uri_veri){
 		return	$this->db->select('tt.*')
-						 ->where('email tt',$uri_mail)
-						 ->where('verified_code tt',$uri_veri)
+						 ->where('tt.email',$uri_mail)
+						 ->where('tt.verified_code',$uri_veri)
 						 ->get('tb_toko tt');
 	}
 }

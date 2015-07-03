@@ -35,6 +35,7 @@ echo"
 	<script type='text/javascript' src='".base_url("assets/jController/enduser/CtrlShop.js")."'></script>
 	<script type='text/javascript' src='".base_url("assets/jController/enduser/CtrlAnggota.js")."'></script>
 	<script type='text/javascript' src='".base_url("assets/jController/enduser/CtrlMessage.js")."'></script>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 
 <body class='cbp-spmenu-push cbp-spmenu-push-toleft'>

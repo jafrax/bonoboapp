@@ -1,5 +1,6 @@
 function CtrlSignup(){
 	this.init = init;
+	this.onEnter= onEnter;
 	
 	var btnSave;
 	var formSignup,formSignupJQuery;
@@ -27,8 +28,17 @@ function CtrlSignup(){
 		btnSave.onclick = function(){
 			doSave();
 		};
+		
+
 	}
 	
+	function onEnter(event){
+		if ($hs_onEnter(event)){
+			doSave();
+		}
+	
+	}
+
 	function initValidation(){
 		formSignupJQuery.validate({
 			rules:{

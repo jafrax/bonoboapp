@@ -82,11 +82,25 @@ class Index extends CI_Controller {
 			}
 		}
 	}
+	
+	public function signup_verification(){
+		$uri_mail	=	$this->uri->segment(3);
+		$uri_veri	=	$this->uri->segment(4);
+		$ftv		= 	$this->model_toko->get_by_verf($uri_mail,$uri_veri);
+		if($ftv->num_rows()>0){
+			$_SESSION['bonobo']['message_mail_varification']='Email Verifikasi';
+		}else{
+			$_SESSION['bonobo']['message_mail_varification']='Verifikasi email failed';
+		}
+		//echo $_SESSION['bonobo']['message_mail_varification'];
+		redirect('index/signin');
+	
+	}
 
 	public function cek_mail(){
 		$email 		= 	$_REQUEST['email'];
 		$cek_mail	=	$this->model_toko->get_by_email($email)->result();
-		if($cek_mail>0){
+		if(count($cek_mail>0)){
 			$valid="false";
 		}else{
 			$valid="true";
