@@ -50,6 +50,7 @@ echo"
 				<p class='or'>Atau gunakan email</p>
 				<form id='formSignup' class='signin z-depth-2'>
 					<div class='row'>
+						".$pesan."
 						<div id='lblNotif' class='notif-error'></div>
 						<div class='input-field col s12'>
 							<input id='name' name='name' type='text' class='validate' data-index='1'>
