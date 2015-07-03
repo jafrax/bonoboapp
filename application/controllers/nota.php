@@ -25,5 +25,58 @@ class Nota extends CI_Controller {
 
 		$this->template->bonobo('nota/bg_nota',$data);
 	}
+
+	private function cek_id($id){
+
+	}
+
+	public function change_note(){
+		$id 	= $this->input->post('id');
+		$note 	= $this->input->post('note');
+
+		$cek_id	= $this->model_nota->get_nota_by_id($id);
+
+		if ($cek_id->num_rows == 0) {
+			echo "0";
+			return;
+		}
+
+		$update = $this->db->set('notes',$note)->where('id',$id)->update('tb_invoice');
+		if ($update) {
+			echo "1";
+		}
+	}
+
+	public function nota_batal(){
+		$id 	= $this->input->post('id');
+
+		$cek_id	= $this->model_nota->get_nota_by_id($id);
+
+		if ($cek_id->num_rows == 0) {
+			echo "0";
+			return;
+		}
+
+		$update = $this->db->set('status',2)->where('id',$id)->update('tb_invoice');
+		if ($update) {
+			echo "1";
+		}
+	}
+
+	public function nota_delete(){
+		$id 	= $this->input->post('id');
+
+		$cek_id	= $this->model_nota->get_nota_by_id($id);
+
+		if ($cek_id->num_rows == 0) {
+			echo "0";
+			return;
+		}
+
+		$delete = $this->db->where('id',$id)->delete('tb_invoice');
+		if ($delete) {
+			echo "1";
+		}
+	}
 }
 
