@@ -1,10 +1,13 @@
 <?php
 
 $fb_params = array('scope' => 'email,user_birthday,user_location,read_stream', 'redirect_uri' => base_url("index/signin_fb"));
-$pesan=null;
-if (!empty(	$_SESSION['bonobo']['notifikasi'])){						
-	$pesan=	$_SESSION['bonobo']['notifikasi'];
-	
+
+
+$pesan="";
+if (!empty(	$_SESSION['bonobo']['message_mail_varification'])){						
+	$pesan=	$_SESSION['bonobo']['message_mail_varification'];
+	$_SESSION['bonobo']['message_mail_varification']=null;
+
 }
 
 echo "

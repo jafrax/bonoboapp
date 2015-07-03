@@ -126,40 +126,42 @@ echo"
 													<button type='button' onclick=javascript:batal_nota(".$row->id.") class='btn-flat modal-action modal-close waves-effect '>YA</button>
 												</div>
 											</div>
-								            <div id='bayar-".$row->id."' class='modal confirmation modal-fixed-footer'>
+								            <div id='bayar-".$row->id."' class='modal  modal-fixed-footer'>
+												
 												<div class='modal-header red'>
 													<i class='mdi-action-label-outline left'></i> Pilih metode transaksi
 												</div>
 												<form class='modal-content'>
 													<p>
-														<select id='metode'>
+														<label for='metode'>Pilih metode transaksi</label>
+														<select id='metode-".$row->id."' class='select-standar' onchange=javascript:change_metode(".$row->id.")>
 															<option value='' disabled selected>Choose your option</option>
-															<option value='1'>Option 1</option>
-															<option value='2'>Option 2</option>
-															<option value='3'>Option 3</option>
+															<option value='1'>Bayar ditempat</option>
+															<option value='2'>Transfer via bank</option>
 														</select>
-														<label for='metode'></label>
+														
 													</p>
-													<form class='modal-content'>
-														<p>No. Transaksi : <span class='blue-text'>#13232-123</span></p>
-														<p>Tanggal Konfirmasi : <span class='blue-text'>18 Juni 2015</span></p>
-														<p>Jumlah yang di transfer : <span class='blue-text'>Rp. 1.800.000,00</span></p>
-														<p>
+													<p class='modal-content'><br>
+														<p>No. Transaksi : <span class='blue-text'>".$row->invoice_no."</span></p>
+														<p>Tanggal Konfirmasi : <span class='blue-text'>$date</span></p>
+														<p>Jumlah yang di bayar : <span class='blue-text'>Rp. ".number_format($row->price_total, 2 , ',' , '.')."</span></p><br>
+														<p id='rekening-".$row->id."'>
 
 															<label for='metode'>Pilih Rekening Tujuan</label>
-															<select id='metode'>
-																<option value='' disabled selected>Pilih Rekening Tujuan</option>
-																<option value='1'>Option 1</option>
-																<option value='2'>Option 2</option>
-																<option value='3'>Option 3</option>
+															<select id='rek-".$row->id."' class='select-standar'>
+																<option value='' disabled selected>Pilih Rekening Tujuan</option>";
+																foreach ($rekening->result() as $row_rk) {
+																	echo "<option value='".$row_rk->id."'>".$row_rk->name."</option>";
+																}
+																echo"
 															</select>
 															
 														</p>
-													</form>
+													</p>
 												</form>
 												<div class='modal-footer'>
-													<a class='waves-effect waves-red btn-flat'>Konfirmasi</a>
-													<a class=' modal-action modal-close waves-effect waves-red btn-flat'>Batal</a>		
+													<a class='modal-action modal-close waves-effect waves-red btn-flat' onclick=javascript:konfirmasi()>Konfirmasi</a>
+													<a class='modal-action modal-close waves-effect waves-red btn-flat'>Batal</a>		
 												</div>";
 											}else{
 												echo "<br>";

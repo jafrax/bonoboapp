@@ -257,7 +257,7 @@ class Api extends CI_Controller {
 			
 				$this->response->send(array("result"=>1,"products"=>$Products,"carts"=>$Carts,"messages"=>$Messages), true);
 			}else{
-				$this->response->send(array("result"=>1,"products"=>$Products), true);
+				$this->response->send(array("result"=>1,"products"=>$Products,"carts"=>array(),"messages"=>array()), true);
 			}
 		
 		} catch (Exception $e) {
@@ -313,6 +313,7 @@ class Api extends CI_Controller {
 			*	Validation POST data
 			*	------------------------------------------------------------------------------
 			*/
+			
 			if(!$this->isValidApi($this->response->postDecode("api_key"))){
 				return;
 			}
