@@ -18,32 +18,32 @@
 
 </head>
 <body class="cbp-spmenu-push cbp-spmenu-push-toleft">
-<div id="bayar" class="modal confirmation modal-fixed-footer">
+<div id="bayar" class="modal modal-fixed-footer">
 	<div class="modal-header red">
 		<i class="mdi-action-label-outline left"></i> Pilih metode transaksi
 	</div>
 	<form class="modal-content">
-		<p>
-			<select id="metode">
+		<p class="col s12 m6">
+			<label for="metode">Pilih metode transaksi</label>
+			<select id="metode" class="select-standar">
 				<option value="" disabled selected>Choose your option</option>
-				<option value="1">Option 1</option>
-				<option value="2">Option 2</option>
-				<option value="3">Option 3</option>
+				<option value="1">Bayar ditempat</option>
+				<option value="2">Transfer via bank</option>
 			</select>
-			<label for="metode"></label>
+			
 		</p>
-		<form class="modal-content">
+		<form class="modal-content"><br>
 			<p>No. Transaksi : <span class="blue-text">#13232-123</span></p>
 			<p>Tanggal Konfirmasi : <span class="blue-text">18 Juni 2015</span></p>
-			<p>Jumlah yang di transfer : <span class="blue-text">Rp. 1.800.000,00</span></p>
-			<p>
+			<p>Jumlah yang di transfer : <span class="blue-text">Rp. 1.800.000,00</span></p><br>
+			<p class="col s12 m6">
 
 				<label for="metode">Pilih Rekening Tujuan</label>
-				<select id="metode">
+				<select id="metode" class="select-standar">
 					<option value="" disabled selected>Pilih Rekening Tujuan</option>
-					<option value="1">Option 1</option>
-					<option value="2">Option 2</option>
-					<option value="3">Option 3</option>
+					<option value="1">Gendut</option>
+					<option value="2">BCA</option>
+					<option value="3">AMI</option>
 				</select>
 				
 			</p>
