@@ -28,8 +28,6 @@ function CtrlSignup(){
 		btnSave.onclick = function(){
 			doSave();
 		};
-		
-
 	}
 	
 	function onEnter(event){
@@ -38,6 +36,7 @@ function CtrlSignup(){
 		}
 	
 	}
+
 
 	function initValidation(){
 		formSignupJQuery.validate({
@@ -66,25 +65,25 @@ function CtrlSignup(){
 			},
 			messages: {
 				name:{
-					required: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i> Field ini dibutuhkan</label>"),
-					minlength: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i>Masukkan minimal 5 karakter</label>"),
-					maxlength: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i>Masukkan maksimal 50 karakter</label>"),
+					required: message_alert("Field ini dibutuhkan"),
+					minlength: message_alert("Masukkan minimal 5 karakter"),
+					maxlength: message_alert("Masukkan maksimal 50 karakter"),
 				},
 				email:{
-					required: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i> Field ini dibutuhkan</label>"),
-					email: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i>Email tidak valid</label>"),
-					maxlength: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i>Masukkan maksimal 50 karakter</label>"),
-					remote: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i>Maaf email sudah digunakan, silahkan masukkan email lainnya</label>"),
+					required: message_alert("Field ini dibutuhkan"),
+					email: message_alert("Email tidak valid"),
+					maxlength: message_alert("Masukkan maksimal 50 karakter"),
+					remote: message_alert("Maaf email sudah digunakan, silahkan masukkan email lainnya"),
 				},
 				password:{
-					required: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i> Field ini dibutuhkan</label>"),
-					minlength: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i>Masukkan minimal 5 karakter</label>"),
-					maxlength: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i>Masukkan maksimal 50 karakter</label>"),
+					required: message_alert("Field ini dibutuhkan"),
+					minlength: message_alert("Masukkan minimal 5 karakter"),
+					maxlength: message_alert("Masukkan maksimal 50 karakter"),
 				},
 				rePassword:{
-					required: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i> Field ini dibutuhkan</label>"),
-					minlength: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i>Masukkan minimal 5 karakter</label>"),
-					maxlength: Messagebox_alert("<label class='error'><i class='fa fa-warning'></i>Masukkan maksimal 50 karakter</label>"),
+					required: message_alert("Field ini dibutuhkan"),
+					minlength: message_alert("Masukkan minimal 5 karakter"),
+					maxlength: message_alert("Masukkan maksimal 50 karakter"),
 				},
 			}
 		});
