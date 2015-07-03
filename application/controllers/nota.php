@@ -22,7 +22,8 @@ class Nota extends CI_Controller {
 	
 	public function index(){
 		$data['nota']		= $this->model_nota->get_nota();
-		$data['rekening']	= $this->model_nota->get_rekening();		
+		$data['rekening']	= $this->model_nota->get_rekening();
+		$data['toko']		= $this->model_nota->get_toko()->row();
 
 		$this->template->bonobo('nota/bg_nota',$data);
 	}
@@ -76,6 +77,28 @@ class Nota extends CI_Controller {
 
 		$delete = $this->db->where('id',$id)->delete('tb_invoice');
 		if ($delete) {
+			echo "1";
+		}
+	}
+
+	public function konfirmasi(){
+		$id 		= $this->input->post('id');
+		$metode 	= $this->input->post('metode');
+		$rekening 	= $this->input->post('rekening');
+
+		$cek_id	= $this->model_nota->get_nota_by_id($id);
+
+		if ($cek_id->num_rows == 0) {
+			echo "0";
+			return;
+		}
+
+		if ($metode == 2) {
+			//$transaksi = $this->model_nota->get_nota_transfer($id);
+		}
+
+		$update = $this->db->set('status',1)->where('id',$id)->update('tb_invoice');
+		if ($update) {
 			echo "1";
 		}
 	}

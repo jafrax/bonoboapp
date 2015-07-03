@@ -131,13 +131,20 @@ echo"
 												<div class='modal-header red'>
 													<i class='mdi-action-label-outline left'></i> Pilih metode transaksi
 												</div>
-												<form class='modal-content'>
+												<form class='modal-content' id='form-komfirmasi-".$row->id."'>
 													<p>
 														<label for='metode'>Pilih metode transaksi</label>
 														<select id='metode-".$row->id."' class='select-standar' onchange=javascript:change_metode(".$row->id.")>
-															<option value='' disabled selected>Choose your option</option>
-															<option value='1'>Bayar ditempat</option>
-															<option value='2'>Transfer via bank</option>
+															";
+															if ($toko->pm_store_payment == 1) {
+																echo "<option value='1'>Bayar ditempat</option>";
+																$show_rek = 'none';
+															}
+															if ($toko->pm_transfer == 1) {
+																echo "<option value='2'>Transfer via bank</option>";
+																$show_rek = 'block';
+															}
+														echo"
 														</select>
 														
 													</p>
@@ -145,7 +152,7 @@ echo"
 														<p>No. Transaksi : <span class='blue-text'>".$row->invoice_no."</span></p>
 														<p>Tanggal Konfirmasi : <span class='blue-text'>$date</span></p>
 														<p>Jumlah yang di bayar : <span class='blue-text'>Rp. ".number_format($row->price_total, 2 , ',' , '.')."</span></p><br>
-														<p id='rekening-".$row->id."'>
+														<p id='rekening-".$row->id."' style='display:$show_rek;'>
 
 															<label for='metode'>Pilih Rekening Tujuan</label>
 															<select id='rek-".$row->id."' class='select-standar'>
@@ -160,7 +167,7 @@ echo"
 													</p>
 												</form>
 												<div class='modal-footer'>
-													<a class='modal-action modal-close waves-effect waves-red btn-flat' onclick=javascript:konfirmasi()>Konfirmasi</a>
+													<a class='modal-action modal-close waves-effect waves-red btn-flat' onclick=javascript:konfirmasi(".$row->id.")>Konfirmasi</a>
 													<a class='modal-action modal-close waves-effect waves-red btn-flat'>Batal</a>		
 												</div>";
 											}else{
@@ -225,7 +232,7 @@ echo"
 								            </li>
 								            <li class=''>
 								                <div class='collapsible-header'><i class='mdi-action-description'></i>Shipment Detail
-								                	<a class='right col s2 m1 center' href=''>Edit</a>
+								                	<a class='right col s2 m1 center modal-trigger' href='#pengiriman'>Edit</a>
 								                </div>
 								                <div class='collapsible-body' style='display: none;'>
 								                	<p>
@@ -247,7 +254,7 @@ echo"
 															</div>
 															<div class='input-field col s12 m8'>
 																<input id='nama' type='text' class='validate'>
-																<label for='nama'>Nama Resi</label>
+																<label for='nama'>Nomor Resi</label>
 															</div>
 															<div class='input-field col s12 m8'>
 																<input id='tokoid' type='text' class='validate'>

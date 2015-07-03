@@ -26,5 +26,8 @@ class Model_nota extends CI_Model
 						->join('ms_bank m','m.id=t.bank_id')
 						->get('tb_toko_bank t');
 	}
+	function get_toko(){
+		return $this->db->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
+	}
 
 }

@@ -116,11 +116,28 @@ function go(){
 
 
 function change_metode(id){
-	var metode = $('#metode-'+id).val();	
+	var metode = $('#metode-'+id).val();
 
 	if (metode == 1) {
 		$('#rekening-'+id).hide();
 	}else{
 		$('#rekening-'+id).fadeIn();
 	};
+}
+
+function konfirmasi(id){
+	var metode 		= $('#metode-'+id).val();
+	var rekening 	= $('#rek-'+id).val();	
+
+	$.ajax({
+        type: 'POST',
+        data: 'id='+id+'&metode='+metode+'&rekening='+rekening,
+        url: base_url+'nota/konfirmasi',
+        success: function(msg) {
+        	if (msg == 1) {        		
+        		
+        		Materialize.toast('Nota telah di konfirmasi', 4000);
+        	};          	
+        } 
+    });
 }
