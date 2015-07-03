@@ -89,9 +89,9 @@ class Index extends CI_Controller {
 		$ftv		= 	$this->model_toko->get_by_verf($uri_mail,$uri_veri);
 		$_SESSION['bonobo']['notifikasi']=null;
 		if($ftv->num_rows()>0){
-			$_SESSION['bonobo']['notifikasi']="<div class='notif-error'><label class='error'><i class='fa fa-warning'></i>Email Verifikasi sukses</label></div>";
+			$_SESSION['bonobo']['notifikasi']="<div id='lblNotif' class='notif-error'><label class='error'><i class='fa fa-warning'></i>Email Verifikasi sukses</label></div>";
 		}else{
-			$_SESSION['bonobo']['notifikasi']="<div class='notif-error'><label class='error'><i class='fa fa-warning'></i>Verifikasi email failed</label></div>";
+			$_SESSION['bonobo']['notifikasi']="<div id='lblNotif' class='notif-error'><label class='error'><i class='fa fa-warning'></i>Verifikasi email failed</label></div>";
 		}
 		redirect('index/signin');
 	
