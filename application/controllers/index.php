@@ -8,6 +8,7 @@
 * 1. Create 12 Juni 2015 by Heri Siswanto, Create controller
 * 2. Change 22 Juni 2015 by Dinar Wahyu Wibowo, Change Index
 * 3. Change 23 Juni 2015 by Heri Siswanto, Coding Signup, Coding Signin, Signup Facebook, Signin Facebook
+* 4. Create 03 Juli 2015 by adi Setyo, Cek Mail
 */
 
 class Index extends CI_Controller {
@@ -38,7 +39,6 @@ class Index extends CI_Controller {
 			$this->form_validation->set_rules('email', '', 'required|max_length[50]|valid_email|is_unique[tb_toko.email]');
 			$this->form_validation->set_rules('password', '', 'required|min_length[5]|max_length[50]');
 			$this->form_validation->set_rules('rePassword', '', 'required|matches[password]');
-			$this->form_validation->set_message('is_unique', 'Mohon masukkan password yang sama');
 			
 			if ($this->form_validation->run() == TRUE){
 				$name    	= mysql_real_escape_string($this->input->post('name'));
@@ -78,12 +78,21 @@ class Index extends CI_Controller {
 					$this->response->send(array("result"=>0,"message"=>"Pendaftaran anda tidak berhasil, coba ulangi lagi","messageCode"=>1));
 				}
 			}else{
-				$this->response->send(array("result"=>0,"message"=>validation_errors(),"messageCode"=>1));//json error
+				$this->response->send(array("result"=>0,"message"=>"Periksa kembali field anda","messageCode"=>1));//json error
 			}
 		}
 	}
-	
 
+	public function cek_mail(){
+		$email 		= 	$_REQUEST['email'];
+		$cek_mail	=	$this->model_toko->get_by_email($email)->result();
+		if($cek_mail>0){
+			$valid="false";
+		}else{
+			$valid="true";
+		}
+		echo $valid;
+	}
 	
 	public function signin(){
 		if(!$_POST){
