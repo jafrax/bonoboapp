@@ -87,12 +87,12 @@ class Index extends CI_Controller {
 		$uri_mail	=	$this->uri->segment(3);
 		$uri_veri	=	$this->uri->segment(4);
 		$ftv		= 	$this->model_toko->get_by_verf($uri_mail,$uri_veri);
+		$_SESSION['bonobo']['notifikasi']=null;
 		if($ftv->num_rows()>0){
-			$_SESSION['bonobo']['message_mail_varification']='Email Verifikasi';
+			$_SESSION['bonobo']['notifikasi']="<div class='notif-error'><label class='error'><i class='fa fa-warning'></i>Email Verifikasi sukses</label></div>";
 		}else{
-			$_SESSION['bonobo']['message_mail_varification']='Verifikasi email failed';
+			$_SESSION['bonobo']['notifikasi']="<div class='notif-error'><label class='error'><i class='fa fa-warning'></i>Verifikasi email failed</label></div>";
 		}
-		//echo $_SESSION['bonobo']['message_mail_varification'];
 		redirect('index/signin');
 	
 	}
@@ -155,7 +155,27 @@ class Index extends CI_Controller {
 		
 		$Save = $this->signup_facebook($fb_profile,$uid);
 		if($Save){
-			$this->signup();
+			$QShop  = $this->model_toko->get_by_email($email)->row();		
+			if(!empty($QShop)){
+				if($QShop->status == 0){
+					$this->response->send(array("result"=>0,"message"=>$this->template->notif("account_not_verified"),"messageCode"=>1));
+				}elseif($QShop->status == 1){
+					$this->response->send(array("result"=>0,"message"=>$this->template->notif("account_not_activated"),"messageCode"=>2));
+				}elseif($QShop->status == 3){
+					$this->response->send(array("result"=>0,"message"=>$this->template->notif("account_suspended"),"messageCode"=>3));
+				}else{
+					$_SESSION['bonobo']['id'] = $QShop->id;
+					$_SESSION['bonobo']['name'] = $QShop->name;
+					$_SESSION['bonobo']['email'] = $QShop->email;
+					$_SESSION['bonobo']['image'] = $QShop->image;				
+					$_SESSION['bonobo']['facebook'] = $QShop->facebook;
+					
+					$this->index();
+				}
+			}else{
+				$_SESSION['bonobo']['notifikasi']="<div class='notif-error'><label class='error'><i class='fa fa-warning'></i>Akun Facebook beluum terdaftar</label></div>";
+				redirect('index/signin');
+			}
 		}else{
 			$this->signup();
 		}
