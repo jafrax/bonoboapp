@@ -37,7 +37,6 @@ function CtrlSignup(){
 	
 	}
 
-
 	function initValidation(){
 		formSignupJQuery.validate({
 			rules:{
@@ -141,6 +140,7 @@ function CtrlSignup(){
 
 function CtrlSignin(){
 	this.init = init;
+	this.onEnter= onEnter;
 	
 	var btnSave;
 	var formSignin,formSigninJQuery;
@@ -177,6 +177,11 @@ function CtrlSignin(){
 		aForgotSubmit.onclick = function(){
 			doForgotPassword();
 		};
+	}
+	function onEnter(){
+		if ($hs_onEnter(event)){
+			doSave();
+		}
 	}
 	
 	function doSave(){

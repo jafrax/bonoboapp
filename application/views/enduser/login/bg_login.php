@@ -65,7 +65,7 @@ echo "
 							<label id='notifEmail' class='error' style='display:none;'><i class='fa fa-warning'></i> Harus diisi !</label>
 						</div>
 						<div class='input-field col s12'>
-							<input id='password' name='password' type='password' class='validate'>
+							<input id='password' name='password' type='password' class='validate' onkeyup=ctrlSignin.onEnter(event); >
 							<label for='password'>Password</label>
 							<label id='notifPassword' class='error' style='display:none;'><i class='fa fa-warning'></i> Harus diisi !</label>
 						</div>

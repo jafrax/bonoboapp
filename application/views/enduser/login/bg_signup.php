@@ -58,22 +58,22 @@ echo"
 					<div class='row'>
 						<div id='lblNotif' class='notif-error'></div>
 						<div class='input-field col s12'>
-							<input id='name' name='name' type='text' class='validate' data-index='1'>
+							<input id='name' name='name' type='text' class='validate'>
 							<label for='name'>Nama Toko</label>
 							<label id='notifName' class='error' style='display:none;'><i class='fa fa-warning'></i> Harus diisi !</label>
 						</div>
 						<div class='input-field col s12'>
-							<input id='email' name='email' type='text' class='validate' data-index='2'>
+							<input id='email' name='email' type='text' class='validate'>
 							<label for='email'>Email</label>
 							<label id='notifEmail' class='error' style='display:none;'><i class='fa fa-warning'></i> Harus diisi !</label>
 						</div>
 						<div class='input-field col s12'>
-							<input id='password' name='password' type='password' class='validate' data-index='3'>
+							<input id='password' name='password' type='password' class='validate'>
 							<label for='password'>Password</label>
 							<label id='notifPassword' class='error' style='display:none;'><i class='fa fa-warning'></i> Harus diisi !</label>
 						</div>
 						<div class='input-field col s12'>
-							<input id='rePassword' name='rePassword' type='password' class='validate' data-index='4' onkeyup=ctrlSignup.onEnter(event);>
+							<input id='rePassword' name='rePassword' type='password' class='validate' onkeyup=ctrlSignup.onEnter(event);>
 							<label for='rePassword'>Ketik ulang password</label>
 							<label id='notifRepassword' class='error' style='display:none;'><i class='fa fa-warning'></i> Sandi tidak sesuai !</label>
 						</div>
