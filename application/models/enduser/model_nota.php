@@ -20,4 +20,11 @@ class Model_nota extends CI_Model
 		return $this->db->where('id',$id)->get('tb_member');
 	}
 
+	function get_rekening(){
+		return $this->db->select('t.id id,m.name name')
+						->where('t.toko_id',$_SESSION['bonobo']['id'])
+						->join('ms_bank m','m.id=t.bank_id')
+						->get('tb_toko_bank t');
+	}
+
 }
