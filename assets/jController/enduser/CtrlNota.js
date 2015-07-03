@@ -8,7 +8,8 @@ function edit_notes (id) {
 }
 
 function batal_notes (id) {
-	
+	$('.notes-'+id).prop("disabled", true);
+	$('.tombol-notes-'+id).hide();
 }
 
 function simpan_notes (id) {
@@ -109,4 +110,17 @@ function go(){
       });
     } if (i == total_nota) {$('.cek_nota').prop('checked',false);$('#pilih-semua').prop('checked',false);}; 
   } 
+}
+
+
+
+
+function change_metode(id){
+	var metode = $('#metode-'+id).val();	
+
+	if (metode == 1) {
+		$('#rekening-'+id).hide();
+	}else{
+		$('#rekening-'+id).fadeIn();
+	};
 }

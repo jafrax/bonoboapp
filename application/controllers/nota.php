@@ -21,7 +21,8 @@ class Nota extends CI_Controller {
     }
 	
 	public function index(){
-		$data['nota']	= $this->model_nota->get_nota();		
+		$data['nota']		= $this->model_nota->get_nota();
+		$data['rekening']	= $this->model_nota->get_rekening();		
 
 		$this->template->bonobo('nota/bg_nota',$data);
 	}
