@@ -12,6 +12,8 @@ set_time_limit (99999999999);
 
 class Api extends CI_Controller {
 
+	var $quality = 15;
+	
 	function __construct(){
         parent::__construct();
     }
@@ -40,9 +42,9 @@ class Api extends CI_Controller {
 			return null;
 		}else{
 			if(@getimagesize(base_url("assets/pic/user/".$QUser->image))){
-				$UserImageUrl = base_url("image.php?q=50&fe=".base64_encode(base_url("assets/pic/user/".$QUser->image)));
+				$UserImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/user/resize/".$QUser->image)));
 			}else{
-				$UserImageUrl = base_url("image.php?q=50&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+				$UserImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
 			}
 				
 			/*
@@ -83,9 +85,9 @@ class Api extends CI_Controller {
 			$Banks = array();
 			foreach($QBanks as $QBank){
 				if(@getimagesize(base_url("assets/pic/bank/".$QBank->image))){
-					$BankImageUrl = base_url("image.php?q=50&fe=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
+					$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/bank/resize/".$QBank->image)));
 				}else{
-					$BankImageUrl = base_url("image.php?q=50&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+					$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
 				}
 			
 				$Bank = array(
@@ -190,6 +192,92 @@ class Api extends CI_Controller {
 		}
 	}
 	
+	private function getProductById($id){
+		/*
+		*	------------------------------------------------------------------------------
+		*	Query mencari data shop
+		*	------------------------------------------------------------------------------
+		*/
+		
+		$QProduct = $this->db
+					->select("tp.*, tkcp.id as category_id, tkcp.name as category_name, tkcp.toko_id as toko_id")
+					->join("tb_toko_category_product tkcp","tp.toko_category_product_id = tkcp.id")
+					->where("tp.id",$id)
+					->get("tb_product tp")
+					->row();
+					
+		if(empty($QProduct)){
+			return null;
+		}
+		
+		/*
+		*	------------------------------------------------------------------------------
+		*	Query mengambil data produk image 
+		*	------------------------------------------------------------------------------
+		*/
+		$QProductImages = $this->db
+						->where("product_id", $QProduct->id)
+						->get("tb_product_image")
+						->result();
+						
+		$ProductImages = array();
+		foreach($QProductImages as $QProductImage){
+			$ProductImage = array(
+						"id"=>$QProductImage->id,
+						"image_url"=>base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/product/resize/".$QProductImage->file))),
+					);
+							
+			array_push($ProductImages,$ProductImage);
+		}
+		
+		/*
+		*	------------------------------------------------------------------------------
+		*	Query mengambil data produk varian 
+		*	------------------------------------------------------------------------------
+		*/
+		$ProductVarians = $this->db
+						->where("product_id", $QProduct->id)
+						->get("tb_product_varian")
+						->result();
+		
+		/*
+		*	------------------------------------------------------------------------------
+		*	Query mengambil data produk toko 
+		*	------------------------------------------------------------------------------
+		*/
+						
+		$ProductShop = $this->getShopById($QProduct->toko_id);
+	
+		/*
+		*	------------------------------------------------------------------------------
+		*	Membuat object produk
+		*	------------------------------------------------------------------------------
+		*/
+		$Product = array(
+				"id"=>$QProduct->id,
+				"name"=>$QProduct->name,
+				"description"=>$QProduct->description,
+				"sku_no"=>$QProduct->sku_no,
+				"weight"=>$QProduct->weight,
+				"unit"=>$QProduct->unit,
+				"min_order"=>$QProduct->min_order,
+				"stock_type"=>$QProduct->stock_type,
+				"stock_type_detail"=>$QProduct->stock_type_detail,
+				"active"=>$QProduct->active,
+				"price_base"=>$QProduct->price_base,
+				"price_1"=>$QProduct->price_1,
+				"price_2"=>$QProduct->price_2,
+				"price_3"=>$QProduct->price_3,
+				"price_4"=>$QProduct->price_4,
+				"price_5"=>$QProduct->price_5,
+				"images"=>$ProductImages,
+				"varians"=>$ProductVarians,
+				"shop"=>$ProductShop,
+			);
+				
+		return $Product;
+	}
+	
 	
 	public function index(){
 		try {
@@ -211,12 +299,12 @@ class Api extends CI_Controller {
 			$Products = array();
 			$QProducts = $this->db
 							->select("id")
-							->limit(0,10)
+							->limit(10,0)
 							->get("tb_product")
 							->result();
 			
 			foreach($QProducts as $QProduct){
-				array_push($Products,$QProduct->id);
+				array_push($Products,$QProduct->id);				
 			}
 			
 			
@@ -230,7 +318,7 @@ class Api extends CI_Controller {
 				$QCarts = $this->db
 							->select("id")
 							->where("member_id",$this->response->postDecode("user"))
-							->limit(0,10)
+							->limit(10,0)
 							->get("tb_cart")
 							->result();
 			
@@ -247,7 +335,7 @@ class Api extends CI_Controller {
 				$QCarts = $this->db
 							->select("id")
 							->where("member_id",$this->response->postDecode("user"))
-							->limit(0,10)
+							->limit(10,0)
 							->get("tb_cart")
 							->result();
 			
@@ -431,7 +519,6 @@ class Api extends CI_Controller {
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Email anda belum terdaftar.","messageCode"=>3), true);
 			}
-		
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
@@ -464,7 +551,6 @@ class Api extends CI_Controller {
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Akun tidak terdaftar.","messageCode"=>4), false);
 			}
-		
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
@@ -521,74 +607,11 @@ class Api extends CI_Controller {
 			
 			if(sizeOf($QProducts) > 0){
 				$Products = array();
-				foreach($QProducts as $QProduct){
-					/*
-					*	------------------------------------------------------------------------------
-					*	Query mengambil data produk image 
-					*	------------------------------------------------------------------------------
-					*/
-					$QProductImages = $this->db
-									->where("product_id", $QProduct->id)
-									->get("tb_product_image")
-									->result();
-									
-					$ProductImages = array();
-					foreach($QProductImages as $QProductImage){
-						$ProductImage = array(
-									"id"=>$QProductImage->id,
-									"imageUrl"=>base_url("image.php?q=100&fe=".base64_encode(base_url("assets/pic/product/".$QProductImage->file))),
-								);
-										
-						array_push($ProductImages,$ProductImage);
-					}
-					
-					/*
-					*	------------------------------------------------------------------------------
-					*	Query mengambil data produk varian 
-					*	------------------------------------------------------------------------------
-					*/
-					$ProductVarians = $this->db
-									->where("product_id", $QProduct->id)
-									->get("tb_product_varian")
-									->result();
-					
-					/*
-					*	------------------------------------------------------------------------------
-					*	Query mengambil data produk toko 
-					*	------------------------------------------------------------------------------
-					*/
-					$ProductShop = $this->getShopById($QProduct->toko_id);
 				
-					/*
-					*	------------------------------------------------------------------------------
-					*	Membuat object produk
-					*	------------------------------------------------------------------------------
-					*/
-					$Product = array(
-							"id"=>$QProduct->id,
-							"name"=>$QProduct->name,
-							"description"=>$QProduct->description,
-							"sku_no"=>$QProduct->sku_no,
-							"weight"=>$QProduct->weight,
-							"unit"=>$QProduct->unit,
-							"min_order"=>$QProduct->min_order,
-							"stock_type"=>$QProduct->stock_type,
-							"stock_type_detail"=>$QProduct->stock_type_detail,
-							"active"=>$QProduct->active,
-							"price_base"=>$QProduct->price_base,
-							"price_1"=>$QProduct->price_1,
-							"price_2"=>$QProduct->price_2,
-							"price_3"=>$QProduct->price_3,
-							"price_4"=>$QProduct->price_4,
-							"price_5"=>$QProduct->price_5,
-							"images"=>$ProductImages,
-							"varians"=>$ProductVarians,
-							"shop"=>$ProductShop,
-						);
-							
-					array_push($Products,$Product);
+				foreach($QProducts as $QProduct){
+					array_push($Products,$QProduct->id);
 				}
-			
+				
 				$this->response->send(array("result"=>1,"total"=>sizeOf($QProducts),"size"=>sizeOf($QProducts),"products"=>$Products), true);
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Tidak ada produk yang ditemukan","messageCode"=>4), true);
@@ -1333,84 +1356,18 @@ class Api extends CI_Controller {
 				return;
 			}
 			
-			$QProduct = $this->db
-					->select("tp.*, tkcp.id as category_id, tkcp.name as category_name, tkcp.toko_id as toko_id")
-					->join("tb_toko_category_product tkcp","tp.toko_category_product_id = tkcp.id")
-					->where("tp.id",$this->response->postDecode("product"))
-					->get("tb_product tp")
-					->row();
-					
-			if(empty($QProduct)){
+			/*
+			*	------------------------------------------------------------------------------
+			*	Query mengambil data produk
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$Product = $this->getProductById($this->response->postDecode("product"));
+			if($Product != null){
+				$this->response->send(array("result"=>1,"product"=>$Product), true);
+			}else{
 				$this->response->send(array("result"=>0,"message"=>"Produk tidak ditemukan ","messageCode"=>4), true);
-				return;
 			}
-			
-			/*
-			*	------------------------------------------------------------------------------
-			*	Query mengambil data produk image 
-			*	------------------------------------------------------------------------------
-			*/
-			$QProductImages = $this->db
-							->where("product_id", $QProduct->id)
-							->get("tb_product_image")
-							->result();
-							
-			$ProductImages = array();
-			foreach($QProductImages as $QProductImage){
-				$ProductImage = array(
-							"id"=>$QProductImage->id,
-							"imageUrl"=>base_url("image.php?q=100&fe=".base64_encode(base_url("assets/pic/product/".$QProductImage->file))),
-						);
-								
-				array_push($ProductImages,$ProductImage);
-			}
-			
-			/*
-			*	------------------------------------------------------------------------------
-			*	Query mengambil data produk varian 
-			*	------------------------------------------------------------------------------
-			*/
-			$ProductVarians = $this->db
-							->where("product_id", $QProduct->id)
-							->get("tb_product_varian")
-							->result();
-			
-			/*
-			*	------------------------------------------------------------------------------
-			*	Query mengambil data produk toko 
-			*	------------------------------------------------------------------------------
-			*/
-							
-			$ProductShop = $this->getShopById($QProduct->toko_id);
-		
-			/*
-			*	------------------------------------------------------------------------------
-			*	Membuat object produk
-			*	------------------------------------------------------------------------------
-			*/
-			$Product = array(
-					"id"=>$QProduct->id,
-					"name"=>$QProduct->name,
-					"description"=>$QProduct->description,
-					"sku_no"=>$QProduct->sku_no,
-					"weight"=>$QProduct->weight,
-					"unit"=>$QProduct->unit,
-					"min_order"=>$QProduct->min_order,
-					"stock_type"=>$QProduct->stock_type,
-					"stock_type_detail"=>$QProduct->stock_type_detail,
-					"active"=>$QProduct->active,
-					"price_base"=>$QProduct->price_base,
-					"price_1"=>$QProduct->price_1,
-					"price_2"=>$QProduct->price_2,
-					"price_3"=>$QProduct->price_3,
-					"price_4"=>$QProduct->price_4,
-					"price_5"=>$QProduct->price_5,
-					"images"=>$ProductImages,
-					"varians"=>$ProductVarians,
-					"shop"=>$ProductShop,
-				);
-				
-			$this->response->send(array("result"=>1,"product"=>$Product), true);
 		
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
