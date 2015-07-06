@@ -145,7 +145,7 @@ function CtrlSignin(){
 	var btnSave;
 	var formSignin,formSigninJQuery;
 	var notifEmail,notifPassword;
-	var lblNotif;
+	var lblNotif,lblMailNotif;
 	var txtForgotEmail, aForgotSubmit, notifForgotPassword;
 		
 	function init(){
@@ -161,7 +161,7 @@ function CtrlSignin(){
 		notifEmail = $("#notifEmail");
 		notifPassword = $("#notifPassword");
 		lblNotif = $("#lblNotif");
-		
+		lblMailNotif = $("#notifikasi");
 		txtForgotEmail = $hs("txtForgotEmail");
 		aForgotSubmit = $hs("aForgotSubmit");
 		notifForgotPassword = $("#notifForgotPassword");
@@ -182,7 +182,11 @@ function CtrlSignin(){
 		if ($hs_onEnter(event)){
 			doSave();
 		}
-	}
+	}	
+	
+	$(function() {
+		lblMailNotif.delay(5000).slideUp('slow');
+	})
 	
 	function doSave(){
 		var valid = true;

@@ -37,6 +37,12 @@ class Model_toko extends CI_Model {
 						 ->where('tt.verified_code',$uri_veri)
 						 ->get('tb_toko tt');
 	}
+	public function update_status($uri_mail,$uri_veri){
+		return	$this->db->select('tt.*')
+						 ->where('tt.email',$uri_mail)
+						 ->where('tt.verified_code',$uri_veri)
+						 ->get('tb_toko tt');
+	}
 }
 
 ?>
