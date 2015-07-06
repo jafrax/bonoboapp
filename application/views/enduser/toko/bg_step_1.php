@@ -65,7 +65,7 @@ echo"
 					<div class='card div-circle-logo col s6 m4 l3 nolpad'>
 						<a id='aShopLogoDelete' class='delimg'><i class='mdi-content-backspace'></i></a>
 						<div class='card-image waves-effect waves-block waves-light'>
-							<img id='imgShopLogo' src='".$ShopImage."' class='responsive-img' style='cursor:pointer; width:100%;'>
+							<img id='imgShopLogo' src='".$ShopImage."' class='responsive-img circle-logo' style='cursor:pointer; width:100%;'>
 							<input id='txtShopLogoFile' name='txtShopLogoFile' type='file' style='display:none;'>
 						</div>
 					</div>
