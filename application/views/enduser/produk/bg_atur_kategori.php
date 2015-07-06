@@ -7,11 +7,12 @@ echo"
 	</div>
 	<form class='modal-content' id='form_add_kategori'>
 		<input id='id-toko' name='nama' type='hidden' value='".$_SESSION['bonobo']['id']."' >
-		<input id='nama-kategori' name='nama' type='text' class='validate'>
-		<label for='nama-kategori'>Nama kategori <span class='text-red'>*</span></label>
+		<input id='nama_kategori' name='nama_kategori' type='text' class='validate'>
+		<label for='nama_kategori'>Nama kategori <span class='text-red'>*</span></label>
+		<label class='error error-chosen' for='nama_kategori'></label>
 	</form>
 	<div class='modal-footer'>
-		<a onclick=javascript:tambah_kategori_atur() class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
+		<a onclick=javascript:tambah_kategori_atur() class=' waves-effect waves-red btn-flat'>YA</a>
 		<a  class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
 	</div>
 </div>
