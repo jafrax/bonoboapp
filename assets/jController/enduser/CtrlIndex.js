@@ -129,9 +129,16 @@ function CtrlSignup(){
 				data: formSignupJQuery.serialize(),
 				url: base_url+'index/signup/',
 				success: function(result) {
-					lblNotif.html(response.message);
-					lblNotif.slideDown();
-					lblNotif.delay(5000).slideUp('slow');
+					var response = JSON.parse(result);
+					if(response.result == 1){
+						lblNotif.html(response.message);
+						lblNotif.slideDown();
+						lblNotif.delay(5000).slideUp('slow');
+					}else{
+						lblNotif.html(response.message);
+						lblNotif.slideDown();
+						lblNotif.delay(5000).slideUp('slow');
+					}
 				}
 			});
 		}
