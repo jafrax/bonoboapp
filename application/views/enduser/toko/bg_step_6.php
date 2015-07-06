@@ -70,7 +70,7 @@ echo"
 	
 	
 	<!-- Modal Structure -->
-	<div id='popupFormAdd' class='modal'>
+	<div id='popupFormAdd' class='modal modal-fixed-footer'>
 		<div class='modal-header red'>
 			<i class='mdi-maps-local-atm left'></i> Akun Baru
 		</div>

@@ -78,6 +78,10 @@ echo"
 							<li><a href='".base_url("index/logout")."'>Logout</a></li>
 						</ul>
 					</div>
+					<div class='notification right'>
+						<a class='message' href=''><i class='material-icons '>message</i></a>
+						<span class='notifindong'>9</span>
+					</div>
 				</div>
 			</div>
 		</div>

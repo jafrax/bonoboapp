@@ -31,6 +31,18 @@
       }
   });  
 
+  $("#form_add_kategori").validate({
+      errorClass:'error',
+      rules:{
+          nama_kategori           : {required: true,maxlength:100,remote: base_url+"produk/rules_kategori"},     
+      },
+      messages: {
+          nama_kategori: {
+                remote: message_alert('Nama kategori sudah ada'),
+              }
+      }
+  }); 
+
   if ($('.cek_produk').length > 0) {
     $('.cek_produk').prop('checked',false);
     document.getElementById("cek_all").checked = false; 
@@ -300,9 +312,10 @@ function change_active_pre(){
 
 
 function tambah_kategori(){
-  var nama  = $('#nama-kategori').val();
+  var nama  = $('#nama_kategori').val();
   var id    = $('#id-toko').val();
 
+  if ($('#form_add_kategori').valid() == true) {
   $.ajax({
         type: 'POST',
         data: 'nama='+nama+'&id='+id,
@@ -310,24 +323,31 @@ function tambah_kategori(){
         success: function(msg) {
           Materialize.toast('Kategori telah ditambahkan', 4000);
           $('#tempat-kategori').html(msg);
-           $('#select-kategori').material_select();
+          $('#select-kategori').chosen();
+          $('#add_kategori').closeModal();
         }
     });
+  };
 }
 
 function tambah_kategori_atur(){
-  var nama  = $('#nama-kategori').val();
+  var nama  = $('#nama_kategori').val();
   var id    = $('#id-toko').val();
 
-  $.ajax({
-        type: 'POST',
-        data: 'nama='+nama+'&id='+id,
-        url: base_url+'produk/add_kategori2',
-        success: function(msg) {
-          Materialize.toast('Kategori telah ditambahkan', 4000);
-          $('#tempat-kategori').html(msg);           
-        }
-    });
+  if ($('#form_add_kategori').valid() == true) {
+    $.ajax({
+          type: 'POST',
+          data: 'nama='+nama+'&id='+id,
+          url: base_url+'produk/add_kategori2',
+          success: function(msg) {
+            Materialize.toast('Kategori telah ditambahkan', 4000);
+            $('#tempat-kategori').html(msg);
+            $('#select-kategori').chosen();
+
+            $('#tambah_kategori').closeModal();        
+          }
+      });
+  };
 }
 
 function delete_kategori(id){
@@ -355,7 +375,8 @@ function edit_kategori(id){
         url: base_url+'produk/edit_kategori',
         success: function(msg) {
           Materialize.toast('Kategori telah disunting', 4000);
-          $('#tempat-kategori').html(msg);           
+          $('#tempat-kategori').html(msg);
+          $('.modal-trigger').leanModal();
         }
     });
 }

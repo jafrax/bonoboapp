@@ -7,11 +7,12 @@ echo"
 	</div>
 	<form class='modal-content' id='form_add_kategori'>
 		<input id='id-toko' name='nama' type='hidden' value='".$_SESSION['bonobo']['id']."' >
-		<input id='nama-kategori' name='nama' type='text' class='validate'>
-		<label for='nama-kategori'>Nama kategori <span class='text-red'>*</span></label>
+		<input id='nama_kategori' name='nama_kategori' type='text' class='validate'>
+		<label for='nama_kategori'>Nama kategori <span class='text-red'>*</span></label>
+		<label class='error error-chosen' for='nama_kategori'></label>
 	</form>
 	<div class='modal-footer'>
-		<a onclick=javascript:tambah_kategori_atur() class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
+		<a onclick=javascript:tambah_kategori_atur() class=' waves-effect waves-red btn-flat'>YA</a>
 		<a  class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
 	</div>
 </div>
@@ -45,11 +46,11 @@ echo"
 								$count = $this->model_produk->count_product_by_category($row->id);
 								echo"									
 								<li class='col s12 listanggonew' id='kategori-".$row->id."'>
-									<div class='col s12 m8'><p><b>".$row->name."</b> <i> $count Produk</i></p>
+									<div class='col s12 m7'><p><b>".$row->name."</b> <i> $count Produk</i></p>
 									</div>
-									<div class='col s12 m4'>
-										<a href='#delete_kategori_".$row->id."' class='modal-trigger waves-effect btn-flat right'><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>
-										<a href='#edit_kategori_".$row->id."' class='modal-trigger waves-effect btn-flat right'><b class='blue-text'><i class='mdi-editor-border-color left'></i>Edit</b></a>
+									<div class='col s12 m5'>
+										<a href='#delete_kategori_".$row->id."' class='modal-trigger btn-flat right'><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>
+										<a href='#edit_kategori_".$row->id."' class='modal-trigger btn-flat right'><b class='blue-text'><i class='mdi-editor-border-color left'></i>Edit</b></a>
 										<div id='delete_kategori_".$row->id."' class='modal confirmation'>
 											<div class='modal-header red'>
 												<i class='mdi-navigation-close left'></i> Hapus produk

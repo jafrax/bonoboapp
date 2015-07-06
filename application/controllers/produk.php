@@ -205,7 +205,7 @@ class Produk extends CI_Controller {
 					$pic 	= $this->model_produk->get_one_image($id);
 					foreach($pic->result() as $item){
 						if(isset($_FILES['pic_edit_'.$item->id]['name'])){
-							$picture = $this->template->upload_picture($url,'pic_edit_'.$item->id,$item->image);
+							$picture = $this->template->upload_picture($url,'pic_edit_'.$item->id,$item->file);
 							if($picture != 'error'){
 								$this->db->set('file',$picture)
 									->set('update_user',$_SESSION['bonobo']['email'])
@@ -214,8 +214,8 @@ class Produk extends CI_Controller {
 						}else{
 							$delete = $this->db->where('id',$item->id)->delete('tb_product_image');
 							if($delete){
-								@unlink($url.$item->image);
-								@unlink($url."resize/".$item->image);
+								@unlink($url.$item->file);
+								@unlink($url."resize/".$item->file);
 							}
 						}
 					}
@@ -322,7 +322,9 @@ class Produk extends CI_Controller {
 		if ($insert) {
 			$kategori = $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
 
-			echo "<select name='kategori' id='select-kategori'>
+			echo "<label>Kategori barang <span class='text-red'>*</span></label>
+					<label class='error error-chosen' for='select-kategori'></label>
+					<select name='kategori' id='select-kategori' class='chosen-select' required>
 					<option value='' disabled selected>Choose your option</option>";
 			
 			foreach ($kategori->result() as $row_ktgri) {
@@ -330,8 +332,19 @@ class Produk extends CI_Controller {
 			}
 
 			echo "</select>
-			<label>Kategori barang</label>";
+			";
 		}
+	}
+
+	public function rules_kategori(){
+		$username = $_REQUEST['nama_kategori'];
+	    $cek=$this->db->where('name',$username)->where('toko_id',$_SESSION['bonobo']['id'])->get('tb_toko_category_product');
+	    if($cek->num_rows()>0){
+			$valid = "false";
+	    }else{
+			$valid = "true";
+	    }
+	    echo $valid;
 	}
 
 	private function rules(){		
@@ -599,7 +612,7 @@ class Produk extends CI_Controller {
 					$pic 	= $this->model_produk->get_one_image($id);
 					foreach($pic->result() as $item){
 						if(isset($_FILES['pic_edit_'.$item->id]['name'])){
-							$picture = $this->template->upload_picture($url,'pic_edit_'.$item->id,$item->image);
+							$picture = $this->template->upload_picture($url,'pic_edit_'.$item->id,$item->file);
 							if($picture != 'error'){
 								$this->db->set('file',$picture)
 									->set('update_user',$_SESSION['bonobo']['email'])
@@ -608,8 +621,8 @@ class Produk extends CI_Controller {
 						}else{
 							$delete = $this->db->where('id',$item->id)->delete('tb_product_image');
 							if($delete){
-								@unlink($url.$item->image);
-								@unlink($url."resize/".$item->image);
+								@unlink($url.$item->file);
+								@unlink($url."resize/".$item->file);
 							}
 						}
 					}
@@ -726,11 +739,11 @@ class Produk extends CI_Controller {
 				$count = $this->model_produk->count_product_by_category($row->id);
 				echo"									
 				<li class='col s12 listanggonew' id='kategori-".$row->id."'>
-					<div class='col s12 m8'><p><b>".$row->name."</b> <i> $count Produk</i></p>
+					<div class='col s12 m7'><p><b>".$row->name."</b> <i> $count Produk</i></p>
 					</div>
-					<div class='col s12 m4'>
-						<a href='#delete_kategori_".$row->id."' class='modal-trigger waves-effect btn-flat right'><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>
-						<a href='#edit_kategori_".$row->id."' class='modal-trigger waves-effect btn-flat right'><b class='blue-text'><i class='mdi-editor-border-color left'></i>Edit</b></a>
+					<div class='col s12 m5'>
+						<a href='#delete_kategori_".$row->id."' class='modal-trigger btn-flat right'><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>
+						<a href='#edit_kategori_".$row->id."' class='modal-trigger btn-flat right'><b class='blue-text'><i class='mdi-editor-border-color left'></i>Edit</b></a>
 						<div id='delete_kategori_".$row->id."' class='modal confirmation'>
 							<div class='modal-header red'>
 								<i class='mdi-navigation-close left'></i> Hapus produk

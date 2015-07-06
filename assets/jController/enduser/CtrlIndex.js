@@ -129,9 +129,16 @@ function CtrlSignup(){
 				data: formSignupJQuery.serialize(),
 				url: base_url+'index/signup/',
 				success: function(result) {
-					lblNotif.html(response.message);
-					lblNotif.slideDown();
-					lblNotif.delay(5000).slideUp('slow');
+					var response = JSON.parse(result);
+					if(response.result == 1){
+						lblNotif.html(response.message);
+						lblNotif.slideDown();
+						lblNotif.delay(5000).slideUp('slow');
+					}else{
+						lblNotif.html(response.message);
+						lblNotif.slideDown();
+						lblNotif.delay(5000).slideUp('slow');
+					}
 				}
 			});
 		}
@@ -145,7 +152,7 @@ function CtrlSignin(){
 	var btnSave;
 	var formSignin,formSigninJQuery;
 	var notifEmail,notifPassword;
-	var lblNotif;
+	var lblNotif,lblMailNotif;
 	var txtForgotEmail, aForgotSubmit, notifForgotPassword;
 		
 	function init(){
@@ -161,7 +168,7 @@ function CtrlSignin(){
 		notifEmail = $("#notifEmail");
 		notifPassword = $("#notifPassword");
 		lblNotif = $("#lblNotif");
-		
+		lblMailNotif = $("#notifikasi");
 		txtForgotEmail = $hs("txtForgotEmail");
 		aForgotSubmit = $hs("aForgotSubmit");
 		notifForgotPassword = $("#notifForgotPassword");
@@ -182,7 +189,11 @@ function CtrlSignin(){
 		if ($hs_onEnter(event)){
 			doSave();
 		}
-	}
+	}	
+	
+	$(function() {
+		lblMailNotif.delay(5000).slideUp('slow');
+	})
 	
 	function doSave(){
 		var valid = true;
@@ -226,9 +237,12 @@ function CtrlSignin(){
 			return;
 		}
 		
+		var challenge = $('#recaptcha_challenge_field').val();
+		var response = $('#recaptcha_response_field').val();
+		
 		$.ajax({
 			type: 'POST',
-			data: "email="+txtForgotEmail.value,
+			data: "email="+txtForgotEmail.value+"&recaptcha_challenge_field="+challenge+"&recaptcha_response_field="+response,
 			url: base_url+'index/doForgotPassword',
 			success: function(result) {
 				var response = JSON.parse(result);

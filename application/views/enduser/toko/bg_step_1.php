@@ -21,7 +21,7 @@ echo"
 			<div class='row formbody '>
 				<div class='linehead'>Informasi Umum</div>
 				<div class='input-field col s12 m8'>
-					<input id='txtName' name='txtName' type='text' class='validate' value='".$Shop->name."'>
+					<input id='txtName' name='txtName' type='text' class='validate' value='".$Shop->name."' autofocus>
 					<label for='txtName'>Nama toko *</label>
 					<label id='notifName' class='error' style='display:none;'></label>
 				</div>
@@ -34,7 +34,7 @@ echo"
 					<label>Pilih kategori *</label>
 					<label id='notifCategory' class='error error-chosen' style='display:none;'></label>
 					<div class='input-field'>
-						<select name='cmbCategory'>
+						<select name='cmbCategory' class='chosen-select' class='chosen-select'>
 ";
 
 	if(!empty($Shop->category_name)){
@@ -65,7 +65,7 @@ echo"
 					<div class='card div-circle-logo col s6 m4 l3 nolpad'>
 						<a id='aShopLogoDelete' class='delimg'><i class='mdi-content-backspace'></i></a>
 						<div class='card-image waves-effect waves-block waves-light'>
-							<img id='imgShopLogo' src='".$ShopImage."' class='responsive-img' style='cursor:pointer; width:100%;'>
+							<img id='imgShopLogo' src='".$ShopImage."' class='responsive-img circle-logo' style='cursor:pointer; width:100%;'>
 							<input id='txtShopLogoFile' name='txtShopLogoFile' type='file' style='display:none;'>
 						</div>
 					</div>
@@ -136,7 +136,7 @@ echo"
 							
 						</div>
 						<div class='col s10 m6'>
-							<a href='javascript:void(0);' id='aAttributeAdd'>Tambah kontak</a>
+							<a href='javascript:void(0);' id='aAttributeAdd'>[+] Tambah kontak</a>
 						</div>
 					</div>
 				</div>
@@ -148,7 +148,7 @@ echo"
 					<label>Provinsi</label>
 					<label id='notifProvince' class='error error-chosen' style='display:none;'></label>
 					<div id='divProvince' class='input-field'>
-						<select name='cmbProvince' onChange=ctrlShopStep1.loadComboboxCity();>
+						<select name='cmbProvince' class='chosen-select' onChange=ctrlShopStep1.loadComboboxCity();>
 ";
 
 	if(!empty($Shop->location_province)){
@@ -169,7 +169,7 @@ echo"
 					<label>Kota</label>
 					<label id='notifCity' class='error error-chosen' style='display:none;'></label>
 					<div id='divCity' class='input-field'>
-						<select name='cmbCity' onChange=ctrlShopStep1.loadComboboxKecamatan();>
+						<select name='cmbCity' class='chosen-select' onChange=ctrlShopStep1.loadComboboxKecamatan();>
 ";
 
 	if(!empty($Shop->location_city)){
@@ -190,7 +190,7 @@ echo"
 					<label>Kecamatan</label>
 					<label id='notifKecamatan' class='error error-chosen' style='display:none;'></label>
 					<div id='divKecamatan' class='input-field'>
-						<select name='cmbKecamatan'>
+						<select name='cmbKecamatan' class='chosen-select'>
 ";
 
 	if(!empty($Shop->location_kecamatan)){

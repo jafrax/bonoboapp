@@ -110,8 +110,11 @@ echo"
 											</div>
 											<div class='col s12 m7' id='lokasi-btn-".$row->id."'>";
 											if ($row->status != 2) {
-											echo"						            		
-												<button id='btn-bayar-".$row->id."' data-target='bayar-".$row->id."' class='btn modal-trigger waves-effect orange darken-1 white-text waves-light right' type='button' name='action'>Bayar</button>
+												if ($row->status != 1) {
+													echo"						            		
+												<button id='btn-bayar-".$row->id."' data-target='bayar-".$row->id."' class='btn modal-trigger waves-effect orange darken-1 white-text waves-light right' type='button' name='action'>Bayar</button>";
+												}
+											echo"												
 												<button id='btn-batal-".$row->id."' data-target='batal_nota_".$row->id."' class='btn modal-trigger waves-effect red white-text waves-light right' type='button' name='action' >Batal</button>
 								            </div>
 								            <div id='batal_nota_".$row->id."' class='modal confirmation'>
@@ -141,7 +144,7 @@ echo"
 																$show_rek = 'none';
 															}
 															if ($toko->pm_transfer == 1) {
-																echo "<option value='2'>Transfer via bank</option>";
+																echo "<option value='2' "; if ($row->member_confirm == 1) {echo 'selected';} echo ">Transfer via bank</option>";
 																$show_rek = 'block';
 															}
 														echo"
@@ -156,9 +159,15 @@ echo"
 
 															<label for='metode'>Pilih Rekening Tujuan</label>
 															<select id='rek-".$row->id."' class='select-standar'>
-																<option value='' disabled selected>Pilih Rekening Tujuan</option>";
+																<option value='' disabled >Pilih Rekening Tujuan</option>";
+																if ($row->member_confirm == 1) {
+																	$rekening_tujuan = $this->model_nota->get_rek_tujuan($row->id);
+																	$selected = $rekening_tujuan->row()->toko_bank_id;
+																}
 																foreach ($rekening->result() as $row_rk) {
-																	echo "<option value='".$row_rk->id."'>".$row_rk->name."</option>";
+																	$select = '';
+																	if ($row_rk->id == $selected) {$select = 'selected';}
+																	echo "<option $select value='".$row_rk->id."'>".$row_rk->name."</option>";
 																}
 																echo"
 															</select>
@@ -199,21 +208,22 @@ echo"
 							            
 							            <ul class='collapsible ' data-collapsible='accordion'>";
 							            if ($row->member_confirm == 1) {
+							            	$rekening = $rekening_tujuan->row();
 							            echo"
 								            <li class=''>
 								                <div class='collapsible-header truncate'><p class='red-text'><i class='mdi-content-flag'></i> Pembeli telah melakukan konfirmasi. <span class='blue-text'>Klik disini</span> untuk detail</p></div>
 								                <div class='collapsible-body' style='display: none;'>
 								                	<div class='col s12 m6'>									       		
 								                		<p><b>Bank Asal :</b><br>
-								                			Bank Plecit Indonesia<br>
-								                			303058123123<br>
-								                			a.n Dinar Wahyu Wibowo</p>
+								                			".$rekening->from_bank."<br>
+								                			".$rekening->from_acc_no."<br>
+								                			".$rekening->from_acc_name."</p>
 								                	</div>
 								                	<div class='col s12 m6'>
 								                		<p><b>Bank Tujuan :</b><br>
-								                			Bank Roma Indonesia<br>
-								                			303058123123<br>
-								                			a.n Dinar Wahyu Wibowo</p>
+								                			".$rekening->to_bank."<br>
+								                			".$rekening->to_acc_no."<br>
+								                			".$rekening->to_acc_name."</p>
 								                	</div>
 								                </div>
 								            </li>";
@@ -234,73 +244,129 @@ echo"
 								                <div class='collapsible-header'><i class='mdi-action-description'></i>Shipment Detail
 								                	<a class='right col s2 m1 center modal-trigger' href='#pengiriman'>Edit</a>
 								                </div>
-								                <div class='collapsible-body' style='display: none;'>
-								                	<p>
-									                	<b>Pengiriman : </b> JNE<br>
-									                	<b>Resi : </b> 12345679987654321
+								                <div class='collapsible-body' style='display: none;' id='isi-kurir'>
+								                	<p>";
+								                	if ($row->shipment_no == '') {
+								                		echo "Pilih tombol edit untuk memasukan data pengiriman";
+								                	}else{
+								                		echo "
+								                		<b>Pengiriman : </b> ".$row->shipment_service."<br>
+									                	<b>Resi : </b> ".$row->shipment_no."<br>
+									                	<b>Biaya Pengiriman : </b> ".$row->price_shipment."<br>
+									                	<b>Nama Penerima : </b> ".$row->recipient_name."<br>
+									                	<b>No. Telp. Penerima : </b> ".$row->recipient_phone."<br>
+									                	<b>Provinsi Penerima : </b> ".$row->location_to_province."<br>
+									                	<b>Kabupaten/Kota Penerima : </b> ".$row->location_to_city."<br>
+									                	<b>Kecamatan Penerima : </b> ".$row->location_to_kecamatan."<br>
+									                	<b>Kode Pos Penerima : </b> ".$row->location_to_postal."<br>
+									                	";
+								                	}
+									                
+									                echo"
 									                </p>
 								                </div>
 								                <div id='pengiriman' class='modal modal-fixed-footer'>
 													<div class='modal-content'>
-														<form class='col s12 m6'>
+														<form id='form-pengiriman'>
+															<input type='hidden' value='".$row->id."' name='id_nota' />
 															<div class='input-field col s12 m6'>
 																<label>Jenis Pengiriman</label>
-																<select class='chosen-select'>
-																	<option value='' disabled selected>Pilih Jenis Pengiriman</option>
-																	<option value='1'>Option 1</option>
-																	<option value='2'>Option 2</option>
-																	<option value='3'>Option 3</option>
+																<select class='chosen-select' nama='kurir'>
+																	<option value='' disabled selected>Pilih Jenis Pengiriman</option>";
+																	$toko_kurir = $this->model_nota->get_toko_kurir($row->toko_id);
+																	foreach ($toko_kurir->result() as $kurir_t) {
+																		$select = '';
+																		if ($kurir_t->name == $row->shipment_service) {$select = 'selected';}
+																		echo "<option $select value='".$kurir_t->name."'>".$kurir_t->name."</option>";
+																	}
+																	$kustom_kurir = $this->model_nota->get_kustom_kurir($row->toko_id);
+																	foreach ($kustom_kurir->result() as $kurir_k) {
+																		$select = '';
+																		if ($kurir_k->name == $row->shipment_service) {$select = 'selected';}
+																		echo "<option $select value='".$kurir_k->name."'>".$kurir_k->name."</option>";
+																	}	
+																	echo"								
 																</select>
 															</div>
 															<div class='input-field col s12 m8'>
-																<input id='nama' type='text' class='validate'>
-																<label for='nama'>Nomor Resi</label>
+																<input id='biaya' name='biaya' type='text' class='validate' value='".$row->price_shipment."'>
+																<label for='biaya'>Biaya Pengiriman</label>
 															</div>
 															<div class='input-field col s12 m8'>
-																<input id='tokoid' type='text' class='validate'>
-																<label for='tokoid'>Nama Penerima</label>
+																<input id='nomor-resi' name='nomor-resi' type='text' class='validate' value='".$row->shipment_no."'>
+																<label for='nomor-resi'>Nomor Resi</label>
+															</div>	
+															<div class='input-field col s12 m8'>
+																<input id='namane' name='namane' type='text' class='validate' value='".$row->recipient_name."'>
+																<label for='namane'>Nama Penerima</label>
+															</div>															
+															<div class='input-field col s12 m8'>
+																<input id='phone' name='phone' type='text' class='validate' value='".$row->recipient_phone."'>
+																<label for='phone'>Nomor Penerima</label>
 															</div>
 															<div class='input-field col s12 m8'>
-																<input id='tokoid' type='text' class='validate'>
-																<label for='tokoid'>Kode Pos</label>
+																<input id='postal-code' name='postal-code' type='text' onkeyup=javascript:set_location() class='validate' value='".$row->location_to_postal."'>
+																<label for='postal-code'>Kode Pos</label>
 															</div>
-															<div class='input-field col s12 m6'>
+															<div class='input-field col s12 m6' id='panggon-province'>
 																<label>Pilih Provinsi</label>
-																<select class='chosen-select'>
-																	<option value='' disabled selected>Pilih Provinsi</option>
-																	<option value='1'>Option 1</option>
-																	<option value='2'>Option 2</option>
-																	<option value='3'>Option 3</option>
+																<select class='chosen-select' name='province' id='province' onchange=javascript:set_city()>
+																	<option value='' disabled selected>Pilih Provinsi</option>";
+																	$provinsi = $this->model_nota->get_province();
+																	foreach ($provinsi->result() as $row_p) {
+																		$select = '';
+																		if ($row_p->province == $row->location_to_province) {$select = 'selected';}
+																		echo "<option $select value='".$row_p->province."'>".$row_p->province."</option>";
+																	}	
+																	echo"
 																</select>
 															</div>
-															<div class='input-field col s12 m6'>
+															<div class='input-field col s12 m6' id='panggon-city'>
 																<label>Pilih Kota</label>
-																<select class='chosen-select'>
-																	<option value='' disabled selected>Pilih Kota</option>
-																	<option value='1'>Option 1</option>
-																	<option value='2'>Option 2</option>
-																	<option value='3'>Option 3</option>
+																<select class='chosen-select' name='city' id='city' onchange=javascript:set_kecamatan()>
+																	<option value='' disabled selected>Pilih Kota</option>";
+																	if ($row->location_to_city != '') {
+																		$kota = $this->model_nota->get_city($row->location_to_province);
+																		foreach ($kota->result() as $row_k) {
+																			$select = '';
+																			if ($row_k->city == $row->location_to_city) {$select = 'selected';}
+																			echo "<option $select value='".$row_k->city."'>".$row_k->city."</option>";
+																		}	
+																	}else{
+																		$kota = $this->model_nota->get_city($row->location_to_province);
+																		foreach ($kota->result() as $row_k) {
+																			echo "<option value='".$row_k->city."'>".$row_k->city."</option>";
+																		}	
+																	}
+																	
+																	echo"
 																</select>
 															</div>
-															<div class='input-field col s12 m6'>
+															<div class='input-field col s12 m6' id='panggon-kecamatan'>
 																<label>Pilih Kecamatan</label>
-																<select class='chosen-select'>
-																	<option value='' disabled selected>Pilih Kecamatan</option>
-																	<option value='1'>Option 1</option>
-																	<option value='2'>Option 2</option>
-																	<option value='3'>Option 3</option>
+																<select class='chosen-select' name='kecamatan' id='kecamatan'>
+																	<option value='' disabled selected>Pilih Kecamatan</option>";
+																	if ($row->location_to_kecamatan != '') {
+																		$kecamatan = $this->model_nota->get_kecamatan($row->location_to_city);
+																		foreach ($kecamatan->result() as $row_c) {
+																			$select = '';
+																			if ($row_c->kecamatan == $row->location_to_kecamatan) {$select = 'selected';}
+																			echo "<option $select value='".$row_c->kecamatan."'>".$row_c->kecamatan."</option>";
+																		}	
+																	}else{
+																		$kecamatan = $this->model_nota->get_kecamatan($row->location_to_city);
+																		foreach ($kecamatan->result() as $row_c) {
+																			echo "<option value='".$row_c->kecamatan."'>".$row_c->kecamatan."</option>";
+																		}	
+																	}																	
+																	echo"
 																</select>
-															</div>
-															<div class='input-field col s12 m8'>
-																<textarea id='alamat' class='materialize-textarea' ></textarea>
-																<label for='alamat'>Alamat Penerima</label>
-															</div>
-															<br><br><br><br>
+															</div>															
 														</form>
 													</div>
 													<div class='modal-footer'>
-														<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>Konfirmasi</a>
-														<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>Batal</a>		
+														<a onclick=javascript:confirm_courier() class='modal-action modal-close waves-effect waves-red btn-flat'>Konfirmasi</a>
+														<a class='modal-action modal-close waves-effect waves-red btn-flat'>Batal</a>		
 													</div>
 												</div>
 								            </li>

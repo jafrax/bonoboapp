@@ -141,3 +141,51 @@ function konfirmasi(id){
         } 
     });
 }
+
+
+function set_location(){
+    var postal = $('#postal-code').val();
+    if (postal.length == 5) {        
+        $.ajax({
+            type: 'POST',
+            async: true,
+            data: 'postal='+postal,
+            url: base_url+'nota/set_location',
+            success: function(msg) {
+                if (msg == 0) {             
+                    Materialize.toast('Kode pos salah', 4000);
+                }else{
+                    $('#panggon-province').html(msg);
+                    $('#province').chosen();
+                    $.ajax({type: 'POST',data: 'postal='+postal,url: base_url+'nota/set_city', success: function(city) {$('#panggon-city').html(city);$('#city').chosen();}});
+                    $.ajax({type: 'POST',data: 'postal='+postal,url: base_url+'nota/set_kecamatan', success: function(kecamatan) {$('#panggon-kecamatan').html(kecamatan);$('#kecamatan').chosen();}});
+                }
+            } 
+        });
+    }
+}
+
+function set_city(){
+    var province = $('#province').val();
+    $.ajax({type: 'POST',data: 'province='+province,url: base_url+'nota/set_city_prov', success: function(city) {$('#panggon-city').html(city);$('#city').chosen();}});
+}
+
+function set_kecamatan(){
+    var city = $('#city').val();
+    $.ajax({type: 'POST',data: 'city='+city,url: base_url+'nota/set_kecamatan_city', success: function(kecamatan) {$('#panggon-kecamatan').html(kecamatan);$('#kecamatan').chosen();}});
+}
+
+function confirm_courier(){
+    var pengiriman = $('#form-pengiriman');
+
+    $.ajax({
+        type: 'POST',
+        data: pengiriman.serialize(),
+        url: base_url+'nota/pengiriman',
+        success: function(msg) {
+            if (msg == 1) {
+                Materialize.toast('Pengiriman telah di konfirmasi', 4000);
+            };              
+        } 
+    });
+}

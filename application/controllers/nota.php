@@ -102,5 +102,115 @@ class Nota extends CI_Controller {
 			echo "1";
 		}
 	}
+
+	public function set_location(){
+		$postal = $this->input->post('postal');
+
+		$location = $this->model_nota->get_location($postal);
+
+		if ($location->num_rows() > 0 ) {			
+			$province = $this->model_nota->get_province();
+			echo "<label>Pilih Provinsi</label>
+					<select class='chosen-select' name='province' id='province' onchange=javascript:set_city()>";
+			foreach ($province->result() as $row_p) {
+				$select = '';
+				if ($row_p->province == $location->row()->province) {$select = 'selected';}
+				echo "<option $select value='".$row_p->province."'>".$row_p->province."</option>";
+			}
+			echo "</select>";
+		}else{
+			echo "0";
+		}
+	}
+
+	public function set_city(){
+		$postal = $this->input->post('postal');
+
+		$location = $this->model_nota->get_location($postal);
+
+		if ($location->num_rows() > 0 ) {			
+			$city = $this->model_nota->get_city($location->row()->province);
+			echo "<label>Pilih Kota</label>
+					<select class='chosen-select' name='city' id='city' onchange=javascript:set_kecamatan()>";
+			foreach ($city->result() as $row_p) {
+				$select = '';
+				if ($row_p->city == $location->row()->city) {$select = 'selected';}
+				echo "<option $select value='".$row_p->city."'>".$row_p->city."</option>";
+			}
+			echo "</select>";
+		}
+	}
+
+	public function set_city_prov(){
+		$province = $this->input->post('province');
+
+		$city = $this->model_nota->get_city($province);
+		echo "<label>Pilih Kota</label>
+				<select class='chosen-select' name='city' id='city' onchange=javascript:set_kecamatan()>";
+		foreach ($city->result() as $row_p) {
+			echo "<option value='".$row_p->city."'>".$row_p->city."</option>";
+		}
+		echo "</select>";		
+	}
+
+	public function set_kecamatan(){
+		$postal = $this->input->post('postal');
+
+		$location = $this->model_nota->get_location($postal);
+
+		if ($location->num_rows() > 0 ) {			
+			$kecamatan = $this->model_nota->get_kecamatan($location->row()->city);
+			echo "<label>Pilih Kecamatan</label>
+					<select class='chosen-select' name='kecamatan' id='kecamatan'>";
+			foreach ($kecamatan->result() as $row_p) {
+				$select = '';
+				if ($row_p->kecamatan == $location->row()->kecamatan) {$select = 'selected';}
+				echo "<option $select value='".$row_p->kecamatan."'>".$row_p->kecamatan."</option>";
+			}
+			echo "</select>";
+		}
+	}
+
+	public function set_kecamatan_city(){
+		$city = $this->input->post('city');
+		
+		$kecamatan = $this->model_nota->get_kecamatan($city);
+		echo "<label>Pilih Kecamatan</label>
+				<select class='chosen-select' name='kecamatan' id='kecamatan'>";
+		foreach ($kecamatan->result() as $row_p) {
+			echo "<option value='".$row_p->kecamatan."'>".$row_p->kecamatan."</option>";
+		}
+		echo "</select>";
+	}
+
+	public function pengiriman(){
+		$id 		= $this->template->clearInput($this->input->post('id_nota'));
+		$kurir 		= $this->template->clearInput($this->input->post('kurir'));
+		$biaya 		= $this->template->clearInput($this->input->post('biaya'));
+		$resi 		= $this->template->clearInput($this->input->post('nomor-resi'));
+		$nama 		= $this->template->clearInput($this->input->post('namane'));
+		$phone 		= $this->template->clearInput($this->input->post('phone'));
+		$postal		= $this->template->clearInput($this->input->post('postal-code'));
+		$province	= $this->template->clearInput($this->input->post('province'));
+		$city 		= $this->template->clearInput($this->input->post('city'));
+		$kecamatan	= $this->template->clearInput($this->input->post('kecamatan'));
+
+		$data	= array(
+			'shipment_no'		=> $resi,
+			'shipment_service'	=> $kurir,
+			'price_shipment'	=> $biaya,
+			'recipient_name'	=> $nama,
+			'recipient_phone'	=> $phone,
+			'location_to_province'	=> $province,
+			'location_to_city'	=> $city,
+			'location_to_kecamatan'	=> $kecamatan,
+			'location_to_postal'	=> $postal,			
+			);
+
+		$update = $this->db->where('id',$id)->update('tb_invoice',$data);
+		if ($update) {
+			echo "1";
+		}
+	}
 }
 

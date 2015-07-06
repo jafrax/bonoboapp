@@ -5822,7 +5822,7 @@ a.waves-effect .waves-ripple {
   max-height: 70%;
   width: 55%;
   margin: auto;
-  overflow-y: auto;
+  overflow-y: none;
   z-index: 1000;
   border-radius: 2px;
   -webkit-transform: translate(0);

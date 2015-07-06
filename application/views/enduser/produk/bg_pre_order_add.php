@@ -30,13 +30,14 @@ echo "
 	<div class='modal-header red'>
 		<i class='mdi-content-add-box left'></i> Tambah kategori
 	</div>	
-	<form class='modal-content' id='form_add_kategori'>
+	<form role='form' class='modal-content' id='form_add_kategori'>
 		<input id='id-toko' name='nama' type='hidden' value='".$_SESSION['bonobo']['id']."' >
-		<input id='nama-kategori' name='nama' type='text' class='validate'>
-		<label for='nama-kategori'>Nama kategori <span class='text-red'>*</span></label>	
+		<input id='nama_kategori' name='nama_kategori' type='text' class='validate' required>
+		<label for='nama_kategori'>Nama kategori <span class='text-red'>*</span></label>	
+		<label class='error error-chosen' for='nama_kategori'></label>
 	<div class='modal-footer'>
 		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>TUTUP</a>
-		<button type='button' id='tambah-kategori' class='modal-action modal-close waves-effect waves-red btn-flat'>TAMBAH</a>
+		<button type='button' id='tambah-kategori' onclick=javascript:tambah_kategori() class='waves-effect waves-red btn-flat'>TAMBAH</a>
 	</div>
 	</form>
 </div>
