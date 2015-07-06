@@ -58,7 +58,7 @@ echo"
 					<div class='row'>
 						<div id='lblNotif' class='notif-error'></div>
 						<div class='input-field col s12'>
-							<input id='name' name='name' type='text' class='validate'>
+							<input id='name' name='name' type='text' class='validate' autofocus placeholder='ex : Nama Toko'>
 							<label for='name'>Nama Toko</label>
 							<label id='notifName' class='error' style='display:none;'><i class='fa fa-warning'></i> Harus diisi !</label>
 						</div>

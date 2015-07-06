@@ -13,7 +13,7 @@ echo"
 				</div>
 				<div class='input-field col s12 m8'>
 					<h6>Level 1</h6>
-					<input name='txtLevel1' type='text' class='validate' value='".$Shop->level_1_name."'>
+					<input name='txtLevel1' type='text' class='validate' value='".$Shop->level_1_name."' autofocus>
 				</div>
 				<div class='input-field col s12 m4'>
 					<div class='col s12 m12 right-align'>

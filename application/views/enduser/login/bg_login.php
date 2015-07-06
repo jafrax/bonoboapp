@@ -60,7 +60,7 @@ echo "
 					".$pesan."
 						<div id='lblNotif' class='notif-error'></div>
 						<div class='input-field col s12'>
-							<input id='email' name='email' type='text' class='validate'>
+							<input id='email' name='email' type='text' class='validate' autofocus='' placeholder='ex : email@mail.com'>
 							<label for='email'>Email</label>
 							<label id='notifEmail' class='error' style='display:none;'><i class='fa fa-warning'></i> Harus diisi !</label>
 						</div>
@@ -97,8 +97,14 @@ echo "
 			<div class='input-field col s12'>
 				<input id='txtForgotEmail' type='text' class='validate'>
 				<label for='txtForgotEmail'>Reset Password</label>
+				
 			</div>
-			<label id='notifForgotPassword' style='display:none;'></label>
+			<label id='notifForgotPassword'  style='display:none;'></label>
+			<div class='input-field col s12'>
+				
+				".$captcha."
+			</div>
+			
 		</form>
 		<div class='modal-footer'>
 			<a href='javascript:void(0);' id='aForgotSubmit' class=' modal-action waves-effect waves-tiles btn'>RESET PASSWORD</a>

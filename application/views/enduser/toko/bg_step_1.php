@@ -21,7 +21,7 @@ echo"
 			<div class='row formbody '>
 				<div class='linehead'>Informasi Umum</div>
 				<div class='input-field col s12 m8'>
-					<input id='txtName' name='txtName' type='text' class='validate' value='".$Shop->name."'>
+					<input id='txtName' name='txtName' type='text' class='validate' value='".$Shop->name."' autofocus>
 					<label for='txtName'>Nama toko *</label>
 					<label id='notifName' class='error' style='display:none;'></label>
 				</div>

@@ -230,9 +230,12 @@ function CtrlSignin(){
 			return;
 		}
 		
+		var challenge = $('#recaptcha_challenge_field').val();
+		var response = $('#recaptcha_response_field').val();
+		
 		$.ajax({
 			type: 'POST',
-			data: "email="+txtForgotEmail.value,
+			data: "email="+txtForgotEmail.value+"&recaptcha_challenge_field="+challenge+"&recaptcha_response_field="+response,
 			url: base_url+'index/doForgotPassword',
 			success: function(result) {
 				var response = JSON.parse(result);
