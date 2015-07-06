@@ -72,7 +72,7 @@ header,section,content,footer{ width:100%; }
 .menuutama:hover > .subnemuutama li a{ color:#cacccd; }
 
 /*CONTENT*/
-.absolute{ position: absolute; z-index:1; width:100%; height:100%; }
+.absolute{ position: relative; z-index:1; width:100%; height:100%; padding:0 0 40px 0; }
 .col-signin{ margin:10% auto 0 auto;}
 .col-signup{ margin:0 auto 0 auto;}
 .titlin{ text-align:center; color:#fff; margin:8px 0; }
