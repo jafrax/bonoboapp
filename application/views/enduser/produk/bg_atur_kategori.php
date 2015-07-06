@@ -46,11 +46,11 @@ echo"
 								$count = $this->model_produk->count_product_by_category($row->id);
 								echo"									
 								<li class='col s12 listanggonew' id='kategori-".$row->id."'>
-									<div class='col s12 m8'><p><b>".$row->name."</b> <i> $count Produk</i></p>
+									<div class='col s12 m7'><p><b>".$row->name."</b> <i> $count Produk</i></p>
 									</div>
-									<div class='col s12 m4'>
-										<a href='#delete_kategori_".$row->id."' class='modal-trigger waves-effect btn-flat right'><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>
-										<a href='#edit_kategori_".$row->id."' class='modal-trigger waves-effect btn-flat right'><b class='blue-text'><i class='mdi-editor-border-color left'></i>Edit</b></a>
+									<div class='col s12 m5'>
+										<a href='#delete_kategori_".$row->id."' class='modal-trigger btn-flat right'><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>
+										<a href='#edit_kategori_".$row->id."' class='modal-trigger btn-flat right'><b class='blue-text'><i class='mdi-editor-border-color left'></i>Edit</b></a>
 										<div id='delete_kategori_".$row->id."' class='modal confirmation'>
 											<div class='modal-header red'>
 												<i class='mdi-navigation-close left'></i> Hapus produk

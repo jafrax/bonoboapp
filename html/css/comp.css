@@ -128,7 +128,7 @@ label{ font-size: 14px; color: #565a5c; }
  
 
 /*ALL ABOUT BG*/
-.bgpic{ background-position:center; background-repeat:no-repeat; background-size:cover; }
+.bgpic{ background-position:center; background-repeat:no-repeat; background-size:cover; background-color: #313131; }
 /*.bgpic:after { position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 0; }
 .bgpic:after { content: ''; background: transparent url(../images/comp/pattern.png) repeat top left; }*/
 .bgop{ width: 100%; height: 100%; background-color:rgba(0, 0, 0, 0.3); }
@@ -138,7 +138,7 @@ label{ font-size: 14px; color: #565a5c; }
 .userdum{ width:40px; height:40px; border-radius:100%; border:1px solid #efefef; }
 .userimg{ border:1px solid #efefef;}
 .div-circle-logo{ margin-top: 10px!important; }
-.circle-logo{border-radius: 50%;width: 100px;height: 100px;text-align: center;border: 1px solid #eee;}
+.circle-logo{ border-radius: 50%;width: 100px;height: 100px;text-align: center; border: 1px solid #eee;}
 .img-product{ height:160px; }
 
 /*ALL ABOUT DEFAULT COLOR TEXT*/

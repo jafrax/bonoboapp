@@ -89,9 +89,11 @@ class Index extends CI_Controller {
 		$ftv		= 	$this->model_toko->get_by_verf($uri_mail,$uri_veri);
 		$_SESSION['bonobo']['notifikasi']=null;
 		if($ftv->num_rows()>0){
-			$_SESSION['bonobo']['notifikasi']="<div class='notif-error'><i class='fa fa-warning'></i>Email Verifikasi sukses</div>";
+			$_SESSION['bonobo']['notifikasi']="<div id='notifikasi' class='notif-error'><i class='fa fa-warning'></i>Verifikasi Email sukses</div>";
+			$Data=array('status'=> '2');
+			$Update = $this->db->where("verified_code",$uri_veri)->update("tb_toko",$Data);
 		}else{
-			$_SESSION['bonobo']['notifikasi']="<div class='notif-error'><i class='fa fa-warning'></i>Verifikasi email failed</div>";
+			$_SESSION['bonobo']['notifikasi']="<div id='notifikasi' class='notif-error'><i class='fa fa-warning'></i>Verifikasi email failed</div>";
 		}
 		redirect('index/signin');
 	
@@ -110,7 +112,8 @@ class Index extends CI_Controller {
 	
 	public function signin(){
 		if(!$_POST){
-			$this->load->view("enduser/login/bg_login");
+			$data["captcha"] = $this->recaptcha->recaptcha_get_html();
+			$this->load->view("enduser/login/bg_login", $data);
         }else{
             $this->form_validation->set_rules('email', '', 'required');
             $this->form_validation->set_rules('password', '', 'required');
@@ -269,6 +272,12 @@ class Index extends CI_Controller {
 			$this->response->send(array("result"=>0,"message"=>"Email harus diisi !","messageCode"=>1));
 			return;
 		}
+		$this->recaptcha->recaptcha_check_answer($_SERVER["REMOTE_ADDR"],$this->input->post("recaptcha_challenge_field"), $this->input->post("recaptcha_response_field"));
+		if(!$this->recaptcha->getIsValid()){
+			$this->response->send(array("result"=>0,"message"=>"Kode keamanan tidak sesuai"));
+			return;
+		}
+		
 		
 		$QShop = $this->model_toko->get_by_email($this->response->post("email"))->row();
 		if(!empty($QShop)){

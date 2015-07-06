@@ -104,7 +104,7 @@ echo"
 	echo"
 						</div>
 					</p>
-					<p style='margin-left:30px;width:100%' class='input-field col s12 m8'><a href='javascript:void(0);' id='aCustomeCourierAdd'>Tambah Baru</a></p>
+					<p style='margin-left:30px;width:100%' class='input-field col s12 m8'><a href='javascript:void(0);' id='aCustomeCourierAdd'>[+] Tambah Baru</a></p>
 				</div>
 				
 				<div class='input-field col s12 m8'><p><br></p></div>
@@ -155,9 +155,9 @@ echo"
 		</form>
 	</div>
 
-	<div id='divFormRate' class='modal' style='height:500px'>
+	<div id='divFormRate' class='modal modal-fixed-footer'>
 		<div class='modal-header red'>
-			<i class='material-icons dp48 left'></i> Tambah pengiriman
+			<i class='material-icons left'>library_add</i> Tambah pengiriman
 		</div>
 		<div id='divFormRateContent'>
 		</div>
