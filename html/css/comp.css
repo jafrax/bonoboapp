@@ -150,6 +150,7 @@ label{ font-size: 14px; color: #565a5c; }
 .pagination li a i{ font-size:18px; } 
 
 /*ALL ABOUT MODAL*/
+.modal{ overflow: hidden!important; max-height: 100%!important;}
 .modal.confirmation { max-width:350px; border-radius:none;  }
 .modal .modal-header{ height:45px; padding:0 5px; line-height:45px; color:#fff; font-size:18px; }
 .modal .modal-header i{ font-size:34px; }
