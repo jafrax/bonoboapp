@@ -134,10 +134,12 @@ function CtrlSignup(){
 						lblNotif.html(response.message);
 						lblNotif.slideDown();
 						lblNotif.delay(5000).slideUp('slow');
+						document.getElementById("formSignup").reset();
 					}else{
 						lblNotif.html(response.message);
 						lblNotif.slideDown();
 						lblNotif.delay(5000).slideUp('slow');
+						document.getElementById("formSignup").reset();
 					}
 				}
 			});
