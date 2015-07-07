@@ -134,10 +134,12 @@ function CtrlSignup(){
 						lblNotif.html(response.message);
 						lblNotif.slideDown();
 						lblNotif.delay(5000).slideUp('slow');
+						document.getElementById("formSignup").reset();
 					}else{
 						lblNotif.html(response.message);
 						lblNotif.slideDown();
 						lblNotif.delay(5000).slideUp('slow');
+						document.getElementById("formSignup").reset();
 					}
 				}
 			});
@@ -149,7 +151,7 @@ function CtrlSignin(){
 	this.init = init;
 	this.onEnter= onEnter;
 	
-	var btnSave;
+	var btnSave,forgetpass;
 	var formSignin,formSigninJQuery;
 	var notifEmail,notifPassword;
 	var lblNotif,lblMailNotif;
@@ -162,6 +164,7 @@ function CtrlSignin(){
 	
 	function initComponent(){
 		btnSave = $hs("btnSave");
+		forgetpass = $hs("forgetpass");
 		formSignin = $hs("formSignin");
 		
 		formSigninJQuery = $("#formSignin");
@@ -174,8 +177,9 @@ function CtrlSignin(){
 		notifForgotPassword = $("#notifForgotPassword");
 		
 		$('.modal-trigger').leanModal();
+		
 	}
-	
+
 	function initEventlistener(){
 		btnSave.onclick = function(){
 			doSave();
@@ -185,7 +189,7 @@ function CtrlSignin(){
 			doForgotPassword();
 		};
 	}
-	function onEnter(){
+	function onEnter(event){
 		if ($hs_onEnter(event)){
 			doSave();
 		}
@@ -237,12 +241,11 @@ function CtrlSignin(){
 			return;
 		}
 		
-		var challenge = $('#recaptcha_challenge_field').val();
-		var response = $('#recaptcha_response_field').val();
+		var response = $('#g-recaptcha-response').val();
 		
 		$.ajax({
 			type: 'POST',
-			data: "email="+txtForgotEmail.value+"&recaptcha_challenge_field="+challenge+"&recaptcha_response_field="+response,
+			data: "email="+txtForgotEmail.value+"&g-recaptcha-response="+response,
 			url: base_url+'index/doForgotPassword',
 			success: function(result) {
 				var response = JSON.parse(result);
@@ -251,10 +254,12 @@ function CtrlSignin(){
 					notifForgotPassword.html("<div style='color:blue;'>"+response.message+"</div>");
 					notifForgotPassword.slideDown();
 					notifForgotPassword.delay(5000).slideUp('slow');
-				}else{
-					notifForgotPassword.html("<i class='fa fa-warning'></i> "+response.message);
+					grecaptcha.reset();
+				}else{					
+					notifForgotPassword.html("<i class='fa fa-warning'></i> "+response.message+"</div>");
 					notifForgotPassword.slideDown();
 					notifForgotPassword.delay(5000).slideUp('slow');
+					grecaptcha.reset();
 				}
 			}
 		});

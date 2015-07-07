@@ -64,7 +64,7 @@ function CtrlShopStep1(){
 			var sequence = parseInt(intAttributeCount.value)+1;
 			var div = document.createElement("div");
 			
-			div.innerHTML = "<div class='col s12 m3'>Nama kontak</div><div class='col s12 m5'><input name='txtAttributeId"+sequence+"' type='hidden' value=''><input name='txtAttributeName"+sequence+"' type='text' class='validate'></div><div class='col s12 m3'>Pin/ID/Nomor</div><div class='col s12 m5'><input name='txtAttributeValue"+sequence+"' type='text' class='validate'></div>";
+			div.innerHTML = "<div class='col s12 m3'>Nama kontak</div><div class='col s12 m5'><input name='txtAttributeId"+sequence+"' type='hidden' value=''><input name='txtAttributeName"+sequence+"' placeholder='BBM/whatsapp/Line' type='text' class='validate'></div><div class='col s12 m3'>Pin/ID/Nomor</div><div class='col s12 m5'><input name='txtAttributeValue"+sequence+"' type='text' placeholder='Ex : AD9876/bonoboLine' class='validate'></div>";
 			div.setAttribute("class","row valign-wrapper");
 			divAttributes.append(div);
 			intAttributeCount.value = sequence;

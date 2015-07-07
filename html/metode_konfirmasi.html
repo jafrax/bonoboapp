@@ -26,7 +26,7 @@
 				<text>James Rodriguez</text>
 			</div>
 		</li>
-		<li class="active"><aclass="active" href="toko_informasi.html">Toko</a></li>
+		<li class="active"><a class="active" href="toko_informasi.html">Toko</a></li>
 		<li><a href="anggota.html">Anggota</a></li>
 		<li><a href="produk_ready_stock.html">Produk</a></li>
 		<li><a href="nota.html">Nota</a></li>
@@ -99,7 +99,7 @@
 								<span class="white-text">6. METODE KONFIRMASI</span><i class="mdi-hardware-keyboard-arrow-right right"></i>
 							</div>
 						</a></li>
-						<li class="col s12 m4 l3 langkah active"><a href="">
+						<li class="col s12 m4 l3 langkah "><a href="">
 							<div class="card-panel ">
 								<span class="white-text">7. PENGIRIMAN</span><i class="mdi-hardware-keyboard-arrow-right right"></i>
 							</div>
@@ -115,71 +115,38 @@
 				<div class="col s12 m12 l12">
 					<form class="formain">
 						<div class="formhead">
-							<h2 class="titmain"><b>PENGIRIMAN</b></h2>
-							<p>Pilih jasa pengiriman ayng didukung oleh toko Anda.</p>
+							<h2 class="titmain"><b>METODE KONFIRMASI</b></h2>
+							<p>Anda dapat mengatur metode konfirmasi pembayaran yang anda inginkan.</p>
 						</div>
 						<div class="row formbody">
 							<div class="input-field col s12 m8">
-								<input type="checkbox" class="filled-in" id="bayar-di-tempat"  />
-      							<label for="bayar-di-tempat">Ambil di toko</label>
+								<input id="publik" name="group1" type="radio" class="with-gap" checked>
+								<label for="publik">menggunakan 3 digit terakhir dari nomor nota anda.</label>
 							</div>
 							<div class="input-field col s12 m8">
-								<p>Pembeli akan datang ke alamat Toko Anda untuk mengambil pesanannya.</p>
-							</div>
-							<div class="input-field col s12 m8">
-								<input type="checkbox" class="filled-in" id="via-bank"  />
-      							<label for="via-bank">Jasa ekspedisi</label>
-							</div>	
-							<div class="input-field col s12 m8">
-								<p>Silahkan pilih jasa ekspedisi berikut. Ongkos kirim sesuai kebijakan Perusahaan Ekspedisi yang bersangkutan.
-									<div class="input-field col s2 m2"><p></p></div>
-									<div class="input-field col s5 m2">
-										<input type="checkbox" id="jne"  />
-      									<label for="jne">JNE</label>
-									</div>
-									<div class="input-field col s5 m8">
-										<input type="checkbox" id="tiki"  />
-      									<label for="tiki">TIKI</label>
-									</div>
-									<div class="input-field col s2 m2"><p></p></div>
-									<div class="input-field col s5 m2">
-										<input type="checkbox" id="pos"  />
-      									<label for="pos">Pos Indonesia</label>
-									</div>
-									<div class="input-field col s5 m8">
-										<input type="checkbox" id="cargo"  />
-      									<label for="cargo">Cargo</label>
-									</div>
+								<p>
+									- 3 digit terakhir dari nomor nota akan ditambahkan ke total tagihan pembeli sebagai kode unik.<br>
+									- Cara ini memudahkan pembeli karena pembeli tidak perlu melakukan konfirmasi pembayaran melalui Apps.<br>
 								</p>
 							</div>
-							<div class="input-field col s12 m8"><p></p></div>
 							<div class="input-field col s12 m8">
-								<input type="checkbox" class="filled-in" id="via-bank"  />
-      							<label for="via-bank">Jasa pengiriman Toko</label>
+								<input id="privasi" name="group1" type="radio" class="with-gap">
+								<label for="privasi">Melakukan konfirmasi pembayaran via Bonobo Apps</label>
 							</div>	
 							<div class="input-field col s12 m8">
-								<p>Anda bisa memasukkan jasa pengiriman lain jika memilikinya.
-									<div class="input-field col s8 m6">
-										Kurir Toko <a href=""><i class="mdi-editor-border-color"></i></a>
-									</div>
-									<div class="input-field col s4 m6">
-										<a class="left red-text" href=""><i class="mdi-action-delete"></i>Hapus</a> 
-									</div>
-									<div class="input-field col s8 m6">
-										Kurir Toko 2 <a href=""><i class="mdi-editor-border-color"></i></a>
-									</div>
-									<div class="input-field col s4 m6">
-										<a class="left red-text" href=""><i class="mdi-action-delete"></i>Hapus</a> 
-									</div>
+								<p>
+									- Pembeli perlu melakukan konfirmasi pembayaran melalui Bonobo Apps (Android).<br>
+									- Toko bisa melakukan pengecekan pembayaran berdasarkan rekening pembeli.<br>
+									- Tidak ada penambahan kode unik di total tagihan pembeli.<br>
 								</p>
-								<p><a href="#">Tambah Baru</a></p>
 							</div>
-							<div class="input-field col s12 m8"><p><br></p></div>
 							<div class="input-field col s12 m8">
-								<button class="btn waves-effect waves-light red" type="button" onclick="location.href='metode_transaksi.html'" name="action">
+							</div>
+							<div class="input-field col s12 m8">
+								<button class="btn waves-effect waves-light red" type="button" onclick="location.href='atur_privasi.html'" name="action">
 								    <i class="mdi-navigation-chevron-left left"></i> Kembali
 								</button>
-								<button class="btn waves-effect waves-light" type="button" onclick="location.href='bank.html'" name="action">Selanjutnya
+								<button class="btn waves-effect waves-light" type="button" onclick="location.href='metode_transaksi.html'" name="action">Selanjutnya
 								    <i class="mdi-navigation-chevron-right right"></i>
 								</button>
 							</div>					

@@ -30,7 +30,9 @@ echo "
 	<script type='text/javascript' src='".base_url("")."html/js/materialize.min.js'></script>
 	<script type='text/javascript' src='".base_url("assets/jController/CtrlSystem.js")."'></script>
 	<script type='text/javascript' src='".base_url("assets/jController/enduser/CtrlIndex.js")."'></script>
+	<script src='https://www.google.com/recaptcha/api.js?hl=id'></script>
 
+	
 	<style>html{ width:100%; height:100%; }</style>
 
 </head>
@@ -70,7 +72,7 @@ echo "
 							<label id='notifPassword' class='error' style='display:none;'><i class='fa fa-warning'></i> Harus diisi !</label>
 						</div>
 						<div class='input-field col s12'>
-							<a href='#reset_password' class='modal-trigger left' >Lupa password ?</a>
+							<a href='#reset_password' id='forgetpass' class='modal-trigger left' >Lupa password ?</a>
 							<button id='btnSave' type='button' class='waves-effect waves-light btn deep-orange darken-1 right'>Masuk</button>
 						</div>
 					</div>
@@ -101,8 +103,8 @@ echo "
 			</div>
 			<label id='notifForgotPassword'  style='display:none;'></label>
 			<div class='input-field col s12'>
-				
-				".$captcha."
+				<label id='notifForgotPassword'  style='display:none;'></label>
+				<div class='g-recaptcha' data-sitekey='6Le4bAkTAAAAAHOCGz7B1_ehNPKgjBVECh1MrUXh'></div>
 			</div>
 			
 		</form>

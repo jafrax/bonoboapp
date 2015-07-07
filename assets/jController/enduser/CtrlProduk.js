@@ -48,6 +48,7 @@
     document.getElementById("cek_all").checked = false; 
   };
 
+  $('#nama_barang').focus();
 
   $('#keyword').keypress(function(e) {
     if (e.which == 13) {
@@ -71,6 +72,7 @@ function add_picture() {
     if (hitung < 3) {
         $('#total_picture').val(tot_picture);
         $('.picture-area').append(box_picture(tot_picture));
+        $('#add-poto').show();
         //$('.label-area').append(box_alert(tot_picture));
         $('input[name="pic_'+tot_picture+'"]').each(function () {
             $(this).rules("add", {
@@ -81,11 +83,15 @@ function add_picture() {
             });
         });
     }
+
+    if (hitung == 2) {
+      $('#add-poto').hide();
+    }
 }
 
 function box_picture(id) {
     var box = "<div class='col s6 m4 l3' id='div_pic_"+tot_picture+"'><div class='card' >"
-                  +"<a class='delimg' onclick=javascript:remove_picture('pic_"+tot_picture+"')><i class='mdi-content-backspace'></i></a>"
+                  +"<a class='delimg' onclick=javascript:remove_picture('pic_"+tot_picture+"')><i class='mdi-navigation-close right'></i></a>"
                   +"<div class='card-image img-product waves-effect waves-block waves-light'>"
                      +"<img id='img_pic_"+tot_picture+"' onclick=javascript:click_picture('pic_"+tot_picture+"') class='img-product responsive-img' src='"+base_url+"html/images/comp/product_large.png'>"
                      +"<input type='file' class='pic_product' name='pic_"+tot_picture+"' id='pic_"+tot_picture+"' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>"
@@ -118,6 +124,8 @@ function remove_picture(id) {
         $('#total_picture').val(tot_picture);
         $('.picture-area').append(box_picture(tot_picture));
     }
+
+    if (hitung < 3) {$('#add-poto').show();};
 }
 
 function change_stok() {
@@ -154,7 +162,7 @@ function boxVarian(id) {
   var stok      = $('#stok').val();
   if (stok == 1) {
       var varian = "<li class='varsto' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5'>"
-                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' placeholder='Masukkan varian' class='validate'>"
+                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' placeholder='Ex : Merah' class='validate'>"
                       +"<label for='varian'>Varian <span></span></label>"
                     +"</div>"
                     +"<div class='input-field col s11 m5 tersedia'>"
@@ -170,7 +178,7 @@ function boxVarian(id) {
                     +"</li>";
    }else if (stok == 0) {
       var varian = "<li class='varsto' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5'>"
-                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' placeholder='Masukkan varian' class='validate'>"
+                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' placeholder='Ex : Merah' class='validate'>"
                       +"<label for='varian'>Varian <span></span></label>"
                     +"</div>"
                     +"<div class='input-field col s11 m5 tersedia' style='display:none'>"

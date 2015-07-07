@@ -1,277 +1,277 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'/>
 <title>Bonobo</title>
 
-<link rel="icon" href="images/comp/icon.ico" type="image/gif" sizes="16x7">
+<link rel='icon' href='images/comp/icon.ico' type='image/gif' sizes='16x7'>
 
-<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-<link type="text/css" rel="stylesheet" href="css/font-awesome.min.css" />
-<link type="text/css" rel="stylesheet" href="css/jpushmenu.css" />
-<link type="text/css" rel="stylesheet" href="css/chosen.css" />
+<link type='text/css' rel='stylesheet' href='css/materialize.min.css'  media='screen,projection'/>
+<link type='text/css' rel='stylesheet' href='css/font-awesome.min.css' />
+<link type='text/css' rel='stylesheet' href='css/jpushmenu.css' />
+<link type='text/css' rel='stylesheet' href='css/chosen.css' />
 
-<link type="text/css" rel="stylesheet" href="css/style.css" />
-<link type="text/css" rel="stylesheet" href="css/tablet.css" />
-<link type="text/css" rel="stylesheet" href="css/mobile.css" />
-<link type="text/css" rel="stylesheet" href="css/comp.css" />
+<link type='text/css' rel='stylesheet' href='css/style.css' />
+<link type='text/css' rel='stylesheet' href='css/tablet.css' />
+<link type='text/css' rel='stylesheet' href='css/mobile.css' />
+<link type='text/css' rel='stylesheet' href='css/comp.css' />
 
 </head>
 
-<body class="cbp-spmenu-push cbp-spmenu-push-toleft">
-<div id="bayar" class="modal confirmation">
-	<div class="modal-header red">
-		<i class="mdi-action-label-outline left"></i> Pilih metode transaksi
+<body class='cbp-spmenu-push cbp-spmenu-push-toleft'>
+<div id='bayar' class='modal confirmation'>
+	<div class='modal-header red'>
+		<i class='mdi-action-label-outline left'></i> Pilih metode transaksi
 	</div>
-	<form class="modal-content">
+	<form class='modal-content'>
 		<p>
-			<select id="metode">
-				<option value="" disabled selected>Choose your option</option>
-				<option value="1">Option 1</option>
-				<option value="2">Option 2</option>
-				<option value="3">Option 3</option>
+			<select id='metode'>
+				<option value='' disabled selected>Choose your option</option>
+				<option value='1'>Option 1</option>
+				<option value='2'>Option 2</option>
+				<option value='3'>Option 3</option>
 			</select>
-			<label for="metode"></label>
+			<label for='metode'></label>
 		</p>
 	</form>
-	<div class="modal-footer">
-		<a href="#konfirmasi" class="modal-trigger modal-action modal-close waves-effect waves-red btn-flat">Konfirmasi</a>
-		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Batal</a>		
+	<div class='modal-footer'>
+		<a href='#konfirmasi' class='modal-trigger modal-action modal-close waves-effect waves-red btn-flat'>Konfirmasi</a>
+		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>Batal</a>		
 	</div>
 </div>
-<div id="konfirmasi" class="modal confirmation">
-	<form class="modal-content">
-		<p>No. Transaksi : <span class="blue-text">#13232-123</span></p>
-		<p>Tanggal Konfirmasi : <span class="blue-text">18 Juni 2015</span></p>
-		<p>Jumlah yang di transfer : <span class="blue-text">Rp. 1.800.000,00</span></p>
+<div id='konfirmasi' class='modal confirmation'>
+	<form class='modal-content'>
+		<p>No. Transaksi : <span class='blue-text'>#13232-123</span></p>
+		<p>Tanggal Konfirmasi : <span class='blue-text'>18 Juni 2015</span></p>
+		<p>Jumlah yang di transfer : <span class='blue-text'>Rp. 1.800.000,00</span></p>
 		<p>
-			<label for="metode">Pilih Rekening Tujuan</label>
-			<select id="metode">
-				<option value="" disabled selected>Pilih Rekening Tujuan</option>
-				<option value="1">Option 1</option>
-				<option value="2">Option 2</option>
-				<option value="3">Option 3</option>
+			<label for='metode'>Pilih Rekening Tujuan</label>
+			<select id='metode'>
+				<option value='' disabled selected>Pilih Rekening Tujuan</option>
+				<option value='1'>Option 1</option>
+				<option value='2'>Option 2</option>
+				<option value='3'>Option 3</option>
 			</select>
 		</p>
 	</form>
-	<div class="modal-footer">
-		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Konfirmasi</a>
-		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Batal</a>		
+	<div class='modal-footer'>
+		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>Konfirmasi</a>
+		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>Batal</a>		
 	</div>
 </div>
-<div id="pengiriman" class="modal modal-fixed-footer">
-	<div class="modal-content">
-		<form class="col s12 m6">
-			<div class="input-field col s12 m6">
+<div id='pengiriman' class='modal modal-fixed-footer'>
+	<div class='modal-content'>
+		<form class='col s12 m6'>
+			<div class='input-field col s12 m6'>
 				<label>Jenis Pengiriman</label>
 				<select class='chosen-select'>
-					<option value="" disabled selected>Pilih Jenis Pengiriman</option>
-					<option value="1">Option 1</option>
-					<option value="2">Option 2</option>
-					<option value="3">Option 3</option>
+					<option value='' disabled selected>Pilih Jenis Pengiriman</option>
+					<option value='1'>Option 1</option>
+					<option value='2'>Option 2</option>
+					<option value='3'>Option 3</option>
 				</select>
 			</div>
-			<div class="input-field col s12 m8">
-				<input id="nama" type="text" class="validate">
-				<label for="nama">Nama Resi</label>
+			<div class='input-field col s12 m8'>
+				<input id='nama' type='text' class='validate'>
+				<label for='nama'>Nama Resi</label>
 			</div>
-			<div class="input-field col s12 m8">
-				<input id="tokoid" type="text" class="validate">
-				<label for="tokoid">Nama Penerima</label>
+			<div class='input-field col s12 m8'>
+				<input id='tokoid' type='text' class='validate'>
+				<label for='tokoid'>Nama Penerima</label>
 			</div>
-			<div class="input-field col s12 m8">
-				<input id="tokoid" type="text" class="validate">
-				<label for="tokoid">Kode Pos</label>
+			<div class='input-field col s12 m8'>
+				<input id='tokoid' type='text' class='validate'>
+				<label for='tokoid'>Kode Pos</label>
 			</div>
-			<div class="input-field col s12 m6">
+			<div class='input-field col s12 m6'>
 				<label>Pilih Provinsi</label>
 				<select class='chosen-select'>
-					<option value="" disabled selected>Pilih Provinsi</option>
-					<option value="1">Option 1</option>
-					<option value="2">Option 2</option>
-					<option value="3">Option 3</option>
+					<option value='' disabled selected>Pilih Provinsi</option>
+					<option value='1'>Option 1</option>
+					<option value='2'>Option 2</option>
+					<option value='3'>Option 3</option>
 				</select>
 			</div>
-			<div class="input-field col s12 m6">
+			<div class='input-field col s12 m6'>
 				<label>Pilih Kota</label>
 				<select class='chosen-select'>
-					<option value="" disabled selected>Pilih Kota</option>
-					<option value="1">Option 1</option>
-					<option value="2">Option 2</option>
-					<option value="3">Option 3</option>
+					<option value='' disabled selected>Pilih Kota</option>
+					<option value='1'>Option 1</option>
+					<option value='2'>Option 2</option>
+					<option value='3'>Option 3</option>
 				</select>
 			</div>
-			<div class="input-field col s12 m6">
+			<div class='input-field col s12 m6'>
 				<label>Pilih Kecamatan</label>
 				<select class='chosen-select'>
-					<option value="" disabled selected>Pilih Kecamatan</option>
-					<option value="1">Option 1</option>
-					<option value="2">Option 2</option>
-					<option value="3">Option 3</option>
+					<option value='' disabled selected>Pilih Kecamatan</option>
+					<option value='1'>Option 1</option>
+					<option value='2'>Option 2</option>
+					<option value='3'>Option 3</option>
 				</select>
 			</div>
-			<div class="input-field col s12 m8">
-				<textarea id="alamat" class="materialize-textarea" ></textarea>
-				<label for="alamat">Alamat Penerima</label>
+			<div class='input-field col s12 m8'>
+				<textarea id='alamat' class='materialize-textarea' ></textarea>
+				<label for='alamat'>Alamat Penerima</label>
 			</div>
 			<br><br><br><br>
 		</form>
 	</div>
-	<div class="modal-footer">
-		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Konfirmasi</a>
-		<a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Batal</a>		
+	<div class='modal-footer'>
+		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>Konfirmasi</a>
+		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>Batal</a>		
 	</div>
 </div>
-<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left cbp-spmenu-open">
-	<ul class="col s12 navmob mobleft">
-		<li class="usermob">
-			<div class="usermain left">
-				<img class="responsive-img userdum" src="images/comp/male.png" />
+<nav class='cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left cbp-spmenu-open'>
+	<ul class='col s12 navmob mobleft'>
+		<li class='usermob'>
+			<div class='usermain left'>
+				<img class='responsive-img userdum' src='images/comp/male.png' />
 				<text>James Rodriguez</text>
 			</div>
 		</li>
-		<li><a href="toko_informasi.html">Toko</a></li>
-		<li><a href="anggota.html">Anggota</a></li>
-		<li><a href="produk_ready_stock.html">Produk</a></li>
-		<li><a href="nota.html">Nota</a></li>
-		<li><a href="lihat_pesan.html">Pesan<span class="badge red">4</span></a></li>
-		<li><a href="pesanan_pre_order.html">Pemesanan Pre Order</a></li>
+		<li><a href='toko_informasi.html'>Toko</a></li>
+		<li><a href='anggota.html'>Anggota</a></li>
+		<li><a href='produk_ready_stock.html'>Produk</a></li>
+		<li><a href='nota.html'>Nota</a></li>
+		<li><a href='lihat_pesan.html'>Pesan<span class='badge red'>4</span></a></li>
+		<li><a href='pesanan_pre_order.html'>Pemesanan Pre Order</a></li>
 	</ul>
 </nav>
 
 <header>
-	<div class="headmain">
-		<div class="row padhead">
-			<ul class="col s1 navmob toggle-menu menu-left push-body jPushMenuBtn">
-				<li><a href="#"><i class="fa fa-align-justify"></i></a></li>
+	<div class='headmain'>
+		<div class='row padhead'>
+			<ul class='col s1 navmob toggle-menu menu-left push-body jPushMenuBtn'>
+				<li><a href='#'><i class='fa fa-align-justify'></i></a></li>
 			</ul>
-			<div class="col s6 m4 l2"><img class="responsive-img logo" src="images/comp/logo_shadow.png" /></div>
-			<div class="col s6 m8 l10">
-				<div class="usermain right">
-					<img class="responsive-img userdum" src="images/comp/male.png" />
+			<div class='col s6 m4 l2'><img class='responsive-img logo' src='images/comp/logo_shadow.png' /></div>
+			<div class='col s6 m8 l10'>
+				<div class='usermain right'>
+					<img class='responsive-img userdum' src='images/comp/male.png' />
 					<text>James Rodriguez</text>
 				</div>
 			</div>
 		</div>
 	</div>
-	<nav class="nav grey darken-2">
-		<div class="containermain">
-			<ul class="navmenu">
-				<li><a href="toko_informasi.html">Toko</a></li>
-				<li><a href="anggota.html">Anggota</a></li>
-				<li><a href="produk_ready_stock.html">Produk</a></li>
-				<li><a href="nota.html">Nota</a></li>
-				<li><a href="lihat_pesan.html">Pesan<span class="badge red">4</span></a></li>
-		<li><a href="pesanan_pre_order.html">Pemesanan Pre Order</a></li>
+	<nav class='nav grey darken-2'>
+		<div class='containermain'>
+			<ul class='navmenu'>
+				<li><a href='toko_informasi.html'>Toko</a></li>
+				<li><a href='anggota.html'>Anggota</a></li>
+				<li><a href='produk_ready_stock.html'>Produk</a></li>
+				<li><a href='nota.html'>Nota</a></li>
+				<li><a href='lihat_pesan.html'>Pesan<span class='badge red'>4</span></a></li>
+		<li><a href='pesanan_pre_order.html'>Pemesanan Pre Order</a></li>
 			</ul>
 		</div>
 	</nav>
 </header>
 <content>
-	<div class="contentmain">
-		<div class="containermain">
-			<div class="row contentsebenarya">
-				<div class="col s12 m12 l12">
-					<div class="formain">
+	<div class='contentmain'>
+		<div class='containermain'>
+			<div class='row contentsebenarya'>
+				<div class='col s12 m12 l12'>
+					<div class='formain'>
 
 
-						<div class="row formbody">
-							<div class="col s12 m6">
-								<div class="input-field col s12 m8 ">
-									<button class="btn-flat waves-effect red darken-1 white-text waves-light" type="button" name="action">Batal</button>
-									<button class="btn-flat waves-effect orange darken-1 white-text waves-light" type="button" name="action">Bayar</button>
-									<h6 class="hide-on-med-and-up"><br></h6>		
+						<div class='row formbody'>
+							<div class='col s12 m6'>
+								<div class='input-field col s12 m8 '>
+									<button class='btn-flat waves-effect red darken-1 white-text waves-light' type='button' name='action'>Batal</button>
+									<button class='btn-flat waves-effect orange darken-1 white-text waves-light' type='button' name='action'>Bayar</button>
+									<h6 class='hide-on-med-and-up'><br></h6>		
 								</div>
 							</div>
-							<div class="col s12 m6">
-								<div class="col s4 m1 center-mobile right">
-									<a class="red-text waves-blue " href="#"><i class="mdi-action-delete small"></i></a>
+							<div class='col s12 m6'>
+								<div class='col s4 m1 center-mobile right'>
+									<a class='red-text waves-blue ' href='#'><i class='mdi-action-delete small'></i></a>
 								</div>
-								<div class="col s4 m1 center-mobile right">
-									<a class="red-text waves-blue " href="#"><i class="mdi-content-mail small"></i></a>
+								<div class='col s4 m1 center-mobile right'>
+									<a class='red-text waves-blue ' href='#'><i class='mdi-content-mail small'></i></a>
 								</div>
-								<div class="col s4 m1 center-mobile right">
-									<a class="red-text waves-blue " href="#"><i class="mdi-action-print small"></i></a>
+								<div class='col s4 m1 center-mobile right'>
+									<a class='red-text waves-blue ' href='#'><i class='mdi-action-print small'></i></a>
 								</div>
 							</div>
 						</div>
 
-						<div class="row formbody">
-							<div class="linehead"></div>
-							<div class="col s12 m6 left">
+						<div class='row formbody'>
+							<div class='linehead'></div>
+							<div class='col s12 m6 left'>
 								<h4>No. Transaksi : 15954-6354</h4>
 								<h6>Tanggal : 28 Mei 2015 (1 Hari yang lalu)</h6>
 								<h5><br></h5>
 							</div>
-							<div class="col s12 m6 right">
-								<h4 class="right-align"><span class="blue-text">Dinar Wahyu Wibowo</span></h4>
-								<h6 class="red-text right-align">Belum Lunas</h6>
+							<div class='col s12 m6 right'>
+								<h4 class='right-align'><span class='blue-text'>Dinar Wahyu Wibowo</span></h4>
+								<h6 class='red-text right-align'>Belum Lunas</h6>
 							</div>
 							<!-- nota -->
-							<div class="col s12 m12">								
-      							<div class="nota-product col s12 m6">
-									<img src="images/comp/product.png" class="responsive-img col s4 m4 left">
-									<div class="col s8 m8">
-										<p class="blue-text">Nama Produk</p>
+							<div class='col s12 m12'>								
+      							<div class='nota-product col s12 m6'>
+									<img src='images/comp/product.png' class='responsive-img col s4 m4 left'>
+									<div class='col s8 m8'>
+										<p class='blue-text'>Nama Produk</p>
 										<p >Rp. 900.000,00</p>
 										<p >Jumlah : 1</p>
 									</div>
 								</div>
 
-								<div class="nota-product col s12 m6">
-									<img src="images/comp/product.png" class="responsive-img col s4 m4 left">
-									<div class="col s8 m8">
-										<p class="blue-text">Nama Produk</p>
+								<div class='nota-product col s12 m6'>
+									<img src='images/comp/product.png' class='responsive-img col s4 m4 left'>
+									<div class='col s8 m8'>
+										<p class='blue-text'>Nama Produk</p>
 										<p >Rp. 900.000,00</p>
 										<p >Jumlah : 1</p>
 									</div>
 								</div>
-								<div class="nota-product col s12 m6">
-									<img src="images/comp/product.png" class="responsive-img col s4 m4 left">
-									<div class="col s8 m8">
-										<p class="blue-text">Nama Produk</p>
+								<div class='nota-product col s12 m6'>
+									<img src='images/comp/product.png' class='responsive-img col s4 m4 left'>
+									<div class='col s8 m8'>
+										<p class='blue-text'>Nama Produk</p>
 										<p >Rp. 900.000,00</p>
 										<p >Jumlah : 1</p>
 									</div>
 								</div>
 
-								<div class="nota-product col s12 m6">
-									<img src="images/comp/product.png" class="responsive-img col s4 m4 left">
-									<div class="col s8 m8">
-										<p class="blue-text">Nama Produk</p>
+								<div class='nota-product col s12 m6'>
+									<img src='images/comp/product.png' class='responsive-img col s4 m4 left'>
+									<div class='col s8 m8'>
+										<p class='blue-text'>Nama Produk</p>
 										<p >Rp. 900.000,00</p>
 										<p >Jumlah : 1</p>
 									</div>
 								</div>
 							</div>
 
-							<div class="col s12 m6">
+							<div class='col s12 m6'>
 								<h5><br></h5>
 								<h5><br></h5>
-								<div class="col s6 m6 left-align">
+								<div class='col s6 m6 left-align'>
 									<p>Total nota :</p>									
 									<p>Biaya kirim :</p>									
 									<p>Kode unik :</p>									
 								</div>
-								<div class="col s6 m6 right-align">
+								<div class='col s6 m6 right-align'>
 									<p>Rp 18.000.000,00</p>									
 									<p>Rp 900.000,00</p>									
 									<p>123</p>									
 								</div>
-								<div class="line"></div>
-								<div class="col s6 m6 left-align">
+								<div class='line'></div>
+								<div class='col s6 m6 left-align'>
 									<b>Total nota :</b>																	
 								</div>
-								<div class="col s6 m6 right-align">
+								<div class='col s6 m6 right-align'>
 									<b>Rp 18.000.000,00</b>								
 								</div>
 
 							</div>
-							<div class="col s12 m6">
+							<div class='col s12 m6'>
 								<h5><br></h5>
-								<div class="line "></div>
+								<div class='line '></div>
 								<h5><br></h5>
-								<div class="col s6 m6 left-align">
+								<div class='col s6 m6 left-align'>
 									<b>Detail Pengiriman :</b>									
 									<p>Pengiriman via :</p>									
 									<p>No. Resi :</p>									
@@ -282,8 +282,8 @@
 									<p>Kota :</p>									
 									<p>Provinsi :</p>									
 								</div>
-								<div class="col s6 m6 right-align">
-									<a href="#pengiriman" class="modal-trigger" >edit</a>
+								<div class='col s6 m6 right-align'>
+									<a href='#pengiriman' class='modal-trigger' >edit</a>
 									<p>JNE</p>									
 									<p>socb15289872132</p>									
 									<p>Dinar</p>									
@@ -294,34 +294,34 @@
 									<p>Jawa Tengah</p>									
 								</div>												
 							</div>
-							<div class="col s12 m6">
+							<div class='col s12 m6'>
 								<h5><br></h5>
-								<div class="line"></div>
+								<div class='line'></div>
 								<h5><br></h5>
-								<div class="col s12 m12">
-									<textarea id="note" class="materialize-textarea" ></textarea>
-									<label for="note">Note</label>							
+								<div class='col s12 m12'>
+									<textarea id='note' class='materialize-textarea' ></textarea>
+									<label for='note'>Note</label>							
 								</div>
-								<div class="col s12 m12">
-									<a href="#!" class="btn-flat right">Simpan</a>
-									<a href="#!" class="btn-flat right">Batal</a>	
+								<div class='col s12 m12'>
+									<a href='#!' class='btn-flat right'>Simpan</a>
+									<a href='#!' class='btn-flat right'>Batal</a>	
 								</div>
 							</div>
-							<div class="col s12 m6">
+							<div class='col s12 m6'>
 								<br>							
 							</div>
-							<div class="col s12 m6">
-								<h5 class="hide-on-med-and-up"><br></h5>
-								<div class="line hide-on-med-and-up"></div>
-								<h5 class="hide-on-med-and-up"><br></h5>
+							<div class='col s12 m6'>
+								<h5 class='hide-on-med-and-up'><br></h5>
+								<div class='line hide-on-med-and-up'></div>
+								<h5 class='hide-on-med-and-up'><br></h5>
 								<h6>Detail Pembayaran</h6>
-								<div class="col s6 m6 left-align">
+								<div class='col s6 m6 left-align'>
 									<b>Bank Asal :</b>									
 									<p>BCA</p>									
 									<p>123456-465</p>									
 									<p>Dinar</p>																	
 								</div>
-								<div class="col s6 m6 right-align">
+								<div class='col s6 m6 right-align'>
 									<b>Bank Tujuan</b>									
 									<p>BRI</p>									
 									<p>6911-456-546-45</p>									
@@ -330,7 +330,7 @@
 							</div>
 						</div>
 
-						<div class="row formbody">
+						<div class='row formbody'>
 			
 						</div>
 					</div>
@@ -339,38 +339,38 @@
 		</div>
 	</div>
 </content>
-<footer class="page-footer grey darken-3">
-	<div class="container">
-		<div class="row">
-			<div class="col l6 s12">
-				<h5 class="white-text">Footer Content</h5>
-				<p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+<footer class='page-footer grey darken-3'>
+	<div class='container'>
+		<div class='row'>
+			<div class='col l6 s12'>
+				<h5 class='white-text'>Footer Content</h5>
+				<p class='grey-text text-lighten-4'>You can use rows and columns here to organize your footer content.</p>
 			</div>
-			<div class="col l4 offset-l2 s12">
-				<h5 class="white-text">Links</h5>
+			<div class='col l4 offset-l2 s12'>
+				<h5 class='white-text'>Links</h5>
 				<ul>
-					<li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-					<li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-					<li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-					<li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+					<li><a class='grey-text text-lighten-3' href='#!'>Link 1</a></li>
+					<li><a class='grey-text text-lighten-3' href='#!'>Link 2</a></li>
+					<li><a class='grey-text text-lighten-3' href='#!'>Link 3</a></li>
+					<li><a class='grey-text text-lighten-3' href='#!'>Link 4</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
-	<div class="footer-copyright grey darken-4">
-		<div class="container"> 2015 Bonobo
-			<a class="grey-text text-lighten-4 right" href="#!">Tentang Kami</a>
-			<a class="grey-text text-lighten-4 right" href="#!">Kebijakan privasi</a>
-			<a class="grey-text text-lighten-4 right" href="#!">Syarat dan ketentuan</a>
+	<div class='footer-copyright grey darken-4'>
+		<div class='container'> 2015 Bonobo
+			<a class='grey-text text-lighten-4 right' href='#!'>Tentang Kami</a>
+			<a class='grey-text text-lighten-4 right' href='#!'>Kebijakan privasi</a>
+			<a class='grey-text text-lighten-4 right' href='#!'>Syarat dan ketentuan</a>
 		</div>
 	</div>
 </footer>
 
-<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="js/materialize.min.js"></script>
-<script type="text/javascript" src="js/jpushmenu.js"></script>
-<script type="text/javascript" src="js/chosen.jquery.js"></script>
+<script type='text/javascript' src='js/jquery-2.1.4.min.js'></script>
+<script type='text/javascript' src='js/materialize.min.js'></script>
+<script type='text/javascript' src='js/jpushmenu.js'></script>
+<script type='text/javascript' src='js/chosen.jquery.js'></script>
 
-<script type="text/javascript" src="js/core.js"></script>
+<script type='text/javascript' src='js/core.js'></script>
 </body>
 </html>
