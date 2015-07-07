@@ -92,7 +92,7 @@ echo "
 								</div>
 								<input type='hidden' name='total_picture' id='total_picture' value='1'/>
 								<div class='input-field col s12 m12'>
-									<a class='btn-flat right' onclick=javascript:add_picture()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH GAMBAR</b></a>
+									<a id='add-poto' class='btn-flat right' onclick=javascript:add_picture()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH GAMBAR</b></a>
 								</div>
 								<div class='input-field col s12'>
 									<input id='perkiraan_berat' placeholder='0.00' type='text' name='berat' class='validate'>
@@ -117,7 +117,7 @@ echo "
 								<div class=' col s12 m6'>
 								<label>Tipe stok <span class='text-red'>*</span></label>
 								<label class='error error-chosen' for='stok'></label>
-									<select name='stok' id='stok' required OnChange=javascript:change_stok()>										
+									<select name='stok' id='stok' required OnChange=javascript:change_stok() class='chosen-select'>										
 										<option value='1' selected>Stok selalu tersedia</option>
 										<option value='0'>Gunakan stok</option>
 									</select>									

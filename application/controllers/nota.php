@@ -226,9 +226,11 @@ class Nota extends CI_Controller {
 	}
 
 	public function detail(){
-		$data['nota']		= $this->model_nota->get_nota();
+		$invoice 			= $this->uri->segment(3);
+		$data['nota']		= $this->model_nota->get_nota_invoice($invoice)->row();
 		$data['rekening']	= $this->model_nota->get_rekening();
 		$data['toko']		= $this->model_nota->get_toko()->row();
+		$data['produk']		= $this->model_nota->get_nota_product($invoice);
 
 		$this->template->bonobo('nota/bg_nota_detail',$data);
 	}

@@ -48,6 +48,7 @@
     document.getElementById("cek_all").checked = false; 
   };
 
+  $('#nama_barang').focus();
 
   $('#keyword').keypress(function(e) {
     if (e.which == 13) {
@@ -71,6 +72,7 @@ function add_picture() {
     if (hitung < 3) {
         $('#total_picture').val(tot_picture);
         $('.picture-area').append(box_picture(tot_picture));
+        $('#add-poto').show();
         //$('.label-area').append(box_alert(tot_picture));
         $('input[name="pic_'+tot_picture+'"]').each(function () {
             $(this).rules("add", {
@@ -80,6 +82,10 @@ function add_picture() {
                 },
             });
         });
+    }
+
+    if (hitung == 2) {
+      $('#add-poto').hide();
     }
 }
 
@@ -118,6 +124,8 @@ function remove_picture(id) {
         $('#total_picture').val(tot_picture);
         $('.picture-area').append(box_picture(tot_picture));
     }
+
+    if (hitung < 3) {$('#add-poto').show();};
 }
 
 function change_stok() {

@@ -95,7 +95,7 @@ echo "
 								</div>
 								<input type='hidden' name='total_picture' id='total_picture' value='1'/>
 								<div class='input-field col s12 m12'>
-									<a class='btn-flat right' onclick=javascript:add_picture()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH GAMBAR</b></a>
+									<a id='add-poto' class='btn-flat right' onclick=javascript:add_picture()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH GAMBAR</b></a>
 								</div>
 								<div class='input-field col s12'>
 									<input id='perkiraan_berat' placeholder='0.00' type='text' name='berat' class='validate'>
