@@ -71,68 +71,73 @@
 					<ul class="menucontent row">
 						<li class="col s12 m4 l3 langkah active"><a href="">
 							<div class="card-panel ">
-								<span class="white-text">INFORMASI TOKO</span><i class="mdi-hardware-keyboard-arrow-right right"></i>
+								<span class="white-text">1. INFORMASI TOKO</span><i class="mdi-hardware-keyboard-arrow-right right"></i>
 							</div>
 						</a></li>
 						<li class="col s12 m4 l3 langkah active"><a href="">
 							<div class="card-panel ">
-								<span class="white-text">ATUR PRIVASI</span><i class="mdi-hardware-keyboard-arrow-right right"></i>
+								<span class="white-text">2. ATUR PRIVASI</span><i class="mdi-hardware-keyboard-arrow-right right"></i>
 							</div>
 						</a></li>
 						<li class="col s12 m4 l3 langkah active"><a href="">
 							<div class="card-panel ">
-								<span class="white-text">ATUR PENGURANGAN STOK</span><i class="mdi-hardware-keyboard-arrow-right right"></i>
+								<span class="white-text">3. ATUR PENGURANGAN STOK</span><i class="mdi-hardware-keyboard-arrow-right right"></i>
 							</div>
 						</a></li>
-						<li class="col s12 m5 l3 langkah "><a href="">
+						<li class="col s12 m5 l3 langkah active"><a href="">
 							<div class="card-panel ">
-								<span class="white-text">METODE TRANSAKSI</span><i class="mdi-hardware-keyboard-arrow-right right"></i>
+								<span class="white-text">4. METODE TRANSAKSI</span><i class="mdi-hardware-keyboard-arrow-right right"></i>
+							</div>
+						</a></li>
+						<li class="col s12 m4 l3 langkah active"><a href="">
+							<div class="card-panel ">
+								<span class="white-text">5. ATUR LEVEL HARGA</span><i class="mdi-hardware-keyboard-arrow-right right"></i>
+							</div>
+						</a></li>
+						<li class="col s12 m4 l3 langkah active"><a href="">
+							<div class="card-panel ">
+								<span class="white-text">6. METODE KONFIRMASI</span><i class="mdi-hardware-keyboard-arrow-right right"></i>
+							</div>
+						</a></li>
+						<li class="col s12 m4 l3 langkah "><a href="">
+							<div class="card-panel ">
+								<span class="white-text">7. PENGIRIMAN</span><i class="mdi-hardware-keyboard-arrow-right right"></i>
 							</div>
 						</a></li>
 						<li class="col s12 m4 l3 langkah"><a href="">
 							<div class="card-panel ">
-								<span class="white-text">PENGIRIMAN</span><i class="mdi-hardware-keyboard-arrow-right right"></i>
+								<span class="white-text">8. BANK</span><i class="mdi-hardware-keyboard-arrow-right right"></i>
 							</div>
 						</a></li>
-						<li class="col s12 m4 l3 langkah"><a href="">
-							<div class="card-panel ">
-								<span class="white-text">BANK</span><i class="mdi-hardware-keyboard-arrow-right right"></i>
-							</div>
-						</a></li>
-						<li class="col s12 m4 l3 langkah"><a href="">
-							<div class="card-panel ">
-								<span class="white-text">ATUR LEVEL HARGA</span><i class="mdi-hardware-keyboard-arrow-right right"></i>
-							</div>
-						</a></li>
+						
 					</ul>
 				</div>
 				<div class="col s12 m12 l12">
 					<form class="formain">
 						<div class="formhead">
-							<h2 class="titmain"><b>ATUR PENGURANGAN STOK</b></h2>
-							<p>Anda dapat mengatur kapan stok Anda akan dihitung berkurang. Pilihlah sesuai kemudahan Anda.</p>
+							<h2 class="titmain"><b>METODE KONFIRMASI</b></h2>
+							<p>Anda dapat mengatur metode konfirmasi pembayaran yang anda inginkan.</p>
 						</div>
 						<div class="row formbody">
 							<div class="input-field col s12 m8">
 								<input id="publik" name="group1" type="radio" class="with-gap" checked>
-								<label for="publik">Saat pembeli menyelesaikan transaksi dari keranjang belanja</label>
+								<label for="publik">menggunakan 3 digit terakhir dari nomor nota anda.</label>
 							</div>
 							<div class="input-field col s12 m8">
-								<p>Stok akan berkurang ketika Pembeli sudah menyelesaikan transaksi di keranjang belanja.<br>
-									Catatan:<br>
-									- Stok berkurang sekalipun pembeli belum melakukan pembayaran.<br>
-									- Stok akan berkurang secara otomatis jika Anda membatalkan atau menghapus Nota<br>
+								<p>
+									- 3 digit terakhir dari nomor nota akan ditambahkan ke total tagihan pembeli sebagai kode unik.<br>
+									- Cara ini memudahkan pembeli karena pembeli tidak perlu melakukan konfirmasi pembayaran melalui Apps.<br>
 								</p>
 							</div>
 							<div class="input-field col s12 m8">
 								<input id="privasi" name="group1" type="radio" class="with-gap">
-								<label for="privasi">Saat toko menyatakan status pesanan "Lunas" </label>
+								<label for="privasi">Melakukan konfirmasi pembayaran via Bonobo Apps</label>
 							</div>	
 							<div class="input-field col s12 m8">
-								<p>Stok akan berkurang ketika Toko melakukan konfirmasi pembayaran.<br>
-									Catatan:<br>
-									- Stok berkurang setelah pembeli melakukan pembayaran.<br>
-									- Anda mungkin perlu melakukan refund jika ada dua atau lebih pembeli yang yang telah membayar pesanannya tetapi stok tidak mencukupi.<br>
+								<p>
+									- Pembeli perlu melakukan konfirmasi pembayaran melalui Bonobo Apps (Android).<br>
+									- Toko bisa melakukan pengecekan pembayaran berdasarkan rekening pembeli.<br>
+									- Tidak ada penambahan kode unik di total tagihan pembeli.<br>
 								</p>
 							</div>
 							<div class="input-field col s12 m8">

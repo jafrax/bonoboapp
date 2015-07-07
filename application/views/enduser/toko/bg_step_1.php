@@ -21,12 +21,12 @@ echo"
 			<div class='row formbody '>
 				<div class='linehead'>Informasi Umum</div>
 				<div class='input-field col s12 m8'>
-					<input id='txtName' name='txtName' type='text' class='validate' value='".$Shop->name."' autofocus>
+					<input id='txtName' name='txtName' type='text' placeholder='Ex : PT Bonobo Indonesia' class='validate' value='".$Shop->name."' autofocus>
 					<label for='txtName'>Nama toko *</label>
 					<label id='notifName' class='error' style='display:none;'></label>
 				</div>
 				<div class='input-field col s12 m8'>
-					<input id='txtTagname' name='txtTagname' type='text' class='validate'  value='".$Shop->tag_name."'>
+					<input id='txtTagname' name='txtTagname' type='text' placeholder='Ex : ptbonobo' class='validate'  value='".$Shop->tag_name."'>
 					<label for='txtTagname'>Toko Id *</label>
 					<label id='notifTagname' class='error' style='display:none;'></label>
 				</div>
@@ -56,7 +56,7 @@ echo"
 					<label for='txtKeyword'>Kata kunci pencarian</label>
 				</div>
 				<div class='input-field col s12 m8'>
-					<textarea id='txtDescription' name='txtDescription' class='materialize-textarea' >".$Shop->description."</textarea>
+					<textarea id='txtDescription' name='txtDescription' placeholder='Ex : Bonobo adalah platform Bisnis Online yang aman' class='materialize-textarea' >".$Shop->description."</textarea>
 					<label for='txtDescription'>Deskripsi toko</label>
 				</div>
 				<div class='input-field col s12 m8'>
@@ -69,13 +69,16 @@ echo"
 							<input id='txtShopLogoFile' name='txtShopLogoFile' type='file' style='display:none;'>
 						</div>
 					</div>
-					
+				</div>
+				<div class='input-field col s12 m8'>
+					<i class='grey-text'><b>Ukuran Maks</b> : 1 MB.</i><br>
+					<i class='grey-text'><b>Format</b> : .bmp, .jpg, .png.</i>
 				</div>
 			</div>
 			<div class='row formbody'>
 				<div class='linehead'>Alamat dan Kontak</div>
 				<div class='input-field col s12 m8'>
-					<input id='txtPhone' name='txtPhone' type='text' class='validate' value='".$Shop->phone."'>
+					<input id='txtPhone' name='txtPhone' placeholder='Ex : 0271-987654' type='text' class='validate' value='".$Shop->phone."'>
 					<label for='txtPhone'>Telephone</label>
 				</div>
 				<div class='input-field col s12 m8'>								
@@ -93,13 +96,13 @@ if(sizeOf($Attributes) <= 0){
 			</div>
 			<div class='col s12 m5'>
 				<input name='txtAttributeId1' type='hidden' value=''>
-				<input name='txtAttributeName1' type='text' class='validate'>
+				<input name='txtAttributeName1' placeholder='BBM/whatsapp/Line' type='text' class='validate'>
 			</div>
 			<div class='col s12 m3'>
 				Pin/ID/Nomor
 			</div>
 			<div class='col s12 m5'>
-				<input name='txtAttributeValue1' type='text' class='validate'>
+				<input name='txtAttributeValue1' placeholder='Ex : AD9876/bonoboLine' type='text' class='validate'>
 			</div>
 		</div>
 	";
@@ -115,13 +118,13 @@ if(sizeOf($Attributes) <= 0){
 				</div>
 				<div class='col s12 m5'>
 					<input name='txtAttributeId".$no."' type='hidden' value='".$Attribute->id."'>
-					<input name='txtAttributeName".$no."' type='text' class='validate' value='".$Attribute->name."'>
+					<input name='txtAttributeName".$no."' placeholder='BBM/whatsapp/Line' type='text' class='validate' value='".$Attribute->name."'>
 				</div>
 				<div class='col s12 m3'>
 					Pin/ID/Nomor
 				</div>
 				<div class='col s12 m5'>
-					<input name='txtAttributeValue".$no."' type='text' class='validate' value='".$Attribute->value."'>
+					<input name='txtAttributeValue".$no."' placeholder='Ex : AD9876/bonoboLine' type='text' class='validate' value='".$Attribute->value."'>
 				</div>
 			</div>
 		";
@@ -141,7 +144,7 @@ echo"
 					</div>
 				</div>
 				<div class='input-field col s12 m8'>
-					<input id='txtPostal' name='txtPostal' type='text' class='validate'  value='".$Shop->postal."'>
+					<input id='txtPostal' name='txtPostal' type='text' placeholder='Ex : 15122' class='validate'  value='".$Shop->postal."'>
 					<label for='txtPostal'>Kodepos</label>
 				</div>
 				<div class=' col s12 m8'>
@@ -149,7 +152,7 @@ echo"
 					<label id='notifProvince' class='error error-chosen' style='display:none;'></label>
 					<div id='divProvince' class='input-field'>
 						<select name='cmbProvince' class='chosen-select' onChange=ctrlShopStep1.loadComboboxCity();>
-";
+							<option disabled>Pilih propinsi</option>";								
 
 	if(!empty($Shop->location_province)){
 		echo"<option value='".$Shop->location_province."' selected>".$Shop->location_province."</option>";
@@ -170,7 +173,7 @@ echo"
 					<label id='notifCity' class='error error-chosen' style='display:none;'></label>
 					<div id='divCity' class='input-field'>
 						<select name='cmbCity' class='chosen-select' onChange=ctrlShopStep1.loadComboboxKecamatan();>
-";
+							<option disabled>Pilih kota</option>";
 
 	if(!empty($Shop->location_city)){
 		echo"<option value='".$Shop->location_city."' selected>".$Shop->location_city."</option>";
@@ -191,7 +194,7 @@ echo"
 					<label id='notifKecamatan' class='error error-chosen' style='display:none;'></label>
 					<div id='divKecamatan' class='input-field'>
 						<select name='cmbKecamatan' class='chosen-select'>
-";
+							<option disabled>Pilih kecamatan</option>";
 
 	if(!empty($Shop->location_kecamatan)){
 		echo"<option value='".$Shop->location_kecamatan."' selected>".$Shop->location_kecamatan."</option>";
@@ -208,7 +211,7 @@ echo"
 					</div>
 				</div>
 				<div class='input-field col s12 m8'>
-					<textarea id='txtAddress' name='txtAddress' class='materialize-textarea' >".$Shop->address."</textarea>
+					<textarea id='txtAddress' name='txtAddress' placeholder='Ex : Jl. Raya Bonobo no.1' class='materialize-textarea' >".$Shop->address."</textarea>
 					<label for='txtAddress'>Alamat toko</label>
 				</div>
 				<div class='input-field col s12 m8'>
