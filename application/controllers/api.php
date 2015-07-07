@@ -12,7 +12,7 @@ set_time_limit (99999999999);
 
 class Api extends CI_Controller {
 
-	var $quality = 15;
+	var $quality = 25;
 	
 	function __construct(){
         parent::__construct();
@@ -42,7 +42,7 @@ class Api extends CI_Controller {
 			return null;
 		}else{
 			if(@getimagesize(base_url("assets/pic/user/".$QUser->image))){
-				$UserImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/user/resize/".$QUser->image)));
+				$UserImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/user/".$QUser->image)));
 			}else{
 				$UserImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
 			}
@@ -85,7 +85,7 @@ class Api extends CI_Controller {
 			$Banks = array();
 			foreach($QBanks as $QBank){
 				if(@getimagesize(base_url("assets/pic/bank/".$QBank->image))){
-					$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/bank/resize/".$QBank->image)));
+					$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
 				}else{
 					$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
 				}
@@ -224,7 +224,7 @@ class Api extends CI_Controller {
 		foreach($QProductImages as $QProductImage){
 			$ProductImage = array(
 						"id"=>$QProductImage->id,
-						"image_url"=>base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/product/resize/".$QProductImage->file))),
+						"image_url"=>base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/product/".$QProductImage->file))),
 					);
 							
 			array_push($ProductImages,$ProductImage);
@@ -474,6 +474,80 @@ class Api extends CI_Controller {
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Pendaftaran tidak berhasil","messageCode"=>8), true);
 			}
+			
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function doLoginFacebook(){
+		try {
+		
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("name") == "" || $this->response->postDecode("name") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Nama masih kosong","messageCode"=>1), true);
+				return;
+			}
+			
+			if($this->response->post("email") == "" || $this->response->postDecode("email") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Email masih kosong","messageCode"=>2), true);
+				return;
+			}
+			
+			if($this->response->post("id") == "" || $this->response->postDecode("id") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Password masih kosong","messageCode"=>3), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("email",$this->response->postDecode("email"))->get("tb_member")->row();
+			if(empty($QUser)){
+				/*
+				*	------------------------------------------------------------------------------
+				*	Save new member
+				*	------------------------------------------------------------------------------
+				*/
+				$OUser = array(
+							"name"=>$this->response->postDecode("name"),
+							"email"=>$this->response->postDecode("email"),
+							"facebook_id"=>$this->response->postDecode("id"),
+							"facebook_flag"=>1,
+							"create_date"=>date("Y-m-d H:i:s"),
+							"create_user"=>$this->response->postDecode("email"),
+							"update_date"=>date("Y-m-d H:i:s"),
+							"update_user"=>$this->response->postDecode("email"),
+						);
+						
+				$this->db->insert("tb_member",$OUser);
+			}
+
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	get data new member
+			*	------------------------------------------------------------------------------
+			*/
+
+			$QUser = $this->db
+					->where("email",$this->response->postDecode("email"))
+					->get("tb_member")
+					->row();
+			
+			if(!empty($QUser)){
+				$User = $this->getUserById($QUser->id);
+				$this->response->send(array("result"=>1,"user"=>$User), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Login tidak berhasil","messageCode"=>7), true);
+			}
+			
 			
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
