@@ -154,7 +154,7 @@ function boxVarian(id) {
   var stok      = $('#stok').val();
   if (stok == 1) {
       var varian = "<li class='varsto' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5'>"
-                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' placeholder='Masukkan varian' class='validate'>"
+                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' placeholder='Ex : Merah' class='validate'>"
                       +"<label for='varian'>Varian <span></span></label>"
                     +"</div>"
                     +"<div class='input-field col s11 m5 tersedia'>"
@@ -170,7 +170,7 @@ function boxVarian(id) {
                     +"</li>";
    }else if (stok == 0) {
       var varian = "<li class='varsto' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5'>"
-                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' placeholder='Masukkan varian' class='validate'>"
+                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' placeholder='Ex : Merah' class='validate'>"
                       +"<label for='varian'>Varian <span></span></label>"
                     +"</div>"
                     +"<div class='input-field col s11 m5 tersedia' style='display:none'>"
