@@ -111,10 +111,10 @@ echo"
 											<div class='col s12 m7' id='lokasi-btn-".$row->id."'>";
 											if ($row->status != 2) {
 												if ($row->status != 1) {
-													echo"						            		
+													echo"
 												<button id='btn-bayar-".$row->id."' data-target='bayar-".$row->id."' class='btn modal-trigger waves-effect orange darken-1 white-text waves-light right' type='button' name='action'>Bayar</button>";
 												}
-											echo"												
+											echo"
 												<button id='btn-batal-".$row->id."' data-target='batal_nota_".$row->id."' class='btn modal-trigger waves-effect red white-text waves-light right' type='button' name='action' >Batal</button>
 								            </div>
 								            <div id='batal_nota_".$row->id."' class='modal confirmation'>
@@ -245,7 +245,8 @@ echo"
 								                	<a class='right col s2 m1 center modal-trigger' href='#pengiriman'>Edit</a>
 								                </div>
 								                <div class='collapsible-body' style='display: none;' id='isi-kurir'>
-								                	<p ><span id='panggon-nota'>
+								                	<p >
+								                		<span id='panggon-nota'>
 								                		<b>Pengiriman : </b> ".$row->shipment_service."<br>
 									                	<b>Resi : </b> ".$row->shipment_no."<br>
 									                	</span>
@@ -364,7 +365,7 @@ echo"
 														</form>
 													</div>
 													<div class='modal-footer'>
-														<a onclick=javascript:confirm_courier() class='modal-action modal-close waves-effect waves-red btn-flat'>Konfirmasi</a>
+														<a onclick=javascript:confirm_courier(0) class='modal-action modal-close waves-effect waves-red btn-flat'>Konfirmasi</a>
 														<a class='modal-action modal-close waves-effect waves-red btn-flat'>Batal</a>		
 													</div>
 												</div>

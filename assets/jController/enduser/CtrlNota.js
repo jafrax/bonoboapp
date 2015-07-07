@@ -135,9 +135,17 @@ function konfirmasi(id){
         url: base_url+'nota/konfirmasi',
         success: function(msg) {
         	if (msg == 1) {        		
-        		
+        		//$('#btn-batal-'+id).fadeOut();
+                $('#btn-bayar-'+id).fadeOut();
+                //$('#lokasi-btn-'+id).html('<br>');
+                $('#lunas-'+id).html('Lunas');              
+                $('#lunas-'+id).removeClass('red-text');
+                $('#lunas-'+id).addClass('green-text');
         		Materialize.toast('Nota telah di konfirmasi', 4000);
-        	};          	
+        	}else{
+                Materialize.toast('Pemesanan tidak dapat diproses', 3000);
+                Materialize.toast('Cek stok barang Anda', 4000);
+            };          	
         } 
     });
 }
@@ -175,7 +183,7 @@ function set_kecamatan(){
     $.ajax({type: 'POST',data: 'city='+city,url: base_url+'nota/set_kecamatan_city', success: function(kecamatan) {$('#panggon-kecamatan').html(kecamatan);$('#kecamatan').chosen();}});
 }
 
-function confirm_courier(){
+function confirm_courier(a){
     var pengiriman = $('#form-pengiriman');
 
     $.ajax({
@@ -185,7 +193,14 @@ function confirm_courier(){
         success: function(msg) {
             if (msg != 0) {
                 Materialize.toast('Pengiriman telah di konfirmasi', 4000);
-                $('#panggon-nota').html(msg);
+                if (a == 0) {
+                    $('#panggon-nota').html(msg);    
+                }else{
+                    location.reload();
+                };
+                
+            }else{
+                Materialize.toast('Pemesanan tidak dapat diproses', 4000);
             };              
         } 
     });

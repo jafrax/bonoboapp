@@ -93,8 +93,23 @@ class Nota extends CI_Controller {
 			return;
 		}
 
-		if ($metode == 2) {
-			//$transaksi = $this->model_nota->get_nota_transfer($id);
+		$cek_stok = $this->model_nota->get_toko()->row();
+		if ($cek_stok->stock_adjust == 1) {
+			//echo "string";
+			$produk = $this->model_nota->get_nota_product_by_id($id);
+				foreach ($produk->result() as $row) {
+					$stok_req = $row->quantity;
+					$stok = $this->db->where('id',$row->product_varian_id)->get('tb_product_varian')->row()->stock_qty;
+					if ($stok < $stok_req ) {
+						echo "0";
+						return;
+					}					
+				}
+				foreach ($produk->result() as $row) {
+					$stok = $row->quantity;
+					$this->db->where('id',$row->product_varian_id)->set('stock_qty','stock_qty - $stok')->update('tb_product_varian');
+				}
+			
 		}
 
 		$update = $this->db->set('status',1)->where('id',$id)->update('tb_invoice');
