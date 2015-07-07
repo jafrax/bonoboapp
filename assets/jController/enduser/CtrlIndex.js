@@ -243,12 +243,11 @@ function CtrlSignin(){
 			return;
 		}
 		
-		var challenge = $('#recaptcha_challenge_field').val();
-		var response = $('#recaptcha_response_field').val();
+		var response = $('#g-recaptcha-response').val();
 		
 		$.ajax({
 			type: 'POST',
-			data: "email="+txtForgotEmail.value+"&recaptcha_challenge_field="+challenge+"&recaptcha_response_field="+response,
+			data: "email="+txtForgotEmail.value+"&g-recaptcha-response="+response,
 			url: base_url+'index/doForgotPassword',
 			success: function(result) {
 				var response = JSON.parse(result);
@@ -257,12 +256,12 @@ function CtrlSignin(){
 					notifForgotPassword.html("<div style='color:blue;'>"+response.message+"</div>");
 					notifForgotPassword.slideDown();
 					notifForgotPassword.delay(5000).slideUp('slow');
-					jQuery("#recaptcha_reload").click();
+					grecaptcha.reset();
 				}else{					
-					notifForgotPassword.html("<i class='fa fa-warning'></i> "+response.message);
+					notifForgotPassword.html("<i class='fa fa-warning'></i> "+response.message+"</div>");
 					notifForgotPassword.slideDown();
 					notifForgotPassword.delay(5000).slideUp('slow');
-					jQuery("#recaptcha_reload").click();
+					grecaptcha.reset();
 				}
 			}
 		});

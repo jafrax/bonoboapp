@@ -272,13 +272,11 @@ class Index extends CI_Controller {
 			$this->response->send(array("result"=>0,"message"=>"Email harus diisi !","messageCode"=>1));
 			return;
 		}
-		$this->recaptcha->recaptcha_check_answer($_SERVER["REMOTE_ADDR"],$this->input->post("recaptcha_challenge_field"), $this->input->post("recaptcha_response_field"));
-		if(!$this->recaptcha->getIsValid()){
-			$this->response->send(array("result"=>0,"message"=>"Kode keamanan tidak sesuai"));
+		$captcha = (string) $this->input->post("g-recaptcha-response", true);
+		if(!$captcha){
+			$this->response->send(array("result"=>0,"message"=>"Captcha cannot be empty","messageCode"=>1));
 			return;
 		}
-		
-		
 		$QShop = $this->model_toko->get_by_email($this->response->post("email"))->row();
 		if(!empty($QShop)){
 			$NewPassword = $this->template->rand(6);

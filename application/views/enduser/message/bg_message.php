@@ -13,7 +13,7 @@ echo"
 				</form>
 				<div class='col s6 m8'>
 					<button id='aMessageNew' class='btn deep-orange darken-1 waves-effect waves-light right pesan' type='button' name='action'>
-						<i class='mdi-content-add-circle-outline left'></i> Pesan baru
+						<i class='mdi-content-add-circle-outline left'></i> New Message
 					</button>
 				</div>
 			</div>
