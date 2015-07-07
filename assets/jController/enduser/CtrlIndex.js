@@ -185,15 +185,11 @@ function CtrlSignin(){
 			doSave();
 		};
 		
-		forgetpass.onclick = function(){
-			jQuery("#recaptcha_reload").click();
-		};
-		
 		aForgotSubmit.onclick = function(){
 			doForgotPassword();
 		};
 	}
-	function onEnter(){
+	function onEnter(event){
 		if ($hs_onEnter(event)){
 			doSave();
 		}
