@@ -8,7 +8,7 @@
 * 1. Create 12 Juni 2015 by Heri Siswanto, Create controller
 * 2. Change 22 Juni 2015 by Dinar Wahyu Wibowo, Change Index
 * 3. Change 23 Juni 2015 by Heri Siswanto, Coding Signup, Coding Signin, Signup Facebook, Signin Facebook
-* 4. Create 03 Juli 2015 by adi Setyo, Cek Mail
+* 4. Create 03 Juli 2015 by adi Setyo, Cek Mail, signup_verification
 */
 
 class Index extends CI_Controller {
@@ -112,8 +112,7 @@ class Index extends CI_Controller {
 	
 	public function signin(){
 		if(!$_POST){
-			$data["captcha"] = $this->recaptcha->recaptcha_get_html();
-			$this->load->view("enduser/login/bg_login", $data);
+			$this->load->view("enduser/login/bg_login");
         }else{
             $this->form_validation->set_rules('email', '', 'required');
             $this->form_validation->set_rules('password', '', 'required');
@@ -274,9 +273,11 @@ class Index extends CI_Controller {
 		}
 		$captcha = (string) $this->input->post("g-recaptcha-response", true);
 		if(!$captcha){
-			$this->response->send(array("result"=>0,"message"=>"Captcha cannot be empty","messageCode"=>1));
+			$this->response->send(array("result"=>0,"message"=>"You are spammer","messageCode"=>1));
 			return;
 		}
+		
+		
 		$QShop = $this->model_toko->get_by_email($this->response->post("email"))->row();
 		if(!empty($QShop)){
 			$NewPassword = $this->template->rand(6);
