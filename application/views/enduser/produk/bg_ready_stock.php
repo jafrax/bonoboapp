@@ -194,7 +194,7 @@ echo"
 									<div class='card-reveal'>
 										<span class='card-title grey-text text-darken-4'>".$row->name." <i class='mdi-navigation-close right'></i></span>
 										<p>
-											<div class='col s6'><b>Nomor SKU</b></div>
+											<div class='col s6'><b>SKU</b></div>
 											<div class='col s6'>".$row->sku_no."</div>
 											<div class='col s6'><b>Kategori</b></div>
 											<div class='col s6'>".$row->kategori."</div>

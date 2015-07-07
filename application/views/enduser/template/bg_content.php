@@ -83,7 +83,7 @@ echo"
 							</div>
 						</div>
 						<div class='row formbody'>
-							<div class='linehead'><i class='fa fa-minus-square-o'></i>Alamat dan Kontak</div>
+							<div class='linehead'><i class='fa fa-minus-square-o'></i>Kontak dan Alamat</div>
 							<div class='input-field col s12 m8'>
 								<input id='telephone' type='tel' class='validate'>
 								<label for='telephone'>Telephone</label>
