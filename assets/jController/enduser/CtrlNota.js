@@ -183,8 +183,9 @@ function confirm_courier(){
         data: pengiriman.serialize(),
         url: base_url+'nota/pengiriman',
         success: function(msg) {
-            if (msg == 1) {
+            if (msg != 0) {
                 Materialize.toast('Pengiriman telah di konfirmasi', 4000);
+                $('#panggon-nota').html(msg);
             };              
         } 
     });

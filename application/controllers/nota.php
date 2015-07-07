@@ -194,8 +194,9 @@ class Nota extends CI_Controller {
 		$province	= $this->template->clearInput($this->input->post('province'));
 		$city 		= $this->template->clearInput($this->input->post('city'));
 		$kecamatan	= $this->template->clearInput($this->input->post('kecamatan'));
+		$alamat		= $this->template->clearInput($this->input->post('alamat'));
 
-		$data	= array(
+		/*$data	= array(
 			'shipment_no'		=> $resi,
 			'shipment_service'	=> $kurir,
 			'price_shipment'	=> $biaya,
@@ -205,12 +206,31 @@ class Nota extends CI_Controller {
 			'location_to_city'	=> $city,
 			'location_to_kecamatan'	=> $kecamatan,
 			'location_to_postal'	=> $postal,			
+			'location_to_address'	=> $alamat
+			);*/
+
+		$data	= array(
+			'shipment_no'		=> $resi,
+			'shipment_service'	=> $kurir,
 			);
 
 		$update = $this->db->where('id',$id)->update('tb_invoice',$data);
-		if ($update) {
-			echo "1";
+		if ($update) {			
+			echo "
+    		<b>Pengiriman : </b> ".$kurir."<br>
+        	<b>Resi : </b> ".$resi."<br>       
+        	";
+		}else{
+			echo "0";
 		}
+	}
+
+	public function detail(){
+		$data['nota']		= $this->model_nota->get_nota();
+		$data['rekening']	= $this->model_nota->get_rekening();
+		$data['toko']		= $this->model_nota->get_toko()->row();
+
+		$this->template->bonobo('nota/bg_nota_detail',$data);
 	}
 }
 

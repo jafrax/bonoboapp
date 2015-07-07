@@ -82,7 +82,7 @@ echo"
 							              echo"
 							            </div>
 							            <div class='col s11 m4'>
-							              	<h5 class='blue-text'><a href='#' >".$row->invoice_no."</a></h5>
+							              	<h5 class='blue-text'><a href='".base_url()."nota/detail/".$row->invoice_no."' >".$row->invoice_no."</a></h5>
 							              	<h6 class='blue-text'>".$row->member_name."</h6>
 							              	<span class='labelbudge pink lighten-2'>PRE ORDER</span>
 							              	<h5>Rp. ".number_format($row->price_total, 2 , ',' , '.')."</h5>
@@ -245,13 +245,10 @@ echo"
 								                	<a class='right col s2 m1 center modal-trigger' href='#pengiriman'>Edit</a>
 								                </div>
 								                <div class='collapsible-body' style='display: none;' id='isi-kurir'>
-								                	<p>";
-								                	if ($row->shipment_no == '') {
-								                		echo "Pilih tombol edit untuk memasukan data pengiriman";
-								                	}else{
-								                		echo "
+								                	<p ><span id='panggon-nota'>
 								                		<b>Pengiriman : </b> ".$row->shipment_service."<br>
 									                	<b>Resi : </b> ".$row->shipment_no."<br>
+									                	</span>
 									                	<b>Biaya Pengiriman : </b> ".$row->price_shipment."<br>
 									                	<b>Nama Penerima : </b> ".$row->recipient_name."<br>
 									                	<b>No. Telp. Penerima : </b> ".$row->recipient_phone."<br>
@@ -259,10 +256,8 @@ echo"
 									                	<b>Kabupaten/Kota Penerima : </b> ".$row->location_to_city."<br>
 									                	<b>Kecamatan Penerima : </b> ".$row->location_to_kecamatan."<br>
 									                	<b>Kode Pos Penerima : </b> ".$row->location_to_postal."<br>
-									                	";
-								                	}
-									                
-									                echo"
+									                	<b>Alamat Penerima : </b> ".$row->location_to_address."<br>
+									                	
 									                </p>
 								                </div>
 								                <div id='pengiriman' class='modal modal-fixed-footer'>
@@ -271,7 +266,7 @@ echo"
 															<input type='hidden' value='".$row->id."' name='id_nota' />
 															<div class='input-field col s12 m6'>
 																<label>Jenis Pengiriman</label>
-																<select class='chosen-select' nama='kurir'>
+																<select class='chosen-select' name='kurir'>
 																	<option value='' disabled selected>Pilih Jenis Pengiriman</option>";
 																	$toko_kurir = $this->model_nota->get_toko_kurir($row->toko_id);
 																	foreach ($toko_kurir->result() as $kurir_t) {
@@ -289,7 +284,7 @@ echo"
 																</select>
 															</div>
 															<div class='input-field col s12 m8'>
-																<input id='biaya' name='biaya' type='text' class='validate' value='".$row->price_shipment."'>
+																<input disabled id='biaya' name='biaya' type='text' class='validate' value='".$row->price_shipment."'>
 																<label for='biaya'>Biaya Pengiriman</label>
 															</div>
 															<div class='input-field col s12 m8'>
@@ -297,20 +292,24 @@ echo"
 																<label for='nomor-resi'>Nomor Resi</label>
 															</div>	
 															<div class='input-field col s12 m8'>
-																<input id='namane' name='namane' type='text' class='validate' value='".$row->recipient_name."'>
+																<input disabled id='namane' name='namane' type='text' class='validate' value='".$row->recipient_name."'>
 																<label for='namane'>Nama Penerima</label>
 															</div>															
 															<div class='input-field col s12 m8'>
-																<input id='phone' name='phone' type='text' class='validate' value='".$row->recipient_phone."'>
+																<input disabled id='phone' name='phone' type='text' class='validate' value='".$row->recipient_phone."'>
 																<label for='phone'>Nomor Penerima</label>
 															</div>
 															<div class='input-field col s12 m8'>
-																<input id='postal-code' name='postal-code' type='text' onkeyup=javascript:set_location() class='validate' value='".$row->location_to_postal."'>
+																<input disabled id='postal-code' name='postal-code' type='text' onkeyup=javascript:set_location() class='validate' value='".$row->location_to_postal."'>
 																<label for='postal-code'>Kode Pos</label>
+															</div>
+															<div class='input-field col s12 m8'>
+																<textarea disabled id='alamat' name='alamat' class='materialize-textarea' >".$row->location_to_address."</textarea>
+																<label for='alamat'>Alamat Penerima</label>
 															</div>
 															<div class='input-field col s12 m6' id='panggon-province'>
 																<label>Pilih Provinsi</label>
-																<select class='chosen-select' name='province' id='province' onchange=javascript:set_city()>
+																<select disabled class='chosen-select' name='province' id='province' onchange=javascript:set_city()>
 																	<option value='' disabled selected>Pilih Provinsi</option>";
 																	$provinsi = $this->model_nota->get_province();
 																	foreach ($provinsi->result() as $row_p) {
@@ -323,7 +322,7 @@ echo"
 															</div>
 															<div class='input-field col s12 m6' id='panggon-city'>
 																<label>Pilih Kota</label>
-																<select class='chosen-select' name='city' id='city' onchange=javascript:set_kecamatan()>
+																<select disabled class='chosen-select' name='city' id='city' onchange=javascript:set_kecamatan()>
 																	<option value='' disabled selected>Pilih Kota</option>";
 																	if ($row->location_to_city != '') {
 																		$kota = $this->model_nota->get_city($row->location_to_province);
@@ -344,7 +343,7 @@ echo"
 															</div>
 															<div class='input-field col s12 m6' id='panggon-kecamatan'>
 																<label>Pilih Kecamatan</label>
-																<select class='chosen-select' name='kecamatan' id='kecamatan'>
+																<select disabled class='chosen-select' name='kecamatan' id='kecamatan'>
 																	<option value='' disabled selected>Pilih Kecamatan</option>";
 																	if ($row->location_to_kecamatan != '') {
 																		$kecamatan = $this->model_nota->get_kecamatan($row->location_to_city);
