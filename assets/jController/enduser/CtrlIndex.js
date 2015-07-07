@@ -149,7 +149,7 @@ function CtrlSignin(){
 	this.init = init;
 	this.onEnter= onEnter;
 	
-	var btnSave;
+	var btnSave,forgetpass;
 	var formSignin,formSigninJQuery;
 	var notifEmail,notifPassword;
 	var lblNotif,lblMailNotif;
@@ -162,6 +162,7 @@ function CtrlSignin(){
 	
 	function initComponent(){
 		btnSave = $hs("btnSave");
+		forgetpass = $hs("forgetpass");
 		formSignin = $hs("formSignin");
 		
 		formSigninJQuery = $("#formSignin");
@@ -174,11 +175,16 @@ function CtrlSignin(){
 		notifForgotPassword = $("#notifForgotPassword");
 		
 		$('.modal-trigger').leanModal();
+		
 	}
-	
+
 	function initEventlistener(){
 		btnSave.onclick = function(){
 			doSave();
+		};
+		
+		forgetpass.onclick = function(){
+			jQuery("#recaptcha_reload").click();
 		};
 		
 		aForgotSubmit.onclick = function(){
@@ -251,10 +257,12 @@ function CtrlSignin(){
 					notifForgotPassword.html("<div style='color:blue;'>"+response.message+"</div>");
 					notifForgotPassword.slideDown();
 					notifForgotPassword.delay(5000).slideUp('slow');
-				}else{
+					jQuery("#recaptcha_reload").click();
+				}else{					
 					notifForgotPassword.html("<i class='fa fa-warning'></i> "+response.message);
 					notifForgotPassword.slideDown();
 					notifForgotPassword.delay(5000).slideUp('slow');
+					jQuery("#recaptcha_reload").click();
 				}
 			}
 		});
