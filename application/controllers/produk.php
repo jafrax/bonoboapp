@@ -322,10 +322,10 @@ class Produk extends CI_Controller {
 		if ($insert) {
 			$kategori = $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
 
-			echo "<label>Kategori barang <span class='text-red'>*</span></label>
+			echo "<label>Kategori Barang <span class='text-red'>*</span></label>
 					<label class='error error-chosen' for='select-kategori'></label>
 					<select name='kategori' id='select-kategori' class='chosen-select' required>
-					<option value='' disabled selected>Choose your option</option>";
+					<option value='' disabled selected>Pilih Kategori Barang</option>";
 			
 			foreach ($kategori->result() as $row_ktgri) {
 				echo "<option value='".$row_ktgri->id."'>".$row_ktgri->name."</option>";

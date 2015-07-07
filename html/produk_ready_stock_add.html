@@ -128,17 +128,17 @@
 									</select>									
 								</div>
 								<div class="input-field col s12">
-									<input id="nama_barang" type="text" class="validate">
-									<label for="nama_barang">Nama barang <span class="text-red">*</span></label>
+									<input id="nama_barang" type="text" placeholder='Ex : Baju Bonobo' class="validate">
+									<label for="nama_barang">Nama Barang <span class="text-red">*</span></label>
 								</div>
 								<div class="input-field col s12">
-									<input id="nomor_sku" type="text" class="validate">
+									<input id="nomor_sku" type="text" placeholder='Ex : AD001' class="validate">
 									<label for="nomor_sku">Nomor SKU</label>
 								</div>
 								<div class="col s12 m6">
-									<label>Kategori barang</label>
+									<label>Kategori Barang</label>
 									<select class='chosen-select'>
-										<option value="" disabled selected>Choose your option</option>
+										<option value='' disabled selected>Pilih Kategori Barang</option>
 										<option value="1">Option 1</option>
 										<option value="2">Option 2</option>
 										<option value="3">Option 3</option>
@@ -150,7 +150,7 @@
 								<div class="input-field col s12">
 									<div class="col s6 m4 l3">
 										<div class="card">
-											<a class="delimg"><i class="mdi-content-backspace"></i></a>
+											<a class="delimg"><i class="mdi-navigation-close right"></i></a>
 											<div class="card-image img-product waves-effect waves-block waves-light">
 												<img class="responsive-img" src="images/comp/product_large.png">
 											</div>
@@ -158,7 +158,7 @@
 									</div>
 									<div class="col s6 m4 l3">
 										<div class="card">
-											<a class="delimg"><i class="mdi-content-backspace"></i></a>
+											<a class="delimg"><i class="mdi-navigation-close right"></i></a>
 											<div class="card-image img-product waves-effect waves-block waves-light">
 												<img class="responsive-img" src="images/data/iphone.jpg">
 											</div>
@@ -166,7 +166,7 @@
 									</div>
 									<div class="col s6 m4 l3">
 										<div class="card">
-											<a class="delimg"><i class="mdi-content-backspace"></i></a>
+											<a class="delimg"><i class="mdi-navigation-close right"></i></a>
 											<div class="card-image img-product waves-effect waves-block waves-light">
 												<img class="responsive-img" src="images/comp/product_large.png">
 											</div>
@@ -174,7 +174,7 @@
 									</div>
 									<div class="col s6 m4 l3">
 										<div class="card">
-											<a class="delimg"><i class="mdi-content-backspace"></i></a>
+											<a class="delimg"><i class="mdi-navigation-close right"></i></a>
 											<div class="card-image img-product waves-effect waves-block waves-light">
 												<img class="responsive-img" src="images/comp/product_large.png">
 											</div>
@@ -186,18 +186,18 @@
 								</div>
 								<div class="input-field col s12">
 									<input id="perkiraan_berat" type="text" class="validate">
-									<label for="perkiraan_berat">Perkiraan berat <span>( Kilogram)</span></label>
+									<label for="perkiraan_berat">Perkiraan Berat <span>( Kilogram)</span></label>
 								</div>
 								<div class="input-field col s12">
-									<input id="satuan" type="text" placeholder="Misal: Lusin, Pcs" class="validate">
+									<input id="satuan" type="text" placeholder="Misal: Pcs" class="validate">
 									<label for="satuan">Satuan <span></span></label>
 								</div>
 								<div class="input-field col s12">
 									<input id="min_order" type="text" class="validate">
-									<label for="min_order">Min order</label>
+									<label for="min_order">Min Order</label>
 								</div>
 								<div class="input-field col s12">
-									<textarea id="deskripsi" class="materialize-textarea"></textarea>
+									<textarea id="deskripsi" placeholder='Baju bonobo adalah baju berkualitas' class="materialize-textarea"></textarea>
 									<label for="deskripsi">Deskripsi</label>
 								</div>
 								
@@ -205,7 +205,7 @@
 							<div class="row formbody">
 								<div class="linehead">Stok Barang</div>
 								<div class="col s12 m6">
-									<label>Tipe stok</label>
+									<label>Tipe Stok</label>
 									<select class='chosen-select'>
 										<option value="" disabled selected>Choose your option</option>
 										<option value="1">Stok selalu tersedia</option>
@@ -219,7 +219,7 @@
 								<ul class="col s12 m12">
 									<li class="varsto">
 										<div class="input-field col s12 m6">
-											<input id="varian" type="text" placeholder="Misal: Lusin, Pcs" class="validate">
+											<input id="varian" type="text" placeholder="Misal: Pcs" class="validate">
 											<label for="varian">Varian <span></span></label>
 										</div>
 										<div class="input-field col s12 m6">
@@ -228,7 +228,7 @@
 									</li>
 									<li class="varsto">
 										<div class="input-field col s12 m6">
-											<input id="varian" type="text" placeholder="Misal: Lusin, Pcs" class="validate">
+											<input id="varian" type="text" placeholder="Misal: Pcs" class="validate">
 											<label for="varian">Varian <span></span></label>
 										</div>
 										<div class="input-field col s12 m6">
@@ -237,7 +237,7 @@
 									</li>
 									<li class="varsto">
 										<div class="input-field col s12 m6">
-											<input id="varian" type="text" placeholder="Misal: Lusin, Pcs" class="validate">
+											<input id="varian" type="text" placeholder="Misal: Pcs" class="validate">
 											<label for="varian">Varian <span></span></label>
 										</div>
 										<div class="input-field col s12 m6">
@@ -251,7 +251,7 @@
 								<ul class="col s12 m12">
 									<li class="varsto">
 										<div class="input-field col s12 m6">
-											<input id="varian" type="text" placeholder="Misal: Lusin, Pcs" class="validate">
+											<input id="varian" type="text" placeholder="Misal: Pcs" class="validate">
 											<label for="varian">Varian <span></span></label>
 										</div>
 										<div class="input-field col s12 m6">
@@ -268,10 +268,10 @@
 								<div class="linehead">Harga Barang</div>
 								<div class="input-field col s12 m6">
 									<input id="harga_pembelian" type="text" class="validate">
-									<label for="harga_pembelian">Harga pembelian</label>
+									<label for="harga_pembelian">Harga Pembelian</label>
 								</div>
 								<div class="input-field col s12 m12 varsto">
-									<label for="harga_jual">Harga jual <span class="text-red">*</span></label>
+									<label for="harga_jual">Harga Jual <span class="text-red">*</span></label>
 								</div>
 								<ul class="col s12 m12">
 									<li class="varsto">

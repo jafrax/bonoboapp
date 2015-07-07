@@ -55,11 +55,11 @@ echo "
 						<div class='row formbody'>
 							<div class='col s12'>
 								<div class='input-field col s12'>
-									<input id='nama_barang' name='nama' type='text' class='validate' length='50' value='".$produk->name."' required>
-									<label for='nama_barang'>Nama barang <span class='text-red'>*</span></label>									
+									<input id='nama_barang' name='nama' type='text' placeholder='Ex : Baju Bonobo' class='validate' length='50' value='".$produk->name."' required>
+									<label for='nama_barang'>Nama Barang <span class='text-red'>*</span></label>									
 								</div>
 								<div class='input-field col s12'>
-									<input id='nomor_sku' type='text' name='sku' class='validate' length='20' value='".$produk->sku_no."'>
+									<input id='nomor_sku' type='text' name='sku' placeholder='Ex : AD001' class='validate' length='20' value='".$produk->sku_no."'>
 									<label for='nomor_sku'>Nomor SKU</label>
 								</div>";
 								$old_date 			= $produk->end_date;
@@ -71,10 +71,10 @@ echo "
 									<label for='date_fin'>Tanggal selesai PRE ORDER</label>
 								</div>
 								<div class='col s12 m6' id='tempat-kategori'>
-									<label>Kategori barang <span class='text-red'>*</span></label>
+									<label>Kategori Barang <span class='text-red'>*</span></label>
 									<label class='error error-chosen' for='select-kategori'></label>
 									<select name='kategori' id='select-kategori' required>
-										<option value='' disabled selected>Choose your option</option>";
+										<option value='' disabled selected>Pilih Kategori Barang</option>";
 										foreach ($kategori->result() as $row_ktgri) {
 											$select = '';
 											if ($row_ktgri->id == $produk->kategori) {$select = 'selected';}
@@ -86,60 +86,64 @@ echo "
 								<div class='input-field col s12 m6'>
 									<a href='#add_kategori' class='btn-flat right modal-trigger'><b class='blue-text'><i class='mdi-content-add-box left'></i>BUAT KATEGORI BARU</b></a>
 								</div>
-								<div class='input-field col s12 picture-area'>";
-                                    $pic    = $this->model_produk->get_one_image($produk->id);
-                                    $i      = 1;
-                                    if(count($pic->result())>0){
-                                        foreach($pic->result() as $item){
-                                           echo "
-	                                           	<div class='col s6 m4 l3' id='div_pic_edit_".$item->id."'>
+								<div class='input-field col s12 m8'>
+									<i class='grey-text'><b>Ukuran Maks</b> : 1 MB.</i><br>
+									<i class='grey-text'><b>Format</b> : .bmp, .jpg, .png.</i>
+								</div>
+								<div class='input-field col s12'>
+									<div class=' picture-area'>";
+	                                    $pic    = $this->model_produk->get_one_image($produk->id);
+	                                    $i      = 1;
+	                                    if(count($pic->result())>0){
+	                                        foreach($pic->result() as $item){
+	                                           echo "
+		                                           	<div class='col s6 m4 l3' id='div_pic_edit_".$item->id."'>
+														<div class='card' >
+															<a class='delimg' onclick=javascript:remove_picture('pic_edit_".$item->id."')><i class='mdi-navigation-close right'></i></a>
+															<div class='card-image img-product waves-effect waves-block waves-light'>
+																<img id='img_pic_edit_".$item->id."' onclick=javascript:click_picture('pic_edit_".$item->id."') class='responsive-img img-product' src='".base_url()."assets/pic/product/resize/".$item->file."'>
+																<input type='file' class='pic_edit_product' name='pic_edit_".$item->id."' id='pic_edit_".$item->id."' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
+															</div>
+															<label for='pic_edit_".$item->id."' class='error error-image' generated='true'></label>										
+														</div>										
+													</div>
+	                                            ";
+	                                            $i++;
+	                                        }
+	                                    }else{
+	                                        echo "
+	                                            <div class='col s6 m4 l3' id='div_pic_1'>
 													<div class='card' >
-														<a class='delimg' onclick=javascript:remove_picture('pic_edit_".$item->id."')><i class='mdi-content-backspace'></i></a>
+														<a class='delimg' onclick=javascript:remove_picture('pic_1')><i class='mdi-navigation-close right'></i></a>
 														<div class='card-image img-product waves-effect waves-block waves-light'>
-															<img id='img_pic_edit_".$item->id."' onclick=javascript:click_picture('pic_edit_".$item->id."') class='responsive-img img-product' src='".base_url()."assets/pic/product/resize/".$item->file."'>
-															<input type='file' class='pic_edit_product' name='pic_edit_".$item->id."' id='pic_edit_".$item->id."' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
+															<img id='img_pic_1' onclick=javascript:click_picture('pic_1') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
+															<input type='file' class='pic_product' name='pic_1' id='pic_1' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
 														</div>
-														<label for='pic_edit_".$item->id."' class='error error-image' generated='true'></label>										
+														<label for='pic_1' class='error error-image' generated='true'></label>										
 													</div>										
 												</div>
-                                            ";
-                                            $i++;
-                                        }
-                                    }else{
-                                        echo "
-                                            <div class='col s6 m4 l3' id='div_pic_1'>
-												<div class='card' >
-													<a class='delimg' onclick=javascript:remove_picture('pic_1')><i class='mdi-content-backspace'></i></a>
-													<div class='card-image img-product waves-effect waves-block waves-light'>
-														<img id='img_pic_1' onclick=javascript:click_picture('pic_1') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
-														<input type='file' class='pic_product' name='pic_1' id='pic_1' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
-													</div>
-													<label for='pic_1' class='error error-image' generated='true'></label>										
-												</div>										
-											</div>
-                                        ";
-                                    }
-                                    echo "
-									
+	                                        ";
+	                                    }
+	                                    echo "
+	                                </div>
+									<a class='btn-flat left' onclick=javascript:add_picture()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH GAMBAR</b></a>
 								</div>
 								<input type='hidden' name='total_picture' id='total_picture' value='1'/>
-								<div class='input-field col s12 m12'>
-									<a class='btn-flat right' onclick=javascript:add_picture()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH GAMBAR</b></a>
-								</div>
+
 								<div class='input-field col s12'>
 									<input id='perkiraan_berat' placeholder='0.00' type='text' name='berat' class='validate' value='".$produk->berat."'>
-									<label for='perkiraan_berat'>Perkiraan berat <span>( Kilogram)</span></label>
+									<label for='perkiraan_berat'>Perkiraan Berat <span>( Kilogram)</span></label>
 								</div>
 								<div class='input-field col s12'>
-									<input id='satuan' type='text' name='satuan' placeholder='Misal: Lusin, Pcs' class='validate' length='5' value='".$produk->satuan."'>
+									<input id='satuan' type='text' name='satuan' placeholder='Misal: Pcs' class='validate' length='5' value='".$produk->satuan."'>
 									<label for='satuan'>Satuan <span></span></label>
 								</div>
 								<div class='input-field col s12'>
 									<input id='min_order' placeholder='1' type='text' name='min_order' class='validate numbersOnly' value='".$produk->min_order."'>
-									<label for='min_order'>Min order</label>
+									<label for='min_order'>Min Order</label>
 								</div>
 								<div class='input-field col s12'>
-									<textarea id='deskripsi' name='deskripsi' class='materialize-textarea' length='250' >".$produk->description."</textarea>
+									<textarea id='deskripsi' placeholder='Ex : Baju bonobo adalah baju berkualitas.' name='deskripsi' class='materialize-textarea' length='250' >".$produk->description."</textarea>
 									<label for='deskripsi'>Deskripsi</label>
 								</div>
 								
@@ -149,10 +153,10 @@ echo "
 								<div class='linehead'>Harga Barang</div>
 								<div class='input-field col s12 m6'>
 									<input id='harga_pembelian' name='harga_pembelian' type='text' class='validate numbersOnly' value='".$produk->harga_pembelian."'>
-									<label for='harga_pembelian'>Harga pembelian</label>
+									<label for='harga_pembelian'>Harga Pembelian</label>
 								</div>
 								<div class='input-field col s12 m12 varsto'>
-									<label for='harga_jual'>Harga jual <span class='text-red'>*</span></label>
+									<label for='harga_jual'>Harga Jual <span class='text-red'>*</span></label>
 								</div>
 
 								<ul class='col s12 m12'>
