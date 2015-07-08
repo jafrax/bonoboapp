@@ -25,6 +25,12 @@ class Nota extends CI_Controller {
 		$data['rekening']	= $this->model_nota->get_rekening();
 		$data['toko']		= $this->model_nota->get_toko()->row();
 
+		unset($_SESSION['sort']);
+		unset($_SESSION['tipe_bayar']);
+		unset($_SESSION['tipe_stok']);
+		unset($_SESSION['flagger']);
+		unset($_SESSION['search']);
+
 		$this->template->bonobo('nota/bg_nota',$data);
 	}
 
@@ -93,8 +99,23 @@ class Nota extends CI_Controller {
 			return;
 		}
 
-		if ($metode == 2) {
-			//$transaksi = $this->model_nota->get_nota_transfer($id);
+		$cek_stok = $this->model_nota->get_toko()->row();
+		if ($cek_stok->stock_adjust == 1) {
+			//echo "string";
+			$produk = $this->model_nota->get_nota_product_by_id($id);
+				foreach ($produk->result() as $row) {
+					$stok_req = $row->quantity;
+					$stok = $this->db->where('id',$row->product_varian_id)->get('tb_product_varian')->row()->stock_qty;
+					if ($stok < $stok_req ) {
+						echo "0";
+						return;
+					}					
+				}
+				foreach ($produk->result() as $row) {
+					$stok = $row->quantity;
+					$this->db->where('id',$row->product_varian_id)->set('stock_qty','stock_qty - $stok')->update('tb_product_varian');
+				}
+			
 		}
 
 		$update = $this->db->set('status',1)->where('id',$id)->update('tb_invoice');
@@ -233,6 +254,71 @@ class Nota extends CI_Controller {
 		$data['produk']		= $this->model_nota->get_nota_product($invoice);
 
 		$this->template->bonobo('nota/bg_nota_detail',$data);
+	}
+
+	public function ajax_load(){
+		$data['nota']		= $this->model_nota->get_nota();
+		$data['rekening']	= $this->model_nota->get_rekening();
+		$data['toko']		= $this->model_nota->get_toko()->row();
+
+		$this->load->view('enduser/nota/bg_nota_ajax',$data);
+	}
+
+	public function sort(){
+		$code = $this->input->post('code');
+
+		if ($code == 1) {
+			$_SESSION['sort'] = 'ASC';
+		}elseif ($code == 2) {
+			$_SESSION['sort'] = 'DESC';
+		}
+
+		$this->ajax_load();
+	}
+
+	public function tipe_bayar(){
+		$code = $this->input->post('code');
+
+		if ($code == 1) {
+			$_SESSION['tipe_bayar'] = 0;
+		}elseif ($code == 2) {
+			$_SESSION['tipe_bayar'] = 1;
+		}elseif ($code == 3) {
+			unset($_SESSION['tipe_bayar']);
+		}
+
+		$this->ajax_load();
+	}
+
+	public function tipe_stok(){
+		$code = $this->input->post('code');
+
+		if ($code == 0) {
+			$_SESSION['tipe_stok'] = 0;
+		}elseif ($code == 1) {
+			$_SESSION['tipe_stok'] = 1;
+		}elseif ($code == 1) {
+			unset($_SESSION['tipe_stok']);
+		}
+
+		$this->ajax_load();
+	}
+
+	public function set_flag(){
+		$_SESSION['flagger'] = true;
+		$this->ajax_load();
+	}
+
+	public function unset_flag(){
+		unset($_SESSION['flagger']);
+		$this->ajax_load();
+	}
+
+	public function search(){
+		$keyword = $this->input->post('keyword');
+
+		$_SESSION['search'] = $keyword;
+		$this->ajax_load();
 	}
 }
 

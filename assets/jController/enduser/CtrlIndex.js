@@ -240,12 +240,18 @@ function CtrlSignin(){
 			notifForgotPassword.delay(5000).slideUp('slow');
 			return;
 		}
-		
-		var response = $('#g-recaptcha-response').val();
+		var gresponse = grecaptcha.getResponse();
+		if(gresponse == ''){
+			notifForgotPassword.html("<i class='fa fa-warning'></i> Capcha failed !");
+			notifForgotPassword.slideDown();
+			notifForgotPassword.delay(5000).slideUp('slow');
+			return;
+		}
+		//var response = $("#g-recaptcha-response").val();
 		
 		$.ajax({
 			type: 'POST',
-			data: "email="+txtForgotEmail.value+"&g-recaptcha-response="+response,
+			data: "email="+txtForgotEmail.value+"&g-recaptcha-response="+gresponse,
 			url: base_url+'index/doForgotPassword',
 			success: function(result) {
 				var response = JSON.parse(result);

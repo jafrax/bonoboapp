@@ -1,63 +1,4 @@
 <?php
-echo"
-				<div class='col s12 m12 l12'>
-					<div class='formain'>
-						<div class='formhead'>
-							<h2 class='titmain'><b>NOTA PEMBELIAN</b></h2>
-						</div>
-						<div class='row formbody'>
-							<div class='col s12 listline'>
-								<div class='input-field col s12 m12 l8 nolpad'>
-									<!-- <a class='waves-effect orange-text left '><i class='mdi-action-star-rate col s6 m1 small'></i></a> -->
-									<a id='flagger' class='waves-effect grey-text left ' onclick=javascript:change_flagger()><i class='mdi-content-flag col s6 m1 small'></i></a>
-									
-									<div class='input-field col s12 m3 left'>
-										<select class='select-standar' id='sort' onchange=javascript:change_sort()>										
-											<option selected='selected' value='1'>Paling Baru</option>
-											<option value='2'>Paling Lama</option>										
-										</select>									
-									</div>
-									<div class='input-field col s12 m3 left'>
-										<select class='select-standar' id='tipe_bayar' onchange=javascript:change_bayar()>										
-											<option  value='1'>Belum Lunas</option>
-											<option value='2'>Lunas</option>
-											<option selected='selected' value='3'>Semua</option>
-										</select>									
-									</div>
-									<div class='input-field col s12 m3 left'>
-										<select class='select-standar' id='tipe_stok' onchange=javascript:change_stock()>
-											<option value='0'>Pre Order</option>
-											<option value='1'>Ready Stok</option>
-											<option selected='selected' value='2'>Semua</option>
-										</select>									
-									</div>
-									
-								</div>
-								<div class='input-field col s12 m12 l4 nolpad'>
-									<i class='mdi-action-search prefix'></i>
-									<input type='text' class='validate' id='keyword_nota'>
-									<label for='keyword_nota'>Cari</label>
-								</div>
-							</div>
-							<div class='col s12 listline'>								
-      							<p class='checkallboxnota left'>
-									<input type='checkbox' class='filled-in' onclick=javascript:cek_all_nota() id='pilih-semua'  />
-      								<label for='pilih-semua'></label>									
-								</p>
-								<div class='input-field col s6 m3'>
-									<select class='select-standar' id='option-go'>
-										<option value=''>Pilih Tindakan</option>
-										<option value='0'>Batal</option>
-										<option value='1'>Hapus</option>										
-									</select>									
-								</div>
-								<div class='input-field col s12 m4'>
-									<button class='waves-effect waves-light btn deep-orange darken-1 left' onclick=javascript:go()>GO</button>
-								</div>								
-							</div>
-						</div>
-
-						<div class='row formbody' id='ajax-div'>";
 						$i = 0;
 						foreach ($nota->result() as $row) {
 							$i++;
@@ -382,11 +323,5 @@ echo"
 						        </div>
 							</div>";
 						}
-						echo"
-						<input type='hidden' id='total-nota' value='$i' />
-						</div>
-					</div>
-				</div>
-				<script type='text/javascript' src='".base_url("")."assets/jController/enduser/CtrlNota.js'></script>
-";
+						
 ?>
