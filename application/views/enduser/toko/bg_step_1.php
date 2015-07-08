@@ -30,10 +30,10 @@ echo"
 					<label for='txtTagname'>Toko Id *</label>
 					<label id='notifTagname' class='error' style='display:none;'></label>
 				</div>
-				<div class='col s12 m8'>
+				<div class='col s12 m8' style='display:none;'>
 					<label>Pilih kategori *</label>
 					<label id='notifCategory' class='error error-chosen' style='display:none;'></label>
-					<div class='input-field'>
+					<div class='input-field' >
 						<select name='cmbCategory' class='chosen-select' class='chosen-select'>
 ";
 

@@ -72,39 +72,6 @@ function CtrlShopStep1(){
 	}
 	
 	function doNext(){
-		var valid = true;
-		
-		if(formStep1.txtName.value == ""){
-			$hs_notif("#notifName","<i class='fa fa-warning'></i> Harus diisi !");
-			valid = false;
-		}
-		
-		if(formStep1.txtTagname.value == ""){
-			$hs_notif("#notifTagname","<i class='fa fa-warning'></i> Harus diisi !");
-			valid = false;
-		}
-		
-		if(formStep1.cmbCategory.value == ""){
-			$hs_notif("#notifCategory","<i class='fa fa-warning'></i> Harus diisi !");
-			valid = false;
-		}
-		
-		if(formStep1.cmbProvince.value == ""){
-			$hs_notif("#notifProvince","<i class='fa fa-warning'></i> Harus diisi !");
-			valid = false;
-		}
-		
-		if(formStep1.cmbCity.value == ""){
-			$hs_notif("#notifCity","<i class='fa fa-warning'></i> Harus diisi !");
-			valid = false;
-		}
-		
-		if(formStep1.cmbKecamatan.value == ""){
-			$hs_notif("#notifKecamatan","<i class='fa fa-warning'></i> Harus diisi !");
-			valid = false;
-		}
-		
-		if(valid){
 			var formData = new FormData($hs("formStep1"));
 			
 			$.ajax({
@@ -123,7 +90,6 @@ function CtrlShopStep1(){
 					}
 				}
 			});
-		}
 	}
 	
 	function doSave(){

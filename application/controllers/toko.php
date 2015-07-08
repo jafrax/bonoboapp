@@ -223,7 +223,7 @@ class Toko extends CI_Controller {
 	}
 	
 	public function doStep1Save(){
-		if($this->response->post("txtName") == ""){
+		/*if($this->response->post("txtName") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Field nama masih kosong","messageCode"=>1));
 			return;
 		}
@@ -251,7 +251,7 @@ class Toko extends CI_Controller {
 		if($this->response->post("cmbKecamatan") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Field kecamatan masih kosong","messageCode"=>1));
 			return;
-		}
+		}*/
 		
 		$QCategory = $this->model_category->get_by_id($this->response->post("cmbCategory"))->row();
 		if(!empty($QCategory)){
