@@ -54,10 +54,10 @@ header,section,content,footer{ width:100%; }
 .usermain text{ float:left; margin:0 5px; font-size:13px; color:#313131; }
 
 .notification{ line-height: 0px; margin:2.25px 12px; padding:8px 0; }
-.notification .message{ color:#818181; }
-.notification .message:hover{ color:#313131; }
+.notification .message{ color:#2196f3; }
+.notification .message:hover{ color:#1e88e5; }
 .notification .message i{ font-size:28px; }
-.notification .notifindong{ position: relative; top:-20px; left:-10px; font-size:11px; background: #1e88e5; color:#fff; padding: 2px 6px; border-radius:2px;
+.notification .notifindong{ position: relative; top:-20px; left:-10px; font-size:11px; background: #f44336; color:#fff; padding: 2px 6px; border-radius:2px;
 	-webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 	-moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
