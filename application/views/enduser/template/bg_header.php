@@ -42,9 +42,14 @@ echo"
 	<nav class='cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left cbp-spmenu-open'>
 		<ul class='col s12 navmob mobleft'>
 			<li class='usermob'>
-				<div class='usermain left'>
-					<img class='responsive-img userdum' src='".base_url()."html/images/comp/male.png' />
-					<text>James Rodriguez</text>
+				<div class='usermain left'>";
+					if ($_SESSION['bonobo']['image']) {
+						echo "<img class='responsive-img userdum' src='".base_url()."assets/pic/shop/resize/".$_SESSION['bonobo']['image']."' />";
+					}else{
+						echo "<img class='responsive-img userdum' src='".base_url()."html/images/comp/male.png' />";
+					}
+					echo "
+					<text>".$_SESSION['bonobo']['name']."</text>
 				</div>
 			</li>
 			<li "; if ($uri == 'toko') echo"class='active'"; echo"><a "; if ($uri == 'toko') echo"class='active'"; echo" href='".base_url()."'>Toko</a></li>
@@ -52,7 +57,7 @@ echo"
 			<li "; if ($uri == 'produk') echo"class='active'"; echo"><a "; if ($uri == 'produk') echo"class='active'"; echo" href='".base_url("produk")."'>Produk</a></li>
 			<li "; if ($uri == 'nota') echo"class='active'"; echo"><a "; if ($uri == 'nota') echo"class='active'"; echo" href='".base_url("nota")."'>Nota</a></li>
 			<li "; if ($uri == 'message') echo"class='active'"; echo"><a "; if ($uri == 'message') echo"class='active'"; echo" href='".base_url("message")."'>Pesan</a></li>
-			<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='#'>Pemesanan Pre Order</a></li>
+			<li "; if ($uri == 'preorder') echo"class='active'"; echo"><a "; if ($uri == 'preorder') echo"class='active'"; echo" href='".base_url("preorder")."'>Pemesanan Pre Order</a></li>
 			<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='".base_url("index/logout")."'>Logout</a></li>
 		</ul>
 	</nav>
@@ -69,18 +74,23 @@ echo"
 					</a>
 				</div>
 				<div class='col s6 m8 l10'>
-					<div class='usermain right'>
-						<img class='responsive-img userdum' src='".base_url()."html/images/comp/male.png' />
+					<div class='usermain right'>";
+						if ($_SESSION['bonobo']['image']) {
+							echo "<img class='responsive-img userdum' src='".base_url()."assets/pic/shop/resize/".$_SESSION['bonobo']['image']."' />";
+						}else{
+							echo "<img class='responsive-img userdum' src='".base_url()."html/images/comp/male.png' />";
+						}
+						echo "
 						<a class='dropdown-button right' data-beloworigin='true' href='#' data-activates='duser' >
-							<text>James Rodriguez</text>
+							<text>".$_SESSION['bonobo']['name']."</text>
 						</a>
 						<ul id='duser' class='dropdown-content right'>
 							<li><a href='".base_url("index/logout")."'>Logout</a></li>
 						</ul>
 					</div>
 					<div class='notification right'>
-						<a class='message' href=''><i class='material-icons '>message</i></a>
-						<span class='notifindong'>9</span>
+						<a class='message' href='".base_url("message")."'><i class='material-icons '>message</i></a>
+						<span style='display:none' class='notifindong'>0</span>
 					</div>
 				</div>
 			</div>
@@ -104,7 +114,7 @@ echo"
 					<li "; if ($uri == 'produk') echo"class='active'"; echo"><a "; if ($uri == 'produk') echo"class='active'"; echo" href='".base_url("produk")."'>Produk</a></li>
 					<li "; if ($uri == 'nota') echo"class='active'"; echo"><a "; if ($uri == 'nota') echo"class='active'"; echo" href='".base_url("nota")."'>Nota</a></li>
 					<li "; if ($uri == 'message') echo"class='active'"; echo"><a "; if ($uri == 'message') echo"class='active'"; echo" href='".base_url("message")."'>Pesan</a></li>
-					<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='#'>Pemesanan Pre Order</a></li>
+					<li "; if ($uri == 'preorder') echo"class='active'"; echo"><a "; if ($uri == 'preorder') echo"class='active'"; echo" href='".base_url("preorder")."'>Pemesanan Pre Order</a></li>
 				</ul>
 			</div>
 		</nav>

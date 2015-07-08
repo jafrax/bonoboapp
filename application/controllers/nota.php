@@ -1,11 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /*
-* CONTROLLER PRODUK WEBSITE
+* CONTROLLER NOTA WEBSITE
 * This controler for screen index
 *
 * Log Activity : ~ Create your log if you change this controller ~
-* 1. Create 24 Juni 2015 by Dinar Wahyu Wibowo, Create controller
+* 1. Create 24 Juni 2015 by Dinar Wahyu Wibowo, Create controller, All function
 */
 
 class Nota extends CI_Controller {
