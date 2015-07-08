@@ -663,7 +663,7 @@ class Api extends CI_Controller {
 			$QProduct = $QProduct->join("tb_toko_category_product tkcp","tkcp.id = tp.toko_category_product_id");
 			
 			if($this->response->post("keyword") != "" && $this->response->postDecode("keyword") != ""){
-				$QProduct = $QProduct->like("tp.name",$this->response->postDecode("keyword"));
+				$QProduct = $QProduct->where("tp.name LIKE ","%".$this->response->postDecode("keyword")."%");
 			}
 			
 			if($this->response->post("stock_type") != "" && $this->response->postDecode("stock_type") != ""){
@@ -807,7 +807,7 @@ class Api extends CI_Controller {
 			$QShops = $this->db;
 			
 			if($this->response->post("keyword") != "" && $this->response->postDecode("keyword") != ""){
-				$QShops = $QShops->like("tt.name",$this->response->postDecode("keyword"));
+				$QShops = $QShops->where("tt.name LIKE ","%".$this->response->postDecode("keyword")."%");
 			}
 			
 			if($this->response->post("follow") != "" && $this->response->postDecode("follow") != ""){
@@ -1072,7 +1072,7 @@ class Api extends CI_Controller {
 			$QProduct = $QProduct->where("tk.id",$QShop->id);
 			
 			if($this->response->post("keyword") != "" && $this->response->postDecode("keyword") != ""){
-				$QProduct = $QProduct->like("tp.name",$this->response->postDecode("keyword"));
+				$QProduct = $QProduct->where("tp.name LIKE ","%".$this->response->postDecode("keyword")."%");
 			}
 			
 			if($this->response->post("stock_type") != "" && $this->response->postDecode("stock_type") != ""){
@@ -1306,7 +1306,7 @@ class Api extends CI_Controller {
 			$QProduct = $QProduct->where("tp.id IN (SELECT id FROM tb_favorite WHERE member_id = ".$QUser->id.")");
 			
 			if($this->response->post("keyword") != "" && $this->response->postDecode("keyword") != ""){
-				$QProduct = $QProduct->like("tp.name",$this->response->postDecode("keyword"));
+				$QProduct = $QProduct->where("tp.name LIKE ","%".$this->response->postDecode("keyword")."%");
 			}
 			
 			if($this->response->post("stock_type") != "" && $this->response->postDecode("stock_type") != ""){
