@@ -519,21 +519,80 @@ function CtrlShopStep7(){
 	
 	var formStep7;
 	var btnSave;
+	var chkLevel5;
 	
 	function init(){
 		initComponent();
 		initEventlistener();
+		initActive();
 	}
 	
 	function initComponent(){
 		formStep7 = $("#formStep7");
 		btnSave = $hs("btnSave");
+		chkLevel5 = $hs("chkLevel5");
+		chkLevel4 = $hs("chkLevel4");
+		chkLevel3 = $hs("chkLevel3");
+		chkLevel2 = $hs("chkLevel2");
 	}
 	
 	function initEventlistener(){
 		btnSave.onclick = function(){
 			doSave();
 		};
+	}
+	
+	function initActive(){
+		$('[name="txtLevel5"]').blur(function() {
+			if($(this).val() == ''){
+				$('[name="txtLevel3"]').prop("disabled", false);
+			 }
+		});
+		$('[name="txtLevel4"]').blur(function() {
+			if($(this).val() == ''){
+				$('[name="txtLevel3"]').prop("disabled", false);
+			 }
+		});
+		$('[name="txtLevel3"]').blur(function() {
+			if($(this).val() == ''){
+				$('[name="txtLevel3"]').prop("disabled", false);
+			 }
+		});
+		$('[name="txtLevel2"]').blur(function() {
+			if($(this).val() == ''){
+				$('[name="txtLevel2"]').prop("disabled", false);
+			 }
+		});		
+		chkLevel5.onclick = function(){
+			if ($(this).is(":checked")) {
+				
+				 $('[name="txtLevel5"]').prop("disabled", false);
+				 
+			 }else {
+				$('[name="txtLevel5"]').prop("disabled", true);
+			 }
+			};
+		chkLevel4.onclick = function(){
+			if ($(this).is(":checked")) {
+				 $('[name="txtLevel4"]').prop("disabled", false);
+			 }else {
+				$('[name="txtLevel4"]').prop("disabled", true);
+			 }
+		};
+		chkLevel3.onclick = function(){
+			if ($(this).is(":checked")) {
+				 $('[name="txtLevel3"]').prop("disabled", false);
+			 }else {
+				$('[name="txtLevel3"]').prop("disabled", true);
+			 }
+		};
+		chkLevel2.onclick = function(){
+			if ($(this).is(":checked")) {
+				 $('[name="txtLevel2"]').prop("disabled", false);
+			 }else {
+				$('[name="txtLevel2"]').prop("disabled", true);
+			 }
+			}
 	}
 	
 	function doSave(){

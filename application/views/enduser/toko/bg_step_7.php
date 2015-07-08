@@ -12,13 +12,13 @@ echo"
 					<b class='labelisasi'>AKTIF</b>
 				</div>
 				<div class='input-field col s12 m8'>
-					<h6>Level 1</h6>
-					<input name='txtLevel1' type='text' class='validate' value='".$Shop->level_1_name."' autofocus>
+					<h6 style='display:none;'>Level 1</h6>
+					<input name='txtLevel1' type='text' class='validate' value='".$Shop->level_1_name."' autofocus placeholder='Level 1'>
 				</div>
 				<div class='input-field col s12 m4'>
 					<div class='col s12 m12 right-align'>
 						<p class='right'>
-						<input type='checkbox' id='chkLevel1' name='chkLevel1' ".($Shop->level_1_active == 1 ? "checked" : "")." />
+						<input type='checkbox' id='chkLevel1' name='chkLevel1' ".($Shop->level_1_active == 1 ? "checked" : "")." disabled/>
 						<label for='chkLevel1'></label>
 						</p>
 					</div>
@@ -27,13 +27,13 @@ echo"
 			<div class='row formbody'>							
 				<div class='linehead'></div>
 				<div class='input-field col s12 m8'>
-					<h6>Level 2</h6>
-					<input name='txtLevel2' type='text' class='validate' value='".$Shop->level_2_name."'>
+					<h6 style='display:none;'>Level 2</h6>
+					<input name='txtLevel2' type='text' class='validate' value='".$Shop->level_2_name."'  placeholder='Level 2'>
 				</div>
 				<div class='input-field col s12 m4'>
 					<div class='col s12 m12 right-align'>
 						<p class='right'>
-						<input type='checkbox' id='chkLevel2' name='chkLevel2' ".($Shop->level_2_active == 1 ? "checked" : "")." />
+						<input type='checkbox' id='chkLevel2' name='chkLevel2' ".($Shop->level_2_active == 1 ? "checked" : "")." onclik='javascript:on_change()'/>
 						<label for='chkLevel2'></label>
 						</p>
 					</div>
@@ -42,8 +42,8 @@ echo"
 			<div class='row formbody'>							
 				<div class='linehead'></div>
 				<div class='input-field col s12 m8'>
-					<h6>Level 3</h6>
-					<input name='txtLevel3' type='text' class='validate' value='".$Shop->level_3_name."'>
+					<h6 style='display:none;'>Level 3</h6>
+					<input name='txtLevel3' type='text' class='validate' value='".$Shop->level_3_name."' disabled placeholder='Level 3'>
 				</div>
 				<div class='input-field col s12 m4'>
 					<div class='col s12 m12 right-align'>
@@ -57,8 +57,8 @@ echo"
 			<div class='row formbody'>							
 				<div class='linehead'></div>
 				<div class='input-field col s12 m8'>
-					<h6>Level 4</h6>
-					<input name='txtLevel4' type='text' class='validate' value='".$Shop->level_4_name."'>
+					<h6 style='display:none;'>Level 4</h6>
+					<input name='txtLevel4' type='text' class='validate' value='".$Shop->level_4_name."' disabled placeholder='Level 4'>
 				</div>
 				<div class='input-field col s12 m4'>
 					<div class='col s12 m12 right-align'>
@@ -72,8 +72,8 @@ echo"
 			<div class='row formbody'>							
 				<div class='linehead'></div>
 				<div class='input-field col s12 m8'>
-					<h6>Level 5</h6>
-					<input name='txtLevel5' type='text' class='validate' value='".$Shop->level_5_name."'>
+					<h6 style='display:none;'>Level 5</h6>
+					<input name='txtLevel5' type='text' class='validate' value='".$Shop->level_5_name."' disabled placeholder='Level 5'>
 				</div>
 				<div class='input-field col s12 m4'>
 					<div class='col s12 m12 right-align'>

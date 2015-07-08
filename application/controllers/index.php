@@ -54,6 +54,7 @@ class Index extends CI_Controller {
 					"verified_code"=>$verify,
 					"pm_store_payment"=>1,
 					"pm_transfer"=>0,
+					"level_1_active"=>1,
 					"status"=> 0,
 					"create_date"=>date("Y-m-d H:i:s"),
 					"create_user"=>$email,
