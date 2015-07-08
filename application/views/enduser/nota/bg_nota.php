@@ -287,7 +287,7 @@ echo"
 														<form id='form-pengiriman'>
 															<input type='hidden' value='".$row->id."' name='id_nota' />
 															<div class='input-field col s12 m6'>
-																<label>Jenis Pengiriman</label>
+																<span>Jenis Pengiriman</span>
 																<select class='chosen-select' name='kurir'>
 																	<option value='' disabled selected>Pilih Jenis Pengiriman</option>";
 																	$toko_kurir = $this->model_nota->get_toko_kurir($row->toko_id);
@@ -330,7 +330,7 @@ echo"
 																<label for='alamat'>Alamat Penerima</label>
 															</div>
 															<div class='input-field col s12 m6' id='panggon-province'>
-																<label>Pilih Provinsi</label>
+																<span>Pilih Provinsi</span>
 																<select disabled class='chosen-select' name='province' id='province' onchange=javascript:set_city()>
 																	<option value='' disabled selected>Pilih Provinsi</option>";
 																	$provinsi = $this->model_nota->get_province();
@@ -343,7 +343,7 @@ echo"
 																</select>
 															</div>
 															<div class='input-field col s12 m6' id='panggon-city'>
-																<label>Pilih Kota</label>
+																<span>Pilih Kota</span>
 																<select disabled class='chosen-select' name='city' id='city' onchange=javascript:set_kecamatan()>
 																	<option value='' disabled selected>Pilih Kota</option>";
 																	if ($row->location_to_city != '') {
@@ -364,7 +364,7 @@ echo"
 																</select>
 															</div>
 															<div class='input-field col s12 m6' id='panggon-kecamatan'>
-																<label>Pilih Kecamatan</label>
+																<span>Pilih Kecamatan</span>
 																<select disabled class='chosen-select' name='kecamatan' id='kecamatan'>
 																	<option value='' disabled selected>Pilih Kecamatan</option>";
 																	if ($row->location_to_kecamatan != '') {
