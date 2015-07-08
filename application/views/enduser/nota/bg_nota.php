@@ -7,7 +7,7 @@ echo"
 						</div>
 						<div class='row formbody'>
 							<div class='col s12 listline'>
-								<div class='input-field col s12 m12 l8 nolpad'>
+								<div class='input-field col s12 m12 l7 nolpad'>
 									<!-- <a class='waves-effect orange-text left '><i class='mdi-action-star-rate col s6 m1 small'></i></a> -->
 									<a id='flagger' class='waves-effect grey-text left ' onclick=javascript:change_flagger()><i class='mdi-content-flag col s6 m1 small'></i></a>
 									
@@ -33,10 +33,18 @@ echo"
 									</div>
 									
 								</div>
-								<div class='input-field col s12 m12 l4 nolpad'>
+								<div class='input-field col s8 m8 l3 nolpad'>
+									
 									<i class='mdi-action-search prefix'></i>
 									<input type='text' class='validate' id='keyword_nota'>
 									<label for='keyword_nota'>Cari</label>
+								</div>
+								<div class='input-field col s4 m4 l2 nolpad'>
+									<select class='select-standar' id='search_by'>										
+										<option value='member_name'>Nama Pembeli</option>
+										<option value='invoice_no'>No Nota</option>
+										<option value='price_total'>Jumlah Tagihan</option>
+									</select>									
 								</div>
 							</div>
 							<div class='col s12 listline'>								

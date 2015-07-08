@@ -302,11 +302,12 @@ function change_flagger(){
     $("#keyword_nota").keypress(function (e) {
     if (e.which == 13) {
         var keyword_nota = $('#keyword_nota').val();
+        var search_by = $('#search_by').val();
 
         $('#ajax-div').fadeTo('slow',0.4);
         $.ajax({
             type: 'POST',
-            data: 'keyword='+keyword_nota,
+            data: 'keyword='+keyword_nota+'&search='+search_by,
             url: base_url+'nota/search',
             success: function(msg) {
                 if (msg != 0) {
