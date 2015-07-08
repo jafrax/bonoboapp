@@ -205,3 +205,119 @@ function confirm_courier(a){
         } 
     });
 }
+
+//================================================================================================
+
+function change_sort(){
+    var sort = $('#sort').val();    
+    $('#ajax-div').fadeTo('slow',0.4);
+    $.ajax({
+        type: 'POST',
+        data: 'code='+sort,
+        url: base_url+'nota/sort',
+        success: function(msg) {
+            if (msg != 0) {
+                $('#ajax-div').html(msg);
+                $('#ajax-div').fadeTo('slow',1);
+            }else{
+                Materialize.toast('Sorting gagal!', 4000);
+            };
+        } 
+    });
+}
+
+function change_bayar(){
+    var tipe_bayar = $('#tipe_bayar').val();
+    $('#ajax-div').fadeTo('slow',0.4);
+    $.ajax({
+        type: 'POST',
+        data: 'code='+tipe_bayar,
+        url: base_url+'nota/tipe_bayar',
+        success: function(msg) {
+            if (msg != 0) {
+                $('#ajax-div').html(msg);
+                $('#ajax-div').fadeTo('slow',1);
+            }else{
+                Materialize.toast('Filter bayar gagal!', 4000);
+            };
+        }
+    });
+}
+
+function change_stock(){
+    var tipe_stok = $('#tipe_stok').val();
+    $('#ajax-div').fadeTo('slow',0.4);
+    $.ajax({
+        type: 'POST',
+        data: 'code='+tipe_stok,
+        url: base_url+'nota/tipe_stok',
+        success: function(msg) {
+            if (msg != 0) {
+                $('#ajax-div').html(msg);
+                $('#ajax-div').fadeTo('slow',1);
+            }else{
+                Materialize.toast('Filter stock gagal!', 4000);
+            };              
+        } 
+    });
+}
+
+function change_flagger(){
+    $('#ajax-div').fadeTo('slow',0.4);
+    if ($('#flagger').hasClass('orange-text')) {
+        $('#flagger').removeClass('orange-text');
+        $('#flagger').addClass('grey-text');
+        $.ajax({
+            type: 'POST',
+            url: base_url+'nota/unset_flag',
+            success: function(msg) {
+                if (msg != 0) {
+                    $('#ajax-div').html(msg);
+                    $('#ajax-div').fadeTo('slow',1);
+                }else{
+                    Materialize.toast('Filter flag konfirmasi gagal!', 4000);
+                };
+            } 
+        });
+    } else if ($('#flagger').hasClass('grey-text')) {
+        $('#flagger').addClass('orange-text');
+        $('#flagger').removeClass('grey-text');
+        $.ajax({
+            type: 'POST',
+            url: base_url+'nota/set_flag',
+            success: function(msg) {
+                if (msg != 0) {
+                    $('#ajax-div').html(msg);
+                    $('#ajax-div').fadeTo('slow',1);
+                }else{
+                    Materialize.toast('Filter flag konfirmasi gagal!', 4000);
+                };
+            } 
+        });
+    };
+}
+
+
+(function() {   
+    $("#keyword_nota").keypress(function (e) {
+    if (e.which == 13) {
+        var keyword_nota = $('#keyword_nota').val();
+
+        $('#ajax-div').fadeTo('slow',0.4);
+        $.ajax({
+            type: 'POST',
+            data: 'keyword='+keyword_nota,
+            url: base_url+'nota/search',
+            success: function(msg) {
+                if (msg != 0) {
+                    $('#ajax-div').html(msg);
+                    $('#ajax-div').fadeTo('slow',1);
+                }else{
+                    Materialize.toast('Searching gagal!', 4000);
+                };              
+            }
+        });
+    }
+});
+  
+})();
