@@ -676,6 +676,7 @@ class Api extends CI_Controller {
 				$QProduct = $QProduct->limit(10,0);
 			}
 			
+			$QProduct = $QProduct->order_by("tp.id","Desc");
 			$QProduct = $QProduct->get("tb_product tp");
 			$QProducts = $QProduct->result();
 			
@@ -1338,7 +1339,7 @@ class Api extends CI_Controller {
 					foreach($QProductImages as $QProductImage){
 						$ProductImage = array(
 									"id"=>$QProductImage->id,
-									"imageUrl"=>base_url("image.php?q=100&fe=".base64_encode(base_url("assets/pic/product/".$QProductImage->file))),
+									"imageUrl"=>base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/product/".$QProductImage->file))),
 								);
 
 						array_push($ProductImages,$ProductImage);
@@ -1467,7 +1468,7 @@ class Api extends CI_Controller {
 			
 			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
 			if(empty($QUser)){
-				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				$this->response->send(array("result"=>0,"message"=>"User tidak ditemukan","messageCode"=>2), true);
 				return;
 			}
 			
