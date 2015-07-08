@@ -76,7 +76,7 @@ echo"
 				</div>
 			</div>
 			<div class='row formbody'>
-				<div class='linehead'>Alamat dan Kontak</div>
+				<div class='linehead'>Kontak dan Alamat</div>
 				<div class='input-field col s12 m8'>
 					<input id='txtPhone' name='txtPhone' placeholder='Ex : 0271-987654' type='text' class='validate' value='".$Shop->phone."'>
 					<label for='txtPhone'>Telephone</label>

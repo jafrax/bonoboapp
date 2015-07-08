@@ -171,3 +171,19 @@ label{ font-size: 14px; color: #565a5c; }
 
 .vote{ line-height: 15px; }
 .labelbudge{ padding:5px; border-radius:2px; color:#fff; }
+
+@media (min-width: 500px) {
+	.dl-horizontal dt { float: left; width: 50%; overflow: hidden; clear: left; text-align: right; text-overflow: ellipsis; white-space: nowrap; }
+	.dl-horizontal dd { margin-left: 55%; text-align: right; }
+	.dl-horizontal dd:before,
+	.dl-horizontal dd:after { display: table; content: " "; }
+	.dl-horizontal dd:after { clear: both; }
+	.dl-horizontal dd:before,
+	.dl-horizontal dd:after { display: table; content: " "; }
+	.dl-horizontal dd:after { clear: both; }
+	.fontbig{ font-size:18px!important; }
+}
+@media (max-width: 500px) {
+	.dl-horizontal dd { text-align: right; }
+	.fontbig{ font-size:14px!important; }
+}
