@@ -38,7 +38,7 @@ header,section,content,footer{ width:100%; }
 
 .containermain{ width:90%; margin:0 auto; }
 @media (min-width: 1280px) {
-	.containermain{ width:1180px; margin:0 auto; }
+	.containermain{ width:1210px; margin:0 auto; }
 }
 
 
