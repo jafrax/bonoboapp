@@ -251,21 +251,28 @@ echo"
 								                	<a class='right col s2 m1 center modal-trigger' href='#pengiriman'>Edit</a>
 								                </div>
 								                <div class='collapsible-body' style='display: none;' id='isi-kurir'>
-								                	<p >
-								                		<span id='panggon-nota'>
-								                		<b>Pengiriman : </b> ".$row->shipment_service."<br>
-									                	<b>Resi : </b> ".$row->shipment_no."<br>
-									                	</span>
-									                	<b>Biaya Pengiriman : </b> ".$row->price_shipment."<br>
-									                	<b>Nama Penerima : </b> ".$row->recipient_name."<br>
-									                	<b>No. Telp. Penerima : </b> ".$row->recipient_phone."<br>
-									                	<b>Provinsi Penerima : </b> ".$row->location_to_province."<br>
-									                	<b>Kabupaten/Kota Penerima : </b> ".$row->location_to_city."<br>
-									                	<b>Kecamatan Penerima : </b> ".$row->location_to_kecamatan."<br>
-									                	<b>Kode Pos Penerima : </b> ".$row->location_to_postal."<br>
-									                	<b>Alamat Penerima : </b> ".$row->location_to_address."<br>
-									                	
-									                </p>
+								                	<dl class='dl-horizontal col s12 m10 l5' id='panggon-nota'>
+								                		<dt><b>Pengiriman : </b></dt>
+								                		<dd>".$row->shipment_service."</dd>
+									                	<dt><b>Resi : </b></dt>
+									                	<dd>".$row->shipment_no."</dd>
+									                	<dt><b>Biaya Pengiriman : </b></dt>
+									                	<dd>".$row->price_shipment."</dd>
+									                	<dt><b>Nama Penerima : </b></dt>
+									                	<dd>".$row->recipient_name."</dd>
+									                	<dt><b>No. Telp. Penerima : </b></dt>
+									                	<dd>".$row->recipient_phone."</dd>
+									                	<dt><b>Provinsi Penerima : </b></dt>
+									                	<dd>".$row->location_to_province."</dd>
+									                	<dt><b>Kabupaten/Kota Penerima : </b></dt>
+									                	<dd>".$row->location_to_city."</dd>
+									                	<dt><b>Kecamatan Penerima : </b></dt>
+									                	<dd>".$row->location_to_kecamatan."</dd>
+									                	<dt><b>Kode Pos Penerima : </b></dt>
+									                	<dd>".$row->location_to_postal."</dd>
+									                	<dt><b>Alamat Penerima : </b></dt>
+									                	<dd>".$row->location_to_address."</dd>
+								                	</dl>
 								                </div>
 								                <div id='pengiriman' class='modal modal-fixed-footer'>
 													<div class='modal-content'>

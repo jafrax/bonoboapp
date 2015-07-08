@@ -316,8 +316,12 @@ class Nota extends CI_Controller {
 
 	public function search(){
 		$keyword = $this->input->post('keyword');
-
-		$_SESSION['search'] = $keyword;
+		if ($keyword != '') {
+			$_SESSION['search'] = $keyword;
+		}else{
+			unset($_SESSION['search']);
+		}
+		
 		$this->ajax_load();
 	}
 }

@@ -7,7 +7,7 @@
         
 		$ci->getFbUser = $ci->fb->getUser();
         $ci->data['getFbUser'] = $ci->getFbUser;
-        $data['recaptcha'] = $ci->recaptcha->recaptcha_get_html();
+        //$data['recaptcha'] = $ci->recaptcha->recaptcha_get_html();
 		
         $ci->load->view('enduser/template/bg_header', $data);
 		$ci->load->view('enduser/template/bg_nav_step', $data);
@@ -21,7 +21,7 @@
         
 		$ci->getFbUser = $ci->fb->getUser();
         $ci->data['getFbUser'] = $ci->getFbUser;
-        $data['recaptcha'] = $ci->recaptcha->recaptcha_get_html();
+        //$data['recaptcha'] = $ci->recaptcha->recaptcha_get_html();
         
 		$ci->load->view('enduser/template/bg_header', $data);        
         $ci->load->view('enduser/'.$view, $data);

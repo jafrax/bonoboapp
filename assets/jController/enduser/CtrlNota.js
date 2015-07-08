@@ -220,7 +220,7 @@ function change_sort(){
                 $('#ajax-div').html(msg);
                 $('#ajax-div').fadeTo('slow',1);
             }else{
-                Materialize.toast('Sorting gagal!', 4000);
+                Materialize.toast('Sorting gagal!', 4000);$('#ajax-div').fadeTo('slow',1);
             };
         } 
     });
@@ -238,7 +238,7 @@ function change_bayar(){
                 $('#ajax-div').html(msg);
                 $('#ajax-div').fadeTo('slow',1);
             }else{
-                Materialize.toast('Filter bayar gagal!', 4000);
+                Materialize.toast('Filter bayar gagal!', 4000);$('#ajax-div').fadeTo('slow',1);
             };
         }
     });
@@ -256,7 +256,7 @@ function change_stock(){
                 $('#ajax-div').html(msg);
                 $('#ajax-div').fadeTo('slow',1);
             }else{
-                Materialize.toast('Filter stock gagal!', 4000);
+                Materialize.toast('Filter stock gagal!', 4000);$('#ajax-div').fadeTo('slow',1);
             };              
         } 
     });
@@ -275,7 +275,7 @@ function change_flagger(){
                     $('#ajax-div').html(msg);
                     $('#ajax-div').fadeTo('slow',1);
                 }else{
-                    Materialize.toast('Filter flag konfirmasi gagal!', 4000);
+                    Materialize.toast('Filter flag konfirmasi gagal!', 4000);$('#ajax-div').fadeTo('slow',1);
                 };
             } 
         });
@@ -290,7 +290,7 @@ function change_flagger(){
                     $('#ajax-div').html(msg);
                     $('#ajax-div').fadeTo('slow',1);
                 }else{
-                    Materialize.toast('Filter flag konfirmasi gagal!', 4000);
+                    Materialize.toast('Filter flag konfirmasi gagal!', 4000);$('#ajax-div').fadeTo('slow',1);
                 };
             } 
         });
@@ -313,7 +313,8 @@ function change_flagger(){
                     $('#ajax-div').html(msg);
                     $('#ajax-div').fadeTo('slow',1);
                 }else{
-                    Materialize.toast('Searching gagal!', 4000);
+                    $('#ajax-div').fadeTo('slow',1);
+                    Materialize.toast('Nota tidak ditemukan!', 4000);
                 };              
             }
         });
