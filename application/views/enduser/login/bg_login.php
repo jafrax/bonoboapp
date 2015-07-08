@@ -30,7 +30,7 @@ echo "
 	<script type='text/javascript' src='".base_url("")."html/js/materialize.min.js'></script>
 	<script type='text/javascript' src='".base_url("assets/jController/CtrlSystem.js")."'></script>
 	<script type='text/javascript' src='".base_url("assets/jController/enduser/CtrlIndex.js")."'></script>
-	<script src='https://www.google.com/recaptcha/api.js?hl=id'></script>
+
 
 	
 	<style>html{ width:100%; height:100%; }</style>
@@ -104,7 +104,7 @@ echo "
 			<label id='notifForgotPassword'  style='display:none;'></label>
 			<div class='input-field col s12'>
 				<label id='notifForgotPassword'  style='display:none;'></label>
-				<div class='g-recaptcha' data-sitekey='6Le4bAkTAAAAAHOCGz7B1_ehNPKgjBVECh1MrUXh'></div>
+				".$capcha."
 			</div>
 			
 		</form>

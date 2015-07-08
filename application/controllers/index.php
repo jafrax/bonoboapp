@@ -112,7 +112,8 @@ class Index extends CI_Controller {
 	
 	public function signin(){
 		if(!$_POST){
-			$this->load->view("enduser/login/bg_login");
+			$data['capcha']=$this->recaptcha->render();
+			$this->load->view("enduser/login/bg_login",$data);
         }else{
             $this->form_validation->set_rules('email', '', 'required');
             $this->form_validation->set_rules('password', '', 'required');
@@ -271,8 +272,9 @@ class Index extends CI_Controller {
 			$this->response->send(array("result"=>0,"message"=>"Email harus diisi !","messageCode"=>1));
 			return;
 		}
-		$captcha = (string) $this->input->post("g-recaptcha-response", true);
-		if(!$captcha){
+		$captcha_answer = $this->response->post("g-recaptcha-response");
+		$response	= $this->recapcha->verifyResponse($captcha_answer);
+		if($response['error-codes']){
 			$this->response->send(array("result"=>0,"message"=>"You are spammer","messageCode"=>1));
 			return;
 		}
