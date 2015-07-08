@@ -670,12 +670,13 @@ class Api extends CI_Controller {
 				$QProduct = $QProduct->where("tp.stock_type",$this->response->postDecode("stock_type"));
 			}
 			
-			if($this->response->post("page") != "" && $this->response->postDecode("page") != ""){
-				$QProduct = $QProduct->limit(10,$this->response->postDecode("page"));
-			}else{
-				$QProduct = $QProduct->limit(10,0);
+			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && $this->response->postDecode("lastId") > "0"){
+				$QProduct = $QProduct->where("tp.id < ",$this->response->postDecode("lastId"));
+			}else if($this->response->post("currentId") != "" && $this->response->postDecode("currentId") != ""){
+				$QProduct = $QProduct->where("tp.id > ",$this->response->postDecode("currentId"));
 			}
 			
+			$QProduct = $QProduct->limit(10,0);
 			$QProduct = $QProduct->order_by("tp.id","Desc");
 			$QProduct = $QProduct->get("tb_product tp");
 			$QProducts = $QProduct->result();
