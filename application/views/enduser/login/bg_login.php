@@ -95,9 +95,9 @@ echo "
 		<div class='modal-header deep-orange darken-1'>
 			<i class='mdi-av-not-interested left'></i> Reset password
 		</div>
-		<form class='modal-content'>
+		<form class='modal-content' id='formReset'>
 			<div class='input-field col s12'>
-				<input id='txtForgotEmail' type='text' class='validate'>
+				<input id='txtForgotEmail' name='txtForgotEmail' type='text' class='validate'>
 				<label for='txtForgotEmail'>Reset Password</label>
 				
 			</div>

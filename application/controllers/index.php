@@ -272,9 +272,9 @@ class Index extends CI_Controller {
 			$this->response->send(array("result"=>0,"message"=>"Email harus diisi !","messageCode"=>1));
 			return;
 		}
-		$captcha_answer = $this->response->post("g-recaptcha-response");
-		$response	= $this->recapcha->verifyResponse($captcha_answer);
-		if($response['error-codes']){
+		$captcha_answer = $this->response->post("rechapcha");
+		$response	= $this->recaptcha->verifyResponse($captcha_answer);
+		if(!empty($response['error-codes'])){
 			$this->response->send(array("result"=>0,"message"=>"You are spammer","messageCode"=>1));
 			return;
 		}
