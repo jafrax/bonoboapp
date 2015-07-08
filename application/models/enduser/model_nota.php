@@ -8,11 +8,8 @@ class Model_nota extends CI_Model
 				
 	}
 
-	function get_nota(){
-		$this->db->where('toko_id',$_SESSION['bonobo']['id']);
-			if (isset($_SESSION['sort'])) {
-				$this->db->order_by('create_date',$_SESSION['sort']);
-			}
+	function get_nota(){		
+			$this->db->where('toko_id',$_SESSION['bonobo']['id']);
 			if (isset($_SESSION['tipe_bayar'])) {
 				$this->db->where('status',$_SESSION['tipe_bayar']);
 			}
@@ -24,10 +21,14 @@ class Model_nota extends CI_Model
 			}
 			if (isset($_SESSION['search'])) {
 				$this->db->like('invoice_no',$_SESSION['search']);
-				$this->db->like('member_name',$_SESSION['search']);
-				$this->db->like('member_email',$_SESSION['search']);
-				$this->db->like('price_total',$_SESSION['search']);
+				$this->db->or_like('member_name',$_SESSION['search']);
+				$this->db->or_like('member_email',$_SESSION['search']);
+				$this->db->or_like('price_total',$_SESSION['search']);
 			}
+			if (isset($_SESSION['sort'])) {
+				$this->db->order_by('create_date',$_SESSION['sort']);
+			}
+			
 		return $this->db->get('tb_invoice');
 	}
 
