@@ -55,3 +55,42 @@ $(document).ready(function() {
 	});
 
 });
+
+
+/*LOOPING NOTIFICATION MESSAGE*/
+
+if($('.notifindong').length > 0){
+	//alert('a');
+	requestMessage();
+	$(window).load(function(){
+		//alert('b');
+	  setInterval(requestMessage, 10000);
+	});
+}
+	
+
+
+function requestMessage () {
+	$.ajax({
+		type:'POST',
+		url: base_url+"notif",
+		success:function(result){
+			var response = JSON.parse(result);
+			if(response.result == 1){
+				if (response.message == 0){
+					$('.notifindong').html('');
+					$('.notifindong').hide();
+				}else{
+					$('.notifindong').html(response.message);
+					$('.notifindong').fadeIn();
+				}
+			}else{
+				window.location = base_url+"index/logout";	
+			}
+			
+			
+		}
+	});	
+}
+
+/*END LOOPING NOTIFICATION MESSAGE*/

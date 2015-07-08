@@ -9,7 +9,7 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class ReCaptcha {
+class Recaptcha {
 
     private $signup_url = "https://www.google.com/recaptcha/admin";
     private $_siteVerifyUrl = "https://www.google.com/recaptcha/api/siteverify?";

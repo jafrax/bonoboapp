@@ -1,6 +1,6 @@
 <?php
 
-class Model_nota extends CI_Model
+class Model_preorder extends CI_Model
 {	
 	function __construct()
 	{

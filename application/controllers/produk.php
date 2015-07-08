@@ -5,7 +5,7 @@
 * This controler for screen index
 *
 * Log Activity : ~ Create your log if you change this controller ~
-* 1. Create 24 Juni 2015 by Dinar Wahyu Wibowo, Create controller
+* 1. Create 24 Juni 2015 by Dinar Wahyu Wibowo, Create controller,  All function
 */
 
 class Produk extends CI_Controller {

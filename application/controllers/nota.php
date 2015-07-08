@@ -1,11 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /*
-* CONTROLLER PRODUK WEBSITE
+* CONTROLLER NOTA WEBSITE
 * This controler for screen index
 *
 * Log Activity : ~ Create your log if you change this controller ~
-* 1. Create 24 Juni 2015 by Dinar Wahyu Wibowo, Create controller
+* 1. Create 24 Juni 2015 by Dinar Wahyu Wibowo, Create controller, All function
 */
 
 class Nota extends CI_Controller {
@@ -21,15 +21,16 @@ class Nota extends CI_Controller {
     }
 	
 	public function index(){
-		$data['nota']		= $this->model_nota->get_nota();
-		$data['rekening']	= $this->model_nota->get_rekening();
-		$data['toko']		= $this->model_nota->get_toko()->row();
-
 		unset($_SESSION['sort']);
 		unset($_SESSION['tipe_bayar']);
 		unset($_SESSION['tipe_stok']);
 		unset($_SESSION['flagger']);
 		unset($_SESSION['search']);
+		unset($_SESSION['keyword']);
+		
+		$data['nota']		= $this->model_nota->get_nota();
+		$data['rekening']	= $this->model_nota->get_rekening();
+		$data['toko']		= $this->model_nota->get_toko()->row();		
 
 		$this->template->bonobo('nota/bg_nota',$data);
 	}
@@ -316,10 +317,13 @@ class Nota extends CI_Controller {
 
 	public function search(){
 		$keyword = $this->input->post('keyword');
+		$search = $this->input->post('search');
 		if ($keyword != '') {
-			$_SESSION['search'] = $keyword;
+			$_SESSION['search'] = $search;
+			$_SESSION['keyword'] = $keyword;
 		}else{
 			unset($_SESSION['search']);
+			unset($_SESSION['keyword']);
 		}
 		
 		$this->ajax_load();

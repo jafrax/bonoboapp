@@ -235,23 +235,18 @@ function CtrlSignin(){
 	
 	function doForgotPassword(){
 		if(txtForgotEmail.value == ""){
-			notifForgotPassword.html("<i class='fa fa-warning'></i> Email harus diisi !");
+			notifForgotPassword.html("<i class='fa fa-warning'></i> Email harus diisi e!");
 			notifForgotPassword.slideDown();
 			notifForgotPassword.delay(5000).slideUp('slow');
 			return;
 		}
-		var gresponse = grecaptcha.getResponse();
-		if(gresponse == ''){
-			notifForgotPassword.html("<i class='fa fa-warning'></i> Capcha failed !");
-			notifForgotPassword.slideDown();
-			notifForgotPassword.delay(5000).slideUp('slow');
-			return;
-		}
-		//var response = $("#g-recaptcha-response").val();
+
+		var capcha = $("#g-recaptcha-response").val();
+			
 		
 		$.ajax({
 			type: 'POST',
-			data: "email="+txtForgotEmail.value+"&g-recaptcha-response="+gresponse,
+			data: "email="+txtForgotEmail.value+"&rechapcha="+capcha,
 			url: base_url+'index/doForgotPassword',
 			success: function(result) {
 				var response = JSON.parse(result);
