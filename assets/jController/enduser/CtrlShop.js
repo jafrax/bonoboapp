@@ -181,7 +181,7 @@ function CtrlShopStep1(){
 	}
 }
 
-function CtrlShopStep5(){
+function CtrlShopStep7(){
 	this.init = init;
 	this.setSequence = setSequence;
 	this.showDetail = showDetail;
@@ -198,7 +198,7 @@ function CtrlShopStep5(){
 	var txtCustomeCourierCount, txtCustomCourierId;
 	var lblCustomCourierName;
 	var aCustomeCourierAdd,aCustomeCourierRate;
-	var btnFormRateSave,btnStep5Back;
+	var btnFormRateSave,btnStep7Back;
 	
 	function init(){
 		initComponent();
@@ -209,7 +209,7 @@ function CtrlShopStep5(){
 		aCustomeCourierAdd = $hs("aCustomeCourierAdd");
 		aCustomeCourierRate = $hs("aCustomeCourierRate");
 		btnFormRateSave = $hs("btnFormRateSave");
-		btnStep5Back = $hs("btnStep5Back");
+		btnStep7Back = $hs("btnStep5Back");
 		divCustomCourier = $("#divCustomCourier");
 		divShipment = $("#divShipment");
 		divDetail = $("#divDetail");
@@ -232,7 +232,7 @@ function CtrlShopStep5(){
 		btnFormRateSave.onclick = function(){
 			doRateSave();
 		};
-		btnStep5Back.onclick = function(){
+		btnStep7Back.onclick = function(){
 			hideDetail();
 		};
 	}
@@ -247,7 +247,7 @@ function CtrlShopStep5(){
 		
 		sequence = sequence+1;
 		
-		div.innerHTML = "<div id='divCourier"+sequence+"' class='input-field col s12 m12'><div class='input-field col s8 m6'><input type='hidden' id='txtCourierId"+sequence+"' name='txtCourierId1'><input type='text' id='txtCourierName"+sequence+"' name='txtCourierName1'><label for='txtCourierName"+sequence+"'>Nama Jasa Pengiriman</label></div><div class='input-field col s4 m6'><button type='button' class='waves-effect waves-light btn  ' onclick=ctrlShopStep5.doCourierSave("+sequence+");><i class='material-icons left'>library_add</i> Simpan</button> <button class='waves-effect waves-light btn red' type='button' onclick=ctrlShopStep5.doCourierDelete("+sequence+");><i class='mdi-action-delete left'></i>Hapus</button> <button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail"+sequence+"'  onclick=ctrlShopStep5.showDetail("+sequence+"); style='display:none;'><i class='material-icons left'>list</i>Detail</button> </div></div>";
+		div.innerHTML = "<div id='divCourier"+sequence+"' class='input-field col s12 m12'><div class='input-field col s8 m6'><input type='hidden' id='txtCourierId"+sequence+"' name='txtCourierId1'><input type='text' id='txtCourierName"+sequence+"' name='txtCourierName1'><label for='txtCourierName"+sequence+"'>Nama Jasa Pengiriman</label></div><div class='input-field col s4 m6'><button type='button' class='waves-effect waves-light btn  ' onclick=ctrlShopStep7.doCourierSave("+sequence+");><i class='material-icons left'>library_add</i> Simpan</button> <button class='waves-effect waves-light btn red' type='button' onclick=ctrlShopStep7.doCourierDelete("+sequence+");><i class='mdi-action-delete left'></i>Hapus</button> <button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail"+sequence+"'  onclick=ctrlShopStep7.showDetail("+sequence+"); style='display:none;'><i class='material-icons left'>list</i>Detail</button> </div></div>";
 		
 		divCustomCourier.append(div);
 		txtCustomeCourierCount.value = sequence;
@@ -273,7 +273,7 @@ function CtrlShopStep5(){
 		$.ajax({
 			type: 'POST',
 			data: "id="+txtCourierId.value+"&name="+txtCourierName.value,
-			url: base_url+'toko/doStep5CourierSave/',
+			url: base_url+'toko/doStep7CourierSave/',
 			success: function(result) {
 				var response = JSON.parse(result);
 				if(response.result == 1){
@@ -296,7 +296,7 @@ function CtrlShopStep5(){
 			$.ajax({
 				type: 'POST',
 				data: "id="+txtCourierId.value,
-				url: base_url+'toko/doStep5CourierDelete/',
+				url: base_url+'toko/doStep7CourierDelete/',
 				success: function(result) {
 					var response = JSON.parse(result);
 					if(response.result == 1){
@@ -313,7 +313,7 @@ function CtrlShopStep5(){
 		$.ajax({
 			type: 'POST',
 			data: $('#formStep5Rate').serialize()+"&customCourier="+txtCustomCourierId.value,
-			url: base_url+'toko/doStep5RateSave/',
+			url: base_url+'toko/doStep7RateSave/',
 			success: function(result) {
 				var response = JSON.parse(result);
 				if(response.result == 1){
@@ -329,7 +329,7 @@ function CtrlShopStep5(){
 		$.ajax({
 			type: 'POST',
 			data: "rate="+e,
-			url: base_url+'toko/doStep5RateDelete/',
+			url: base_url+'toko/doStep7RateDelete/',
 			success: function(result) {
 				var response = JSON.parse(result);
 				if(response.result == 1){
@@ -345,7 +345,7 @@ function CtrlShopStep5(){
 		$.ajax({
 			type: 'POST',
 			data: "id="+e,
-			url: base_url+'toko/step5Detail/',
+			url: base_url+'toko/step7Detail/',
 			success: function(result) {
 				var response = JSON.parse(result);
 				if(response.result == 1){
@@ -361,7 +361,7 @@ function CtrlShopStep5(){
 		$.ajax({
 			type: 'POST',
 			data: "courier="+e,
-			url: base_url+'toko/step5Table/',
+			url: base_url+'toko/stepTable/',
 			success: function(result) {
 				divCustomeCourierTable.html(result);
 			}
@@ -372,7 +372,7 @@ function CtrlShopStep5(){
 		$.ajax({
 			type: 'POST',
 			data: "id="+e,
-			url: base_url+'toko/step5Form/',
+			url: base_url+'toko/step7Form/',
 			success: function(result) {
 				divFormRateContent.html(result);
 				
@@ -388,7 +388,7 @@ function CtrlShopStep5(){
 		$.ajax({
 			type: 'POST',
 			data: "province="+$hs('formStep5Rate').cmbProvince.value,
-			url: base_url+'toko/step5ComboboxCity/',
+			url: base_url+'toko/step7ComboboxCity/',
 			success: function(result) {
 				divCity.html(result);
 				loadComboboxKecamatan();
@@ -400,7 +400,7 @@ function CtrlShopStep5(){
 		$.ajax({
 			type: 'POST',
 			data: "province="+$hs('formStep5Rate').cmbProvince.value+"&city="+$hs('formStep5Rate').cmbCity.value,
-			url: base_url+'toko/step5ComboboxKecamatan/',
+			url: base_url+'toko/step7ComboboxKecamatan/',
 			success: function(result) {
 				divKecamatan.html(result);
 			}
@@ -408,13 +408,13 @@ function CtrlShopStep5(){
 	}
 }
 
-function CtrlShopStep6(){
+function CtrlShopStep8(){
 	this.init = init;
 	this.formEdit = formEdit;
 	this.doDelete = doDelete;
 	
 	var btnAddNew,btnSave;
-	var formStep6Add;
+	var formStep8Add;
 	
 	function init(){
 		initComponent();
@@ -422,7 +422,7 @@ function CtrlShopStep6(){
 	}
 	
 	function initComponent(){
-		formStep6Add = $hs("formStep6Add");
+		formStep8Add = $hs("formStep6Add");
 		btnAddNew = $hs("btnAddNew");
 		btnSave = $hs("btnSave");
 	}
@@ -438,14 +438,14 @@ function CtrlShopStep6(){
 	}
 	
 	function formClear(){
-		formStep6Add.txtId.value = "";
-		formStep6Add.txtName.value = "";
-		formStep6Add.txtNo.value = "";
+		formStep8Add.txtId.value = "";
+		formStep8Add.txtName.value = "";
+		formStep8Add.txtNo.value = "";
 		
 		$.ajax({
 			type: 'POST',
 			data: "id="+e,
-			url: base_url+'toko/step6ComboboxBank/',
+			url: base_url+'toko/step8ComboboxBank/',
 			success: function(result) {
 				$("#divCmbBank").html(result);
 			}
@@ -456,7 +456,7 @@ function CtrlShopStep6(){
 		$.ajax({
 			type: 'POST',
 			data: "id="+e,
-			url: base_url+'toko/step6ComboboxBank/',
+			url: base_url+'toko/step8ComboboxBank/',
 			success: function(result) {
 				$("#divCmbBank").html(result);
 			}
@@ -465,14 +465,14 @@ function CtrlShopStep6(){
 		$.ajax({
 			type: 'POST',
 			data: "id="+e,
-			url: base_url+'toko/step6GetData/',
+			url: base_url+'toko/step8GetData/',
 			success: function(result) {
 				var response = JSON.parse(result);
 				if(response.result == 1){
-					formStep6Add = $hs("formStep6Add");
-					formStep6Add.txtId.value = response.id;
-					formStep6Add.txtName.value = response.acc_name;
-					formStep6Add.txtNo.value = response.acc_no;
+					formStep8Add = $hs("formStep6Add");
+					formStep8Add.txtId.value = response.id;
+					formStep8Add.txtName.value = response.acc_name;
+					formStep8Add.txtNo.value = response.acc_no;
 				}else{
 					formClear();
 					$hs_notif("#notifStep6",response.message);
@@ -485,11 +485,11 @@ function CtrlShopStep6(){
 		$.ajax({
 			type: 'POST',
 			data: $("#formStep6Add").serialize(),
-			url: base_url+'toko/doStep6Save/',
+			url: base_url+'toko/doStep8Save/',
 			success: function(result) {
 				var response = JSON.parse(result);
 				if(response.result == 1){
-					top.location.href = base_url+"toko/step6/";
+					top.location.href = base_url+"toko/step8/";
 				}else{
 					$hs_notif("#notifStep6",response.message);
 				}
@@ -501,11 +501,11 @@ function CtrlShopStep6(){
 		$.ajax({
 			type: 'POST',
 			data: "id="+e,
-			url: base_url+'toko/doStep6Delete/',
+			url: base_url+'toko/doStep8Delete/',
 			success: function(result) {
 				var response = JSON.parse(result);
 				if(response.result == 1){
-					top.location.href = base_url+"toko/step6/";
+					top.location.href = base_url+"toko/step8/";
 				}else{
 					$hs_notif("#notifStep6",response.message);
 				}
@@ -514,10 +514,10 @@ function CtrlShopStep6(){
 	}
 }
 
-function CtrlShopStep7(){
+function CtrlShopStep5(){
 	this.init = init;
 	
-	var formStep7;
+	var formStep5;
 	var btnSave;
 	var chkLevel5, chkLevel4, chkLevel3, chkLevel2;
 	
@@ -528,7 +528,7 @@ function CtrlShopStep7(){
 	}
 	
 	function initComponent(){
-		formStep7 = $("#formStep7");
+		formStep5 = $("#formStep5");
 		btnSave = $hs("btnSave");
 		chkLevel5 = $hs("chkLevel5");
 		chkLevel4 = $hs("chkLevel4");
@@ -642,8 +642,8 @@ function CtrlShopStep7(){
 	function doSave(){
 		$.ajax({
 			type: 'POST',
-			data: formStep7.serialize(),
-			url: base_url+'toko/doStep7Save/',
+			data: formStep5.serialize(),
+			url: base_url+'toko/doStep5Save/',
 			success: function(result) {
 				var response = JSON.parse(result);
 				if(response.result == 1){

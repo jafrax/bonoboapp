@@ -1,7 +1,7 @@
 <?php
 
 if($Shop->flag_information == 0){
-	$Button = "<a href='".base_url("toko/step4")."' class='btn waves-effect waves-light red'><i class='mdi-navigation-chevron-left left'></i> Kembali</a><button class='btn waves-effect waves-light'>Selanjutnya<i class='mdi-navigation-chevron-right right'></i></button>";
+	$Button = "<a href='".base_url("toko/step6")."' class='btn waves-effect waves-light red'><i class='mdi-navigation-chevron-left left'></i> Kembali</a><button class='btn waves-effect waves-light'>Selanjutnya<i class='mdi-navigation-chevron-right right'></i></button>";
 }else{
 	$Button = "<button class='btn waves-effect waves-light'>Simpan<i class='mdi-navigation-chevron-right right'></i></button>";
 }
@@ -174,8 +174,8 @@ echo"
 
 echo"
 	<script>
-		var ctrlShopStep5 = new CtrlShopStep5();
-		ctrlShopStep5.init();
+		var ctrlShopStep7 = new CtrlShopStep7();
+		ctrlShopStep7.init();
 	</script>
 ";
 ?>
