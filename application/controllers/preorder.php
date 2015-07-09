@@ -20,7 +20,11 @@ class Preorder extends CI_Controller {
 		$this->load->model("enduser/model_preorder");		
     }
 	
-	public function index(){		
+	public function index(){
+		unset($_SESSION['search']);
+		unset($_SESSION['keyword']);		
+		unset($_SESSION['sort']);
+		unset($_SESSION['selesai']);
 		$data['produk']		= $this->model_preorder->get_product_preorder();
 
 		$this->template->bonobo('preorder/bg_preorder',$data);
@@ -28,9 +32,80 @@ class Preorder extends CI_Controller {
 
 	public function detail($id){
 		$id = base64_decode($id);
+		unset($_SESSION['search']);
+		unset($_SESSION['keyword']);
+		unset($_SESSION['sort']);
+		unset($_SESSION['selesai']);
 
 		$data['nota']	= $this->model_preorder->get_nota($id);
 		$this->template->bonobo('preorder/bg_preorder_detail',$data);
+	}
+
+	public function selesai_semua(){
+		$id = $this->input->post('id');
+
+		$this->db->where('id',$id)->set('status_pre_order',1)->update('tb_invoice');
+	}
+
+	public function selesai_semuanya(){
+		$id = $this->input->post('id');		
+
+		$nota	= $this->model_preorder->get_nota($id);
+		foreach ($nota->result() as $row) {
+			$update = $this->db->where('id',$row->id)->set('status_pre_order',1)->update('tb_invoice');				
+		}		
+	}
+
+	public function ajax_load($id){	
+		$id = base64_decode($id);			
+		$data['nota']	= $this->model_preorder->get_nota($id);
+
+		$this->load->view('enduser/preorder/bg_preorder_detail_ajax',$data);
+	}
+
+	public function search(){
+
+		$keyword 	= $this->input->post('keyword');
+		$search 	= $this->input->post('search');
+		$id 		= $this->input->post('id');
+
+		if ($keyword != '') {
+			$_SESSION['search'] = $search;
+			$_SESSION['keyword'] = $keyword;
+		}else{
+			unset($_SESSION['search']);
+			unset($_SESSION['keyword']);
+		}
+		
+		$this->ajax_load($id);
+	}
+
+	public function sort(){
+		$code 	= $this->input->post('code');
+		$id 	= $this->input->post('id');
+
+		if ($code == 2) {
+			$_SESSION['sort'] = 'ASC';
+		}elseif ($code == 1) {
+			$_SESSION['sort'] = 'DESC';
+		}
+
+		$this->ajax_load($id);
+	}
+
+	public function selesai(){
+		$code 	= $this->input->post('code');
+		$id 	= $this->input->post('id');
+
+		if ($code == 1) {
+			$_SESSION['selesai'] = 0;
+		}elseif ($code == 2) {
+			$_SESSION['selesai'] = 1;
+		}elseif ($code == 3) {
+			unset($_SESSION['selesai']);
+		}
+
+		$this->ajax_load($id);
 	}
 }
 

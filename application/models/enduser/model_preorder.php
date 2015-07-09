@@ -27,12 +27,23 @@ class Model_preorder extends CI_Model
 	}
 
 	function get_nota($id){
-		return $this->db->select('i.*')
+		 $this->db->select('i.*')
 						->where('p.id',$id)
 						->join('tb_invoice_product ip','ip.invoice_id=i.id')
 						->join('tb_product_varian v','v.id=ip.product_varian_id')
-						->join('tb_product p','p.id=v.product_id')
-						->get('tb_invoice i');
+						->join('tb_product p','p.id=v.product_id');
+		if (isset($_SESSION['keyword'])) {
+			$this->db->like($_SESSION['search'],$_SESSION['keyword']);
+		}
+		if (isset($_SESSION['selesai'])) {
+			$this->db->where('status_pre_order',$_SESSION['selesai']);
+		}
+		if (isset($_SESSION['sort'])) {
+			$this->db->order_by('i.create_date',$_SESSION['sort']);
+		}else{
+			$this->db->order_by('i.create_date','DESC');
+		}
+		return	$this->db->get('tb_invoice i');
 	}
 
 	function get_image($id){

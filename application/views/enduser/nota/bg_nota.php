@@ -33,8 +33,7 @@ echo"
 									</div>
 									
 								</div>
-								<div class='input-field col s8 m8 l3 nolpad'>
-									
+								<div class='input-field col s8 m8 l3 nolpad'>									
 									<i class='mdi-action-search prefix'></i>
 									<input type='text' class='validate' id='keyword_nota'>
 									<label for='keyword_nota'>Cari</label>

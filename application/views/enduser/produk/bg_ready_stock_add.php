@@ -99,7 +99,7 @@ echo "
 								</div>
 								<input type='hidden' name='total_picture' id='total_picture' value='1'/>
 								<div class='input-field col s12'>
-									<input id='perkiraan_berat' placeholder='0.00' type='text' name='berat' class='validate'>
+									<input id='perkiraan_berat' placeholder='0.00' type='text' name='berat' class='validate' maxlength='9'>
 									<label for='perkiraan_berat'>Perkiraan Berat <span>( Kilogram)</span></label>
 								</div>
 								<div class='input-field col s12'>
@@ -174,35 +174,40 @@ echo "
 								</div>
 								<div class='input-field col s12 m12 varsto'>
 									<label for='harga_jual'>Harga Jual <span class='text-red'>*</span></label>
-								</div>
-
+								</div>";
+								if ($level_harga->level_1_active == 1) {$a1 = 'block';}else{$a1 = 'none';}
+								if ($level_harga->level_2_active == 1) {$a2 = 'block';}else{$a2 = 'none';}
+								if ($level_harga->level_3_active == 1) {$a3 = 'block';}else{$a3 = 'none';}
+								if ($level_harga->level_4_active == 1) {$a4 = 'block';}else{$a4 = 'none';}
+								if ($level_harga->level_5_active == 1) {$a5 = 'block';}else{$a5 = 'none';}
+								echo"
 								<ul class='col s12 m12'>
-									<li class='varsto'>
+									<li class='varsto' style='display:$a1'>
 										<p><br></p>
 										<div class='input-field col s12 m6'>
 											<input id='varian' name='harga_level_1' type='text' placeholder='0' class='validate numbersOnly' required>
 											<label for='varian'>Harga "; if ($level_harga->level_1_name != '') {echo $level_harga->level_1_name;}else{echo "level 1";} echo" <span class='text-red'>*</span></label>
 										</div>
 									</li>
-									<li class='varsto'>
+									<li class='varsto' style='display:$a2'>
 										<div class='input-field col s12 m6'>
 											<input id='varian' name='harga_level_2' type='text' placeholder='Masukkan harga jual barang di level ini' class='validate numbersOnly' >
 											<label for='varian'>Harga "; if ($level_harga->level_2_name != '') {echo $level_harga->level_2_name;}else{echo "level 2";} echo"</label>
 										</div>
 									</li>
-									<li class='varsto'>
+									<li class='varsto' style='display:$a3'>
 										<div class='input-field col s12 m6'>
 											<input id='varian' name='harga_level_3' type='text' placeholder='Masukkan harga jual barang di level ini' class='validate numbersOnly' >
 											<label for='varian'>Harga "; if ($level_harga->level_3_name != '') {echo $level_harga->level_3_name;}else{echo "level 3";} echo"</label>
 										</div>
 									</li>
-									<li class='varsto'>
+									<li class='varsto' style='display:$a4'>
 										<div class='input-field col s12 m6'>
 											<input id='varian' name='harga_level_4' type='text' placeholder='Masukkan harga jual barang di level ini' class='validate numbersOnly' >
 											<label for='varian'>Harga "; if ($level_harga->level_4_name != '') {echo $level_harga->level_4_name;}else{echo "level 4";} echo"</label>
 										</div>
 									</li>
-									<li class='varsto'>
+									<li class='varsto' style='display:$a5'>
 										<div class='input-field col s12 m6'>
 											<input id='varian' name='harga_level_5' type='text' placeholder='Masukkan harga jual barang di level ini' class='validate numbersOnly' >
 											<label for='varian'>Harga "; if ($level_harga->level_5_name != '') {echo $level_harga->level_5_name;}else{echo "level 5";} echo"</label>
