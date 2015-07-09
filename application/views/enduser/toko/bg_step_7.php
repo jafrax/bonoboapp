@@ -31,7 +31,7 @@ echo"
 				<div class='input-field col s12 m8'>
 					<h6 style='display:none;'>Level 2</h6>
 					<input name='txtLevel2' type='text' class='validate' value='".$Shop->level_2_name."' ".($Shop->level_2_active == 0 ? "disabled" : "")." placeholder='Level 2'>
-                    <label id='labelLevel2' for='chkLevel2' ".($Shop->level_2_active == 0 ? "hidden" : "").">Level Harga sedang digunakan</label>
+                    <label id='labelLevel2' for='chkLevel2' ".($status2 == 0 ? "hidden" : "").">Level Harga sedang digunakan</label>
                 </div>
 				<div class='input-field col s12 m4'>
 					<div class='col s12 m12 right-align'>
@@ -48,7 +48,8 @@ echo"
 				<div class='input-field col s12 m8'>
 					<h6 style='display:none;'>Level 3</h6>
 					<input name='txtLevel3' type='text' class='validate' value='".$Shop->level_3_name."' ".($Shop->level_3_active == 0 ? "disabled" : "")." placeholder='Level 3'>
-				</div>
+                    <label id='labelLevel2' for='chkLevel3' ".($status3 == 0 ? "hidden" : "").">Level Harga sedang digunakan</label>
+                </div>
 				<div class='input-field col s12 m4'>
 					<div class='col s12 m12 right-align'>
 						<p class='right'>
@@ -64,7 +65,8 @@ echo"
 				<div class='input-field col s12 m8'>
 					<h6 style='display:none;'>Level 4</h6>
 					<input name='txtLevel4' type='text' class='validate' value='".$Shop->level_4_name."' ".($Shop->level_4_active == 0 ? "disabled" : "")." placeholder='Level 4'>
-				</div>
+                    <label id='labelLevel2' for='chkLevel4' ".($status4 == 0 ? "hidden" : "").">Level Harga sedang digunakan</label>
+                </div>
 				<div class='input-field col s12 m4'>
 					<div class='col s12 m12 right-align'>
 						<p class='right'>
@@ -80,7 +82,8 @@ echo"
 				<div class='input-field col s12 m8'>
 					<h6 style='display:none;'>Level 5</h6>
 					<input name='txtLevel5' type='text' class='validate' value='".$Shop->level_5_name."' ".($Shop->level_5_active == 0 ? "disabled" : "")." placeholder='Level 5'>
-				</div>
+                    <label id='labelLevel2' for='chkLevel5' ".($status5 == 0 ? "hidden" : "").">Level Harga sedang digunakan</label>
+                </div>
 				<div class='input-field col s12 m4'>
 					<div class='col s12 m12 right-align'>
 						<p class='right'>
