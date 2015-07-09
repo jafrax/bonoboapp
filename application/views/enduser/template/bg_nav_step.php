@@ -34,31 +34,32 @@ echo "
 			<li class='col s12 m6 l3 langkah ".($this->uri->segment(2) == "step5" ? "active" : "")."'>
 				<a href='".base_url("toko/step5")."'>
 					<div class='card-panel '>
-						<span class='white-text'>5. PENGIRIMAN</span><i class='mdi-hardware-keyboard-arrow-right right'></i>
+						<span class='white-text'>5. ATUR LEVEL HARGA</span><i class='mdi-hardware-keyboard-arrow-right right'></i>
 					</div>
 				</a>
 			</li>
 			<li class='col s12 m6 l3 langkah ".($this->uri->segment(2) == "step6" ? "active" : "")."'>
 				<a href='".base_url("toko/step6")."'>
 					<div class='card-panel '>
-						<span class='white-text'>6. BANK</span><i class='mdi-hardware-keyboard-arrow-right right'></i>
-					</div>
-				</a>
-			</li>
-			<li class='col s12 m6 l3 langkah ".($this->uri->segment(2) == "step6" ? "active" : "")."'>
-				<a href='".base_url("toko/step6")."'>
-					<div class='card-panel '>
-						<span class='white-text'>6. BANK</span><i class='mdi-hardware-keyboard-arrow-right right'></i>
+						<span class='white-text'>6. METODE KONFIRMASI</span><i class='mdi-hardware-keyboard-arrow-right right'></i>
 					</div>
 				</a>
 			</li>
 			<li class='col s12 m6 l3 langkah ".($this->uri->segment(2) == "step7" ? "active" : "")."'>
 				<a href='".base_url("toko/step7")."'>
 					<div class='card-panel '>
-						<span class='white-text'>7. ATUR LEVEL HARGA</span><i class='mdi-hardware-keyboard-arrow-right right'></i>
+						<span class='white-text'>7. PENGIRIMAN</span><i class='mdi-hardware-keyboard-arrow-right right'></i>
+					</div>
+				</a>
+			</li>			
+			<li class='col s12 m6 l3 langkah ".($this->uri->segment(2) == "step8" ? "active" : "")."'>
+				<a href='".base_url("toko/step8")."'>
+					<div class='card-panel '>
+						<span class='white-text'>8. BANK</span><i class='mdi-hardware-keyboard-arrow-right right'></i>
 					</div>
 				</a>
 			</li>
+			
 		</ul>
 	</div>
 ";

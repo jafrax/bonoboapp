@@ -174,8 +174,8 @@ echo"
 
 echo"
 	<script>
-		var ctrlShopStep5 = new CtrlShopStep5();
-		ctrlShopStep5.init();
+		var ctrlShopStep7 = new CtrlShopStep7();
+		ctrlShopStep7.init();
 	</script>
 ";
 ?>

@@ -92,8 +92,8 @@ echo"
 	</div>
 	
 	<script>
-		var ctrlShopStep7 = new CtrlShopStep7();
-		ctrlShopStep7.init();
+		var ctrlShopStep5 = new CtrlShopStep5();
+		ctrlShopStep5.init();
 	</script>
 ";
 

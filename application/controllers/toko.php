@@ -100,11 +100,11 @@ class Toko extends CI_Controller {
 			
 			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
 			
-			redirect("toko/step5");
+			redirect("toko/step7");
 		}
 	}
 	
-	public function step5(){
+	public function step7(){
 		if(!$_POST){
 			$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 			$data["Couriers"] = $this->model_courier->get()->result();
@@ -171,11 +171,11 @@ class Toko extends CI_Controller {
 				}
 			}
 			
-			redirect("toko/step6");
+			redirect("toko/step8");
 		}
 	}
 	
-	public function step6(){
+	public function step8(){
 		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 		$data["Banks"] = $this->model_bank->get()->result();
 		$data["ShopBanks"] = $this->model_toko_bank->get_by_shop($_SESSION["bonobo"]["id"])->result();
@@ -183,13 +183,13 @@ class Toko extends CI_Controller {
 		$this->template->bonobo_step("enduser/toko/bg_step_6",$data);
 	}
 	
-	public function step7(){
+	public function step5(){
 		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 		
 		$this->template->bonobo_step("enduser/toko/bg_step_7",$data);
 	}
 	
-	public function step5Detail(){
+	public function step7Detail(){
 		if($this->response->post("id") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada data yang dipilih","messageCode"=>1));
 			return;
@@ -203,7 +203,7 @@ class Toko extends CI_Controller {
 		}
 	}
 	
-	public function step5Form(){
+	public function step7Form(){
 		$data["Provinces"] = $this->model_location->get_provinces()->result();
 		$data["Cities"] = $this->model_location->get_cities()->result();
 		$data["Kecamatans"] = $this->model_location->get_kecamatans()->result();
@@ -212,7 +212,7 @@ class Toko extends CI_Controller {
 		$this->load->view("enduser/toko/bg_step_5_form",$data);
 	}
 	
-	public function step5Table(){
+	public function step7Table(){
 		if($this->response->post("courier") == ""){
 			echo "Tidak ada data";
 			return;
@@ -348,7 +348,7 @@ class Toko extends CI_Controller {
 		}
 	}
 	
-	public function doStep5CourierSave(){
+	public function doStep7CourierSave(){
 		if($this->response->post("name") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Nama masih kosong","messageCode"=>1));
 			return;
@@ -401,7 +401,7 @@ class Toko extends CI_Controller {
 		}
 	}
 	
-	public function doStep5CourierDelete(){
+	public function doStep7CourierDelete(){
 		if($this->response->post("id") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada data yang dipilih","messageCode"=>1));
 			return;
@@ -415,7 +415,7 @@ class Toko extends CI_Controller {
 		}
 	}
 	
-	public function doStep5RateSave(){
+	public function doStep7RateSave(){
 		if($this->response->post("customCourier") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada data courier yang dipilih","messageCode"=>1));
 			return;
@@ -474,7 +474,7 @@ class Toko extends CI_Controller {
 		}
 	}
 	
-	public function doStep5RateDelete(){
+	public function doStep7RateDelete(){
 		if($this->response->post("rate") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada data rate yang dipilih","messageCode"=>1));
 			return;
@@ -488,7 +488,7 @@ class Toko extends CI_Controller {
 		}
 	}
 	
-	public function step6GetData(){
+	public function step8GetData(){
 		if($this->response->post("id") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada data yang dipilih","messageCode"=>1));
 			return;
@@ -502,7 +502,7 @@ class Toko extends CI_Controller {
 		}
 	}
 
-	public function doStep6Save(){
+	public function doStep8Save(){
 		if($this->response->post("cmbBank") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada bank yang dipilih","messageCode"=>1));
 			return;
@@ -552,7 +552,7 @@ class Toko extends CI_Controller {
 		}
 	}
 	
-	public function doStep6Delete(){
+	public function doStep8Delete(){
 		if($this->response->post("id") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada data bank yang dipilih","messageCode"=>1));
 			return;
@@ -567,7 +567,7 @@ class Toko extends CI_Controller {
 		
 	}
 	
-	public function doStep7Save(){
+	public function doStep5Save(){
 		$chkLevel1 = 0;
 		$chkLevel2 = 0;
 		$chkLevel3 = 0;
@@ -647,10 +647,10 @@ class Toko extends CI_Controller {
 		";
 	}
 	
-	public function step5ComboboxCity(){
+	public function step7ComboboxCity(){
 		$Cities = $this->model_location->get_cities_by_province($this->response->post("province"))->result();
 		
-		echo"<p><select name='cmbCity' onChange=ctrlShopStep5.loadComboboxKecamatan(); class='chzn-select'><option value='' disabled selected>Pilih Kota</option>";
+		echo"<p><select name='cmbCity' onChange=ctrlShopStep7.loadComboboxKecamatan(); class='chzn-select'><option value='' disabled selected>Pilih Kota</option>";
 
 		foreach($Cities as $City){
 			echo"<option value='".$City->city."'>".$City->city."</option>";
@@ -659,7 +659,7 @@ class Toko extends CI_Controller {
 		echo"</select></p><script>initComboBox();</script>";
 	}
 	
-	public function step5ComboboxKecamatan(){
+	public function step7ComboboxKecamatan(){
 		$Kecamatans = $this->model_location->get_kecamatans_by_city_province($this->response->post("city"),$this->response->post("province"))->result();
 		
 		echo"<p><select name='cmbKecamatan' class='chzn-select'><option value='' disabled selected>Pilih Kecamatan</option>";
@@ -671,7 +671,7 @@ class Toko extends CI_Controller {
 		echo"</select></p><script>initComboBox();</script>";
 	}
 	
-	public function step6ComboboxBank(){
+	public function step8ComboboxBank(){
 		$Banks = $this->model_bank->get()->result();
 		$ShopBank = $this->model_toko_bank->get_by_id($this->response->post("id"))->row();
 		
