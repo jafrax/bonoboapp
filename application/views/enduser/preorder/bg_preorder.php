@@ -8,15 +8,15 @@ echo "
 								foreach ($produk->result() as $row) {
 									echo "
 									<li class='col s12 m6 listanggodaf'>
-										<div class='col s3 m5 l4'>";
+										<div class='prordercrop col s12 m5 l4 nolpad'>";
 										if ($row->image) {
-											echo "<img src='".base_url()."assets/pic/product/resize/".$row->image."' class='responsive-img userimg'>";
+											echo "<img src='".base_url()."assets/pic/product/resize/".$row->image."' class='responsive-img '>";
 										}else{
-											echo "<img src='html/images/comp/male.png' class='responsive-img userimg'>";
+											echo "<img src='html/images/comp/male_large.png' class='responsive-img userimg'>";
 										}
 											echo "
 										</div>
-										<div class='col s9 m7 l8'>
+										<div class='col s12 m7 l8'>
 											<p class=' blue-grey-text lighten-3 right'>19.09</p>
 											<p><a href=''><b class='userangoota'>".$row->name."</b></a></p>				
 											<span class='red-text'>20 Belum Selesai</span>										
