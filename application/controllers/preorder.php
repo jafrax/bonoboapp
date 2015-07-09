@@ -20,17 +20,8 @@ class Preorder extends CI_Controller {
 		$this->load->model("enduser/model_preorder");		
     }
 	
-	public function index(){
-		unset($_SESSION['sort']);
-		unset($_SESSION['tipe_bayar']);
-		unset($_SESSION['tipe_stok']);
-		unset($_SESSION['flagger']);
-		unset($_SESSION['search']);
-		unset($_SESSION['keyword']);
-		
-		$data['nota']		= $this->model_preorder->get_nota();
-		$data['rekening']	= $this->model_preorder->get_rekening();
-		$data['toko']		= $this->model_preorder->get_toko()->row();		
+	public function index(){		
+		$data['produk']		= $this->model_preorder->get_product_preorder();
 
 		$this->template->bonobo('preorder/bg_preorder',$data);
 	}	

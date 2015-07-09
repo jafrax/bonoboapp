@@ -56,7 +56,7 @@ echo"
 			<li "; if ($uri == 'anggota') echo"class='active'"; echo"><a "; if ($uri == 'anggota') echo"class='active'"; echo" href='".base_url("anggota")."'>Anggota</a></li>
 			<li "; if ($uri == 'produk') echo"class='active'"; echo"><a "; if ($uri == 'produk') echo"class='active'"; echo" href='".base_url("produk")."'>Produk</a></li>
 			<li "; if ($uri == 'nota') echo"class='active'"; echo"><a "; if ($uri == 'nota') echo"class='active'"; echo" href='".base_url("nota")."'>Nota</a></li>
-			<li "; if ($uri == 'message') echo"class='active'"; echo"><a "; if ($uri == 'message') echo"class='active'"; echo" href='".base_url("message")."'>Pesan</a></li>
+			<!-- <li "; if ($uri == 'message') echo"class='active'"; echo"><a "; if ($uri == 'message') echo"class='active'"; echo" href='".base_url("message")."'>Pesan</a></li> -->
 			<li "; if ($uri == 'preorder') echo"class='active'"; echo"><a "; if ($uri == 'preorder') echo"class='active'"; echo" href='".base_url("preorder")."'>Pemesanan Pre Order</a></li>
 			<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='".base_url("index/logout")."'>Logout</a></li>
 		</ul>
@@ -113,7 +113,7 @@ echo"
 					<li "; if ($uri == 'anggota') echo"class='active'"; echo"><a "; if ($uri == 'anggota') echo"class='active'"; echo" href='".base_url("anggota")."'>Anggota</a></li>
 					<li "; if ($uri == 'produk') echo"class='active'"; echo"><a "; if ($uri == 'produk') echo"class='active'"; echo" href='".base_url("produk")."'>Produk</a></li>
 					<li "; if ($uri == 'nota') echo"class='active'"; echo"><a "; if ($uri == 'nota') echo"class='active'"; echo" href='".base_url("nota")."'>Nota</a></li>
-					<li "; if ($uri == 'message') echo"class='active'"; echo"><a "; if ($uri == 'message') echo"class='active'"; echo" href='".base_url("message")."'>Pesan</a></li>
+					<!-- <li "; if ($uri == 'message') echo"class='active'"; echo"><a "; if ($uri == 'message') echo"class='active'"; echo" href='".base_url("message")."'>Pesan</a></li>-->
 					<li "; if ($uri == 'preorder') echo"class='active'"; echo"><a "; if ($uri == 'preorder') echo"class='active'"; echo" href='".base_url("preorder")."'>Pemesanan Pre Order</a></li>
 				</ul>
 			</div>
