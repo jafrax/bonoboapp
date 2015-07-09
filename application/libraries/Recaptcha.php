@@ -1,5 +1,5 @@
 <?php
-
+//tahap2
 /**
  * CodeIgniter NO Captcha ReCAPTCHA a.k.a reCAPTCHA Version 2.0 library
  * 

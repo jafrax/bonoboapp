@@ -43,6 +43,69 @@ class Model_toko extends CI_Model {
 						 ->where('tt.verified_code',$uri_veri)
 						 ->get('tb_toko tt');
 	}
+	public function cek_status_level_toko($data){
+		$this->db->where('tt.id',$data['id_toko']);
+		$return = $this->db->get('tb_toko tt');
+		return $return;
+	}
+	public function cek_member_use1($id){
+		$this->db->where('tt.toko_id',$id);
+		$this->db->where('tt.price_level',1);
+		$return = $this->db->get('tb_toko_member tt');
+		return $return;
+	}
+	public function cek_member_use2($id){
+		$this->db->where('tt.toko_id',$id);
+		$this->db->where('tt.price_level',2);
+		$return = $this->db->get('tb_toko_member tt');
+		return $return;
+	}
+	public function cek_member_use3($id){
+		$this->db->where('tt.toko_id',$id);
+		$this->db->where('tt.price_level',3);
+		$return = $this->db->get('tb_toko_member tt');
+		return $return;
+	}
+	public function cek_member_use4($id){
+		$this->db->where('tt.toko_id',$id);
+		$this->db->where('tt.price_level',4);
+		$return = $this->db->get('tb_toko_member tt');
+		return $return;
+	}
+	public function cek_member_use5($id){
+		$this->db->where('tt.toko_id',$id);
+		$this->db->where('tt.price_level',5);
+		$return = $this->db->get('tb_toko_member tt');
+		return $return;
+	}
+	public function update_level_toko2($data,$data_update){
+		$this->db->set('level_2_active',$data_update);
+		$this->db->where('tt.id',$data['id_toko']);
+		$this->db->update('tb_toko tt');
+		$return=$this->db->affected_rows();
+		return $return;
+	}
+	public function update_level_toko3($data,$data_update){
+		$this->db->set('level_3_active',$data_update);
+		$this->db->where('tt.id',$data['id_toko']);
+		$this->db->update('tb_toko tt');
+		$return=$this->db->affected_rows();
+		return $return;
+	}
+	public function update_level_toko4($data,$data_update){
+		$this->db->set('level_4_active',$data_update);
+		$this->db->where('tt.id',$data['id_toko']);
+		$this->db->update('tb_toko tt');
+		$return=$this->db->affected_rows();
+		return $return;
+	}
+	public function update_level_toko5($data,$data_update){
+		$this->db->set('level_5_active',$data_update);
+		$this->db->where('tt.id',$data['id_toko']);
+		$this->db->update('tb_toko tt');
+		$return=$this->db->affected_rows();
+		return $return;
+	}
 }
 
 ?>
