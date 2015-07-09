@@ -85,7 +85,8 @@ echo"
 				</div>
 			</div>
 			<div class='row formbody'>
-				<button id='btnSave' class='btn waves-effect waves-light' type='button'>Simpan<i class='mdi-navigation-chevron-right right'></i></button>
+				<a href='".base_url("toko/step4")."' class='btn waves-effect waves-light red'><i class='mdi-navigation-chevron-left left'></i> Kembali</a>
+				<button id='btnSave' class='btn waves-effect waves-light' type='button'>Selanjutnya<i class='mdi-navigation-chevron-right right'></i></button>
 				<label id='notifStep7' style='display:none;'></label>
 			</div>
 		</form>
