@@ -152,7 +152,7 @@ header,section,content,footer{ width:100%; }
 .formbody .input-field textarea:focus{ border-bottom: 1px solid #565a5c!important; box-shadow: 0 1px 0 0 #565a5c!important; }
 
 .formbody li.listanggonew{ margin:0 0 8px 0; padding:5px 0; box-shadow: 0 1px 0 0 #efefef!important; }
-.formbody button{ margin:0 4px 0 0;}
+.formbody .btn{ margin:0 4px 0 0;}
 
 .formbody li.listanggodaf{ margin:0 0 8px 0; padding:5px 0; box-shadow: 0 1px 0 0 #efefef!important; }
 .formbody li.listanggodaf .userangoota{ font-size:14px; }
