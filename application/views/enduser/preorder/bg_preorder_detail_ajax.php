@@ -1,71 +1,5 @@
 <?php
-echo "
-				<div class='col s12 m12 l12'>
-					<div class='formain'>
-						<div class='formhead'>
-					        <a href='".base_url()."preorder' class='btn-flat waves-red'>
-							    <i class='mdi-navigation-arrow-back left'></i> Kembali
-							</a>
-						</div>
 
-						<div class='row formbody'>
-							<div class='col s12 m6'>
-								<h4>Nama Produk</h4>
-							</div>
-							<div class='col s12 m6'>
-								<div class='input-field col s5 right'>
-									<select class='select-standar' id='sort' onchange=javascript:change_sort()>										
-										<option selected='selected' value='1'>Paling Baru</option>
-										<option value='2'>Paling Lama</option>
-									</select>
-								</div>
-								<div class='input-field col s5 right'>
-									<select class='select-standar' id='selesaiin' onchange=javascript:change_selesai()>	
-										<option value='1'>Belum Selesai</option>
-										<option value='2'>Selesai</option>
-										<option value='3' selected>Semua</option>										
-									</select>									
-								</div>
-								<!--<h4><i class='mdi-action-star-rate grey-text col right'></i></h4>-->
-							</div>
-						</div>
-
-						<div class='row formbody'>
-							<div class='linehead'></div>
-
-							<!-- nota -->
-							<div class='col s12 m6 right'>
-								<div class='input-field col s8 m8  nolpad'>									
-									<i class='mdi-action-search prefix'></i>
-									<input type='text' class='validate' id='keyword_nota'>
-									
-									<label for='keyword_nota'>Cari</label>
-								</div>
-								<div class='input-field col s4 m4  nolpad'>
-									<select class='select-standar' id='search_by'>										
-										<option value='member_name'>Nama Pembeli</option>
-										<option value='invoice_no'>No Nota</option>
-										<option value='price_total'>Jumlah Tagihan</option>
-									</select>									
-								</div>
-
-							</div>
-<input type='hidden' class='validate' id='idd' value='".$this->uri->segment(3)."'>
-							<div class='col s12 m6'>								
-      							<div class='input-field col'>
-									<input type='checkbox' class='filled-in' onclick=javascript:cek_all_nota() id='pilih-semua'  />
-      								<label for='pilih-semua'></label>									
-								</div>
-								
-								<div class='input-field col'>
-									<button class='btn-flat waves-effect red white-text waves-light left' onclick=javascript:selesaikan()>Selesai</button>
-								</div>								
-							</div>
-
-						</div>
-
-						<div class='row formbody' id='ajax-div'>
-							<!-- nota -->";
 						if ($nota->num_rows() > 0) {
 							$i=0;
 							foreach ($nota->result() as $row) {
@@ -137,11 +71,5 @@ echo "
 							        </div>
 								</div>
 								";
-						}
-							echo "
-						</div>
-					</div>
-				</div>
-				<script type='text/javascript' src='".base_url("")."assets/jController/enduser/CtrlPreorder.js'></script>
-				";
+						}							
 				?>
