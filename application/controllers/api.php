@@ -76,7 +76,7 @@ class Api extends CI_Controller {
 			*/
 			
 			$QBanks = $this->db
-					->select("mb.id, tmb.acc_name as acc_name, tmb.acc_no as acc_no, mb.id as bank_id, mb.name as bank_name")
+					->select("tmb.id, tmb.acc_name as acc_name, tmb.acc_no as acc_no, mb.id as bank_id, mb.name as bank_name")
 					->join("ms_bank mb","tmb.bank_id = mb.id")
 					->where("tmb.member_id",$QUser->id)
 					->get("tb_member_bank tmb")
@@ -95,7 +95,7 @@ class Api extends CI_Controller {
 						"acc_name"=>$QBank->acc_name,
 						"acc_no"=>$QBank->acc_no,
 						"bank_name"=>$QBank->bank_name,
-						"imageUrl"=>$BankImageUrl,
+						"image_url"=>$BankImageUrl,
 					);
 					
 				array_push($Banks,$Bank);
@@ -876,7 +876,7 @@ class Api extends CI_Controller {
 							"level_4_name"=>$QShop->level_4_name,
 							"level_5_name"=>$QShop->level_5_name,
 							"status"=>$QShop->status,
-							"imageUrl"=>base_url("image.php?q=100&fe=".base64_encode($QShop->image)),
+							"image_url"=>base_url("image.php?q=100&fe=".base64_encode($QShop->image)),
 							"shopBanks"=>$ShopBanks,
 							"attributes"=>$ShopAttributes,
 						);
@@ -1016,7 +1016,7 @@ class Api extends CI_Controller {
 				"status"=>$QShop->status,
 				"countFollower"=>sizeOf($ShopFollowers),
 				"countProduct"=>sizeOf($ShopProducts),
-				"imageUrl"=>base_url("image.php?q=100&fe=".base64_encode($QShop->image)),
+				"image_url"=>base_url("image.php?q=100&fe=".base64_encode($QShop->image)),
 				"banks"=>$ShopBanks,
 				"attributes"=>$ShopAttributes,
 			);
@@ -1106,7 +1106,7 @@ class Api extends CI_Controller {
 					foreach($QProductImages as $QProductImage){
 						$ProductImage = array(
 									"id"=>$QProductImage->id,
-									"imageUrl"=>base_url("image.php?q=100&fe=".base64_encode(base_url("assets/pic/product/".$QProductImage->file))),
+									"image_url"=>base_url("image.php?q=100&fe=".base64_encode(base_url("assets/pic/product/".$QProductImage->file))),
 								);
 										
 						array_push($ProductImages,$ProductImage);
@@ -1340,7 +1340,7 @@ class Api extends CI_Controller {
 					foreach($QProductImages as $QProductImage){
 						$ProductImage = array(
 									"id"=>$QProductImage->id,
-									"imageUrl"=>base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/product/".$QProductImage->file))),
+									"image_url"=>base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/product/".$QProductImage->file))),
 								);
 
 						array_push($ProductImages,$ProductImage);
