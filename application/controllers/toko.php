@@ -691,5 +691,9 @@ class Toko extends CI_Controller {
 			
 		echo"</select><script>$('.select-standar').material_select();</script>";
 	}
+
+	function step6(){
+		
+	}
 }
 
