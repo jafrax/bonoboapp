@@ -24,6 +24,13 @@ class Preorder extends CI_Controller {
 		$data['produk']		= $this->model_preorder->get_product_preorder();
 
 		$this->template->bonobo('preorder/bg_preorder',$data);
-	}	
+	}
+
+	public function detail($id){
+		$id = base64_decode($id);
+
+		$data['nota']	= $this->model_preorder->get_nota($id);
+		$this->template->bonobo('preorder/bg_preorder_detail',$data);
+	}
 }
 

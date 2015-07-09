@@ -25,4 +25,19 @@ class Model_preorder extends CI_Model
 						->join('tb_product p','p.id=v.product_id')
 						->get('tb_invoice i');
 	}
+
+	function get_nota($id){
+		return $this->db->select('i.*')
+						->where('p.id',$id)
+						->join('tb_invoice_product ip','ip.invoice_id=i.id')
+						->join('tb_product_varian v','v.id=ip.product_varian_id')
+						->join('tb_product p','p.id=v.product_id')
+						->get('tb_invoice i');
+	}
+
+	function get_image($id){
+		return $this->db->where('id',$id)->get('tb_member');
+	}
+
+
 }

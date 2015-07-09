@@ -16,7 +16,7 @@
 							            <div class='col s12 m2'>";
 										$image = $this->model_nota->get_image($row->member_id);
 
-							            if ($image->num_rows() > 0) {
+							            if ($image->row()->image != '') {
 							            	echo "<img src='".base_url()."assets/pic/user/resize/".$image->row()->image."' alt='' class='circle responsive-img col'> ";
 							            }else{
 							            	echo "<img src='html/images/comp/male.png' alt='' class='circle responsive-img col'> ";
