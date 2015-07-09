@@ -232,7 +232,7 @@ function CtrlSignin(){
 			});
 		}
 	}
-	
+	//langkah 4
 	function doForgotPassword(){
 		if(txtForgotEmail.value == ""){
 			notifForgotPassword.html("<i class='fa fa-warning'></i> Email harus diisi e!");
@@ -240,8 +240,14 @@ function CtrlSignin(){
 			notifForgotPassword.delay(5000).slideUp('slow');
 			return;
 		}
-
 		var capcha = $("#g-recaptcha-response").val();
+			 if(capcha == ""){
+       		 event.preventDefault();
+       		 notifForgotPassword.html("<i class='fa fa-warning'></i> Captcha harus diisi!");
+			 notifForgotPassword.slideDown();
+			 notifForgotPassword.delay(5000).slideUp('slow');
+			 return;
+             }
 			
 		
 		$.ajax({

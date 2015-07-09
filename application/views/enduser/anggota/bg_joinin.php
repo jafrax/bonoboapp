@@ -69,14 +69,25 @@ echo"
 			<input name='id' type='hidden' value=''>
 			<p>
 				<div class='input-field col s12'>
-					<select name='level'>
+					<select name='level' class='chosen-select'>
 						<option value='' disabled selected>Choose your option</option>
-						<option value='1'>".$shop->level_1_name."</option>
-						<option value='2'>".$shop->level_2_name."</option>
-						<option value='3'>".$shop->level_3_name."</option>
-						<option value='4'>".$shop->level_4_name."</option>
-						<option value='5'>".$shop->level_5_name."</option>
-					</select>
+						";
+						if($shop->level_1_active == 1){
+							echo "<option value='1'>".$shop->level_1_name."</option>";
+						}
+						if($shop->level_2_active == 1){
+							echo "<option value='2'>".$shop->level_2_name."</option>";	
+						}
+						if($shop->level_3_active == 1){
+							echo "<option value='3'>".$shop->level_3_name."</option>";
+						}
+						if($shop->level_4_active == 1){
+							echo "<option value='4'>".$shop->level_4_name."</option>";
+						}
+						if($shop->level_5_active == 1){
+							echo "<option value='5'>".$shop->level_5_name."</option>";
+						}
+					echo "</select>
 				</div>
 			</p>
 		</form>

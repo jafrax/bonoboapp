@@ -53,6 +53,11 @@ class Index extends CI_Controller {
 					"password"=> md5($password),
 					"verified_code"=>$verify,
 					"pm_store_payment"=>1,
+					"level_1_name"=>'level 1',
+					"level_2_name"=>'level 2',
+					"level_3_name"=>'level 3',
+					"level_4_name"=>'level 4',
+					"level_5_name"=>'level 5',
 					"pm_transfer"=>0,
 					"level_1_active"=>1,
 					"status"=> 0,
@@ -113,7 +118,7 @@ class Index extends CI_Controller {
 	
 	public function signin(){
 		if(!$_POST){
-			$data['capcha']=$this->recaptcha->render();
+			$data['capcha']=$this->recaptcha->render();//tahap ke 3
 			$this->load->view("enduser/login/bg_login",$data);
         }else{
             $this->form_validation->set_rules('email', '', 'required');
@@ -268,7 +273,7 @@ class Index extends CI_Controller {
 		}
 	}
 	
-	function doForgotPassword(){
+	function doForgotPassword(){//langkah akhir
 		if($this->response->post("email") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Email harus diisi !","messageCode"=>1));
 			return;
