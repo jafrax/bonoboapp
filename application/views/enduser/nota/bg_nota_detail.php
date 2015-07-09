@@ -9,7 +9,7 @@ echo "
 									if ($nota->status != 2) {
 										if ($nota->status != 1) {
 											echo"
-										<button id='btn-bayar-".$nota->id."' data-target='bayar-".$nota->id."' class='btn modal-trigger waves-effect orange darken-1 white-text waves-light right' type='button' name='action'>Bayar</button>";
+										<button id='btn-bayar-".$nota->id."' data-target='bayar-".$nota->id."' class='btn modal-trigger waves-effect orange darken-1 white-text waves-light ' type='button' name='action'>Bayar</button>";
 										}
 									echo"
 									<h6 class='hide-on-med-and-up'><br></h6>	
@@ -81,16 +81,10 @@ echo "
 									</div>
 								</div>
 							</div>
-							<div class='col s12 m6'>
-								<div class='col s4 m1 center-mobile right'>
-									<a href='#delete_nota_".$nota->id."' class='modal-trigger red-text waves-blue ' href='#'><i class='mdi-action-delete small'></i></a>
-								</div>
-								<div class='col s4 m1 center-mobile right'>
-									<a class='red-text waves-blue ' href='#'><i class='mdi-content-mail small'></i></a>
-								</div>
-								<div class='col s4 m1 center-mobile right'>
-									<a class='red-text waves-blue ' href='#'><i class='mdi-action-print small'></i></a>
-								</div>
+							<div class='toolb col s12 m6'>
+								<a href='#delete_nota_".$nota->id."' class='modal-trigger red-text right' href='#'><i class='mdi-action-delete small'></i></a>
+								<a class='red-text right ' href='#'><i class='mdi-content-mail small'></i></a>
+								<a class='red-text right ' href='#'><i class='mdi-action-print small'></i></a>
 							</div>
 							<div id='delete_nota_".$nota->id."' class='modal confirmation'>
 								<div class='modal-header red'>
@@ -118,7 +112,7 @@ echo "
 								<h5><br></h5>
 							</div>
 							<div class='col s12 m6 right'>
-								<h4 class='right-align'><span class='blue-text'>".$nota->member_name."</span></h4>
+								<h5 class='right-align'><span class='blue-text'>".$nota->member_name."</span></h5>
 								";
 					            if ($nota->status == 0 ) {
 					            	echo "<h6 class='red-text right' id='lunas-".$nota->id."'>Belum Lunas</h6>";
@@ -205,7 +199,7 @@ echo "
 								<div class='line'></div>
 								<h5><br></h5>
 								<div class='col s12 m12'>
-									<a class='right col s2 m1 center' onclick=javascript:edit_notes(".$nota->id.") >Edit</a>
+									<a class='right col s2 m2 right-align' onclick=javascript:edit_notes(".$nota->id.") >Edit</a>
 									<textarea id='note' class='materialize-textarea notes-".$nota->id."' >".$nota->notes."</textarea>
 									<label for='note'>Note</label>							
 								</div>

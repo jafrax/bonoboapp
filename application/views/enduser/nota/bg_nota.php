@@ -245,7 +245,7 @@ echo"
 								            echo"
 								            <li class=''>
 								                <div class='collapsible-header'><i class='mdi-action-receipt'></i>Notes
-								                <a class='right col s2 m2 center' onclick=javascript:edit_notes(".$row->id.") >Edit</a>
+								                <a class='right col s2 m1 center' onclick=javascript:edit_notes(".$row->id.") >Edit</a>
 								                </div>								                
 								                <div class='collapsible-body' style='display: none;'>
 								                <p>
