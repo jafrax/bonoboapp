@@ -125,7 +125,7 @@ echo "
 								<div class='linehead'>Harga Barang</div>
 								<div class='input-field col s12 m6'>
 									<input id='harga_pembelian' name='harga_pembelian' placeholder='0' type='text' class='validate numbersOnly'>
-									<label for='harga_pembelian'>Harga Pembelian</label>
+									<label for='harga_pembelian'>Harga Beli</label>
 								</div>
 								<div class='input-field col s12 m12 varsto'>
 									<label for='harga_jual'>Harga Jual <span class='text-red'>*</span></label>

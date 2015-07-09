@@ -153,7 +153,7 @@ echo "
 								<div class='linehead'>Harga Barang</div>
 								<div class='input-field col s12 m6'>
 									<input id='harga_pembelian' name='harga_pembelian' type='text' placeholder='0' class='validate numbersOnly' value='".$produk->harga_pembelian."'>
-									<label for='harga_pembelian'>Harga Pembelian</label>
+									<label for='harga_pembelian'>Harga Beli</label>
 								</div>
 								<div class='input-field col s12 m12 varsto'>
 									<label for='harga_jual'>Harga Jual <span class='text-red'>*</span></label>
