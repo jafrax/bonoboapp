@@ -564,6 +564,13 @@ function CtrlShopStep7(){
 				$('[name="txtLevel2"]').prop("disabled", false);
 			 }
 		});
+		$('[name="dumy2"]').change(function() {
+			if ($(this).is(':checked')) {
+				$('[name="txtLevel2"]').prop("disabled", false);
+			} else {
+				$('[name="txtLevel2"]').prop("disabled", true);
+			}
+		});
 
 
 		chkLevel2.onclick = function on_change(){
@@ -590,9 +597,10 @@ function CtrlShopStep7(){
 						url: base_url+'toko/update_level3/',
 						success: function(result) {
 							if (result == '1') {
-								//notifikasi sukses
+								$('[id="labelLevel3"]').prop('hidden', false);
 							}else{
 								$('[name="txtLevel3"]').prop("disabled", false);
+								$('[id="labelLevel3"]').prop('hidden', true);
 							}
 						}
 					});
@@ -605,9 +613,10 @@ function CtrlShopStep7(){
 						url: base_url+'toko/update_level4/',
 						success: function(result) {
 							if (result == '1') {
-								//notifikasi sukses
+								$('[id="labelLevel4"]').prop('hidden', false);
 							}else{
-								$('[name="txtLevel3"]').prop("disabled", false);
+								$('[name="txtLevel4"]').prop("disabled", false);
+								$('[id="labelLevel4"]').prop('hidden', true);
 							}
 						}
 					});
@@ -620,9 +629,10 @@ function CtrlShopStep7(){
 						url: base_url+'toko/update_level5/',
 						success: function(result) {
 							if (result == '1') {
-								//notifikasi sukses
+								$('[id="labelLevel5"]').prop('hidden', false);
 							}else{
-								$('[name="txtLevel3"]').prop("disabled", false);
+								$('[name="txtLevel5"]').prop("disabled", false);
+								$('[id="labelLevel5"]').prop('hidden', true);
 							}
 						}
 					});
