@@ -7,7 +7,6 @@
 * Log Activity : ~ Create your log if you change this controller ~
 * 1. Create 23 Juni 2015 by Heri Siswanto, Create function : index
 * 2. Create 26 Juni 2015 by Heri Siswanto, Create function : step2, step3, step4
-* 3. Create 09 Juli 2015 by Adi Setyo , update_level5, update_level4, update_level3, update_level2
 */
 
 set_time_limit (99999999999);
@@ -101,7 +100,7 @@ class Toko extends CI_Controller {
 			
 			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
 			
-			redirect("toko/step7");
+			redirect("toko/step5");
 		}
 	}
 	
@@ -604,7 +603,7 @@ class Toko extends CI_Controller {
 		}
 		$cek_level=$this->model_toko->update_level_toko2($data,$data_update);
 		if($cek_level>0){
-			$this->response->send(array("result"=>1,"message"=>$data_update));
+			$this->response->send(array("result"=>1,"message"=>"Change sukses"));
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Change failed"));
 		}	
@@ -620,7 +619,7 @@ class Toko extends CI_Controller {
 		}
 		$cek_level=$this->model_toko->update_level_toko3($data,$data_update);
 		if($cek_level>0){
-			$this->response->send(array("result"=>1,"message"=>$data_update));
+			$this->response->send(array("result"=>1,"message"=>"Change sukses"));
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Change failed"));
 		}	
@@ -636,7 +635,7 @@ class Toko extends CI_Controller {
 		}
 		$cek_level=$this->model_toko->update_level_toko4($data,$data_update);
 		if($cek_level>0){
-			$this->response->send(array("result"=>1,"message"=>$data_update));
+			$this->response->send(array("result"=>1,"message"=>"Change sukses"));
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Change failed"));
 		}	
@@ -652,33 +651,33 @@ class Toko extends CI_Controller {
 		}
 		$cek_level=$this->model_toko->update_level_toko5($data,$data_update);
 		if($cek_level>0){
-			$this->response->send(array("result"=>1,"message"=>$data_update));
+			$this->response->send(array("result"=>1,"message"=>"Change sukses"));
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Change failed"));
 		}	
 	}
 	
 	public function doStep5Save(){
-		$chkLevel1 = 1;
-		$chkLevel2 = 1;
-		$chkLevel3 = 1;
-		$chkLevel4 = 1;
-		$chkLevel5 = 1;
+		$chkLevel1 = 0;
+		$chkLevel2 = 0;
+		$chkLevel3 = 0;
+		$chkLevel4 = 0;
+		$chkLevel5 = 0;
 		
-		if($this->response->post("chkLevel1")> 0){
-			$chkLevel1 = 0;
+		if($this->response->post("chkLevel1") != ""){
+			$chkLevel1 = 1;
 		}
-		if($this->response->post("chkLevel2")> 0){
-			$chkLevel2 = 0;
+		if($this->response->post("chkLevel2") != ""){
+			$chkLevel2 = 1;
 		}
-		if($this->response->post("chkLevel3") > 0){
-			$chkLevel3 = 0;
+		if($this->response->post("chkLevel3") != ""){
+			$chkLevel3 = 1;
 		}
-		if($this->response->post("chkLevel4") > 0){
-			$chkLevel4 = 0;
+		if($this->response->post("chkLevel4") != ""){
+			$chkLevel4 = 1;
 		}
-		if($this->response->post("chkLevel5") > 0){
-			$chkLevel5 = 0;
+		if($this->response->post("chkLevel5") != ""){
+			$chkLevel5 = 1;
 		}
 	
 		$Data = array(
@@ -687,19 +686,18 @@ class Toko extends CI_Controller {
 				"level_3_name"=>$this->response->post("txtLevel3"),
 				"level_4_name"=>$this->response->post("txtLevel4"),
 				"level_5_name"=>$this->response->post("txtLevel5"),
-				//"level_1_active"=>$this->response->post("chkLevel1"),
-				//"level_2_active"=>$this->response->post("chkLevel2"),
-				//"level_3_active"=>$this->response->post("chkLevel3"),
-				//"level_4_active"=>$this->response->post("chkLevel4"),
-				//"level_5_active"=>$this->response->post("chkLevel5"),
+				//"level_1_active"=>$chkLevel1,
+				//"level_2_active"=>$chkLevel2,
+				//"level_3_active"=>$chkLevel3,
+				//"level_4_active"=>$chkLevel4,
+				//"level_5_active"=>$chkLevel5,
 				"create_date"=>date("Y-m-d H:i:s"),
 				"create_user"=>$_SESSION['bonobo']['email'],
 				"update_date"=>date("Y-m-d H:i:s"),
-				"update_user"=>$_SESSION['bonobo']['email']
+				"update_user"=>$_SESSION['bonobo']['email'],
 			);
 			
 		$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
-
 		if($Save){			
 			$this->response->send(array("result"=>1,"message"=>"Data telah disimpan","messageCode"=>0));			
 		}else{
@@ -782,6 +780,21 @@ class Toko extends CI_Controller {
 		}
 			
 		echo"</select><script>$('.select-standar').material_select();</script>";
+	}
+
+	function step6(){
+		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+
+		if ($_POST) {
+			$konfirmasi = $this->input->post('konfirmasi');
+
+			$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('invoice_confirm',$konfirmasi)->update('tb_toko');
+			if ($update) {
+				redirect('toko/step7');
+			}
+		}
+
+		$this->template->bonobo_step("enduser/toko/bg_konfirmasi",$data);
 	}
 }
 
