@@ -12,7 +12,7 @@ echo"
 			<input type='hidden' name='submit' value='submited'/>
 			<div class='formhead'>
 				<h2 class='titmain'><b>PENGIRIMAN</b></h2>
-				<p>Pilih jasa pengiriman ayng didukung oleh toko Anda.</p>
+				<p>Pilih jasa pengiriman yang didukung oleh toko Anda.</p>
 			</div>
 			<div class='row formbody'>
 				<div class='input-field col s12 m8'>
