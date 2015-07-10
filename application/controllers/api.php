@@ -304,7 +304,8 @@ class Api extends CI_Controller {
 							->result();
 			
 			foreach($QProducts as $QProduct){
-				array_push($Products,$QProduct->id);				
+				$Product = $this->getProductById($QProduct->id);
+				array_push($Products,$Product);				
 			}
 			
 			
@@ -685,7 +686,8 @@ class Api extends CI_Controller {
 				$Products = array();
 				
 				foreach($QProducts as $QProduct){
-					array_push($Products,$QProduct->id);
+					$Product = $this->getProductById($QProduct->id);
+					array_push($Products,$Product);
 				}
 				
 				$this->response->send(array("result"=>1,"total"=>sizeOf($QProducts),"size"=>sizeOf($QProducts),"products"=>$Products), true);
