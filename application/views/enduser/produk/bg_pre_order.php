@@ -109,7 +109,7 @@ echo"
 										<p class='titleproduct'><a href='".base_url()."produk/edit_pre_order/".base64_encode($row->id)."'><b >".$row->name."</b></a></p>
 										</p>
 										<p class='input-field col s12 m12 l6 nolpad'>
-											<input id='tanggal-".$row->id."' onchange=javascript:change_date(".$row->id.") type='text' value='".$date."' placeholder='Tanggal Berakhir' class='validate datepicker date-".$row->id."'>
+											<input id='tanggal-".$row->id."' name='tanggal-".$row->id."' onchange=javascript:change_date(".$row->id.") type='text' value='".$date."' placeholder='Tanggal Berakhir' class='validate datepicker date-".$row->id."'>
 											<span class='label red right kadal-".$row->id."' style='display:$kadal'>Kadaluarsa</span>
 										</p>
 

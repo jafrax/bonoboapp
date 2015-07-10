@@ -22,8 +22,14 @@ $(document).ready(function() {
 
 	/*DATE PICKER*/
 	$('.datepicker').pickadate({
-		selectMonths: true, // Creates a dropdown to control month
-		selectYears: 15 // Creates a dropdown of 15 years to control year
+		selectMonths: true, // Creates a dropdown to control month		
+		monthsFull: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+		monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Desc'],
+		selectYears: 15, // Creates a dropdown of 15 years to control year
+		today: 'Hari ini',
+		clear: 'Hapus',
+		close: 'Tutup',
+		formatSubmit: 'yyyy-mm-dd'
 	});
 	/*END DATE PICKER*/
 

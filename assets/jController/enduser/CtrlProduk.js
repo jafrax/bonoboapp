@@ -404,7 +404,7 @@ function cari_kategori(e){
 }
 
 function change_date(id){
-  var date = $('#tanggal-'+id).val();
+  var date = $('input[name="tanggal-'+id+'_submit"]').val();
 
   $.ajax({
     type: 'POST',
