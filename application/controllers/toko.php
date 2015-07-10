@@ -100,7 +100,7 @@ class Toko extends CI_Controller {
 			
 			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
 			
-			redirect("toko/step7");
+			redirect("toko/step5");
 		}
 	}
 	
@@ -783,7 +783,18 @@ class Toko extends CI_Controller {
 	}
 
 	function step6(){
-		
+		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+
+		if ($_POST) {
+			$konfirmasi = $this->input->post('konfirmasi');
+
+			$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('invoice_confirm',$konfirmasi)->update('tb_toko');
+			if ($update) {
+				redirect('toko/step7');
+			}
+		}
+
+		$this->template->bonobo_step("enduser/toko/bg_konfirmasi",$data);
 	}
 }
 

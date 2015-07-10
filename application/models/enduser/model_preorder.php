@@ -9,7 +9,7 @@ class Model_preorder extends CI_Model
 	}
 
 	function get_product_preorder(){
-		return $this->db->select('p.name name,p.id id,i.file image')
+		return $this->db->select('p.name name,p.id id,i.file image,p.create_date create_date')
 						->where('c.toko_id',$_SESSION['bonobo']['id'])
 						->where('stock_type',0)
 						->join('tb_toko_category_product c','c.id=p.toko_category_product_id')

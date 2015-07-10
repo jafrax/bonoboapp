@@ -50,7 +50,7 @@ echo "
 								</div>
 
 							</div>
-<input type='hidden' class='validate' id='idd' value='".$this->uri->segment(3)."'>
+							<input type='hidden' class='validate' id='idd' value='".$this->uri->segment(3)."'>
 							<div class='col s12 m6'>								
       							<div class='input-field col'>
 									<input type='checkbox' class='filled-in' onclick=javascript:cek_all_nota() id='pilih-semua'  />
@@ -107,8 +107,9 @@ echo "
 							            		$old_date = $row->create_date;
 												$old_date_timestamp = strtotime($old_date);
 												$date = date('d F Y, H.i', $old_date_timestamp);
+												$ago 		= $this->template->xTimeAgoDesc($old_date,date('Y-m-d H:i:s'));
 							            		echo"
-								              	<p class='col blue-grey-text lighten-3 right'>$date (30 Menit yang lalu)</p><br>";
+								              	<p class='col blue-grey-text lighten-3 right'>$date ( $ago )</p><br>";
 								              	if ($row->status_pre_order == 0) {
 								              		echo "
 													<h5 class='col red-text right' id='selesai-".$row->id."'>Belum Selesai</h5><br><br><br>
