@@ -698,8 +698,8 @@ class Toko extends CI_Controller {
 			);
 			
 		$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
-		if($Save){
-			$this->response->send(array("result"=>1,"message"=>"Data telah disimpan","messageCode"=>0));
+		if($Save){			
+			$this->response->send(array("result"=>1,"message"=>"Data telah disimpan","messageCode"=>0));			
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Data tidak dapat disimpan","messageCode"=>0));
 		}

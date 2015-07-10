@@ -647,7 +647,8 @@ function CtrlShopStep5(){
 			success: function(result) {
 				var response = JSON.parse(result);
 				if(response.result == 1){
-					$hs_notif("#notifStep7",response.message);
+					//$hs_notif("#notifStep7",response.message);
+					window.location.href = base_url+'toko/step6';					
 				}else{
 					$hs_notif("#notifStep7",response.message);
 				}
