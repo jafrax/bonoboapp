@@ -61,6 +61,7 @@ class response {
 		$string = trim($string);
 		$string = strip_tags($string);
 		$string = trim($string);
+		$string = preg_replace('/\\\\/', '', $string);
 		return $string;
 	}
 	

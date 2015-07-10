@@ -351,7 +351,7 @@ function tambah_kategori_atur(){
             Materialize.toast('Kategori telah ditambahkan', 4000);
             $('#tempat-kategori').html(msg);
             $('#select-kategori').chosen();
-
+            $('#nama_kategori').val('');
             $('#tambah_kategori').closeModal();        
           }
       });

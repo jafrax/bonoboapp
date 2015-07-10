@@ -50,7 +50,7 @@ echo "
 								</div>
 
 							</div>
-<input type='hidden' class='validate' id='idd' value='".$this->uri->segment(3)."'>
+							<input type='hidden' class='validate' id='idd' value='".$this->uri->segment(3)."'>
 							<div class='col s12 m6'>								
       							<div class='input-field col'>
 									<input type='checkbox' class='filled-in' onclick=javascript:cek_all_nota() id='pilih-semua'  />

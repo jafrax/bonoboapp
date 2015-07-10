@@ -83,7 +83,7 @@ class Produk extends CI_Controller {
 				$insert = $this->db->insert('tb_product',$data);
 				
 				if ($insert) {
-					$id = $this->db->where('name',$nama)->where('sku_no',$sku)->where('create_user',$_SESSION['bonobo']['email'])->get('tb_product')->row()->id;
+					$id = $this->db->where('name',$nama)->where('sku_no',$sku)->where('create_user',$_SESSION['bonobo']['email'])->where('toko_category_product_id',$kategori)->where('price_1',$harga_level_1)->order_by('create_date','DESC')->get('tb_product')->row()->id;
 
 					$pic=1;
 					$url    = 'assets/pic/product/';
@@ -116,18 +116,20 @@ class Produk extends CI_Controller {
 						$var=1;
 						for($i=1;$i<=$total_varian;$i++){
 							if(isset($_POST['nama_varian_'.$i])){
-								$nama_varian = $this->template->clearInput($this->input->post('nama_varian_'.$i));
-								$stok_varian = $this->template->clearInput($this->input->post('stok_varian_'.$i));
+								if ($_POST['nama_varian_'.$i] != '') {
+									$nama_varian = $this->template->clearInput($this->input->post('nama_varian_'.$i));
+									$stok_varian = $this->template->clearInput($this->input->post('stok_varian_'.$i));
 
-								$this->db->set('product_id',$id)
-									->set('name',$nama_varian)
-									->set('stock_qty',$stok_varian)
-									->set('create_user',$_SESSION['bonobo']['email'])
-									->set('create_date',date('Y-m-d H:i:s'))
-									->set('update_user',$_SESSION['bonobo']['email'])
-									->insert('tb_product_varian');
-								//echo $nama_varian.'<br>';
-								$var++;
+									$this->db->set('product_id',$id)
+										->set('name',$nama_varian)
+										->set('stock_qty',$stok_varian)
+										->set('create_user',$_SESSION['bonobo']['email'])
+										->set('create_date',date('Y-m-d H:i:s'))
+										->set('update_user',$_SESSION['bonobo']['email'])
+										->insert('tb_product_varian');
+									//echo $nama_varian.'<br>';
+									$var++;
+								}
 							}							
 						}
 					}
@@ -260,7 +262,7 @@ class Produk extends CI_Controller {
 							if(isset($_POST['nama_edit_varian_'.$item->id]) || isset($_POST['stok_edit_varian_'.$item->id])){
 								$title 	= ($this->input->post('nama_edit_varian_'.$item->id));
 								$content= ($this->input->post('stok_edit_varian_'.$item->id));
-								if($item->name != $title || $item->description != $content ){
+								if($item->name != $title || $item->stock_qty != $content ){
 									$this->db->set('name',$title)->set('stock_qty',$content)->set('update_user',$_SESSION['bonobo']['email'])->where('id',$item->id)->update('tb_product_varian');
 								}
 							}else{
@@ -271,18 +273,20 @@ class Produk extends CI_Controller {
 						$var=1;
 						for($i=1;$i<=$total_varian;$i++){
 							if(isset($_POST['nama_varian_'.$i])){
-								$nama_varian = $this->template->clearInput($this->input->post('nama_varian_'.$i));
-								$stok_varian = $this->template->clearInput($this->input->post('stok_varian_'.$i));
+								if ($_POST['nama_varian_'.$i] != '') {
+									$nama_varian = $this->template->clearInput($this->input->post('nama_varian_'.$i));
+									$stok_varian = $this->template->clearInput($this->input->post('stok_varian_'.$i));
 
-								$this->db->set('product_id',$id)
-									->set('name',$nama_varian)
-									->set('stock_qty',$stok_varian)
-									->set('create_user',$_SESSION['bonobo']['email'])
-									->set('create_date',date('Y-m-d H:i:s'))
-									->set('update_user',$_SESSION['bonobo']['email'])
-									->insert('tb_product_varian');
-								//echo $nama_varian.'<br>';
-								$var++;
+									$this->db->set('product_id',$id)
+										->set('name',$nama_varian)
+										->set('stock_qty',$stok_varian)
+										->set('create_user',$_SESSION['bonobo']['email'])
+										->set('create_date',date('Y-m-d H:i:s'))
+										->set('update_user',$_SESSION['bonobo']['email'])
+										->insert('tb_product_varian');
+									//echo $nama_varian.'<br>';
+									$var++;
+								}
 							}							
 						}
 					}
@@ -481,7 +485,7 @@ class Produk extends CI_Controller {
 
 				$old_date = $tgl_pre_order;
 				$old_date_timestamp = strtotime($old_date);
-				$new_date = date('Y-m-d', $old_date_timestamp);   
+				$new_date = date('Y-m-d', $old_date_timestamp);
 
 				$data = array(
 					'stock_type'				=> 0,
@@ -508,7 +512,7 @@ class Produk extends CI_Controller {
 				$insert = $this->db->insert('tb_product',$data);
 				
 				if ($insert) {
-					$id = $this->db->where('name',$nama)->where('sku_no',$sku)->where('create_user',$_SESSION['bonobo']['email'])->get('tb_product')->row()->id;
+					$id = $this->db->where('name',$nama)->where('sku_no',$sku)->where('create_user',$_SESSION['bonobo']['email'])->where('toko_category_product_id',$kategori)->where('price_1',$harga_level_1)->order_by('create_date','DESC')->get('tb_product')->row()->id;
 
 					$pic=1;
 					$url    = 'assets/pic/product/';
