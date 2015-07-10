@@ -361,7 +361,7 @@ function CtrlShopStep7(){
 		$.ajax({
 			type: 'POST',
 			data: "courier="+e,
-			url: base_url+'toko/stepTable/',
+			url: base_url+'toko/step7Table/',
 			success: function(result) {
 				divCustomeCourierTable.html(result);
 			}
@@ -528,7 +528,7 @@ function CtrlShopStep5(){
 	}
 	
 	function initComponent(){
-		formStep5 = $("#formStep5");
+		formStep5 = $("#formStep7");
 		btnSave = $hs("btnSave");
 		chkLevel5 = $hs("chkLevel5");
 		chkLevel4 = $hs("chkLevel4");
@@ -647,7 +647,8 @@ function CtrlShopStep5(){
 			success: function(result) {
 				var response = JSON.parse(result);
 				if(response.result == 1){
-					$hs_notif("#notifStep7",response.message);
+					//$hs_notif("#notifStep7",response.message);
+					window.location.href = base_url+'toko/step6';					
 				}else{
 					$hs_notif("#notifStep7",response.message);
 				}

@@ -1,14 +1,14 @@
 <?php
 
 if($Shop->flag_information == 0){
-	$Button = "<a href='".base_url("toko/step6")."' class='btn waves-effect waves-light red'><i class='mdi-navigation-chevron-left left'></i> Kembali</a><button class='btn waves-effect waves-light'>Selanjutnya<i class='mdi-navigation-chevron-right right'></i></button>";
+	$Button = "<a href='".base_url("toko/step6")."' class='btn waves-effect waves-light red'><i class='mdi-navigation-chevron-left left'></i> Kembali</a><button type='submit' class='btn waves-effect waves-light'>Selanjutnya<i class='mdi-navigation-chevron-right right'></i></button>";
 }else{
 	$Button = "<button class='btn waves-effect waves-light'>Simpan<i class='mdi-navigation-chevron-right right'></i></button>";
 }
 
 echo"
 	<div id='divShipment' class='col s12 m12 l12'>
-		<form class='formain' method='POST' action='".base_url("toko/step5/")."'>
+		<form class='formain' method='POST' action='".base_url("toko/step7/")."'>
 			<input type='hidden' name='submit' value='submited'/>
 			<div class='formhead'>
 				<h2 class='titmain'><b>PENGIRIMAN</b></h2>
@@ -74,9 +74,9 @@ echo"
 						<label for='txtCourierName".$no."'>Nama Jasa Pengiriman</label>
 					</div>
 					<div class='input-field col s4 m6'>
-						<button type='button' class='waves-effect waves-light btn ' href='javascript:void(0);' onclick=ctrlShopStep5.doCourierSave(".$no.");><i class='material-icons left'>library_add</i>Simpan</button> 
-						<button type='button' class='waves-effect waves-light btn red' href='javascript:void(0);' onclick=ctrlShopStep5.doCourierDelete(".$no.");><i class='mdi-action-delete left'></i>Hapus</button> 
-						<button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail".$no."' href='javascript:void(0);' onclick=ctrlShopStep5.showDetail(".$no."); style='display:none;'><i class='material-icons left'>list</i>Detail</button> 
+						<button type='button' class='waves-effect waves-light btn ' href='javascript:void(0);' onclick=ctrlShopStep7.doCourierSave(".$no.");><i class='material-icons left'>library_add</i>Simpan</button> 
+						<button type='button' class='waves-effect waves-light btn red' href='javascript:void(0);' onclick=ctrlShopStep7.doCourierDelete(".$no.");><i class='mdi-action-delete left'></i>Hapus</button> 
+						<button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail".$no."' href='javascript:void(0);' onclick=ctrlShopStep7.showDetail(".$no."); style='display:none;'><i class='material-icons left'>list</i>Detail</button> 
 					</div>
 				</div>
 		";
@@ -90,9 +90,9 @@ echo"
 						<label for='txtCourierName".$no."'>Nama Jasa Pengiriman</label>
 					</div>
 					<div class='input-field col s4 m6'>
-						<button type='button' class='waves-effect waves-light btn ' href='javascript:void(0);' onclick=ctrlShopStep5.doCourierSave(".$no.");><i class='material-icons left'>library_add</i>Simpan</button> 
-						<button type='button' class='waves-effect waves-light btn red' href='javascript:void(0);' onclick=ctrlShopStep5.doCourierDelete(".$no.");><i class='mdi-action-delete left'></i>Hapus</button> 
-						<button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail1' href='javascript:void(0);' onclick=ctrlShopStep5.showDetail(".$CustomeCourier->id.");><i class='material-icons left'>list</i>Detail</button> 
+						<button type='button' class='waves-effect waves-light btn ' href='javascript:void(0);' onclick=ctrlShopStep7.doCourierSave(".$no.");><i class='material-icons left'>library_add</i>Simpan</button> 
+						<button type='button' class='waves-effect waves-light btn red' href='javascript:void(0);' onclick=ctrlShopStep7.doCourierDelete(".$no.");><i class='mdi-action-delete left'></i>Hapus</button> 
+						<button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail1' href='javascript:void(0);' onclick=ctrlShopStep7.showDetail(".$CustomeCourier->id.");><i class='material-icons left'>list</i>Detail</button> 
 					</div>
 				</div>
 			";

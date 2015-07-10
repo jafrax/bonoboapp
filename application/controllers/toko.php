@@ -366,7 +366,7 @@ class Toko extends CI_Controller {
 					}
 				}
 			}
-		
+			$_SESSION['bonobo']['image'] = $Upload;
 			$this->response->send(array("result"=>1,"message"=>"Informasi toko telah disimpan : ","messageCode"=>1));
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Informasi tidak dapat disimpan","messageCode"=>1));
@@ -699,8 +699,9 @@ class Toko extends CI_Controller {
 			);
 			
 		$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
-		if($Save){
-			$this->response->send(array("result"=>1,"message"=>"Data telah disimpan".$this->response->post("txtLevel2")."","messageCode"=>0));
+
+		if($Save){			
+			$this->response->send(array("result"=>1,"message"=>"Data telah disimpan","messageCode"=>0));			
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Data tidak dapat disimpan","messageCode"=>0));
 		}
