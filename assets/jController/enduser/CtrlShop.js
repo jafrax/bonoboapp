@@ -545,82 +545,91 @@ function CtrlShopStep5(){
 	function initActive(){
 		
 	
+		$('#chkLevel2').change(function () {
+			if (this.checked) {
+				$('[name="txtLevel2"]').prop('disabled', false);
+			} else {
+				$('[name="txtLevel2"]').prop('disabled', true);
+			}
+		});
+		$('#chkLevel3').change(function () {
+			if (this.checked) {
+				$('[name="txtLevel3"]').prop('disabled', false);
+			} else {
+				$('[name="txtLevel3"]').prop('disabled', true);
+			}
+		});
+		$('#chkLevel4').change(function () {
+			if (this.checked) {
+				$('[name="txtLevel4"]').prop('disabled', false);
+			} else {
+				$('[name="txtLevel4"]').prop('disabled', true);
+			}
+		});
+		$('#chkLevel5').change(function () {
+			if (this.checked) {
+				$('[name="txtLevel5"]').prop('disabled', false);
+			} else {
+				$('[name="txtLevel5"]').prop('disabled', true);
+			}
+		});
+
 		chkLevel2.onclick = function on_change(){
-			var cek_data = $('#chkLevel2').val();
+			var cek_data = $('[name="dumy2"]').val();
 					$.ajax({
 						type: 'POST',
 						data: 'level='+cek_data,
 						url: base_url+'toko/update_level2/',
 						success: function(result) {
-							var response = JSON.parse(result);
-							if(response.message == 1){
-								$('[name="chkLevel2"]').val(response.message);
+							if (result == '1') {
 								$('[id="labelLevel2"]').prop('hidden', false);
-								$('[name="txtLevel2"]').prop('disabled', false);
 							}else{
-								$('[name="chkLevel2"]').val(response.message);
 								$('[id="labelLevel2"]').prop('hidden', true);
-								$('[name="txtLevel2"]').prop('disabled', true);
 							}
 						}
 					});
 			};
 			chkLevel3.onclick = function on_change(){
-			var cek_data = $('#chkLevel3').val();
+			var cek_data = $('[name="dumy3"]').val();
 					$.ajax({
 						type: 'POST',
 						data: 'level='+cek_data,
 						url: base_url+'toko/update_level3/',
 						success: function(result) {
-							var response = JSON.parse(result);
-							if(response.message == 1){
-								$('[name="chkLevel3"]').val(response.message);
+							if (result == '1') {
 								$('[id="labelLevel3"]').prop('hidden', false);
-								$('[name="txtLevel3"]').prop('disabled', false);
 							}else{
-								$('[name="chkLevel3"]').val(response.message);
 								$('[id="labelLevel3"]').prop('hidden', true);
-								$('[name="txtLevel3"]').prop('disabled', true);
 							}
 						}
 					});
 			};
 			chkLevel4.onclick = function on_change(){
-			var cek_data = $('#chkLevel2').val();
+			var cek_data = $('[name="dumy4"]').val();
 					$.ajax({
 						type: 'POST',
 						data: 'level='+cek_data,
 						url: base_url+'toko/update_level4/',
 						success: function(result) {
-							var response = JSON.parse(result);
-							if(response.message == 1){
-								$('[name="chkLevel4"]').val(response.message);
+							if (result == '1') {
 								$('[id="labelLevel4"]').prop('hidden', false);
-								$('[name="txtLevel4"]').prop('disabled', false);
 							}else{
-								$('[name="chkLevel4"]').val(response.message);
 								$('[id="labelLevel4"]').prop('hidden', true);
-								$('[name="txtLevel4"]').prop('disabled', true);
 							}
 						}
 					});
 			};
 			chkLevel5.onclick = function on_change(){
-			var cek_data = $('#chkLevel2').val();
+			var cek_data = $('[name="dumy5"]').val();
 					$.ajax({
 						type: 'POST',
 						data: 'level='+cek_data,
-						url: base_url+'toko/update_level3/',
+						url: base_url+'toko/update_level5/',
 						success: function(result) {
-							var response = JSON.parse(result);
-							if(response.message == 1){
-								$('[name="chkLevel5"]').val(response.message);
+							if (result == '1') {
 								$('[id="labelLevel5"]').prop('hidden', false);
-								$('[name="txtLevel5"]').prop('disabled', false);
 							}else{
-								$('[name="chkLevel5"]').val(response.message);
 								$('[id="labelLevel5"]').prop('hidden', true);
-								$('[name="txtLevel5"]').prop('disabled', true);
 							}
 						}
 					});
