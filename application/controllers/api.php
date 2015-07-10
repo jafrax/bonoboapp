@@ -108,7 +108,7 @@ class Api extends CI_Controller {
 			*/
 			
 			$QLocations = $this->db
-					->select("ml.*")
+					->select("tml.*, ml.kecamatan, ml.city, ml.province, ml.postal_code, ml.id as location_id")
 					->join("ms_location ml","tml.location_id = ml.id")
 					->where("tml.member_id",$QUser->id)
 					->get("tb_member_location tml")
@@ -118,7 +118,11 @@ class Api extends CI_Controller {
 			foreach($QLocations as $QLocation){
 				$Location = array(
 						"id"=>$QLocation->id,
-						"postal"=>$QLocation->postal_code,
+						"location_id"=>$QLocation->location_id,
+						"name"=>$QLocation->name,
+						"address"=>$QLocation->address,
+						"phone"=>$QLocation->phone,
+						"postal"=>$QLocation->postal,
 						"kelurahan"=>$QLocation->kelurahan,
 						"kecamatan"=>$QLocation->kecamatan,
 						"city"=>$QLocation->city,
@@ -126,6 +130,25 @@ class Api extends CI_Controller {
 					);
 					
 				array_push($Locations,$Location);
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	get data member product favorite
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$QFavorites = $this->db
+					->where("tf.member_id",$QUser->id)
+					->get("tb_favorite tf")
+					->result();
+			
+			$Favorites = array();
+			foreach($QFavorites as $QFavorite){
+				$Favorite = $this->getProductById($QFavorite->id,$QUser->id);
+				if(!empty($Favorite)){
+					array_push($Favorites,$Favorite);
+				}
 			}
 			
 			/*
@@ -140,11 +163,12 @@ class Api extends CI_Controller {
 					"email"=>$QUser->email,
 					"phone"=>$QUser->phone,
 					"count_shop"=>10,
-					"count_product"=>10,
+					"count_product"=>sizeOf($Favorites),
 					"image_url"=>$UserImageUrl,
 					"contacts"=>$Attributes,
 					"banks"=>$Banks,
 					"locations"=>$Locations,
+					"products"=>$Favorites,
 				);
 				
 			return $User;
@@ -192,7 +216,7 @@ class Api extends CI_Controller {
 		}
 	}
 	
-	private function getProductById($id){
+	private function getProductById($id,$user = null){
 		/*
 		*	------------------------------------------------------------------------------
 		*	Query mencari data shop
@@ -247,6 +271,26 @@ class Api extends CI_Controller {
 		*/
 						
 		$ProductShop = $this->getShopById($QProduct->toko_id);
+		if(empty($ProductShop)){
+			$ProductShop = array();
+		}
+		
+		/*
+		*	------------------------------------------------------------------------------
+		*	Query check data produk favorite
+		*	------------------------------------------------------------------------------
+		*/
+		
+		if($user != null){
+			$QFavorite = $this->db->where("product_id",$QProduct->id)->where("member_id",$user)->get("tb_favorite")->row();
+			if(!empty($QFavorite)){
+				$isFavorite = "true";
+			}else{
+				$isFavorite = "false";
+			}
+		}else{
+			$isFavorite = "false";
+		}
 	
 		/*
 		*	------------------------------------------------------------------------------
@@ -270,6 +314,7 @@ class Api extends CI_Controller {
 				"price_3"=>$QProduct->price_3,
 				"price_4"=>$QProduct->price_4,
 				"price_5"=>$QProduct->price_5,
+				"favorite"=>$isFavorite,
 				"images"=>$ProductImages,
 				"varians"=>$ProductVarians,
 				"shop"=>$ProductShop,
@@ -743,7 +788,7 @@ class Api extends CI_Controller {
 			$QFavorite = $this->db
 					->where("product_id",$this->response->postDecode("product"))
 					->where("member_id",$this->response->postDecode("user"))
-					->get("tb_product")
+					->get("tb_favorite")
 					->row();
 						
 			if(empty($QFavorite)){
