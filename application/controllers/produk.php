@@ -467,7 +467,7 @@ class Produk extends CI_Controller {
 				$tipe 			= $this->template->clearInput($this->input->post('tipe'));
 				$nama 			= $this->template->clearInput($this->input->post('nama'));
 				$sku 			= $this->template->clearInput($this->input->post('sku'));
-				$tgl_pre_order	= $this->template->clearInput($this->input->post('tgl_pre_order'));
+				$tgl_pre_order	= $this->template->clearInput($this->input->post('tgl_pre_order_submit'));
 				$kategori 		= $this->template->clearInput($this->input->post('kategori'));
 				$berat 			= $this->template->clearInput($this->input->post('berat'));
 				$satuan 		= $this->template->clearInput($this->input->post('satuan'));
@@ -482,10 +482,7 @@ class Produk extends CI_Controller {
 				$harga_level_3 	= $this->template->clearInput($this->input->post('harga_level_3'));
 				$harga_level_4 	= $this->template->clearInput($this->input->post('harga_level_4'));
 				$harga_level_5 	= $this->template->clearInput($this->input->post('harga_level_5'));
-
-				$old_date = $tgl_pre_order;
-				$old_date_timestamp = strtotime($old_date);
-				$new_date = date('Y-m-d', $old_date_timestamp);
+				
 
 				$data = array(
 					'stock_type'				=> 0,
@@ -493,7 +490,7 @@ class Produk extends CI_Controller {
 					'active'					=> $action,
 					'name'						=> $nama,
 					'sku_no'					=> $sku,
-					'end_date'					=> $new_date,
+					'end_date'					=> $tgl_pre_order,
 					'weight'					=> $berat,
 					'unit'						=> $satuan,
 					'min_order'					=> $min_order,
@@ -568,7 +565,7 @@ class Produk extends CI_Controller {
 				$tipe 			= $this->template->clearInput($this->input->post('tipe'));
 				$nama 			= $this->template->clearInput($this->input->post('nama'));
 				$sku 			= $this->template->clearInput($this->input->post('sku'));
-				$tgl_pre_order	= $this->template->clearInput($this->input->post('tgl_pre_order'));
+				$tgl_pre_order	= $this->template->clearInput($this->input->post('tgl_pre_order_submit'));
 				$kategori 		= $this->template->clearInput($this->input->post('kategori'));
 				$berat 			= $this->template->clearInput($this->input->post('berat'));
 				$satuan 		= $this->template->clearInput($this->input->post('satuan'));
@@ -584,16 +581,12 @@ class Produk extends CI_Controller {
 				$harga_level_4 	= $this->template->clearInput($this->input->post('harga_level_4'));
 				$harga_level_5 	= $this->template->clearInput($this->input->post('harga_level_5'));
 
-				$old_date = $tgl_pre_order;
-				$old_date_timestamp = strtotime($old_date);
-				$new_date = date('Y-m-d', $old_date_timestamp);
-
 				$data = array(					
 					'toko_category_product_id'	=> $kategori,
 					'active'					=> $action,
 					'name'						=> $nama,
 					'sku_no'					=> $sku,
-					'end_date'					=> $new_date,
+					'end_date'					=> $tgl_pre_order,
 					'weight'					=> $berat,
 					'unit'						=> $satuan,
 					'min_order'					=> $min_order,
