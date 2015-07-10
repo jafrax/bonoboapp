@@ -271,9 +271,9 @@ class Api extends CI_Controller {
 		*/
 						
 		$ProductShop = $this->getShopById($QProduct->toko_id);
-		if(empty($ProductShop)){
-			$ProductShop = array();
-		}
+		//if(empty($ProductShop)){
+			//$ProductShop = array();
+		//}
 		
 		/*
 		*	------------------------------------------------------------------------------
