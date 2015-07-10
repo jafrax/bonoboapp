@@ -13,8 +13,8 @@ echo"
 									
 									<div class='input-field col s12 m3 left'>
 										<select class='select-standar' id='sort' onchange=javascript:change_sort()>										
-											<option selected='selected' value='1'>Paling Baru</option>
-											<option value='2'>Paling Lama</option>										
+											<option selected='selected' value='2'>Paling Baru</option>
+											<option value='1'>Paling Lama</option>										
 										</select>									
 									</div>
 									<div class='input-field col s12 m3 left'>
@@ -103,11 +103,13 @@ echo"
 							            
 							            <div class='col s12 m5'>
 							            	<div class='col s12 m12'>";
-							            		$old_date = $row->create_date;
+							            		$old_date 	= $row->create_date;
 												$old_date_timestamp = strtotime($old_date);
-												$date = date('d F Y, H.i', $old_date_timestamp);
+												$date 		= date('d F Y, H.i', $old_date_timestamp);
+
+												$ago 		= $this->template->xTimeAgoDesc($old_date,date('Y-m-d H:i:s'));
 							            		echo"
-								              	<p class='blue-grey-text lighten-3 right'>$date (30 Menit yang lalu)</p>
+								              	<p class='blue-grey-text lighten-3 right'>$date ( $ago )</p>
 								              	<br>
 								            </div>
 								            <div class='col s12 m12'>";

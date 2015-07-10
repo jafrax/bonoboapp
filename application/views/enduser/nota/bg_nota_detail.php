@@ -107,8 +107,9 @@ echo "
 			            		$old_date = $nota->create_date;
 								$old_date_timestamp = strtotime($old_date);
 								$date = date('d F Y', $old_date_timestamp);
+								$ago 		= $this->template->xTimeAgoDesc($old_date,date('Y-m-d H:i:s'));
 			            		echo"
-								<h6>Tanggal : $date (1 Hari yang lalu)</h6>
+								<h6>Tanggal : $date ( $ago )</h6>
 								<h5><br></h5>
 							</div>
 							<div class='col s12 m6 right'>
@@ -144,7 +145,7 @@ echo "
 								<div class='col s6 m6 left-align'>
 									<p>Total nota :</p>									
 									<p>Biaya kirim :</p>";
-									if ($toko->invoice_confirm == 1) {
+									if ($toko->invoice_confirm == 0) {
 										echo "<p>Kode unik :</p>";
 									}
 									echo"									
@@ -153,7 +154,7 @@ echo "
 								<div class='col s6 m6 right-align'>
 									<p>Rp ".number_format($nota->price_total, 2 , ',' , '.')."</p>									
 									<p>Rp ".number_format($nota->price_shipment, 2 , ',' , '.')."</p>";
-									if ($toko->invoice_confirm == 1) {
+									if ($toko->invoice_confirm == 0) {
 										echo "<p>".$nota->invoice_seq_payment."</p>";
 									}
 									echo"
