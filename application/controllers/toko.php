@@ -659,26 +659,26 @@ class Toko extends CI_Controller {
 	}
 	
 	public function doStep5Save(){
-		$chkLevel1 = 0;
-		$chkLevel2 = 0;
-		$chkLevel3 = 0;
-		$chkLevel4 = 0;
-		$chkLevel5 = 0;
+		$chkLevel1 = 1;
+		$chkLevel2 = 1;
+		$chkLevel3 = 1;
+		$chkLevel4 = 1;
+		$chkLevel5 = 1;
 		
-		if($this->response->post("chkLevel1") != ""){
-			$chkLevel1 = 1;
+		if($this->response->post("chkLevel1")> 0){
+			$chkLevel1 = 0;
 		}
-		if($this->response->post("chkLevel2") != ""){
-			$chkLevel2 = 1;
+		if($this->response->post("chkLevel2")> 0){
+			$chkLevel2 = 0;
 		}
-		if($this->response->post("chkLevel3") != ""){
-			$chkLevel3 = 1;
+		if($this->response->post("chkLevel3") > 0){
+			$chkLevel3 = 0;
 		}
-		if($this->response->post("chkLevel4") != ""){
-			$chkLevel4 = 1;
+		if($this->response->post("chkLevel4") > 0){
+			$chkLevel4 = 0;
 		}
-		if($this->response->post("chkLevel5") != ""){
-			$chkLevel5 = 1;
+		if($this->response->post("chkLevel5") > 0){
+			$chkLevel5 = 0;
 		}
 	
 		$Data = array(
@@ -687,20 +687,20 @@ class Toko extends CI_Controller {
 				"level_3_name"=>$this->response->post("txtLevel3"),
 				"level_4_name"=>$this->response->post("txtLevel4"),
 				"level_5_name"=>$this->response->post("txtLevel5"),
-				"level_1_active"=>$chkLevel1,
-				"level_2_active"=>$chkLevel2,
-				"level_3_active"=>$chkLevel3,
-				"level_4_active"=>$chkLevel4,
-				"level_5_active"=>$chkLevel5,
+				//"level_1_active"=>$this->response->post("chkLevel1"),
+				//"level_2_active"=>$this->response->post("chkLevel2"),
+				//"level_3_active"=>$this->response->post("chkLevel3"),
+				//"level_4_active"=>$this->response->post("chkLevel4"),
+				//"level_5_active"=>$this->response->post("chkLevel5"),
 				"create_date"=>date("Y-m-d H:i:s"),
 				"create_user"=>$_SESSION['bonobo']['email'],
 				"update_date"=>date("Y-m-d H:i:s"),
-				"update_user"=>$_SESSION['bonobo']['email'],
+				"update_user"=>$_SESSION['bonobo']['email']
 			);
 			
 		$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
 		if($Save){
-			$this->response->send(array("result"=>1,"message"=>"Data telah disimpan","messageCode"=>0));
+			$this->response->send(array("result"=>1,"message"=>"Data telah disimpan".$this->response->post("txtLevel2")."","messageCode"=>0));
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Data tidak dapat disimpan","messageCode"=>0));
 		}

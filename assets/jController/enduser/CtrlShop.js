@@ -546,7 +546,7 @@ function CtrlShopStep5(){
 		
 	
 		chkLevel2.onclick = function on_change(){
-			var cek_data = $('[name="dumy2"]').val();
+			var cek_data = $('#chkLevel2').val();
 					$.ajax({
 						type: 'POST',
 						data: 'level='+cek_data,
@@ -566,27 +566,7 @@ function CtrlShopStep5(){
 					});
 			};
 			chkLevel3.onclick = function on_change(){
-			var cek_data = $('[name="dumy3"]').val();
-					$.ajax({
-						type: 'POST',
-						data: 'level='+cek_data,
-						url: base_url+'toko/update_level3/',
-						success: function(result) {
-							var response = JSON.parse(result);
-							if(response.message == 1){
-								$('[name="chkLevel3"]').val(response.message);
-								$('[id="labelLevel3"]').prop('hidden', false);
-								$('[name="txtLevel3"]').prop('disabled', false);
-							}else{
-								$('[name="chkLevel3"]').val(response.message);
-								$('[id="labelLevel3"]').prop('hidden', true);
-								$('[name="txtLevel3"]').prop('disabled', true);
-							}
-						}
-					});
-			};
-			chkLevel3.onclick = function on_change(){
-			var cek_data = $('[name="dumy3"]').val();
+			var cek_data = $('#chkLevel3').val();
 					$.ajax({
 						type: 'POST',
 						data: 'level='+cek_data,
@@ -606,7 +586,7 @@ function CtrlShopStep5(){
 					});
 			};
 			chkLevel4.onclick = function on_change(){
-			var cek_data = $('[name="dumy4"]').val();
+			var cek_data = $('#chkLevel2').val();
 					$.ajax({
 						type: 'POST',
 						data: 'level='+cek_data,
@@ -626,7 +606,7 @@ function CtrlShopStep5(){
 					});
 			};
 			chkLevel5.onclick = function on_change(){
-			var cek_data = $('[name="dumy5"]').val();
+			var cek_data = $('#chkLevel2').val();
 					$.ajax({
 						type: 'POST',
 						data: 'level='+cek_data,
@@ -662,7 +642,7 @@ function CtrlShopStep5(){
 		
 		$.ajax({
 			type: 'POST',
-			data: 'txtLevel1='+level1+'&=txtLevel2'+level2+'&=txtLevel3'+level3+'&=txtLevel4'+level4+'&=txtLevel5'+level5+'&=chkLevel1'+level6+'&=chkLevel2'+level7+'&=chkLevel3'+level8+'&=chkLevel4'+level9+'&=chkLevel5'+level5,
+			data: 'txtLevel1='+level1+'&=txtLevel2='+level2+'&=txtLevel3='+level3+'&=txtLevel4='+level4+'&=txtLevel5='+level5+'&=chkLevel1='+level6+'&=chkLevel2='+level7+'&=chkLevel3='+level8+'&=chkLevel4='+level9+'&=chkLevel5='+level5,
 			url: base_url+'toko/doStep5Save/',
 			success: function(result) {
 				var response = JSON.parse(result);

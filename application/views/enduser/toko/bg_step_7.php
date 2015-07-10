@@ -18,7 +18,7 @@ echo"
 				<div class='input-field col s12 m4'>
 					<div class='col s12 m12 right-align'>
 						<p class='right'>
-						<input type='checkbox' name='chkLevel1' value=".$Shop->level_1_active." ".($Shop->level_1_active == 1 ? "checked" : "")." style='display:none'/>
+						<input type='hidden' name='chkLevel1' value='".$Shop->level_1_active."' ".($Shop->level_1_active == 1 ? "checked" : "")." />
                         <input type='checkbox' id='chkLevel1' checked disabled/>
 						<label for='chkLevel1'></label>
 						</p>
@@ -36,7 +36,7 @@ echo"
 				<div class='input-field col s12 m4'>
 					<div class='col s12 m12 right-align'>
 						<p class='right'>
-						<input type='checkbox' name='chkLevel2' value=".$Shop->level_2_active." ".($Shop->level_2_active == 1 ? "checked" : "")." style='display:none'/>
+						<input type='hidden' name='chkLevel2' value='".$Shop->level_2_active."' ".($Shop->level_2_active == 1 ? "checked" : "")."/>
                         <input type='checkbox' id='chkLevel2' ".($Shop->level_2_active == 1 ? "checked" : "")."  ".($status2 == 1 ? "disabled" : "")." onclik='javascript:on_change()' />
                         <label for='chkLevel2'></label>
 						</p>
@@ -53,7 +53,7 @@ echo"
 				<div class='input-field col s12 m4'>
 					<div class='col s12 m12 right-align'>
 						<p class='right'>
-						<input type='checkbox' name='chkLevel3' value=".$Shop->level_3_active." ".($Shop->level_3_active == 1 ? "checked" : "")." style='display:none'/>
+						<input type='hidden' name='chkLevel3' value='".$Shop->level_3_active."' ".($Shop->level_3_active == 1 ? "checked" : "")." />
                         <input type='checkbox' id='chkLevel3' ".($Shop->level_3_active == 1 ? "checked" : "")."  ".($status3 == 1 ? "disabled" : "")." onclik='javascript:on_change()' />                
 						<label for='chkLevel3'></label>
 						</p>
@@ -70,7 +70,7 @@ echo"
 				<div class='input-field col s12 m4'>
 					<div class='col s12 m12 right-align'>
 						<p class='right'>
-						<input type='checkbox' name='chkLevel4' value=".$Shop->level_4_active." ".($Shop->level_4_active == 1 ? "checked" : "")." style='display:none'/>
+						<input type='hidden' name='chkLevel4' value='".$Shop->level_4_active."' ".($Shop->level_4_active == 1 ? "checked" : "")." />
                         <input type='checkbox' id='chkLevel4' ".($Shop->level_4_active == 1 ? "checked" : "")."  ".($status4 == 1 ? "disabled" : "")." onclik='javascript:on_change()' />
 						<label for='chkLevel4'></label>
 						</p>
@@ -87,7 +87,7 @@ echo"
 				<div class='input-field col s12 m4'>
 					<div class='col s12 m12 right-align'>
 						<p class='right'>
-                        <input type='checkbox' name='chkLevel5' value=".$Shop->level_5_active." ".($Shop->level_5_active == 1 ? "checked" : "")." style='display:none'/>
+                        <input type='hidden' name='chkLevel5' value='".$Shop->level_5_active."' ".($Shop->level_5_active == 1 ? "checked" : "")." />
                         <input type='checkbox' id='chkLevel5' ".($Shop->level_5_active == 1 ? "checked" : "")."  ".($status5 == 1 ? "disabled" : "")." onclik='javascript:on_change()' />
                         
 						<label for='chkLevel5'></label>
