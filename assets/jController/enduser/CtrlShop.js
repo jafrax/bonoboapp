@@ -361,7 +361,7 @@ function CtrlShopStep7(){
 		$.ajax({
 			type: 'POST',
 			data: "courier="+e,
-			url: base_url+'toko/stepTable/',
+			url: base_url+'toko/step7Table/',
 			success: function(result) {
 				divCustomeCourierTable.html(result);
 			}
@@ -528,7 +528,7 @@ function CtrlShopStep5(){
 	}
 	
 	function initComponent(){
-		formStep5 = $("#formStep5");
+		formStep5 = $("#formStep7");
 		btnSave = $hs("btnSave");
 		chkLevel5 = $hs("chkLevel5");
 		chkLevel4 = $hs("chkLevel4");
@@ -544,34 +544,35 @@ function CtrlShopStep5(){
 	
 	function initActive(){
 		
-		$('[name="txtLevel5"]').blur(function() {
-			if($(this).val() == ''){
-				$('[name="txtLevel5"]').prop("disabled", false);
-			 }
-		});
-		$('[name="txtLevel4"]').blur(function() {
-			if($(this).val() == ''){
-				$('[name="txtLevel4"]').prop("disabled", false);
-			 }
-		});
-		$('[name="txtLevel3"]').blur(function() {
-			if($(this).val() == ''){
-				$('[name="txtLevel3"]').prop("disabled", false);
-			 }
-		});
-		$('[name="txtLevel2"]').blur(function() {
-			if($(this).val() == ''){
-				$('[name="txtLevel2"]').prop("disabled", false);
-			 }
-		});
-		$('[name="dumy2"]').change(function() {
-			if ($(this).is(':checked')) {
-				$('[name="txtLevel2"]').prop("disabled", false);
+	
+		$('#chkLevel2').change(function () {
+			if (this.checked) {
+				$('[name="txtLevel2"]').prop('disabled', false);
 			} else {
-				$('[name="txtLevel2"]').prop("disabled", true);
+				$('[name="txtLevel2"]').prop('disabled', true);
 			}
 		});
-
+		$('#chkLevel3').change(function () {
+			if (this.checked) {
+				$('[name="txtLevel3"]').prop('disabled', false);
+			} else {
+				$('[name="txtLevel3"]').prop('disabled', true);
+			}
+		});
+		$('#chkLevel4').change(function () {
+			if (this.checked) {
+				$('[name="txtLevel4"]').prop('disabled', false);
+			} else {
+				$('[name="txtLevel4"]').prop('disabled', true);
+			}
+		});
+		$('#chkLevel5').change(function () {
+			if (this.checked) {
+				$('[name="txtLevel5"]').prop('disabled', false);
+			} else {
+				$('[name="txtLevel5"]').prop('disabled', true);
+			}
+		});
 
 		chkLevel2.onclick = function on_change(){
 			var cek_data = $('[name="dumy2"]').val();
@@ -583,7 +584,6 @@ function CtrlShopStep5(){
 							if (result == '1') {
 								$('[id="labelLevel2"]').prop('hidden', false);
 							}else{
-								$('[name="txtLevel2"]').prop("disabled", false);
 								$('[id="labelLevel2"]').prop('hidden', true);
 							}
 						}
@@ -599,7 +599,6 @@ function CtrlShopStep5(){
 							if (result == '1') {
 								$('[id="labelLevel3"]').prop('hidden', false);
 							}else{
-								$('[name="txtLevel3"]').prop("disabled", false);
 								$('[id="labelLevel3"]').prop('hidden', true);
 							}
 						}
@@ -615,7 +614,6 @@ function CtrlShopStep5(){
 							if (result == '1') {
 								$('[id="labelLevel4"]').prop('hidden', false);
 							}else{
-								$('[name="txtLevel4"]').prop("disabled", false);
 								$('[id="labelLevel4"]').prop('hidden', true);
 							}
 						}
@@ -631,7 +629,6 @@ function CtrlShopStep5(){
 							if (result == '1') {
 								$('[id="labelLevel5"]').prop('hidden', false);
 							}else{
-								$('[name="txtLevel5"]').prop("disabled", false);
 								$('[id="labelLevel5"]').prop('hidden', true);
 							}
 						}
@@ -640,14 +637,27 @@ function CtrlShopStep5(){
 	}
 	
 	function doSave(){
+		var level1=$('[name="txtLevel1"]').val();
+		var level2=$('[name="txtLevel2"]').val();
+		var level3=$('[name="txtLevel3"]').val();
+		var level4=$('[name="txtLevel4"]').val();
+		var level5=$('[name="txtLevel5"]').val();
+		var level6=$('[name="chkLevel1"]').val();
+		var level7=$('[name="chkLevel2"]').val();
+		var level8=$('[name="chkLevel3"]').val();
+		var level9=$('[name="chkLevel4"]').val();
+		var level10=$('[name="chkLevel5"]').val();
+		
+		
 		$.ajax({
 			type: 'POST',
-			data: formStep5.serialize(),
+			data: 'txtLevel1='+level1+'&=txtLevel2='+level2+'&=txtLevel3='+level3+'&=txtLevel4='+level4+'&=txtLevel5='+level5+'&=chkLevel1='+level6+'&=chkLevel2='+level7+'&=chkLevel3='+level8+'&=chkLevel4='+level9+'&=chkLevel5='+level5,
 			url: base_url+'toko/doStep5Save/',
 			success: function(result) {
 				var response = JSON.parse(result);
 				if(response.result == 1){
-					$hs_notif("#notifStep7",response.message);
+					//$hs_notif("#notifStep7",response.message);
+					window.location.href = base_url+'toko/step6';					
 				}else{
 					$hs_notif("#notifStep7",response.message);
 				}

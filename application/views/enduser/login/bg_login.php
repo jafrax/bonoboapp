@@ -62,18 +62,18 @@ echo "
 					".$pesan."
 						<div id='lblNotif' class='notif-error'></div>
 						<div class='input-field col s12'>
-							<input id='email' name='email' type='text' class='validate' autofocus='' placeholder='ex : email@mail.com'>
+							<input id='email' name='email' type='text' class='validate' autofocus='' placeholder='ex : email@mail.com' tabindex='1'>
 							<label for='email'>Email</label>
 							<label id='notifEmail' class='error' style='display:none;'><i class='fa fa-warning'></i> Harus diisi !</label>
 						</div>
 						<div class='input-field col s12'>
-							<input id='password' name='password' type='password' class='validate' onkeyup=ctrlSignin.onEnter(event); >
+							<input id='password' name='password' type='password' class='validate' tabindex='2' >
 							<label for='password'>Password</label>
 							<label id='notifPassword' class='error' style='display:none;'><i class='fa fa-warning'></i> Harus diisi !</label>
 						</div>
 						<div class='input-field col s12'>
 							<a href='#reset_password' id='forgetpass' class='modal-trigger left' >Lupa password ?</a>
-							<button id='btnSave' type='button' class='waves-effect waves-light btn deep-orange darken-1 right'>Masuk</button>
+							<button id='btnSave' type='button' class='waves-effect waves-light btn deep-orange darken-1 right' onkeyup=ctrlSignin.onEnter(event); tabindex='3'>Masuk</button>
 						</div>
 					</div>
 				</form>

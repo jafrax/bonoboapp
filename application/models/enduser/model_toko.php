@@ -6,7 +6,8 @@
 * Log Activity : ~ Create your log if you change this controller ~
 * 1. Create 23 Juni 2015 by Heri Siswanto, Create function : get_by_login, get_by_email
 * 2. Update 24 Juni 2015 by Heri Siswanto, Create function : get_by_id
-* 3. Create 03 Juli 2015 by Adi Setyo, Create function : get_by_verf
+* 3. Create 03 Juli 2015 by Adi Setyo, Create function : get_by_verf,update_level_toko4,update_level_toko3,update_level_toko2,update_level_toko
+* 														 cek_member_use4,cek_member_use3,cek_member_use2,cek_member_use1,cek_status_level_toko
 */
 
 class Model_toko extends CI_Model {
@@ -23,6 +24,12 @@ class Model_toko extends CI_Model {
 						->where("tt.email",$email)
 						->get("tb_toko tt");
 	}
+	public function cek_user_active($data){
+		return $this->db->select('tt.*')
+						->where("tt.email",$data['email_user'])
+						->where("tt.status",0)
+						->get("tb_toko tt");
+	}
 	
 	public function get_by_id($id){
 		return $this->db->select('tt.*, mc.name as category_name, ml.kecamatan as location_kecamatan, ml.city as location_city, ml.province as location_province')
@@ -31,15 +38,15 @@ class Model_toko extends CI_Model {
 						->where("tt.id",$id)
 						->get("tb_toko tt");
 	}
-	public function get_by_verf($uri_mail,$uri_veri){
+	public function get_by_verf($email,$uri_veri){
 		return	$this->db->select('tt.*')
-						 ->where('tt.email',$uri_mail)
+						 ->where('tt.email',$email)
 						 ->where('tt.verified_code',$uri_veri)
 						 ->get('tb_toko tt');
 	}
-	public function update_status($uri_mail,$uri_veri){
+	public function update_status($email,$uri_veri){
 		return	$this->db->select('tt.*')
-						 ->where('tt.email',$uri_mail)
+						 ->where('tt.email',$email)
 						 ->where('tt.verified_code',$uri_veri)
 						 ->get('tb_toko tt');
 	}

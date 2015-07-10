@@ -29,11 +29,10 @@ function CtrlSignup(){
 			doSave();
 		};
 	}
-	
 	function onEnter(event){
 		if ($hs_onEnter(event)){
 			doSave();
-		}
+		};
 	
 	}
 
@@ -146,6 +145,11 @@ function CtrlSignup(){
 		}
 	}
 }
+	$(function() {
+		$('input').on('keypress', function(e) {
+			e.which !== 13 || $('[tabIndex=' + (+this.tabIndex + 1) + ']')[0].focus();
+		});
+	});
 
 function CtrlSignin(){
 	this.init = init;
@@ -232,7 +236,7 @@ function CtrlSignin(){
 			});
 		}
 	}
-	//langkah 4
+
 	function doForgotPassword(){
 		if(txtForgotEmail.value == ""){
 			notifForgotPassword.html("<i class='fa fa-warning'></i> Email harus diisi e!");
@@ -266,6 +270,7 @@ function CtrlSignin(){
 					notifForgotPassword.html("<i class='fa fa-warning'></i> "+response.message+"</div>");
 					notifForgotPassword.slideDown();
 					notifForgotPassword.delay(5000).slideUp('slow');
+					txtForgotEmail.value = "";
 					grecaptcha.reset();
 				}
 			}

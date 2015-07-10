@@ -365,7 +365,7 @@ class Toko extends CI_Controller {
 					}
 				}
 			}
-		
+			$_SESSION['bonobo']['image'] = $Upload;
 			$this->response->send(array("result"=>1,"message"=>"Informasi toko telah disimpan : ","messageCode"=>1));
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Informasi tidak dapat disimpan","messageCode"=>1));
@@ -686,11 +686,11 @@ class Toko extends CI_Controller {
 				"level_3_name"=>$this->response->post("txtLevel3"),
 				"level_4_name"=>$this->response->post("txtLevel4"),
 				"level_5_name"=>$this->response->post("txtLevel5"),
-				"level_1_active"=>$chkLevel1,
-				"level_2_active"=>$chkLevel2,
-				"level_3_active"=>$chkLevel3,
-				"level_4_active"=>$chkLevel4,
-				"level_5_active"=>$chkLevel5,
+				//"level_1_active"=>$chkLevel1,
+				//"level_2_active"=>$chkLevel2,
+				//"level_3_active"=>$chkLevel3,
+				//"level_4_active"=>$chkLevel4,
+				//"level_5_active"=>$chkLevel5,
 				"create_date"=>date("Y-m-d H:i:s"),
 				"create_user"=>$_SESSION['bonobo']['email'],
 				"update_date"=>date("Y-m-d H:i:s"),
@@ -698,8 +698,8 @@ class Toko extends CI_Controller {
 			);
 			
 		$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
-		if($Save){
-			$this->response->send(array("result"=>1,"message"=>"Data telah disimpan","messageCode"=>0));
+		if($Save){			
+			$this->response->send(array("result"=>1,"message"=>"Data telah disimpan","messageCode"=>0));			
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Data tidak dapat disimpan","messageCode"=>0));
 		}

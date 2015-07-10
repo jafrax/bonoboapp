@@ -105,7 +105,7 @@ class Anggota extends CI_Controller {
 						Thanks, Bonobo.com
 					";
 					
-					$this->template->send_email($data["email"],'Undangan dari Toko '.$data["shop"]->name, $message);
+					$this->template->send_email($data["email"],'no-reply@bonobo.com', $message);
 				
 					$data["notif"] = "<label class='text-green'>Undangan anda telah dikirim ke email : ".$data["email"]."</label>";
 					$data["email"] = "";

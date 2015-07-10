@@ -88,7 +88,7 @@
 		if($from != null){
             $ci->email->from($from,$nama);
         }else{
-            $ci->email->from('no-reply@vertibox.com','no-reply@vertibox.com');
+            $ci->email->from('no-reply@bonobo.com','no-reply@bonobo.com');
         }
         
 		$ci->email->to($to);
@@ -299,7 +299,7 @@
         
         $messages       = $ci->model_message->get_rung_ditonton($to_id);
         $data['email']  = $company->email;      
-        $data['name']   = $_SESSION['vertibox']['name'];
+        $data['name']   = $_SESSION['bonobo']['name'];
         $data['pesan']  = '';
         //echo "string";
         foreach($messages->result() as $Message){
@@ -333,12 +333,12 @@
         if ($ci->model_company->get_name($company->company_id)->num_rows() > 0){
             if (($cek_member->verified == 2 || $cek_member->verified == 1) && $durasi->gold_message_status == 1 ){
                 if ($diff1 >= $durasi->gold_message_hour){
-                    $sending=$ci->template->send_email($company->email,'New Message from '.$_SESSION['vertibox']['name'],$message,'no-reply@vertibox.com','no-reply@vertibox.com');
+                    $sending=$ci->template->send_email($company->email,'New Message from '.$_SESSION['bonobo']['name'],$message,'no-reply@bonobo.com','no-reply@bonobo.com');
                     //echo "gold";
                 }
             }elseif ($cek_member->verified == 0 && $durasi->free_message_status == 1){
                 if ($diff2 >= $durasi->free_message_hour){
-                    $sending=$ci->template->send_email($company->email,'New Message from '.$_SESSION['vertibox']['name'],$message,'no-reply@vertibox.com','no-reply@vertibox.com');
+                    $sending=$ci->template->send_email($company->email,'New Message from '.$_SESSION['bonobo']['name'],$message,'no-reply@bonobo.com','no-reply@bonobo.com');
                     //echo "free";
                 }
             }
@@ -347,7 +347,7 @@
         }else{
             if ($durasi->free_message_status == 1){
                 if ($diff2 >= $durasi->free_message_hour){
-                    $sending=$ci->template->send_email($company->email,'New Message from '.$_SESSION['vertibox']['name'],$message,'no-reply@vertibox.com','no-reply@vertibox.com');
+                    $sending=$ci->template->send_email($company->email,'New Message from '.$_SESSION['bonobo']['name'],$message,'no-reply@bonobo.com','no-reply@bonobo.com');
                     //echo "string";
                 }
             }
