@@ -374,5 +374,17 @@
         $timeCalc = round($timeCalc/60/60);
         return $timeCalc;
     }
+
+
+    function xTimeAgoDesc ($oldTime, $newTime) {
+        $timeCalc = strtotime($newTime)-strtotime($oldTime);
+
+        if ($timeCalc > (60*60*24)) {$timeCalc = round($timeCalc/60/60/24) . " hari yang lalu";}
+        else if ($timeCalc > (60*60)) {$timeCalc = round($timeCalc/60/60) . " jam yang lalu";}
+        else if ($timeCalc > 60) {$timeCalc = round($timeCalc/60) . " menit yang lalu";}
+        else if ($timeCalc > 0) {$timeCalc .= " detik yang lalu";}
+
+        return $timeCalc;
+    }
 	
 }

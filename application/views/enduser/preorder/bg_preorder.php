@@ -8,6 +8,7 @@ echo "
 								if ($produk->num_rows() > 0) {
 									foreach ($produk->result() as $row) {
 										$count = $this->model_preorder->get_belum_selesai($row->id)->num_rows();
+										$ago 		= $this->template->xTimeAgoDesc($row->create_date,date('Y-m-d H:i:s'));
 										echo "
 										<li class='col s12 m6 listanggodaf' id='li-".$row->id."'>
 											<div class='prordercrop col s12 m5 l4 nolpad'>";
@@ -19,7 +20,7 @@ echo "
 												echo "
 											</div>
 											<div class='col s12 m7 l8'>
-												<p class=' blue-grey-text lighten-3 right'>19.09</p>
+												<p class=' blue-grey-text lighten-3 right'>$ago</p>
 												<p><a href=''><b class='userangoota'>".$row->name."</b></a></p>				
 												<span class='red-text' id='counter-".$row->id."'>$count Belum Selesai</span>										
 												<p>
