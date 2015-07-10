@@ -108,7 +108,7 @@ class Api extends CI_Controller {
 			*/
 			
 			$QLocations = $this->db
-					->select("tml.*, ml.kecamatan, ml.city, ml.province, ml.postal_code, ml.id as location_id")
+					->select("tml.*, ml.kelurahan, ml.kecamatan, ml.city, ml.province, ml.postal_code, ml.id as location_id")
 					->join("ms_location ml","tml.location_id = ml.id")
 					->where("tml.member_id",$QUser->id)
 					->get("tb_member_location tml")
