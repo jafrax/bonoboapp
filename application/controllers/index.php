@@ -286,8 +286,14 @@ class Index extends CI_Controller {
 	}
 	
 	function doForgotPassword(){
-		if($this->response->post("email") == ""){
+		$data['email_user']=$this->response->post("email");
+		if($data['email_user'] == ""){
 			$this->response->send(array("result"=>0,"message"=>"Email harus diisi !","messageCode"=>1));
+			return;
+		}
+		$cek=$this->model_toko->cek_user_active($data);
+		if($cek->num_rows()>0){
+			$this->response->send(array("result"=>0,"message"=>"Reset Password Gagal dikirim. Harap lakukan verifikasi email !","messageCode"=>1));
 			return;
 		}
 		$captcha_answer = $this->response->post("rechapcha");

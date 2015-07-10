@@ -544,55 +544,7 @@ function CtrlShopStep5(){
 	
 	function initActive(){
 		
-		$('[name="txtLevel5"]').blur(function() {
-			if($(this).val() == ''){
-				$('[name="txtLevel5"]').prop("disabled", false);
-			 }
-		});
-		$('[name="txtLevel4"]').blur(function() {
-			if($(this).val() == ''){
-				$('[name="txtLevel4"]').prop("disabled", false);
-			 }
-		});
-		$('[name="txtLevel3"]').blur(function() {
-			if($(this).val() == ''){
-				$('[name="txtLevel3"]').prop("disabled", false);
-			 }
-		});
-		$('[name="txtLevel2"]').blur(function() {
-			if($(this).val() == ''){
-				$('[name="txtLevel2"]').prop("disabled", false);
-			 }
-		});
-		$('#chkLevel2').change(function () {
-			if (this.checked) {
-				$('[name="txtLevel2"]').prop('disabled', false);
-			} else {
-				$('[name="txtLevel2"]').prop('disabled', true);
-			}
-		});
-		$('#chkLevel3').change(function () {
-			if (this.checked) {
-				$('[name="txtLevel3"]').prop('disabled', false);
-			} else {
-				$('[name="txtLevel3"]').prop('disabled', true);
-			}
-		});
-		$('#chkLevel4').change(function () {
-			if (this.checked) {
-				$('[name="txtLevel4"]').prop('disabled', false);
-			} else {
-				$('[name="txtLevel4"]').prop('disabled', true);
-			}
-		});
-		$('#chkLevel5').change(function () {
-			if (this.checked) {
-				$('[name="txtLevel5"]').prop('disabled', false);
-			} else {
-				$('[name="txtLevel5"]').prop('disabled', true);
-			}
-		});
-
+	
 		chkLevel2.onclick = function on_change(){
 			var cek_data = $('[name="dumy2"]').val();
 					$.ajax({
@@ -600,10 +552,15 @@ function CtrlShopStep5(){
 						data: 'level='+cek_data,
 						url: base_url+'toko/update_level2/',
 						success: function(result) {
-							if (result == '1') {
+							var response = JSON.parse(result);
+							if(response.message == 1){
+								$('[name="chkLevel2"]').val(response.message);
 								$('[id="labelLevel2"]').prop('hidden', false);
+								$('[name="txtLevel2"]').prop('disabled', false);
 							}else{
+								$('[name="chkLevel2"]').val(response.message);
 								$('[id="labelLevel2"]').prop('hidden', true);
+								$('[name="txtLevel2"]').prop('disabled', true);
 							}
 						}
 					});
@@ -615,10 +572,35 @@ function CtrlShopStep5(){
 						data: 'level='+cek_data,
 						url: base_url+'toko/update_level3/',
 						success: function(result) {
-							if (result == '1') {
+							var response = JSON.parse(result);
+							if(response.message == 1){
+								$('[name="chkLevel3"]').val(response.message);
 								$('[id="labelLevel3"]').prop('hidden', false);
+								$('[name="txtLevel3"]').prop('disabled', false);
 							}else{
+								$('[name="chkLevel3"]').val(response.message);
 								$('[id="labelLevel3"]').prop('hidden', true);
+								$('[name="txtLevel3"]').prop('disabled', true);
+							}
+						}
+					});
+			};
+			chkLevel3.onclick = function on_change(){
+			var cek_data = $('[name="dumy3"]').val();
+					$.ajax({
+						type: 'POST',
+						data: 'level='+cek_data,
+						url: base_url+'toko/update_level3/',
+						success: function(result) {
+							var response = JSON.parse(result);
+							if(response.message == 1){
+								$('[name="chkLevel3"]').val(response.message);
+								$('[id="labelLevel3"]').prop('hidden', false);
+								$('[name="txtLevel3"]').prop('disabled', false);
+							}else{
+								$('[name="chkLevel3"]').val(response.message);
+								$('[id="labelLevel3"]').prop('hidden', true);
+								$('[name="txtLevel3"]').prop('disabled', true);
 							}
 						}
 					});
@@ -630,10 +612,15 @@ function CtrlShopStep5(){
 						data: 'level='+cek_data,
 						url: base_url+'toko/update_level4/',
 						success: function(result) {
-							if (result == '1') {
+							var response = JSON.parse(result);
+							if(response.message == 1){
+								$('[name="chkLevel4"]').val(response.message);
 								$('[id="labelLevel4"]').prop('hidden', false);
+								$('[name="txtLevel4"]').prop('disabled', false);
 							}else{
+								$('[name="chkLevel4"]').val(response.message);
 								$('[id="labelLevel4"]').prop('hidden', true);
+								$('[name="txtLevel4"]').prop('disabled', true);
 							}
 						}
 					});
@@ -643,12 +630,17 @@ function CtrlShopStep5(){
 					$.ajax({
 						type: 'POST',
 						data: 'level='+cek_data,
-						url: base_url+'toko/update_level5/',
+						url: base_url+'toko/update_level3/',
 						success: function(result) {
-							if (result == '1') {
+							var response = JSON.parse(result);
+							if(response.message == 1){
+								$('[name="chkLevel5"]').val(response.message);
 								$('[id="labelLevel5"]').prop('hidden', false);
+								$('[name="txtLevel5"]').prop('disabled', false);
 							}else{
+								$('[name="chkLevel5"]').val(response.message);
 								$('[id="labelLevel5"]').prop('hidden', true);
+								$('[name="txtLevel5"]').prop('disabled', true);
 							}
 						}
 					});
@@ -656,9 +648,21 @@ function CtrlShopStep5(){
 	}
 	
 	function doSave(){
+		var level1=$('[name="txtLevel1"]').val();
+		var level2=$('[name="txtLevel2"]').val();
+		var level3=$('[name="txtLevel3"]').val();
+		var level4=$('[name="txtLevel4"]').val();
+		var level5=$('[name="txtLevel5"]').val();
+		var level6=$('[name="chkLevel1"]').val();
+		var level7=$('[name="chkLevel2"]').val();
+		var level8=$('[name="chkLevel3"]').val();
+		var level9=$('[name="chkLevel4"]').val();
+		var level10=$('[name="chkLevel5"]').val();
+		
+		
 		$.ajax({
 			type: 'POST',
-			data: formStep5.serialize(),
+			data: 'txtLevel1='+level1+'&=txtLevel2'+level2+'&=txtLevel3'+level3+'&=txtLevel4'+level4+'&=txtLevel5'+level5+'&=chkLevel1'+level6+'&=chkLevel2'+level7+'&=chkLevel3'+level8+'&=chkLevel4'+level9+'&=chkLevel5'+level5,
 			url: base_url+'toko/doStep5Save/',
 			success: function(result) {
 				var response = JSON.parse(result);

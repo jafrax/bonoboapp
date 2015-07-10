@@ -236,7 +236,7 @@ function CtrlSignin(){
 			});
 		}
 	}
-	//langkah 4
+
 	function doForgotPassword(){
 		if(txtForgotEmail.value == ""){
 			notifForgotPassword.html("<i class='fa fa-warning'></i> Email harus diisi e!");
@@ -270,6 +270,7 @@ function CtrlSignin(){
 					notifForgotPassword.html("<i class='fa fa-warning'></i> "+response.message+"</div>");
 					notifForgotPassword.slideDown();
 					notifForgotPassword.delay(5000).slideUp('slow');
+					txtForgotEmail.value = "";
 					grecaptcha.reset();
 				}
 			}

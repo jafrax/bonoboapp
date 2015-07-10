@@ -101,7 +101,7 @@ class Toko extends CI_Controller {
 			
 			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
 			
-			redirect("toko/step5");
+			redirect("toko/step7");
 		}
 	}
 	
@@ -604,7 +604,7 @@ class Toko extends CI_Controller {
 		}
 		$cek_level=$this->model_toko->update_level_toko2($data,$data_update);
 		if($cek_level>0){
-			$this->response->send(array("result"=>1,"message"=>"Change sukses"));
+			$this->response->send(array("result"=>1,"message"=>$data_update));
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Change failed"));
 		}	
@@ -620,7 +620,7 @@ class Toko extends CI_Controller {
 		}
 		$cek_level=$this->model_toko->update_level_toko3($data,$data_update);
 		if($cek_level>0){
-			$this->response->send(array("result"=>1,"message"=>"Change sukses"));
+			$this->response->send(array("result"=>1,"message"=>$data_update));
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Change failed"));
 		}	
@@ -636,7 +636,7 @@ class Toko extends CI_Controller {
 		}
 		$cek_level=$this->model_toko->update_level_toko4($data,$data_update);
 		if($cek_level>0){
-			$this->response->send(array("result"=>1,"message"=>"Change sukses"));
+			$this->response->send(array("result"=>1,"message"=>$data_update));
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Change failed"));
 		}	
@@ -652,7 +652,7 @@ class Toko extends CI_Controller {
 		}
 		$cek_level=$this->model_toko->update_level_toko5($data,$data_update);
 		if($cek_level>0){
-			$this->response->send(array("result"=>1,"message"=>"Change sukses"));
+			$this->response->send(array("result"=>1,"message"=>$data_update));
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Change failed"));
 		}	
@@ -781,21 +781,6 @@ class Toko extends CI_Controller {
 		}
 			
 		echo"</select><script>$('.select-standar').material_select();</script>";
-	}
-
-	function step6(){
-		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
-
-		if ($_POST) {
-			$konfirmasi = $this->input->post('konfirmasi');
-
-			$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('invoice_confirm',$konfirmasi)->update('tb_toko');
-			if ($update) {
-				redirect('toko/step7');
-			}
-		}
-
-		$this->template->bonobo_step("enduser/toko/bg_konfirmasi",$data);
 	}
 }
 
