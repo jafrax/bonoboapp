@@ -564,14 +564,34 @@ function CtrlShopStep5(){
 				$('[name="txtLevel2"]').prop("disabled", false);
 			 }
 		});
-		$('[name="dumy2"]').change(function() {
-			if ($(this).is(':checked')) {
-				$('[name="txtLevel2"]').prop("disabled", false);
+		$('#chkLevel2').change(function () {
+			if (this.checked) {
+				$('[name="txtLevel2"]').prop('disabled', false);
 			} else {
-				$('[name="txtLevel2"]').prop("disabled", true);
+				$('[name="txtLevel2"]').prop('disabled', true);
 			}
 		});
-
+		$('#chkLevel3').change(function () {
+			if (this.checked) {
+				$('[name="txtLevel3"]').prop('disabled', false);
+			} else {
+				$('[name="txtLevel3"]').prop('disabled', true);
+			}
+		});
+		$('#chkLevel4').change(function () {
+			if (this.checked) {
+				$('[name="txtLevel4"]').prop('disabled', false);
+			} else {
+				$('[name="txtLevel4"]').prop('disabled', true);
+			}
+		});
+		$('#chkLevel5').change(function () {
+			if (this.checked) {
+				$('[name="txtLevel5"]').prop('disabled', false);
+			} else {
+				$('[name="txtLevel5"]').prop('disabled', true);
+			}
+		});
 
 		chkLevel2.onclick = function on_change(){
 			var cek_data = $('[name="dumy2"]').val();
@@ -583,7 +603,6 @@ function CtrlShopStep5(){
 							if (result == '1') {
 								$('[id="labelLevel2"]').prop('hidden', false);
 							}else{
-								$('[name="txtLevel2"]').prop("disabled", false);
 								$('[id="labelLevel2"]').prop('hidden', true);
 							}
 						}
@@ -599,7 +618,6 @@ function CtrlShopStep5(){
 							if (result == '1') {
 								$('[id="labelLevel3"]').prop('hidden', false);
 							}else{
-								$('[name="txtLevel3"]').prop("disabled", false);
 								$('[id="labelLevel3"]').prop('hidden', true);
 							}
 						}
@@ -615,7 +633,6 @@ function CtrlShopStep5(){
 							if (result == '1') {
 								$('[id="labelLevel4"]').prop('hidden', false);
 							}else{
-								$('[name="txtLevel4"]').prop("disabled", false);
 								$('[id="labelLevel4"]').prop('hidden', true);
 							}
 						}
@@ -631,7 +648,6 @@ function CtrlShopStep5(){
 							if (result == '1') {
 								$('[id="labelLevel5"]').prop('hidden', false);
 							}else{
-								$('[name="txtLevel5"]').prop("disabled", false);
 								$('[id="labelLevel5"]').prop('hidden', true);
 							}
 						}

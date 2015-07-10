@@ -9,6 +9,7 @@
 * 2. Change 22 Juni 2015 by Dinar Wahyu Wibowo, Change Index
 * 3. Change 23 Juni 2015 by Heri Siswanto, Coding Signup, Coding Signin, Signup Facebook, Signin Facebook
 * 4. Create 03 Juli 2015 by adi Setyo, Cek Mail, signup_verification
+* 5. Update 09 Juli 2015 by adi setyo, doForgotPassword
 */
 
 class Index extends CI_Controller {
@@ -77,7 +78,7 @@ class Index extends CI_Controller {
 						Thanks, Bonobo.com
 					";
 					
-					$send_email = $this->template->send_email($email,'Verified bonobo account', $message);
+					$send_email = $this->template->send_email($email,'no-reply@bonobo.com', $message);
 					
 					$this->response->send(array("result"=>1,"message"=>"Pendaftaran berhasil, kami telah mengirimkan pesan verifikasi ke alamat email anda.","messageCode"=>1));
 				}else{
@@ -90,18 +91,29 @@ class Index extends CI_Controller {
 	}
 	
 	public function signup_verification(){
-		$uri_mail	=	$this->uri->segment(3);
+		$email	=	$this->uri->segment(3);
 		$uri_veri	=	$this->uri->segment(4);
-		$ftv		= 	$this->model_toko->get_by_verf($uri_mail,$uri_veri);
+		$ftv		= 	$this->model_toko->get_by_verf($email,$uri_veri);
 		$_SESSION['bonobo']['notifikasi']=null;
 		if($ftv->num_rows()>0){
-			$_SESSION['bonobo']['notifikasi']="<div id='notifikasi' class='notif-error'><i class='fa fa-warning'></i>Verifikasi Email sukses</div>";
+			$_SESSION['bonobo']['notifikasi']=null;
 			$Data=array('status'=> '2');
 			$Update = $this->db->where("verified_code",$uri_veri)->update("tb_toko",$Data);
 		}else{
 			$_SESSION['bonobo']['notifikasi']="<div id='notifikasi' class='notif-error'><i class='fa fa-warning'></i>Verifikasi email failed</div>";
 		}
-		redirect('index/signin');
+		$QShop=$ftv->row();
+		if($QShop>0){
+				$_SESSION['bonobo']['id'] = $QShop->id;
+				$_SESSION['bonobo']['name'] = $QShop->name;
+				$_SESSION['bonobo']['email'] = $QShop->email;
+				$_SESSION['bonobo']['image'] = $QShop->image;				
+				$_SESSION['bonobo']['facebook'] = $QShop->facebook;
+				redirect('index');
+		}else{
+				redirect('index');
+		}
+		
 	
 	}
 
@@ -273,7 +285,7 @@ class Index extends CI_Controller {
 		}
 	}
 	
-	function doForgotPassword(){//langkah akhir
+	function doForgotPassword(){
 		if($this->response->post("email") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Email harus diisi !","messageCode"=>1));
 			return;
@@ -301,7 +313,7 @@ class Index extends CI_Controller {
 						Thanks, Bonobo.com
 					";
 					
-				$this->template->send_email($QShop->email,'New Password Account Bonobo', $message);
+				$this->template->send_email($QShop->email,'no-reply@bonobo.com', $message);
 				
 				$this->response->send(array("result"=>1,"message"=>"Password anda telah diatur ulang, silahkan lihat pesan kami di email anda!","messageCode"=>1));
 			}else{

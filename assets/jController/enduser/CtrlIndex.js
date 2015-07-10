@@ -29,11 +29,10 @@ function CtrlSignup(){
 			doSave();
 		};
 	}
-	
 	function onEnter(event){
 		if ($hs_onEnter(event)){
 			doSave();
-		}
+		};
 	
 	}
 
@@ -146,6 +145,11 @@ function CtrlSignup(){
 		}
 	}
 }
+	$(function() {
+		$('input').on('keypress', function(e) {
+			e.which !== 13 || $('[tabIndex=' + (+this.tabIndex + 1) + ']')[0].focus();
+		});
+	});
 
 function CtrlSignin(){
 	this.init = init;
