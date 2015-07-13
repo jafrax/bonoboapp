@@ -184,34 +184,35 @@ class Toko extends CI_Controller {
 	}
 	
 	public function step5(){
-		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
-		$data['status1']=0;
-		$data['status2']=0;
-		$data['status3']=0;
-		$data['status4']=0;
-		$data['status5']=0;
-			$result=$this->model_toko->cek_member_use1($_SESSION['bonobo']['id'])->num_rows();
-			if($result>0){
-				$data['status1']=1;
-			}
-			$result=$this->model_toko->cek_member_use2($_SESSION['bonobo']['id'])->num_rows();
-			if($result>0){
-				$data['status2']=1;
-			}
-			$result=$this->model_toko->cek_member_use3($_SESSION['bonobo']['id'])->num_rows();
-			if($result>0){
-				$data['status3']=1;
-			}
-			$result=$this->model_toko->cek_member_use4($_SESSION['bonobo']['id'])->num_rows();
-			if($result>0){
-				$data['status4']=1;
-			}
-			$result=$this->model_toko->cek_member_use5($_SESSION['bonobo']['id'])->num_rows();
-			if($result>0){
-				$data['status5']=1;
-			}
-		$this->template->bonobo_step("enduser/toko/bg_step_7",$data);
-	}
+                $data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+                $data['status1']=0;
+                $data['status2']=0;
+                $data['status3']=0;
+                $data['status4']=0;
+                $data['status5']=0;
+                $data['id_toko']=$_SESSION['bonobo']['id'];
+                        $result=$this->model_toko->cek_member_use1($data)->num_rows();
+                        if($result>0){
+                                $data['status1']=1;
+                        }
+                        $result=$this->model_toko->cek_member_use2($data)->num_rows();
+                        if($result>0){
+                                $data['status2']=1;
+                        }
+                        $result=$this->model_toko->cek_member_use3($data)->num_rows();
+                        if($result>0){
+                                $data['status3']=1;
+                        }
+                        $result=$this->model_toko->cek_member_use4($data)->num_rows();
+                        if($result>0){
+                                $data['status4']=1;
+                        }
+                        $result=$this->model_toko->cek_member_use5($data)->num_rows();
+                        if($result>0){
+                                $data['status5']=1;
+                        }
+                $this->template->bonobo_step("enduser/toko/bg_step_7",$data);
+        }
 	
 	public function step7Detail(){
 		if($this->response->post("id") == ""){
@@ -591,119 +592,157 @@ class Toko extends CI_Controller {
 		
 	}
 	
+       public function autocek_level2(){
+                $data['id_toko']=$_SESSION["bonobo"]["id"];
+                $cek_levelonmember=$this->model_toko->cek_member_use2($data);
+                if($cek_levelonmember->num_rows()>0){
+                        $this->response->send(array("result"=>1,"message"=>"use data"));
+                }else{
+                        $this->response->send(array("result"=>0,"message"=>"not use"));
+                }
+        }
+        public function update_level2(){
+                $data['number'] =$this->response->post("level");
+                $data['id_toko']=$_SESSION["bonobo"]["id"];
+                $cek_level=$this->model_toko->cek_status_level_toko($data);
+                $row=$cek_level->row();
+                $data_update=1;
+                if($row->level_2_active > 0){
+                        $data_update=0;
+                }
+                $cek_level=$this->model_toko->update_level_toko2($data,$data_update);
+                if($cek_level>0){
+                        $this->response->send(array("result"=>1,"message"=>"Change sukses"));
+                }else{
+                        $this->response->send(array("result"=>0,"message"=>"Change failed"));
+                }      
+        }
 
-	public function update_level2(){
-		$data['number']	=$this->response->post("level");
-		$data['id_toko']=$_SESSION["bonobo"]["id"];
-		$cek_level=$this->model_toko->cek_status_level_toko($data);
-		$row=$cek_level->row();
-		$data_update=1;
-		if($row->level_2_active > 0){
-			$data_update=0;
-		}
-		$cek_level=$this->model_toko->update_level_toko2($data,$data_update);
-		if($cek_level>0){
-			$this->response->send(array("result"=>1,"message"=>"Change sukses"));
-		}else{
-			$this->response->send(array("result"=>0,"message"=>"Change failed"));
-		}	
-	}
-	public function update_level3(){
-		$data['number']	=$this->response->post("level");
-		$data['id_toko']=$_SESSION["bonobo"]["id"];
-		$cek_level=$this->model_toko->cek_status_level_toko($data);
-		$row=$cek_level->row();
-		$data_update=1;
-		if($row->level_3_active > 0){
-			$data_update=0;
-		}
-		$cek_level=$this->model_toko->update_level_toko3($data,$data_update);
-		if($cek_level>0){
-			$this->response->send(array("result"=>1,"message"=>"Change sukses"));
-		}else{
-			$this->response->send(array("result"=>0,"message"=>"Change failed"));
-		}	
-	}
-	public function update_level4(){
-		$data['number']	=$this->response->post("level");
-		$data['id_toko']=$_SESSION["bonobo"]["id"];
-		$cek_level=$this->model_toko->cek_status_level_toko($data);
-		$row=$cek_level->row();
-		$data_update=1;
-		if($row->level_4_active > 0){
-			$data_update=0;
-		}
-		$cek_level=$this->model_toko->update_level_toko4($data,$data_update);
-		if($cek_level>0){
-			$this->response->send(array("result"=>1,"message"=>"Change sukses"));
-		}else{
-			$this->response->send(array("result"=>0,"message"=>"Change failed"));
-		}	
-	}
-	public function update_level5(){
-		$data['number']	=$this->response->post("level");
-		$data['id_toko']=$_SESSION["bonobo"]["id"];
-		$cek_level=$this->model_toko->cek_status_level_toko($data);
-		$row=$cek_level->row();
-		$data_update=1;
-		if($row->level_5_active > 0){
-			$data_update=0;
-		}
-		$cek_level=$this->model_toko->update_level_toko5($data,$data_update);
-		if($cek_level>0){
-			$this->response->send(array("result"=>1,"message"=>"Change sukses"));
-		}else{
-			$this->response->send(array("result"=>0,"message"=>"Change failed"));
-		}	
-	}
-	
-	public function doStep5Save(){
-		$chkLevel1 = 0;
-		$chkLevel2 = 0;
-		$chkLevel3 = 0;
-		$chkLevel4 = 0;
-		$chkLevel5 = 0;
-		
-		if($this->response->post("chkLevel1") != ""){
-			$chkLevel1 = 1;
-		}
-		if($this->response->post("chkLevel2") != ""){
-			$chkLevel2 = 1;
-		}
-		if($this->response->post("chkLevel3") != ""){
-			$chkLevel3 = 1;
-		}
-		if($this->response->post("chkLevel4") != ""){
-			$chkLevel4 = 1;
-		}
-		if($this->response->post("chkLevel5") != ""){
-			$chkLevel5 = 1;
-		}
-	
-		$Data = array(
-				"level_1_name"=>$this->response->post("txtLevel1"),
-				"level_2_name"=>$this->response->post("txtLevel2"),
-				"level_3_name"=>$this->response->post("txtLevel3"),
-				"level_4_name"=>$this->response->post("txtLevel4"),
-				"level_5_name"=>$this->response->post("txtLevel5"),
-				//"level_1_active"=>$chkLevel1,
-				//"level_2_active"=>$chkLevel2,
-				//"level_3_active"=>$chkLevel3,
-				//"level_4_active"=>$chkLevel4,
-				//"level_5_active"=>$chkLevel5,
-				"create_date"=>date("Y-m-d H:i:s"),
-				"create_user"=>$_SESSION['bonobo']['email'],
-				"update_date"=>date("Y-m-d H:i:s"),
-				"update_user"=>$_SESSION['bonobo']['email'],
-			);
-			
-		$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
-		if($Save){			
-			$this->response->send(array("result"=>1,"message"=>"Data telah disimpan","messageCode"=>0));			
-		}else{
-			$this->response->send(array("result"=>0,"message"=>"Data tidak dapat disimpan","messageCode"=>0));
-		}
-	}
+        public function autocek_level3(){
+                $data['id_toko']=$_SESSION["bonobo"]["id"];
+                $cek_levelonmember=$this->model_toko->cek_member_use3($data);
+                if($cek_levelonmember->num_rows()>0){
+                        $this->response->send(array("result"=>1,"message"=>"use data"));
+                }else{
+                        $this->response->send(array("result"=>0,"message"=>"not use"));
+                }
+        }
+        public function update_level3(){
+                $data['number'] =$this->response->post("level");
+                $data['id_toko']=$_SESSION["bonobo"]["id"];
+                $cek_level=$this->model_toko->cek_status_level_toko($data);
+                $row=$cek_level->row();
+                $data_update=1;
+                if($row->level_3_active > 0){
+                        $data_update=0;
+                }
+                $cek_level=$this->model_toko->update_level_toko3($data,$data_update);
+                if($cek_level>0){
+                        $this->response->send(array("result"=>1,"message"=>"Change sukses"));
+                }else{
+                        $this->response->send(array("result"=>0,"message"=>"Change failed"));
+                }      
+        }
+
+        public function autocek_level4(){
+                $data['id_toko']=$_SESSION["bonobo"]["id"];
+                $cek_levelonmember=$this->model_toko->cek_member_use4($data);
+                if($cek_levelonmember->num_rows()>0){
+                        $this->response->send(array("result"=>1,"message"=>"use data"));
+                }else{
+                        $this->response->send(array("result"=>0,"message"=>"not use"));
+                }
+        }
+        public function update_level4(){
+                $data['number'] =$this->response->post("level");
+                $data['id_toko']=$_SESSION["bonobo"]["id"];
+                $cek_level=$this->model_toko->cek_status_level_toko($data);
+                $row=$cek_level->row();
+                $data_update=1;
+                if($row->level_4_active > 0){
+                        $data_update=0;
+                }
+                $cek_level=$this->model_toko->update_level_toko4($data,$data_update);
+                if($cek_level>0){
+                        $this->response->send(array("result"=>1,"message"=>"Change sukses"));
+                }else{
+                        $this->response->send(array("result"=>0,"message"=>"Change failed"));
+                }      
+        }
+
+        public function autocek_level5(){
+                $data['id_toko']=$_SESSION["bonobo"]["id"];
+                $cek_levelonmember=$this->model_toko->cek_member_use5($data);
+                if($cek_levelonmember->num_rows()>0){
+                        $this->response->send(array("result"=>1,"message"=>"use data"));
+                }else{
+                        $this->response->send(array("result"=>0,"message"=>"not use"));
+                }
+        }
+        public function update_level5(){
+                $data['number'] =$this->response->post("level");
+                $data['id_toko']=$_SESSION["bonobo"]["id"];
+                $cek_level=$this->model_toko->cek_status_level_toko($data);
+                $row=$cek_level->row();
+                $data_update=1;
+                if($row->level_5_active > 0){
+                        $data_update=0;
+                }
+                $cek_level=$this->model_toko->update_level_toko5($data,$data_update);
+                if($cek_level>0){
+                        $this->response->send(array("result"=>1,"message"=>"Change sukses"));
+                }else{
+                        $this->response->send(array("result"=>0,"message"=>"Change failed"));
+                }      
+        }
+
+        public function doStep5Save(){
+                $chkLevel1 = 0;
+                $chkLevel2 = 0;
+                $chkLevel3 = 0;
+                $chkLevel4 = 0;
+                $chkLevel5 = 0;
+               
+                if($this->response->post("chkLevel1") != ""){
+                        $chkLevel1 = 1;
+                }
+                if($this->response->post("chkLevel2") != ""){
+                        $chkLevel2 = 1;
+                }
+                if($this->response->post("chkLevel3") != ""){
+                        $chkLevel3 = 1;
+                }
+                if($this->response->post("chkLevel4") != ""){
+                        $chkLevel4 = 1;
+                }
+                if($this->response->post("chkLevel5") != ""){
+                        $chkLevel5 = 1;
+                }
+       
+                $Data = array(
+                                "level_1_name"=>$this->response->post("txtLevel1"),
+                                "level_2_name"=>$this->response->post("txtLevel2"),
+                                "level_3_name"=>$this->response->post("txtLevel3"),
+                                "level_4_name"=>$this->response->post("txtLevel4"),
+                                "level_5_name"=>$this->response->post("txtLevel5"),
+                                "level_1_active"=>$chkLevel1,
+                                "level_2_active"=>$chkLevel2,
+                                "level_3_active"=>$chkLevel3,
+                                "level_4_active"=>$chkLevel4,
+                                "level_5_active"=>$chkLevel5,
+                                "create_date"=>date("Y-m-d H:i:s"),
+                                "create_user"=>$_SESSION['bonobo']['email'],
+                                "update_date"=>date("Y-m-d H:i:s"),
+                                "update_user"=>$_SESSION['bonobo']['email'],
+                        );
+                       
+                $Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
+                if($Save){                     
+                        $this->response->send(array("result"=>1,"message"=>"Dsdata telah disimpan","messageCode"=>0));                 
+                }else{
+                        $this->response->send(array("result"=>0,"message"=>"Data tidak dapat disimpan","messageCode"=>0));
+                }
+        }
 	
 	public function comboboxCity(){
 		$Cities = $this->model_location->get_cities_by_province($this->response->post("province"))->result();
