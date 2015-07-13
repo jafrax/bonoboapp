@@ -31,18 +31,18 @@ foreach($ShopBanks as $ShopBank){
 		
 	echo"
 				<div class='col s12 m8 l4'>
-					<div class='card-panel grey lighten-5 z-depth-1'>
-						<div class='row valign-wrapper'>
-							<div class='col s4'>
+					<div class='card-panel grey lighten-5 z-depth-1 boderrander'>
+						<div class='row '>
+							<div class='col s12 m6 l4'>
 								<img src='".$BankImage."' alt='' class='circle responsive-img'>
 							</div>
-							<div class='col s10'>
+							<div class='col s12 m6 l8'>
 								<blockquote>
 									<h5>".$ShopBank->bank_name."</h5>
 									<h6>".$ShopBank->acc_name."</h6>
 									<h6>".$ShopBank->acc_no."</h6>
 								</blockquote>
-								<div class='input-field col s6 m12'>
+								<div class='input-field col s12 m12'>
 									<button onclick=ctrlShopStep6.formEdit(".$ShopBank->id."); data-target='popupFormAdd' class='btn-flat waves-effect waves-light modal-trigger' type='button'>
 										<i class='mdi-editor-border-color'></i>
 									</button>
