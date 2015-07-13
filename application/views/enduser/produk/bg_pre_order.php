@@ -81,9 +81,9 @@ echo"
 								$i++;
 								$image = $this->model_produk->get_one_image($row->id)->row();
 								
-								$old_date = $row->end_date;
+								$old_date 			= $row->end_date;
 								$old_date_timestamp = strtotime($old_date);
-								$date = date('d F, Y', $old_date_timestamp);
+								$date 				= date('Y/m/d', $old_date_timestamp);
 
 								if (date('Y-m-d') > $row->end_date) {
 									$kadal = "block";
@@ -109,7 +109,7 @@ echo"
 										<p class='titleproduct'><a href='".base_url()."produk/edit_pre_order/".base64_encode($row->id)."'><b >".$row->name."</b></a></p>
 										</p>
 										<p class='input-field col s12 m12 l6 nolpad'>
-											<input id='tanggal-".$row->id."' name='tanggal-".$row->id."' onchange=javascript:change_date(".$row->id.") type='text' value='".$date."' placeholder='Tanggal Berakhir' class='validate datepicker date-".$row->id."'>
+											<input id='tanggal-".$row->id."' name='tanggal-".$row->id."' onchange=javascript:change_date(".$row->id.") type='text' data-value='".$date."'  placeholder='Tanggal Berakhir' class='validate datepicker date-".$row->id."'>
 											<span class='label red right kadal-".$row->id."' style='display:$kadal'>Kadaluarsa</span>
 										</p>
 
@@ -162,7 +162,7 @@ echo"
 									</div>
 									<div class='card-content'>
 										<span class='card-title activator grey-text text-darken-4'>".$row->name." <i class='mdi-navigation-more-vert right'></i></span>
-										<p><a href='".base_url()."produk/edit/".base64_encode($row->id)."'>Sunting Produk</a></p>
+										<p><a href='".base_url()."produk/edit_pre_order/".base64_encode($row->id)."'>Sunting Produk</a></p>
 									</div>
 									<div class='card-reveal'>
 										<span class='card-title grey-text text-darken-4'>".$row->name." <i class='mdi-navigation-close right'></i></span>

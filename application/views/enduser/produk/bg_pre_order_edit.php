@@ -32,11 +32,12 @@ echo "
 	</div>	
 	<form class='modal-content' id='form_add_kategori'>
 		<input id='id-toko' name='nama' type='hidden' value='".$_SESSION['bonobo']['id']."' >
-		<input id='nama-kategori' name='nama' type='text' class='validate'>
-		<label for='nama-kategori'>Nama kategori <span class='text-red'>*</span></label>	
+		<input id='nama_kategori' name='nama_kategori' type='text' class='validate'>
+		<label for='nama_kategori'>Nama kategori <span class='text-red'>*</span></label>
+		<label class='error error-chosen' for='nama_kategori'></label>	
 	<div class='modal-footer'>
-		<button type='button' class=' modal-action modal-close waves-effect waves-red btn-flat'>TUTUP</button>
-		<button type='button' id='tambah-kategori' class='modal-action modal-close waves-effect waves-red btn-flat'>TAMBAH</button>
+		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>TUTUP</a>
+		<button type='button' onclick=javascript:tambah_kategori() id='tambah-kategori' class='waves-effect waves-red btn-flat'>TAMBAH</a>
 	</div>
 	</form>
 </div>
@@ -50,7 +51,7 @@ echo "
 				<div class='col s12 m12 l9'>
 					<form class='formain'id='form-ready' method='post' action='' enctype='multipart/form-data'>
 						<div class='formhead'>
-							<h2 class='titmain'><b>EDIT BARANG READY STOK</b></h2>
+							<h2 class='titmain'><b>EDIT BARANG PRE ORDER</b></h2>
 						</div>
 						<div class='row formbody'>
 							<div class='col s12'>
@@ -64,10 +65,10 @@ echo "
 								</div>";
 								$old_date 			= $produk->end_date;
 								$old_date_timestamp = strtotime($old_date);
-								$date 				= date('d F, Y', $old_date_timestamp);
+								$date 				= date('Y/m/d', $old_date_timestamp);
 								echo"
 								<div class='input-field col s12'>
-									<input id='date_fin' value='$date' name='tgl_pre_order' type='text' placeholder='Tanggal selesai PRE ORDER' class='datepicker validate'>
+									<input id='date_fin' data-value='$date' name='tgl_pre_order' type='text' placeholder='Tanggal selesai PRE ORDER' class='datepicker validate'>
 									<label for='date_fin'>Tanggal selesai PRE ORDER</label>
 								</div>
 								<div class='col s12 m6' id='tempat-kategori'>

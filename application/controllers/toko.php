@@ -341,6 +341,8 @@ class Toko extends CI_Controller {
 			
 		$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
 		if($Save){
+
+			$_SESSION['bonobo']['name'] = $this->response->post("txtName");
 			if($this->response->post("intAttributeCount") > 0){
 				for($i=1;$i<=$this->response->post("intAttributeCount");$i++){
 					if($this->response->post("txtAttributeName".$i) != "" && $this->response->post("txtAttributeValue".$i) != ""){
