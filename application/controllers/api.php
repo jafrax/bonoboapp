@@ -1209,6 +1209,8 @@ class Api extends CI_Controller {
 		}
 	}
 	
+	
+	
 	public function doShopFollow(){
 		try {
 		
@@ -2244,6 +2246,178 @@ class Api extends CI_Controller {
 				$this->response->send(array("result"=>0,"message"=>"Tidak ada data courier yang di temukan","messageCode"=>5), true);
 			}
 			
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function doCartAdd(){
+		try {
+		
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			if($this->response->post("product") == "" || $this->response->postDecode("product") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Belum ada product yang di kirim","messageCode"=>1), true);
+				return;
+			}
+			
+			$QProduct = $this->db
+						->select("tp.*, tt.id as shop_id")
+						->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
+						->join("tb_toko tt","tt.id = ttcp.toko_id")
+						->where("tp.id",$this->response->postDecode("product"))
+						->get("tb_product tp")
+						->row();
+						
+			if(empty($QProduct)){
+				$this->response->send(array("result"=>0,"message"=>"Product tidak ditemukan","messageCode"=>2), true);
+				return;
+			}
+			
+			if($this->response->post("varians") == "" || $this->response->postDecode("varians") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data varians yang dikirim","messageCode"=>1), true);
+				return;
+			}
+
+			/*
+			*	------------------------------------------------------------------------------
+			*	Menyimpan data cart
+			*	------------------------------------------------------------------------------
+			*/
+			$date = date("Y-m-d H:i:s");
+			
+			$Data = array(
+					"member_id"=>$QUser->id,
+					"toko_id"=>$QProduct->shop_id,
+					"price_total"=>$this->response->postDecode("price_total"),
+					"create_date"=>$date,
+					"create_user"=>$QUser->email,
+					"update_date"=>$date,
+					"update_user"=>$QUser->email,
+				);
+			
+			$Save = $this->db->insert("tb_cart",$Data);
+			if($Save){		
+				/*
+				*	------------------------------------------------------------------------------
+				*	Mengambil data cart yang telah disimpan
+				*	------------------------------------------------------------------------------
+				*/
+				$QCart = $this->db
+							->where("member_id",$QUser->id)
+							->where("toko_id",$QProduct->shop_id)
+							->where("price_total",$this->response->postDecode("price_total"))
+							->where("create_date",$date)
+							->where("create_user",$QUser->email)
+							->where("update_date",$date)
+							->where("update_user",$QUser->email)
+							->get("tb_cart")
+							->row();
+							
+				if(!empty($QCart)){
+					/*
+					*	------------------------------------------------------------------------------
+					*	Simpan data cart products
+					*	------------------------------------------------------------------------------
+					*/
+					for($i=1;$i<=$this->response->postDecode("varians");$i++){
+						$QVarian = $this->db->where("id",$this->response->postDecode("varian".$i))->get("tb_product_varian")->row();
+						
+						if(!empty($QVarian) && $this->response->post("varian".$i."_qty") != "" && $this->response->postDecode("varian".$i."_qty") != ""){
+							$Data = array(
+									"cart_id"=>$QCart->id,
+									"product_varian_id"=>$QVarian->id,
+									"price_product"=>$QProduct->price_base,
+									"quantity"=>$this->response->postDecode("varian".$i."_qty"),
+									"create_date"=>$date,
+									"create_user"=>$QUser->email,
+									"update_date"=>$date,
+									"update_user"=>$QUser->email,
+								);
+							
+							$Save = $this->db->insert("tb_cart_product",$Data);
+						}
+					}
+				}
+			
+				/*
+				*	------------------------------------------------------------------------------
+				*	Mengambil data Cart Products
+				*	------------------------------------------------------------------------------
+				*/
+				$CartProducts = array();
+				$QCartProducts = $this->db
+									->where("tcp.cart_id",$QCart->id)
+									->get("tb_cart_product tcp")
+									->result();
+				
+				foreach($QCartProducts as $QCartProduct){
+					/*
+					*	------------------------------------------------------------------------------
+					*	Mengambil data Cart varian
+					*	------------------------------------------------------------------------------
+					*/
+					$QVarian = $this->db
+									->where("id",$QCartProduct->product_varian_id)
+									->get("tb_product_varian")
+									->row();
+					
+					$Varian = array(
+								"id"=>$QVarian->id,
+								"name"=>$QVarian->name,
+								"stock_qty"=>$QVarian->stock_qty,
+								"product"=>$this->getProductById($QVarian->product_id),
+							);
+					
+					/*
+					*	------------------------------------------------------------------------------
+					*	Membuat data Cart Product
+					*	------------------------------------------------------------------------------
+					*/
+					$CartProduct = array(
+									"id"=>$QCartProduct->id,
+									"price_product"=>$QCartProduct->price_product,
+									"quantity"=>$QCartProduct->quantity,
+									"varian"=>$Varian,
+								);
+					
+					array_push($CartProducts,$CartProduct);
+				}
+				
+				/*
+				*	------------------------------------------------------------------------------
+				*	Membuat data Cart untuk response
+				*	------------------------------------------------------------------------------
+				*/
+				$Cart = array(
+						"id"=>$QCart->id,
+						"price_total"=>$QCart->price_total,
+						"shop"=>$this->getShopById($QCart->toko_id),
+						"cart_products"=>$CartProducts,
+					);
+				
+				$this->response->send(array("result"=>1,"cart"=>$Cart), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Data tidak dapat disimpan","messageCode"=>2), true);
+			}
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
