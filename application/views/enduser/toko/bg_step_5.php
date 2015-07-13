@@ -68,12 +68,12 @@ echo"
 		echo"
 				<input type='hidden' id='txtCustomeCourierCount' name='txtCustomeCourierCount' value='".$no."'>
 				<div id='divCourier".$no."' class='input-field col s12 m12'>
-					<div class='input-field col s8 m6'>
+					<div class='input-field col s12 m12 l6'>
 						<input type='hidden' id='txtCourierId".$no."' name='txtCourierId".$no."'>
 						<input type='text' id='txtCourierName".$no."' name='txtCourierName".$no."'>
 						<label for='txtCourierName".$no."'>Nama Jasa Pengiriman</label>
 					</div>
-					<div class='input-field col s4 m6'>
+					<div class='input-field col s12 m12 l6'>
 						<button type='button' class='waves-effect waves-light btn ' href='javascript:void(0);' onclick=ctrlShopStep7.doCourierSave(".$no.");><i class='material-icons left'>library_add</i>Simpan</button> 
 						<button type='button' class='waves-effect waves-light btn red' href='javascript:void(0);' onclick=ctrlShopStep7.doCourierDelete(".$no.");><i class='mdi-action-delete left'></i>Hapus</button> 
 						<button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail".$no."' href='javascript:void(0);' onclick=ctrlShopStep7.showDetail(".$no."); style='display:none;'><i class='material-icons left'>list</i>Detail</button> 
@@ -84,12 +84,12 @@ echo"
 		foreach($CustomeCouriers as $CustomeCourier){
 			echo"
 				<div id='divCourier".$no."' class='input-field col s12 m12'>
-					<div class='input-field col s8 m6'>
+					<div class='input-field col s12 m12 l6'>
 						<input type='hidden' id='txtCourierId".$no."' name='txtCourierId".$no."'  value='".$CustomeCourier->id."'>
 						<input type='text' id='txtCourierName".$no."' name='txtCourierName".$no."' value='".$CustomeCourier->name."'>
 						<label for='txtCourierName".$no."'>Nama Jasa Pengiriman</label>
 					</div>
-					<div class='input-field col s4 m6'>
+					<div class='input-field col s12 m12 l6'>
 						<button type='button' class='waves-effect waves-light btn ' href='javascript:void(0);' onclick=ctrlShopStep7.doCourierSave(".$no.");><i class='material-icons left'>library_add</i>Simpan</button> 
 						<button type='button' class='waves-effect waves-light btn red' href='javascript:void(0);' onclick=ctrlShopStep7.doCourierDelete(".$no.");><i class='mdi-action-delete left'></i>Hapus</button> 
 						<button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail1' href='javascript:void(0);' onclick=ctrlShopStep7.showDetail(".$CustomeCourier->id.");><i class='material-icons left'>list</i>Detail</button> 

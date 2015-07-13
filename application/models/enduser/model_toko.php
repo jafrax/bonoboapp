@@ -19,6 +19,13 @@ class Model_toko extends CI_Model {
 						->get("tb_toko tt");
 	}
 	
+	public function get_byflag_information($id){
+		return $this->db->select('tt.*')
+						->where("tt.flag_information",1)
+						->where("tt.id",$id)
+						->get("tb_toko tt");
+	}
+	
 	public function get_by_email($email){
 		return $this->db->select('tt.*')
 						->where("tt.email",$email)

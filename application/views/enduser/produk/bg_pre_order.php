@@ -4,7 +4,7 @@ $uri3 = $this->uri->segment(3);
 echo"
 			<div class='col s12 m12 l3'>
 					<ul class='menucontent'>
-						<li><a href='".base_url()."produk/'>READY STOK</a></li>
+						<li><a href='".base_url()."produk/'>READY STOCK</a></li>
 						<li><a class='active' href='".base_url()."produk/pre_order'>PRE ORDER</a></li>
 						<li><a href='".base_url()."produk/atur_kategori'>ATUR KATEGORI</a></li>	
 					</ul>
@@ -62,7 +62,7 @@ echo"
 											<option value='1'>Hapus</option>
 											<option value='2'>Pindah ke Draft</option>
 											<option value='3'>Pindah ke Publish</option>
-											<option value='4'>Pindah ke Ready Stock</option>
+											<option value='4'>Pindah ke Ready Stok</option>
 										</select>
 									</div>
 									<div class='input-field col s12 m4 l3'>
@@ -164,16 +164,17 @@ echo"
 										<span class='card-title activator grey-text text-darken-4'>".$row->name." <i class='mdi-navigation-more-vert right'></i></span>
 										<p><a href='".base_url()."produk/edit/".base64_encode($row->id)."'>Sunting Produk</a></p>
 									</div>
-									<div class='card-reveal'>
-										<span class='card-title grey-text text-darken-4'>".$row->name." <i class='mdi-navigation-close right'></i></span>
+									<div class='card-reveal nolpad'>
+										<span class='card-title grey-text text-darken-4'><i class='mdi-navigation-close right'></i></span>
 										<p>
-											<div class='col s6'><b>SKU</b></div>
-											<div class='col s6'>".$row->sku_no."</div>
-											<div class='col s6'><b>Kategori</b></div>
-											<div class='col s6'>".$row->kategori."</div>
+											<div class='col s12'><b>".$row->name."</b></div>
+											<div class='col s12'><b>SKU</b></div>
+											<div class='col s12'>".$row->sku_no."</div>
+											<div class='col s12'><b>Kategori</b></div>
+											<div class='col s12'>".$row->kategori."</div>
 											<div class='col s12'><b>Tanggal Berakhir</b></div>
 											<div class='input-field col s12'>
-												<label class='date-".$row->id."'>".$row->end_date."</label>
+												<span class='date-".$row->id."'>".$row->end_date."</span>
 												<span class='label red right kadal-".$row->id."' style='display:$kadal'>Kadaluarsa</span>
 											</div>
 										</p>

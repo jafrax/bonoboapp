@@ -1,7 +1,7 @@
 <?php
 
 if($Shop->flag_information == 0){
-	$Button = "<a href='".base_url("toko/step7")."' class='btn waves-effect waves-light red'><i class='mdi-navigation-chevron-left left'></i> Kembali</a><a href='".base_url("toko")."' class='btn waves-effect waves-light'>Simpan<i class='mdi-navigation-chevron-right right'></i></a>";
+	$Button = "<a href='".base_url("toko/step7")."' class='btn waves-effect waves-light red'><i class='mdi-navigation-chevron-left left'></i> Kembali</a><a href='".base_url("toko/complete_step")."' class='btn waves-effect waves-light'>Simpan<i class='mdi-navigation-chevron-right right'></i></a>";
 }else{
 	$Button = "<button class='btn waves-effect waves-light'>Simpan<i class='mdi-navigation-chevron-right right'></i></button>";
 }
@@ -31,22 +31,22 @@ foreach($ShopBanks as $ShopBank){
 		
 	echo"
 				<div class='col s12 m8 l4'>
-					<div class='card-panel grey lighten-5 z-depth-1'>
-						<div class='row valign-wrapper'>
-							<div class='col s4'>
+					<div class='card-panel grey lighten-5 z-depth-1 boderrander'>
+						<div class='row '>
+							<div class='col s12 m6 l4'>
 								<img src='".$BankImage."' alt='' class='circle responsive-img'>
 							</div>
-							<div class='col s10'>
+							<div class='col s12 m6 l8'>
 								<blockquote>
 									<h5>".$ShopBank->bank_name."</h5>
 									<h6>".$ShopBank->acc_name."</h6>
 									<h6>".$ShopBank->acc_no."</h6>
 								</blockquote>
-								<div class='input-field col s6 m12'>
+								<div class='input-field col s12 m12'>
 									<button onclick=ctrlShopStep6.formEdit(".$ShopBank->id."); data-target='popupFormAdd' class='btn-flat waves-effect waves-light modal-trigger' type='button'>
 										<i class='mdi-editor-border-color'></i>
 									</button>
-									<button onclick=ctrlShopStep6.doDelete(".$ShopBank->id."); class='btn-flat waves-effect waves-light' type='button' name='action'>
+									<button onclick=ctrlShopStep8.doDelete(".$ShopBank->id."); class='btn-flat waves-effect waves-light' type='button' name='action'>
 										<i class='mdi-action-delete'></i>
 									</button>
 								</div>

@@ -101,13 +101,27 @@ echo"
 					<li class='menuutama"; if ($uri == 'toko') echo" active"; echo"'>
 						<a "; if ($uri == 'toko') echo"class='active'"; echo" href='".base_url()."'>Toko</a>
 						<ul class='subnemuutama grey darken-1'>
-							<li><a href='".base_url("toko/")."'>Informasi Toko</a></li>
-							<li><a href='".base_url("toko/step2")."'>Atur Privasi</a></li>
-							<li><a href='".base_url("toko/step3")."'>Atur Pengurangan Stok</a></li>
-							<li><a href='".base_url("toko/step4")."'>Metode Transaksi</a></li>
-							<li><a href='".base_url("toko/step5")."'>Pengiriman</a></li>
-							<li><a href='".base_url("toko/step6")."'>Bank</a></li>
-							<li><a href='".base_url("toko/step7")."'>Atur Level Harga</a></li>
+							";
+							if ($_SESSION['bonobo']['flag_information'] == 0){
+								echo "<li><a href='#Informasi-Toko'>Informasi Toko</a></li>
+								<li><a href='#Atur-Privasi'>Atur Privasi</a></li>
+								<li><a href='#Atur-Pengurangan-Stok'>Atur Pengurangan Stok</a></li>
+								<li><a href='#Metode-Transaksi'>Metode Transaksi</a></li>
+								<li><a href='#Atur-Level-Harga'>Atur Level Harga</a></li>
+								<li><a href='#Metode-Konfirmasi'>Metode Konfirmasi</a></li>
+								<li><a href='#Pengiriman'>Pengiriman</a></li>
+								<li><a href='#Bank'>Bank</a></li>";
+							}else{
+								echo "<li><a href='".base_url("toko/")."'>Informasi Toko</a></li>
+								<li><a href='".base_url("toko/step2")."'>Atur Privasi</a></li>
+								<li><a href='".base_url("toko/step3")."'>Atur Pengurangan Stok</a></li>
+								<li><a href='".base_url("toko/step4")."'>Metode Transaksi</a></li>
+								<li><a href='".base_url("toko/step5")."'>Atur Level Harga</a></li>
+								<li><a href='".base_url("toko/step6")."'>Metode Konfirmasi</a></li>
+								<li><a href='".base_url("toko/step7")."'>Pengiriman</a></li>
+								<li><a href='".base_url("toko/step8")."'>Bank</a></li>";
+							}
+							echo "							
 						</ul>
 					</li>
 					<li "; if ($uri == 'anggota') echo"class='active'"; echo"><a "; if ($uri == 'anggota') echo"class='active'"; echo" href='".base_url("anggota")."'>Anggota</a></li>

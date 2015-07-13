@@ -43,7 +43,7 @@ echo "
 </div>
 				<div class='col s12 m12 l3'>
 					<ul class='menucontent'>
-						<li><a class='active' href='".base_url()."produk/'>READY STOK</a></li>
+						<li><a class='active' href='".base_url()."produk/'>READY STOCK</a></li>
 						<li><a href='".base_url()."produk/pre_order'>PRE ORDER</a></li>
 						<li><a href='".base_url()."produk/atur_kategori'>ATUR KATEGORI</a></li>	
 					</ul>
@@ -51,7 +51,7 @@ echo "
 				<div class='col s12 m12 l9'>
 					<form class='formain'id='form-ready' method='post' action='' enctype='multipart/form-data'>
 						<div class='formhead'>
-							<h2 class='titmain'><b>BUAT BARANG BARU READY STOCK</b></h2>
+							<h2 class='titmain'><b>BUAT BARANG BARU READY STOK</b></h2>
 						</div>
 						<div class='row formbody'>
 							<div class='col s12'>
@@ -173,7 +173,7 @@ echo "
 									<label for='harga_pembelian'>Harga Beli</label>
 								</div>
 								<div class='input-field col s12 m12 varsto'>
-									<label for='harga_jual'>Harga Jual <span class='text-red'>*</span></label>
+									<span for='harga_jual'>Harga Jual <span class='text-red'>*</span></span>
 								</div>";
 								if ($level_harga->level_1_active == 1) {$a1 = 'block';}else{$a1 = 'none';}
 								if ($level_harga->level_2_active == 1) {$a2 = 'block';}else{$a2 = 'none';}

@@ -31,9 +31,15 @@ class Toko extends CI_Controller {
 			redirect('index/');
 			return;
 		}
+		
     }
 	
 	public function index(){
+		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
+		$_SESSION['bonobo']['flag_information']=0;
+		if($result>0){
+			$_SESSION['bonobo']['flag_information']=1;
+		}
 		$data["Categories"] = $this->model_category->get()->result();
 		$data["Provinces"] = $this->model_location->get_provinces()->result();
 		$data["Cities"] = $this->model_location->get_cities()->result();
@@ -45,6 +51,10 @@ class Toko extends CI_Controller {
 	}
 	
 	public function step2(){
+		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
+		if($result>0){
+			$_SESSION['bonobo']['flag_information']=1;
+		}
 		if(!$_POST){
 			$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 		
@@ -61,6 +71,10 @@ class Toko extends CI_Controller {
 	}
 	
 	public function step3(){
+		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
+		if($result>0){
+			$_SESSION['bonobo']['flag_information']=1;
+		}
 		if(!$_POST){
 			$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 			
@@ -77,6 +91,10 @@ class Toko extends CI_Controller {
 	}
 	
 	public function step4(){
+		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
+		if($result>0){
+			$_SESSION['bonobo']['flag_information']=1;
+		}
 		if(!$_POST){
 			$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 			
@@ -105,6 +123,10 @@ class Toko extends CI_Controller {
 	}
 	
 	public function step7(){
+		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
+		if($result>0){
+			$_SESSION['bonobo']['flag_information']=1;
+		}
 		if(!$_POST){
 			$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 			$data["Couriers"] = $this->model_courier->get()->result();
@@ -176,6 +198,10 @@ class Toko extends CI_Controller {
 	}
 	
 	public function step8(){
+		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
+		if($result>0){
+			$_SESSION['bonobo']['flag_information']=1;
+		}
 		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 		$data["Banks"] = $this->model_bank->get()->result();
 		$data["ShopBanks"] = $this->model_toko_bank->get_by_shop($_SESSION["bonobo"]["id"])->result();
@@ -184,6 +210,10 @@ class Toko extends CI_Controller {
 	}
 	
 	public function step5(){
+		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
+		if($result>0){
+			$_SESSION['bonobo']['flag_information']=1;
+		}
                 $data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
                 $data['status1']=0;
                 $data['status2']=0;
@@ -301,13 +331,16 @@ class Toko extends CI_Controller {
 				$Location = null;
 			}
 		}
-		
+		$UploadPath    = 'assets/pic/shop/';
+			$Upload = $this->template->upload_picture($UploadPath,"txtShopLogoFile");
 		if(!empty($_FILES['txtShopLogoFile']) && isset($_FILES['txtShopLogoFile']['name']) && !empty($_FILES['txtShopLogoFile']['name'])){
 			$UploadPath    = 'assets/pic/shop/';
 			$Upload = $this->template->upload_picture($UploadPath,"txtShopLogoFile");
 			
 			if($Upload == 'error'){
 				$Upload = "";
+			}else{
+				$_SESSION['bonobo']['image'] = $Upload;
 			}
 			
 			$Data = array(
@@ -366,7 +399,7 @@ class Toko extends CI_Controller {
 					}
 				}
 			}
-			$_SESSION['bonobo']['image'] = $Upload;
+			
 			$this->response->send(array("result"=>1,"message"=>"Informasi toko telah disimpan : ","messageCode"=>1));
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Informasi tidak dapat disimpan","messageCode"=>1));
@@ -822,6 +855,10 @@ class Toko extends CI_Controller {
 	}
 
 	function step6(){
+		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
+		if($result>0){
+			$_SESSION['bonobo']['flag_information']=1;
+		}
 		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 
 		if ($_POST) {
@@ -834,6 +871,15 @@ class Toko extends CI_Controller {
 		}
 
 		$this->template->bonobo_step("enduser/toko/bg_konfirmasi",$data);
+	}
+	
+	function complete_step(){
+		$this->db->where('id',$_SESSION['bonobo']['id'])->set('flag_information',1)->update('tb_toko');
+		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
+		if($result>0){
+			$_SESSION['bonobo']['flag_information']=1;
+		}
+		redirect('toko');
 	}
 }
 

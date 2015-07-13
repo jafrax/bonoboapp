@@ -42,7 +42,7 @@ echo "
 </div>
 				<div class='col s12 m12 l3'>
 					<ul class='menucontent'>
-						<li><a class='active' href='".base_url()."produk/'>READY STOK</a></li>
+						<li><a class='active' href='".base_url()."produk/'>READY STOCK</a></li>
 						<li><a href='".base_url()."produk/pre_order'>PRE ORDER</a></li>
 						<li><a href='".base_url()."produk/atur_kategori'>ATUR KATEGORI</a></li>	
 					</ul>
@@ -50,7 +50,7 @@ echo "
 				<div class='col s12 m12 l9'>
 					<form class='formain'id='form-ready' method='post' action='' enctype='multipart/form-data'>
 						<div class='formhead'>
-							<h2 class='titmain'><b>EDIT BARANG READY STOCK</b></h2>
+							<h2 class='titmain'><b>EDIT BARANG READY STOK</b></h2>
 						</div>
 						<div class='row formbody'>
 							<div class='col s12'>
@@ -65,7 +65,7 @@ echo "
 								<div class='col s12 m6' id='tempat-kategori'>
 									<label>Kategori Barang <span class='text-red'>*</span></label>
 									<label class='error error-chosen' for='select-kategori'></label>
-									<select name='kategori' id='select-kategori' required>
+									<select class='chosen-select' name='kategori' id='select-kategori' required>
 										<option value='' disabled selected>Pilih Kategori Barang</option>";
 										foreach ($kategori->result() as $row_ktgri) {
 											$select = '';
@@ -182,7 +182,7 @@ echo "
 									if ($varian_null->num_rows() == 0) {
 										foreach ($varian->result() as $row_var) {
 											echo"<li class='varsto' id='li_edit_varian_".$row_var->id."'>
-													<div class='input-field col s12 m5'>
+													<div class='input-field col s12 m5 nolmar'>
 														<input id='varian' name='nama_edit_varian_".$row_var->id."' value='".$row_var->name."' type='text' placeholder='Ex : Merah' class='validate'>
 														<label for='varian'>Varian <span></span></label>
 													</div>
@@ -200,7 +200,7 @@ echo "
 										}
 									}else{
 									echo"<li class='varsto' id='li_varian_1'>
-											<div class='input-field col s12 m5'>
+											<div class='input-field col s12 m5 nolmar'>
 												<input id='varian' name='nama_varian_1' type='text' placeholder='Misal: Pcs' class='validate'>
 												<label for='varian'>Varian <span></span></label>
 											</div>
@@ -221,7 +221,7 @@ echo "
 									echo"
 								</ul>
 								<ul class='col s12 m12 cek-stok' style='display:$cek_stok'>								
-									<li class='input-field col s12 m12'>
+									<li class='input-field col s12 m12 nolmar'>
 										<a class='btn-flat left' onclick=javascript:addVarian()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
 									</li>
 								</ul>
@@ -244,7 +244,7 @@ echo "
 									<label for='harga_pembelian'>Harga Beli</label>
 								</div>
 								<div class='input-field col s12 m12 varsto'>
-									<label for='harga_jual'>Harga Jual <span class='text-red'>*</span></label>
+									<span for='harga_jual'>Harga Jual <span class='text-red'>*</span></span>
 								</div>";
 								if ($level_harga->level_1_active == 1) {$a1 = 'block';}else{$a1 = 'none';}
 								if ($level_harga->level_2_active == 1) {$a2 = 'block';}else{$a2 = 'none';}

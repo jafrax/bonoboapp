@@ -161,9 +161,9 @@ function addVarian() {
 function boxVarian(id) {
   var stok      = $('#stok').val();
   if (stok == 1) {
-      var varian = "<li class='varsto' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5'>"
+      var varian = "<li class='varsto' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 nolmar'>"
+                      +"<span for='varian'>Varian</span>"
                       +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' placeholder='Ex : Merah' class='validate'>"
-                      +"<label for='varian'>Varian <span></span></label>"
                     +"</div>"
                     +"<div class='input-field col s11 m5 tersedia'>"
                         +"<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>"
@@ -177,9 +177,9 @@ function boxVarian(id) {
                     +"</div>"
                     +"</li>";
    }else if (stok == 0) {
-      var varian = "<li class='varsto' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5'>"
+      var varian = "<li class='varsto' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 nolmar'>"
+                      +"<span for='varian'>Varian</span>"
                       +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' placeholder='Ex : Merah' class='validate'>"
-                      +"<label for='varian'>Varian <span></span></label>"
                     +"</div>"
                     +"<div class='input-field col s11 m5 tersedia' style='display:none'>"
                         +"<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>"
