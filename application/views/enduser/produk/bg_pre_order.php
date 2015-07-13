@@ -164,16 +164,17 @@ echo"
 										<span class='card-title activator grey-text text-darken-4'>".$row->name." <i class='mdi-navigation-more-vert right'></i></span>
 										<p><a href='".base_url()."produk/edit/".base64_encode($row->id)."'>Sunting Produk</a></p>
 									</div>
-									<div class='card-reveal'>
-										<span class='card-title grey-text text-darken-4'>".$row->name." <i class='mdi-navigation-close right'></i></span>
+									<div class='card-reveal nolpad'>
+										<span class='card-title grey-text text-darken-4'><i class='mdi-navigation-close right'></i></span>
 										<p>
-											<div class='col s6'><b>SKU</b></div>
-											<div class='col s6'>".$row->sku_no."</div>
-											<div class='col s6'><b>Kategori</b></div>
-											<div class='col s6'>".$row->kategori."</div>
+											<div class='col s12'><b>".$row->name."</b></div>
+											<div class='col s12'><b>SKU</b></div>
+											<div class='col s12'>".$row->sku_no."</div>
+											<div class='col s12'><b>Kategori</b></div>
+											<div class='col s12'>".$row->kategori."</div>
 											<div class='col s12'><b>Tanggal Berakhir</b></div>
 											<div class='input-field col s12'>
-												<label class='date-".$row->id."'>".$row->end_date."</label>
+												<span class='date-".$row->id."'>".$row->end_date."</span>
 												<span class='label red right kadal-".$row->id."' style='display:$kadal'>Kadaluarsa</span>
 											</div>
 										</p>

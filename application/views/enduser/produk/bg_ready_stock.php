@@ -191,13 +191,14 @@ echo"
 										<span class='card-title activator grey-text text-darken-4'>".$row->name." <i class='mdi-navigation-more-vert right'></i></span>
 										<p><a href='".base_url()."produk/edit/".base64_encode($row->id)."'>Sunting Produk</a></p>
 									</div>
-									<div class='card-reveal'>
-										<span class='card-title grey-text text-darken-4'>".$row->name." <i class='mdi-navigation-close right'></i></span>
+									<div class='card-reveal nolpad'>
+										<span class='card-title grey-text text-darken-4'><i class='mdi-navigation-close right'></i></span>
 										<p>
-											<div class='col s6'><b>SKU</b></div>
-											<div class='col s6'>".$row->sku_no."</div>
-											<div class='col s6'><b>Kategori</b></div>
-											<div class='col s6'>".$row->kategori."</div>
+											<div class='col s12'><b>".$row->name."</b></div>
+											<div class='col s12'><b>SKU</b></div>
+											<div class='col s12'>".$row->sku_no."</div>
+											<div class='col s12'><b>Kategori</b></div>
+											<div class='col s12'>".$row->kategori."</div>
 											<div class='col s12'><b>Stok</b></div>
 											<div class='col s12'>";
 											if ($row->stock_type_detail == 0) {
@@ -207,7 +208,7 @@ echo"
 													<p class='input-field col s12 m12 l12 nolpad'>
 														<input onkeyup=javascript:change_stock(".$row_stok->id.") type='text' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate numbersOnly stok-".$row_stok->id."'>";
 														if ($row_stok->name != 'null') {
-															echo "<label for='stok'>".$row_stok->name."</label>";
+															echo "<span for='stok'>".$row_stok->name."</span>";
 														}
 														
 														if ($row_stok->stock_qty == 0) {
@@ -227,12 +228,12 @@ echo"
 															echo "
 															<div class='input-field col s12 m12'>
 																
-																<label for='varian'><b class='label-stock'>".$row_stok->name."</b> Stok : <span class='text-green'>selalu tersedia</span></label>
+																<span for='varian'><b class='label-stock'>".$row_stok->name."</b> Stok : <span class='text-green'>selalu tersedia</span></span>
 															</div>";
 														}else{
 															echo "
 															<div class='input-field col s12 m12'>																
-																<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
+																<span for='varian'>Stok : <span class='text-green'>selalu tersedia</span></span>
 															</div>";
 														}
 
