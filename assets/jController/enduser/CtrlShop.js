@@ -3,7 +3,7 @@ function CtrlShopStep1(){
 	this.loadComboboxCity = loadComboboxCity;
 	this.loadComboboxKecamatan = loadComboboxKecamatan;
 	
-	var formStep1;
+	var formStep1,formStep1JQuery;
 	var intAttributeCount;
 	var divCity, divKecamatan, divAttributes;
 	var imgShopLogo, txtShopLogoFile, aShopLogoDelete;
@@ -13,10 +13,12 @@ function CtrlShopStep1(){
 	function init(){
 		initComponent();
 		initEventlistener();
+		initValidation();
 	}
 	
 	function initComponent(){
 		formStep1 = $hs("formStep1");
+		formStep1JQuery = $("#formStep1");
 		divCity = $("#divCity");
 		divKecamatan = $("#divKecamatan");
 		divAttributes = $("#divAttributes");
@@ -73,7 +75,9 @@ function CtrlShopStep1(){
 	
 	function doNext(){
 			var formData = new FormData($hs("formStep1"));
-			
+		if(!formStep1JQuery.valid()){
+			return false;
+		}else{
 			$.ajax({
 				type: 'POST',
 				data: formData,
@@ -90,6 +94,52 @@ function CtrlShopStep1(){
 					}
 				}
 			});
+		}
+	}
+	
+	function initValidation(){
+		formStep1JQuery.validate({
+			rules:{
+				txtName: {
+					required: true,
+					minlength:3,
+					maxlength:15,
+				},
+				txtTagname: {
+					required: true,
+					minlength:3,
+					maxlength:15,
+				},
+				cmbProvince: {
+					required: true,
+				},
+				cmbCity: {
+					required: true,
+				},
+				cmbKecamatan: {
+					required: true,
+				},
+			},
+			messages: {
+				txtName:{
+					required: message_alert("Harus diisi !"),
+				},
+				txtTagname:{
+					required: message_alert("Harus diisi !"),
+					minlength: message_alert("Masukkan minimal 3 karakter"),
+					maxlength: message_alert("Masukkan maksimal 15 karakter"),
+				},
+				cmbProvince:{
+					required: message_alert("Harus diisi !"),
+				},
+				cmbCity:{
+					required: message_alert("Harus diisi !"),
+				},
+				cmbKecamatan:{
+					required: message_alert("Harus diisi !"),
+				},
+			}
+		});
 	}
 	
 	function doSave(){
@@ -125,7 +175,9 @@ function CtrlShopStep1(){
 			valid = false;
 		}
 		
-		if(valid){
+		if(!formStep1JQuery.valid()){
+			return false;
+		}else{
 			var formData = new FormData($hs("formStep1"));
 			
 			$.ajax({
@@ -138,7 +190,8 @@ function CtrlShopStep1(){
 				success: function(result) {
 					var response = JSON.parse(result);
 					if(response.result == 1){
-						$hs_notif("#notifStep1",response.message);
+						alert('tes data');
+						//$hs_notif("#notifStep1",response.message);
 					}else{
 						$hs_notif("#notifStep1",response.message);
 					}
@@ -678,22 +731,21 @@ function CtrlShopStep5(){
                 }
                 setInterval(level3_autocek, 3000);
                 function level3_autocek(){
-                                        $.ajax({
-                                                type: 'POST',
-                                                url: base_url+'toko/autocek_level3',
-                                                success: function(result) {
-                                                        var response = JSON.parse(result);
-                                                        if (response.result == 0) {
-                                                                $('[id="chkLevel3"]').prop('disabled', false);
-                                                                $('[id="labelLevel3"]').prop('hidden', true);
-                                                        }else{
-                                                                $('[id="chkLevel3"]').prop('disabled', true);
-                                                                $('[id="labelLevel3"]').prop('hidden', false);
- 
-                                                        }
-                                                }
-                                        });
+                    $.ajax({
+                        type: 'POST',
+                        url: base_url+'toko/autocek_level3',
+                        success: function(result) {
+                            var response = JSON.parse(result);
+                            if (response.result == 0) {
+                                $('[id="chkLevel3"]').prop('disabled', false);
+                                $('[id="labelLevel3"]').prop('hidden', true);
+                            }else{
+                                $('[id="chkLevel3"]').prop('disabled', true);
+								$('[id="labelLevel3"]').prop('hidden', false);
+                            }
                         }
+                    });
+                }
                 setInterval(level4_autocek, 3000);
                 function level4_autocek(){
                    $.ajax({
@@ -744,5 +796,4 @@ function CtrlShopStep5(){
                         }
                 });
         }
-        //end update on next botton click
 }

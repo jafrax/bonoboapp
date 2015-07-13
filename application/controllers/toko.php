@@ -301,7 +301,8 @@ class Toko extends CI_Controller {
 				$Location = null;
 			}
 		}
-		
+		$UploadPath    = 'assets/pic/shop/';
+			$Upload = $this->template->upload_picture($UploadPath,"txtShopLogoFile");
 		if(!empty($_FILES['txtShopLogoFile']) && isset($_FILES['txtShopLogoFile']['name']) && !empty($_FILES['txtShopLogoFile']['name'])){
 			$UploadPath    = 'assets/pic/shop/';
 			$Upload = $this->template->upload_picture($UploadPath,"txtShopLogoFile");
