@@ -1,6 +1,69 @@
 <?php
-
+if ($_SESSION['bonobo']['flag_information'] == 0){
 echo "
+	<div class='col s12 m12 l12'>
+		<ul class='menucontent row'>
+			<li class='col s12 m6 l3 langkah ".($this->uri->segment(2) == "" ? "active" : "")."'>
+				<a href='#Informasi-Toko'>
+					<div class='card-panel '>
+						<span class='white-text'>1. INFORMASI TOKO</span><i class='mdi-hardware-keyboard-arrow-right right'></i>
+					</div>
+				</a>
+			</li>
+			<li class='col s12 m6 l3 langkah ".($this->uri->segment(2) == "step2" ? "active" : "")."'>
+				<a href='#Atur-Privasi'>
+					<div class='card-panel '>
+						<span class='white-text'>2. ATUR PRIVASI</span><i class='mdi-hardware-keyboard-arrow-right right'></i>
+					</div>
+				</a>
+			</li>
+			<li class='col s12 m6 l3 langkah ".($this->uri->segment(2) == "step3" ? "active" : "")."'>
+				<a href='#Atur-Pengurangan-Stok'>
+					<div class='card-panel '>
+						<span class='white-text'>3. ATUR PENGURANGAN STOK</span><i class='mdi-hardware-keyboard-arrow-right right'></i>
+					</div>
+				</a>
+			</li>
+			<li class='col s12 m6 l3 langkah ".($this->uri->segment(2) == "step4" ? "active" : "")."'>
+				<a href='#Metode-Transaksi'>
+					<div class='card-panel '>
+						<span class='white-text'>4. METODE TRANSAKSI</span><i class='mdi-hardware-keyboard-arrow-right right'></i>
+					</div>
+				</a>
+			</li>
+			<li class='col s12 m6 l3 langkah ".($this->uri->segment(2) == "step5" ? "active" : "")."'>
+				<a href='#Atur-Level-Harga'>
+					<div class='card-panel '>
+						<span class='white-text'>5. ATUR LEVEL HARGA</span><i class='mdi-hardware-keyboard-arrow-right right'></i>
+					</div>
+				</a>
+			</li>
+			<li class='col s12 m6 l3 langkah ".($this->uri->segment(2) == "step6" ? "active" : "")."'>
+				<a href='#Metode-Konfirmasi'>
+					<div class='card-panel '>
+						<span class='white-text'>6. METODE KONFIRMASI</span><i class='mdi-hardware-keyboard-arrow-right right'></i>
+					</div>
+				</a>
+			</li>
+			<li class='col s12 m6 l3 langkah ".($this->uri->segment(2) == "step7" ? "active" : "")."'>
+				<a href='#Pengiriman'>
+					<div class='card-panel '>
+						<span class='white-text'>7. PENGIRIMAN</span><i class='mdi-hardware-keyboard-arrow-right right'></i>
+					</div>
+				</a>
+			</li>			
+			<li class='col s12 m6 l3 langkah ".($this->uri->segment(2) == "step8" ? "active" : "")."'>
+				<a href='#Bank'>
+					<div class='card-panel '>
+						<span class='white-text'>8. BANK</span><i class='mdi-hardware-keyboard-arrow-right right'></i>
+					</div>
+				</a>
+			</li>
+			
+		</ul>
+	</div>
+";}else{
+    echo "
 	<div class='col s12 m12 l12'>
 		<ul class='menucontent row'>
 			<li class='col s12 m6 l3 langkah ".($this->uri->segment(2) == "" ? "active" : "")."'>
@@ -63,4 +126,5 @@ echo "
 		</ul>
 	</div>
 ";
+}
 ?>
