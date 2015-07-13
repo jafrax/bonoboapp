@@ -233,6 +233,64 @@ function CtrlShopStep1(){
 		imgShopLogo.src = base_url+"assets/image/img_default_photo.jpg";
 	}
 }
+function CtrlShopStep4(){
+	this.init = init;
+	
+	var btnSave;
+	
+	function init(){
+		initComponent();
+		initEventlistener();
+		initActive();
+	}
+	
+	function initComponent(){
+		btnSave = $hs("btnSave");
+		formStep4JQuery = $("#formStep4");
+		formStep4 = $hs("formStep4");
+	}
+	function initEventlistener(){	
+		btnSave.onclick = function(){
+			doSave();
+		};
+	}
+	
+	function initActive(){
+	$('[name="chkPaymentCash"]').change(function () {
+                if (this.checked) {
+                    $('[name="chkPaymentCash2"]').val(1);
+                } else {
+                    $('[name="chkPaymentCash2"]').val(0);
+                }
+            });
+	$('[name="chkPaymentTransfer"]').change(function () {
+                if (this.checked) {
+                    $('[name="chkPaymentTransfer2"]').val(1);
+                } else {
+                    $('[name="chkPaymentTransfer2"]').val(0);
+                }
+        });
+	}
+	
+	function doSave(){
+		$.ajax({
+			type: 'POST',
+			data: $('#formstep4').serialize(),
+			url: base_url+'toko/step4save/',
+			success: function(result) {
+				var response = JSON.parse(result);
+				if(response.result == 0){
+					 Materialize.toast(response.message, 4000);
+				}else{
+					window.location.href = base_url+'toko/step5';  
+				}
+			}
+		});
+		
+	}
+
+}
+
 
 function CtrlShopStep7(){
 	this.init = init;

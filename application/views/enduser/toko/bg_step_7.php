@@ -41,7 +41,7 @@ echo"
                         <h6 style='display:none;'>Level 2</h6>
                         <input name='txtLevel22' type='text' class='validate' value='".($Shop->level_2_name)."' ".($Shop->level_2_active == 0 ? "disabled" : "")." placeholder='Level 2' >
                         <input id='txtLevel2' name='txtLevel2' type='hidden' class='validate' value='".($Shop->level_2_name)."' placeholder='Level 2' >
-                        <label id='labelLevel2' for='chkLevel2' ".($status2 == 0 ? "hidden" : "").">Level Harga sedang digunakan</label>
+                        <span id='labelLevel2' for='chkLevel2' ".($status2 == 0 ? "hidden" : "").">Level Harga sedang digunakan</span>
                     </div>
                 </div>
                 <div class='row formbody nolmar'>                                                     
@@ -59,7 +59,7 @@ echo"
                             <h6 style='display:none;'>Level 3</h6>
                             <input name='txtLevel33' type='text' class='validate' value='".$Shop->level_3_name."' ".($Shop->level_3_active == 0 ? "disabled" : "")." placeholder='Level 3'>
                             <input id='txtLevel3' name='txtLevel3' type='hidden' class='validate' value='".($Shop->level_3_name)."' placeholder='Level 3' >
-                            <label id='labelLevel3' for='chkLevel3' ".($status3 == 0 ? "hidden" : "").">Level Harga sedang digunakan</label>
+                            <span id='labelLevel3' for='chkLevel3' ".($status3 == 0 ? "hidden" : "").">Level Harga sedang digunakan</span>
                         </div>
                     </div>
                     <div class='row formbody nolmar'>                                                     
@@ -77,7 +77,7 @@ echo"
                                 <h6 style='display:none;'>Level 4</h6>
                                 <input name='txtLevel44' type='text' class='validate' value='".$Shop->level_4_name."' ".($Shop->level_4_active == 0 ? "disabled" : "")." placeholder='Level 4'>
                                 <input id='txtLevel4' name='txtLevel4' type='hidden' class='validate' value='".($Shop->level_4_name)."' placeholder='Level 4' >
-                                <label id='labelLevel4' for='chkLevel4' ".($status4 == 0 ? "hidden" : "").">Level Harga sedang digunakan</label>
+                                <span id='labelLevel4' for='chkLevel4' ".($status4 == 0 ? "hidden" : "").">Level Harga sedang digunakan</span>
                             </div>
                         </div>
                         <div class='row formbody'>                                                     
@@ -95,13 +95,13 @@ echo"
                             <h6 style='display:none;'>Level 5</h6>
                             <input name='txtLevel55' type='text' class='validate' value='".($Shop->level_5_name)."' ".($Shop->level_5_active == 0 ? "disabled" : "")." placeholder='Level 5'>
                             <input id='txtLevel5' name='txtLevel5' type='hidden' class='validate' value='".($Shop->level_5_name)."' placeholder='Level 5' >
-                            <label id='labelLevel5' for='chkLevel5' ".($status5 == 0 ? "hidden" : "").">Level Harga sedang digunakan</label>
+                            <span id='labelLevel5' for='chkLevel5' ".($status5 == 0 ? "hidden" : "").">Level Harga sedang digunakan</span>
                         </div>
                      </div>
                 <div class='row formbody'>
                     <a href='".base_url("toko/step4")."' class='btn waves-effect waves-light red'><i class='mdi-navigation-chevron-left left'></i> Kembali</a>
                     <button id='btnSave' class='btn waves-effect waves-light' type='button'>Selanjutnya<i class='mdi-navigation-chevron-right right'></i></button>
-                    <label id='notifStep7' style='display:none;'></label>
+                    <span id='notifStep7' style='display:none;'></span>
                 </div>
             </form>
         </div>

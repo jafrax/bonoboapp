@@ -46,110 +46,6 @@ class Api extends CI_Controller {
 			}else{
 				$UserImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
 			}
-				
-			/*
-			*	------------------------------------------------------------------------------
-			*	get data member attribute
-			*	------------------------------------------------------------------------------
-			*/
-			
-			$QAttributes = $this->db
-					->where("tma.member_id",$QUser->id)
-					->get("tb_member_attribute tma")
-					->result();
-			
-			$Attributes = array();
-			foreach($QAttributes as $QAttribute){
-				$Attribute = array(
-						"id"=>$QAttribute->id,
-						"name"=>$QAttribute->name,
-						"value"=>$QAttribute->value,
-					);
-					
-				array_push($Attributes,$Attribute);
-			}
-			
-			/*
-			*	------------------------------------------------------------------------------
-			*	get data member banks
-			*	------------------------------------------------------------------------------
-			*/
-			
-			$QBanks = $this->db
-					->select("tmb.id, tmb.acc_name as acc_name, tmb.acc_no as acc_no, mb.id as bank_id, mb.name as bank_name")
-					->join("ms_bank mb","tmb.bank_id = mb.id")
-					->where("tmb.member_id",$QUser->id)
-					->get("tb_member_bank tmb")
-					->result();
-			
-			$Banks = array();
-			foreach($QBanks as $QBank){
-				if(@getimagesize(base_url("assets/pic/bank/".$QBank->image))){
-					$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
-				}else{
-					$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
-				}
-			
-				$Bank = array(
-						"id"=>$QBank->id,
-						"acc_name"=>$QBank->acc_name,
-						"acc_no"=>$QBank->acc_no,
-						"bank_name"=>$QBank->bank_name,
-						"image_url"=>$BankImageUrl,
-					);
-					
-				array_push($Banks,$Bank);
-			}
-			
-			/*
-			*	------------------------------------------------------------------------------
-			*	get data member locations
-			*	------------------------------------------------------------------------------
-			*/
-			
-			$QLocations = $this->db
-					->select("tml.*, ml.kelurahan, ml.kecamatan, ml.city, ml.province, ml.postal_code, ml.id as location_id")
-					->join("ms_location ml","tml.location_id = ml.id")
-					->where("tml.member_id",$QUser->id)
-					->get("tb_member_location tml")
-					->result();
-			
-			$Locations = array();
-			foreach($QLocations as $QLocation){
-				$Location = array(
-						"id"=>$QLocation->id,
-						"location_id"=>$QLocation->location_id,
-						"name"=>$QLocation->name,
-						"address"=>$QLocation->address,
-						"phone"=>$QLocation->phone,
-						"postal"=>$QLocation->postal,
-						"kelurahan"=>$QLocation->kelurahan,
-						"kecamatan"=>$QLocation->kecamatan,
-						"city"=>$QLocation->city,
-						"province"=>$QLocation->province,
-					);
-					
-				array_push($Locations,$Location);
-			}
-			
-			/*
-			*	------------------------------------------------------------------------------
-			*	get data member product favorite
-			*	------------------------------------------------------------------------------
-			*/
-			
-			$QFavorites = $this->db
-					->where("tf.member_id",$QUser->id)
-					->get("tb_favorite tf")
-					->result();
-			
-			$Favorites = array();
-			foreach($QFavorites as $QFavorite){
-				$Favorite = $this->getProductById($QFavorite->product_id,$QUser->id);
-				if(!empty($Favorite)){
-					array_push($Favorites,$Favorite);
-				}
-			}
 			
 			/*
 			*	------------------------------------------------------------------------------
@@ -162,13 +58,7 @@ class Api extends CI_Controller {
 					"name"=>$QUser->name,
 					"email"=>$QUser->email,
 					"phone"=>$QUser->phone,
-					"count_shop"=>10,
-					"count_product"=>sizeOf($Favorites),
 					"image_url"=>$UserImageUrl,
-					"contacts"=>$Attributes,
-					"banks"=>$Banks,
-					"locations"=>$Locations,
-					"products"=>$Favorites,
 				);
 				
 			return $User;
@@ -322,6 +212,7 @@ class Api extends CI_Controller {
 				
 		return $Product;
 	}
+	
 	
 	
 	public function index(){
@@ -671,6 +562,158 @@ class Api extends CI_Controller {
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Akun tidak terdaftar.","messageCode"=>4), false);
 			}
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function getUserData(){
+		try {
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>3), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	get data member attribute
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$QAttributes = $this->db
+					->where("tma.member_id",$QUser->id)
+					->get("tb_member_attribute tma")
+					->result();
+			
+			$Attributes = array();
+			foreach($QAttributes as $QAttribute){
+				$Attribute = array(
+						"id"=>$QAttribute->id,
+						"name"=>$QAttribute->name,
+						"value"=>$QAttribute->value,
+					);
+					
+				array_push($Attributes,$Attribute);
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	get data member banks
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$QBanks = $this->db
+					->select("tmb.id, tmb.acc_name as acc_name, tmb.acc_no as acc_no, mb.id as bank_id, mb.name as bank_name")
+					->join("ms_bank mb","tmb.bank_id = mb.id")
+					->where("tmb.member_id",$QUser->id)
+					->get("tb_member_bank tmb")
+					->result();
+			
+			$Banks = array();
+			foreach($QBanks as $QBank){
+				if(@getimagesize(base_url("assets/pic/bank/".$QBank->image))){
+					$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
+				}else{
+					$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+				}
+			
+				$Bank = array(
+						"id"=>$QBank->id,
+						"acc_name"=>$QBank->acc_name,
+						"acc_no"=>$QBank->acc_no,
+						"bank_name"=>$QBank->bank_name,
+						"image_url"=>$BankImageUrl,
+					);
+					
+				array_push($Banks,$Bank);
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	get data member locations
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$QLocations = $this->db
+					->select("tml.*, ml.kelurahan, ml.kecamatan, ml.city, ml.province, ml.postal_code, ml.id as location_id")
+					->join("ms_location ml","tml.location_id = ml.id")
+					->where("tml.member_id",$QUser->id)
+					->get("tb_member_location tml")
+					->result();
+			
+			$Locations = array();
+			foreach($QLocations as $QLocation){
+				$Location = array(
+						"id"=>$QLocation->id,
+						"location_id"=>$QLocation->location_id,
+						"name"=>$QLocation->name,
+						"address"=>$QLocation->address,
+						"phone"=>$QLocation->phone,
+						"postal"=>$QLocation->postal,
+						"kelurahan"=>$QLocation->kelurahan,
+						"kecamatan"=>$QLocation->kecamatan,
+						"city"=>$QLocation->city,
+						"province"=>$QLocation->province,
+					);
+					
+				array_push($Locations,$Location);
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	get data member product favorite
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$QFavorites = $this->db
+					->where("tf.member_id",$QUser->id)
+					->get("tb_favorite tf")
+					->result();
+			
+			$Favorites = array();
+			foreach($QFavorites as $QFavorite){
+				$Favorite = $this->getProductById($QFavorite->product_id,$QUser->id);
+				if(!empty($Favorite)){
+					array_push($Favorites,$Favorite);
+				}
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	get data member shops
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$QShopMembers = $this->db
+					->where("ttm.member_id",$QUser->id)
+					->get("tb_toko_member ttm")
+					->result();
+			
+			$Shops = array();
+			foreach($QShopMembers as $QShopMember){
+				$Shop = $this->getShopById($QShopMember->toko_id);
+				if(!empty($Shop)){
+					array_push($Shops,$Shop);
+				}
+			}
+			
+			$this->response->send(array("result"=>1,"contacts"=>$Attributes, "banks"=>$Banks, "locations"=>$Locations, "products"=>$Favorites,"shops"=>$Shops), true);
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
@@ -1209,6 +1252,8 @@ class Api extends CI_Controller {
 		}
 	}
 	
+	
+	
 	public function doShopFollow(){
 		try {
 		
@@ -1575,9 +1620,8 @@ class Api extends CI_Controller {
 				*/
 				$Contacts = $this->response->postDecode("contacts");
 				if($Contacts > 0){
-					$id = $this->response->postDecode("contact".$i."_id");
-					
 					for($i=1;$i <= $Contacts;$i++){
+						$id = $this->response->postDecode("contact".$i."_id");
 						if(empty($id)){
 							$Data = array(
 								"member_id"=>$QUser->id,
@@ -2244,6 +2288,178 @@ class Api extends CI_Controller {
 				$this->response->send(array("result"=>0,"message"=>"Tidak ada data courier yang di temukan","messageCode"=>5), true);
 			}
 			
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function doCartAdd(){
+		try {
+		
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			if($this->response->post("product") == "" || $this->response->postDecode("product") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Belum ada product yang di kirim","messageCode"=>1), true);
+				return;
+			}
+			
+			$QProduct = $this->db
+						->select("tp.*, tt.id as shop_id")
+						->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
+						->join("tb_toko tt","tt.id = ttcp.toko_id")
+						->where("tp.id",$this->response->postDecode("product"))
+						->get("tb_product tp")
+						->row();
+						
+			if(empty($QProduct)){
+				$this->response->send(array("result"=>0,"message"=>"Product tidak ditemukan","messageCode"=>2), true);
+				return;
+			}
+			
+			if($this->response->post("varians") == "" || $this->response->postDecode("varians") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data varians yang dikirim","messageCode"=>1), true);
+				return;
+			}
+
+			/*
+			*	------------------------------------------------------------------------------
+			*	Menyimpan data cart
+			*	------------------------------------------------------------------------------
+			*/
+			$date = date("Y-m-d H:i:s");
+			
+			$Data = array(
+					"member_id"=>$QUser->id,
+					"toko_id"=>$QProduct->shop_id,
+					"price_total"=>$this->response->postDecode("price_total"),
+					"create_date"=>$date,
+					"create_user"=>$QUser->email,
+					"update_date"=>$date,
+					"update_user"=>$QUser->email,
+				);
+			
+			$Save = $this->db->insert("tb_cart",$Data);
+			if($Save){		
+				/*
+				*	------------------------------------------------------------------------------
+				*	Mengambil data cart yang telah disimpan
+				*	------------------------------------------------------------------------------
+				*/
+				$QCart = $this->db
+							->where("member_id",$QUser->id)
+							->where("toko_id",$QProduct->shop_id)
+							->where("price_total",$this->response->postDecode("price_total"))
+							->where("create_date",$date)
+							->where("create_user",$QUser->email)
+							->where("update_date",$date)
+							->where("update_user",$QUser->email)
+							->get("tb_cart")
+							->row();
+							
+				if(!empty($QCart)){
+					/*
+					*	------------------------------------------------------------------------------
+					*	Simpan data cart products
+					*	------------------------------------------------------------------------------
+					*/
+					for($i=1;$i<=$this->response->postDecode("varians");$i++){
+						$QVarian = $this->db->where("id",$this->response->postDecode("varian".$i))->get("tb_product_varian")->row();
+						
+						if(!empty($QVarian) && $this->response->post("varian".$i."_qty") != "" && $this->response->postDecode("varian".$i."_qty") != ""){
+							$Data = array(
+									"cart_id"=>$QCart->id,
+									"product_varian_id"=>$QVarian->id,
+									"price_product"=>$QProduct->price_base,
+									"quantity"=>$this->response->postDecode("varian".$i."_qty"),
+									"create_date"=>$date,
+									"create_user"=>$QUser->email,
+									"update_date"=>$date,
+									"update_user"=>$QUser->email,
+								);
+							
+							$Save = $this->db->insert("tb_cart_product",$Data);
+						}
+					}
+				}
+			
+				/*
+				*	------------------------------------------------------------------------------
+				*	Mengambil data Cart Products
+				*	------------------------------------------------------------------------------
+				*/
+				$CartProducts = array();
+				$QCartProducts = $this->db
+									->where("tcp.cart_id",$QCart->id)
+									->get("tb_cart_product tcp")
+									->result();
+				
+				foreach($QCartProducts as $QCartProduct){
+					/*
+					*	------------------------------------------------------------------------------
+					*	Mengambil data Cart varian
+					*	------------------------------------------------------------------------------
+					*/
+					$QVarian = $this->db
+									->where("id",$QCartProduct->product_varian_id)
+									->get("tb_product_varian")
+									->row();
+					
+					$Varian = array(
+								"id"=>$QVarian->id,
+								"name"=>$QVarian->name,
+								"stock_qty"=>$QVarian->stock_qty,
+								"product"=>$this->getProductById($QVarian->product_id),
+							);
+					
+					/*
+					*	------------------------------------------------------------------------------
+					*	Membuat data Cart Product
+					*	------------------------------------------------------------------------------
+					*/
+					$CartProduct = array(
+									"id"=>$QCartProduct->id,
+									"price_product"=>$QCartProduct->price_product,
+									"quantity"=>$QCartProduct->quantity,
+									"varian"=>$Varian,
+								);
+					
+					array_push($CartProducts,$CartProduct);
+				}
+				
+				/*
+				*	------------------------------------------------------------------------------
+				*	Membuat data Cart untuk response
+				*	------------------------------------------------------------------------------
+				*/
+				$Cart = array(
+						"id"=>$QCart->id,
+						"price_total"=>$QCart->price_total,
+						"shop"=>$this->getShopById($QCart->toko_id),
+						"cart_products"=>$CartProducts,
+					);
+				
+				$this->response->send(array("result"=>1,"cart"=>$Cart), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Data tidak dapat disimpan","messageCode"=>2), true);
+			}
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
