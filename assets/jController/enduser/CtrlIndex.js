@@ -71,7 +71,7 @@ function CtrlSignup(){
 					required: message_alert("Field ini dibutuhkan"),
 					email: message_alert("Email tidak valid"),
 					maxlength: message_alert("Masukkan maksimal 50 karakter"),
-					remote: message_alert("Maaf email sudah digunakan, silahkan masukkan email lainnya"),
+					remote: message_alert("Maaf email sudah digunakan"),
 				},
 				password:{
 					required: message_alert("Field ini dibutuhkan"),
