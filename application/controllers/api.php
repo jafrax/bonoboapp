@@ -713,7 +713,15 @@ class Api extends CI_Controller {
 				}
 			}
 			
-			$this->response->send(array("result"=>1,"contacts"=>$Attributes, "banks"=>$Banks, "locations"=>$Locations, "products"=>$Favorites,"shops"=>$Shops), true);
+			$Response = array(
+					"result"=>1,
+					"contacts"=>$Attributes, 
+					"banks"=>$Banks, 
+					"locations"=>$Locations, 
+					"products"=>$Favorites,
+					"shops"=>$Shops);
+			
+			$this->response->send($Response, true);
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
