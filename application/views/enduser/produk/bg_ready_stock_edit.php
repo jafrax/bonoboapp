@@ -183,7 +183,7 @@ echo "
 									if ($varian_null->num_rows() == 0) {
 										foreach ($varian->result() as $row_var) {
 											echo"<li class='varsto' id='li_edit_varian_".$row_var->id."'>
-													<div class='input-field col s12 m5'>
+													<div class='input-field col s12 m5 nolmar'>
 														<input id='varian' name='nama_edit_varian_".$row_var->id."' value='".$row_var->name."' type='text' placeholder='Ex : Merah' class='validate'>
 														<label for='varian'>Varian <span></span></label>
 													</div>
@@ -201,7 +201,7 @@ echo "
 										}
 									}else{
 									echo"<li class='varsto' id='li_varian_1'>
-											<div class='input-field col s12 m5'>
+											<div class='input-field col s12 m5 nolmar'>
 												<input id='varian' name='nama_varian_1' type='text' placeholder='Misal: Pcs' class='validate'>
 												<label for='varian'>Varian <span></span></label>
 											</div>
@@ -222,7 +222,7 @@ echo "
 									echo"
 								</ul>
 								<ul class='col s12 m12 cek-stok' style='display:$cek_stok'>								
-									<li class='input-field col s12 m12'>
+									<li class='input-field col s12 m12 nolmar'>
 										<a class='btn-flat left' onclick=javascript:addVarian()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
 									</li>
 								</ul>
