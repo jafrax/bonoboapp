@@ -50,7 +50,7 @@ echo "
 				<div class='col s12 m12 l9'>
 					<form class='formain'id='form-ready' method='post' action='' enctype='multipart/form-data'>
 						<div class='formhead'>
-							<h2 class='titmain'><b>EDIT BARANG READY STOCK</b></h2>
+							<h2 class='titmain'><b>EDIT BARANG READY STOK</b></h2>
 						</div>
 						<div class='row formbody'>
 							<div class='col s12'>
@@ -65,7 +65,7 @@ echo "
 								<div class='col s12 m6' id='tempat-kategori'>
 									<label>Kategori Barang <span class='text-red'>*</span></label>
 									<label class='error error-chosen' for='select-kategori'></label>
-									<select name='kategori' id='select-kategori' required>
+									<select class='chosen-select' name='kategori' id='select-kategori' required>
 										<option value='' disabled selected>Pilih Kategori Barang</option>";
 										foreach ($kategori->result() as $row_ktgri) {
 											$select = '';
@@ -244,7 +244,7 @@ echo "
 									<label for='harga_pembelian'>Harga Beli</label>
 								</div>
 								<div class='input-field col s12 m12 varsto'>
-									<label for='harga_jual'>Harga Jual <span class='text-red'>*</span></label>
+									<span for='harga_jual'>Harga Jual <span class='text-red'>*</span></span>
 								</div>";
 								if ($level_harga->level_1_active == 1) {$a1 = 'block';}else{$a1 = 'none';}
 								if ($level_harga->level_2_active == 1) {$a2 = 'block';}else{$a2 = 'none';}

@@ -193,7 +193,7 @@ function change_stock(){
                 $('#ajax-div').html(msg);
                 $('#ajax-div').fadeTo('slow',1);
             }else{
-                Materialize.toast('Filter stock gagal!', 4000);$('#ajax-div').fadeTo('slow',1);
+                Materialize.toast('Filter stok gagal!', 4000);$('#ajax-div').fadeTo('slow',1);
             };              
         } 
     });
