@@ -838,5 +838,10 @@ class Toko extends CI_Controller {
 
 		$this->template->bonobo_step("enduser/toko/bg_konfirmasi",$data);
 	}
+	
+	function complete_step(){
+		$this->db->where('id',$_SESSION['bonobo']['id'])->set('flag_information',1)->update('tb_toko');
+		redirect('toko');
+	}
 }
 
