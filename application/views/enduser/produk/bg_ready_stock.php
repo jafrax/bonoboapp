@@ -15,7 +15,7 @@ echo"
 							<div class='input-field col right'>
 								<button class='waves-effect waves-light btn deep-orange darken-1 right' onclick='location.href=\"".base_url()."produk/add/1\"'><i class='mdi-content-add-circle-outline left'></i>TAMBAH PRODUK</button>
 							</div>
-							<h2 class='titmain'><b>READY STOK</b> <span>( ".$produk->num_rows()." Produk )</span></h2>
+							<h2 class='titmain'><b>READY STOCK</b> <span>( ".$produk->num_rows()." Produk )</span></h2>
 							<p>Halaman ini menampilkan barang-barang ready stok yang ada di toko anda !</p>
 
 						</div>

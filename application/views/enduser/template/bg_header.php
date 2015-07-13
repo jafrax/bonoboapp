@@ -105,9 +105,11 @@ echo"
 							<li><a href='".base_url("toko/step2")."'>Atur Privasi</a></li>
 							<li><a href='".base_url("toko/step3")."'>Atur Pengurangan Stok</a></li>
 							<li><a href='".base_url("toko/step4")."'>Metode Transaksi</a></li>
-							<li><a href='".base_url("toko/step5")."'>Pengiriman</a></li>
-							<li><a href='".base_url("toko/step6")."'>Bank</a></li>
-							<li><a href='".base_url("toko/step7")."'>Atur Level Harga</a></li>
+							<li><a href='".base_url("toko/step5")."'>Atur Level Harga</a></li>
+							<li><a href='".base_url("toko/step6")."'>Metode Konfirmasi</a></li>
+							<li><a href='".base_url("toko/step7")."'>Pengiriman</a></li>
+							<li><a href='".base_url("toko/step8")."'>Bank</a></li>
+							
 						</ul>
 					</li>
 					<li "; if ($uri == 'anggota') echo"class='active'"; echo"><a "; if ($uri == 'anggota') echo"class='active'"; echo" href='".base_url("anggota")."'>Anggota</a></li>

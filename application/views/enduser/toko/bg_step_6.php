@@ -46,7 +46,7 @@ foreach($ShopBanks as $ShopBank){
 									<button onclick=ctrlShopStep6.formEdit(".$ShopBank->id."); data-target='popupFormAdd' class='btn-flat waves-effect waves-light modal-trigger' type='button'>
 										<i class='mdi-editor-border-color'></i>
 									</button>
-									<button onclick=ctrlShopStep6.doDelete(".$ShopBank->id."); class='btn-flat waves-effect waves-light' type='button' name='action'>
+									<button onclick=ctrlShopStep8.doDelete(".$ShopBank->id."); class='btn-flat waves-effect waves-light' type='button' name='action'>
 										<i class='mdi-action-delete'></i>
 									</button>
 								</div>
