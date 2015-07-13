@@ -10,7 +10,7 @@ echo"
 				</div>
 				<div id='divProvince' class='input-field col s12 m8'>
 					<p>
-						<select name='cmbProvince' onChange=ctrlShopStep5.loadComboboxCity(); class='chzn-select'>
+						<select name='cmbProvince' onChange=ctrlShopStep7.loadComboboxCity(); class='chzn-select'>
 ";
 
 	if(!empty($Rate)){
@@ -32,7 +32,7 @@ echo"
 				</div>
 				<div id='divCity' class='input-field col s12 m8'>
 					<p>
-						<select name='cmbCity' onChange=ctrlShopStep5.loadComboboxKecamatan(); class='chzn-select'>
+						<select name='cmbCity' onChange=ctrlShopStep7.loadComboboxKecamatan(); class='chzn-select'>
 ";
 
 	if(!empty($Rate)){
