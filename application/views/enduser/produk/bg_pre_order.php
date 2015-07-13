@@ -62,7 +62,7 @@ echo"
 											<option value='1'>Hapus</option>
 											<option value='2'>Pindah ke Draft</option>
 											<option value='3'>Pindah ke Publish</option>
-											<option value='4'>Pindah ke Ready Stock</option>
+											<option value='4'>Pindah ke Ready Stok</option>
 										</select>
 									</div>
 									<div class='input-field col s12 m4 l3'>

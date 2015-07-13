@@ -110,6 +110,7 @@ label{ font-size: 14px; color: #565a5c; }
 .btn-xs i{ line-height: 24px; font-size:14px; }
 
 .nolpad{ padding:0px!important; }
+.nolmar{ margin:0px!important; }
 .label{ color:#fff; padding:4px 5px; border-radius:2px; position: absolute; right:0; top:15px; } 
 
 .checkiniabs{ position: absolute; z-index:998; top:2px; left:2px; }
@@ -140,7 +141,7 @@ label{ font-size: 14px; color: #565a5c; }
 
 /*ALL ABOUT DEFAULT IMAGE*/
 .logo{ width:125px; margin:7.5px 0; }
-.userdum{ width:40px; height:40px; border-radius:100%; border:1px solid #efefef; }
+.userdum{ width:40px; height: 40px !important; border-radius:100%; border:1px solid #efefef; }
 .userimg{ border:1px solid #efefef;}
 .div-circle-logo{ margin-top: 10px!important; }
 .circle-logo{ border-radius: 50%;width: 100px;height: 100px;text-align: center; border: 1px solid #eee;}

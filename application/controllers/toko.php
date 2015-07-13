@@ -309,6 +309,8 @@ class Toko extends CI_Controller {
 			
 			if($Upload == 'error'){
 				$Upload = "";
+			}else{
+				$_SESSION['bonobo']['image'] = $Upload;
 			}
 			
 			$Data = array(
@@ -367,7 +369,7 @@ class Toko extends CI_Controller {
 					}
 				}
 			}
-			$_SESSION['bonobo']['image'] = $Upload;
+			
 			$this->response->send(array("result"=>1,"message"=>"Informasi toko telah disimpan : ","messageCode"=>1));
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Informasi tidak dapat disimpan","messageCode"=>1));

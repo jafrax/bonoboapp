@@ -25,8 +25,8 @@ foreach($Rates as $Rate){
 			</td>
 			<td>
 				<div class='input-field table'>
-					<a href='#divFormRate' onclick=ctrlShopStep5.initPopupRateAdd(".$Rate->id."); class='modal-trigger'>Edit</a>
-					<a href='javascript:void(0);' onclick=ctrlShopStep5.doRateDelete(".$Rate->id.");>Hapus</a>
+					<a href='#divFormRate' onclick=ctrlShopStep7.initPopupRateAdd(".$Rate->id."); class='modal-trigger'>Edit</a>
+					<a href='javascript:void(0);' onclick=ctrlShopStep7.doRateDelete(".$Rate->id.");>Hapus</a>
 				</div>
 			</td>
 		</tr>
