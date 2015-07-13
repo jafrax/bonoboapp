@@ -46,110 +46,6 @@ class Api extends CI_Controller {
 			}else{
 				$UserImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
 			}
-				
-			/*
-			*	------------------------------------------------------------------------------
-			*	get data member attribute
-			*	------------------------------------------------------------------------------
-			*/
-			
-			$QAttributes = $this->db
-					->where("tma.member_id",$QUser->id)
-					->get("tb_member_attribute tma")
-					->result();
-			
-			$Attributes = array();
-			foreach($QAttributes as $QAttribute){
-				$Attribute = array(
-						"id"=>$QAttribute->id,
-						"name"=>$QAttribute->name,
-						"value"=>$QAttribute->value,
-					);
-					
-				array_push($Attributes,$Attribute);
-			}
-			
-			/*
-			*	------------------------------------------------------------------------------
-			*	get data member banks
-			*	------------------------------------------------------------------------------
-			*/
-			
-			$QBanks = $this->db
-					->select("tmb.id, tmb.acc_name as acc_name, tmb.acc_no as acc_no, mb.id as bank_id, mb.name as bank_name")
-					->join("ms_bank mb","tmb.bank_id = mb.id")
-					->where("tmb.member_id",$QUser->id)
-					->get("tb_member_bank tmb")
-					->result();
-			
-			$Banks = array();
-			foreach($QBanks as $QBank){
-				if(@getimagesize(base_url("assets/pic/bank/".$QBank->image))){
-					$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
-				}else{
-					$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
-				}
-			
-				$Bank = array(
-						"id"=>$QBank->id,
-						"acc_name"=>$QBank->acc_name,
-						"acc_no"=>$QBank->acc_no,
-						"bank_name"=>$QBank->bank_name,
-						"image_url"=>$BankImageUrl,
-					);
-					
-				array_push($Banks,$Bank);
-			}
-			
-			/*
-			*	------------------------------------------------------------------------------
-			*	get data member locations
-			*	------------------------------------------------------------------------------
-			*/
-			
-			$QLocations = $this->db
-					->select("tml.*, ml.kelurahan, ml.kecamatan, ml.city, ml.province, ml.postal_code, ml.id as location_id")
-					->join("ms_location ml","tml.location_id = ml.id")
-					->where("tml.member_id",$QUser->id)
-					->get("tb_member_location tml")
-					->result();
-			
-			$Locations = array();
-			foreach($QLocations as $QLocation){
-				$Location = array(
-						"id"=>$QLocation->id,
-						"location_id"=>$QLocation->location_id,
-						"name"=>$QLocation->name,
-						"address"=>$QLocation->address,
-						"phone"=>$QLocation->phone,
-						"postal"=>$QLocation->postal,
-						"kelurahan"=>$QLocation->kelurahan,
-						"kecamatan"=>$QLocation->kecamatan,
-						"city"=>$QLocation->city,
-						"province"=>$QLocation->province,
-					);
-					
-				array_push($Locations,$Location);
-			}
-			
-			/*
-			*	------------------------------------------------------------------------------
-			*	get data member product favorite
-			*	------------------------------------------------------------------------------
-			*/
-			
-			$QFavorites = $this->db
-					->where("tf.member_id",$QUser->id)
-					->get("tb_favorite tf")
-					->result();
-			
-			$Favorites = array();
-			foreach($QFavorites as $QFavorite){
-				$Favorite = $this->getProductById($QFavorite->product_id,$QUser->id);
-				if(!empty($Favorite)){
-					array_push($Favorites,$Favorite);
-				}
-			}
 			
 			/*
 			*	------------------------------------------------------------------------------
@@ -162,13 +58,7 @@ class Api extends CI_Controller {
 					"name"=>$QUser->name,
 					"email"=>$QUser->email,
 					"phone"=>$QUser->phone,
-					"count_shop"=>10,
-					"count_product"=>sizeOf($Favorites),
 					"image_url"=>$UserImageUrl,
-					"contacts"=>$Attributes,
-					"banks"=>$Banks,
-					"locations"=>$Locations,
-					"products"=>$Favorites,
 				);
 				
 			return $User;
@@ -322,6 +212,7 @@ class Api extends CI_Controller {
 				
 		return $Product;
 	}
+	
 	
 	
 	public function index(){
@@ -671,6 +562,158 @@ class Api extends CI_Controller {
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Akun tidak terdaftar.","messageCode"=>4), false);
 			}
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function getUserData(){
+		try {
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>3), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	get data member attribute
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$QAttributes = $this->db
+					->where("tma.member_id",$QUser->id)
+					->get("tb_member_attribute tma")
+					->result();
+			
+			$Attributes = array();
+			foreach($QAttributes as $QAttribute){
+				$Attribute = array(
+						"id"=>$QAttribute->id,
+						"name"=>$QAttribute->name,
+						"value"=>$QAttribute->value,
+					);
+					
+				array_push($Attributes,$Attribute);
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	get data member banks
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$QBanks = $this->db
+					->select("tmb.id, tmb.acc_name as acc_name, tmb.acc_no as acc_no, mb.id as bank_id, mb.name as bank_name")
+					->join("ms_bank mb","tmb.bank_id = mb.id")
+					->where("tmb.member_id",$QUser->id)
+					->get("tb_member_bank tmb")
+					->result();
+			
+			$Banks = array();
+			foreach($QBanks as $QBank){
+				if(@getimagesize(base_url("assets/pic/bank/".$QBank->image))){
+					$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
+				}else{
+					$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+				}
+			
+				$Bank = array(
+						"id"=>$QBank->id,
+						"acc_name"=>$QBank->acc_name,
+						"acc_no"=>$QBank->acc_no,
+						"bank_name"=>$QBank->bank_name,
+						"image_url"=>$BankImageUrl,
+					);
+					
+				array_push($Banks,$Bank);
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	get data member locations
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$QLocations = $this->db
+					->select("tml.*, ml.kelurahan, ml.kecamatan, ml.city, ml.province, ml.postal_code, ml.id as location_id")
+					->join("ms_location ml","tml.location_id = ml.id")
+					->where("tml.member_id",$QUser->id)
+					->get("tb_member_location tml")
+					->result();
+			
+			$Locations = array();
+			foreach($QLocations as $QLocation){
+				$Location = array(
+						"id"=>$QLocation->id,
+						"location_id"=>$QLocation->location_id,
+						"name"=>$QLocation->name,
+						"address"=>$QLocation->address,
+						"phone"=>$QLocation->phone,
+						"postal"=>$QLocation->postal,
+						"kelurahan"=>$QLocation->kelurahan,
+						"kecamatan"=>$QLocation->kecamatan,
+						"city"=>$QLocation->city,
+						"province"=>$QLocation->province,
+					);
+					
+				array_push($Locations,$Location);
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	get data member product favorite
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$QFavorites = $this->db
+					->where("tf.member_id",$QUser->id)
+					->get("tb_favorite tf")
+					->result();
+			
+			$Favorites = array();
+			foreach($QFavorites as $QFavorite){
+				$Favorite = $this->getProductById($QFavorite->product_id,$QUser->id);
+				if(!empty($Favorite)){
+					array_push($Favorites,$Favorite);
+				}
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	get data member shops
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$QShopMembers = $this->db
+					->where("ttm.member_id",$QUser->id)
+					->get("tb_toko_member ttm")
+					->result();
+			
+			$Shops = array();
+			foreach($QShopMembers as $QShopMember){
+				$Shop = $this->getShopById($QShopMember->toko_id);
+				if(!empty($Shop)){
+					array_push($Shops,$Shop);
+				}
+			}
+			
+			$this->response->send(array("result"=>1,"contacts"=>$Attributes, "banks"=>$Banks, "locations"=>$Locations, "products"=>$Favorites,"shops"=>$Shops), true);
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
@@ -1577,9 +1620,8 @@ class Api extends CI_Controller {
 				*/
 				$Contacts = $this->response->postDecode("contacts");
 				if($Contacts > 0){
-					$id = $this->response->postDecode("contact".$i."_id");
-					
 					for($i=1;$i <= $Contacts;$i++){
+						$id = $this->response->postDecode("contact".$i."_id");
 						if(empty($id)){
 							$Data = array(
 								"member_id"=>$QUser->id,
