@@ -280,7 +280,7 @@ function CtrlShopStep4(){
 			success: function(result) {
 				var response = JSON.parse(result);
 				if(response.result == 0){
-					$hs_notif("#notifStep4",response.message);
+					 Materialize.toast(response.message, 4000);
 				}else{
 					window.location.href = base_url+'toko/step5';  
 				}
