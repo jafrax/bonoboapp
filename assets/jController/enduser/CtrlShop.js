@@ -3,7 +3,11 @@ function CtrlShopStep1(){
 	this.loadComboboxCity = loadComboboxCity;
 	this.loadComboboxKecamatan = loadComboboxKecamatan;
 	this.loadComboboxProv = loadComboboxProv;
+<<<<<<< HEAD
 
+=======
+	this.deletestepsatu = deletestepsatu;
+>>>>>>> 853a014a4e5ec7214906183bd44c349f056edc67
 	
 	var formStep1,formStep1JQuery;
 	var intAttributeCount;
@@ -85,7 +89,33 @@ function CtrlShopStep1(){
 		
 	}
 	
-	
+
+	function deletestepsatu(e,a){
+		var txtAttributeId = $hs("txtAttributeId"+e);
+		var divKontak = $("#divKontak"+e);
+		
+		if(txtAttributeId.value == ""){
+			divKontak.slideUp("slow").remove();
+			if ($('.counter').length < 3  ) {			
+				$('#aAttributeAdd').show();
+			}
+		}else{
+			$.ajax({
+				type: 'POST',
+				data: "id="+txtAttributeId.value,
+				url: base_url+'toko/dostep1deletekontak/',
+				success: function(result) {
+					var response = JSON.parse(result);
+					if(response.result == 1){
+						divKontak.slideUp("slow").remove();
+					}else{
+						$hs_notif("#notifStep5",response.message);
+					}
+				}
+			});
+		}
+	}
+
 	
 	function doNext(){
 			var formData = new FormData($hs("formStep1"));
