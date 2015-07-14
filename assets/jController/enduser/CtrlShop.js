@@ -98,7 +98,7 @@ function CtrlShopStep1(){
 			$.ajax({
 				type: 'POST',
 				data: "id="+txtAttributeId.value,
-				url: base_url+'toko/doStep1deletekontak/',
+				url: base_url+'toko/dostep1deletekontak/',
 				success: function(result) {
 					var response = JSON.parse(result);
 					if(response.result == 1){

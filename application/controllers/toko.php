@@ -49,7 +49,7 @@ class Toko extends CI_Controller {
 		
 		$this->template->bonobo_step("enduser/toko/bg_step_1",$data);
 	}
-	public function doStep1deletekontak(){
+	public function dostep1deletekontak(){
 		if($this->response->post("id") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada data yang dipilih","messageCode"=>1));
 			return;
