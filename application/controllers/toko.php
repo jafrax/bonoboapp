@@ -50,8 +50,25 @@ class Toko extends CI_Controller {
 		$this->template->bonobo_step("enduser/toko/bg_step_1",$data);
 	}
 	
+	public function comboboxprov(){
+		$Provinces = $this->model_location->get_provinces_by_zipcode($this->response->post("zip_code"))->result();
+		
+		echo"<select name='cmbProvince' class='chzn-select'><option value='' disabled selected>Pilih Provinsi</option>";
+
+		foreach($Provinces as $Province){
+			echo"<option value='".$Province->province."' selected>".$Province->province."</option>";
+		}
+			
+		echo"
+			</select>
+			<label id='notifProvince' class='error' style='display:none;'></label>
+			<script>initComboBox();</script>
+		";		
+	}
+	
 	public function step2(){
 		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
+		$_SESSION['bonobo']['flag_information']=0;
 		if($result>0){
 			$_SESSION['bonobo']['flag_information']=1;
 		}
@@ -72,6 +89,7 @@ class Toko extends CI_Controller {
 	
 	public function step3(){
 		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
+		$_SESSION['bonobo']['flag_information']=0;
 		if($result>0){
 			$_SESSION['bonobo']['flag_information']=1;
 		}
@@ -90,15 +108,10 @@ class Toko extends CI_Controller {
 		}
 	}
 	
-	public function step4(){
-		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
-		if($result>0){
-			$_SESSION['bonobo']['flag_information']=1;
-		}
-		if(!$_POST){
-			$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
-			
-			$this->template->bonobo_step("enduser/toko/bg_step_4",$data);
+	public function step4save(){
+		if(empty($this->response->post("chkPaymentCash")) && empty($this->response->post("chkPaymentTransfer"))){
+			$this->response->send(array("result"=>0,"message"=>"Harap memilih salah satu metode pembayaran","messageCode"=>1));
+			return false;
 		}else{
 			$pm_store_payment = 0;
 			$pm_transfer = 0;
@@ -117,13 +130,25 @@ class Toko extends CI_Controller {
 				);
 			
 			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
-			
-			redirect("toko/step5");
+			$this->response->send(array("result"=>1,"message"=>"Data berhasil disimpan","messageCode"=>1));
 		}
+	}
+	
+	public function step4(){
+		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
+		$_SESSION['bonobo']['flag_information']=0;
+		if($result>0){
+			$_SESSION['bonobo']['flag_information']=1;
+		}
+			$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+			
+			$this->template->bonobo_step("enduser/toko/bg_step_4",$data);
+
 	}
 	
 	public function step7(){
 		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
+		$_SESSION['bonobo']['flag_information']=0;
 		if($result>0){
 			$_SESSION['bonobo']['flag_information']=1;
 		}
@@ -199,6 +224,7 @@ class Toko extends CI_Controller {
 	
 	public function step8(){
 		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
+		$_SESSION['bonobo']['flag_information']=0;
 		if($result>0){
 			$_SESSION['bonobo']['flag_information']=1;
 		}
@@ -211,6 +237,7 @@ class Toko extends CI_Controller {
 	
 	public function step5(){
 		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
+		$_SESSION['bonobo']['flag_information']=0;
 		if($result>0){
 			$_SESSION['bonobo']['flag_information']=1;
 		}
@@ -780,12 +807,12 @@ class Toko extends CI_Controller {
         }
 	
 	public function comboboxCity(){
-		$Cities = $this->model_location->get_cities_by_province($this->response->post("province"))->result();
+		$Cities = $this->model_location->get_cities_by_province($this->response->post("province"),$this->response->post("zip_code"))->result();
 		
 		echo"<select name='cmbCity' onChange=ctrlShopStep1.loadComboboxKecamatan(); class='chzn-select'><option value='' disabled selected>Pilih Kota</option>";
 
 		foreach($Cities as $City){
-			echo"<option value='".$City->city."'>".$City->city."</option>";
+			echo"<option value='".$City->city."' selected>".$City->city."</option>";
 		}
 			
 		echo"
@@ -796,12 +823,12 @@ class Toko extends CI_Controller {
 	}
 	
 	public function comboboxKecamatan(){
-		$Kecamatans = $this->model_location->get_kecamatans_by_city_province($this->response->post("city"),$this->response->post("province"))->result();
+		$Kecamatans = $this->model_location->get_kecamatans_by_city_province($this->response->post("city"),$this->response->post("province"),$this->response->post("zip_code"))->result();
 		
 		echo"<select name='cmbKecamatan' class='chzn-select'><option value='' disabled selected>Pilih Kecamatan</option>";
 
 		foreach($Kecamatans as $Kecamatan){
-			echo"<option value='".$Kecamatan->kecamatan."'>".$Kecamatan->kecamatan."</option>";
+			echo"<option value='".$Kecamatan->kecamatan."' selected>".$Kecamatan->kecamatan."</option>";
 		}
 			
 		echo"
@@ -858,6 +885,7 @@ class Toko extends CI_Controller {
 
 	function step6(){
 		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
+		$_SESSION['bonobo']['flag_information']=0;
 		if($result>0){
 			$_SESSION['bonobo']['flag_information']=1;
 		}
@@ -878,6 +906,7 @@ class Toko extends CI_Controller {
 	function complete_step(){
 		$this->db->where('id',$_SESSION['bonobo']['id'])->set('flag_information',1)->update('tb_toko');
 		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
+		$_SESSION['bonobo']['flag_information']=0;
 		if($result>0){
 			$_SESSION['bonobo']['flag_information']=1;
 		}

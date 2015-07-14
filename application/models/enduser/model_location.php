@@ -44,16 +44,24 @@ class Model_location extends CI_Model {
 		}
 	}
 	
-	public function get_cities_by_province($p){
+	public function get_cities_by_province($p,$z=null){
 		return $this->db
 					->where("province",$p)
+					->where("postal_code",$z)
 					->group_by("city")
 					->get("ms_location");
 	}
+	public function get_provinces_by_zipcode($p){
+		return $this->db
+					->where("postal_code",$p)
+					->group_by("province")
+					->get("ms_location");
+	}
 	
-	public function get_kecamatans_by_city_province($c,$p){
+	public function get_kecamatans_by_city_province($c,$p,$z=null){
 		return $this->db
 					->where("city",$c)
+					->where("postal_code",$z)
 					->where("province",$p)
 					->group_by("kecamatan")
 					->get("ms_location");

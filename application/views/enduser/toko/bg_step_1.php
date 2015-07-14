@@ -144,7 +144,7 @@ echo"
 					</div>
 				</div>
 				<div class='input-field col s12 m8'>
-					<input id='txtPostal' name='txtPostal' type='text' placeholder='Ex : 15122' class='validate'  value='".$Shop->postal."'>
+					<input id='txtPostal' name='txtPostal' type='text' placeholder='Ex : 15122' class='validate'  value='".$Shop->postal."' onChange=ctrlShopStep1.loadComboboxProv();>
 					<label for='txtPostal'>Kodepos</label>
 				</div>
 				<div class=' col s12 m8'>

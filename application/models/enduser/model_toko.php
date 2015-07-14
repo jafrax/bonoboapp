@@ -120,6 +120,12 @@ class Model_toko extends CI_Model {
                 $return=$this->db->affected_rows();
                 return $return;
       }
+	  
+	  public function get_all_address($data){
+		$this->db->where('tt.postal_code',$data);
+		$return=$this->db->get('ms_location tt');
+		return $return;
+	  }
 }
 
 ?>

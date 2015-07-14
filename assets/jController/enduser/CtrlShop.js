@@ -2,13 +2,14 @@ function CtrlShopStep1(){
 	this.init = init;
 	this.loadComboboxCity = loadComboboxCity;
 	this.loadComboboxKecamatan = loadComboboxKecamatan;
+	this.loadComboboxProv = loadComboboxProv;
 	
 	var formStep1,formStep1JQuery;
 	var intAttributeCount;
 	var divCity, divKecamatan, divAttributes;
 	var imgShopLogo, txtShopLogoFile, aShopLogoDelete;
 	var btnNext, btnSave;
-	var aAttributeAdd;
+	var aAttributeAdd,txtPostal;
 	
 	function init(){
 		initComponent();
@@ -19,6 +20,7 @@ function CtrlShopStep1(){
 	function initComponent(){
 		formStep1 = $hs("formStep1");
 		formStep1JQuery = $("#formStep1");
+		divProvince=$("#divProvince");
 		divCity = $("#divCity");
 		divKecamatan = $("#divKecamatan");
 		divAttributes = $("#divAttributes");
@@ -35,6 +37,7 @@ function CtrlShopStep1(){
 		
 		aShopLogoDelete = $hs("aShopLogoDelete");
 		aAttributeAdd = $hs("aAttributeAdd");
+		txtPostal		=$hs('txtPostal');
 	}
 	
 	function initEventlistener(){
@@ -66,11 +69,14 @@ function CtrlShopStep1(){
 			var sequence = parseInt(intAttributeCount.value)+1;
 			var div = document.createElement("div");
 			
-			div.innerHTML = "<div class='col s12 m3'>Nama kontak</div><div class='col s12 m5'><input name='txtAttributeId"+sequence+"' type='hidden' value=''><input name='txtAttributeName"+sequence+"' placeholder='BBM/whatsapp/Line' type='text' class='validate'></div><div class='col s12 m3'>Pin/ID/Nomor</div><div class='col s12 m5'><input name='txtAttributeValue"+sequence+"' type='text' placeholder='Ex : AD9876/bonoboLine' class='validate'></div>";
+			div.innerHTML = "<div class='col s12 m3' id='kontak"+sequence+"'>Nama kontak</div><div class='col s12 m5'><input name='txtAttributeId"+sequence+"' type='hidden' value=''><input name='txtAttributeName"+sequence+"' placeholder='BBM/whatsapp/Line' type='text' class='validate'></div><div class='col s12 m3'>Pin/ID/Nomor</div><div class='col s12 m5'><input name='txtAttributeValue"+sequence+"' type='text' placeholder='Ex : AD9876/bonoboLine' class='validate'></div><a href='#delete_kontak_"+sequence+"' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>";
 			div.setAttribute("class","row valign-wrapper");
 			divAttributes.append(div);
 			intAttributeCount.value = sequence;
 		};
+		
+
+		
 	}
 	
 	function doNext(){
@@ -199,11 +205,24 @@ function CtrlShopStep1(){
 			});
 		}
 	}
-	
-	function loadComboboxCity(){
+	function loadComboboxProv(){
+		var txtPostal= $('#txtPostal').val();
 		$.ajax({
 			type: 'POST',
-			data: "province="+$hs('formStep1').cmbProvince.value,
+			data: "zip_code="+txtPostal,
+			url: base_url+'toko/comboboxprov/',
+			success: function(result) {
+				divProvince.html(result);
+				loadComboboxCity();
+			}
+		});
+	}
+	
+	function loadComboboxCity(){
+		var txtPostal= $('#txtPostal').val();
+		$.ajax({
+			type: 'POST',
+			data: "province="+$hs('formStep1').cmbProvince.value+"&zip_code="+txtPostal,
 			url: base_url+'toko/comboboxCity/',
 			success: function(result) {
 				divCity.html(result);
@@ -213,9 +232,10 @@ function CtrlShopStep1(){
 	}
 	
 	function loadComboboxKecamatan(){
+		var txtPostal= $('#txtPostal').val();
 		$.ajax({
 			type: 'POST',
-			data: "province="+$hs('formStep1').cmbProvince.value+"&city="+$hs('formStep1').cmbCity.value,
+			data: "province="+$hs('formStep1').cmbProvince.value+"&city="+$hs('formStep1').cmbCity.value+"&zip_code="+txtPostal,
 			url: base_url+'toko/comboboxKecamatan/',
 			success: function(result) {
 				divKecamatan.html(result);
@@ -233,6 +253,64 @@ function CtrlShopStep1(){
 		imgShopLogo.src = base_url+"assets/image/img_default_photo.jpg";
 	}
 }
+function CtrlShopStep4(){
+	this.init = init;
+	
+	var btnSave;
+	
+	function init(){
+		initComponent();
+		initEventlistener();
+		initActive();
+	}
+	
+	function initComponent(){
+		btnSave = $hs("btnSave");
+		formStep4JQuery = $("#formStep4");
+		formStep4 = $hs("formStep4");
+	}
+	function initEventlistener(){	
+		btnSave.onclick = function(){
+			doSave();
+		};
+	}
+	
+	function initActive(){
+	$('[name="chkPaymentCash"]').change(function () {
+                if (this.checked) {
+                    $('[name="chkPaymentCash2"]').val(1);
+                } else {
+                    $('[name="chkPaymentCash2"]').val(0);
+                }
+            });
+	$('[name="chkPaymentTransfer"]').change(function () {
+                if (this.checked) {
+                    $('[name="chkPaymentTransfer2"]').val(1);
+                } else {
+                    $('[name="chkPaymentTransfer2"]').val(0);
+                }
+        });
+	}
+	
+	function doSave(){
+		$.ajax({
+			type: 'POST',
+			data: $('#formstep4').serialize(),
+			url: base_url+'toko/step4save/',
+			success: function(result) {
+				var response = JSON.parse(result);
+				if(response.result == 0){
+					 Materialize.toast(response.message, 4000);
+				}else{
+					window.location.href = base_url+'toko/step5';  
+				}
+			}
+		});
+		
+	}
+
+}
+
 
 function CtrlShopStep7(){
 	this.init = init;
@@ -334,7 +412,8 @@ function CtrlShopStep7(){
 					txtCourierId.value = response.id;
 					location.reload();
 				}else{
-					$hs_notif("#notifStep5",response.message);
+					Materialize.toast(response.message, 4000);
+					//$hs_notif("#notifStep5",response.message);
 				}
 			}
 		});
