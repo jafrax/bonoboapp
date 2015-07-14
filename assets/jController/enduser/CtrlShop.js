@@ -2,13 +2,14 @@ function CtrlShopStep1(){
 	this.init = init;
 	this.loadComboboxCity = loadComboboxCity;
 	this.loadComboboxKecamatan = loadComboboxKecamatan;
+	this.loadComboboxProv = loadComboboxProv;
 	
 	var formStep1,formStep1JQuery;
 	var intAttributeCount;
 	var divCity, divKecamatan, divAttributes;
 	var imgShopLogo, txtShopLogoFile, aShopLogoDelete;
 	var btnNext, btnSave;
-	var aAttributeAdd;
+	var aAttributeAdd,txtPostal;
 	
 	function init(){
 		initComponent();
@@ -19,6 +20,7 @@ function CtrlShopStep1(){
 	function initComponent(){
 		formStep1 = $hs("formStep1");
 		formStep1JQuery = $("#formStep1");
+		divProvince=$("#divProvince");
 		divCity = $("#divCity");
 		divKecamatan = $("#divKecamatan");
 		divAttributes = $("#divAttributes");
@@ -35,6 +37,7 @@ function CtrlShopStep1(){
 		
 		aShopLogoDelete = $hs("aShopLogoDelete");
 		aAttributeAdd = $hs("aAttributeAdd");
+		txtPostal		=$hs('txtPostal');
 	}
 	
 	function initEventlistener(){
@@ -66,11 +69,14 @@ function CtrlShopStep1(){
 			var sequence = parseInt(intAttributeCount.value)+1;
 			var div = document.createElement("div");
 			
-			div.innerHTML = "<div class='col s12 m3'>Nama kontak</div><div class='col s12 m5'><input name='txtAttributeId"+sequence+"' type='hidden' value=''><input name='txtAttributeName"+sequence+"' placeholder='BBM/whatsapp/Line' type='text' class='validate'></div><div class='col s12 m3'>Pin/ID/Nomor</div><div class='col s12 m5'><input name='txtAttributeValue"+sequence+"' type='text' placeholder='Ex : AD9876/bonoboLine' class='validate'></div>";
+			div.innerHTML = "<div class='col s12 m3' id='kontak"+sequence+"'>Nama kontak</div><div class='col s12 m5'><input name='txtAttributeId"+sequence+"' type='hidden' value=''><input name='txtAttributeName"+sequence+"' placeholder='BBM/whatsapp/Line' type='text' class='validate'></div><div class='col s12 m3'>Pin/ID/Nomor</div><div class='col s12 m5'><input name='txtAttributeValue"+sequence+"' type='text' placeholder='Ex : AD9876/bonoboLine' class='validate'></div><a href='#delete_kontak_"+sequence+"' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>";
 			div.setAttribute("class","row valign-wrapper");
 			divAttributes.append(div);
 			intAttributeCount.value = sequence;
 		};
+		
+
+		
 	}
 	
 	function doNext(){
@@ -199,11 +205,24 @@ function CtrlShopStep1(){
 			});
 		}
 	}
-	
-	function loadComboboxCity(){
+	function loadComboboxProv(){
+		var txtPostal= $('#txtPostal').val();
 		$.ajax({
 			type: 'POST',
-			data: "province="+$hs('formStep1').cmbProvince.value,
+			data: "zip_code="+txtPostal,
+			url: base_url+'toko/comboboxprov/',
+			success: function(result) {
+				divProvince.html(result);
+				loadComboboxCity();
+			}
+		});
+	}
+	
+	function loadComboboxCity(){
+		var txtPostal= $('#txtPostal').val();
+		$.ajax({
+			type: 'POST',
+			data: "province="+$hs('formStep1').cmbProvince.value+"&zip_code="+txtPostal,
 			url: base_url+'toko/comboboxCity/',
 			success: function(result) {
 				divCity.html(result);
@@ -213,9 +232,10 @@ function CtrlShopStep1(){
 	}
 	
 	function loadComboboxKecamatan(){
+		var txtPostal= $('#txtPostal').val();
 		$.ajax({
 			type: 'POST',
-			data: "province="+$hs('formStep1').cmbProvince.value+"&city="+$hs('formStep1').cmbCity.value,
+			data: "province="+$hs('formStep1').cmbProvince.value+"&city="+$hs('formStep1').cmbCity.value+"&zip_code="+txtPostal,
 			url: base_url+'toko/comboboxKecamatan/',
 			success: function(result) {
 				divKecamatan.html(result);
