@@ -3,7 +3,7 @@ function CtrlShopStep1(){
 	this.loadComboboxCity = loadComboboxCity;
 	this.loadComboboxKecamatan = loadComboboxKecamatan;
 	this.loadComboboxProv = loadComboboxProv;
-	this.deletestep1 = deletestep1;
+
 	
 	var formStep1,formStep1JQuery;
 	var intAttributeCount;
@@ -70,11 +70,11 @@ function CtrlShopStep1(){
 			var sequence = parseInt(intAttributeCount.value)+1;
 			var div = document.createElement("div");
 			
-			div.innerHTML = "<div class='col s12 m3' id='kontak"+sequence+"'>Nama kontak</div><div class='col s12 m5'><input  name='txtAttributeId"+sequence+"' type='hidden' value=''><input id='txtAttributeId"+sequence+"' name='txtAttributeName"+sequence+"' placeholder='BBM/whatsapp/Line' type='text' class='validate'></div><div class='col s12 m3'>Pin/ID/Nomor</div><div class='col s12 m5'><input name='txtAttributeValue"+sequence+"' type='text' placeholder='Ex : AD9876/bonoboLine' class='validate'></div><div class='col s12 m5'><a href='#delete_kontak_"+sequence+"'  class='modal-trigger btn-floating btn-xs waves-effect waves-light red right' onclick=CtrlShopStep1.deletestep1("+sequence+");><i class='mdi-navigation-close'></i></a></div>";
+			div.innerHTML = "<div class='col s12 m3' id='kontak"+sequence+"'>Nama kontak</div><div class='col s12 m5'><input  name='txtAttributeId"+sequence+"' type='hidden' value=''><input id='txtAttributeId"+sequence+"' name='txtAttributeName"+sequence+"' placeholder='BBM/whatsapp/Line' type='text' class='validate'></div><div class='col s12 m3'>Pin/ID/Nomor</div><div class='col s12 m5'><input name='txtAttributeValue"+sequence+"' type='text' placeholder='Ex : AD9876/bonoboLine' class='validate'></div><div class='col s12 m5'><a class='btn-floating btn-xs waves-effect waves-light red right' onclick=javascript:deletestep1("+sequence+",0)><i class='mdi-navigation-close'></i></a></div>";
 			div.setAttribute("class","row valign-wrapper counter attr-"+sequence);
 			divAttributes.append(div);
 			intAttributeCount.value = sequence;
-			if ($('.counter').length > 2 ) {
+			if ($('.counter').length > 3 ) {
 				//alert($('.counter').length);
 				$('#aAttributeAdd').hide();
 				return;
@@ -85,31 +85,7 @@ function CtrlShopStep1(){
 		
 	}
 	
-	function deletestep1(e,a){
-		var txtAttributeId = $hs("txtAttributeId"+e);
-		var divKontak = $("#divKontak"+e);
-		
-		if(txtAttributeId.value == ""){
-			divKontak.slideUp("slow").remove();
-			if ($('.counter').length < 3  ) {			
-				$('#aAttributeAdd').show();
-			}
-		}else{
-			$.ajax({
-				type: 'POST',
-				data: "id="+txtAttributeId.value,
-				url: base_url+'toko/dostep1deletekontak/',
-				success: function(result) {
-					var response = JSON.parse(result);
-					if(response.result == 1){
-						divKontak.slideUp("slow").remove();
-					}else{
-						$hs_notif("#notifStep5",response.message);
-					}
-				}
-			});
-		}
-	}
+	
 	
 	function doNext(){
 			var formData = new FormData($hs("formStep1"));
@@ -919,3 +895,33 @@ function CtrlShopStep5(){
                 });
         }
 }
+
+
+function deletestep1(e,a){
+		var txtAttributeId = $("#txtAttributeId"+e);
+		var divKontak = $(".attr-"+e);
+		
+		if(a == 0){
+			divKontak.slideUp("slow").remove();
+			if ($('.counter').length < 3  ) {			
+				$('#aAttributeAdd').show();
+			}
+		}else{
+			$.ajax({
+				type: 'POST',
+				data: "id="+a,
+				url: base_url+'toko/dostep1deletekontak/',
+				success: function(result) {
+					var response = JSON.parse(result);
+					if(response.result == 1){
+						divKontak.slideUp("slow").remove();
+						if ($('.counter').length < 3  ) {			
+							$('#aAttributeAdd').show();
+						}
+					}else{
+						$hs_notif("#notifStep5",response.message);
+					}
+				}
+			});
+		}
+	}
