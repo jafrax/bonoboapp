@@ -323,18 +323,21 @@ function tambah_kategori(){
   var nama  = $('#nama_kategori').val();
   var id    = $('#id-toko').val();
 
-  if ($('#form_add_kategori').valid() == true) {
-  $.ajax({
-        type: 'POST',
-        data: 'nama='+nama+'&id='+id,
-        url: base_url+'produk/add_kategori',
-        success: function(msg) {
-          Materialize.toast('Kategori telah ditambahkan', 4000);
-          $('#tempat-kategori').html(msg);
-          $('#select-kategori').chosen();
-          $('#add_kategori').closeModal();
-        }
-    });
+  if ($('#form_add_kategori').valid()) {
+    $.ajax({
+          type: 'POST',
+          data: 'nama='+nama+'&id='+id,
+          url: base_url+'produk/add_kategori',
+          success: function(msg) {
+            Materialize.toast('Kategori telah ditambahkan', 4000);
+            $('#tempat-kategori').html(msg);
+            $('#select-kategori').chosen();
+            $('#add_kategori').closeModal();
+            $('#nama_kategori').val('');
+          }
+      });
+  }else{
+    return;
   };
 }
 
@@ -413,8 +416,10 @@ function change_date(id){
     url: base_url+'produk/change_date',
     success: function(msg) {
       if (msg == 'sukses') {
+        var newdate = $('#tanggal-'+id).val();
         $('#draft-'+id).fadeOut();
-        $('.kadal-'+id).fadeOut();        
+        $('.kadal-'+id).fadeOut();
+        $('.date-'+id).html(newdate);
       }else{
         $('#draft-'+id).fadeIn();
         $('.kadal-'+id).fadeIn();        
