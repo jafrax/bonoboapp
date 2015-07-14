@@ -146,7 +146,7 @@ echo "
 								<div class=' col s12 m6'>
 								<label>Tipe Stok <span class='text-red'>*</span></label>
 								<label class='error error-chosen' for='stok'></label>
-									<select name='stok' id='stok' required OnChange=javascript:change_stok() class='chosen-select'>										
+									<select name='stok' id='stok' required OnChange=javascript:change_stok() class='select-standar lectfilter'>										
 										<option value='1' "; if ($produk->tipe_stok == 1) echo "selected"; echo">Stok selalu tersedia</option>
 										<option value='0' "; if ($produk->tipe_stok == 0) echo "selected"; echo">Gunakan stok</option>
 									</select>									

@@ -244,9 +244,11 @@ class Produk extends CI_Controller {
 					if ($gunakan_varian != 'on') {
 						$no_varian = $this->model_produk->get_varian_produk_null($id);
 
-						if ($no_varian->num_rows() > 0) {
+						if ($no_varian->num_rows() > 0) {							
+							$this->db->where('product_id',$id)->where('name !=','null')->delete('tb_product_varian');
 							$this->db->set('stock_qty',$stok_utama)->where('product_id',$id)->where('name','null')->update('tb_product_varian');
 						}else{
+							$this->db->where('product_id',$id)->delete('tb_product_varian');
 							$this->db->set('product_id',$id)
 								->set('name','null')
 								->set('stock_qty',$stok_utama)
@@ -256,7 +258,7 @@ class Produk extends CI_Controller {
 								->insert('tb_product_varian');
 						}						
 					}else{
-
+						$this->db->where('product_id',$id)->where('name','null')->delete('tb_product_varian');
 						$desc = $this->model_produk->get_varian_produk($id);
 						foreach($desc->result() as $item){
 							if(isset($_POST['nama_edit_varian_'.$item->id]) || isset($_POST['stok_edit_varian_'.$item->id])){
