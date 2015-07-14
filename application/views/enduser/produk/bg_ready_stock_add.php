@@ -121,7 +121,7 @@ echo "
 								<div class=' col s12 m6'>
 								<label>Tipe Stok <span class='text-red'>*</span></label>
 								<label class='error error-chosen' for='stok'></label>
-									<select name='stok' id='stok' required OnChange=javascript:change_stok() class='chosen-select'>										
+									<select name='stok' id='stok' required OnChange=javascript:change_stok() class='select-standar lectfilter'>										
 										<option value='1' selected>Stok selalu tersedia</option>
 										<option value='0'>Gunakan stok</option>
 									</select>									

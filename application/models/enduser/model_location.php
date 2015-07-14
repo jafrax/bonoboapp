@@ -51,6 +51,12 @@ class Model_location extends CI_Model {
 					->group_by("city")
 					->get("ms_location");
 	}
+	public function get_cities_by_provincee($p){
+		return $this->db
+					->where("province",$p)
+					->group_by("city")
+					->get("ms_location");
+	}
 	public function get_provinces_by_zipcode($p){
 		return $this->db
 					->where("postal_code",$p)
@@ -62,6 +68,13 @@ class Model_location extends CI_Model {
 		return $this->db
 					->where("city",$c)
 					->where("postal_code",$z)
+					->where("province",$p)
+					->group_by("kecamatan")
+					->get("ms_location");
+	}
+	public function get_kecamatans_by_city_provincee($c,$p){
+		return $this->db
+					->where("city",$c)
 					->where("province",$p)
 					->group_by("kecamatan")
 					->get("ms_location");
