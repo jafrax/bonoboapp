@@ -127,7 +127,7 @@ if(sizeOf($Attributes) <= 0){
 					<input name='txtAttributeValue".$no."' placeholder='Ex : AD9876/bonoboLine' type='text' class='validate' value='".$Attribute->value."'>
 				</div>
 				<div class='col s12 m5'>
-					<a href='#delete_kontak_".$no."'  class='modal-trigger btn-floating btn-xs waves-effect waves-light red right' onclick=CtrlShopStep1.deletestep1(".$no.",".$Attribute->id.");>
+					<a href='#delete_kontak_".$no."'  class='modal-trigger btn-floating btn-xs waves-effect waves-light red right' onclick=CtrlShopStep1.deletestepsatu(".$no.",".$Attribute->id.");>
 						<i class='mdi-navigation-close'></i>
 					</a>
 				</div>

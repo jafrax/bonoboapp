@@ -3,7 +3,7 @@ function CtrlShopStep1(){
 	this.loadComboboxCity = loadComboboxCity;
 	this.loadComboboxKecamatan = loadComboboxKecamatan;
 	this.loadComboboxProv = loadComboboxProv;
-	this.deletestep1 = deletestep1;
+	this.deletestepsatu = deletestepsatu;
 	
 	var formStep1,formStep1JQuery;
 	var intAttributeCount;
@@ -74,7 +74,7 @@ function CtrlShopStep1(){
 			div.setAttribute("class","row valign-wrapper counter attr-"+sequence);
 			divAttributes.append(div);
 			intAttributeCount.value = sequence;
-			if ($('.counter').length > 2 ) {
+			if ($('.counter').length > 3 ) {
 				//alert($('.counter').length);
 				$('#aAttributeAdd').hide();
 				return;
@@ -85,7 +85,7 @@ function CtrlShopStep1(){
 		
 	}
 	
-	function deletestep1(e,a){
+	function deletestepsatu(e,a){
 		var txtAttributeId = $hs("txtAttributeId"+e);
 		var divKontak = $("#divKontak"+e);
 		
