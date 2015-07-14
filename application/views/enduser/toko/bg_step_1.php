@@ -149,6 +149,12 @@ echo"
 									<a href='javascript:void(0);' id='aAttributeAdd'>[+] Tambah kontak</a>
 								</div>
 							";
+						}else{
+							echo "
+								<div class='col s10 m6' style='display:none'>
+									<a href='javascript:void(0);' id='aAttributeAdd'>[+] Tambah kontak</a>
+								</div>
+							";
 						}
 						echo "
 					</div>
