@@ -414,8 +414,13 @@ class Produk extends CI_Controller {
 
 	public function pre_order_product(){
 		$id 	= $this->input->post('id');
+		$date = $this->db->where('id',$id)->get('tb_product')->row()->end_date;
 
-		$this->db->where('id',$id)->set('stock_type',0)->update('tb_product');
+		if ($date == '0000-00-00') {
+			$this->db->where('id',$id)->set('stock_type',0)->set('end_date',date('Y-m-d'))->update('tb_product');
+		}else{
+			$this->db->where('id',$id)->set('stock_type',0)->update('tb_product');
+		}		
 		echo "5";
 	}
 

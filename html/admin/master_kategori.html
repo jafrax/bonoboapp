@@ -27,31 +27,45 @@
         <![endif]-->
     </head>
 
-    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal fade bs-add-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="box box-primary">
                 <div class="box-header">
-                    <h3 class="box-title">Ganti account status</h3>
+                    <h3 class="box-title">Tambah Kategori</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form role="form">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Status</label>
-                            <select class="form-control">
-                                <option>Active</option>
-                                <option>Nonactive</option>
-                            </select>
+                            <label for="exampleInputEmail1">Nama</label>
+                            <input type="text" class="form-control" id="">
                         </div>
+                    </div><!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div><!-- /.box -->
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade bs-edit-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">Edit Kategori</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form role="form">
+                    <div class="box-body">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Berlaku s/d</label>
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input type="text" class="form-control pull-right" id="tanggalindong">
-                            </div>
+                            <label for="exampleInputEmail1">Nama</label>
+                            <input type="text" class="form-control" id="">
                         </div>
                     </div><!-- /.box-body -->
 
@@ -77,13 +91,13 @@
                     </div>
                 </div>
                 <div class="box-body" style="display: block;">
-                    Box class: <code>.box.box-solid.box-primary</code>
+                    Hapus kategori : <code>Fashion</code>
                     <p>
                     </p>
                 </div><!-- /.box-body -->
-                <div class="box-footer">
+                <div class="box-footer text-right">
+                    <button type="submit" class="btn btn-primary">Cancel</button>
                     <button type="submit" class="btn btn-danger">Ok</button>
-                    <button type="submit" class="btn btn-danger">Cancel</button>
                 </div>
             </div>
         </div>
@@ -157,22 +171,22 @@
                                 <i class="fa fa-dashboard"></i> <span>DASHBOARD</span>
                             </a>
                         </li>
-                        <li class="active">
+                        <li >
                             <a href="daftar_toko.html">
                                 <i class="fa fa-laptop"></i> <span>DAFTAR TOKO</span>
                             </a>
                         </li>
-                        <li>
+                        <li >
                             <a href="daftar_pembeli.html">
                                 <i class="fa fa-shopping-cart"></i> <span>DAFTAR PEMBELI</span>
                             </a>
                         </li>
-                        <li >
+                        <li class="active">
                             <a href="master_kategori.html">
                                 <i class="fa fa-list"></i> <span>MASTER KATEGORI</span>
                             </a>
                         </li>
-                        <li>
+                        <li >
                             <a href="master_lokasi.html">
                                 <i class="fa fa-map-marker"></i> <span>MASTER LOKASI</span>
                             </a>
@@ -203,11 +217,11 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Daftar Toko
+                        Master Kategori
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Daftar Toko</li>
+                        <li class="active">Master Kategori</li>
                     </ol>
                 </section>
 
@@ -223,6 +237,9 @@
 
                             <div class="box-tools">
                                 <div class="input-group">
+                                    <button data-toggle="modal" data-target=".bs-add-modal-sm" class="btn btn-primary ">Tambah Baru</button>
+                                </div>
+                                <div class="input-group">
                                     <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search"/>
                                     <div class="input-group-btn">
                                         <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
@@ -234,11 +251,7 @@
                                     <tr>
                                         <th style="width: 10px"><input type="checkbox"></th>
                                         <th>No</th>
-                                        <th>Nama Toko</th>
-                                        <th>Email</th>
-                                        <th>Email Status</th>
-                                        <th>Account Status</th>
-                                        <th>Berlaku s/d</th>
+                                        <th>Nama Kategori</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -250,13 +263,10 @@
                                             </label>
                                         </td>
                                         <td>1</td>
-                                        <td>Nina</td>
-                                        <td>nina@mail.com</td>
-                                        <td><span class="label label-success">Verified</span></td>
-                                        <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="label label-success">Active</span></button></td>
-                                        <td>17 Juni 2014</td>
+                                        <td>Fashion</td>
                                         <td>
-                                            <button class="btn btn-warning btn-sm">Hapus</button>
+                                            <button data-toggle="modal" data-target=".bs-edit-modal-sm" class="btn btn-primary btn-sm">Edit</button>
+                                            <button data-toggle="modal" data-target=".confirm" class="btn btn-warning btn-sm">Hapus</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -264,11 +274,7 @@
                                     <tr>
                                         <th style="width: 10px"></th>
                                         <th>No</th>
-                                        <th>Nama Toko</th>
-                                        <th>Email</th>
-                                        <th>Email Status</th>
-                                        <th>Account Status</th>
-                                        <th>Berlaku s/d</th>
+                                        <th>Nama Kategori</th>
                                         <th>Action</th>
                                 </tfoot>
                             </table>

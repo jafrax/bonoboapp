@@ -90,7 +90,7 @@ echo"
 if(sizeOf($Attributes) <= 0){
 	echo"
 		<input type='hidden' id='intAttributeCount' name='intAttributeCount' value='1'>
-		<div class='row valign-wrapper'>
+		<div class='row valign-wrapper counter attr-1'>
 			<div class='col s12 m3'>
 				Nama kontak
 			</div>
@@ -112,12 +112,12 @@ if(sizeOf($Attributes) <= 0){
 	$no = 1;
 	foreach($Attributes as $Attribute){
 		echo"
-			<div class='row valign-wrapper'>
+			<div class='row valign-wrapper counter attr-".$no."'>
 				<div class='col s12 m3'>
 					Nama kontak
 				</div>
 				<div class='col s12 m5'>
-					<input name='txtAttributeId".$no."' type='hidden' value='".$Attribute->id."'>
+					<input name='txtAttributeId".$no."' id='txtAttributeId".$no."' type='hidden' value='".$Attribute->id."'>
 					<input name='txtAttributeName".$no."' placeholder='BBM/whatsapp/Line' type='text' class='validate' value='".$Attribute->name."'>
 				</div>
 				<div class='col s12 m3'>
@@ -125,6 +125,11 @@ if(sizeOf($Attributes) <= 0){
 				</div>
 				<div class='col s12 m5'>
 					<input name='txtAttributeValue".$no."' placeholder='Ex : AD9876/bonoboLine' type='text' class='validate' value='".$Attribute->value."'>
+				</div>
+				<div class='col s12 m5'>
+					<a class='btn-floating btn-xs waves-effect waves-light red right' onclick=javascript:deletestep1(".$no.",".$Attribute->id.")>
+						<i class='mdi-navigation-close'></i>
+					</a>
 				</div>
 			</div>
 		";
@@ -134,13 +139,24 @@ if(sizeOf($Attributes) <= 0){
 
 echo"
 					</div>
-					<div class='row valign-wrapper'>
+					<div class='row valign-wrapper counter'>
 						<div class='col s2 m2'>
 							
-						</div>
-						<div class='col s10 m6'>
-							<a href='javascript:void(0);' id='aAttributeAdd'>[+] Tambah kontak</a>
-						</div>
+						</div>";
+						if (sizeOf($Attributes) < 3) {
+							echo "
+								<div class='col s10 m6'>
+									<a href='javascript:void(0);' id='aAttributeAdd'>[+] Tambah kontak</a>
+								</div>
+							";
+						}else{
+							echo "
+								<div class='col s10 m6' style='display:none'>
+									<a href='javascript:void(0);' id='aAttributeAdd'>[+] Tambah kontak</a>
+								</div>
+							";
+						}
+						echo "
 					</div>
 				</div>
 				<div class='input-field col s12 m8'>

@@ -239,7 +239,7 @@ function CtrlSignin(){
 
 	function doForgotPassword(){
 		if(txtForgotEmail.value == ""){
-			notifForgotPassword.html("<i class='fa fa-warning'></i> Email harus diisi e!");
+			notifForgotPassword.html("<i class='fa fa-warning'></i> Email harus diisi !");
 			notifForgotPassword.slideDown();
 			notifForgotPassword.delay(5000).slideUp('slow');
 			return;

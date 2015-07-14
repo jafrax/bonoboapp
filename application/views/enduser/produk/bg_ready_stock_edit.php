@@ -32,11 +32,12 @@ echo "
 	</div>	
 	<form class='modal-content' id='form_add_kategori'>
 		<input id='id-toko' name='nama' type='hidden' value='".$_SESSION['bonobo']['id']."' >
-		<input id='nama-kategori' name='nama' type='text' class='validate'>
-		<label for='nama-kategori'>Nama kategori <span class='text-red'>*</span></label>	
+		<input id='nama_kategori' name='nama_kategori' type='text' class='validate'>
+		<label for='nama_kategori'>Nama kategori <span class='text-red'>*</span></label>
+		<label class='error error-chosen' for='nama_kategori'></label>	
 	<div class='modal-footer'>
-		<button type='button' class=' modal-action modal-close waves-effect waves-red btn-flat'>TUTUP</button>
-		<button type='button' id='tambah-kategori' class='modal-action modal-close waves-effect waves-red btn-flat'>TAMBAH</button>
+		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>TUTUP</a>
+		<button type='button' onclick=javascript:tambah_kategori() id='tambah-kategori' class='waves-effect waves-red btn-flat'>TAMBAH</a>
 	</div>
 	</form>
 </div>
@@ -145,7 +146,7 @@ echo "
 								<div class=' col s12 m6'>
 								<label>Tipe Stok <span class='text-red'>*</span></label>
 								<label class='error error-chosen' for='stok'></label>
-									<select name='stok' id='stok' required OnChange=javascript:change_stok()>										
+									<select name='stok' id='stok' required OnChange=javascript:change_stok() class='chosen-select'>										
 										<option value='1' "; if ($produk->tipe_stok == 1) echo "selected"; echo">Stok selalu tersedia</option>
 										<option value='0' "; if ($produk->tipe_stok == 0) echo "selected"; echo">Gunakan stok</option>
 									</select>									
@@ -246,7 +247,7 @@ echo "
 								<div class='input-field col s12 m12 varsto'>
 									<span for='harga_jual'>Harga Jual <span class='text-red'>*</span></span>
 								</div>";
-								if ($level_harga->level_1_active == 1) {$a1 = 'block';}else{$a1 = 'none';}
+								$a1 = 'block';
 								if ($level_harga->level_2_active == 1) {$a2 = 'block';}else{$a2 = 'none';}
 								if ($level_harga->level_3_active == 1) {$a3 = 'block';}else{$a3 = 'none';}
 								if ($level_harga->level_4_active == 1) {$a4 = 'block';}else{$a4 = 'none';}
