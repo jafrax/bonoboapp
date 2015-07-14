@@ -565,6 +565,7 @@ function CtrlShopStep7(){
 			data: "province="+$hs('formStep5Rate').cmbProvince.value,
 			url: base_url+'toko/step7ComboboxCity/',
 			success: function(result) {
+		
 				divCity.html(result);
 				loadComboboxKecamatan();
 			}
@@ -572,6 +573,7 @@ function CtrlShopStep7(){
 	}
 	
 	function loadComboboxKecamatan(){
+	var cmbProvince= $('').val();
 		$.ajax({
 			type: 'POST',
 			data: "province="+$hs('formStep5Rate').cmbProvince.value+"&city="+$hs('formStep5Rate').cmbCity.value,
