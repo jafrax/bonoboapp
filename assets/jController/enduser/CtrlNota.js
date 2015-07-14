@@ -1,6 +1,32 @@
 // Created by : dinarwahyu13@gmail.com
 
+// Notes nota ======================================================================================
+function edit_notes (id) {
+    $('.notes-'+id).prop("disabled", false);
+    $('.tombol-notes-'+id).show();
+}
 
+function batal_notes (id) {
+    $('.notes-'+id).prop("disabled", true);
+    $('.tombol-notes-'+id).hide();
+}
+
+function simpan_notes (id) {
+    var note = $('.notes-'+id).val();
+    $.ajax({
+        type: 'POST',
+        data: 'id='+id+'&note='+note,
+        url: base_url+'nota/change_note',
+        success: function(msg) {
+            if (msg == 1) {
+                $('.notes-'+id).prop("disabled", true);
+                $('.tombol-notes-'+id).hide();
+            }else{
+                Materialize.toast('Gagal menyimpan notes Anda', 4000);
+            };              
+        } 
+    });
+}
 //=======================================================================================================
 
 function cek_all_nota(){  

@@ -246,10 +246,11 @@ echo"
 								            echo"
 								            <li class=''>
 								                <div class='collapsible-header'><i class='mdi-action-receipt'></i>Notes
-								                <a class='right col s2 m1 center' onclick=javascript:edit_notes(".$row->id.") >Edit</a>
+								                
 								                </div>								                
 								                <div class='collapsible-body' style='display: none;'>
 								                <p>
+								                	<a class='right col s2 m1 center' onclick=javascript:edit_notes(".$row->id.") >Edit</a>
 								                	<textarea disabled class='materialize-textarea notes-".$row->id."' name='notes-".$row->id."'>".$row->notes."</textarea>
 								                	<a class='tombol-notes-".$row->id." right col s2 m1 center' onclick=javascript:simpan_notes(".$row->id.") style='display: none;'>Simpan</a>
 										            <a class='tombol-notes-".$row->id." right col s2 m1 center red-text' onclick=javascript:batal_notes(".$row->id.") style='display: none;'>Batal</a>
