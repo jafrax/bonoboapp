@@ -111,6 +111,7 @@ label{ font-size: 14px; color: #565a5c; }
 
 .nolpad{ padding:0px!important; }
 .nolmar{ margin:0px!important; }
+.nolautomar{ width:60%; margin:0 auto!important; }
 .label{ color:#fff; padding:4px 5px; border-radius:2px; position: absolute; right:0; top:15px; } 
 
 .checkiniabs{ position: absolute; z-index:998; top:2px; left:2px; }
