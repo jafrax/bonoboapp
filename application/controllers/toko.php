@@ -49,6 +49,19 @@ class Toko extends CI_Controller {
 		
 		$this->template->bonobo_step("enduser/toko/bg_step_1",$data);
 	}
+	public function doStep1deletekontak(){
+		if($this->response->post("id") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada data yang dipilih","messageCode"=>1));
+			return;
+		}
+		
+		$Delete = $this->db->where("id",$this->response->post("id"))->delete("tb_toko_attribute");
+		if($Delete){
+			$this->response->send(array("result"=>1,"message"=>"Data telah dihapus","messageCode"=>1));
+		}else{
+			$this->response->send(array("result"=>0,"message"=>"Tidak dapat dihapus","messageCode"=>1));
+		}
+	}
 	
 	public function comboboxprov(){
 		$Provinces = $this->model_location->get_provinces_by_zipcode($this->response->post("zip_code"))->result();

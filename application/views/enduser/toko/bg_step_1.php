@@ -112,7 +112,7 @@ if(sizeOf($Attributes) <= 0){
 	$no = 1;
 	foreach($Attributes as $Attribute){
 		echo"
-			<div class='row valign-wrapper'>
+			<div class='row valign-wrapper counter' >
 				<div class='col s12 m3'>
 					Nama kontak
 				</div>
@@ -134,7 +134,7 @@ if(sizeOf($Attributes) <= 0){
 
 echo"
 					</div>
-					<div class='row valign-wrapper'>
+					<div class='row valign-wrapper counter'>
 						<div class='col s2 m2'>
 							
 						</div>

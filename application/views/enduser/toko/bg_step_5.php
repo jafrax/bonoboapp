@@ -67,7 +67,7 @@ echo"
 	if(sizeOf($CustomeCouriers) <= 0){
 		echo"
 				<input type='hidden' id='txtCustomeCourierCount' name='txtCustomeCourierCount' value='".$no."'>
-				<div id='divCourier".$no."' class='input-field col s12 m12'>
+				<div id='divCourier".$no."' class='input-field col s12 m12 counter'>
 					<div class='input-field col s12 m12 l6'>
 						<input type='hidden' id='txtCourierId".$no."' name='txtCourierId".$no."'>
 						<input type='text' id='txtCourierName".$no."' name='txtCourierName".$no."'>
@@ -83,7 +83,7 @@ echo"
 	}else{
 		foreach($CustomeCouriers as $CustomeCourier){
 			echo"
-				<div id='divCourier".$no."' class='input-field col s12 m12'>
+				<div id='divCourier".$no."' class='input-field col s12 m12 counter'>
 					<div class='input-field col s12 m12 l6'>
 						<input type='hidden' id='txtCourierId".$no."' name='txtCourierId".$no."'  value='".$CustomeCourier->id."'>
 						<input type='text' id='txtCourierName".$no."' name='txtCourierName".$no."' value='".$CustomeCourier->name."'>
@@ -104,7 +104,7 @@ echo"
 	echo"
 						</div>
 					</p>
-					<p style='margin-left:30px;width:100%' class='input-field col s12 m8'><a href='javascript:void(0);' id='aCustomeCourierAdd'>[+] Tambah Baru</a></p>
+					<p style='margin-left:30px;width:100%' class='input-field col s12 m8' id='tombol-tambah'><a href='javascript:void(0);' id='aCustomeCourierAdd'>[+] Tambah Baru</a></p>
 				</div>
 				
 				<div class='input-field col s12 m8'><p><br></p></div>

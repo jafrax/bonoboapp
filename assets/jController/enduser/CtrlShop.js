@@ -3,6 +3,7 @@ function CtrlShopStep1(){
 	this.loadComboboxCity = loadComboboxCity;
 	this.loadComboboxKecamatan = loadComboboxKecamatan;
 	this.loadComboboxProv = loadComboboxProv;
+	this.deletestep1 = deletestep1;
 	
 	var formStep1,formStep1JQuery;
 	var intAttributeCount;
@@ -69,14 +70,45 @@ function CtrlShopStep1(){
 			var sequence = parseInt(intAttributeCount.value)+1;
 			var div = document.createElement("div");
 			
-			div.innerHTML = "<div class='col s12 m3' id='kontak"+sequence+"'>Nama kontak</div><div class='col s12 m5'><input name='txtAttributeId"+sequence+"' type='hidden' value=''><input name='txtAttributeName"+sequence+"' placeholder='BBM/whatsapp/Line' type='text' class='validate'></div><div class='col s12 m3'>Pin/ID/Nomor</div><div class='col s12 m5'><input name='txtAttributeValue"+sequence+"' type='text' placeholder='Ex : AD9876/bonoboLine' class='validate'></div><a href='#delete_kontak_"+sequence+"' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>";
-			div.setAttribute("class","row valign-wrapper");
+			div.innerHTML = "<div class='col s12 m3' id='kontak"+sequence+"'>Nama kontak</div><div class='col s12 m5'><input  name='txtAttributeId"+sequence+"' type='hidden' value=''><input id='txtAttributeId"+sequence+"' name='txtAttributeName"+sequence+"' placeholder='BBM/whatsapp/Line' type='text' class='validate'></div><div class='col s12 m3'>Pin/ID/Nomor</div><div class='col s12 m5'><input name='txtAttributeValue"+sequence+"' type='text' placeholder='Ex : AD9876/bonoboLine' class='validate'></div><div class='col s12 m5'><a href='#delete_kontak_"+sequence+"' onclick=ctrlShopStep1.deletestep1("+sequence+"); class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a></div>";
+			div.setAttribute("class","row valign-wrapper counter");
 			divAttributes.append(div);
 			intAttributeCount.value = sequence;
+			if ($('.counter').length > 2 ) {
+				//alert($('.counter').length);
+				$('#aAttributeAdd').hide();
+				return;
+			}
 		};
 		
 
 		
+	}
+	
+	function deletestep1(e){
+		var txtAttributeId = $hs("txtAttributeId"+e);
+		var divKontak = $("#divKontak"+e);
+		
+		if(txtAttributeId.value == ""){
+			divKontak.slideUp("slow").remove();
+			if ($('.counter').length < 3  ) {			
+				$('#tombol-tambah').show();
+			}
+		}else{
+			$.ajax({
+				type: 'POST',
+				data: "id="+txtAttributeId.value,
+				url: base_url+'toko/doStep1deletekontak/',
+				success: function(result) {
+					var response = JSON.parse(result);
+					if(response.result == 1){
+						divKontak.slideUp("slow");
+					}else{
+						$hs_notif("#notifStep5",response.message);
+					}
+				}
+			});
+		}
 	}
 	
 	function doNext(){
@@ -352,7 +384,7 @@ function CtrlShopStep7(){
 	}
 	
 	function initEventlistener(){
-		aCustomeCourierAdd.onclick = function(){
+		aCustomeCourierAdd.onclick = function(){			
 			addCustomeCourier();
 		};
 		
@@ -376,12 +408,19 @@ function CtrlShopStep7(){
 	function addCustomeCourier(){
 		var div = document.createElement('div');
 		
+		
+		
 		sequence = sequence+2;
 		
-		div.innerHTML = "<div id='divCourier"+sequence+"' class='input-field col s12 m12'><div class='input-field col s12 m12 l6'><input type='hidden' id='txtCourierId"+sequence+"' name='txtCourierId1'><input type='text' id='txtCourierName"+sequence+"' name='txtCourierName1'><label for='txtCourierName"+sequence+"'>Nama Jasa Pengiriman</label></div><div class='input-field col s12 m12 l6'><button type='button' class='waves-effect waves-light btn  ' onclick=ctrlShopStep7.doCourierSave("+sequence+");><i class='material-icons left'>library_add</i> Simpan</button> <button class='waves-effect waves-light btn red' type='button' onclick=ctrlShopStep7.doCourierDelete("+sequence+");><i class='mdi-action-delete left'></i>Hapus</button> <button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail"+sequence+"'  onclick=ctrlShopStep7.showDetail("+sequence+"); style='display:none;'><i class='material-icons left'>list</i>Detail</button> </div></div>";
+		div.innerHTML = "<div id='divCourier"+sequence+"' class='input-field col s12 m12 counter'><div class='input-field col s12 m12 l6'><input type='hidden' id='txtCourierId"+sequence+"' name='txtCourierId1'><input type='text' id='txtCourierName"+sequence+"' name='txtCourierName1'><label for='txtCourierName"+sequence+"'>Nama Jasa Pengiriman</label></div><div class='input-field col s12 m12 l6'><button type='button' class='waves-effect waves-light btn  ' onclick=ctrlShopStep7.doCourierSave("+sequence+");><i class='material-icons left'>library_add</i> Simpan</button> <button class='waves-effect waves-light btn red' type='button' onclick=ctrlShopStep7.doCourierDelete("+sequence+");><i class='mdi-action-delete left'></i>Hapus</button> <button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail"+sequence+"'  onclick=ctrlShopStep7.showDetail("+sequence+"); style='display:none;'><i class='material-icons left'>list</i>Detail</button> </div></div>";
 		
 		divCustomCourier.append(div);
 		txtCustomeCourierCount.value = sequence;
+		if ($('.counter').length > 2 ) {
+				//alert($('.counter').length);
+				$('#tombol-tambah').hide();
+				return;
+			}
 	}
 	
 	function showDetail(e){
@@ -411,8 +450,7 @@ function CtrlShopStep7(){
 					aCourierDetail.slideDown("slow");
 					txtCourierId.value = response.id;
 				}else{
-					Materialize.toast(response.message, 4000);
-					//$hs_notif("#notifStep5",response.message);
+					$hs_notif("#notifStep5",response.message);
 				}
 			}
 		});
@@ -422,8 +460,12 @@ function CtrlShopStep7(){
 		var txtCourierId = $hs("txtCourierId"+e);
 		var divCourier = $("#divCourier"+e);
 		
+		
 		if(txtCourierId.value == ""){
-			divCourier.slideUp("slow");
+			divCourier.slideUp("slow").remove();
+			if ($('.counter').length < 3  ) {			
+				$('#tombol-tambah').show();
+			}
 		}else{
 			$.ajax({
 				type: 'POST',
