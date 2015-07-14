@@ -90,7 +90,7 @@ echo"
 if(sizeOf($Attributes) <= 0){
 	echo"
 		<input type='hidden' id='intAttributeCount' name='intAttributeCount' value='1'>
-		<div class='row valign-wrapper'>
+		<div class='row valign-wrapper counter attr-1'>
 			<div class='col s12 m3'>
 				Nama kontak
 			</div>
@@ -112,7 +112,7 @@ if(sizeOf($Attributes) <= 0){
 	$no = 1;
 	foreach($Attributes as $Attribute){
 		echo"
-			<div class='row valign-wrapper counter' >
+			<div class='row valign-wrapper counter attr-".$no."'>
 				<div class='col s12 m3'>
 					Nama kontak
 				</div>
@@ -125,6 +125,11 @@ if(sizeOf($Attributes) <= 0){
 				</div>
 				<div class='col s12 m5'>
 					<input name='txtAttributeValue".$no."' placeholder='Ex : AD9876/bonoboLine' type='text' class='validate' value='".$Attribute->value."'>
+				</div>
+				<div class='col s12 m5'>
+					<a href='#delete_kontak_".$no."'  class='modal-trigger btn-floating btn-xs waves-effect waves-light red right' onclick=CtrlShopStep1.deletestep1(".$no.",".$Attribute->id.");>
+						<i class='mdi-navigation-close'></i>
+					</a>
 				</div>
 			</div>
 		";
