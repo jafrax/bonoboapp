@@ -411,7 +411,8 @@ function CtrlShopStep7(){
 					aCourierDetail.slideDown("slow");
 					txtCourierId.value = response.id;
 				}else{
-					$hs_notif("#notifStep5",response.message);
+					Materialize.toast(response.message, 4000);
+					//$hs_notif("#notifStep5",response.message);
 				}
 			}
 		});
