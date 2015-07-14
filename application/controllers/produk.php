@@ -490,6 +490,9 @@ class Produk extends CI_Controller {
 				$harga_level_4 	= $this->template->clearInput($this->input->post('harga_level_4'));
 				$harga_level_5 	= $this->template->clearInput($this->input->post('harga_level_5'));
 				
+				if ($tgl_pre_order == '') {
+					$tgl_pre_order = date('Y-m-d');
+				}
 
 				$data = array(
 					'stock_type'				=> 0,

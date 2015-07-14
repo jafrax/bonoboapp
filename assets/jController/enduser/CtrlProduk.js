@@ -29,6 +29,35 @@
                 filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
               }
       }
+  }); 
+
+   $("#form-pre").validate({
+      errorClass:'error',
+      ignore: ":hidden:not(select)",
+      rules:{
+          tipe                    : {required: true,maxlength:100},
+          nama                    : {required: true,maxlength:50},
+          tgl_pre_order_submit    : {required: true,maxlength:50},
+          sku                     : {maxlength:20},
+          kategori                : {required: true,maxlength:50},
+          pic_1                   : {accept: 'image/*',filesize: 1000000},
+          berat                   : {number:true,maxlength:50},
+          satuan                  : {maxlength:5},
+          min_order               : {digits: true,maxlength:11},
+          deskripsi               : {maxlength:250},
+          stok                    : {required: true,maxlength:50},
+          harga_pembelian         : {digits: true,maxlength:50},
+          harga_level_1           : {digits: true,maxlength:50},
+          harga_level_2           : {digits: true,maxlength:50},
+          harga_level_3           : {digits: true,maxlength:50},
+          harga_level_4           : {digits: true,maxlength:50},
+          harga_level_5           : {digits: true,maxlength:50},          
+      },
+      messages: {
+          pic_1: {
+                filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
+              }
+      }
   });  
 
   $("#form_add_kategori").validate({

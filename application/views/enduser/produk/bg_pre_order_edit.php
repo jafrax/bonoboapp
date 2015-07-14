@@ -49,7 +49,7 @@ echo "
 					</ul>
 				</div>
 				<div class='col s12 m12 l9'>
-					<form class='formain'id='form-ready' method='post' action='' enctype='multipart/form-data'>
+					<form class='formain'id='form-pre' method='post' action='' enctype='multipart/form-data'>
 						<div class='formhead'>
 							<h2 class='titmain'><b>EDIT BARANG PRE ORDER</b></h2>
 						</div>
@@ -68,8 +68,9 @@ echo "
 								$date 				= date('Y/m/d', $old_date_timestamp);
 								echo"
 								<div class='input-field col s12'>
-									<input id='date_fin' data-value='$date' name='tgl_pre_order' type='text' placeholder='Tanggal selesai PRE ORDER' class='datepicker validate'>
-									<label for='date_fin'>Tanggal selesai PRE ORDER</label>
+									<input  id='tgl_pre_order' data-value='$date' name='tgl_pre_order' type='text' placeholder='Tanggal selesai PRE ORDER' class='datepicker validate'>
+									<label for='tgl_pre_order'>Tanggal selesai PRE ORDER <span class='text-red'>*</span></label>
+									<label class='error' for='tgl_pre_order'></label>
 								</div>
 								<div class='col s12 m6' id='tempat-kategori'>
 									<label>Kategori Barang <span class='text-red'>*</span></label>
