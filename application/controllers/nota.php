@@ -257,6 +257,16 @@ class Nota extends CI_Controller {
 		$this->template->bonobo('nota/bg_nota_detail',$data);
 	}
 
+	public function cetak(){
+		$invoice 			= $this->uri->segment(3);
+		$data['nota']		= $this->model_nota->get_nota_invoice($invoice)->row();
+		$data['rekening']	= $this->model_nota->get_rekening();
+		$data['toko']		= $this->model_nota->get_toko()->row();
+		$data['produk']		= $this->model_nota->get_nota_product($invoice);
+
+		$this->load->view('enduser/nota/bg_print',$data);
+	}
+
 	public function ajax_load(){
 		$data['nota']		= $this->model_nota->get_nota();
 		$data['rekening']	= $this->model_nota->get_rekening();

@@ -852,7 +852,7 @@ class Toko extends CI_Controller {
 	}
 	
 	public function step7ComboboxCity(){
-		$Cities = $this->model_location->get_cities_by_province($this->response->post("province"))->result();
+		$Cities = $this->model_location->get_cities_by_provincee($this->response->post("province"))->result();
 		
 		echo"<p><select name='cmbCity' onChange=ctrlShopStep7.loadComboboxKecamatan(); class='chzn-select'><option value='' disabled selected>Pilih Kota</option>";
 
@@ -864,7 +864,7 @@ class Toko extends CI_Controller {
 	}
 	
 	public function step7ComboboxKecamatan(){
-		$Kecamatans = $this->model_location->get_kecamatans_by_city_province($this->response->post("city"),$this->response->post("province"))->result();
+		$Kecamatans = $this->model_location->get_kecamatans_by_city_provincee($this->response->post("city"),$this->response->post("province"))->result();
 		
 		echo"<p><select name='cmbKecamatan' class='chzn-select'><option value='' disabled selected>Pilih Kecamatan</option>";
 
