@@ -65,7 +65,7 @@ class Api extends CI_Controller {
 		}
 	}
 	
-	private function getShopById($id){
+	private function getShopById($id,$user=null){
 		/*
 		*	------------------------------------------------------------------------------
 		*	Query mencari data shop
@@ -73,8 +73,8 @@ class Api extends CI_Controller {
 		*/
 		$QShop = $this->db
 			->select("tk.*, ml.id as location_id, ml.kecamatan as location_kecamatan, ml.city as location_city, ml.province as location_province, ml.postal_code as location_postal, mc.id as category_id, mc.name as category_name")
-			->join("ms_location ml","ml.id = tk.location_id")
-			->join("ms_category mc","mc.id = tk.category_id")
+			->join("ms_location ml","ml.id = tk.location_id","left")
+			->join("ms_category mc","mc.id = tk.category_id","left")
 			->where("tk.id",$id)
 			->get("tb_toko tk")
 			->row();
@@ -82,6 +82,23 @@ class Api extends CI_Controller {
 		if(empty($QShop)){
 			return null;
 		}else{
+			if(@getimagesize(base_url("assets/pic/shop/".$QShop->image))){
+				$ShopImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/shop/".$QShop->image)));
+			}else{
+				$ShopImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+			}
+			$join = 0;
+			$price_level = 1;
+			
+			if(!empty($user)){
+				$ShopMember = $this->db->where("toko_id",$id)->where("member_id",$user)->get("tb_toko_member")->row();
+				
+				if(!empty($ShopMember)){
+					$join = 1;
+					$price_level = $ShopMember->price_level >= 1 ? $ShopMember->price_level : 1;
+				}
+			}
+			
 			$Shop = array(
 				"id"=>$QShop->id,
 				"name"=>$QShop->name,
@@ -89,6 +106,9 @@ class Api extends CI_Controller {
 				"phone"=>$QShop->phone,
 				"tag_name"=>$QShop->tag_name,
 				"keyword"=>$QShop->keyword,
+				"image_url"=>$ShopImageUrl,
+				"join"=>$join,
+				"price_level"=>$price_level,
 				"location"=>array(
 						"id"=>$QShop->location_id,
 						"kecamatan"=>$QShop->location_kecamatan,
@@ -161,9 +181,6 @@ class Api extends CI_Controller {
 		*/
 						
 		$ProductShop = $this->getShopById($QProduct->toko_id);
-		//if(empty($ProductShop)){
-			//$ProductShop = array();
-		//}
 		
 		/*
 		*	------------------------------------------------------------------------------
@@ -236,6 +253,7 @@ class Api extends CI_Controller {
 			$QProducts = $this->db
 							->select("id")
 							->limit(10,0)
+							->order_by("id","DESC")
 							->get("tb_product")
 							->result();
 			
@@ -1621,44 +1639,127 @@ class Api extends CI_Controller {
 			
 			$Save = $this->db->where("id",$QUser->id)->update("tb_member",$Data);
 			if($Save){
-				/*
-				*	------------------------------------------------------------------------------
-				*	Simpan data kontak user
-				*	------------------------------------------------------------------------------
-				*/
-				$Contacts = $this->response->postDecode("contacts");
-				if($Contacts > 0){
-					for($i=1;$i <= $Contacts;$i++){
-						$id = $this->response->postDecode("contact".$i."_id");
-						if(empty($id)){
-							$Data = array(
-								"member_id"=>$QUser->id,
-								"name"=>$this->response->postDecode("contact".$i."_name"),
-								"value"=>$this->response->postDecode("contact".$i."_value"),
-								"create_date"=>date("Y-m-d H:i:s"),
-								"create_user"=>$QUser->email,
-								"update_date"=>date("Y-m-d H:i:s"),
-								"update_user"=>$QUser->email,
-							);
-							
-							$this->db->insert("tb_member_attribute",$Data);
-						}else{
-							$Data = array(
-								"name"=>$this->response->postDecode("contact".$i."_name"),
-								"value"=>$this->response->postDecode("contact".$i."_value"),
-								"update_date"=>date("Y-m-d H:i:s"),
-								"update_user"=>$QUser->email,
-							);
-							
-							$this->db->where("id",$id)->update("tb_member_attribute",$Data);
-						}
-					}
-				}
-				
 				$User = $this->getUserById($QUser->id);
 				$this->response->send(array("result"=>1,"message"=>"Data user telah diubah","messageCode"=>4,"user"=>$User), true);
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Data user tidak dapat disimpan","messageCode"=>5), true);
+			}
+			
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function doUserAttributeSave(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Simpan data kontak user
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$id = $this->response->postDecode("contact_id");
+			if(empty($id)){
+				$Data = array(
+					"member_id"=>$QUser->id,
+					"name"=>$this->response->postDecode("contact_name"),
+					"value"=>$this->response->postDecode("contact_value"),
+					"create_date"=>date("Y-m-d H:i:s"),
+					"create_user"=>$QUser->email,
+					"update_date"=>date("Y-m-d H:i:s"),
+					"update_user"=>$QUser->email,
+				);
+				
+				$Save = $this->db->insert("tb_member_attribute",$Data);
+				if($Save){
+					$this->response->send(array("result"=>1,"message"=>"Kontak telah disimpan","messageCode"=>3), true);
+				}else{
+					$this->response->send(array("result"=>0,"message"=>"Kontak tidak dapat disimpan","messageCode"=>4), true);
+				}
+			}else{
+				$Data = array(
+					"name"=>$this->response->postDecode("contact_name"),
+					"value"=>$this->response->postDecode("contact_value"),
+					"update_date"=>date("Y-m-d H:i:s"),
+					"update_user"=>$QUser->email,
+				);
+				
+				$Save = $this->db->where("id",$id)->update("tb_member_attribute",$Data);
+				if($Save){
+					$this->response->send(array("result"=>1,"message"=>"Kontak telah disimpan","messageCode"=>5), true);
+				}else{
+					$this->response->send(array("result"=>0,"message"=>"Kontak tidak dapat disimpan","messageCode"=>6), true);
+				}
+			}
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function doUserAttributeDelete(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			if($this->response->post("contact") == "" || $this->response->postDecode("contact") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada kontak user yang dipilih","messageCode"=>3), true);
+				return;
+			}
+			
+			$QUserContact = $this->db->where("id",$this->response->postDecode("contact"))->get("tb_member_attribute")->row();
+			if(empty($QUserContact)){
+				$this->response->send(array("result"=>0,"message"=>"Data kontak user tidak ditemukan","messageCode"=>4), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Delete data kontak
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$Delete = $this->db->where("id",$this->response->postDecode("contact"))->delete("tb_member_attribute");
+			if($Delete){
+				$this->response->send(array("result"=>1,"message"=>"Data kontak user telah dihapus","messageCode"=>5), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Data kontak user tidak dapat dihapus","messageCode"=>6), true);
 			}
 			
 		} catch (Exception $e) {
@@ -1723,9 +1824,7 @@ class Api extends CI_Controller {
 			}
 			
 			if($Save){
-				$User = $this->getUserById($QUser->id);
-					
-				$this->response->send(array("result"=>1,"message"=>"Data shipment telah diubah","messageCode"=>4,"user"=>$User), true);
+				$this->response->send(array("result"=>1,"message"=>"Data shipment telah diubah","messageCode"=>4), true);
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Data shipment tidak dapat disimpan","messageCode"=>5), true);
 			}
@@ -1841,8 +1940,7 @@ class Api extends CI_Controller {
 			}
 			
 			if($Save){
-				$User = $this->getUserById($QUser->id);
-				$this->response->send(array("result"=>1,"message"=>"Data bank telah diubah","messageCode"=>3,"user"=>$User), true);
+				$this->response->send(array("result"=>1,"message"=>"Data bank telah diubah","messageCode"=>3), true);
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Data bank tidak dapat disimpan","messageCode"=>4), true);
 			}
