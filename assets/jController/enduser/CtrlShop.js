@@ -70,7 +70,7 @@ function CtrlShopStep1(){
 			var sequence = parseInt(intAttributeCount.value)+1;
 			var div = document.createElement("div");
 			
-			div.innerHTML = "<div class='col s12 m3' id='kontak"+sequence+"'>Nama kontak</div><div class='col s12 m5'><input  name='txtAttributeId"+sequence+"' type='hidden' value=''><input id='txtAttributeId"+sequence+"' name='txtAttributeName"+sequence+"' placeholder='BBM/whatsapp/Line' type='text' class='validate'></div><div class='col s12 m3'>Pin/ID/Nomor</div><div class='col s12 m5'><input name='txtAttributeValue"+sequence+"' type='text' placeholder='Ex : AD9876/bonoboLine' class='validate'></div><div class='col s12 m5'><a href='#delete_kontak_"+sequence+"' onclick=ctrlShopStep1.deletestep1("+sequence+"); class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a></div>";
+			div.innerHTML = "<div class='col s12 m3' id='kontak"+sequence+"'>Nama kontak</div><div class='col s12 m5'><input  name='txtAttributeId"+sequence+"' type='hidden' value=''><input id='txtAttributeId"+sequence+"' name='txtAttributeName"+sequence+"' placeholder='BBM/whatsapp/Line' type='text' class='validate'></div><div class='col s12 m3'>Pin/ID/Nomor</div><div class='col s12 m5'><input name='txtAttributeValue"+sequence+"' type='text' placeholder='Ex : AD9876/bonoboLine' class='validate'></div><div class='col s12 m5'><a href='#delete_kontak_"+sequence+"'  class='modal-trigger btn-floating btn-xs waves-effect waves-light red right' onclick=CtrlShopStep1.deletestep1("+sequence+");><i class='mdi-navigation-close'></i></a></div>";
 			div.setAttribute("class","row valign-wrapper counter");
 			divAttributes.append(div);
 			intAttributeCount.value = sequence;
@@ -451,7 +451,7 @@ function CtrlShopStep7(){
 					txtCourierId.value = response.id;
 					location.reload();
 				}else{
-					$hs_notif("#notifStep5",response.message);
+					Materialize.toast(response.message, 4000);
 				}
 			}
 		});
@@ -477,7 +477,7 @@ function CtrlShopStep7(){
 					if(response.result == 1){
 						divCourier.slideUp("slow");
 					}else{
-						$hs_notif("#notifStep5",response.message);
+						Materialize.toast(response.message, 4000);
 					}
 				}
 			});
