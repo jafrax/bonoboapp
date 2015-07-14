@@ -32,32 +32,40 @@
         <div class="modal-content">
             <div class="box box-primary">
                 <div class="box-header">
-                    <h3 class="box-title">Ganti account status</h3>
+                    <h3 class="box-title">Kirim Ulang Kode ke Toko Nin</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form role="form">
                     <div class="box-body">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Status</label>
-                            <select class="form-control">
-                                <option>Active</option>
-                                <option>Nonactive</option>
-                            </select>
+                        <div class="row form-group">
+                            <div class="col-xs-12">
+                                <label for="">Durasi</label>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <input type="text" class="form-control" placeholder="0">
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <select class="form-control">
+                                    <option>Hari</option>
+                                    <option>Bulan</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Berlaku s/d</label>
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input type="text" class="form-control pull-right" id="tanggalindong">
+                        <div class="row form-group">
+                            <div class="col-xs-12">
+                                <label for="">Kode</label>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <input type="text" class="form-control" placeholder="xxxx-xxxx-xxxx-xxxx">
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <button type="submit" class="btn btn-primary">Generate</button>
                             </div>
                         </div>
                     </div><!-- /.box-body -->
 
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <button type="submit" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-info">Selesai dan kirim code</button>
                     </div>
                 </form>
             </div><!-- /.box -->
@@ -261,11 +269,11 @@
                                             </label>
                                         </td>
                                         <td>1</td>
-                                        <td>Nina</td>
+                                        <td>Toko Nina</td>
                                         <td>1111-2222-3333-4444</td>
                                         <td>Kode belum diinput</td>
                                         <td>
-                                            <button class="btn btn-info btn-sm">Kirim Ulang</button>
+                                            <button data-toggle="modal" data-target=".bs-example-modal-sm" class="btn btn-info btn-sm" >Kirim Ulang</button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -275,7 +283,7 @@
                                             </label>
                                         </td>
                                         <td>1</td>
-                                        <td>Nina</td>
+                                        <td>Ninakom</td>
                                         <td>-</td>
                                         <td>Menunggu Kode</td>
                                         <td>
