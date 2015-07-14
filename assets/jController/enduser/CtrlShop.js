@@ -3,12 +3,7 @@ function CtrlShopStep1(){
 	this.loadComboboxCity = loadComboboxCity;
 	this.loadComboboxKecamatan = loadComboboxKecamatan;
 	this.loadComboboxProv = loadComboboxProv;
-<<<<<<< HEAD
 
-=======
-	this.deletestepsatu = deletestepsatu;
->>>>>>> 853a014a4e5ec7214906183bd44c349f056edc67
-	
 	var formStep1,formStep1JQuery;
 	var intAttributeCount;
 	var divCity, divKecamatan, divAttributes;
