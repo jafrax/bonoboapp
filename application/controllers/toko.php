@@ -31,7 +31,7 @@ class Toko extends CI_Controller {
 			redirect('index/');
 			return;
 		}
-		
+
     }
 	
 	public function index(){
