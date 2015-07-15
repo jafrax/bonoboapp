@@ -122,7 +122,7 @@ class Toko extends CI_Controller {
 	}
 	
 	public function step4save(){
-		if(empty($this->response->post("chkPaymentCash")) && empty($this->response->post("chkPaymentTransfer"))){
+		if($this->response->post("chkPaymentCash") == "" && $this->response->post("chkPaymentTransfer")  == ""){
 			$this->response->send(array("result"=>0,"message"=>"Harap memilih salah satu metode pembayaran","messageCode"=>1));
 			return false;
 		}else{
