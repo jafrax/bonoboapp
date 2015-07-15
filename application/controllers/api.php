@@ -230,6 +230,83 @@ class Api extends CI_Controller {
 		return $Product;
 	}
 	
+	private function getCartsByUser($user){
+		/*
+		*	------------------------------------------------------------------------------
+		*	Mengambil query data carts
+		*	------------------------------------------------------------------------------
+		*/
+		$Carts = array();
+		
+		$QCarts = $this->db
+				->where("tc.member_id",$user)
+				->get("tb_cart tc")
+				->result();
+		
+		foreach($QCarts as $QCart){
+			/*
+			*	------------------------------------------------------------------------------
+			*	Mengambil query data cart products
+			*	------------------------------------------------------------------------------
+			*/
+			$CartProducts = array();
+		
+			$QCartProducts = $this->db
+				->where("tcp.cart_id",$QCart->id)
+				->get("tb_cart_product tcp")
+				->result();
+		
+			foreach($QCartProducts as $QCartProduct){
+				/*
+				*	------------------------------------------------------------------------------
+				*	Mengambil query data product variant
+				*	------------------------------------------------------------------------------
+				*/
+				
+				$QProductVarian = $this->db
+						->where("tpv.id",$QCartProduct->product_varian_id)
+						->get("tb_product_varian tpv")
+						->row();
+			
+				$ProductVarian = array(
+							"id"=>$QProductVarian->id,
+							"name"=>$QProductVarian->name,
+							"stock_qty"=>$QProductVarian->stock_qty,
+							"product"=>$this->getProductById($QProductVarian->product_id),
+						);
+
+				/*
+				*	------------------------------------------------------------------------------
+				*	Membuat object Cart Product
+				*	------------------------------------------------------------------------------
+				*/
+				$CartProduct = array(
+							"id"=>$QCartProduct->id,
+							"price_product"=>$QCartProduct->price_product,
+							"quantity"=>$QCartProduct->quantity,
+							"product_varian"=>$ProductVarian,
+						);
+				
+				array_push($CartProducts,$CartProduct);
+			}
+		
+			/*
+			*	------------------------------------------------------------------------------
+			*	Membuat object Cart
+			*	------------------------------------------------------------------------------
+			*/
+			$Cart = array(
+					"id"=>$QCart->id,
+					"price_total"=>$QCart->price_total,
+					"shop"=>$this->getShopById($QCart->toko_id),
+					"cart_products"=>$CartProducts,
+				);
+			
+			array_push($Carts,$Cart);
+		}
+		
+		return $Carts;
+	}
 	
 	
 	public function index(){
@@ -264,23 +341,13 @@ class Api extends CI_Controller {
 			}
 			
 			
-			if($this->response->post("user") != ""){
+			if($this->response->post("user") != "" && $this->response->postDecode("user") != ""){
 				/*
 				*	------------------------------------------------------------------------------
 				*	Get data carts
 				*	------------------------------------------------------------------------------
 				*/
-				$Carts = array();
-				$QCarts = $this->db
-							->select("id")
-							->where("member_id",$this->response->postDecode("user"))
-							->limit(10,0)
-							->get("tb_cart")
-							->result();
-			
-				foreach($QCarts as $QCart){
-					array_push($Carts,$QCart->id);
-				}
+				$Carts = $this->getCartsByUser($this->response->postDecode("user"));
 				
 				/*
 				*	------------------------------------------------------------------------------
@@ -734,15 +801,31 @@ class Api extends CI_Controller {
 				}
 			}
 			
-			$Response = array(
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	get data member carts
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$Carts = $this->getCartsByUser($QUser->id);
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	create object user data to response
+			*	------------------------------------------------------------------------------
+			*/
+			$Object = array(
 					"result"=>1,
 					"contacts"=>$Attributes, 
 					"banks"=>$Banks, 
 					"locations"=>$Locations, 
 					"products"=>$Favorites,
-					"shops"=>$Shops);
+					"shops"=>$Shops,
+					"carts"=>$Carts,
+				);
 			
-			$this->response->send($Response, true);
+			$this->response->send($Object, true);
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
