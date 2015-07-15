@@ -35,11 +35,10 @@ class Toko extends CI_Controller {
     }
 	
 	public function index(){
-		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
-		$_SESSION['bonobo']['flag_information']=0;
-		if($result>0){
-			$_SESSION['bonobo']['flag_information']=1;
-		}
+		$step=$_SESSION['bonobo']['step'];
+			if($step != 0){
+				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',1)->update('tb_toko');
+			}
 		$data["Categories"] = $this->model_category->get()->result();
 		$data["Provinces"] = $this->model_location->get_provinces()->result();
 		$data["Cities"] = $this->model_location->get_cities()->result();
@@ -80,11 +79,10 @@ class Toko extends CI_Controller {
 	}
 	
 	public function step2(){
-		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
-		$_SESSION['bonobo']['flag_information']=0;
-		if($result>0){
-			$_SESSION['bonobo']['flag_information']=1;
-		}
+		$step=$_SESSION['bonobo']['step'];
+			if($step != 0){
+				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',2)->update('tb_toko');
+			}
 		if(!$_POST){
 			$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 		
@@ -94,7 +92,7 @@ class Toko extends CI_Controller {
 					"privacy"=>$this->response->post("rdgPrivation"),
 				);
 			$step=$_SESSION['bonobo']['step'];
-			if($step != 9){
+			if($step != 0){
 				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',3)->update('tb_toko');
 			}
 			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
@@ -104,11 +102,10 @@ class Toko extends CI_Controller {
 	}
 	
 	public function step3(){
-		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
-		$_SESSION['bonobo']['flag_information']=0;
-		if($result>0){
-			$_SESSION['bonobo']['flag_information']=1;
-		}
+		$step=$_SESSION['bonobo']['step'];
+			if($step != 0){
+				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',3)->update('tb_toko');
+			}
 		if(!$_POST){
 			$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 			
@@ -118,7 +115,7 @@ class Toko extends CI_Controller {
 					"stock_adjust"=>$this->response->post("rdgStock"),
 				);
 			$step=$_SESSION['bonobo']['step'];
-			if($step != 9){
+			if($step != 0){
 				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',4)->update('tb_toko');
 			}
 			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
@@ -148,7 +145,7 @@ class Toko extends CI_Controller {
 					"pm_transfer"=>$pm_transfer,
 				);
 			$step=$_SESSION['bonobo']['step'];
-			if($step != 9){
+			if($step != 0){
 				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',5)->update('tb_toko');
 			}
 			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
@@ -157,11 +154,11 @@ class Toko extends CI_Controller {
 	}
 	
 	public function step4(){
-		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
-		$_SESSION['bonobo']['flag_information']=0;
-		if($result>0){
-			$_SESSION['bonobo']['flag_information']=1;
-		}
+		$step=$_SESSION['bonobo']['step'];
+			if($step != 0){
+				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',4)->update('tb_toko');
+			}
+
 			$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 			
 			$this->template->bonobo_step("enduser/toko/bg_step_4",$data);
@@ -169,11 +166,10 @@ class Toko extends CI_Controller {
 	}
 	
 	public function step7(){
-		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
-		$_SESSION['bonobo']['flag_information']=0;
-		if($result>0){
-			$_SESSION['bonobo']['flag_information']=1;
-		}
+		$step=$_SESSION['bonobo']['step'];
+			if($step != 0){
+				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',7)->update('tb_toko');
+			}
 		if(!$_POST){
 			$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 			$data["Couriers"] = $this->model_courier->get()->result();
@@ -207,7 +203,7 @@ class Toko extends CI_Controller {
 					"dm_store_delivery"=>$dm_store_delivery,
 				);
 			$step=$_SESSION['bonobo']['step'];
-			if($step != 9){
+			if($step != 0){
 				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',8)->update('tb_toko');
 			}	
 			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
@@ -248,11 +244,10 @@ class Toko extends CI_Controller {
 	}
 	
 	public function step8(){
-		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
-		$_SESSION['bonobo']['flag_information']=0;
-		if($result>0){
-			$_SESSION['bonobo']['flag_information']=1;
-		}
+		$step=$_SESSION['bonobo']['step'];
+			if($step != 0){
+				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',8)->update('tb_toko');
+			}
 		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 		$data["Banks"] = $this->model_bank->get()->result();
 		$data["ShopBanks"] = $this->model_toko_bank->get_by_shop($_SESSION["bonobo"]["id"])->result();
@@ -261,11 +256,10 @@ class Toko extends CI_Controller {
 	}
 	
 	public function step5(){
-		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
-		$_SESSION['bonobo']['flag_information']=0;
-		if($result>0){
-			$_SESSION['bonobo']['flag_information']=1;
-		}
+		$step=$_SESSION['bonobo']['step'];
+			if($step != 0){
+				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',5)->update('tb_toko');
+			}
                 $data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
                 $data['status1']=0;
                 $data['status2']=0;
@@ -421,7 +415,7 @@ class Toko extends CI_Controller {
 			);
 		}
 		$step=$_SESSION['bonobo']['step'];
-		if($step != 9){
+		if($step != 0){
 			$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',2)->update('tb_toko');
 		}	
 		$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
@@ -827,7 +821,7 @@ class Toko extends CI_Controller {
                                 "update_user"=>$_SESSION['bonobo']['email'],
                         );
 				$step=$_SESSION['bonobo']['step'];
-				if($step != 9){
+				if($step != 0){
 					$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',6)->update('tb_toko'); 
 				}
                       
@@ -930,17 +924,12 @@ class Toko extends CI_Controller {
 	}
 
 	function step6(){
-		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
-		$_SESSION['bonobo']['flag_information']=0;
-		if($result>0){
-			$_SESSION['bonobo']['flag_information']=1;
-		}
 		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
 
 		if ($_POST) {
 			$konfirmasi = $this->input->post('konfirmasi');
 			$step=$_SESSION['bonobo']['step'];
-			if($step != 9){
+			if($step != 0){
 				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',7)->update('tb_toko');
 			}
 			$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('invoice_confirm',$konfirmasi)->update('tb_toko');
@@ -954,13 +943,9 @@ class Toko extends CI_Controller {
 	
 	function complete_step(){
 		$this->db->where('id',$_SESSION['bonobo']['id'])->set('flag_information',1)->update('tb_toko');
-		$result=$this->model_toko->get_byflag_information($_SESSION['bonobo']['id'])->num_rows();
-		$_SESSION['bonobo']['flag_information']=0;
-		if($result>0){
-			$_SESSION['bonobo']['flag_information']=1;
-		}
-		if($step != 9){
-			$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',9)->update('tb_toko');
+		$step=$_SESSION['bonobo']['step'];
+		if($step != 0){
+			$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',0)->update('tb_toko');
 		}
 		redirect('nota');
 	}
