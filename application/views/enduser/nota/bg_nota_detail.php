@@ -127,8 +127,14 @@ echo "
 							<!-- nota -->
 							<div class='col s12 m12'>";
 								foreach ($produk->result() as $row_p) {
+									$image = $this->model_nota->get_nota_product_image($row_p->id)->row()->image;
+									if ($image) {
+										$images = base_url()."assets/pic/product/resize/".$image;
+									}else{
+										$images = base_url()."html/images/comp/product.png";
+									}
 									echo "<div class='nota-product col s12 m6'>
-											<img src='".base_url()."html/images/comp/product.png' class='responsive-img col s4 m4 left'>
+											<img src='".$images."' class='responsive-img col s4 m4 left'>
 											<div class='col s8 m8'>
 												<p class='blue-text'>".$row_p->product_name."</p>
 												<p >Rp. ".number_format($row_p->price, 2 , ',' , '.')."</p>
