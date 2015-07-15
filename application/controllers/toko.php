@@ -31,7 +31,7 @@ class Toko extends CI_Controller {
 			redirect('index/');
 			return;
 		}
-		
+
     }
 	
 	public function index(){
@@ -93,7 +93,10 @@ class Toko extends CI_Controller {
 			$Data = array(
 					"privacy"=>$this->response->post("rdgPrivation"),
 				);
-			
+			$step=$_SESSION['bonobo']['step'];
+			if($step != 9){
+				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',3)->update('tb_toko');
+			}
 			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
 			
 			redirect("toko/step3");
@@ -114,7 +117,10 @@ class Toko extends CI_Controller {
 			$Data = array(
 					"stock_adjust"=>$this->response->post("rdgStock"),
 				);
-			
+			$step=$_SESSION['bonobo']['step'];
+			if($step != 9){
+				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',4)->update('tb_toko');
+			}
 			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
 			
 			redirect("toko/step4");
@@ -141,7 +147,10 @@ class Toko extends CI_Controller {
 					"pm_store_payment"=>$pm_store_payment,
 					"pm_transfer"=>$pm_transfer,
 				);
-			
+			$step=$_SESSION['bonobo']['step'];
+			if($step != 9){
+				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',5)->update('tb_toko');
+			}
 			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
 			$this->response->send(array("result"=>1,"message"=>"Data berhasil disimpan","messageCode"=>1));
 		}
@@ -197,7 +206,10 @@ class Toko extends CI_Controller {
 					"dm_expedition"=>$dm_expedition,
 					"dm_store_delivery"=>$dm_store_delivery,
 				);
-			
+			$step=$_SESSION['bonobo']['step'];
+			if($step != 9){
+				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',8)->update('tb_toko');
+			}	
 			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
 			
 			if($Save){
@@ -408,7 +420,10 @@ class Toko extends CI_Controller {
 				"location_id"=>$Location,
 			);
 		}
-			
+		$step=$_SESSION['bonobo']['step'];
+		if($step != 9){
+			$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',2)->update('tb_toko');
+		}	
 		$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
 		if($Save){
 
@@ -617,6 +632,7 @@ class Toko extends CI_Controller {
 			$this->response->send(array("result"=>0,"message"=>"Nomor rekening masih kosong","messageCode"=>3));
 			return;
 		}
+		$step=$_SESSION['bonobo']['step'];
 		
 		if($this->response->post("txtId") == ""){
 			$Data = array(
@@ -810,7 +826,11 @@ class Toko extends CI_Controller {
                                 "update_date"=>date("Y-m-d H:i:s"),
                                 "update_user"=>$_SESSION['bonobo']['email'],
                         );
-                       
+				$step=$_SESSION['bonobo']['step'];
+				if($step != 9){
+					$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',6)->update('tb_toko'); 
+				}
+                      
                 $Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
                 if($Save){                     
                         $this->response->send(array("result"=>1,"message"=>"Dsdata telah disimpan","messageCode"=>0));                 
@@ -886,11 +906,24 @@ class Toko extends CI_Controller {
 				if($Bank->id != $ShopBank->bank_id){
 					echo"<option value='".$Bank->id."'>".$Bank->name."</option>";
 				}else{
+					
 					echo "<option value='".$ShopBank->bank_id."' selected>".$ShopBank->bank_name."</option>";
 				}
 			}else{
 				echo"<option value='".$Bank->id."'>".$Bank->name."</option>";
 			}
+		}
+			
+		echo"</select><script>$('.select-standar').material_select();</script>";
+	}
+	
+	public function step8ComboboxBankadd(){
+		$Banks = $this->model_bank->get()->result();
+		
+		echo"<select id='cmbBank' name='cmbBank' class='select-standar'><option value='' disabled selected>Pilih Bank</option>";
+		
+		foreach($Banks as $Bank){
+				echo"<option value='".$Bank->id."'>".$Bank->name."</option>";
 		}
 			
 		echo"</select><script>$('.select-standar').material_select();</script>";
@@ -906,7 +939,10 @@ class Toko extends CI_Controller {
 
 		if ($_POST) {
 			$konfirmasi = $this->input->post('konfirmasi');
-
+			$step=$_SESSION['bonobo']['step'];
+			if($step != 9){
+				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',7)->update('tb_toko');
+			}
 			$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('invoice_confirm',$konfirmasi)->update('tb_toko');
 			if ($update) {
 				redirect('toko/step7');
@@ -923,7 +959,10 @@ class Toko extends CI_Controller {
 		if($result>0){
 			$_SESSION['bonobo']['flag_information']=1;
 		}
-		redirect('toko');
+		if($step != 9){
+			$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',9)->update('tb_toko');
+		}
+		redirect('nota');
 	}
 }
 

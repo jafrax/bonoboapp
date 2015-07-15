@@ -26,7 +26,15 @@ class Index extends CI_Controller {
 			redirect('index/signin/');
 			return;
 		}else{
-			redirect('toko/');
+			$step=$_SESSION['bonobo']['step'];
+			if($step == 1){
+				redirect('toko');
+			}else if($step == 9){
+				redirect('nota');
+			}else{
+				redirect('toko/step'.$step.'');
+			}
+			
 			return;
 		}
 
@@ -62,6 +70,7 @@ class Index extends CI_Controller {
 					"pm_transfer"=>0,
 					"level_1_active"=>1,
 					"status"=> 0,
+					"step"=>1,
 					"create_date"=>date("Y-m-d H:i:s"),
 					"create_user"=>$email,
 					"update_date"=>date("Y-m-d H:i:s"),
@@ -109,6 +118,7 @@ class Index extends CI_Controller {
 				$_SESSION['bonobo']['email'] = $QShop->email;
 				$_SESSION['bonobo']['image'] = $QShop->image;				
 				$_SESSION['bonobo']['facebook'] = $QShop->facebook;
+				$_SESSION['bonobo']['step'] = $QShop->step;
 				redirect('index');
 		}else{
 				redirect('index');
@@ -153,6 +163,7 @@ class Index extends CI_Controller {
 					$_SESSION['bonobo']['email'] = $QShop->email;
 					$_SESSION['bonobo']['image'] = $QShop->image;				
 					$_SESSION['bonobo']['facebook'] = $QShop->facebook;
+					$_SESSION['bonobo']['step'] = $QShop->step;
 					
 					$this->response->send(array("result"=>1,"message"=>"Selamat datang ".$QShop->name,"messageCode"=>3));
 				}
@@ -184,6 +195,7 @@ class Index extends CI_Controller {
 			$_SESSION['bonobo']['email'] = $QShop->email;
 			$_SESSION['bonobo']['image'] = $QShop->image;				
 			$_SESSION['bonobo']['facebook'] = $QShop->facebook;
+			$_SESSION['bonobo']['step'] = $QShop->step;
 			
 			$this->index();
 		}else{
@@ -219,6 +231,7 @@ class Index extends CI_Controller {
 				$_SESSION['bonobo']['email'] = $QShop->email;
 				$_SESSION['bonobo']['image'] = $QShop->image;				
 				$_SESSION['bonobo']['facebook'] = $QShop->facebook;
+				$_SESSION['bonobo']['step'] = $QShop->step;
 				
 				$this->index();
 			}
@@ -234,6 +247,7 @@ class Index extends CI_Controller {
 		$_SESSION['bonobo']['email'] = null;
 		$_SESSION['bonobo']['image'] = null;				
 		$_SESSION['bonobo']['facebook'] = null;
+		$_SESSION['bonobo']['step'] = null;
 		
 		redirect('index/');
 	}
@@ -264,6 +278,7 @@ class Index extends CI_Controller {
 						"pm_transfer"=>0,
 						"facebook"=>1,
 						"status"=>2,
+						"step"=>1,
 						"create_date"=>date("Y-m-d H:i:s"),
 						"create_user"=>$email,
 						"update_date"=>date("Y-m-d H:i:s"),

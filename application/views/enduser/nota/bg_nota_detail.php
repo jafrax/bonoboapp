@@ -84,7 +84,7 @@ echo "
 							<div class='toolb col s12 m6'>
 								<a href='#delete_nota_".$nota->id."' class='modal-trigger red-text right' href='#'><i class='mdi-action-delete small'></i></a>
 								<a class='red-text right ' href='#'><i class='mdi-content-mail small'></i></a>
-								<a class='red-text right ' href='#'><i class='mdi-action-print small'></i></a>
+								<a class='red-text right ' href='".base_url()."nota/cetak/".$row->invoice_no."' ><i class='mdi-action-print small'></i></a>
 							</div>
 							<div id='delete_nota_".$nota->id."' class='modal confirmation'>
 								<div class='modal-header red'>
@@ -103,7 +103,7 @@ echo "
 						<div class='row formbody'>
 							<div class='linehead'></div>
 							<div class='col s12 m6 left'>
-								<h4>No. Transaksi : ".$nota->invoice_no."</h4>";
+								<h4 class='light'>No. Transaksi : ".$nota->invoice_no."</h4>";
 			            		$old_date = $nota->create_date;
 								$old_date_timestamp = strtotime($old_date);
 								$date = date('d F Y', $old_date_timestamp);
@@ -113,7 +113,7 @@ echo "
 								<h5><br></h5>
 							</div>
 							<div class='col s12 m6 right'>
-								<h5 class='right-align'><span class='blue-text'>".$nota->member_name."</span></h5>
+								<h5 class='right-align light'><span class='blue-text'>".$nota->member_name."</span></h5>
 								";
 					            if ($nota->status == 0 ) {
 					            	echo "<h6 class='red-text right' id='lunas-".$nota->id."'>Belum Lunas</h6>";
@@ -127,8 +127,14 @@ echo "
 							<!-- nota -->
 							<div class='col s12 m12'>";
 								foreach ($produk->result() as $row_p) {
+									$image = $this->model_nota->get_nota_product_image($row_p->id)->row()->image;
+									if ($image) {
+										$images = base_url()."assets/pic/product/resize/".$image;
+									}else{
+										$images = base_url()."html/images/comp/product.png";
+									}
 									echo "<div class='nota-product col s12 m6'>
-											<img src='".base_url()."html/images/comp/product.png' class='responsive-img col s4 m4 left'>
+											<img src='".$images."' class='responsive-img col s4 m4 left'>
 											<div class='col s8 m8'>
 												<p class='blue-text'>".$row_p->product_name."</p>
 												<p >Rp. ".number_format($row_p->price, 2 , ',' , '.')."</p>
@@ -286,7 +292,7 @@ echo "
 																<label for='alamat'>Alamat Penerima</label>
 															</div>
 															<div class='input-field col s12 m6' id='panggon-province'>
-																<label>Pilih Provinsi</label>
+																<span>Pilih Provinsi</span>
 																<select disabled class='chosen-select' name='province' id='province' onchange=javascript:set_city()>
 																	<option value='' disabled selected>Pilih Provinsi</option>";
 																	$provinsi = $this->model_nota->get_province();
@@ -299,7 +305,7 @@ echo "
 																</select>
 															</div>
 															<div class='input-field col s12 m6' id='panggon-city'>
-																<label>Pilih Kota</label>
+																<span>Pilih Kota</span>
 																<select disabled class='chosen-select' name='city' id='city' onchange=javascript:set_kecamatan()>
 																	<option value='' disabled selected>Pilih Kota</option>";
 																	if ($nota->location_to_city != '') {
@@ -320,7 +326,7 @@ echo "
 																</select>
 															</div>
 															<div class='input-field col s12 m6' id='panggon-kecamatan'>
-																<label>Pilih Kecamatan</label>
+																<span>Pilih Kecamatan</span>
 																<select disabled class='chosen-select' name='kecamatan' id='kecamatan'>
 																	<option value='' disabled selected>Pilih Kecamatan</option>";
 																	if ($nota->location_to_kecamatan != '') {

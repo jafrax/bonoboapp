@@ -203,7 +203,7 @@ echo"
 											<p class='tool col s12 m5'>
 												<a href='#delete_nota_".$row->id."' class='modal-trigger red-text right '><i class='mdi-action-delete col s1 small'></i></a>
 												<a class=' red-text right '><i class='mdi-content-mail col s1 small'></i></a>
-												<a href='".base_url()."nota/cetak/".$row->invoice_no."' class=' red-text right '><i class='mdi-action-print col s1 small'></i></a>
+												<a href='".base_url()."nota/cetak/".$row->invoice_no."' target='_new' class=' red-text right '><i class='mdi-action-print col s1 small'></i></a>
 												<div id='delete_nota_".$row->id."' class='modal confirmation'>
 													<div class='modal-header red'>
 														<i class='mdi-navigation-close left'></i> Hapus produk

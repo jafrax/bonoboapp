@@ -39,6 +39,14 @@ class Model_nota extends CI_Model
 		return $this->db->where('i.invoice_no',$id)->join('tb_invoice i','i.id=p.invoice_id')->get('tb_invoice_product p');
 	}
 
+	function get_nota_product_image($id)
+	{
+		return $this->db->where('ip.id',$id)
+						->join('tb_product_varian pv','pv.id=ip.product_varian_id')
+						->join('tb_product_image pi','pi.product_id=pv.product_id')
+						->get('tb_invoice_product ip');
+	}
+
 	function get_nota_product_by_id($id){
 		return $this->db->where('invoice_id',$id)->get('tb_invoice_product');
 	}

@@ -51,7 +51,7 @@ echo "
 				<div class='col s12 m12 l9'>
 					<form class='formain'id='form-ready' method='post' action='' enctype='multipart/form-data'>
 						<div class='formhead'>
-							<h2 class='titmain'><b>EDIT BARANG READY STOK</b></h2>
+							<h2 class='titmain'><b>EDIT BARANG READY STOCK</b></h2>
 						</div>
 						<div class='row formbody'>
 							<div class='col s12'>

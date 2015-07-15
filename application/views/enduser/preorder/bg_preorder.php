@@ -31,8 +31,8 @@ echo "
 									}
 								}else{
 									echo "
-										<li class='col s12 m6 listanggodaf'>
-											<div class='prordercrop col s12 m5 l4 nolpad'>
+										<li class='col s12 m6'>
+											<div class='col s12 m5 l4 nolpad'>
 												Data pemesanan kosong
 											</div>
 										</li>";

@@ -43,7 +43,7 @@ foreach($ShopBanks as $ShopBank){
 									<h6>".$ShopBank->acc_no."</h6>
 								</blockquote>
 								<div class='input-field col s12 m12'>
-									<button onclick=ctrlShopStep6.formEdit(".$ShopBank->id."); data-target='popupFormAdd' class='btn-flat waves-effect waves-light modal-trigger' type='button'>
+									<button onclick=ctrlShopStep8.formEdit(".$ShopBank->id."); data-target='popupFormAdd' class='btn-flat waves-effect waves-light modal-trigger' type='button'>
 										<i class='mdi-editor-border-color'></i>
 									</button>
 									<button onclick=ctrlShopStep8.doDelete(".$ShopBank->id."); class='btn-flat waves-effect waves-light' type='button' name='action'>
@@ -72,7 +72,7 @@ echo"
 	<!-- Modal Structure -->
 	<div id='popupFormAdd' class='modal modal-fixed-footer'>
 		<div class='modal-header red'>
-			<i class='mdi-maps-local-atm left'></i> Akun Baru
+			
 		</div>
 		<div class='modal-content'>								      
 			<div class='col s12 m12 l12'>
@@ -84,7 +84,7 @@ echo"
 								Nama Bank								
 							</div>
 							<div id='divCmbBank' class='input-field col s12 m12'>																
-								<select name='cmbBank' class='chosen-select'>
+								<select name='cmbBank' class='select-standar'>
 									<option value='' disabled selected>Pilih Bank</option>
 ";
 	
@@ -98,12 +98,12 @@ echo"
 								</select>																
 							</div>
 							<div class='input-field col s12 m12'>
+								<span for='txtName'>Nama Pemilik Rekening</span>
 								<input id='txtName' name='txtName' type='text' class='validate'>
-								<label for='txtName'>Nama Pemilik Rekening</label>
 							</div>
 							<div class='input-field col s12 m12'>
+								<span for='txtNo'>Nomor Rekening</span>
 								<input id='txtNo' name='txtNo' type='text' class='validate'>
-								<label for='txtNo'>Nomor Rekening</label>
 							</div>															
 						</div>
 					</div>
