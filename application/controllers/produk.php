@@ -421,7 +421,7 @@ class Produk extends CI_Controller {
 		if ($date == '0000-00-00') {
 			$this->db->where('id',$id)->set('stock_type',0)->set('end_date',date('Y-m-d'))->update('tb_product');
 		}else{
-			$this->db->where('id',$id)->set('stock_type',0)->update('tb_product');
+			$this->db->where('id',$id)->set('stock_type',0)->set('end_date',date('Y-m-d'))->update('tb_product');
 		}		
 		echo "5";
 	}
