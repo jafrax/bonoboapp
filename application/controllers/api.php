@@ -1733,7 +1733,7 @@ class Api extends CI_Controller {
 					if(!empty($Contact)){
 						$this->response->send(array("result"=>1,"message"=>"Kontak telah disimpan","messageCode"=>3,"contact"=>$Contact), true);
 					}else{
-						$this->response->send(array("result"=>0,"message"=>"Kontak tidak dapat disimpan","messageCode"=>4), true);
+						$this->response->send(array("result"=>0,"message"=>"Kontak tidak dapat disimpan : ".,"messageCode"=>4), true);
 					}
 				}else{
 					$this->response->send(array("result"=>0,"message"=>"Kontak tidak dapat disimpan aaa","messageCode"=>5), true);
