@@ -1,3 +1,5 @@
+<?php
+echo "
 <!DOCTYPE html>
 <html>
     <head>
@@ -5,19 +7,16 @@
         <title>Administrator Bonobo | Dashboard</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <!-- bootstrap 3.0.2 -->
-        <link href='css/bootstrap.min.css' rel='stylesheet' type='text/css' />
+        <link href='".base_url()."html/admin/css/bootstrap.min.css' rel='stylesheet' type='text/css' />
         <!-- font Awesome -->
-        <link href='css/font-awesome.min.css' rel='stylesheet' type='text/css' />
+        <link href='".base_url()."html/admin/css/font-awesome.min.css' rel='stylesheet' type='text/css' />
         <!-- Ionicons -->
-        <link href='css/ionicons.min.css' rel='stylesheet' type='text/css' />
+        <link href='".base_url()."html/admin/css/ionicons.min.css' rel='stylesheet' type='text/css' />
         <!-- DATA TABLES -->
-        <link href='css/datatables/dataTables.bootstrap.css' rel='stylesheet' type='text/css' />
-        <!-- daterange picker -->
-        <link href='css/daterangepicker/daterangepicker-bs3.css' rel='stylesheet' type='text/css' />
-        <!-- Bootstrap time Picker -->
-        <link href='css/timepicker/bootstrap-timepicker.min.css' rel='stylesheet'/>
+        <link href='".base_url()."html/admin/css/datatables/dataTables.bootstrap.css' rel='stylesheet' type='text/css' />
+
         <!-- Theme style -->
-        <link href='css/AdminLTE.css' rel='stylesheet' type='text/css' />
+        <link href='".base_url()."html/admin/css/AdminLTE.css' rel='stylesheet' type='text/css' />
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -27,75 +26,38 @@
         <![endif]-->
     </head>
 
-    <div class='modal fade bs-example-modal-sm' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel' aria-hidden='true'>
-      <div class='modal-dialog modal-sm'>
-        <div class='modal-content'>
-            <div class='box box-primary'>
-                <div class='box-header'>
-                    <h3 class='box-title'>Kirim Ulang Kode ke Toko Nin</h3>
-                </div><!-- /.box-header -->
-                <!-- form start -->
-                <form role='form'>
-                    <div class='box-body'>
-                        <div class='row form-group'>
-                            <div class='col-xs-12 form-group'>
-                                <label for=''>Durasi</label>
+    <div class='modal fade change' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel' aria-hidden='true'>
+        <div class='modal-dialog modal-sm'>
+            <div class='modal-content'>
+                <div class='box box-primary'>
+                    <div class='box-header'>
+                        <h3 class='box-title'>Change Password</h3>
+                    </div><!-- /.box-header -->
+                    <!-- form start -->
+                    <form role='form'>
+                        <div class='box-body'>
+                            <div class='form-group'>
+                                <label >Old password</label>
+                                <input type='password' class='form-control' placeholder='Enter Old password'>
                             </div>
-                            <div class='col-xs-12 col-md-6 form-group'>
-                                <input type='text' class='form-control' placeholder='0'>
+                            <div class='form-group'>
+                                <label >New password</label>
+                                <input type='password' class='form-control' placeholder='Enter New password'>
                             </div>
-                            <div class='col-xs-12 col-md-6 form-group'>
-                                <select class='form-control'>
-                                    <option>Hari</option>
-                                    <option>Bulan</option>
-                                </select>
+                            <div class='form-group'>
+                                <label >Retype password</label>
+                                <input type='password' class='form-control' placeholder='Enter Retype password'>
                             </div>
-                        </div>
-                        <div class='row form-group'>
-                            <div class='col-xs-12 form-group'>
-                                <label for=''>Kode</label>
-                            </div>
-                            <div class='col-xs-12 col-md-6 form-group'>
-                                <input type='text' class='form-control' placeholder='xxxx-xxxx-xxxx-xxxx'>
-                            </div>
-                            <div class='col-xs-12 col-md-6 form-group'>
-                                <button type='submit' class='btn btn-primary'>Generate</button>
-                            </div>
-                        </div>
-                    </div><!-- /.box-body -->
+                        </div><!-- /.box-body -->
 
-                    <div class='box-footer'>
-                        <button type='submit' class='btn btn-info'>Selesai dan kirim code</button>
-                    </div>
-                </form>
-            </div><!-- /.box -->
-        </div>
-      </div>
-    </div>
-
-    <div class='modal fade confirm' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel' aria-hidden='true'>
-      <div class='modal-dialog modal-sm'>
-        <div class='modal-content'>
-            <div class='box box-solid box-danger'>
-                <div class='box-header'>
-                    <h3 class='box-title'>Confirmation</h3>
-                    <div class='box-tools pull-right'>
-                        <button class='btn btn-danger btn-sm' data-widget='collapse'><i class='fa fa-minus'></i></button>
-                        <button class='btn btn-danger btn-sm' class='close' data-dismiss='modal' aria-label='Close'><i class='fa fa-times'></i></button>
-                    </div>
-                </div>
-                <div class='box-body' style='display: block;'>
-                    Box class: <code>.box.box-solid.box-primary</code>
-                    <p>
-                    </p>
-                </div><!-- /.box-body -->
-                <div class='box-footer'>
-                    <button type='submit' class='btn btn-danger'>Ok</button>
-                    <button type='submit' class='btn btn-danger'>Cancel</button>
-                </div>
+                        <div class='box-footer'>
+                            <button type='submit' class='btn btn-primary'>Submit</button>
+                            <button type='submit' class='btn btn-primary'>Cancel</button>
+                        </div>
+                    </form>
+                </div><!-- /.box -->
             </div>
         </div>
-      </div>
     </div>
 
     <body class='skin-blue'>
@@ -137,17 +99,6 @@
             <aside class='left-side sidebar-offcanvas'>
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class='sidebar'>
-                    <!-- Sidebar user panel -->
-                    <div class='user-panel'>
-                        <div class='pull-left image'>
-                            <img src='img/avatar3.png' class='img-circle' alt='User Image' />
-                        </div>
-                        <div class='pull-left info'>
-                            <p>Hello, Jane</p>
-
-                            <a href='#'><i class='fa fa-circle text-success'></i> Online</a>
-                        </div>
-                    </div>
                     <!-- search form -->
                     <form action='#' method='get' class='sidebar-form'>
                         <div class='input-group'>
@@ -160,7 +111,7 @@
                     <!-- /.search form -->
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class='sidebar-menu'>
-                        <li >
+                        <li class='active'>
                             <a href=''>
                                 <i class='fa fa-dashboard'></i> <span>DASHBOARD</span>
                             </a>
@@ -170,7 +121,7 @@
                                 <i class='fa fa-laptop'></i> <span>DAFTAR TOKO</span>
                             </a>
                         </li>
-                        <li>
+                        <li >
                             <a href='daftar_pembeli.html'>
                                 <i class='fa fa-shopping-cart'></i> <span>DAFTAR PEMBELI</span>
                             </a>
@@ -195,7 +146,7 @@
                                 <i class='fa fa-truck'></i> <span>MASTER KURIR</span>
                             </a>
                         </li>
-                        <li class='treeview active'>
+                        <li class='treeview'>
                             <a href='#'>
                                 <i class='fa fa-barcode'></i> <span>LICENSE PURCHASE</span>
                                 <i class='fa fa-angle-left pull-right'></i>
@@ -212,7 +163,6 @@
                 <!-- /.sidebar -->
             </aside>
 
-            <!-- Right side column. Contains the navbar and content of the page -->
             <aside class='right-side'>
                 <!-- Content Header (Page header) -->
                 <section class='content-header'>
@@ -255,26 +205,34 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Toko</th>
+                                        <th>Email Toko</th>
                                         <th>Kode Verifikasi</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody>";
+                                $i=0;
+                                if ($toko->num_rows() == 0) {
+                                    echo "<tr>
+                                        <td>$i</td>
+                                        <td>Data activation kosong</td>
+                                        <td></td>
+                                        <td></td>                                        
+                                    </tr>";
+                                }
+                                foreach ($toko->result() as $row) {
+                                    $i++;
+                                    echo "
                                     <tr>
-                                        <td>1</td>
-                                        <td>Toko Nina</td>
-                                        <td>1111-2222-3333-4444</td>
-                                        <td>Kode belum diinput</td>
+                                        <td>$i</td>
+                                        <td>".$row->email."</td>
+                                        <td>".$row->code."</td>
+                                        <td>";if ($row->code == '') {echo "Menunggu Kode";} else{if ($row->validity == 0) {echo "Kode sudah digunakan";}else{echo "Kode belum diinput";} } echo"</td>
                                         
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Ninakom</td>
-                                        <td>-</td>
-                                        <td>Menunggu Kode</td>
-                                        
-                                    </tr>
+                                    ";
+                                }                                    
+                                    echo"
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -307,25 +265,23 @@
         <!-- jQuery 2.0.2 -->
         <script src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js'></script>
         <!-- jQuery UI 1.10.3 -->
-        <script src='js/jquery-ui-1.10.3.min.js' type='text/javascript'></script>
+        <script src='".base_url()."html/admin/js/jquery-ui-1.10.3.min.js' type='text/javascript'></script>
         <!-- Bootstrap -->
-        <script src='js/bootstrap.min.js' type='text/javascript'></script>
+        <script src='".base_url()."html/admin/js/bootstrap.min.js' type='text/javascript'></script>
          <!-- DATA TABES SCRIPT -->
-        <script src='js/plugins/datatables/jquery.dataTables.js' type='text/javascript'></script>
-        <script src='js/plugins/datatables/dataTables.bootstrap.js' type='text/javascript'></script>
-        <!-- date-range-picker -->
-        <script src='js/plugins/daterangepicker/daterangepicker.js' type='text/javascript'></script>
+        <script src='".base_url()."html/admin/js/plugins/datatables/jquery.dataTables.js' type='text/javascript'></script>
+        <script src='".base_url()."html/admin/js/plugins/datatables/dataTables.bootstrap.js' type='text/javascript'></script>
 
         <!-- AdminLTE App -->
-        <script src='js/AdminLTE/app.js' type='text/javascript'></script>
+        <script src='".base_url()."html/admin/js/AdminLTE/app.js' type='text/javascript'></script>
 
         <!-- page script -->
         <script type='text/javascript'>
             $(function() {
-               //Date range picker
-               $('#tanggalindong').daterangepicker();
+               $('#example1').dataTable();
             });
         </script>
 
     </body>
 </html>
+";
