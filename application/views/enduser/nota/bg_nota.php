@@ -324,16 +324,16 @@ echo"
 																<label for='phone'>Nomor Penerima</label>
 															</div>
 															<div class='input-field col s12 m8'>
-																<input disabled id='postal-code' name='postal-code' type='text' onkeyup=javascript:set_location() class='validate' value='".$row->location_to_postal."'>
+																<input  id='postal-code' name='postal-code' type='text' onkeyup=javascript:set_location() class='validate' value='".$row->location_to_postal."'>
 																<label for='postal-code'>Kode Pos</label>
 															</div>
 															<div class='input-field col s12 m8'>
-																<textarea disabled id='alamat' name='alamat' class='materialize-textarea' >".$row->location_to_address."</textarea>
+																<textarea  id='alamat' name='alamat' class='materialize-textarea' >".$row->location_to_address."</textarea>
 																<label for='alamat'>Alamat Penerima</label>
 															</div>
 															<div class='input-field col s12 m6' id='panggon-province'>
 																<span>Pilih Provinsi</span>
-																<select disabled class='chosen-select' name='province' id='province' onchange=javascript:set_city()>
+																<select  class='chosen-select' name='province' id='province' onchange=javascript:set_city()>
 																	<option value='' disabled selected>Pilih Provinsi</option>";
 																	$provinsi = $this->model_nota->get_province();
 																	foreach ($provinsi->result() as $row_p) {
@@ -346,7 +346,7 @@ echo"
 															</div>
 															<div class='input-field col s12 m6' id='panggon-city'>
 																<span>Pilih Kota</span>
-																<select disabled class='chosen-select' name='city' id='city' onchange=javascript:set_kecamatan()>
+																<select  class='chosen-select' name='city' id='city' onchange=javascript:set_kecamatan()>
 																	<option value='' disabled selected>Pilih Kota</option>";
 																	if ($row->location_to_city != '') {
 																		$kota = $this->model_nota->get_city($row->location_to_province);
@@ -367,7 +367,7 @@ echo"
 															</div>
 															<div class='input-field col s12 m6' id='panggon-kecamatan'>
 																<span>Pilih Kecamatan</span>
-																<select disabled class='chosen-select' name='kecamatan' id='kecamatan'>
+																<select  class='chosen-select' name='kecamatan' id='kecamatan'>
 																	<option value='' disabled selected>Pilih Kecamatan</option>";
 																	if ($row->location_to_kecamatan != '') {
 																		$kecamatan = $this->model_nota->get_kecamatan($row->location_to_city);

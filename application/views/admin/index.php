@@ -1,3 +1,5 @@
+<?php
+echo "
 <!DOCTYPE html>
 <html>
     <head>
@@ -5,16 +7,16 @@
         <title>Administrator Bonobo | Dashboard</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <!-- bootstrap 3.0.2 -->
-        <link href='css/bootstrap.min.css' rel='stylesheet' type='text/css' />
+        <link href='".base_url()."html/admin/css/bootstrap.min.css' rel='stylesheet' type='text/css' />
         <!-- font Awesome -->
-        <link href='css/font-awesome.min.css' rel='stylesheet' type='text/css' />
+        <link href='".base_url()."html/admin/css/font-awesome.min.css' rel='stylesheet' type='text/css' />
         <!-- Ionicons -->
-        <link href='css/ionicons.min.css' rel='stylesheet' type='text/css' />
+        <link href='".base_url()."html/admin/css/ionicons.min.css' rel='stylesheet' type='text/css' />
         <!-- DATA TABLES -->
-        <link href='css/datatables/dataTables.bootstrap.css' rel='stylesheet' type='text/css' />
+        <link href='".base_url()."html/admin/css/datatables/dataTables.bootstrap.css' rel='stylesheet' type='text/css' />
 
         <!-- Theme style -->
-        <link href='css/AdminLTE.css' rel='stylesheet' type='text/css' />
+        <link href='".base_url()."html/admin/css/AdminLTE.css' rel='stylesheet' type='text/css' />
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -161,23 +163,98 @@
                 <!-- /.sidebar -->
             </aside>
 
-            <!-- Right side column. Contains the navbar and content of the page -->
             <aside class='right-side'>
                 <!-- Content Header (Page header) -->
                 <section class='content-header'>
                     <h1>
-                        Dashboard
+                        License Purchase
                     </h1>
                     <ol class='breadcrumb'>
                         <li><a href='#'><i class='fa fa-dashboard'></i> Dashboard</a></li>
 
-                        <li class='active'>Dashboard</li>
+                        <li class='active'>License Purchase</li>
                     </ol>
                 </section>
 
                 <!-- Main content -->
                 <section class='content'>
-                    <h2>Selamat Datang</h2>
+                    <div class='box'>
+                        <div class='box-header'>
+                            <h3 class='box-title'></h3>                                    
+                        </div><!-- /.box-header -->
+                        <div class='box-body table-responsive'>
+                            <div class='box-tools'>
+                                <div class='row form-group'>
+                                    <div class='padbottom col-xs-12 col-md-4'>
+                                        <select class='chosen-select form-control'>
+                                            <option disabled selected>Pilih Status</option>
+                                            <option>Kode belum diinput</option>
+                                            <option>Menunggu Kode</option>
+                                            <option>Kode sudah digunakan</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class='input-group'>
+                                    <input type='text' name='table_search' class='form-control input-sm pull-right' style='width: 150px;' placeholder='Search'/>
+                                    <div class='input-group-btn'>
+                                        <button class='btn btn-sm btn-default'><i class='fa fa-search'></i></button>
+                                    </div>
+                                </div>
+                            </div><br>
+                            <table class='table table-bordered table-striped'>
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Email Toko</th>
+                                        <th>Kode Verifikasi</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>";
+                                $i=0;
+                                if ($toko->num_rows() == 0) {
+                                    echo "<tr>
+                                        <td>$i</td>
+                                        <td>Data activation kosong</td>
+                                        <td></td>
+                                        <td></td>                                        
+                                    </tr>";
+                                }
+                                foreach ($toko->result() as $row) {
+                                    $i++;
+                                    echo "
+                                    <tr>
+                                        <td>$i</td>
+                                        <td>".$row->email."</td>
+                                        <td>".$row->code."</td>
+                                        <td>";if ($row->code == '') {echo "Menunggu Kode";} else{if ($row->validity == 0) {echo "Kode sudah digunakan";}else{echo "Kode belum diinput";} } echo"</td>
+                                        
+                                    </tr>
+                                    ";
+                                }                                    
+                                    echo"
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Toko</th>
+                                        <th>Kode Verifikasi</th>
+                                        <th>Status</th>
+                                </tfoot>
+                            </table>
+                        </div><!-- /.box-body -->
+                        <div class='box-footer clearfix'>
+                            <ul class='pagination pagination-sm no-margin pull-right'>
+                                <li><a href='#'>&laquo;</a></li>
+                                <li><a href='#'>1</a></li>
+                                <li><a href='#'>2</a></li>
+                                <li><a href='#'>3</a></li>
+                                <li><a href='#'>&raquo;</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- /.box -->
+                    
+
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
@@ -188,15 +265,15 @@
         <!-- jQuery 2.0.2 -->
         <script src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js'></script>
         <!-- jQuery UI 1.10.3 -->
-        <script src='js/jquery-ui-1.10.3.min.js' type='text/javascript'></script>
+        <script src='".base_url()."html/admin/js/jquery-ui-1.10.3.min.js' type='text/javascript'></script>
         <!-- Bootstrap -->
-        <script src='js/bootstrap.min.js' type='text/javascript'></script>
+        <script src='".base_url()."html/admin/js/bootstrap.min.js' type='text/javascript'></script>
          <!-- DATA TABES SCRIPT -->
-        <script src='js/plugins/datatables/jquery.dataTables.js' type='text/javascript'></script>
-        <script src='js/plugins/datatables/dataTables.bootstrap.js' type='text/javascript'></script>
+        <script src='".base_url()."html/admin/js/plugins/datatables/jquery.dataTables.js' type='text/javascript'></script>
+        <script src='".base_url()."html/admin/js/plugins/datatables/dataTables.bootstrap.js' type='text/javascript'></script>
 
         <!-- AdminLTE App -->
-        <script src='js/AdminLTE/app.js' type='text/javascript'></script>
+        <script src='".base_url()."html/admin/js/AdminLTE/app.js' type='text/javascript'></script>
 
         <!-- page script -->
         <script type='text/javascript'>
@@ -207,3 +284,4 @@
 
     </body>
 </html>
+";

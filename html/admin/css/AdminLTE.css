@@ -3476,3 +3476,5 @@ fieldset[disabled] .btn-vk.active {
 .logobankbig{ width:101px; height:64px; border: 1px solid #ddd; }
 .colimg{ width:101px; height:64px; }
 .colimg .close{ outline: 0 none;  padding:0 5px 0 5px; border-radius: 100%; background: #bbb; margin:-10px -10px 0 0; }
+
+.padbottom{ padding-bottom:5px; }

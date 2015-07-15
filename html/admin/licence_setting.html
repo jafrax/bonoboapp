@@ -10,6 +10,8 @@
         <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <!-- Ionicons -->
         <link href="css/ionicons.min.css" rel="stylesheet" type="text/css" />
+        <!-- iCheck for checkboxes and radio inputs -->
+        <link href="css/iCheck/all.css" rel="stylesheet" type="text/css" />
         <!-- DATA TABLES -->
         <link href="css/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
         <!-- daterange picker -->
@@ -195,10 +197,16 @@
                                 <i class="fa fa-truck"></i> <span>MASTER KURIR</span>
                             </a>
                         </li>
-                        <li class="active">
-                            <a href="licence_purchase.html">
+                        <li class="treeview active">
+                            <a href="#">
                                 <i class="fa fa-barcode"></i> <span>LICENSE PURCHASE</span>
+                                <i class="fa fa-angle-left pull-right"></i>
                             </a>
+                            <ul class="treeview-menu">
+                                <li><a href="licence_setting.html"><i class="fa fa-angle-double-right"></i> LICENSE SETTING</a></li>
+                                <li><a href="licence_generator.html"><i class="fa fa-angle-double-right"></i> LICENSE GENERATOR</a></li>
+                                <li><a href="licence_daftar.html"><i class="fa fa-angle-double-right"></i> LICENSE DAFTAR</a></li>
+                            </ul>
                         </li>
                        
                     </ul>
@@ -232,72 +240,52 @@
 
                             <div class="box-tools">
                                 <div class="input-group">
-                                    <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search"/>
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
-                                    </div>
+                                    <label>
+                                        <input type="checkbox" class="flat-red" />
+                                        Auto add license on Registration
+                                    </label>
                                 </div>
                             </div><br>
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 10px"><input type="checkbox"></th>
-                                        <th>No</th>
-                                        <th>Nama Toko</th>
-                                        <th>Kode Verifikasi</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <label>
-                                                <input type="checkbox">
-                                            </label>
-                                        </td>
-                                        <td>1</td>
-                                        <td>Toko Nina</td>
-                                        <td>1111-2222-3333-4444</td>
-                                        <td>Kode belum diinput</td>
-                                        <td>
-                                            <button data-toggle="modal" data-target=".bs-example-modal-sm" class="btn btn-info btn-sm" >Kirim Ulang</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label>
-                                                <input type="checkbox">
-                                            </label>
-                                        </td>
-                                        <td>1</td>
-                                        <td>Ninakom</td>
-                                        <td>-</td>
-                                        <td>Menunggu Kode</td>
-                                        <td>
-                                            <button class="btn btn-primary btn-sm">Generate</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th style="width: 10px"></th>
-                                        <th>No</th>
-                                        <th>Nama Toko</th>
-                                        <th>Kode Verifikasi</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                </tfoot>
-                            </table>
+
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6"> 
+                                    <div class="row form-group">
+                                        <div class="col-xs-12">
+                                            <label>Default Code</label>
+                                        </div>
+                                        <div class="padbottom col-xs-12 col-md-3">
+                                            <input type="text" class="form-control" placeholder="xxxx">
+                                        </div>
+                                        <div class="padbottom col-xs-12 col-md-3">
+                                            <input type="text" class="form-control" placeholder="xxxx">
+                                        </div>
+                                        <div class="padbottom col-xs-12 col-md-3">
+                                            <input type="text" class="form-control" placeholder="xxxx">
+                                        </div>
+                                        <div class="padbottom col-xs-12 col-md-3">
+                                            <input type="text" class="form-control" placeholder="xxxx">
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="nolpadright col-xs-12">
+                                            <label>Length</label>
+                                        </div>
+                                        <div class="padbottom col-xs-12 col-md-3">
+                                            <input type="text" class="form-control" placeholder="">
+                                        </div>
+                                        <div class="padbottom col-xs-12 col-md-3">
+                                            <select class="form-control">
+                                                <option>Hari</option>
+                                                <option>Bulan</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
                         </div><!-- /.box-body -->
                         <div class="box-footer clearfix">
-                            <ul class="pagination pagination-sm no-margin pull-right">
-                                <li><a href="#">&laquo;</a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">&raquo;</a></li>
-                            </ul>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </div><!-- /.box -->
                     
@@ -315,6 +303,8 @@
         <script src="js/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
         <!-- Bootstrap -->
         <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <!-- InputMask -->
+        <script src="js/plugins/input-mask/jquery.inputmask.js" type="text/javascript"></script>
          <!-- DATA TABES SCRIPT -->
         <script src="js/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
         <script src="js/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
@@ -329,6 +319,12 @@
             $(function() {
                //Date range picker
                $('#tanggalindong').daterangepicker();
+
+               //Flat red color scheme for iCheck
+                $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+                    checkboxClass: 'icheckbox_flat-red',
+                    radioClass: 'iradio_flat-red'
+                });
             });
         </script>
 
