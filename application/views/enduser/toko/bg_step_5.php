@@ -103,8 +103,11 @@ echo"
 	
 	echo"
 						</div>
-					</p>
-					<p style='margin-left:30px;width:100%' class='input-field col s12 m8' id='tombol-tambah'><a href='javascript:void(0);' id='aCustomeCourierAdd'>[+] Tambah Baru</a></p>
+					</p>";
+					if(sizeOf($CustomeCouriers) <= 2){
+					echo "<p style='margin-left:30px;width:100%' class='input-field col s12 m8' id='tombol-tambah'><a href='javascript:void(0);' id='aCustomeCourierAdd'>[+] Tambah Baru</a></p>";
+					}
+					echo"
 				</div>
 				
 				<div class='input-field col s12 m8'><p><br></p></div>

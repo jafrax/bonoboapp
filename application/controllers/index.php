@@ -29,7 +29,7 @@ class Index extends CI_Controller {
 			$step=$_SESSION['bonobo']['step'];
 			if($step == 1){
 				redirect('toko');
-			}else if($step == 9){
+			}else if($step == 0){
 				redirect('nota');
 			}else{
 				redirect('toko/step'.$step.'');
