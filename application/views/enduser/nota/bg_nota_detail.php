@@ -103,7 +103,7 @@ echo "
 						<div class='row formbody'>
 							<div class='linehead'></div>
 							<div class='col s12 m6 left'>
-								<h4>No. Transaksi : ".$nota->invoice_no."</h4>";
+								<h4 class='light'>No. Transaksi : ".$nota->invoice_no."</h4>";
 			            		$old_date = $nota->create_date;
 								$old_date_timestamp = strtotime($old_date);
 								$date = date('d F Y', $old_date_timestamp);
@@ -113,7 +113,7 @@ echo "
 								<h5><br></h5>
 							</div>
 							<div class='col s12 m6 right'>
-								<h5 class='right-align'><span class='blue-text'>".$nota->member_name."</span></h5>
+								<h5 class='right-align light'><span class='blue-text'>".$nota->member_name."</span></h5>
 								";
 					            if ($nota->status == 0 ) {
 					            	echo "<h6 class='red-text right' id='lunas-".$nota->id."'>Belum Lunas</h6>";
