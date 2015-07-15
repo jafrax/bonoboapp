@@ -69,7 +69,7 @@ function CtrlShopStep1(){
 			var sequence = parseInt(intAttributeCount.value)+1;
 			var div = document.createElement("div");
 			
-			div.innerHTML = "<div class='col s12 m3' id='kontak"+sequence+"'>Nama kontak</div><div class='col s12 m5'><input  name='txtAttributeId"+sequence+"' type='hidden' value=''><input id='txtAttributeId"+sequence+"' name='txtAttributeName"+sequence+"' placeholder='BBM/whatsapp/Line' type='text' class='validate'></div><div class='col s12 m3'>Pin/ID/Nomor</div><div class='col s12 m5'><input name='txtAttributeValue"+sequence+"' type='text' placeholder='Ex : AD9876/bonoboLine' class='validate'></div><div class='col s12 m5'><a class='btn-floating btn-xs waves-effect waves-light red right' onclick=javascript:deletestep1("+sequence+",0)><i class='mdi-navigation-close'></i></a></div>";
+			div.innerHTML = "<div class='col s12 m3' id='kontak"+sequence+"'>Nama kontak</div><div class='col s12 m5'><input  name='txtAttributeId"+sequence+"' type='hidden' value=''><input id='txtAttributeId"+sequence+"' name='txtAttributeName"+sequence+"' placeholder='BBM/whatsapp/Line' type='text' class='validate'></div><div class='col s12 m3'>Pin/ID/Nomor</div><div class='col s12 m5'><input name='txtAttributeValue"+sequence+"' type='text' placeholder='Ex : AD9876/bonoboLine' class='validate'></div><div class='col s12 m2'><a class='btn-floating btn-xs waves-effect waves-light red right' onclick=javascript:deletestep1("+sequence+",0)><i class='mdi-navigation-close'></i></a></div>";
 			div.setAttribute("class","row valign-wrapper counter attr-"+sequence);
 			divAttributes.append(div);
 			intAttributeCount.value = sequence;
@@ -666,7 +666,7 @@ function CtrlShopStep8(){
 			success: function(result) {
 				var response = JSON.parse(result);
 				if(response.result == 1){
-					top.location.href = base_url+"toko/step8/";
+					top.location.href = base_url+"nota";
 				}else{
 					$hs_notif("#notifStep6",response.message);
 				}
@@ -929,7 +929,7 @@ function deletestep1(e,a){
 		
 		if(a == 0){
 			divKontak.slideUp("slow").remove();
-			if ($('.counter').length < 3  ) {			
+			if ($('.counter').length <= 3  ) {			
 				$('#aAttributeAdd').show();
 			}
 		}else{
@@ -941,7 +941,7 @@ function deletestep1(e,a){
 					var response = JSON.parse(result);
 					if(response.result == 1){
 						divKontak.slideUp("slow").remove();
-						if ($('.counter').length < 3  ) {			
+						if ($('.counter').length <= 3  ) {			
 							$('#aAttributeAdd').show();
 						}
 					}else{
