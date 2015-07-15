@@ -903,11 +903,13 @@ class Toko extends CI_Controller {
 		
 		foreach($Banks as $Bank){
 			if(!empty($ShopBank)){
-				if($Bank->id != $ShopBank->bank_id){
+				echo "<option value='".$ShopBank->bank_id."' ".($ShopBank->bank_id == $Bank->id ? "selected" : "").">".$ShopBank->bank_name."</option>";
+				/*if($Bank->id != $ShopBank->bank_id){
 					echo"<option value='".$Bank->id."'>".$Bank->name."</option>";
 				}else{
+					
 					echo "<option value='".$ShopBank->bank_id."' selected>".$ShopBank->bank_name."</option>";
-				}
+				}*/
 			}else{
 				echo"<option value='".$Bank->id."'>".$Bank->name."</option>";
 			}
