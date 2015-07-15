@@ -84,7 +84,7 @@ echo "
 							<div class='toolb col s12 m6'>
 								<a href='#delete_nota_".$nota->id."' class='modal-trigger red-text right' href='#'><i class='mdi-action-delete small'></i></a>
 								<a class='red-text right ' href='#'><i class='mdi-content-mail small'></i></a>
-								<a class='red-text right ' href='#'><i class='mdi-action-print small'></i></a>
+								<a class='red-text right ' href='".base_url()."nota/cetak/".$row->invoice_no."' ><i class='mdi-action-print small'></i></a>
 							</div>
 							<div id='delete_nota_".$nota->id."' class='modal confirmation'>
 								<div class='modal-header red'>
