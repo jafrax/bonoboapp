@@ -26,6 +26,7 @@ class Toko extends CI_Controller {
 		$this->load->model("enduser/model_toko_attribute");
 		$this->load->model("enduser/model_toko_courier");
 		$this->load->model("enduser/model_toko_bank");
+		$this->load->model("enduser/model_nota");
 		
 		if(empty($_SESSION['bonobo']) || empty($_SESSION['bonobo']['id'])){
 			redirect('index/');

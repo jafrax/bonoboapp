@@ -160,69 +160,69 @@ echo"
 					</div>
 				</div>
 				<div class='input-field col s12 m8'>
-					<input id='txtPostal' name='txtPostal' type='text' placeholder='Ex : 15122' class='validate'  value='".$Shop->postal."' onChange=ctrlShopStep1.loadComboboxProv();>
-					<label for='txtPostal'>Kodepos</label>
+					<input  id='postal-code' name='txtPostal' type='text' onkeyup=javascript:set_location() class='validate' value='".$Shop->postal."'>
+					<label for='postal-code'>Kodepos</label>
 				</div>
 				<div class=' col s12 m8'>
 					<label>Provinsi</label>
 					<label id='notifProvince' class='error error-chosen' style='display:none;'></label>
-					<div id='divProvince' class='input-field'>
-						<select name='cmbProvince' class='chosen-select' onChange=ctrlShopStep1.loadComboboxCity();>
-							<option disabled>Pilih propinsi</option>";								
-
-	if(!empty($Shop->location_province)){
-		echo"<option value='".$Shop->location_province."' selected>".$Shop->location_province."</option>";
-	}else{
-		echo"<option value='' disabled selected>Pilih Provinsi</option>";
-	}
-
-	foreach($Provinces as $Province){
-		echo"<option value='".$Province->province."'>".$Province->province."</option>";
-	}
-	
-echo"
+					<div id='panggon-province' class='input-field'>
+						<select  class='chosen-select' name='cmbProvince' id='province' onchange=javascript:set_city()>
+							<option value='' disabled selected>Pilih Provinsi</option>";
+							$provinsi = $this->model_nota->get_province();
+							foreach ($provinsi->result() as $row_p) {
+								$select = '';
+								if ($row_p->province == $Shop->location_to_province) {$select = 'selected';}
+								echo "<option $select value='".$row_p->province."'>".$row_p->province."</option>";
+							}	
+							echo"
 						</select>
 					</div>
 				</div>
 				<div class=' col s12 m8'>
 					<label>Kota</label>
 					<label id='notifCity' class='error error-chosen' style='display:none;'></label>
-					<div id='divCity' class='input-field'>
-						<select name='cmbCity' class='chosen-select' onChange=ctrlShopStep1.loadComboboxKecamatan();>
-							<option disabled>Pilih kota</option>";
-
-	if(!empty($Shop->location_city)){
-		echo"<option value='".$Shop->location_city."' selected>".$Shop->location_city."</option>";
-	}else{
-		echo"<option value='' disabled selected>Pilih Kota</option>";
-	}
-	
-	foreach($Cities as $City){
-		echo"<option value='".$City->city."'>".$City->city."</option>";
-	}
-	
-echo"
+					<div id='panggon-city' class='input-field'>
+						<select  class='chosen-select' name='cmbCity' id='city' onchange=javascript:set_kecamatan()>
+							<option value='' disabled selected>Pilih Kota</option>";
+							if ($Shop->location_to_city != '') {
+								$kota = $this->model_nota->get_city($Shop->location_to_province);
+								foreach ($kota->result() as $row_k) {
+									$select = '';
+									if ($row_k->city == $Shop->location_to_city) {$select = 'selected';}
+									echo "<option $select value='".$row_k->city."'>".$row_k->city."</option>";
+								}	
+							}else{
+								$kota = $this->model_nota->get_city($Shop->location_to_province);
+								foreach ($kota->result() as $row_k) {
+									echo "<option value='".$row_k->city."'>".$row_k->city."</option>";
+								}	
+							}
+							
+							echo"
 						</select>
 					</div>
 				</div>
 				<div class=' col s12 m8'>
 					<label>Kecamatan</label>
 					<label id='notifKecamatan' class='error error-chosen' style='display:none;'></label>
-					<div id='divKecamatan' class='input-field'>
-						<select name='cmbKecamatan' class='chosen-select'>
-							<option disabled>Pilih kecamatan</option>";
-
-	if(!empty($Shop->location_kecamatan)){
-		echo"<option value='".$Shop->location_kecamatan."' selected>".$Shop->location_kecamatan."</option>";
-	}else{
-		echo"<option value='' disabled selected>Pilih Kecamatan</option>";
-	}
-	
-	foreach($Kecamatans as $Kecamatan){
-		echo"<option value='".$Kecamatan->kecamatan."'>".$Kecamatan->kecamatan."</option>";
-	}
-	
-echo"
+					<div id='panggon-kecamatan' class='input-field'>
+						<select  class='chosen-select' name='cmbKecamatan' id='kecamatan'>
+							<option value='' disabled selected>Pilih Kecamatan</option>";
+							if ($Shop->location_to_kecamatan != '') {
+								$kecamatan = $this->model_nota->get_kecamatan($Shop->location_to_city);
+								foreach ($kecamatan->result() as $row_c) {
+									$select = '';
+									if ($row_c->kecamatan == $Shop->location_to_kecamatan) {$select = 'selected';}
+									echo "<option $select value='".$row_c->kecamatan."'>".$row_c->kecamatan."</option>";
+								}
+							}else{
+								$kecamatan = $this->model_nota->get_kecamatan($Shop->location_to_city);
+								foreach ($kecamatan->result() as $row_c) {
+									echo "<option value='".$row_c->kecamatan."'>".$row_c->kecamatan."</option>";
+								}
+							}
+							echo"
 						</select>
 					</div>
 				</div>

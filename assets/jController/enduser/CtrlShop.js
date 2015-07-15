@@ -954,3 +954,25 @@ function deletestep1(e,a){
 			});
 		}
 	}
+
+function set_location(){
+    var postal = $('#postal-code').val();
+    if (postal.length == 5) {        
+        $.ajax({
+            type: 'POST',
+            async: true,
+            data: 'postal='+postal,
+            url: base_url+'nota/set_location',
+            success: function(msg) {
+                if (msg == 0) {             
+                    Materialize.toast('Kode pos salah', 4000);
+                }else{
+                    $('#panggon-province').html(msg);
+                    $('#province').chosen();
+                    $.ajax({type: 'POST',data: 'postal='+postal,url: base_url+'nota/set_city', success: function(city) {$('#panggon-city').html(city);$('#city').chosen();}});
+                    $.ajax({type: 'POST',data: 'postal='+postal,url: base_url+'nota/set_kecamatan', success: function(kecamatan) {$('#panggon-kecamatan').html(kecamatan);$('#kecamatan').chosen();}});
+                }
+            } 
+        });
+    }
+}
