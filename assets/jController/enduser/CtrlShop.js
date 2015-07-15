@@ -141,8 +141,6 @@ function CtrlShopStep1(){
 			rules:{
 				txtName: {
 					required: true,
-					minlength:3,
-					maxlength:15,
 				},
 				txtTagname: {
 					required: true,
@@ -449,7 +447,7 @@ function CtrlShopStep7(){
 				if(response.result == 1){
 					aCourierDetail.slideDown("slow");
 					txtCourierId.value = response.id;
-					location.reload();
+					//location.reload();
 				}else{
 					Materialize.toast(response.message, 4000);
 				}
@@ -475,7 +473,10 @@ function CtrlShopStep7(){
 				success: function(result) {
 					var response = JSON.parse(result);
 					if(response.result == 1){
-						divCourier.slideUp("slow");
+						divCourier.slideUp("slow").remove();
+						if ($('.counter').length < 3  ) {			
+				$('#tombol-tambah').show();
+			}
 					}else{
 						Materialize.toast(response.message, 4000);
 					}
