@@ -21,6 +21,7 @@
 	.signin{ margin:5% 0% 0 0%; }
 	.note{ margin:8px 1% 12px 1%; font-size:12px;}
 	.titlin{ font-size:18px; }
+	.nolautomar{ width:90%!important; margin:0 auto; }
 	
 	/*FOOTER*/
 	.footer{ position:relative; margin:15px 0; }
@@ -29,6 +30,7 @@
 	/*COMPONENT*/
 	.bgpic{ width:100%; height:auto; background-color: #313131; }
 	.img-product{ height:140px!important; }
+	
 }
 
 @media (max-width: 481px) {
