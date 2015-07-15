@@ -615,15 +615,16 @@ function CtrlShopStep8(){
 	}
 	
 	function formClear(){
+
 		formStep8Add.txtId.value = "";
 		formStep8Add.txtName.value = "";
 		formStep8Add.txtNo.value = "";
 		
 		$.ajax({
 			type: 'POST',
-			data: "id="+e,
-			url: base_url+'toko/step8ComboboxBank/',
+			url: base_url+'toko/step8ComboboxBankadd',
 			success: function(result) {
+				$('.modal-header').html('<i class="mdi-maps-local-atm left"></i>Akun Baru');
 				$("#divCmbBank").html(result);
 			}
 		});
@@ -635,6 +636,7 @@ function CtrlShopStep8(){
 			data: "id="+e,
 			url: base_url+'toko/step8ComboboxBank/',
 			success: function(result) {
+				$('.modal-header').html('<i class="mdi-maps-local-atm left"></i> Edit Akun Bank');
 				$("#divCmbBank").html(result);
 			}
 		});
@@ -651,7 +653,8 @@ function CtrlShopStep8(){
 					formStep8Add.txtName.value = response.acc_name;
 					formStep8Add.txtNo.value = response.acc_no;
 				}else{
-					formClear();
+					//formClear();
+					$('#formStep6Add').reset();
 					$hs_notif("#notifStep6",response.message);
 				}
 			}

@@ -903,16 +903,27 @@ class Toko extends CI_Controller {
 		
 		foreach($Banks as $Bank){
 			if(!empty($ShopBank)){
-				echo "<option value='".$ShopBank->bank_id."' ".($ShopBank->bank_id == $Bank->id ? "selected" : "").">".$ShopBank->bank_name."</option>";
-				/*if($Bank->id != $ShopBank->bank_id){
+				if($Bank->id != $ShopBank->bank_id){
 					echo"<option value='".$Bank->id."'>".$Bank->name."</option>";
 				}else{
 					
 					echo "<option value='".$ShopBank->bank_id."' selected>".$ShopBank->bank_name."</option>";
-				}*/
+				}
 			}else{
 				echo"<option value='".$Bank->id."'>".$Bank->name."</option>";
 			}
+		}
+			
+		echo"</select><script>$('.select-standar').material_select();</script>";
+	}
+	
+	public function step8ComboboxBankadd(){
+		$Banks = $this->model_bank->get()->result();
+		
+		echo"<select id='cmbBank' name='cmbBank' class='select-standar'><option value='' disabled selected>Pilih Bank</option>";
+		
+		foreach($Banks as $Bank){
+				echo"<option value='".$Bank->id."'>".$Bank->name."</option>";
 		}
 			
 		echo"</select><script>$('.select-standar').material_select();</script>";
