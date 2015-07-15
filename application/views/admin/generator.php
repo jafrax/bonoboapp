@@ -1,3 +1,5 @@
+<?php
+echo "
 <!DOCTYPE html>
 <html>
     <head>
@@ -5,16 +7,16 @@
         <title>Administrator Bonobo | Dashboard</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <!-- bootstrap 3.0.2 -->
-        <link href='css/bootstrap.min.css' rel='stylesheet' type='text/css' />
+        <link href='".base_url()."html/admin/css/bootstrap.min.css' rel='stylesheet' type='text/css' />
         <!-- font Awesome -->
-        <link href='css/font-awesome.min.css' rel='stylesheet' type='text/css' />
+        <link href='".base_url()."html/admin/css/font-awesome.min.css' rel='stylesheet' type='text/css' />
         <!-- Ionicons -->
-        <link href='css/ionicons.min.css' rel='stylesheet' type='text/css' />
+        <link href='".base_url()."html/admin/css/ionicons.min.css' rel='stylesheet' type='text/css' />
         <!-- DATA TABLES -->
-        <link href='css/datatables/dataTables.bootstrap.css' rel='stylesheet' type='text/css' />
+        <link href='".base_url()."html/admin/css/datatables/dataTables.bootstrap.css' rel='stylesheet' type='text/css' />
 
         <!-- Theme style -->
-        <link href='css/AdminLTE.css' rel='stylesheet' type='text/css' />
+        <link href='".base_url()."html/admin/css/AdminLTE.css' rel='stylesheet' type='text/css' />
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -166,18 +168,75 @@
                 <!-- Content Header (Page header) -->
                 <section class='content-header'>
                     <h1>
-                        Dashboard
+                        License Purchase
                     </h1>
                     <ol class='breadcrumb'>
                         <li><a href='#'><i class='fa fa-dashboard'></i> Dashboard</a></li>
 
-                        <li class='active'>Dashboard</li>
+                        <li class='active'>License Purchase</li>
                     </ol>
                 </section>
 
                 <!-- Main content -->
                 <section class='content'>
-                    <h2>Selamat Datang</h2>
+
+                    <div class='box'>
+                        <div class='box-header'>
+                            <h3 class='box-title'></h3>                                    
+                        </div><!-- /.box-header -->
+                        <div class='box-body table-responsive'>
+                            <div class='row'>
+                                <div class='col-xs-12 col-md-6'> 
+                                    <div class='row form-group'>
+                                        <div class='col-xs-12'>
+                                            <label>Pilih Toko</label>
+                                        </div>
+                                        <div class='padbottom col-xs-12 col-md-6'>
+                                            <select class='chosen-select form-control' id='toko'>
+                                                <option>Pilih Toko</option>";
+                                                foreach ($toko->result() as $row) {
+                                                    echo "<option value='".$row->id."'>".$row->name." - ".$row->email."</option>";
+                                                }
+                                                echo"
+                                            </select>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class='row form-group'>
+                                        <div class='nolpadright col-xs-12'>
+                                            <label>Durasi</label>
+                                        </div>
+                                        <div class='padbottom col-xs-12 col-md-3'>
+                                            <input type='text' class='form-control' placeholder='' id='durasi'>
+                                        </div>
+                                        <div class='padbottom col-xs-12 col-md-3'>
+                                            <select class='form-control' id='durasi-tipe'>
+                                                <option value='D'>Hari</option>
+                                                <option value='M'>Bulan</option>
+                                                <option value='Y'>Tahun</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class='row form-group'>
+                                        <div class='nolpadright col-xs-12'>
+                                            <label>Kode</label>
+                                        </div>
+                                        <div class='padbottom col-xs-12 col-md-6'>
+                                            <input type='text' class='form-control' placeholder='xxxx-xxxx-xxxx-xxxx' disabled>
+                                        </div>
+                                        <div class='padbottom col-xs-12 col-md-6'>
+                                            <button type='submit' class='btn btn-primary'>Generate</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- /.box-body -->
+                        <div class='box-footer clearfix'>
+                            
+                        </div>
+                    </div><!-- /.box -->
+                    
+
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
@@ -188,15 +247,15 @@
         <!-- jQuery 2.0.2 -->
         <script src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js'></script>
         <!-- jQuery UI 1.10.3 -->
-        <script src='js/jquery-ui-1.10.3.min.js' type='text/javascript'></script>
+        <script src='".base_url()."html/admin/js/jquery-ui-1.10.3.min.js' type='text/javascript'></script>
         <!-- Bootstrap -->
-        <script src='js/bootstrap.min.js' type='text/javascript'></script>
+        <script src='".base_url()."html/admin/js/bootstrap.min.js' type='text/javascript'></script>
          <!-- DATA TABES SCRIPT -->
-        <script src='js/plugins/datatables/jquery.dataTables.js' type='text/javascript'></script>
-        <script src='js/plugins/datatables/dataTables.bootstrap.js' type='text/javascript'></script>
+        <script src='".base_url()."html/admin/js/plugins/datatables/jquery.dataTables.js' type='text/javascript'></script>
+        <script src='".base_url()."html/admin/js/plugins/datatables/dataTables.bootstrap.js' type='text/javascript'></script>
 
         <!-- AdminLTE App -->
-        <script src='js/AdminLTE/app.js' type='text/javascript'></script>
+        <script src='".base_url()."html/admin/js/AdminLTE/app.js' type='text/javascript'></script>
 
         <!-- page script -->
         <script type='text/javascript'>
@@ -207,3 +266,4 @@
 
     </body>
 </html>
+";
