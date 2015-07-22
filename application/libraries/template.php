@@ -26,6 +26,21 @@
 		$ci->load->view('enduser/template/bg_header', $data);        
         $ci->load->view('enduser/'.$view, $data);
         $ci->load->view('enduser/template/bg_footer', $data);
+    }
+
+	function bonobo_admin($view=null,$data=null){
+        $ci =& get_instance();
+        //$ci->load->model('Facebook_Model', 'fb');
+        
+		//$ci->getFbUser = $ci->fb->getUser();
+        //$ci->data['getFbUser'] = $ci->getFbUser;
+        //$data['recaptcha'] = $ci->recaptcha->recaptcha_get_html();
+        
+		$ci->load->view('admin/template/bg_header', $data);        
+		$ci->load->view('admin/template/bg_nav_right', $data);        
+		$ci->load->view('admin/template/bg_left', $data);        
+        $ci->load->view($view, $data);
+        $ci->load->view('admin/template/bg_bottom', $data);
     }		
 	# END TEMPLATE #
 	    

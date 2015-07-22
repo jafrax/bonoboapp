@@ -6,7 +6,9 @@
 * 1. Create 22 July 2015 by Adi Setyo, Create controller : Coding index, Coding daftar_toko
 */
 class Daftar_toko extends CI_Controller {
-    public data = array( 'scjav'=>'<script src='.site_url('html/admin/js/bootstrap.min.js').' type="text/javascript"></script>');
+    public $data = array( 'scjav'=>'assets\jController\admin\CtrlDtoko.js' );
+	var $limit = 10;
+	var $offset = 0;
     function __construct(){
         parent::__construct();
         $this->load->model("admin/model_toko");
@@ -25,12 +27,10 @@ class Daftar_toko extends CI_Controller {
         $url='admin/daftar_toko/index';
         $this->data['pagination'] = $this->template->paging1($pg,$uri,$url,$limit);        
         $this->data['allToko']=$this->model_toko->get_all_toko($limit,$offset);
-        
         if ($this->input->post('ajax')) {
-            $this->load->view('admin/user/bg_user_ajax', $this->data);
+            $this->load->view('admin/daftar_toko/daftar_toko_ajax', $this->data);
         } else {
-            $this->template->admin('admin/user/bg_user', $this->data);
-            $this->load->view('admin/daftar_toko/bg_daftar_toko.php', $this->data);
+            $this->template->bonobo_admin('admin/daftar_toko/bg_daftartoko', $this->data);
         } 
 
     }
