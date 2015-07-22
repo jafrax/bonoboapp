@@ -9,7 +9,7 @@
 * 2. Change 22 Juni 2015 by Dinar Wahyu Wibowo, Change Index
 * 3. Change 23 Juni 2015 by Heri Siswanto, Coding Signup, Coding Signin, Signup Facebook, Signin Facebook
 * 4. Create 03 Juli 2015 by adi Setyo, Cek Mail, signup_verification
-* 5. Update 09 Juli 2015 by adi setyo, doForgotPassword
+* 5. Update 09 Juli 2015 by adi setyo, Coding doForgotPassword
 */
 
 class Index extends CI_Controller {
