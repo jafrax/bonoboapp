@@ -31,6 +31,7 @@ echo"
 	<script type='text/javascript' src='".base_url("html/js/chosen.jquery.js")."'></script>
 	<script type='text/javascript' src='".base_url("assets/jLib/jQuery/jquery.validate.js")."'></script>	
 	<script type='text/javascript' src='".base_url("assets/jLib/jQuery/additional-methods.js")."'></script>
+	<script type='text/javascript' src='".base_url("assets/jLib/jQuery/jquery.price_format.2.0.min.js")."'></script>
 	<script type='text/javascript' src='".base_url("assets/jController/CtrlSystem.js")."'></script>
 	<script type='text/javascript' src='".base_url("assets/jController/enduser/CtrlShop.js")."'></script>
 	<script type='text/javascript' src='".base_url("assets/jController/enduser/CtrlAnggota.js")."'></script>

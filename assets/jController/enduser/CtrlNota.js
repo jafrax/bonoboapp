@@ -3,6 +3,7 @@
 // Notes nota ======================================================================================
 function edit_notes (id) {
     $('.notes-'+id).prop("disabled", false);
+    $('.notes-'+id).focus();
     $('.tombol-notes-'+id).show();
 }
 
@@ -36,7 +37,26 @@ function cek_all_nota(){
     $('.cek_nota').prop('checked',false);
   }
 }
+function batal_nota(id){
+    $('#btn-batal-'+id).html('loading...');
+    $('#btn-batal-'+id).fadeTo('slow',0.5);
+    $.ajax({
+        type: 'POST',
+        data: 'id='+id,
+        url: base_url+'nota/nota_batal',
+        success: function(msg) {
+            if (msg == 1) {             
+                $('#btn-batal-'+id).fadeOut();
+                $('#btn-bayar-'+id).fadeOut();
+                $('#lokasi-btn-'+id).html('<br>');
+                $('#lunas-'+id).html('Batal');              
+                $('#lunas-'+id).addClass('grey-text');
+                $('#lunas-'+id).addClass('red-text');
+            };              
+        } 
+    });
 
+}
 function go(){
   var total_nota  = $('#total-nota').val();
   var option        = $('#option-go').val();
@@ -258,6 +278,35 @@ function change_flagger(){
             } 
         });
     };
+}
+
+function delete_nota(id){
+    $.ajax({
+        type: 'POST',
+        data: 'id='+id,
+        url: base_url+'nota/nota_delete',
+        success: function(msg) {
+            if (msg == 1) {             
+                $('#nota-'+id).fadeOut().remove();
+                Materialize.toast('Nota telah dihapus', 4000);
+            };              
+        } 
+    });
+}
+
+function delete_nota2(id){
+    $.ajax({
+        type: 'POST',
+        data: 'id='+id,
+        url: base_url+'nota/nota_delete',
+        success: function(msg) {
+            if (msg == 1) {             
+                
+                Materialize.toast('Nota telah dihapus', 4000);
+                window.location.href = base_url+'nota';
+            };              
+        } 
+    });
 }
 
 

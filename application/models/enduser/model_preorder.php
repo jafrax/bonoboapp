@@ -14,6 +14,7 @@ class Model_preorder extends CI_Model
 						->where('stock_type',0)
 						->join('tb_toko_category_product c','c.id=p.toko_category_product_id')
 						->join('tb_product_image i','i.product_id=p.id','left')
+						->group_by('p.id')
 						->get('tb_product p');
 	}
 	

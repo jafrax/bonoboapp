@@ -123,8 +123,18 @@ echo "
 								</div>
 								<input type='hidden' name='total_picture' id='total_picture' value='1'/>
 
-								<div class='input-field col s12'>
-									<input id='perkiraan_berat' placeholder='0.00' type='text' name='berat' class='validate' value='".$produk->berat."'>
+								<div class='input-field col s12'>";
+									$pcs = explode(".", $produk->berat);
+									if (isset($pcs[1])) {
+										$berat = $produk->berat;										
+										if (strlen($pcs[1]) == 1) {
+											$berat = $berat."0";
+										}
+									}else{
+										$berat = $produk->berat."00";
+									}
+									echo "
+									<input id='perkiraan_berat' placeholder='0.00' type='text' name='berat' class='validate berat' value='".$berat."'>
 									<label for='perkiraan_berat'>Perkiraan Berat <span>( Kilogram)</span></label>
 								</div>
 								<div class='input-field col s12'>

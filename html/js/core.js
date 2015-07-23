@@ -56,9 +56,20 @@ $(document).ready(function() {
     }
 	/*END CHOSEN SELECT*/
 
+	/*NUMBER ONLY*/
 	jQuery('.numbersOnly').keyup(function () { 
 	    this.value = this.value.replace(/[^0-9\.]/g,'');
 	});
+	/*NUMBER ONLY*/
+
+	/*NUMBER FORMAT*/
+	$('.berat').priceFormat({	    
+	    limit: 7,
+    	centsLimit: 2,
+    	thousandsSeparator: '',
+    	prefix: '',
+	});
+	/*NUMBER FORMAT*/
 
 });
 

@@ -5,6 +5,8 @@
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class License extends CI_Controller {
+    var $data = array('scjav' => 'assets\jController\admin\CtrlLicense.js');
+
     function __construct(){
         parent::__construct();
 
@@ -20,7 +22,7 @@ class License extends CI_Controller {
     }
 
     public function setting(){
-        $this->template->bonobo_admin('')
+        $this->template->bonobo_admin('license/bg_setting',$this->data);
     }
 
     public function daftar(){

@@ -125,12 +125,13 @@ echo"
 											</div>
 											<div class='col s12 m7' id='lokasi-btn-".$row->id."'>";
 											if ($row->status != 2) {
+												echo "<button id='btn-batal-".$row->id."' data-target='batal_nota_".$row->id."' class='btn modal-trigger waves-effect red white-text waves-light right' type='button' name='action' >Batal</button>";
 												if ($row->status != 1) {
 													echo"
 												<button id='btn-bayar-".$row->id."' data-target='bayar-".$row->id."' class='btn modal-trigger waves-effect orange darken-1 white-text waves-light right' type='button' name='action'>Bayar</button>";
 												}
 											echo"
-												<button id='btn-batal-".$row->id."' data-target='batal_nota_".$row->id."' class='btn modal-trigger waves-effect red white-text waves-light right' type='button' name='action' >Batal</button>
+												
 								            </div>
 								            <div id='batal_nota_".$row->id."' class='modal confirmation'>
 												<div class='modal-header red'>
@@ -159,8 +160,8 @@ echo"
 																$show_rek = 'none';
 															}
 															if ($toko->pm_transfer == 1) {
-																echo "<option value='2' "; if ($row->member_confirm == 1) {echo 'selected';} echo ">Transfer via bank</option>";
-																$show_rek = 'block';
+																echo "<option value='2' "; if ($row->member_confirm == 1) {echo 'selected';$show_rek = 'block';} echo ">Transfer via bank</option>";
+																
 															}
 														echo"
 														</select>

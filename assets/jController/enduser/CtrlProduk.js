@@ -257,6 +257,27 @@ function change_stock(id){
   }
 }
 
+function change_stock2(id){
+  var stok = $('.stok-2-'+id).val();
+  if (stok != '') {
+    $.ajax({
+      type: 'POST',
+      data: 'id='+id+'&stok='+stok,
+      url: base_url+'produk/change_stock',
+      success: function(msg) {
+        if (stok == 0) {
+          $('.habis-'+id).fadeIn();
+        }else{
+          $('.habis-'+id).fadeOut();
+        };
+        $('.stok-'+id).val(msg);
+        $('.ok-'+id).fadeIn();
+        $('.ok-'+id).delay(500).fadeOut();        
+      }
+    }); 
+  }
+}
+
 function delete_produk(id){
   $.ajax({
     type: 'POST',

@@ -39,7 +39,7 @@
 		$ci->load->view('admin/template/bg_header', $data);        
 		$ci->load->view('admin/template/bg_nav_right', $data);        
 		$ci->load->view('admin/template/bg_left', $data);        
-        $ci->load->view('admin/'$view, $data);
+        $ci->load->view('admin/'.$view, $data);
         $ci->load->view('admin/template/bg_bottom', $data);
     }		
 	# END TEMPLATE #

@@ -206,7 +206,7 @@ echo"
 												foreach ($stok->result() as $row_stok) {
 													echo"
 													<p class='input-field col s12 m12 l12 nolpad'>
-														<input onkeyup=javascript:change_stock(".$row_stok->id.") type='text' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate numbersOnly stok-".$row_stok->id."'>";
+														<input onkeyup=javascript:change_stock2(".$row_stok->id.") type='text' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate numbersOnly stok-".$row_stok->id." stok-2-".$row_stok->id."'>";
 														if ($row_stok->name != 'null') {
 															echo "<span for='stok'>".$row_stok->name."</span>";
 														}

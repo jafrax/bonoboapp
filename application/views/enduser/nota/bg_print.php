@@ -73,9 +73,9 @@ echo "
 						          	</div>
 						          	<div class='row '>";
 											foreach ($produk->result() as $row_p) {
-												$image = $this->model_nota->get_nota_product_image($row_p->id)->row()->image;
-												if ($image) {
-													$images = base_url()."assets/pic/product/resize/".$image;
+												$image = $this->model_nota->get_nota_product_image($row_p->id)->row();
+												if (count($image) > 0 && file_exists(base_url()."/assets/pic/product/".$image->image)) {
+													$images = base_url()."assets/pic/product/resize/".$image->image;
 												}else{
 													$images = base_url()."html/images/comp/product.png";
 												}
@@ -129,7 +129,7 @@ echo "
 <script type='text/javascript' src='".base_url()."html/js/jpushmenu.js'></script>
 <script type='text/javascript' src='".base_url()."html/js/chosen.jquery.js'></script>
 
-<script type='text/javascript' src='".base_url()."html/js/core.js'></script>
+
 </body>
 </html>";
 ?>
