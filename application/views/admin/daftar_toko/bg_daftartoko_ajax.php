@@ -66,7 +66,7 @@ echo"
                                         <td>$i</td>
                                         <td>".$row->name."</td>
                                         <td>".$row->email."</td>
-                                        <td>";
+										<td>";
 										if($row->status == 2){
 												echo "<span class='label label-success'>Verified</span>";
 										}else{
