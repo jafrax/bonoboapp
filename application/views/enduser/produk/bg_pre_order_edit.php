@@ -132,8 +132,18 @@ echo "
 								</div>
 								<input type='hidden' name='total_picture' id='total_picture' value='1'/>
 
-								<div class='input-field col s12'>
-									<input id='perkiraan_berat' placeholder='0.00' type='text' name='berat' class='validate' value='".$produk->berat."'>
+								<div class='input-field col s12'>";
+									$pcs = explode(".", $produk->berat);
+									if (isset($pcs[1])) {
+										$berat = $produk->berat;										
+										if (strlen($pcs[1]) == 1) {
+											$berat = $berat."0";
+										}
+									}else{
+										$berat = $produk->berat."00";
+									}
+									echo "
+									<input id='perkiraan_berat' placeholder='0.00' type='text' name='berat' class='validate berat' value='".$berat."'>
 									<label for='perkiraan_berat'>Perkiraan Berat <span>( Kilogram)</span></label>
 								</div>
 								<div class='input-field col s12'>
@@ -203,7 +213,7 @@ echo "
 								<div class='input-field col s12 m12 varsto'>
 									<button class='btn waves-effect waves-light right col s12 m3' type='submit' value='1' name='action'>Simpan<i class='mdi-content-send right'></i></button>																		
 									<button class='btn waves-effect waves-light yellow darken-3 right col s12 m3' value='0' type='submit' name='action'>Simpan Draft<i class='mdi-content-drafts right'></i></button>
-									<button class='btn waves-effect waves-light red right col s12 m3' type='button' name='action' onclick='location.href=\"".base_url()."produk/\"'>Batal<i class='mdi-content-clear right'></i></button>
+									<button class='btn waves-effect waves-light red right col s12 m3' type='button' name='action' onclick='location.href=\"".base_url()."produk/pre_order\"'>Batal<i class='mdi-content-clear right'></i></button>
 								</div>
 							</div>
 						</div>

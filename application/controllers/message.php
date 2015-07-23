@@ -243,7 +243,73 @@ class Message extends CI_Controller {
 	}
 
 	public function kirim($tujuan){
+		if ($_POST) {
+			$email 		= $this->input->post('email');
+			$message 	= $this->template->clearInput($this->input->post('message'));
 
+			$Member = $this->model_member->get_by_email($email)->row();
+			if(empty($Member)){
+				redirect('message');
+				return false;
+			}
+
+			$date = date("Y-m-d H:i:s");
+		
+			$Data = array(
+					"message"=>$message,
+					"create_date"=>$date,
+					"create_user"=>$_SESSION['bonobo']['email'],
+					"update_user"=>$_SESSION['bonobo']['email'],
+				);
+				
+			$Save = $this->db->insert("tb_message",$Data);
+			if($Save){
+				$QMessage = $this->db
+					->where("message",$message)					
+					->where("create_user",$_SESSION['bonobo']['email'])					
+					->where("update_user",$_SESSION['bonobo']['email'])
+					->get("tb_message")
+					->row();
+								
+				if(!empty($QMessage)){
+					$Data1 = array(
+							"toko_id"=>$_SESSION['bonobo']['id'],
+							"member_id"=>$Member->id,
+							"message_id"=>$QMessage->id,
+							"member_name"=>$Member->name,
+							"flag_from"=>1,
+							"flag_read"=>1,
+							"create_date"=>$date,
+							"create_user"=>$_SESSION['bonobo']['email'],
+							"update_date"=>$date,
+							"update_user"=>$_SESSION['bonobo']['email'],
+						);
+					
+					$Data2 = array(
+							"toko_id"=>$_SESSION['bonobo']['id'],
+							"member_id"=>$Member->id,
+							"message_id"=>$QMessage->id,
+							"toko_name"=>$_SESSION['bonobo']['name'],
+							"flag_from"=>0,
+							"flag_read"=>0,
+							"create_date"=>$date,
+							"create_user"=>$_SESSION['bonobo']['email'],
+							"update_date"=>$date,
+							"update_user"=>$_SESSION['bonobo']['email'],
+						);
+						
+					$Save1 = $this->db->insert("tb_toko_message",$Data1);
+					$Save2 = $this->db->insert("tb_member_message",$Data2);
+					
+					redirect('message');
+				}else{
+					return false;
+				}
+			}
+		}
+
+		$data["Messages"] = $this->model_toko_message->get_by_shop_grouping($_SESSION["bonobo"]["id"], "");
+		$this->template->bonobo("message/bg_message_2",$data);
 	}
 	
 	

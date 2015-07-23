@@ -40,7 +40,7 @@ class Produk extends CI_Controller {
 				$nama 			= $this->template->clearInput($this->input->post('nama'));
 				$sku 			= $this->template->clearInput($this->input->post('sku'));
 				$kategori 		= $this->template->clearInput($this->input->post('kategori'));
-				$berat 			= $this->template->clearInput($this->input->post('berat'));
+				$berat 			= $this->input->post('berat');
 				$satuan 		= $this->template->clearInput($this->input->post('satuan'));
 				$min_order 		= $this->template->clearInput($this->input->post('min_order'));
 				$deskripsi 		= $this->template->clearInput($this->input->post('deskripsi'));
@@ -161,7 +161,7 @@ class Produk extends CI_Controller {
 				$nama 			= $this->template->clearInput($this->input->post('nama'));
 				$sku 			= $this->template->clearInput($this->input->post('sku'));
 				$kategori 		= $this->template->clearInput($this->input->post('kategori'));
-				$berat 			= $this->template->clearInput($this->input->post('berat'));
+				$berat 			= $this->input->post('berat');
 				$satuan 		= $this->template->clearInput($this->input->post('satuan'));
 				$min_order 		= $this->template->clearInput($this->input->post('min_order'));
 				$deskripsi 		= $this->template->clearInput($this->input->post('deskripsi'));

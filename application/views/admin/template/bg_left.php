@@ -5,61 +5,40 @@
             <aside class='left-side sidebar-offcanvas'>
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class='sidebar'>
-                    <!-- Sidebar user panel -->
-                    <div class='user-panel'>
-                        <div class='pull-left image'>
-                            <img src='img/avatar3.png' class='img-circle' alt='User Image' />
-                        </div>
-                        <div class='pull-left info'>
-                            <p>Hello, Jane</p>
-
-                            <a href='#'><i class='fa fa-circle text-success'></i> Online</a>
-                        </div>
-                    </div>
-                    <!-- search form -->
-                    <form action='#' method='get' class='sidebar-form'>
-                        <div class='input-group'>
-                            <input type='text' name='q' class='form-control' placeholder='Search...'/>
-                            <span class='input-group-btn'>
-                                <button type='submit' name='seach' id='search-btn' class='btn btn-flat'><i class='fa fa-search'></i></button>
-                            </span>
-                        </div>
-                    </form>
-                    <!-- /.search form -->
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class='sidebar-menu'>
                         <li >
-                            <a href=''>
+                            <a href='".base_url("admin/index/dashboard")."'>
                                 <i class='fa fa-dashboard'></i> <span>DASHBOARD</span>
                             </a>
                         </li>
                         <li class='active'>
-                            <a href='daftar_toko.html'>
+                            <a href='".base_url("admin/daftar_toko")."'>
                                 <i class='fa fa-laptop'></i> <span>DAFTAR TOKO</span>
                             </a>
                         </li>
                         <li>
-                            <a href='daftar_pembeli.html'>
+                            <a href='".base_url("admin/daftar_pembeli")."'>
                                 <i class='fa fa-shopping-cart'></i> <span>DAFTAR PEMBELI</span>
                             </a>
                         </li>
                         <li >
-                            <a href='master_kategori.html'>
+                            <a href='".base_url("admin/master_kategori")."'>
                                 <i class='fa fa-list'></i> <span>MASTER KATEGORI</span>
                             </a>
                         </li>
                         <li>
-                            <a href='master_lokasi.html'>
+                            <a href='".base_url("admin/master_lokasi")."'>
                                 <i class='fa fa-map-marker'></i> <span>MASTER LOKASI</span>
                             </a>
                         </li>
                         <li>
-                            <a href='master_bank.html'>
+                            <a href='".base_url("admin/master_bank")."'>
                                 <i class='fa fa-credit-card'></i> <span>MASTER BANK</span>
                             </a>
                         </li>
                         <li>
-                            <a href='master_kurir.html'>
+                            <a href='".base_url("admin/master_kurir")."'>
                                 <i class='fa fa-truck'></i> <span>MASTER KURIR</span>
                             </a>
                         </li>
@@ -69,9 +48,9 @@
                                 <i class='fa fa-angle-left pull-right'></i>
                             </a>
                             <ul class='treeview-menu'>
-                                <li><a href='licence_setting.html'><i class='fa fa-angle-double-right'></i> LICENSE SETTING</a></li>
-                                <li><a href='licence_generator.html'><i class='fa fa-angle-double-right'></i> LICENSE GENERATOR</a></li>
-                                <li><a href='licence_daftar.html'><i class='fa fa-angle-double-right'></i> LICENSE DAFTAR</a></li>
+                                <li><a href='".base_url()."admin/license/setting'><i class='fa fa-angle-double-right'></i> LICENSE SETTING</a></li>
+                                <li><a href='".base_url()."admin/license/generator'><i class='fa fa-angle-double-right'></i> LICENSE GENERATOR</a></li>
+                                <li><a href='".base_url()."admin/license/daftar'><i class='fa fa-angle-double-right'></i> LICENSE DAFTAR</a></li>
                             </ul>
                         </li>
                        

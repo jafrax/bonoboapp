@@ -99,7 +99,7 @@ echo "
 								</div>
 								<input type='hidden' name='total_picture' id='total_picture' value='1'/>
 								<div class='input-field col s12'>
-									<input id='perkiraan_berat' placeholder='0.00' type='text' name='berat' class='validate' maxlength='9'>
+									<input id='perkiraan_berat' placeholder='0.00' type='text' name='berat' class='validate berat' maxlength='9'>
 									<label for='perkiraan_berat'>Perkiraan Berat <span>( Kilogram)</span></label>
 								</div>
 								<div class='input-field col s12'>

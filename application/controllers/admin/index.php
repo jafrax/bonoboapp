@@ -7,14 +7,14 @@
 * 1. Create 22 July 2015 by Adi Setyo, Create controller : Coding index, Coding signin
 */
 class Index extends CI_Controller {
+	var $data = array('scjav'=>'');
     function __construct(){
         parent::__construct();
-
-        //$this->load->model("enduser/model_code");
+        $this->load->model("admin/model_index");
     }
     
     public function index(){
-        if(empty($_SESSION['bonobo']) || empty($_SESSION['bonobo']['id_super'])){
+        if(empty($_SESSION['bonobo_admin']) || empty($_SESSION['bonobo_admin']['id'])){
             redirect('admin/index/signin');
             return;
         }else{
@@ -25,7 +25,45 @@ class Index extends CI_Controller {
     }
 
     public function signin (){
-        $this->load->view('admin/login/bg_login');
+		if(!$_POST){
+			$this->load->view('admin/login/bg_login');
+		}else{
+			$this->form_validation->set_rules('email','required');
+			$this->form_validation->set_rules('password', 'required');
+			$data['email']      = mysql_real_escape_string($this->input->post('email'));
+			$data['password']   = mysql_real_escape_string($this->input->post('password'));
+			/*$result 	= $this->model_index->get_user_admin($data)->row();
+			if(!empty($result)){
+				$_SESSION['bonobo']['id_super'] = $result->id;
+				$this->response->send(array("result"=>1,"message"=>"Selamat datang ".$result->name,"messageCode"=>3));
+			}else{
+				$this->response->send(array("result"=>0,"message"=>$this->template->notif("email_password_failed"),"messageCode"=>3));
+			}*/
+			if($data['email']=='admin@mail.com' and  $data['password']=='admin'){
+                $_SESSION['bonobo_admin']['id'] = 198;
+                $_SESSION['bonobo_admin']['email'] = 'admin@mail.com';
+                $_SESSION['bonobo_admin']['name'] = 'admin';				
+				redirect('admin/index/dashboard');
+			}else{
+				redirect('admin/index/signin');
+			}
+		} 
     }
+	
+	public function dashboard(){
+	 if(empty($_SESSION['bonobo_admin']) || empty($_SESSION['bonobo_admin']['id'])){
+            redirect('admin/index/signin');
+            return;
+        }else{
+            $this->template->bonobo_admin('dashboard/bg_dashboard',$this->data);
+        }
+	}
+	
+	public function logout(){
+		 $_SESSION['bonobo_admin']['id'] = null;
+         $_SESSION['bonobo_admin']['email'] = null;
+         $_SESSION['bonobo_admin']['name'] = null;	
+		 redirect('admin');
+	}
 
 }

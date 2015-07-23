@@ -3,6 +3,7 @@
 // Notes nota ======================================================================================
 function edit_notes (id) {
     $('.notes-'+id).prop("disabled", false);
+    $('.notes-'+id).focus();
     $('.tombol-notes-'+id).show();
 }
 
@@ -36,7 +37,26 @@ function cek_all_nota(){
     $('.cek_nota').prop('checked',false);
   }
 }
+function batal_nota(id){
+    $('#btn-batal-'+id).html('loading...');
+    $('#btn-batal-'+id).fadeTo('slow',0.5);
+    $.ajax({
+        type: 'POST',
+        data: 'id='+id,
+        url: base_url+'nota/nota_batal',
+        success: function(msg) {
+            if (msg == 1) {             
+                $('#btn-batal-'+id).fadeOut();
+                $('#btn-bayar-'+id).fadeOut();
+                $('#lokasi-btn-'+id).html('<br>');
+                $('#lunas-'+id).html('Batal');              
+                $('#lunas-'+id).addClass('grey-text');
+                $('#lunas-'+id).addClass('red-text');
+            };              
+        } 
+    });
 
+}
 function go(){
   var total_nota  = $('#total-nota').val();
   var option        = $('#option-go').val();
@@ -183,7 +203,7 @@ function change_sort(){
                 $('#ajax-div').html(msg);
                 $('#ajax-div').fadeTo('slow',1);
             }else{
-                Materialize.toast('Sorting gagal!', 4000);$('#ajax-div').fadeTo('slow',1);
+                Materialize.toast('Data sorting kosong!', 4000);$('#ajax-div').fadeTo('slow',1);
             };
         } 
     });
@@ -201,7 +221,7 @@ function change_bayar(){
                 $('#ajax-div').html(msg);
                 $('#ajax-div').fadeTo('slow',1);
             }else{
-                Materialize.toast('Filter bayar gagal!', 4000);$('#ajax-div').fadeTo('slow',1);
+                Materialize.toast('Data filter bayar kosong!', 4000);$('#ajax-div').fadeTo('slow',1);
             };
         }
     });
@@ -219,7 +239,7 @@ function change_stock(){
                 $('#ajax-div').html(msg);
                 $('#ajax-div').fadeTo('slow',1);
             }else{
-                Materialize.toast('Filter stok gagal!', 4000);$('#ajax-div').fadeTo('slow',1);
+                Materialize.toast('Data filter stok kosong!', 4000);$('#ajax-div').fadeTo('slow',1);
             };              
         } 
     });
@@ -238,7 +258,7 @@ function change_flagger(){
                     $('#ajax-div').html(msg);
                     $('#ajax-div').fadeTo('slow',1);
                 }else{
-                    Materialize.toast('Filter flag konfirmasi gagal!', 4000);$('#ajax-div').fadeTo('slow',1);
+                    Materialize.toast('Data filter flag konfirmasi kosong!', 4000);$('#ajax-div').fadeTo('slow',1);
                 };
             } 
         });
@@ -253,11 +273,40 @@ function change_flagger(){
                     $('#ajax-div').html(msg);
                     $('#ajax-div').fadeTo('slow',1);
                 }else{
-                    Materialize.toast('Filter flag konfirmasi gagal!', 4000);$('#ajax-div').fadeTo('slow',1);
+                    Materialize.toast('Data filter flag konfirmasi kosong!', 4000);$('#ajax-div').fadeTo('slow',1);
                 };
             } 
         });
     };
+}
+
+function delete_nota(id){
+    $.ajax({
+        type: 'POST',
+        data: 'id='+id,
+        url: base_url+'nota/nota_delete',
+        success: function(msg) {
+            if (msg == 1) {             
+                $('#nota-'+id).fadeOut().remove();
+                Materialize.toast('Nota telah dihapus', 4000);
+            };              
+        } 
+    });
+}
+
+function delete_nota2(id){
+    $.ajax({
+        type: 'POST',
+        data: 'id='+id,
+        url: base_url+'nota/nota_delete',
+        success: function(msg) {
+            if (msg == 1) {             
+                
+                Materialize.toast('Nota telah dihapus', 4000);
+                window.location.href = base_url+'nota';
+            };              
+        } 
+    });
 }
 
 

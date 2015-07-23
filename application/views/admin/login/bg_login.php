@@ -13,17 +13,18 @@ echo "
     <body class='bg-black'>
         <div class='form-box' id='login-box'>
             <div class='header'>Sign In</div>
-            <form id='fsignin' method='post'>
+            <form id='fsignin' method='post' action='".site_url("admin/index/signin")."'>
+			<div id='lblNotif' class='notif-error'></div>
                 <div class='body bg-gray'>
                     <div class='form-group'>
-                        <input type='text' id='userid' name='userid' class='required form-control' placeholder='User ID' autocomplete='off' autofocus tabindex='1'/>
+                        <input type='text' id='email' name='email' class='required form-control' placeholder='Email User' autocomplete='off' autofocus />
                     </div>
                     <div class='form-group'>
-                        <input type='password' id='password' name='password' class='required form-control' placeholder='Password' autocomplete='off' autofocus tabindex='2'/>
+                        <input type='password' id='password' name='password' class='required form-control' placeholder='Password' autocomplete='off' autofocus />
                     </div>          
                 </div>
                 <div class='footer'>                                                               
-                    <button type='submit' class='btn bg-olive btn-block' onkeyup=javascript:login();return false; tabindex='3'>Sign me in</button>                    
+                    <button type='submit' class='btn bg-olive btn-block'  onClick=javascript:valaid('fsignin') >Sign me in</button>                    
                     <p><a href='#'>I forgot my password</a></p>
                 </div>
             </form>

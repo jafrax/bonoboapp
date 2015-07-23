@@ -5,8 +5,9 @@ echo "
 						<div class='row formbody'>
 							<div class='col s12 m6'>
 								<div class='input-field col s12 m8 '>
-									<button id='btn-batal-".$nota->id."' data-target='batal_nota_".$nota->id."' class=' modal-trigger btn-flat waves-effect red darken-1 white-text waves-light' type='button' name='action'>Batal</button>";
+									";
 									if ($nota->status != 2) {
+										echo "<button id='btn-batal-".$nota->id."' data-target='batal_nota_".$nota->id."' class=' modal-trigger btn-flat waves-effect red darken-1 white-text waves-light' type='button' name='action'>Batal</button>";
 										if ($nota->status != 1) {
 											echo"
 										<button id='btn-bayar-".$nota->id."' data-target='bayar-".$nota->id."' class='btn modal-trigger waves-effect orange darken-1 white-text waves-light ' type='button' name='action'>Bayar</button>";
@@ -39,8 +40,8 @@ echo "
 														$show_rek = 'none';
 													}
 													if ($toko->pm_transfer == 1) {
-														echo "<option value='2' "; if ($nota->member_confirm == 1) {echo 'selected';} echo ">Transfer via bank</option>";
-														$show_rek = 'block';
+														echo "<option value='2' "; if ($nota->member_confirm == 1) {echo 'selected';$show_rek = 'block';} echo ">Transfer via bank</option>";
+														
 													}
 												echo"
 												</select>
@@ -73,18 +74,19 @@ echo "
 										<div class='modal-footer'>
 											<a class='modal-action modal-close waves-effect waves-red btn-flat' onclick=javascript:konfirmasi(".$nota->id.")>Konfirmasi</a>
 											<a class='modal-action modal-close waves-effect waves-red btn-flat'>Batal</a>		
-										</div>";
+										</div>
+									</div>";
 									}else{
 										echo "<br>";
 									}
 									echo "
-									</div>
+									
 								</div>
 							</div>
 							<div class='toolb col s12 m6'>
 								<a href='#delete_nota_".$nota->id."' class='modal-trigger red-text right' href='#'><i class='mdi-action-delete small'></i></a>
-								<a class='red-text right ' href='#'><i class='mdi-content-mail small'></i></a>
-								<a class='red-text right ' href='".base_url()."nota/cetak/".$row->invoice_no."' ><i class='mdi-action-print small'></i></a>
+								<a href='".base_url()."message/kirim/".base64_encode($nota->member_email)."/".base64_encode($nota->member_name)."' class=' red-text right '><i class='mdi-content-mail small'></i></a>
+								<a class='red-text right ' href='".base_url()."nota/cetak/".$nota->invoice_no."' target='_new'><i class='mdi-action-print small'></i></a>
 							</div>
 							<div id='delete_nota_".$nota->id."' class='modal confirmation'>
 								<div class='modal-header red'>
@@ -95,7 +97,7 @@ echo "
 								</form>
 								<div class='modal-footer'>
 									<a href='#!' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
-									<button type='button' onclick=javascript:delete_nota(".$nota->id.") class='btn-flat modal-action modal-close waves-effect '>YA</button>
+									<button type='button' onclick=javascript:delete_nota2(".$nota->id.") class='btn-flat modal-action modal-close waves-effect '>YA</button>
 								</div>
 							</div>
 						</div>
@@ -127,9 +129,9 @@ echo "
 							<!-- nota -->
 							<div class='col s12 m12'>";
 								foreach ($produk->result() as $row_p) {
-									$image = $this->model_nota->get_nota_product_image($row_p->id)->row()->image;
-									if ($image) {
-										$images = base_url()."assets/pic/product/resize/".$image;
+									$image = $this->model_nota->get_nota_product_image($row_p->id)->row();
+									if (count($image) > 0 && file_exists(base_url()."/assets/pic/product/".$image->image)) {
+										$images = base_url()."assets/pic/product/resize/".$image->image;
 									}else{
 										$images = base_url()."html/images/comp/product.png";
 									}
