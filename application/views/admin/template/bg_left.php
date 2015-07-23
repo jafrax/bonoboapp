@@ -8,7 +8,7 @@
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class='sidebar-menu'>
                         <li >
-                            <a href='".base_url("admin/dashboard")."'>
+                            <a href='".base_url("admin/index/dashboard")."'>
                                 <i class='fa fa-dashboard'></i> <span>DASHBOARD</span>
                             </a>
                         </li>
@@ -18,27 +18,27 @@
                             </a>
                         </li>
                         <li>
-                            <a href='daftar_pembeli.html'>
+                            <a href='".base_url("admin/daftar_pembeli")."'>
                                 <i class='fa fa-shopping-cart'></i> <span>DAFTAR PEMBELI</span>
                             </a>
                         </li>
                         <li >
-                            <a href='master_kategori.html'>
+                            <a href='".base_url("admin/master_kategori")."'>
                                 <i class='fa fa-list'></i> <span>MASTER KATEGORI</span>
                             </a>
                         </li>
                         <li>
-                            <a href='master_lokasi.html'>
+                            <a href='".base_url("admin/master_lokasi")."'>
                                 <i class='fa fa-map-marker'></i> <span>MASTER LOKASI</span>
                             </a>
                         </li>
                         <li>
-                            <a href='master_bank.html'>
+                            <a href='".base_url("admin/master_bank")."'>
                                 <i class='fa fa-credit-card'></i> <span>MASTER BANK</span>
                             </a>
                         </li>
                         <li>
-                            <a href='master_kurir.html'>
+                            <a href='".base_url("admin/master_kurir")."'>
                                 <i class='fa fa-truck'></i> <span>MASTER KURIR</span>
                             </a>
                         </li>
