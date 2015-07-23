@@ -14,12 +14,12 @@ class Index extends CI_Controller {
     }
     
     public function index(){
-        if(empty($_SESSION['bonobo_admin']) || empty($_SESSION['bonobo_admin']['id'])){
+        if(empty($_SESSION['bonobo_admin']) || empty($_SESSION['bonobo_admin']->id)){
             redirect('admin/index/signin');
-            return;
+            
+            
         }else{
             redirect('admin/index/dashboard');
-            return;
         }
 
     }
@@ -28,30 +28,34 @@ class Index extends CI_Controller {
 		if(!$_POST){
 			$this->load->view('admin/login/bg_login');
 		}else{
-			$this->form_validation->set_rules('email','required');
-			$this->form_validation->set_rules('password', 'required');
-			$data['email']      = mysql_real_escape_string($this->input->post('email'));
-			$data['password']   = mysql_real_escape_string($this->input->post('password'));
-			/*$result 	= $this->model_index->get_user_admin($data)->row();
-			if(!empty($result)){
-				$_SESSION['bonobo']['id_super'] = $result->id;
-				$this->response->send(array("result"=>1,"message"=>"Selamat datang ".$result->name,"messageCode"=>3));
+			$this->form_validation->set_rules('email', '', 'email|trim|required|');
+			$this->form_validation->set_rules('password', '', 'trim|required');
+
+			$username 	= $this->response->post('email');
+			$password 	= $this->response->post('password');
+
+			
+
+			if ($this->form_validation->run() == TRUE) {
+
+				$validate 	= $this->db->where('email',$username)->where('password',md5($password))->get('tb_admin');
+				
+				if ($validate->num_rows() > 0) {
+					
+					$_SESSION['bonobo_admin'] = $validate->row();
+					redirect('admin');					
+				}else{
+					$_SESSION['login_error']='Username or password is wrong';
+				}
 			}else{
-				$this->response->send(array("result"=>0,"message"=>$this->template->notif("email_password_failed"),"messageCode"=>3));
-			}*/
-			if($data['email']=='admin@mail.com' and  $data['password']=='admin'){
-                $_SESSION['bonobo_admin']['id'] = 198;
-                $_SESSION['bonobo_admin']['email'] = 'admin@mail.com';
-                $_SESSION['bonobo_admin']['name'] = 'admin';				
-				redirect('admin/index/dashboard');
-			}else{
-				redirect('admin/index/signin');
+				$_SESSION['login_error']='Your input data is wrong';
 			}
+			redirect('admin');
 		} 
     }
 	
 	public function dashboard(){
-	 if(empty($_SESSION['bonobo_admin']) || empty($_SESSION['bonobo_admin']['id'])){
+	 if(empty($_SESSION['bonobo_admin']) || empty($_SESSION['bonobo_admin']->id)){
             redirect('admin/index/signin');
             return;
         }else{
@@ -60,9 +64,8 @@ class Index extends CI_Controller {
 	}
 	
 	public function logout(){
-		 $_SESSION['bonobo_admin']['id'] = null;
-         $_SESSION['bonobo_admin']['email'] = null;
-         $_SESSION['bonobo_admin']['name'] = null;	
+		 unset($_SESSION['bonobo_admin']);
+         session_destroy();
 		 redirect('admin');
 	}
 
