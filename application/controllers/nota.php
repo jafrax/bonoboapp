@@ -35,10 +35,6 @@ class Nota extends CI_Controller {
 		$this->template->bonobo('nota/bg_nota',$data);
 	}
 
-	private function cek_id($id){
-
-	}
-
 	public function change_note(){
 		$id 	= $this->input->post('id');
 		$note 	= $this->input->post('note');

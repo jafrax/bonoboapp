@@ -14,6 +14,11 @@ class Model_member extends CI_Model {
 						->where("tm.id",$id,false)
 						->get("tb_member tm");
 	}
+	public function get_by_email($id){
+		return $this->db->select("tm.*")
+						->where("tm.email",$id)
+						->get("tb_member tm");
+	}
 	
 }
 
