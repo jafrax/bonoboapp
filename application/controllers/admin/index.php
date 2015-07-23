@@ -7,18 +7,18 @@
 * 1. Create 22 July 2015 by Adi Setyo, Create controller : Coding index, Coding signin
 */
 class Index extends CI_Controller {
- public $data = array( 'scjav'=>'' );
+	var $data = array('scjav'=>'');
     function __construct(){
         parent::__construct();
         $this->load->model("admin/model_index");
     }
     
     public function index(){
-        if(empty($_SESSION['bonobo']) || empty($_SESSION['bonobo']['id_super'])){
-            redirect('index/signin');
+        if(empty($_SESSION['bonobo_admin']) || empty($_SESSION['bonobo_admin']['id'])){
+            redirect('admin/index/signin');
             return;
         }else{
-            redirect('index/dashboard');
+            redirect('admin/index/dashboard');
             return;
         }
 
@@ -26,7 +26,7 @@ class Index extends CI_Controller {
 
     public function signin (){
 		if(!$_POST){
-			$this->load->view('login/bg_login');
+			$this->load->view('admin/login/bg_login');
 		}else{
 			$this->form_validation->set_rules('email','required');
 			$this->form_validation->set_rules('password', 'required');
@@ -43,16 +43,27 @@ class Index extends CI_Controller {
                 $_SESSION['bonobo_admin']['id'] = 198;
                 $_SESSION['bonobo_admin']['email'] = 'admin@mail.com';
                 $_SESSION['bonobo_admin']['name'] = 'admin';				
-				redirect('index/dashboard');
+				redirect('admin/index/dashboard');
 			}else{
-				redirect('index/signin');
+				redirect('admin/index/signin');
 			}
 		} 
     }
 	
 	public function dashboard(){
-		$this->template->bonobo_admin('dashboard/bg_dashboard',$this->data);
+	 if(empty($_SESSION['bonobo_admin']) || empty($_SESSION['bonobo_admin']['id'])){
+            redirect('admin/index/signin');
+            return;
+        }else{
+            $this->template->bonobo_admin('dashboard/bg_dashboard',$this->data);
+        }
 	}
 	
+	public function logout(){
+		 $_SESSION['bonobo_admin']['id'] = null;
+         $_SESSION['bonobo_admin']['email'] = null;
+         $_SESSION['bonobo_admin']['name'] = null;	
+		 redirect('admin');
+	}
 
 }
