@@ -26,7 +26,7 @@
                             <ul class='dropdown-menu user-nav' role='menu'>
                                 <li><a href='manage-admin.html'>Halaman admin</a></li>
                                 <li><a href='#' data-toggle='modal' data-target='.change'>Change password</a></li>
-                                <li><a href='#'>Logout</a></li>
+                                <li><a href='".base_url('admin/index/logout')."'>Logout</a></li>
 
                             </ul>
                         </li>

@@ -7,14 +7,14 @@
 * 1. Create 22 July 2015 by Adi Setyo, Create controller : Coding index, Coding signin
 */
 class Index extends CI_Controller {
- public $data = array( 'scjav'=>'' );
+	var $data = array('scjav'=>'');
     function __construct(){
         parent::__construct();
         $this->load->model("admin/model_index");
     }
     
     public function index(){
-        if(empty($_SESSION['bonobo']) || empty($_SESSION['bonobo']['id_super'])){
+        if(empty($_SESSION['bonobo_admin']) || empty($_SESSION['bonobo_admin']['id'])){
             redirect('admin/index/signin');
             return;
         }else{
@@ -51,7 +51,19 @@ class Index extends CI_Controller {
     }
 	
 	public function dashboard(){
-		$this->template->bonobo_admin('admin/dashboard/bg_dashboard',$this->data);
+	 if(empty($_SESSION['bonobo_admin']) || empty($_SESSION['bonobo_admin']['id'])){
+            redirect('admin/index/signin');
+            return;
+        }else{
+            $this->template->bonobo_admin('dashboard/bg_dashboard',$this->data);
+        }
+	}
+	
+	public function logout(){
+		 $_SESSION['bonobo_admin']['id'] = null;
+         $_SESSION['bonobo_admin']['email'] = null;
+         $_SESSION['bonobo_admin']['name'] = null;	
+		 redirect('admin');
 	}
 
 }
