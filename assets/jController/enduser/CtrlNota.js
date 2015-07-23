@@ -203,7 +203,7 @@ function change_sort(){
                 $('#ajax-div').html(msg);
                 $('#ajax-div').fadeTo('slow',1);
             }else{
-                Materialize.toast('Sorting gagal!', 4000);$('#ajax-div').fadeTo('slow',1);
+                Materialize.toast('Data sorting kosong!', 4000);$('#ajax-div').fadeTo('slow',1);
             };
         } 
     });
@@ -221,7 +221,7 @@ function change_bayar(){
                 $('#ajax-div').html(msg);
                 $('#ajax-div').fadeTo('slow',1);
             }else{
-                Materialize.toast('Filter bayar gagal!', 4000);$('#ajax-div').fadeTo('slow',1);
+                Materialize.toast('Data filter bayar kosong!', 4000);$('#ajax-div').fadeTo('slow',1);
             };
         }
     });
@@ -239,7 +239,7 @@ function change_stock(){
                 $('#ajax-div').html(msg);
                 $('#ajax-div').fadeTo('slow',1);
             }else{
-                Materialize.toast('Filter stok gagal!', 4000);$('#ajax-div').fadeTo('slow',1);
+                Materialize.toast('Data filter stok kosong!', 4000);$('#ajax-div').fadeTo('slow',1);
             };              
         } 
     });
@@ -258,7 +258,7 @@ function change_flagger(){
                     $('#ajax-div').html(msg);
                     $('#ajax-div').fadeTo('slow',1);
                 }else{
-                    Materialize.toast('Filter flag konfirmasi gagal!', 4000);$('#ajax-div').fadeTo('slow',1);
+                    Materialize.toast('Data filter flag konfirmasi kosong!', 4000);$('#ajax-div').fadeTo('slow',1);
                 };
             } 
         });
@@ -273,7 +273,7 @@ function change_flagger(){
                     $('#ajax-div').html(msg);
                     $('#ajax-div').fadeTo('slow',1);
                 }else{
-                    Materialize.toast('Filter flag konfirmasi gagal!', 4000);$('#ajax-div').fadeTo('slow',1);
+                    Materialize.toast('Data filter flag konfirmasi kosong!', 4000);$('#ajax-div').fadeTo('slow',1);
                 };
             } 
         });
