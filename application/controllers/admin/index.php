@@ -39,8 +39,10 @@ class Index extends CI_Controller {
 			}else{
 				$this->response->send(array("result"=>0,"message"=>$this->template->notif("email_password_failed"),"messageCode"=>3));
 			}*/
-			if($data['email']=='admin@mail.com' and  $data['password']=='admin@mail.com'){
-				$_SESSION['bonobo']['id_super'] = '198';
+			if($data['email']=='admin@mail.com' and  $data['password']=='admin'){
+                $_SESSION['bonobo_admin']['id'] = 198;
+                $_SESSION['bonobo_admin']['email'] = 'admin@mail.com';
+                $_SESSION['bonobo_admin']['name'] = 'admin';				
 				redirect('admin/index/dashboard');
 			}else{
 				redirect('admin/index/signin');
