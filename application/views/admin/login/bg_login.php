@@ -14,7 +14,7 @@ echo "
         <div class='form-box' id='login-box'>
             <div class='header'>Sign In</div>
             <form id='fsignin' method='post' action='".site_url("admin/index/signin")."'>
-			<div id='lblNotif' class='notif-error'></div>
+			<div id='lblNotif' class='notif-error'>".$this->session->flashdata('loginkata')."</div>
                 <div class='body bg-gray'>
                     <div class='form-group'>
                         <input type='text' id='email' name='email' class='required form-control' placeholder='Email User' autocomplete='off' autofocus />

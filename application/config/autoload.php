@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('pagination','parser','database','form_validation','upload','image_lib','response','template','recaptcha');
+$autoload['libraries'] = array('pagination','parser','database','form_validation','upload','image_lib','response','template','recaptcha','session');
 
 /*
 | -------------------------------------------------------------------
