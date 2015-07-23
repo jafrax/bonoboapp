@@ -4,7 +4,7 @@
  */
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Code extends CI_Controller {
+class License extends CI_Controller {
     function __construct(){
         parent::__construct();
 
@@ -12,13 +12,19 @@ class Code extends CI_Controller {
     }
     
 	public function index(){
-        $data['toko'] = $this->db->get('tb_activation_code');
-        $this->load->view('admin/index.php',$data);
+        $redirect('license/daftar');
 	}
 
     public function generator(){
-        $data['toko'] = $this->db->get('tb_toko');
-        $this->load->view('admin/generator.php',$data);
+        
+    }
+
+    public function setting(){
+        $this->template->bonobo_admin('')
+    }
+
+    public function daftar(){
+        
     }
 
 }

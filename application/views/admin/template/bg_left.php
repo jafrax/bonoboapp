@@ -48,9 +48,9 @@
                                 <i class='fa fa-angle-left pull-right'></i>
                             </a>
                             <ul class='treeview-menu'>
-                                <li><a href='licence_setting.html'><i class='fa fa-angle-double-right'></i> LICENSE SETTING</a></li>
-                                <li><a href='licence_generator.html'><i class='fa fa-angle-double-right'></i> LICENSE GENERATOR</a></li>
-                                <li><a href='licence_daftar.html'><i class='fa fa-angle-double-right'></i> LICENSE DAFTAR</a></li>
+                                <li><a href='".base_url()."admin/license/setting'><i class='fa fa-angle-double-right'></i> LICENSE SETTING</a></li>
+                                <li><a href='".base_url()."admin/license/generator'><i class='fa fa-angle-double-right'></i> LICENSE GENERATOR</a></li>
+                                <li><a href='".base_url()."admin/license/daftar'><i class='fa fa-angle-double-right'></i> LICENSE DAFTAR</a></li>
                             </ul>
                         </li>
                        
