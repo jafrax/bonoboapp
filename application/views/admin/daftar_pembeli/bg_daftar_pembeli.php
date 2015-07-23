@@ -67,7 +67,6 @@ echo "
 								</td>
 							</tr>";
 						}
-						
 						echo"
 						</tbody>
 						<tfoot>

@@ -6,7 +6,7 @@
 * 1. Create 22 July 2015 by Adi Setyo, Create controller : Coding index
 */
 class Daftar_pembeli extends CI_Controller {
-    var $data = array('scjav'=>'');
+    var $data = array('scjav'=>'assets/jController/admin/CtrlDpembeli.js');
 	var $limit = 10;
 	var $offset = 0;
     function __construct(){
