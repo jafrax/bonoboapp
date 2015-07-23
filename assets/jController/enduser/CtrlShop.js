@@ -396,6 +396,8 @@ function CtrlShopStep7(){
 		btnStep7Back.onclick = function(){
 			hideDetail();
 		};
+		
+		
 	}
 	
 	function setSequence(e){
@@ -568,6 +570,7 @@ function CtrlShopStep7(){
 			success: function(result) {
 		
 				divCity.html(result);
+				
 				loadComboboxKecamatan();
 			}
 		});
@@ -977,3 +980,5 @@ function set_location(){
         });
     }
 }
+
+

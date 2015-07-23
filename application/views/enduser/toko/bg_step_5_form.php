@@ -83,6 +83,10 @@ echo"
 		</div>
 	</form>
 	
+	<style>
+		.chosen-results{ max-height:100px!important; }
+	</style>
+	
 ";
 
 ?>
