@@ -15,10 +15,10 @@ class Index extends CI_Controller {
     
     public function index(){
         if(empty($_SESSION['bonobo']) || empty($_SESSION['bonobo']['id_super'])){
-            redirect('admin/index/signin');
+            redirect('index/signin');
             return;
         }else{
-            redirect('admin/index/dashboard');
+            redirect('index/dashboard');
             return;
         }
 
@@ -26,7 +26,7 @@ class Index extends CI_Controller {
 
     public function signin (){
 		if(!$_POST){
-			$this->load->view('admin/login/bg_login');
+			$this->load->view('login/bg_login');
 		}else{
 			$this->form_validation->set_rules('email','required');
 			$this->form_validation->set_rules('password', 'required');
@@ -43,15 +43,16 @@ class Index extends CI_Controller {
                 $_SESSION['bonobo_admin']['id'] = 198;
                 $_SESSION['bonobo_admin']['email'] = 'admin@mail.com';
                 $_SESSION['bonobo_admin']['name'] = 'admin';				
-				redirect('admin/index/dashboard');
+				redirect('index/dashboard');
 			}else{
-				redirect('admin/index/signin');
+				redirect('index/signin');
 			}
 		} 
     }
 	
 	public function dashboard(){
-		$this->template->bonobo_admin('admin/dashboard/bg_dashboard',$this->data);
+		$this->template->bonobo_admin('dashboard/bg_dashboard',$this->data);
 	}
+	
 
 }
