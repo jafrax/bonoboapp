@@ -31,8 +31,9 @@ class Daftar_toko extends CI_Controller {
         $url='admin/daftar_toko/index';
         $this->data['pagination'] = $this->template->paging2($pg,$uri,$url,$limit);        
         $this->data['allToko']=$this->model_toko->get_all_toko($limit,$offset);
+
         if ($this->input->post('ajax')) {
-            $this->load->view('daftar_toko/daftar_toko_ajax', $this->data);
+            $this->load->view('admin/daftar_toko/bg_daftartoko_ajax', $this->data);
         } else {
             $this->template->bonobo_admin('daftar_toko/bg_daftartoko', $this->data);
         } 

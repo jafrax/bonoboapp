@@ -1,26 +1,6 @@
 <?php
 echo"
-<!-- Right side column. Contains the navbar and content of the page -->
-            <aside class='right-side'>
-                <!-- Content Header (Page header) -->
-                <section class='content-header'>
-                    <h1>
-                        Daftar Toko
-                    </h1>
-                    <ol class='breadcrumb'>
-                        <li><a href='#'><i class='fa fa-dashboard'></i> Dashboard</a></li>
 
-                        <li class='active'>Daftar Toko</li>
-                    </ol>
-                </section>
-
-                <!-- Main content -->
-                <section class='content'>
-
-                    <div class='box'>
-                        <div class='box-header'>
-                            <h3 class='box-title'></h3>                                    
-                        </div><!-- /.box-header -->
                         <div class='box-body table-responsive'>
 
 
@@ -99,76 +79,6 @@ echo"
                         </div><!-- /.box-body -->
                         <div class='box-footer clearfix'>
 									$pagination
-                        </div>
-                    </div><!-- /.box -->
-                    
-
-                </section><!-- /.content -->
-            </aside><!-- /.right-side -->
-        </div><!-- ./wrapper -->
-		
-		<!-- ./modal -->
-		    <div class='modal fade bs-example-modal-sm' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel' aria-hidden='true'>
-      <div class='modal-dialog modal-sm'>
-        <div class='modal-content'>
-            <div class='box box-primary'>
-                <div class='box-header'>
-                    <h3 class='box-title'>Ganti account status</h3>
-                </div><!-- /.box-header -->
-                <!-- form start -->
-                <form role='form'>
-                    <div class='box-body'>
-                        <div class='form-group'>
-                            <label for='exampleInputEmail1'>Status</label>
-                            <select class='form-control'>
-                                <option>Active</option>
-                                <option>Nonactive</option>
-                            </select>
-                        </div>
-                        <div class='form-group'>
-                            <label for='exampleInputEmail1'>Berlaku s/d</label>
-                            <div class='input-group'>
-                                <div class='input-group-addon'>
-                                    <i class='fa fa-calendar'></i>
-                                </div>
-                                <input type='text' class='form-control pull-right' id='tanggalindong'>
-                            </div>
-                        </div>
-                    </div><!-- /.box-body -->
-
-                    <div class='box-footer'>
-                        <button type='submit' class='btn btn-primary'>Submit</button>
-                        <button type='submit' class='btn btn-primary' data-dismiss='modal'>Cancel</button>
-                    </div>
-                </form>
-            </div><!-- /.box -->
-        </div>
-      </div>
-    </div>
-
-    <div class='modal fade confirm' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel' aria-hidden='true'>
-      <div class='modal-dialog modal-sm'>
-        <div class='modal-content'>
-            <div class='box box-solid box-danger'>
-                <div class='box-header'>
-                    <h3 class='box-title'>Confirmation</h3>
-                    <div class='box-tools pull-right'>
-                        <button class='btn btn-danger btn-sm' data-widget='collapse'><i class='fa fa-minus'></i></button>
-                        <button class='btn btn-danger btn-sm' class='close' data-dismiss='modal' aria-label='Close'><i class='fa fa-times'></i></button>
-                    </div>
-                </div>
-                <div class='box-body' style='display: block;'>
-                    Box class: <code>.box.box-solid.box-primary</code>
-                    <p>
-                    </p>
-                </div><!-- /.box-body -->
-                <div class='box-footer'>
-                    <button type='submit' class='btn btn-danger'>Ok</button>
-                    <button type='submit' class='btn btn-danger'>Cancel</button>
-                </div>
-            </div>
-        </div>
-      </div>
-    </div>";
+                        </div>";
 	?>
 	
