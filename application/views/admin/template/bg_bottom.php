@@ -1,5 +1,5 @@
 <?php
-echo "
+echo "	<script>var base_url = '".base_url()."';</script>
 		<script src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js'></script>
         <script src='".site_url("html/admin/js/jquery-ui-1.10.3.min.js")."' type='text/javascript'></script>
         <script src='".site_url("html/admin/js/bootstrap.min.js")."' type='text/javascript'></script>

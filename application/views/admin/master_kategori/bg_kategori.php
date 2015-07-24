@@ -42,27 +42,26 @@ echo "
 						</tr>
 					</thead>
 					<tbody>";
-					$i=0
-					$hasil=$allMKategori->num_rows();
-					echo $hasil;
-					if ($allMKategori->num_rows() == 0){
+					$i=0;
+					if (empty($allMKategori)){
 					echo "
 						<tr>
 							<span> Zero </span>
 						</tr>";
+						}else{
+							foreach ($allMKategori->result() as $row ){
+							$i++;
+							echo "
+							<tr>
+								<td>$i</td>
+								<td>".$row->name."</td>
+								<td>
+									<button data-toggle='modal' data-target='.bs-edit-modal-sm' class='btn btn-primary btn-sm'>Edit</button>
+									<button data-toggle='modal' data-target='.confirm' class='btn btn-warning btn-sm'>Hapus</button>
+								</td>
+							</tr>";
+							}
 						}
-						foreach ($allMKategori->result() as $row ){
-						echo "
-						<tr>
-							<td>$i</td>
-							<td>".$row->name."</td>
-							<td>
-								<button data-toggle='modal' data-target='.bs-edit-modal-sm' class='btn btn-primary btn-sm'>Edit</button>
-								<button data-toggle='modal' data-target='.confirm' class='btn btn-warning btn-sm'>Hapus</button>
-							</td>
-						</tr>";
-						}
-					  
 					echo "	
 					</tbody>
 					<tfoot>
