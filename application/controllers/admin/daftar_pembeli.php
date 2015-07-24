@@ -32,7 +32,7 @@ class Daftar_pembeli extends CI_Controller {
         $this->data['pagination'] = $this->template->paging2($pg,$uri,$url,$limit);        
         $this->data['allPembeli']=$this->model_pembeli->get_all_pembeli($limit,$offset);
         if ($this->input->post('ajax')) {
-            $this->load->view('daftar_pembeli/bg_daftar_pembeli_ajax', $this->data);
+            $this->load->view('admin/daftar_pembeli/bg_daftar_pembeli_ajax', $this->data);
         } else {
             $this->template->bonobo_admin('daftar_pembeli/bg_daftar_pembeli', $this->data);
         } 

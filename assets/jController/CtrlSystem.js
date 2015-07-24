@@ -159,3 +159,19 @@ function onlyNumber(evt) {
     if(theEvent.preventDefault) theEvent.preventDefault();
   }
 }
+
+$(function(){
+	//pagination
+	$(document).on('click','.pagination li a',function() {
+		var url = $(this).attr('href');		
+		$.ajax({
+			type	: 'POST',
+			data	: 'ajax=1',
+			url		: url,
+			success: function(msg) {				
+				$('#div-paging').html(msg);
+			}
+		});
+		return false;
+	});	
+});

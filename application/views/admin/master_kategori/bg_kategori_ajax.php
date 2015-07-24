@@ -1,7 +1,12 @@
 <?php
 echo "
 <div class='box-body table-responsive'>
+
+
 	<div class='box-tools'>
+		<div class='input-group'>
+			<button data-toggle='modal' data-target='.bs-add-modal-sm' class='btn btn-primary '>Tambah Baru</button>
+		</div>
 		<div class='input-group'>
 			<input type='text' name='table_search' class='form-control input-sm pull-right' style='width: 150px;' placeholder='Search'/>
 			<div class='input-group-btn'>
@@ -13,33 +18,36 @@ echo "
 		<thead>
 			<tr>
 				<th>No</th>
-				<th>Nama Pembeli</th>
-				<th>Email</th>
+				<th>Nama Kategori</th>
 				<th>Action</th>
 			</tr>
 		</thead>
 		<tbody>";
-		$i=0;
-		foreach($allPembeli->result() as $row){
-		$i++;
-		$nama=ucwords($row->name);
+		$i=0
+		if($allMKategori->num_rows() == 0){
+		echo "
+			<tr>
+				<span>zero</span>
+			</tr>";
+			}else{
+			foreach ($allMKategori->result() as $row ){
 			echo "
 			<tr>
 				<td>$i</td>
-				<td>".$nama."</td>
-				<td>".$row->email."</td>
+				<td>".$row->name."</td>
 				<td>
-					<button data-toggle='modal' data-target='.confirm' class='btn btn-warning btn-sm' >Hapus</button>
+					<button data-toggle='modal' data-target='.bs-edit-modal-sm' class='btn btn-primary btn-sm'>Edit</button>
+					<button data-toggle='modal' data-target='.confirm' class='btn btn-warning btn-sm'>Hapus</button>
 				</td>
 			</tr>";
-		}
-		echo"
+			}
+		  }
+		echo "	
 		</tbody>
 		<tfoot>
 			<tr>
 				<th>No</th>
-				<th>Nama Pembeli</th>
-				<th>Email</th>
+				<th>Nama Kategori</th>
 				<th>Action</th>
 		</tfoot>
 	</table>

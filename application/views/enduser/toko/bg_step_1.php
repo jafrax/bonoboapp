@@ -35,19 +35,16 @@ echo"
 					<label id='notifCategory' class='error error-chosen' style='display:none;'></label>
 					<div class='input-field' >
 						<select name='cmbCategory' class='chosen-select' class='chosen-select'>
-";
-
-	if(!empty($Shop->category_name)){
-		echo"<option value='".$Shop->category_id."' selected>".$Shop->category_name."</option>";
-	}else{
-		echo"<option value='' disabled selected>Pilih Kategori</option>";
-	}
-
-	foreach($Categories as $Category){
-		echo"<option value='".$Category->id."'>".$Category->name."</option>";
-	}
-
-echo"
+						";
+							if(!empty($Shop->category_name)){
+								echo"<option value='".$Shop->category_id."' selected>".$Shop->category_name."</option>";
+							}else{
+								echo"<option value='' disabled selected>Pilih Kategori</option>";
+							}
+							foreach($Categories as $Category){
+								echo"<option value='".$Category->id."'>".$Category->name."</option>";
+							}
+						echo"
 						</select>
 					</div>
 				</div>

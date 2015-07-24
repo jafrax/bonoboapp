@@ -1,5 +1,5 @@
-<?php
-echo "
+<?php 
+echo"
 <div class='box-body table-responsive'>
 	<div class='box-tools'>
 		<div class='input-group'>
@@ -13,34 +13,38 @@ echo "
 		<thead>
 			<tr>
 				<th>No</th>
-				<th>Nama Pembeli</th>
-				<th>Email</th>
-				<th>Action</th>
+				<th>Kodepos</th>
+				<th>Keluarahan</th>
+				<th>Kecamatan</th>
+				<th>Kota</th>
+				<th>Propinsi</th>
 			</tr>
 		</thead>
 		<tbody>";
 		$i=0;
-		foreach($allPembeli->result() as $row){
+		foreach ($allMLokasi->result() as $row ){
 		$i++;
-		$nama=ucwords($row->name);
-			echo "
+		echo "
 			<tr>
 				<td>$i</td>
-				<td>".$nama."</td>
-				<td>".$row->email."</td>
-				<td>
-					<button data-toggle='modal' data-target='.confirm' class='btn btn-warning btn-sm' >Hapus</button>
-				</td>
-			</tr>";
+				<td>".$row->postal_code."</td>
+				<td>".$row->kelurahan."</td>
+				<td>".$row->kecamatan."</td>
+				<td>".$row->city."</td>
+				<td>".$row->province."</td>
+			</tr>
+			";
 		}
-		echo"
+		echo "	
 		</tbody>
 		<tfoot>
 			<tr>
 				<th>No</th>
-				<th>Nama Pembeli</th>
-				<th>Email</th>
-				<th>Action</th>
+				<th>Kodepos</th>
+				<th>Keluarahan</th>
+				<th>Kecamatan</th>
+				<th>Kota</th>
+				<th>Propinsi</th>
 		</tfoot>
 	</table>
 </div><!-- /.box-body -->

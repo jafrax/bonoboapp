@@ -1,17 +1,17 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
-* Admin CONTROLLER daftar_toko
+* Admin CONTROLLER master_kategori
 *
 * Log Activity : ~ Create your log if you change this controller ~
-* 1. Create 22 July 2015 by Adi Setyo, Create controller : Coding index
+* 1. Create 24 July 2015 by Adi Setyo, Create controller : Coding index
 */
-class Daftar_toko extends CI_Controller {
-    var $data = array('scjav'=>'assets/jController/admin/CtrlDtoko.js');
+class Master_kategori extends CI_Controller {
+    var $data = array('scjav'=>'assets/jController/admin/CtrlMkategori.js');
 	var $limit = 10;
 	var $offset = 0;
     function __construct(){
         parent::__construct();
-        $this->load->model("admin/model_toko");
+        $this->load->model("admin/model_kategori");
 		if(empty($_SESSION['bonobo_admin']) || empty($_SESSION['bonobo_admin']->id)){
 			redirect('admin/index/signin');
             return;
@@ -27,15 +27,15 @@ class Daftar_toko extends CI_Controller {
             else:
             $offset = $page;
         endif;
-        $pg=$this->model_toko->get_all_toko();
-        $url='admin/daftar_toko/index';
+        $pg=$this->model_kategori->get_all_kategori();
+        $url='admin/master_kategori/index';
         $this->data['pagination'] = $this->template->paging2($pg,$uri,$url,$limit);        
-        $this->data['allToko']=$this->model_toko->get_all_toko($limit,$offset);
-
-        if ($this->input->post('ajax')) {
-            $this->load->view('admin/daftar_toko/bg_daftartoko_ajax', $this->data);
+        $this->data['allMKategori']=$this->model_kategori->get_all_kategori($limit,$offset);
+        
+		if ($this->input->post('ajax')) {
+            $this->load->view('admin/master_kategori/bg_kategori_ajax', $this->data);
         } else {
-            $this->template->bonobo_admin('daftar_toko/bg_daftartoko', $this->data);
+            $this->template->bonobo_admin('master_kategori/bg_kategori', $this->data);
         } 
 
     }    

@@ -5,12 +5,12 @@ echo "
 	<!-- Content Header (Page header) -->
 	<section class='content-header'>
 		<h1>
-			Daftar Pembeli
+			Master Kategori
 		</h1>
 		<ol class='breadcrumb'>
 			<li><a href='#'><i class='fa fa-dashboard'></i> Dashboard</a></li>
 
-			<li class='active'>Daftar Pembeli</li>
+			<li class='active'>Master Kategori</li>
 		</ol>
 	</section>
 
@@ -21,11 +21,11 @@ echo "
 			<div class='box-header'>
 				<h3 class='box-title'></h3>                                    
 			</div><!-- /.box-header -->
-			<div id='div-paging'>
 			<div class='box-body table-responsive'>
-
-
 				<div class='box-tools'>
+					<div class='input-group'>
+						<button data-toggle='modal' data-target='.bs-add-modal-sm' class='btn btn-primary '>Tambah Baru</button>
+					</div>
 					<div class='input-group'>
 						<input type='text' name='table_search' class='form-control input-sm pull-right' style='width: 150px;' placeholder='Search'/>
 						<div class='input-group-btn'>
@@ -37,49 +37,46 @@ echo "
 					<thead>
 						<tr>
 							<th>No</th>
-							<th>Nama Pembeli</th>
-							<th>Email</th>
+							<th>Nama Kategori</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>";
-					//echo $allPembeli->num_rows();
-					$i=0;
-					if (empty($allPembeli)) {
-						echo "<tr>
-								<td colspan='4'>Zero</td>                                       
-							 </tr>";
-					}else{
-						foreach($allPembeli->result() as $row){
-						$i++;
-						$nama=ucwords($row->name);
-							echo "
-							<tr>
-								<td>$i</td>
-								<td>".$nama."</td>
-								<td>".$row->email."</td>
-								<td>
-									<button data-toggle='modal' data-target='.confirm' class='btn btn-warning btn-sm' >Hapus</button>
-								</td>
-							</tr>";
+					$i=0
+					$hasil=$allMKategori->num_rows();
+					echo $hasil;
+					if ($allMKategori->num_rows() == 0){
+					echo "
+						<tr>
+							<span> Zero </span>
+						</tr>";
 						}
-					}
-					echo"
+						foreach ($allMKategori->result() as $row ){
+						echo "
+						<tr>
+							<td>$i</td>
+							<td>".$row->name."</td>
+							<td>
+								<button data-toggle='modal' data-target='.bs-edit-modal-sm' class='btn btn-primary btn-sm'>Edit</button>
+								<button data-toggle='modal' data-target='.confirm' class='btn btn-warning btn-sm'>Hapus</button>
+							</td>
+						</tr>";
+						}
+					  
+					echo "	
 					</tbody>
 					<tfoot>
 						<tr>
 							<th>No</th>
-							<th>Nama Pembeli</th>
-							<th>Email</th>
+							<th>Nama Kategori</th>
 							<th>Action</th>
 					</tfoot>
 				</table>
 			</div><!-- /.box-body -->
-			<div id='page' class='box-footer clearfix'>
+			<div class='box-footer clearfix'>
 				$pagination
 			</div>
-		</div>
-	</div><!-- /.box -->
+		</div><!-- /.box -->
 	</section><!-- /.content -->
 </aside><!-- /.right-side -->
 </div><!-- ./wrapper -->
