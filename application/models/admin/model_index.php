@@ -4,8 +4,8 @@
 * MODEL TOKO
 *
 * Log Activity : ~ Create your log if you change this controller ~
-* 1. Create 22 Juni 2015 by Adi Setyo, Create function : get_all_toko
-* 2. Change 22 Juni 2015 by Dinar W W, Change function : get_all_toko
+* 1. Create 22 Juni 2015 by Adi Setyo, Create function : get_user_admin
+* 2. Change 22 Juni 2015 by Dinar W W, Change function : get_user_admin
 */
 
 class Model_index extends CI_Model {

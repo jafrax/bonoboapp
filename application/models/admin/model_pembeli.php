@@ -1,10 +1,10 @@
 <?php
 
 /*
-* MODEL TOKO
+* MODEL PEMBELI
 *
 * Log Activity : ~ Create your log if you change this controller ~
-* 1. Create 22 Juni 2015 by Adi Setyo, Create function : get_all_toko
+* 1. Create 22 Juni 2015 by Adi Setyo, Create function : get_all_pembeli
 */
 
 class Model_pembeli extends CI_Model {

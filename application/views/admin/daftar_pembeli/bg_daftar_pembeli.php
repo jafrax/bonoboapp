@@ -43,29 +43,25 @@ echo "
 							</tr>
 						</thead>
 						<tbody>";
+						//echo $allPembeli->num_rows();
 						$i=0;
-						if ($allPembeli->num_rows() == 0) {
-						echo "
-							<tr>
-								<td>1</td>
-								<td>Nina</td>
-								<td>nina@mail.com</td>
-								<td>
-									<button data-toggle='modal' data-target='.confirm' class='btn btn-warning btn-sm' >Hapus</button>
-								</td>
-							</tr>";
-						}
-						foreach($allPembeli->result() as $row){
-						$i++;
-							echo "
-							<tr>
-								<td>$i</td>
-								<td>".$row->name."</td>
-								<td>".$row->email."</td>
-								<td>
-									<button data-toggle='modal' data-target='.confirm' class='btn btn-warning btn-sm' >Hapus</button>
-								</td>
-							</tr>";
+						if (empty($allPembeli)) {
+							echo "<tr>
+									<td colspan='4'>Zero</td>                                       
+								 </tr>";
+						}else{
+							foreach($allPembeli->result() as $row){
+							$i++;
+								echo "
+								<tr>
+									<td>$i</td>
+									<td>".$row->name."</td>
+									<td>".$row->email."</td>
+									<td>
+										<button data-toggle='modal' data-target='.confirm' class='btn btn-warning btn-sm' >Hapus</button>
+									</td>
+								</tr>";
+							}
 						}
 						echo"
 						</tbody>
