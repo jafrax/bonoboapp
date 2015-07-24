@@ -13,9 +13,11 @@ echo "
     <body class='bg-black'>
         <div class='form-box' id='login-box'>
             <div class='header'>Sign In</div>
-            <form id='fsignin' method='post' action='".site_url("admin/index/signin")."'>
-			<div id='lblNotif' class='notif-error'>".$this->session->flashdata('loginkata')."</div>
+            <form method='post' action=''>                
                 <div class='body bg-gray'>
+                    <div style='text-align:center;color:red;padding:10px 0'>
+                        "; if (isset($_SESSION['login_error'])) echo $_SESSION['login_error']; unset($_SESSION['login_error']); echo"
+                    </div>
                     <div class='form-group'>
                         <input type='text' id='email' name='email' class='required form-control' placeholder='Email User' autocomplete='off' autofocus />
                     </div>

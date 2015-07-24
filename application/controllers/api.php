@@ -259,22 +259,42 @@ class Api extends CI_Controller {
 			foreach($QCartProducts as $QCartProduct){
 				/*
 				*	------------------------------------------------------------------------------
-				*	Mengambil query data product variant
+				*	Mengambil data cart varian berdasarkan cart product
 				*	------------------------------------------------------------------------------
 				*/
+				$CartVarians = array();
+				$QCartVarians = $this->db
+									->where("cart_product_id",$QCartProduct->id)
+									->get("tb_cart_varian")
+									->result();
+									
+				foreach($QCartVarians as $QCartVarian){
+					/*
+					*	------------------------------------------------------------------------------
+					*	Mengambil data cart varian berdasarkan cart product
+					*	------------------------------------------------------------------------------
+					*/
+					$QProductVarian = $this->db
+										->where("id",$QCartVarian->product_varian_id)
+										->get("tb_product_varian")
+										->row();
+					
+					$ProductVarian = array(
+									"id"=>$QProductVarian->id,
+									"name"=>$QProductVarian->name,
+									"stock_qty"=>$QProductVarian->stock_qty,
+									"product"=>$this->getProductById($QProductVarian->product_id),
+								);
+					
+					$CartVarian = array(
+								"id"=>$QCartVarian->id,
+								"quantity"=>$QCartVarian->quantity,
+								"product_varian"=>$ProductVarian,
+							);
+							
+					array_push($CartVarians,$CartVarian);
+				}
 				
-				$QProductVarian = $this->db
-						->where("tpv.id",$QCartProduct->product_varian_id)
-						->get("tb_product_varian tpv")
-						->row();
-			
-				$ProductVarian = array(
-							"id"=>$QProductVarian->id,
-							"name"=>$QProductVarian->name,
-							"stock_qty"=>$QProductVarian->stock_qty,
-							"product"=>$this->getProductById($QProductVarian->product_id),
-						);
-
 				/*
 				*	------------------------------------------------------------------------------
 				*	Membuat object Cart Product
@@ -283,8 +303,8 @@ class Api extends CI_Controller {
 				$CartProduct = array(
 							"id"=>$QCartProduct->id,
 							"price_product"=>$QCartProduct->price_product,
-							"quantity"=>$QCartProduct->quantity,
-							"product_varian"=>$ProductVarian,
+							"product"=>$this->getProductById($QCartProduct->product_id,$user),
+							"cart_varians"=>$CartVarians,
 						);
 				
 				array_push($CartProducts,$CartProduct);
@@ -2365,16 +2385,26 @@ class Api extends CI_Controller {
 				return;
 			}
 			
+			$QCartProduct = $this->db->where("id", $this->response->postDecode("cart_product"))->get("tb_cart_product")->row();
+			if(empty($QCartProduct)){
+				$this->response->send(array("result"=>0,"message"=>"Data produk tidak ada dalam keranjang belanja anda : ".$this->response->post("cart_product"),"messageCode"=>2), true);
+				return;
+			}
 			/*
 			*	------------------------------------------------------------------------------
 			*	Query menghapus data cart product
 			*	------------------------------------------------------------------------------
 			*/
 			
-			$Delete = $this->db->where("id", $this->response->postDecode("cart_product"))->delete("tb_cart_product");
+			$Delete = $this->db->where("id", $QCartProduct->id)->delete("tb_cart_product");
 			
 			if($Delete){
-				$this->response->send(array("result"=>1,"message"=>"Data produk belanja ttelah dihapus","messageCode"=>4), true);
+				$CartProducts = $this->db->where("cart_id",$QCartProduct->cart_id)->get("tb_cart_product")->result();
+				if(sizeOf($CartProducts) <= 0){
+					$Delete = $this->db->where("id",$QCartProduct->cart_id)->delete("tb_cart");
+				}
+				
+				$this->response->send(array("result"=>1,"message"=>"Data produk belanja telah dihapus","messageCode"=>4), true);
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Data produk belanja tidak dapat dihapus","messageCode"=>5), true);
 			}
@@ -2501,9 +2531,16 @@ class Api extends CI_Controller {
 			*	Menyimpan data cart
 			*	------------------------------------------------------------------------------
 			*/
-			$date = date("Y-m-d H:i:s");
+			$QCart = $this->db
+						->where("member_id",$QUser->id)
+						->where("toko_id",$QProduct->shop_id)
+						->get("tb_cart")
+						->row();
 			
-			$Data = array(
+			if(empty($QCart)){
+				$date = date("Y-m-d H:i:s");
+			
+				$Data = array(
 					"member_id"=>$QUser->id,
 					"toko_id"=>$QProduct->shop_id,
 					"price_total"=>$this->response->postDecode("price_total"),
@@ -2512,15 +2549,15 @@ class Api extends CI_Controller {
 					"update_date"=>$date,
 					"update_user"=>$QUser->email,
 				);
-			
-			$Save = $this->db->insert("tb_cart",$Data);
-			if($Save){		
-				/*
-				*	------------------------------------------------------------------------------
-				*	Mengambil data cart yang telah disimpan
-				*	------------------------------------------------------------------------------
-				*/
-				$QCart = $this->db
+				
+				$Save = $this->db->insert("tb_cart",$Data);
+				if($Save){
+					/*
+					*	------------------------------------------------------------------------------
+					*	Mengambil data cart yang telah disimpan
+					*	------------------------------------------------------------------------------
+					*/
+					$QCart = $this->db
 							->where("member_id",$QUser->id)
 							->where("toko_id",$QProduct->shop_id)
 							->where("price_total",$this->response->postDecode("price_total"))
@@ -2530,11 +2567,57 @@ class Api extends CI_Controller {
 							->where("update_user",$QUser->email)
 							->get("tb_cart")
 							->row();
-							
+				}
+			}else{
+				$date = date("Y-m-d H:i:s");
+			
+				$Data = array(
+					"price_total"=>$this->response->postDecode("price_total"),
+					"update_date"=>$date,
+					"update_user"=>$QUser->email,
+				);
+				
+				$Save = $this->db->where("id",$QCart->id)->update("tb_cart",$Data);
+			}
+			
+			if($Save){
 				if(!empty($QCart)){
 					/*
 					*	------------------------------------------------------------------------------
-					*	Simpan data cart products
+					*	Simpan data cart product
+					*	------------------------------------------------------------------------------
+					*/
+					$QCartProduct = $this->db
+								->where("cart_id",$QCart->id)
+								->where("product_id",$QProduct->id)
+								->get("tb_cart_product")
+								->row();
+								
+					if(empty($QCartProduct)){
+						$Data = array(
+								"cart_id"=>$QCart->id,
+								"product_id"=>$QProduct->id,
+								"price_product"=>$this->response->postDecode("price_total"),
+								"create_date"=>$date,
+								"create_user"=>$QUser->email,
+								"update_date"=>$date,
+								"update_user"=>$QUser->email,
+							);
+							
+						$Save = $this->db->insert("tb_cart_product",$Data);
+						if($Save){
+							$QCartProduct = $this->db
+												->where("cart_id",$QCart->id)
+												->where("product_id",$QProduct->id)
+												->get("tb_cart_product")
+												->row();
+						}
+					}
+					
+				
+					/*
+					*	------------------------------------------------------------------------------
+					*	Simpan data cart varian
 					*	------------------------------------------------------------------------------
 					*/
 					for($i=1;$i<=$this->response->postDecode("varians");$i++){
@@ -2542,9 +2625,8 @@ class Api extends CI_Controller {
 						
 						if(!empty($QVarian) && $this->response->post("varian".$i."_qty") != "" && $this->response->postDecode("varian".$i."_qty") != ""){
 							$Data = array(
-									"cart_id"=>$QCart->id,
+									"cart_product_id"=>$QCartProduct->id,
 									"product_varian_id"=>$QVarian->id,
-									"price_product"=>$QProduct->price_base,
 									"quantity"=>$this->response->postDecode("varian".$i."_qty"),
 									"create_date"=>$date,
 									"create_user"=>$QUser->email,
@@ -2552,7 +2634,7 @@ class Api extends CI_Controller {
 									"update_user"=>$QUser->email,
 								);
 							
-							$Save = $this->db->insert("tb_cart_product",$Data);
+							$Save = $this->db->insert("tb_cart_varian",$Data);
 						}
 					}
 				}
@@ -2571,20 +2653,41 @@ class Api extends CI_Controller {
 				foreach($QCartProducts as $QCartProduct){
 					/*
 					*	------------------------------------------------------------------------------
-					*	Mengambil data Cart varian
+					*	Mengambil data cart varian berdasarkan cart product
 					*	------------------------------------------------------------------------------
 					*/
-					$QVarian = $this->db
-									->where("id",$QCartProduct->product_varian_id)
-									->get("tb_product_varian")
-									->row();
-					
-					$Varian = array(
-								"id"=>$QVarian->id,
-								"name"=>$QVarian->name,
-								"stock_qty"=>$QVarian->stock_qty,
-								"product"=>$this->getProductById($QVarian->product_id),
-							);
+					$CartVarians = array();
+					$QCartVarians = $this->db
+										->where("cart_product_id",$QCartProduct->id)
+										->get("tb_cart_varian")
+										->result();
+										
+					foreach($QCartVarians as $QCartVarian){
+						/*
+						*	------------------------------------------------------------------------------
+						*	Mengambil data cart varian berdasarkan cart product
+						*	------------------------------------------------------------------------------
+						*/
+						$QProductVarian = $this->db
+											->where("id",$QCartVarian->product_varian_id)
+											->get("tb_product_varian")
+											->row();
+						
+						$ProductVarian = array(
+										"id"=>$QProductVarian->id,
+										"name"=>$QProductVarian->name,
+										"stock_qty"=>$QProductVarian->stock_qty,
+										"product"=>$this->getProductById($QProductVarian->product_id),
+									);
+						
+						$CartVarian = array(
+									"id"=>$QCartVarian->id,
+									"quantity"=>$QCartVarian->quantity,
+									"product_varian"=>$ProductVarian,
+								);
+								
+						array_push($CartVarians,$CartVarian);
+					}
 					
 					/*
 					*	------------------------------------------------------------------------------
@@ -2594,8 +2697,7 @@ class Api extends CI_Controller {
 					$CartProduct = array(
 									"id"=>$QCartProduct->id,
 									"price_product"=>$QCartProduct->price_product,
-									"quantity"=>$QCartProduct->quantity,
-									"varian"=>$Varian,
+									"cart_varians"=>$CartVarians,
 								);
 					
 					array_push($CartProducts,$CartProduct);

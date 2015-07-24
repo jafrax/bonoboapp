@@ -12,7 +12,7 @@ class Daftar_pembeli extends CI_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model("admin/model_pembeli");
-		if(empty($_SESSION['bonobo_admin']) || empty($_SESSION['bonobo_admin']['id'])){
+		if(empty($_SESSION['bonobo_admin']) || empty($_SESSION['bonobo_admin']->id)){
 			redirect('admin/index/signin');
             return;
 		}
