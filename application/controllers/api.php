@@ -2387,7 +2387,7 @@ class Api extends CI_Controller {
 			
 			$QCartProduct = $this->db->where("id", $this->response->postDecode("cart_product"))->get("tb_cart_product")->row();
 			if(empty($QCartProduct)){
-				$this->response->send(array("result"=>0,"message"=>"Data produk tidak ada dalam keranjang belanja anda : ".$this->response->post("cart_product"),"messageCode"=>2), true);
+				$this->response->send(array("result"=>0,"message"=>"Data produk tidak ada dalam keranjang belanja anda","messageCode"=>2), true);
 				return;
 			}
 			/*
@@ -2697,6 +2697,7 @@ class Api extends CI_Controller {
 					$CartProduct = array(
 									"id"=>$QCartProduct->id,
 									"price_product"=>$QCartProduct->price_product,
+									"product"=>$this->getProductById($QCartProduct->product_id,$QUser->id),
 									"cart_varians"=>$CartVarians,
 								);
 					
