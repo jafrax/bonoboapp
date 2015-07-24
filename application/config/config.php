@@ -360,3 +360,9 @@ $config['proxy_ips'] = '';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */
+
+
+$config['default_auto_add_license']	= 'default_auto_add_license';
+$config['default_code']				= 'default_code';
+$config['default_duration_type']	= 'default_duration_type';
+$config['default_duration']			= 'default_duration';
