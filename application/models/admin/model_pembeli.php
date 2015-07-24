@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /*
 * MODEL PEMBELI
@@ -11,6 +11,7 @@ class Model_pembeli extends CI_Model {
 	 
 	  public function get_all_pembeli($limit=1000000,$offset=0){
 		$this->db->limit($limit,$offset);
+		$this->db->order_by('name','ASC');
 		return $this->db->get('tb_member');
 	  }
 
