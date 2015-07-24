@@ -17,15 +17,30 @@ class License extends CI_Controller {
         $redirect('license/daftar');
 	}
 
+/*
+ *  Dinar Wahyu Wibowo
+ *  PAGE LICENSE GENERATOR 
+ */
+
     public function generator(){
-        
+        $this->data['toko']     = $this->model_license->get_toko();
+        $this->template->bonobo_admin('license/bg_generator',$this->data);
     }
+
+/*
+ *  Dinar Wahyu Wibowo
+ *  PAGE LICENSE SETTING 
+ */
 
     public function setting(){
         
         $this->template->bonobo_admin('license/bg_setting',$this->data);
     }
 
+/*
+ *  Dinar Wahyu Wibowo
+ *  PAGE LICENSE SETTING 
+ */
     public function save_setting(){
         if ($_POST) {
             $auto_add_license   = $this->template->clearInput($this->input->post($this->config->item('default_auto_add_license')));
@@ -89,6 +104,11 @@ class License extends CI_Controller {
             echo "0";
         }
     }
+
+/*
+ *  Dinar Wahyu Wibowo
+ *  END PAGE LICENSE SETTING 
+ */
 
     public function daftar(){
         

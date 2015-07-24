@@ -10,6 +10,21 @@ $(document).ready(function() {
 	});
 	/*NUMBER ONLY*/
 
+	/*NUMBER ONLY*/
+	jQuery('.numbersOnlyLicense').keyup(function () { 
+	    this.value = this.value.replace(/[^0-9\.]/g,'');
+	    var type = $('#duration_type').val();
+	    var dur = $('#duration');
+	    if (type == 'd') {
+	    	if (dur.val() >= 31){dur.val('31')}
+	    }else if (type == 'm') {
+	    	if (dur.val() >= 12){dur.val('12')}
+	    }else if (type == 'y') {
+	    	if (dur.val() >= 10){dur.val('10')}
+	    };
+	});
+	/*NUMBER ONLY*/
+
 
 });
 

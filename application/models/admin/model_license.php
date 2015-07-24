@@ -14,6 +14,10 @@ class Model_license extends CI_Model {
 		  return $this->db->get('tb_config');
 	  }
 
+
+	  function get_toko(){
+	  	return $this->db->get('tb_toko');
+	  }
 }
 
 ?>
