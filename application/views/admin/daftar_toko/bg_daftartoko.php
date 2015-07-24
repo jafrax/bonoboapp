@@ -111,7 +111,7 @@ echo"
 																	<br/>
 																</div><!-- /.box-body -->
 																<div class='box-footer'>
-																	<button type='button' class='btn btn-danger' onlick='javascript:delete_dt(".$row->id.")'>Ya</button>
+																	<button type='button' class='btn btn-danger' data-dismiss='modal' onlick='javascript:delete_dt(".$row->id.")'>Ya</button>
 																	<button type='button' class='btn btn-danger' data-dismiss='modal'>Tidak</button>
 																</div>
 															</div>

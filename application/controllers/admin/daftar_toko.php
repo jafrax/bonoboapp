@@ -45,8 +45,6 @@ class Daftar_toko extends CI_Controller {
 		if($result){
 			echo "1";
 		}
-
-	
 	}
 	
 }

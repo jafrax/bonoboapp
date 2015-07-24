@@ -4,7 +4,7 @@
 * MODEL PEMBELI
 *
 * Log Activity : ~ Create your log if you change this controller ~
-* 1. Create 22 Juni 2015 by Adi Setyo, Create function : get_all_pembeli
+* 1. Create 22 Juni 2015 by Adi Setyo, Create function : get_all_pembeli,delp_byid
 */
 
 class Model_pembeli extends CI_Model {
@@ -14,7 +14,11 @@ class Model_pembeli extends CI_Model {
 		$this->db->order_by('name','ASC');
 		return $this->db->get('tb_member');
 	  }
-
+	  
+	  public function delp_byid($data){
+		$this->db->where('id',$data['id_dt']);
+		return $this->db->delete('ms_location');
+	  }
 }
 
 ?>

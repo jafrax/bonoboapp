@@ -21,6 +21,7 @@ echo "
 			<div class='box-header'>
 				<h3 class='box-title'></h3>                                    
 			</div><!-- /.box-header -->
+			<div id='div-paging'>
 			<div class='box-body table-responsive'>
 				<div class='box-tools'>
 					<div class='input-group'>
@@ -75,6 +76,7 @@ echo "
 			<div class='box-footer clearfix'>
 				$pagination
 			</div>
+		</div>
 		</div><!-- /.box -->
 	</section><!-- /.content -->
 </aside><!-- /.right-side -->

@@ -1,8 +1,6 @@
 <?php
 echo "
 <div class='box-body table-responsive'>
-
-
 	<div class='box-tools'>
 		<div class='input-group'>
 			<button data-toggle='modal' data-target='.bs-add-modal-sm' class='btn btn-primary '>Tambah Baru</button>
@@ -23,7 +21,7 @@ echo "
 			</tr>
 		</thead>
 		<tbody>";
-		$i=0
+		$i=0;
 		foreach ($allMKategori->result() as $row ){
 		$i++;
 		echo "
