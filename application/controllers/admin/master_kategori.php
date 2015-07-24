@@ -37,7 +37,14 @@ class Master_kategori extends CI_Controller {
         } else {
             $this->template->bonobo_admin('master_kategori/bg_kategori', $this->data);
         } 
-
-    }    
+    }
+		
+	public function d_master_kategori(){
+		$data['id_dt']=$this->input->post('id');
+		$result		  = $this->model_kategori->delt_byid($data);
+		if($result){
+			echo "1";
+		}
+	}
 	
 }
