@@ -3,7 +3,7 @@
 * Admin CONTROLLER Master_lokasi
 *
 * Log Activity : ~ Create your log if you change this controller ~
-* 1. Create 24 July 2015 by Adi Setyo, Create controller : Coding index
+* 1. Create 24 July 2015 by Adi Setyo, Create controller : Coding index, search
 */
 class Master_lokasi extends CI_Controller {
     var $data = array('scjav'=>'assets/jController/admin/CtrlMlokasi.js');

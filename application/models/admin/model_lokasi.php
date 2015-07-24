@@ -14,6 +14,8 @@ class Model_lokasi extends CI_Model {
 		$this->db->order_by('province','ASC');
 		return $this->db->get('ms_location');
 	  }
+	  
+
 
 }
 

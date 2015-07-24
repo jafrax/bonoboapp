@@ -1,8 +1,6 @@
 <?php
 echo "
 <div class='box-body table-responsive'>
-
-
 	<div class='box-tools'>
 		<div class='input-group'>
 			<button data-toggle='modal' data-target='.bs-add-modal-sm' class='btn btn-primary '>Tambah Baru</button>
@@ -23,25 +21,19 @@ echo "
 			</tr>
 		</thead>
 		<tbody>";
-		$i=0
-		if($allMKategori->num_rows() == 0){
+		$i=0;
+		foreach ($allMKategori->result() as $row ){
+		$i++;
 		echo "
-			<tr>
-				<span>zero</span>
-			</tr>";
-			}else{
-			foreach ($allMKategori->result() as $row ){
-			echo "
-			<tr>
-				<td>$i</td>
-				<td>".$row->name."</td>
-				<td>
-					<button data-toggle='modal' data-target='.bs-edit-modal-sm' class='btn btn-primary btn-sm'>Edit</button>
-					<button data-toggle='modal' data-target='.confirm' class='btn btn-warning btn-sm'>Hapus</button>
-				</td>
-			</tr>";
-			}
-		  }
+		<tr>
+			<td>$i</td>
+			<td>".$row->name."</td>
+			<td>
+				<button data-toggle='modal' data-target='.bs-edit-modal-sm' class='btn btn-primary btn-sm'>Edit</button>
+				<button data-toggle='modal' data-target='.confirm' class='btn btn-warning btn-sm'>Hapus</button>
+			</td>
+		</tr>";
+		}
 		echo "	
 		</tbody>
 		<tfoot>
