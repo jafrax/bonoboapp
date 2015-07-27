@@ -360,36 +360,71 @@ class Api extends CI_Controller {
 				array_push($Products,$Product);				
 			}
 			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Get data couriers
+			*	------------------------------------------------------------------------------
+			*/
 			
-			if($this->response->post("user") != "" && $this->response->postDecode("user") != ""){
-				/*
-				*	------------------------------------------------------------------------------
-				*	Get data carts
-				*	------------------------------------------------------------------------------
-				*/
-				$Carts = $this->getCartsByUser($this->response->postDecode("user"));
-				
-				/*
-				*	------------------------------------------------------------------------------
-				*	Get data message 
-				*	------------------------------------------------------------------------------
-				*/
-				$Messages = array();
-				$QCarts = $this->db
-							->select("id")
-							->where("member_id",$this->response->postDecode("user"))
-							->limit(10,0)
-							->get("tb_cart")
-							->result();
+			$Couriers = array();
+			$QCouriers = $this->db->get("ms_courier")->result();
 			
-				foreach($QCarts as $QCart){
-					array_push($Carts,$QCart->id);
-				}
-			
-				$this->response->send(array("result"=>1,"products"=>$Products,"carts"=>$Carts,"messages"=>$Messages), true);
-			}else{
-				$this->response->send(array("result"=>1,"products"=>$Products,"carts"=>array(),"messages"=>array()), true);
+			foreach($QCouriers as $QCourier){
+				$Courier = array(
+						"id"=>$QCourier->id,
+						"name"=>$QCourier->name,
+					);
+					
+				array_push($Couriers,$Courier);
 			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Get data province
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$Provinces = array();
+			$QProvinces = $this->db->group_by("province")->order_by("province","ASC")->get("ms_location")->result();
+			
+			foreach($QProvinces as $QProvince){
+				$Province = array(
+						"id"=>$QProvince->id,
+						"name"=>$QProvince->province,
+					);
+				
+				array_push($Provinces,$Province);
+			}
+			
+			$Cities = array();
+			$Kecamatans = array();
+			if(sizeOf($Provinces) > 0){
+				$QCities = $this->db->where("province",$Provinces[0]["name"])->group_by("city")->order_by("city","ASC")->get("ms_location")->result();
+			
+				foreach($QCities as $QCity){
+					$City = array(
+							"id"=>$QCity->id,
+							"name"=>$QCity->city,
+						);
+						
+					array_push($Cities,$City);
+				}
+				
+				if(sizeOf($Cities) > 0){
+					$QKecamatans = $this->db->where("city",$Cities[0]["name"])->where("province",$Provinces[0]["name"])->group_by("kecamatan")->order_by("kecamatan","ASC")->get("ms_location")->result();
+				
+					foreach($QKecamatans as $QKecamatan){
+						$Kecamatan = array(
+								"id"=>$QKecamatan->id,
+								"name"=>$QKecamatan->kecamatan,
+							);
+							
+						array_push($Kecamatans,$Kecamatan);
+					}
+				}
+			}
+			
+			$this->response->send(array("result"=>1,"products"=>$Products,"couriers"=>$Couriers,"provinces"=>$Provinces,"cities"=>$Cities,"kecamatans"=>$Kecamatans), true);
 		
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
@@ -3285,6 +3320,140 @@ class Api extends CI_Controller {
 				}
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Pesan tidak dapat dikirim","messageCode"=>8), true);
+			}
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function getCityByProvince(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			if($this->response->post("province") == "" || $this->response->postDecode("province") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada propinsi yang dipilih","messageCode"=>3), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Mengambil data kota berdasarkan nama propinsi
+			*	------------------------------------------------------------------------------
+			*/
+			$Cities = array();
+			$QCities = $this->db
+							->where("province",$this->response->postDecode("province"))
+							->group_by("city")
+							->get("ms_location")
+							->result();
+			foreach($QCities as $QCity){
+				$City = array(
+						"id"=>$QCity->id,
+						"name"=>$QCity->city,
+					);
+				
+				array_push($Cities,$City);
+			}
+			
+			if(sizeOf($Cities) > 0){
+				$Kecamatans = array();
+				$QKecamatans = $this->db
+						->where("city",$QCity->city)
+						->where("province",$this->response->postDecode("province"))
+						->group_by("kecamatan")
+						->get("ms_location")
+						->result();
+								
+				foreach($QKecamatans as $QKecamatan){
+					$Kecamatan = array(
+							"id"=>$QKecamatan->id,
+							"name"=>$QKecamatan->kecamatan,
+						);
+					
+					array_push($Kecamatans,$Kecamatan);
+				}
+				
+				$this->response->send(array("result"=>1,"cities"=>$Cities,"kecamatans"=>$Kecamatans,"messageCode"=>4), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Kota tidak ditemukan","messageCode"=>5), true);
+			}
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function getKecamatanByCityProvince(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			if($this->response->post("province") == "" || $this->response->postDecode("province") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada propinsi yang dipilih","messageCode"=>3), true);
+				return;
+			}
+			
+			if($this->response->post("city") == "" || $this->response->postDecode("city") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada kota yang dipilih","messageCode"=>4), true);
+				return;
+			}
+			
+			
+			$Kecamatans = array();
+			$QKecamatans = $this->db
+						->where("city",$this->response->postDecode("city"))
+						->where("province",$this->response->postDecode("province"))
+						->group_by("kecamatan")
+						->get("ms_location")
+						->result();
+								
+			foreach($QKecamatans as $QKecamatan){
+				$Kecamatan = array(
+						"id"=>$QKecamatan->id,
+						"name"=>$QKecamatan->kecamatan,
+					);
+				
+				array_push($Kecamatans,$Kecamatan);
+			}
+			
+			if(sizeOf($Kecamatans) > 0){
+				$this->response->send(array("result"=>1,"kecamatans"=>$Kecamatans,"messageCode"=>5), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Kota tidak ditemukan","messageCode"=>6), true);
 			}
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
