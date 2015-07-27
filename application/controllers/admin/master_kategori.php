@@ -79,7 +79,7 @@ class Master_kategori extends CI_Controller {
 		}
 	}
 	
-	function edit(){
+	public function edit(){
         $getid = $this->input->post("getid");
         if($getid){
             $cek   = $this->model_kategori->edit($getid);
@@ -112,5 +112,26 @@ class Master_kategori extends CI_Controller {
             echo json_encode(array("msg"=>$msg,"notif"=>$notif));
         }
     }
+	
+	public function add (){
+		$this->form_validation->set_rules('namaadd', '', 'required');
+		$msg    = "error";
+		$notif  = "";
+		if ($this->form_validation->run() == TRUE){
+            $name    	= $this->db->escape_str($this->input->post('namaadd'));
+			 $data_add  = array(
+								'name'          => $name,
+								'create_date'	=> date("Y-m-d H:i:s"),
+            );
+			$insert = $this->db->insert('ms_category',$data_add);
+            if($insert){
+                $msg    = "success";
+                $notif  = "Berhasil";
+            }
+		}else{
+		
+		}
+		echo json_encode(array("msg"=>$msg,"notif"=>$notif));
+	}
 	
 }

@@ -24,7 +24,7 @@ echo "
 			<div class='box-body table-responsive'>
 				<div class='box-tools'>
 					<div class='input-group'>
-						<button data-toggle='modal' data-target='.bs-add-modal-sm' class='btn btn-primary '>Tambah Baru</button>
+						<button onClick=javascript:kategori_modal_add() class='btn btn-primary '>Tambah Baru</button>
 						<span></spam>
 						<button data-toggle='modal' data-target='.delete_modal' onclick=javascript:delete_table('admin/master_kategori/delete') class='btn btn-warning'>Hapus</button>
 					</div>
@@ -117,6 +117,32 @@ echo "
                         
                     <div class='box-footer'>
                         <button type='button' class='btn btn-primary form-kategori-edit-btn' onclick=javascript:submit_data_edit('form-kategori-edit','admin/master_kategori/edit') >Submit</button>
+                        <button type='button' class='btn btn-primary' data-dismiss='modal' >Cancel</button>
+                    </div>
+                </form>
+            </div><!-- /.box -->
+        </div>
+      </div>
+    </div>
+	
+	<div class='modal fade box-form-kategori-add' id='box-form-kategori-add' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel' aria-hidden='true'>
+      <div class='modal-dialog modal-sm'>
+        <div class='modal-content'>
+            <div class='box box-primary'>
+                <div class='box-header'>
+                    <h3 class='box-title'>add kategori</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form role='form' id='form-kategori-add'>
+                    <div class='box-body'>
+                        <div class='form-group'>
+                            <label for='namaadd'>Nama kategori</label>
+                            <input type='text' class='form-control' id='namaadd' name='namaadd' placeholder='Enter nama kategori' onkeypress=javascript:key_enter(event,'form-kategori-add','admin/master_kategori/add') >
+                        </div>
+                    </div><!-- /.box-body -->
+                        
+                    <div class='box-footer'>
+                        <button type='button' class='btn btn-primary form-kategori-edit-btn' onclick=javascript:submit_data('form-kategori-add','admin/master_kategori/add') >Submit</button>
                         <button type='button' class='btn btn-primary' data-dismiss='modal' >Cancel</button>
                     </div>
                 </form>

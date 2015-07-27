@@ -230,3 +230,33 @@ function search(id,url) {
         }
     });
 }
+function key_enter(event,selection,url) {
+	if(event.which == 13){
+		submit_data(selection,url);
+        event.preventDefault();
+	} 
+}
+//add
+function submit_data(selection,url) {
+    if ($("#"+selection).valid()) {
+        $.ajax({
+            type    : "POST",
+            url     : base_url+url,
+            data    : $("#"+selection).serialize(),
+            dataType: 'json',
+            success : function(response){
+                if (response.msg == "success") {
+                   top.location.reload();
+                }else{
+ 
+                }
+            },
+            error : function(){
+
+            }
+        });
+    }else{
+           
+    }
+    
+}
