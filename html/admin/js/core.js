@@ -30,13 +30,7 @@ $(document).ready(function() {
 
 // ERROR DAN SUCCESS NOTIFICATION
 
-function notif(e,param,delay=3000){
-	if (param == 'success') {
-		$('#notif').html(box_success(e)).hide().slideDown().delay(delay).slideUp();
-	}else if(param == 'error'){
-		$('#notif').html(box_error(e)).hide().slideDown().delay(delay).slideUp();
-	};
-}
+
 
 function box_success(e){
 	var box = '<div class="alert alert-success alert-dismissable" style="width:300px">'

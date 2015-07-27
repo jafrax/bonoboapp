@@ -11,6 +11,7 @@ class Model_toko extends CI_Model {
 	 
 	  public function get_all_toko($limit=1000000,$offset=0){
 		$this->db->limit($limit,$offset);
+		$this->db->order_by('name','asc');
 		return $this->db->get('tb_toko');
 	  }
 	  

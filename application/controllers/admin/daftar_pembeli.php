@@ -3,7 +3,7 @@
 * Admin CONTROLLER daftar_pembeli
 *
 * Log Activity : ~ Create your log if you change this controller ~
-* 1. Create 22 July 2015 by Adi Setyo, Create controller : Coding index, search
+* 1. Create 22 July 2015 by Adi Setyo, Create controller : Coding index, search, delete
 */
 class Daftar_pembeli extends CI_Controller {
     var $data = array('scjav'=>'assets/jController/admin/CtrlDpembeli.js');
