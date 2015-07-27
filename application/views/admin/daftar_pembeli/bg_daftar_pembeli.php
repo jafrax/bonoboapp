@@ -24,9 +24,12 @@ echo "
 			<div class='box-body table-responsive'>
 				<div class='box-tools'>
 					<div class='input-group'>
-						<input type='text' name='table_search' class='form-control input-sm pull-right' style='width: 150px;' placeholder='Search'/>
+						<button data-toggle='modal' data-target='.delete_modal' onclick=javascript:delete_table('admin/daftar_pembeli/delete') class='btn btn-warning'>Hapus</button>
+					</div>
+					<div class='input-group'>
+						<input type='text' id='search' name='table_search' class='form-control input-sm pull-right' style='width: 150px;' placeholder='Search' onChange=javascript:search('#search','admin/daftar_pembeli/search') />
 						<div class='input-group-btn'>
-							<button class='btn btn-sm btn-default'><i class='fa fa-search'></i></button>
+							<button class='btn btn-sm btn-default' onclick=javascript:search('#search','admin/daftar_pembeli/search')><i class='fa fa-search'></i></button>
 						</div>
 					</div>
 				</div><br>
@@ -34,10 +37,14 @@ echo "
 				<table class='table table-bordered table-striped'>
 					<thead>
 						<tr>
+							<th style='width: 10px'>
+								<label>
+									<input id='checkall' type='checkbox'>
+								</label>
+							</th>
 							<th>No</th>
 							<th>Nama Pembeli</th>
 							<th>Email</th>
-							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>";
@@ -48,12 +55,14 @@ echo "
 						$nama=ucwords($row->name);
 							echo "
 							<tr>
+								<td>
+									<label>
+										<input class='checkboxDelete' type='checkbox' value='".$row->id."' >
+									</label>
+								</td>
 								<td>$i</td>
 								<td>".$nama."</td>
 								<td>".$row->email."</td>
-								<td>
-									<button data-toggle='modal' data-target='.confirm' class='btn btn-warning btn-sm' >Hapus</button>
-								</td>
 							</tr>";
 						}
 					}else{
@@ -65,10 +74,14 @@ echo "
 					</tbody>
 					<tfoot>
 						<tr>
+							<th style='width: 10px'>
+								<label>
+									<input id='checkall' type='checkbox'>
+								</label>
+							</th>
 							<th>No</th>
 							<th>Nama Pembeli</th>
 							<th>Email</th>
-							<th>Action</th>
 					</tfoot>
 				</table>
 			<div id='page' class='box-footer clearfix'>

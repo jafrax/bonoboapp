@@ -15,10 +15,15 @@ class Model_pembeli extends CI_Model {
 		return $this->db->get('tb_member');
 	  }
 	  
-	  public function delp_byid($data){
-		$this->db->where('id',$data['id_dt']);
-		return $this->db->delete('ms_location');
-	  }
+	  public function search($search,$limit=1000000,$offset=0){
+        if($search != "all-search"){
+            $this->db->like("name",$search);
+			$this->db->or_like("email",$search);
+        }
+		$this->db->limit($limit,$offset);
+        $this->db->order_by("name","asc");
+		return $this->db->get('tb_member');
+    }
 }
 
 ?>
