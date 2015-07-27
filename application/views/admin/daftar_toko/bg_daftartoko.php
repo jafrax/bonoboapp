@@ -21,41 +21,49 @@ echo"
 					<div class='box-header'>
 						<h3 class='box-title'></h3>                                    
 					</div><!-- /.box-header -->
-						<div id='div-paging'>
 							<div class='box-body table-responsive'>
 								<div class='box-tools'>
 									<div class='input-group'>
-										<input type='text' name='table_search' class='form-control input-sm pull-right' style='width: 150px;' placeholder='Search' onChange=javascript:search(this.id,'')/>
+										<button data-toggle='modal' data-target='.delete_modal' onclick=javascript:delete_table('admin/daftar_toko/delete') class='btn btn-warning'>Hapus</button>
+									</div>
+									<div class='input-group'>
+										<input type='text' id='search' name='table_search' class='form-control input-sm pull-right' style='width: 150px;' placeholder='Search' onChange=javascript:search('#search','admin/daftar_toko/search') />
 										<div class='input-group-btn'>
-											<button class='btn btn-sm btn-default'><i class='fa fa-search'></i></button>
+											<button class='btn btn-sm btn-default' onclick=javascript:search('#search','admin/daftar_toko/search')><i class='fa fa-search'></i></button>
 										</div>
 									</div>
 								</div><br>
+								<div id='div-paging'>
 								<table class='table table-bordered table-striped'>
 									<thead>	";
 									echo "
 										<tr>
+											<th style='width: 10px'>
+												<label>
+													<input id='checkall' type='checkbox'>
+												</label>
+											</th>
 											<th>No</th>
 											<th>Nama Toko</th>
 											<th>Email</th>
 											<th>Email Status</th>
 											<th>Account Status</th>
 											<th>Berlaku s/d</th>
-											<th>Action</th>
 										</tr>
 									</thead>
 									<tbody>";
 										 $i=0;
-									if (empty($allToko)) {
-										echo "<tr>
-												<td colspan='6'>Zero</td>                                       
-											</tr>";
-									}else{
+									if ($allToko->num_rows > 0) {
 										foreach ($allToko->result() as $row) {
 											$i++;
 											$nama=ucwords($row->name);
 										echo "
 											<tr class='toko-".$row->id."'>
+												<td>
+													<label>
+														<input class='checkboxDelete' type='checkbox' value='".$row->id."' >
+													</label>
+												</td>
 												<td>$i</td>
 												<td>".$nama."</td>
 												<td>".$row->email."</td>
@@ -94,51 +102,36 @@ echo"
 														</div>
 													  </div>
 													</div>
-												<td><a href='#' class='btn btn-warning btn-sm' data-target='.delete_".$row->id."' data-toggle='modal'>Hapus</a></td>
-												<div class='modal fade delete_".$row->id."' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel' aria-hidden='true'>
-													  <div class='modal-dialog modal-sm'>
-														<div class='modal-content'>
-															<div class='box box-solid box-danger'>
-																<div class='box-header'>
-																	<h3 class='box-title'>Confirmation</h3>
-																	<div class='box-tools pull-right'>
-																		<button class='btn btn-danger btn-sm' data-widget='collapse'><i class='fa fa-minus'></i></button>
-																		<button class='btn btn-danger btn-sm' class='close' data-dismiss='modal' aria-label='Close'><i class='fa fa-times'></i></button>
-																	</div>
-																</div>
-																<div class='box-body' style='display: block;'>
-																	<span> Apakah anda yakin ingin menghapus '".$nama."' ? </span>
-																	<br/>
-																</div><!-- /.box-body -->
-																<div class='box-footer'>
-																	<button type='button' class='btn btn-danger' data-dismiss='modal' onlick='javascript:delete_dt(".$row->id.")'>Ya</button>
-																	<button type='button' class='btn btn-danger' data-dismiss='modal'>Tidak</button>
-																</div>
-															</div>
-														</div>
-													  </div>
-													</div>
 											</tr>";
 											}
+									}else{
+										echo "<tr>
+												<td colspan='6'>Zero</td>                                       
+											</tr>";
 										}
 									echo "										
 									</tbody>
 									<tfoot>
 										<tr>
+											<th style='width: 10px'>
+												<label>
+													<input id='checkall' type='checkbox'>
+												</label>
+											</th>
 											<th>No</th>
 											<th>Nama Toko</th>
 											<th>Email</th>
 											<th>Email Status</th>
 											<th>Account Status</th>
 											<th>Berlaku s/d</th>
-											<th>Action</th>
 									</tfoot>
 								</table>
-							</div><!-- /.box-body -->
+							
 							<div id='page' class='box-footer clearfix'>
 								$pagination
 							</div>
-					</div>
+						</div>
+					</div><!-- /.box-body -->
 				</div><!-- /.box -->
 				
 

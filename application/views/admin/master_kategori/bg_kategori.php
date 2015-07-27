@@ -21,7 +21,6 @@ echo "
 			<div class='box-header'>
 				<h3 class='box-title'></h3>                                    
 			</div><!-- /.box-header -->
-			<div id='div-paging'>
 			<div class='box-body table-responsive'>
 				<div class='box-tools'>
 					<div class='input-group'>
@@ -34,6 +33,7 @@ echo "
 						</div>
 					</div>
 				</div><br>
+				<div id='div-paging'>
 				<table class='table table-bordered table-striped'>
 					<thead>
 						<tr>
@@ -44,13 +44,8 @@ echo "
 					</thead>
 					<tbody>";
 					$i=0;
-					if (empty($allMKategori)){
-					echo "
-						<tr>
-							<span> Zero </span>
-						</tr>";
-						}else{
-							foreach ($allMKategori->result() as $row ){
+					if ($allMKategori->num_rows > 0){
+					foreach ($allMKategori->result() as $row ){
 							$i++;
 							echo "
 							<tr class='toko-".$row->id."'>
@@ -86,6 +81,11 @@ echo "
 								</div>
 							</tr>";
 							}
+						}else{
+							echo "
+									<tr>
+										<span> Zero </span>
+									</tr>";
 						}
 					echo "	
 					</tbody>
@@ -96,11 +96,11 @@ echo "
 							<th>Action</th>
 					</tfoot>
 				</table>
-			</div><!-- /.box-body -->
 			<div class='box-footer clearfix'>
 				$pagination
 			</div>
 		</div>
+		</div><!-- /.box-body -->
 		</div><!-- /.box -->
 	</section><!-- /.content -->
 </aside><!-- /.right-side -->

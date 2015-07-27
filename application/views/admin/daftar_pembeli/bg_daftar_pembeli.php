@@ -21,10 +21,7 @@ echo "
 			<div class='box-header'>
 				<h3 class='box-title'></h3>                                    
 			</div><!-- /.box-header -->
-			<div id='div-paging'>
 			<div class='box-body table-responsive'>
-
-
 				<div class='box-tools'>
 					<div class='input-group'>
 						<input type='text' name='table_search' class='form-control input-sm pull-right' style='width: 150px;' placeholder='Search'/>
@@ -33,6 +30,7 @@ echo "
 						</div>
 					</div>
 				</div><br>
+				<div id='div-paging'>
 				<table class='table table-bordered table-striped'>
 					<thead>
 						<tr>
@@ -43,14 +41,9 @@ echo "
 						</tr>
 					</thead>
 					<tbody>";
-					//echo $allPembeli->num_rows();
 					$i=0;
-					if (empty($allPembeli)) {
-						echo "<tr>
-								<td colspan='4'>Zero</td>                                       
-							 </tr>";
-					}else{
-						foreach($allPembeli->result() as $row){
+					if ($allPembeli->num_rows > 0) {
+					foreach($allPembeli->result() as $row){
 						$i++;
 						$nama=ucwords($row->name);
 							echo "
@@ -63,6 +56,10 @@ echo "
 								</td>
 							</tr>";
 						}
+					}else{
+						echo "<tr>
+								<td colspan='4'>Zero</td>                                       
+							 </tr>";
 					}
 					echo"
 					</tbody>
@@ -74,11 +71,11 @@ echo "
 							<th>Action</th>
 					</tfoot>
 				</table>
-			</div><!-- /.box-body -->
 			<div id='page' class='box-footer clearfix'>
 				$pagination
 			</div>
 		</div>
+		</div><!-- /.box-body -->
 	</div><!-- /.box -->
 	</section><!-- /.content -->
 </aside><!-- /.right-side -->
