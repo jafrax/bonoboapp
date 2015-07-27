@@ -49,7 +49,7 @@ class Master_kategori extends CI_Controller {
 				$del[] = $delete[$i];
             }
             
-			$this->db->where_in('id',$delete)->delete('tb_toko');
+			$this->db->where_in('id',$delete)->delete('ms_category');
 		}
 	}
 	
@@ -71,11 +71,11 @@ class Master_kategori extends CI_Controller {
 			}
 			
 			$this->data["search"]	= $_SESSION['search'];
-			$pg		            	= $this->model_toko->search($_SESSION['search']);
-			$url	           		= 'admin/daftar_toko/search';
+			$pg		            	= $this->model_kategori->search($_SESSION['search']);
+			$url	           		= 'admin/master_kategori/search';
 			$this->data['pagination']	= $this->template->paging2($pg,$uri,$url,$limit);
-			$this->data['allToko']		= $this->model_toko->search($_SESSION['search'],$limit,$offset);
-			$this->load->view('admin/daftar_toko/bg_daftartoko_ajax', $this->data);
+			$this->data['allMKategori']		= $this->model_kategori->search($_SESSION['search'],$limit,$offset);
+			$this->load->view('admin/master_kategori/bg_kategori_ajax', $this->data);
 		}
 	}
 	
