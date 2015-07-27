@@ -58,10 +58,10 @@ class Master_lokasi extends CI_Controller {
 			}
 			
 			$this->data["search"]	= $_SESSION['search'];
-			$pg		            	= $this->model_toko->search($_SESSION['search']);
+			$pg		            	= $this->model_lokasi->search($_SESSION['search']);
 			$url	           		= 'admin/master_lokasi/search';
 			$this->data['pagination']	= $this->template->paging2($pg,$uri,$url,$limit);
-			$this->data['allMLokasi']		= $this->model_toko->search($_SESSION['search'],$limit,$offset);
+			$this->data['allMLokasi']		= $this->model_lokasi->search($_SESSION['search'],$limit,$offset);
 			$this->load->view('admin/master_lokasi/bg_masterlokasi_ajax', $this->data);
 		}
 	}
