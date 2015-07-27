@@ -27,6 +27,10 @@ class License extends CI_Controller {
         $this->template->bonobo_admin('license/bg_generator',$this->data);
     }
 
+    public function generate(){
+        
+    }
+
 /*
  *  Dinar Wahyu Wibowo
  *  PAGE LICENSE SETTING 

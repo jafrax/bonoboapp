@@ -329,92 +329,6 @@
         }
         return $html;
     }
-
-    public function cek_email($to_id,$last_chat){
-        $ci =& get_instance();
-        $ci->load->model("enduser/model_message");
-        $ci->load->model("enduser/model_company");
-        $ci->load->model("enduser/model_user_contact");
-        $company    = $ci->model_company->get_company_id($to_id)->row();
-        $cek_member = $ci->model_company->get_name($company->company_id)->row();
-        $durasi     = $ci->model_message->cek_durasi()->row();
-        
-        $jam        = $last_chat;
-        //$datetime1  = date('H:i:s', $jam);
-        $diff1  = $this->xTimeAgo($jam,date('Y-m-d H:i:s'));
-        $diff2  = $this->xTimeAgo($jam,date('Y-m-d H:i:s'));     
-        
-        $messages       = $ci->model_message->get_rung_ditonton($to_id);
-        $data['email']  = $company->email;      
-        $data['name']   = $_SESSION['bonobo']['name'];
-        $data['pesan']  = '';
-        //echo "string";
-        foreach($messages->result() as $Message){
-            $user_image = base_url("assets/icon/user-def.png");         
-            
-            if(!empty($Message->userfrom_image)){
-                $user_image = base_url("assets/pic/user/resize/".$Message->userfrom_image);
-            }
-
-            $hour = strtotime($Message->message_update);
-            $message_hour = date('H:i', $hour);
-
-            if($Message->message_date == date('Y-m-d')){
-                $date = $message_hour;
-            }else{
-                $date = $Message->message_date;
-            }
-            $data['pesan'] .= "
-                <div style='margin-bottom: 10px;margin-top: 10px;min-height: 50px;'>
-                    <img src='".$user_image."' style='border: 1px solid #ddd !important;border-radius: 5px;height: 50px;position: absolute;width: 50px;'> 
-                    <div style='margin-left: 70px;'>
-                        <div style='color: #aaa;cursor: pointer;display: inline-block;float: right;font-size: 11px;margin-top: 5px;padding: 5px;text-shadow: none;'>".$date."</div>
-                        <a href='#' style='color: #337ab7;text-decoration: none;'>".$Message->userfrom_name." - (".$Message->company_name.")</a><br>".$Message->message_text."
-                    </div>
-                </div>                              
-            ";
-        }
-
-        $message= $ci->load->view('v2/email/send_chat',$data,TRUE);
-        
-        if ($ci->model_company->get_name($company->company_id)->num_rows() > 0){
-            if (($cek_member->verified == 2 || $cek_member->verified == 1) && $durasi->gold_message_status == 1 ){
-                if ($diff1 >= $durasi->gold_message_hour){
-                    $sending=$ci->template->send_email($company->email,'New Message from '.$_SESSION['bonobo']['name'],$message,'no-reply@bonobo.com','no-reply@bonobo.com');
-                    //echo "gold";
-                }
-            }elseif ($cek_member->verified == 0 && $durasi->free_message_status == 1){
-                if ($diff2 >= $durasi->free_message_hour){
-                    $sending=$ci->template->send_email($company->email,'New Message from '.$_SESSION['bonobo']['name'],$message,'no-reply@bonobo.com','no-reply@bonobo.com');
-                    //echo "free";
-                }
-            }
-			//echo $cek_member->verified.":".$durasi->free_message_status."<br> diff- durasi".$diff2 .":". $durasi->free_message_hour."<br>";
-			//echo $jam." ".date('Y-m-d H:i:s');
-        }else{
-            if ($durasi->free_message_status == 1){
-                if ($diff2 >= $durasi->free_message_hour){
-                    $sending=$ci->template->send_email($company->email,'New Message from '.$_SESSION['bonobo']['name'],$message,'no-reply@bonobo.com','no-reply@bonobo.com');
-                    //echo "string";
-                }
-            }
-        }
-    }
-
-    public function selisih($jam_masuk,$jam_keluar) {
-        list($h,$m,$s) = explode(":",$jam_masuk);
-        $dtAwal = mktime($h,$m,$s,"1","1","1");
-        list($h,$m,$s) = explode(":",$jam_keluar);
-        $dtAkhir = mktime($h,$m,$s,"1","1","1");
-        $dtSelisih = $dtAkhir-$dtAwal;
-
-        $totalmenit=$dtSelisih/60;
-        $jam =explode(".",$totalmenit/60);
-        $sisamenit=($totalmenit/60)-$jam[0];
-        $sisamenit2=$sisamenit*60;
-        $jml_jam=$jam[0];
-        return $jml_jam;
-    }
 	
 	function xTimeAgo ($oldTime, $newTime) {
         $timeCalc = strtotime($newTime) - strtotime($oldTime);       
@@ -432,6 +346,15 @@
         else if ($timeCalc > 0) {$timeCalc .= " detik yang lalu";}
 
         return $timeCalc;
+    }
+
+    function generate_code($string){
+        $bignum = hexdec( md5($string));
+        $bignum = number_format($bignum);
+        $bignum = str_replace(',', '',$bignum);
+        $bignum = substr($bignum, 0,16);
+
+        return $bignum;
     }
 	
 }

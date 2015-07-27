@@ -1,4 +1,5 @@
 <?php
+
 echo "
 <!-- Right side column. Contains the navbar and content of the page -->
             <aside class='right-side'>
@@ -21,6 +22,7 @@ echo "
                         <div class='box-header'>
                             <h3 class='box-title'></h3>                                    
                         </div><!-- /.box-header -->
+                        <div id='notif'></div>
                         <div class='box-body table-responsive'>
                             <div class='row'>
                                 <div class='col-xs-12 col-md-6'>
@@ -56,17 +58,15 @@ echo "
                                             </select>
                                         </div>
                                     </div>
-                                    <div class='row form-group'>
-                                        <div class='nolpadright col-xs-12'>
-                                            <label>Kode</label>
-                                        </div>
+                                    <div class='row form-group'>                                        
                                         <div class='padbottom col-xs-12 col-md-6'>
-                                            <input type='text' id='code' name='code' class='form-control' placeholder='xxxx-xxxx-xxxx-xxxx' value='' disabled>
-                                        </div>
-                                        <div class='padbottom col-xs-12 col-md-6'>
-                                            <button type='button' class='btn btn-primary'>Generate</button>
+                                            <button type='button' class='btn btn-primary' id='btn-generate' onclick=javascript:generate()>Generate</button>
                                         </div>
                                     </div>
+                                </div>
+                                </form>
+                                <div class='col-xs-12 col-md-6' id='generate-notif'>
+                                    
                                 </div>
                             </div>
                         </div><!-- /.box-body -->

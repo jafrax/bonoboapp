@@ -20,6 +20,8 @@ echo"
         <link href='".site_url("html/admin/css/timepicker/bootstrap-timepicker.min.css.")."' rel='stylesheet'/>
         <!-- Theme style -->
         <link href='".site_url("html/admin/css/AdminLTE.css")."' rel='stylesheet' type='text/css' />
+        
+        <link type='text/css' rel='stylesheet' href='".base_url("html/css/chosen.css")."' />
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
