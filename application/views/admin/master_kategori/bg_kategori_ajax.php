@@ -26,9 +26,9 @@ echo "
 						</label>
 					</td>
 					<td>$i</td>
-					<td>".$row->name."</td>
+					<td id='nama-".$row->id."'>".$row->name."</td>
 					<td>
-						<button data-toggle='modal' data-target='.bs-edit-modal-sm' class='btn btn-primary btn-sm'>Edit</button>
+						<button class='btn btn-primary btn-sm' onClick=javascript:kategori_modal('".$row->id."') >Edit</button>
 					</td>
 				</tr>";
 				}

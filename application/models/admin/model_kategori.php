@@ -23,6 +23,10 @@ class Model_kategori extends CI_Model {
         $this->db->order_by("name","asc");
 		return $this->db->get('ms_category');
     }
+	function edit($id){
+        $this->db->where("id",$id);
+		return $this->db->get('ms_category')->result();
+    }
 
 
 }

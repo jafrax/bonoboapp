@@ -79,4 +79,38 @@ class Master_kategori extends CI_Controller {
 		}
 	}
 	
+	function edit(){
+        $getid = $this->input->post("getid");
+        if($getid){
+            $cek   = $this->model_kategori->edit($getid);
+            $msg    = "error";
+            if(count($cek)>0){
+                $msg    = "success";
+            }
+            $msg    = array("msg"=>$msg);
+            $data   = array_merge($msg,$cek);
+            echo json_encode($data);
+        }else{
+            $this->form_validation->set_rules('namaedit', '', 'required');
+            $this->form_validation->set_rules('idedit', '', 'required');
+            $msg    = "error";
+            $notif  = "";
+            if ($this->form_validation->run() == TRUE){
+                
+                $name    	= $this->db->escape_str($this->input->post('namaedit'));
+                $idedit     = $this->db->escape_str($this->input->post('idedit'));
+                $param  = array(
+                    'name'          => $name
+                );
+                
+                $insert = $this->db->where("id",$idedit)->update('ms_category',$param);
+                if($insert){
+                    $msg    = "success";
+                    $notif  = "Berhasil";
+                }
+            }
+            echo json_encode(array("msg"=>$msg,"notif"=>$notif));
+        }
+    }
+	
 }
