@@ -5,6 +5,7 @@
 *
 * Log Activity : ~ Create your log if you change this controller ~
 * 1. Create 28 Juni 2015 by Adi Setyo, Create function : get_all_bank, search, edit
+
 */
 
 class Model_bank extends CI_Model {

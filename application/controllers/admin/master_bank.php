@@ -30,12 +30,14 @@ class Master_bank extends CI_Controller {
         $pg=$this->model_bank->get_all_bank();
         $url='admin/master_bank/index';
         $this->data['pagination'] = $this->template->paging2($pg,$uri,$url,$limit);        
+
         $this->data['allMBank']=$this->model_bank->get_all_bank($limit,$offset);
         
 		if ($this->input->post('ajax')) {
             $this->load->view('admin/master_bank/bg_masterbank_ajax', $this->data);
         } else {
             $this->template->bonobo_admin('master_bank/bg_masterbank', $this->data);
+
         } 
     }
 		
@@ -74,8 +76,10 @@ class Master_bank extends CI_Controller {
 			$pg		            	= $this->model_bank->search($_SESSION['search']);
 			$url	           		= 'admin/master_bank/search';
 			$this->data['pagination']	= $this->template->paging2($pg,$uri,$url,$limit);
+
 			$this->data['allMBank']		= $this->model_bank->search($_SESSION['search'],$limit,$offset);
 			$this->load->view('admin/master_bank/bg_masterbank_ajax', $this->data);
+
 		}
 	}
 	
@@ -100,8 +104,10 @@ class Master_bank extends CI_Controller {
                 $name    	= $this->db->escape_str($this->input->post('namaedit'));
                 $idedit     = $this->db->escape_str($this->input->post('idedit'));
                 $param  = array(
+
                     'name'          => $name,
 					'update_user'   => $_SESSION['bonobo_admin']->email
+
                 );
                 
                 $insert = $this->db->where("id",$idedit)->update('ms_bank',$param);
@@ -123,7 +129,9 @@ class Master_bank extends CI_Controller {
 			 $data_add  = array(
 								'name'          => $name,
 								'create_date'	=> date("Y-m-d H:i:s"),
+
 								'create_user'   => $_SESSION['bonobo_admin']->email
+
             );
 			$insert = $this->db->insert('ms_bank',$data_add);
             if($insert){
@@ -131,7 +139,7 @@ class Master_bank extends CI_Controller {
                 $notif  = "Berhasil";
             }
 		}else{
-		
+
 		}
 		echo json_encode(array("msg"=>$msg,"notif"=>$notif));
 	}
