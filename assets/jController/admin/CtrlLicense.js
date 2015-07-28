@@ -56,6 +56,7 @@ function change_duration() {
 function generate(){
 	if ($("#form-generate").valid()==true) {
 		$('#btn-generate').fadeTo(0.4,'slow');
+		$('#generate-notif').fadeOut();
 		$('#btn-generate').html("<img width='16px' src='"+base_url+"html/images/comp/loading2.GIF' /> Loading...");
 		$.ajax({ 
 			type:'post',
@@ -66,20 +67,28 @@ function generate(){
 					$('#btn-generate').fadeTo(1,'slow');
 					$('#btn-generate').html("Generate");
 					notif('License telah di generate','success');
-					$.ajax({ 
-						type:'post',
-						data:msg,
-						url:base_url+'admin/license/get_license',
-						success:function(msg){
-							$('#generate-notif').html(msg).hide().slideDown();
-						}
-					})
+					$('#generate-notif').html(msg).hide().slideDown();					
+					document.getElementById("form-generate").reset();
 				}else{
 					$('#btn-generate').fadeTo(1,'slow');
 					$('#btn-generate').html("Generate");
 					notif('License gagal di generate','error');
+					document.getElementById("form-generate").reset();
 				};
 			}
 		});
 	};
+}
+
+function change_option () {
+	var opt = $('#option').val();
+
+	$.ajax({
+        type	: 'POST',
+        data	: 'opt='+opt,
+        url		: base_url+'admin/license/option',
+        success: function(msg) {
+            location.reload();
+        }
+    });
 }

@@ -35,7 +35,7 @@ echo "
                                             <select class='chosen-select form-control' id='toko' name='toko'>
                                                 <option value=''>Pilih Toko</option>";
                                                 foreach ($toko->result() as $row_toko) {
-                                                    echo "<option value='".$row_toko->id."'>".$row_toko->name."</option>";
+                                                    echo "<option value='".$row_toko->email."'>".$row_toko->name." - ".$row_toko->email."</option>";
                                                 }
                                                 echo "
                                             </select>
@@ -47,9 +47,6 @@ echo "
                                             <label>Durasi</label>
                                         </div>
                                         <div class='padbottom col-xs-12 col-md-3'>
-                                            <input type='text' class='form-control numbersOnlyLicense' maxlength='2' id='duration' placeholder='15' name='duration'>
-                                        </div>
-                                        <div class='padbottom col-xs-12 col-md-3'>
                                             <select class='form-control' id='duration_type' name='duration_type' onchange=javascript:change_duration()>
                                                 <option value=''>Pilih Tipe</option>
                                                 <option value='d'>Hari</option>
@@ -57,6 +54,10 @@ echo "
                                                 <option value='y'>Tahun</option>
                                             </select>
                                         </div>
+                                        <div class='padbottom col-xs-12 col-md-3'>
+                                            <input type='text' class='form-control numbersOnlyLicense' maxlength='2' id='duration'  name='duration'>
+                                        </div>
+                                        
                                     </div>
                                     <div class='row form-group'>                                        
                                         <div class='padbottom col-xs-12 col-md-6'>

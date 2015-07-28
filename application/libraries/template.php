@@ -348,13 +348,6 @@
         return $timeCalc;
     }
 
-    function generate_code($string){
-        $bignum = hexdec( md5($string));
-        $bignum = number_format($bignum);
-        $bignum = str_replace(',', '',$bignum);
-        $bignum = substr($bignum, 0,16);
-
-        return $bignum;
-    }
+    
 	
 }
