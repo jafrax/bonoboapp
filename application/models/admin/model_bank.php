@@ -1,10 +1,11 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /*
-* MODEL bank
+* MODEL KATEGORI
 *
 * Log Activity : ~ Create your log if you change this controller ~
-* 1. Create 24 Juni 2015 by Adi Setyo, Create function : get_all_bank, 
+* 1. Create 24 Juni 2015 by Adi Setyo, Create function : get_all_bank, search, edit
+
 */
 
 class Model_bank extends CI_Model {

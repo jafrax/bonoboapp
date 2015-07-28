@@ -1,10 +1,10 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /*
 * MODEL KATEGORI
 *
 * Log Activity : ~ Create your log if you change this controller ~
-* 1. Create 24 Juni 2015 by Adi Setyo, Create function : get_all_kategori, 
+* 1. Create 24 Juni 2015 by Adi Setyo, Create function : get_all_kategori, search, edit
 */
 
 class Model_kategori extends CI_Model {

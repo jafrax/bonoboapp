@@ -100,7 +100,8 @@ class Master_kategori extends CI_Controller {
                 $name    	= $this->db->escape_str($this->input->post('namaedit'));
                 $idedit     = $this->db->escape_str($this->input->post('idedit'));
                 $param  = array(
-                    'name'          => $name
+                    'name'          => $name,
+					'update_user'   => $_SESSION['bonobo_admin']->email
                 );
                 
                 $insert = $this->db->where("id",$idedit)->update('ms_category',$param);
@@ -122,6 +123,7 @@ class Master_kategori extends CI_Controller {
 			 $data_add  = array(
 								'name'          => $name,
 								'create_date'	=> date("Y-m-d H:i:s"),
+								'create_user'   => $_SESSION['bonobo_admin']->email
             );
 			$insert = $this->db->insert('ms_category',$data_add);
             if($insert){

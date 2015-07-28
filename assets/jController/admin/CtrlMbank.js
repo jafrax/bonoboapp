@@ -3,7 +3,9 @@ $(function() {
     $('#tanggalindong').daterangepicker();
 });
 $(document).ready(function() {
+
     $('#form-bank-edit').validate({
+
         rules:{
             namaedit        : {required: true}
         },

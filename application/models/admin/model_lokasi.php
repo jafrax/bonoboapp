@@ -4,7 +4,7 @@
 * MODEL lokasi
 *
 * Log Activity : ~ Create your log if you change this controller ~
-* 1. Create 22 Juni 2015 by Adi Setyo, Create function : get_all_lokasi
+* 1. Create 22 Juni 2015 by Adi Setyo, Create function : get_all_lokasi,search
 */
 
 class Model_lokasi extends CI_Model {
