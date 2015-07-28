@@ -603,7 +603,7 @@ class Api extends CI_Controller {
 							"update_date"=>date("Y-m-d H:i:s"),
 							"update_user"=>$this->response->postDecode("email"),
 						);
-						
+				
 				$this->db->insert("tb_member",$OUser);
 			}
 
@@ -626,7 +626,6 @@ class Api extends CI_Controller {
 				$this->response->send(array("result"=>0,"message"=>"Login tidak berhasil","messageCode"=>7), true);
 			}
 			
-			
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
@@ -634,12 +633,12 @@ class Api extends CI_Controller {
 	
 	public function doForgotPassword(){
 		try {
-			
 			/*
 			*	------------------------------------------------------------------------------
 			*	Validation POST data
 			*	------------------------------------------------------------------------------
 			*/
+			
 			if(!$this->isValidApi($this->response->postDecode("api_key"))){
 				return;
 			}
@@ -2776,7 +2775,11 @@ class Api extends CI_Controller {
 				return;
 			}
 			
-			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			$QUser = $this->db
+						->where("id",$this->response->postDecode("user"))
+						->get("tb_member")
+						->row();
+						
 			if(empty($QUser)){
 				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
 				return;
@@ -2798,16 +2801,53 @@ class Api extends CI_Controller {
 				return;
 			}
 			
-			if($this->response->post("courier") == "" || $this->response->postDecode("courier") == ""){
+			if($this->response->post("courier") == ""){
 				$this->response->send(array("result"=>0,"message"=>"Tidak ada data kurir yang dipilih","messageCode"=>3), true);
 				return;
 			}
 			
-			$QCourier = $this->db->where("id",$this->response->postDecode("courier"))->get("ms_courier")->row();
+			$QCourier = $this->db
+						->where("name",$this->response->post("courier"))
+						->get("ms_courier")
+						->row();
+
 			if(empty($QCourier)){
-				$this->response->send(array("result"=>0,"message"=>"Data kurir tidak ditemukan","messageCode"=>2), true);
+				$this->response->send(array("result"=>0,"message"=>"Data kurir tidak ditemukan : ".str_replace("+","",$this->response->postDecode("courier")),"messageCode"=>2), true);
 				return;
 			}
+			
+			if($this->response->post("location_name") == "" || $this->response->postDecode("location_name") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data nama penerima","messageCode"=>3), true);
+				return;
+			}
+			
+			if($this->response->post("location_phone") == "" || $this->response->postDecode("location_phone") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data telphone penerima","messageCode"=>3), true);
+				return;
+			}
+			
+			if($this->response->post("location_address") == "" || $this->response->postDecode("location_address") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data alamat penerima","messageCode"=>3), true);
+				return;
+			}
+			
+			if($this->response->post("province") == "" || $this->response->postDecode("province") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data propinsi alamat penerima","messageCode"=>3), true);
+				return;
+			}
+			
+			if($this->response->post("city") == "" || $this->response->postDecode("city") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data kota alamat penerima","messageCode"=>3), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Membuat Object Invoice
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$Invoice;
 			
 			/*
 			*	------------------------------------------------------------------------------
@@ -2815,14 +2855,13 @@ class Api extends CI_Controller {
 			*	------------------------------------------------------------------------------
 			*/
 			
-			if($this->response->postDecode("user_location_id") != ""){
+			if($this->response->postDecode("user_location") != ""){
 				$QUserLocation = $this->db
 					->select("tml.*, ml.kecamatan as location_kecamatan, ml.city as location_city, ml.province as location_province, ml.postal_code as location_postal")
 					->join("ms_location ml","tml.location_id = ml.id")
-					->where("tml.id",$this->response->postDecode("user_location_id"))
+					->where("tml.id",$this->response->postDecode("user_location"))
 					->get("tb_member_location tml")
 					->row();
-					
 			}else{
 				$QLocation = $this->db
 						->where("kelurahan",$this->response->postDecode("location_kelurahan"))
@@ -2898,6 +2937,25 @@ class Api extends CI_Controller {
 			
 			/*
 			*	------------------------------------------------------------------------------
+			*	Syncronisasi data varian dari apps ke server
+			*	------------------------------------------------------------------------------
+			*/
+			
+			if($this->response->post("cart_varians") != "" && $this->response->postDecode("cart_varians") != "" && $this->response->postDecode("cart_varians") > 0){
+				for ($i = 0; $i <$this->response->postDecode("cart_varians"); $i++) {
+					if($this->response->post("cart_varian_".$i) != "" && $this->response->postDecode("cart_varian_".$i) != "" && $this->response->post("cart_varian_quantity_".$i) != "" && $this->response->postDecode("cart_varian_quantity_".$i) != ""){
+						$Data = array(
+									"quantity"=>$this->response->postDecode("cart_varian_quantity_".$i),
+								);
+								
+						$Save = $this->db->where("id",$this->response->postDecode("cart_varian_".$i))->update("tb_cart_varian",$Data);
+					}
+				}
+			}
+			
+			
+			/*
+			*	------------------------------------------------------------------------------
 			*	Hitung Harga Total, Harga Pengiriman, Harga Unik dari tabel Cart Product
 			*	------------------------------------------------------------------------------
 			*/
@@ -2908,24 +2966,40 @@ class Api extends CI_Controller {
 			$price_unique = 0;
 			
 			$QCartProducts = $this->db
-					->select("tcp.*, tpv.id as varian_id, tpv.name as varian_name, tp.id as product_id, tp.name as product_name, tp.description as product_description")
-					->join("tb_product_varian tpv","tcp.product_varian_id = tpv.id")
-					->join("tb_product tp","tpv.product_id = tp.id")
+					->select("tcp.*, tp.id as product_id, tp.name as product_name, tp.description as product_description, tp.price_base")
+					->join("tb_product tp","tcp.product_id = tp.id")
 					->where("tcp.cart_id",$QCart->id)
 					->get("tb_cart_product tcp")
 					->result();
 			
 			foreach($QCartProducts as $QCartProduct){
-				$price_total = $price_total + ($QCartProduct->quantity + $QCartProduct->price_product);
+				$price_product = 0;
+				
+				$QCartVarians = $this->db
+					->select("tcv.*")
+					->join("tb_product_varian tpv","tcv.product_varian_id = tpv.id")
+					->where("tcv.cart_product_id",$QCartProduct->id)
+					->get("tb_cart_varian tcv")
+					->result();
+						
+				foreach($QCartVarians as $QCartVarian){
+					$price_total = $price_total + ($QCartVarian->quantity + $QCartProduct->price_base);
+					$price_product = $price_product + ($QCartVarian->quantity + $QCartProduct->price_base);
+				}
+				
+				$Data = array(
+						"price_product"=>$price_product,
+					);
+					
+				$Save = $this->db->where("id",$QCartProduct->id)->update("tb_cart_product",$Data);
 			}
-			
-			
 			
 			/*
 			*	------------------------------------------------------------------------------
 			*	Simpan data cart ke invoice
 			*	------------------------------------------------------------------------------
 			*/
+			$Date = date("Y-m-d H:i:s");
 			$Data = array(
 					"toko_id"=>$QCart->toko_id,
 					"member_id"=>$QCart->member_id,
@@ -2946,9 +3020,9 @@ class Api extends CI_Controller {
 					"location_to_city"=>$QUserLocation->location_city,
 					"location_to_kecamatan"=>$QUserLocation->location_kecamatan,
 					"location_to_postal"=>$QUserLocation->location_postal,
-					"create_date"=>date("Y-m-d H:i:s"),
+					"create_date"=>$Date,
 					"create_user"=>$QUser->email,
-					"update_date"=>date("Y-m-d H:i:s"),
+					"update_date"=>$Date,
 					"update_user"=>$QUser->email,
 				);
 				
@@ -2957,121 +3031,196 @@ class Api extends CI_Controller {
 			if($Save){
 				/*
 				*	------------------------------------------------------------------------------
+				*	Query ambil data Invoice Terbaru
+				*	------------------------------------------------------------------------------
+				*/
+				$QInvoice = $this->db
+					->where("toko_id",$QCart->toko_id)
+					->where("member_id",$QCart->member_id)
+					->where("invoice_no",$invoice_no)
+					->where("notes",$this->response->postDecode("note"))
+					->where("member_name",$QUser->name)
+					->where("member_email",$QUser->email)
+					->where("member_confirm",0)
+					->where("status",0)
+					->where("price_total",$price_total)
+					->where("price_shipment",$price_shipment)
+					->where("price_unique",$price_unique)
+					->where("shipment_no",$QCourier->id)
+					->where("shipment_service",$QCourier->name)
+					->where("recipient_name",$QUserLocation->name)
+					->where("recipient_phone",$QUserLocation->phone)
+					->where("location_to_province",$QUserLocation->location_province)
+					->where("location_to_city",$QUserLocation->location_city)
+					->where("location_to_kecamatan",$QUserLocation->location_kecamatan)
+					->where("location_to_postal",$QUserLocation->location_postal)
+					->where("create_date",$Date)
+					->where("create_user",$$QUser->email)
+					->where("update_date",$Date)
+					->where("update_user",$$QUser->email)
+					->get("tb_invoice")
+					->row();
+					
+				if(!empty($QInvoice)){
+					$InvoiceProducts = array();
+					/*
+					*	------------------------------------------------------------------------------
+					*	Simpan data invoice product dari cart product
+					*	------------------------------------------------------------------------------
+					*/
+					foreach($QCartProducts as $QCartProduct){
+						$Data = array(
+								"invoice_id"=>$QInvoice->id,
+								"product_id"=>$QCartProduct->product_id,
+								"price_product"=>$QCartProduct->price_product,
+								"product_name"=>$QCartProduct->product_name,
+								"product_image"=>"",
+								"product_description"=>$QCartProduct->product_description,
+								"create_date"=>$Date,
+								"create_user"=>$QUser->email,
+								"update_date"=>$Date,
+								"update_user"=>$QUser->email,
+							);
+							
+						$Save = $this->db->insert("tb_invoice_product",$Data);
+						if($Save){
+							/*
+							*	------------------------------------------------------------------------------
+							*	Query mengambil data invoice product yang baru saja di save
+							*	------------------------------------------------------------------------------
+							*/
+							
+							$QInvoiceProduct = $this->db
+								->where("invoice_id",$QInvoice->id)
+								->where("product_id",$QCartProduct->product_id)
+								->where("price_product",$QCartProduct->price_product)
+								->where("product_name",$QCartProduct->product_name)
+								->where("product_image","")
+								->where("product_description",$QCartProduct->product_description)
+								->where("create_date",$Date)
+								->where("create_user",$QUser->email)
+								->where("update_date",$Date)
+								->where("update_user",$QUser->email)
+								->get("tb_invoice_product")
+								->row();
+							
+							if(!empty($QInvoiceProduct)){
+								$InvoiceVarians = array();
+								/*
+								*	------------------------------------------------------------------------------
+								*	Simpan data invoice varian dari cart varian
+								*	------------------------------------------------------------------------------
+								*/
+								
+								$QCartVarians = $this->db
+									->select("tcv.*, tpv.name as varian_name")
+									->join("tb_product_varian tpv","tcv.product_varian_id = tpv.id")
+									->where("tcv.cart_product_id",$QCartProduct->id)
+									->get("tb_cart_varian tcv")
+									->result();
+										
+								foreach($QCartVarians as $QCartVarian){
+									$Data = array(
+											"invoice_product_id"=>$QInvoiceProduct->id,
+											"product_varian_id"=>$QCartVarian->product_varian_id,
+											"quantity"=>$QCartVarian->quantity,
+											"varian_name"=>$QCartVarian->varian_name,
+											"create_date"=>$Date,
+											"create_user"=>$QUser->email,
+											"update_date"=>$Date,
+											"update_user"=>$QUser->email,
+										);
+									
+									$Save = $this->db->insert("tb_invoice_varian",$Data);
+									if($Save){
+										$QInvoiceVarian = $this->db
+											->where("invoice_product_id",$QInvoiceProduct->id)
+											->where("product_varian_id",$QCartVarian->product_varian_id)
+											->where("quantity",$QCartVarian->quantity)
+											->where("varian_name",$QCartVarian->varian_name)
+											->where("create_date",$Date)
+											->where("create_user",$QUser->email)
+											->where("update_date",$Date)
+											->where("update_user",$QUser->email)
+											->get("tb_invoice_varian")
+											->row();
+											
+										if(!empty($QInvoiceVarian)){
+											$InvoiceVarian = array(
+													"id"=>$QInvoiceVarian->id,
+													"quantity"=>$QInvoiceVarian->quantity,
+													"varian_name"=>$QInvoiceVarian->varian_name,
+													"product_varian"=>array(),
+												);
+											array_push($InvoiceVarians,$InvoiceVarian);
+										}
+									}
+								}
+								
+								/*
+								*	------------------------------------------------------------------------------
+								*	Membuat object Invoice Product
+								*	------------------------------------------------------------------------------
+								*/
+								$InvoiceProduct = array(
+									"id"=>$QInvoiceProduct->id,
+									"price_product"=>$QInvoiceProduct->,
+									"product_name"=>$QInvoiceProduct->,
+									"product_image"=>$QInvoiceProduct->,
+									"product_description"=>$QInvoiceProduct->,
+									"product"=>$QInvoiceProduct->,
+									"invoice_varians"=>$InvoiceVarians,
+								);
+								
+								array_push($InvoiceProducts,$InvoiceProduct);
+							}
+						}
+					}
+					
+					/*
+					*	------------------------------------------------------------------------------
+					*	Membuat object Invoice
+					*	------------------------------------------------------------------------------
+					*/
+					$Invoice = array(
+							"invoice_no"=>$QInvoice->invoice_no,
+							"notes"=>$QInvoice->notes,
+							"member_name"=>$QInvoice->member_name,
+							"member_email"=>$QInvoice->member_email,
+							"member_confirm"=>$QInvoice->member_confirm,
+							"status"=>$QInvoice->status,
+							"price_total"=>$QInvoice->price_total,
+							"price_shipment"=>$QInvoice->price_shipment,
+							"price_unique"=>$QInvoice->price_unique,
+							"shipment_no"=>$QInvoice->shipment_no,
+							"shipment_service"=>$QInvoice->shipment_service,
+							"recipient_name"=>$QInvoice->recipient_name,
+							"recipient_phone"=>$QInvoice->recipient_phone,
+							"location_to_province"=>$QInvoice->location_to_province,
+							"location_to_city"=>$QInvoice->location_to_city,
+							"location_to_kecamatan"=>$QInvoice->location_to_kecamatan,
+							"location_to_postal"=>$QInvoice->location_to_postal,
+							"shop"=>$this->getShopById($QCart->toko_id),
+							"invoice_products"=>$InvoiceProducts,
+						);
+						
+					$this->response->send(array("result"=>1,"invoice"=>$Invoice), true);
+				}else{
+					$this->response->send(array("result"=>0,"message"=>"Tidak dapat menemukan invoice","messageCode"=>5), true);
+				}
+				
+				/*
+				*	------------------------------------------------------------------------------
 				*	Hapus data Cart dan ambil data Toko
 				*	------------------------------------------------------------------------------
 				*/
 				
 				//$this->db->where("id",$QCart->id)->delete("tb_cart");
 				
-				$Shop = $this->getShopById($QCart->toko_id);
 				
-				/*
-				*	------------------------------------------------------------------------------
-				*	Query ambil data Invoice Terbaru
-				*	------------------------------------------------------------------------------
-				*/
-				$QInvoice = $this->db
-						->where("toko_id",$QCart->toko_id)
-						->where("member_id",$QCart->member_id)
-						->where("invoice_no",$invoice_no)
-						->where("notes",$this->response->postDecode("note"))
-						->where("member_name",$QUser->name)
-						->where("member_email",$QUser->email)
-						->where("member_confirm",0)
-						->where("status",0)
-						->where("price_total",$price_total)
-						->where("price_shipment",$price_shipment)
-						->where("price_unique",$price_unique)
-						->where("shipment_no",$QCourier->id)
-						->where("shipment_service",$QCourier->name)
-						->where("recipient_name",$QUserLocation->name)
-						->where("recipient_phone",$QUserLocation->phone)
-						->where("location_to_province",$QUserLocation->location_province)
-						->where("location_to_city",$QUserLocation->location_city)
-						->where("location_to_kecamatan",$QUserLocation->location_kecamatan)
-						->where("location_to_postal",$QUserLocation->location_postal)
-						->get("tb_invoice")
-						->row();
 				
-				/*
-				*	------------------------------------------------------------------------------
-				*	Simpan data cart produk menjadi invoice product
-				*	------------------------------------------------------------------------------
-				*/
-				foreach($QCartProducts as $QCartProduct){
-					$Data = array(
-							"invoice_id"=>$QInvoice->id,
-							"product_varian_id"=>$QCartProduct->product_varian_id,
-							"product_name"=>$QCartProduct->product_name,
-							"product_description"=>$QCartProduct->product_description,
-							"varian_name"=>$QCartProduct->varian_name,
-							"price"=>$QCartProduct->price_product,
-							"quantity"=>$QCartProduct->quantity,
-							"create_date"=>date("Y-m-d H:i:s"),
-							"create_user"=>$QUser->email,
-							"update_date"=>date("Y-m-d H:i:s"),
-							"update_user"=>$QUser->email,
-						);
-					
-					$this->db->insert("tb_invoice_product",$Data);
-				}
-				
-				/*
-				*	------------------------------------------------------------------------------
-				*	Ambil data Nota Product
-				*	------------------------------------------------------------------------------
-				*/
-				
-				$QNotaProducts = $this->db
-							->where("tip.invoice_id",$QInvoice->id)
-							->get("tb_invoice_product tip")
-							->result();
-				
-				$NotaProducts = array();
-				foreach($QNotaProducts as $QNotaProduct){
-					$NotaProduct = array(
-							"id"=>$QNotaProduct->id,
-							"name"=>$QNotaProduct->product_name,
-							"description"=>$QNotaProduct->product_description,
-							"varian"=>$QNotaProduct->varian_name,
-							"price"=>$QNotaProduct->price,
-							"quantity"=>$QNotaProduct->quantity,
-						);
-					
-					array_push($NotaProducts,$NotaProduct);
-				}
-				
-				/*
-				*	------------------------------------------------------------------------------
-				*	Buat object Nota
-				*	------------------------------------------------------------------------------
-				*/
-				$Nota = array(
-						"id"=>$QInvoice->id,
-						"invoice_no"=>$QInvoice->invoice_no,
-						"notes"=>$QInvoice->notes,
-						"member_name"=>$QInvoice->member_name,
-						"member_email"=>$QInvoice->member_email,
-						"member_confirm"=>$QInvoice->member_confirm,
-						"status"=>$QInvoice->status,
-						"price_total"=>$QInvoice->price_total,
-						"price_shipment"=>$QInvoice->price_shipment,
-						"price_unique"=>$QInvoice->price_unique,
-						"shipment_no"=>$QInvoice->shipment_no,
-						"shipment_service"=>$QInvoice->shipment_service,
-						"recipient_name"=>$QInvoice->recipient_name,
-						"recipient_phone"=>$QInvoice->recipient_phone,
-						"location_to_province"=>$QInvoice->location_to_province,
-						"location_to_city"=>$QInvoice->location_to_city,
-						"location_to_kecamatan"=>$QInvoice->location_to_kecamatan,
-						"location_to_postal"=>$QInvoice->location_to_postal,
-						"shop"=>$Shop,
-						"invoice_products"=>$NotaProducts,
-					);
-				
-				$this->response->send(array("result"=>0,"message"=>"Invoice telah disimpan","messageCode"=>5,"invoice"=>$Nota), true);
 			}else{
-				$this->response->send(array("result"=>0,"message"=>"Data cart tidak dapat disimpan ke dalam invoice","messageCode"=>5), true);
+				$this->response->send(array("result"=>0,"message"=>"Tidak dapat membuat invoice","messageCode"=>5), true);
 			}
 			
 		} catch (Exception $e) {
@@ -3360,10 +3509,11 @@ class Api extends CI_Controller {
 			*/
 			$Cities = array();
 			$QCities = $this->db
-							->where("province",$this->response->postDecode("province"))
+							->where("province",str_replace("+","",$this->response->postDecode("province")))
 							->group_by("city")
 							->get("ms_location")
 							->result();
+							
 			foreach($QCities as $QCity){
 				$City = array(
 						"id"=>$QCity->id,
@@ -3377,7 +3527,7 @@ class Api extends CI_Controller {
 				$Kecamatans = array();
 				$QKecamatans = $this->db
 						->where("city",$QCity->city)
-						->where("province",$this->response->postDecode("province"))
+						->where("province",str_replace("+","",$this->response->postDecode("province")))
 						->group_by("kecamatan")
 						->get("ms_location")
 						->result();
@@ -3435,8 +3585,8 @@ class Api extends CI_Controller {
 			
 			$Kecamatans = array();
 			$QKecamatans = $this->db
-						->where("city",$this->response->postDecode("city"))
-						->where("province",$this->response->postDecode("province"))
+						->where("city",str_replace("+","",$this->response->postDecode("city")))
+						->where("province",str_replace("+","",$this->response->postDecode("province")))
 						->group_by("kecamatan")
 						->get("ms_location")
 						->result();
