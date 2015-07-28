@@ -1,17 +1,17 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
-* Admin CONTROLLER master_bank
+* Admin CONTROLLER master_kurir
 *
 * Log Activity : ~ Create your log if you change this controller ~
 * 1. Create 28 July 2015 by Adi Setyo, Create controller : Coding index, delete, search, edit, add
 */
-class Master_bank extends CI_Controller {
-    var $data = array('scjav'=>'assets/jController/admin/CtrlMbank.js');
+class master_kurir extends CI_Controller {
+    var $data = array('scjav'=>'assets/jController/admin/CtrlMkurir.js');
 	var $limit = 10;
 	var $offset = 0;
     function __construct(){
         parent::__construct();
-        $this->load->model("admin/model_bank");
+        $this->load->model("admin/model_kurir");
 		if(empty($_SESSION['bonobo_admin']) || empty($_SESSION['bonobo_admin']->id)){
 			redirect('admin/index/signin');
             return;
@@ -27,17 +27,15 @@ class Master_bank extends CI_Controller {
             else:
             $offset = $page;
         endif;
-        $pg=$this->model_bank->get_all_bank();
-        $url='admin/master_bank/index';
+        $pg=$this->model_kurir->get_all_kurir();
+        $url='admin/master_kurir/index';
         $this->data['pagination'] = $this->template->paging2($pg,$uri,$url,$limit);        
-
-        $this->data['allMBank']=$this->model_bank->get_all_bank($limit,$offset);
+        $this->data['allMKurir']=$this->model_kurir->get_all_kurir($limit,$offset);
         
 		if ($this->input->post('ajax')) {
-            $this->load->view('admin/master_bank/bg_masterbank_ajax', $this->data);
+            $this->load->view('admin/master_kurir/bg_masterkurir_ajax', $this->data);
         } else {
-            $this->template->bonobo_admin('master_bank/bg_masterbank', $this->data);
-
+            $this->template->bonobo_admin('master_kurir/bg_masterkurir', $this->data);
         } 
     }
 		
@@ -51,7 +49,7 @@ class Master_bank extends CI_Controller {
 				$del[] = $delete[$i];
             }
             
-			$this->db->where_in('id',$delete)->delete('ms_bank');
+			$this->db->where_in('id',$delete)->delete('ms_courier');
 		}
 	}
 	
@@ -73,20 +71,18 @@ class Master_bank extends CI_Controller {
 			}
 			
 			$this->data["search"]	= $_SESSION['search'];
-			$pg		            	= $this->model_bank->search($_SESSION['search']);
-			$url	           		= 'admin/master_bank/search';
+			$pg		            	= $this->model_kurir->search($_SESSION['search']);
+			$url	           		= 'admin/master_kurir/search';
 			$this->data['pagination']	= $this->template->paging2($pg,$uri,$url,$limit);
-
-			$this->data['allMBank']		= $this->model_bank->search($_SESSION['search'],$limit,$offset);
-			$this->load->view('admin/master_bank/bg_masterbank_ajax', $this->data);
-
+			$this->data['allMBank']		= $this->model_kurir->search($_SESSION['search'],$limit,$offset);
+			$this->load->view('admin/master_kurir/bg_masterkurir_ajax', $this->data);
 		}
 	}
 	
 	public function edit(){
         $getid = $this->input->post("getid");
         if($getid){
-            $cek   = $this->model_bank->edit($getid);
+            $cek   = $this->model_kurir->edit($getid);
             $msg    = "error";
             if(count($cek)>0){
                 $msg    = "success";
@@ -104,13 +100,11 @@ class Master_bank extends CI_Controller {
                 $name    	= $this->db->escape_str($this->input->post('namaedit'));
                 $idedit     = $this->db->escape_str($this->input->post('idedit'));
                 $param  = array(
-
                     'name'          => $name,
 					'update_user'   => $_SESSION['bonobo_admin']->email
-
                 );
                 
-                $insert = $this->db->where("id",$idedit)->update('ms_bank',$param);
+                $insert = $this->db->where("id",$idedit)->update('ms_courier',$param);
                 if($insert){
                     $msg    = "success";
                     $notif  = "Berhasil";
@@ -124,30 +118,20 @@ class Master_bank extends CI_Controller {
 		$this->form_validation->set_rules('namaadd', '', 'required');
 		$msg    = "error";
 		$notif  = "";
-		$url    = 'assets/pic/bank/';
 		if ($this->form_validation->run() == TRUE){
-			if(isset($_FILES['file-image']['name'])){
-				$picture = $this->template->upload_picture($url,'file-image');
-				if($picture != 'error'){
-					$name    	= $this->db->escape_str($this->input->post('namaadd'));
-					$data_add  = array(
-										'name'          => $name,
-										'image'         => $picture,
-										'create_date'	=> date("Y-m-d H:i:s"),
-										'create_user'   => $_SESSION['bonobo_admin']->email
-
-		            );
-					$insert = $this->db->insert('ms_bank',$data_add);
-		            if($insert){
-		                $msg    = "success";
-		                $notif  = "Berhasil";
-		                redirect('admin/master_bank/');
-		            }
-				}							
-			}
-            
+            $name    	= $this->db->escape_str($this->input->post('namaadd'));
+			 $data_add  = array(
+								'name'          => $name,
+								'create_date'	=> date("Y-m-d H:i:s"),
+								'create_user'   => $_SESSION['bonobo_admin']->email
+            );
+			$insert = $this->db->insert('ms_courier',$data_add);
+            if($insert){
+                $msg    = "success";
+                $notif  = "Berhasil";
+            }
 		}else{
-
+		
 		}
 		echo json_encode(array("msg"=>$msg,"notif"=>$notif));
 	}
