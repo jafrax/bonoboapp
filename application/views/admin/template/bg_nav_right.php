@@ -21,7 +21,7 @@
                         <li class='dropdown user user-menu'>
                             <a href='#' class='dropdown-toggle' data-toggle='dropdown'>
                                 <i class='glyphicon glyphicon-user'></i>
-                                <span>Jane Doe <i class='caret'></i></span>
+                                <span>Hi, ".$_SESSION['bonobo_admin']->name."<i class='caret'></i></span>
                             </a>
                             <ul class='dropdown-menu user-nav' role='menu'>
                                 <li><a href='".base_url('admin/account')."'>Halaman admin</a></li>
