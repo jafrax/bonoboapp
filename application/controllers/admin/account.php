@@ -1,9 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
-* Admin CONTROLLER master_kategori
+* Admin CONTROLLER master_account
 *
 * Log Activity : ~ Create your log if you change this controller ~
-* 1. Create 24 July 2015 by Adi Setyo, Create controller : Coding index, delete, seearch
+* 1. Create 24 July 2015 by Adi Setyo, Create controller : Coding index, delete, seearch, add, edit, reset,change_password, rules_password, rules_username
 */
 class Account extends CI_Controller {
     var $data = array('scjav'=>'assets/jController/admin/CtrlAccount.js');
