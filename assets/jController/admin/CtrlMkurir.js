@@ -15,23 +15,23 @@ $(document).ready(function() {
     });
 })
 
-function kategori_modal_add() {
-$("#box-form-kategori-add").modal("show").on('shown.bs.modal', function () {
-	$('#form-kategori-add')[0].reset();
+function kurir_modal_add() {
+$("#box-form-kurir-add").modal("show").on('shown.bs.modal', function () {
+	$('#form-kurir-add')[0].reset();
 	$('label.error').hide();
 });
 }
-function kategori_modal(id) {
+function kurir_modal(id) {
 $.ajax({
 	type    : "POST",
-	url     : base_url+"admin/master_kategori/edit",
+	url     : base_url+"admin/master_kurir/edit",
 	data    : "getid="+id,
 	dataType: 'json',
 	success : function(response){
 		if (response.msg == "success") {
 			var data = response[0];
 			idedit      = data.id;
-			$("#box-form-kategori-edit").modal("show").on('shown.bs.modal', function () {				
+			$("#box-form-kurir-edit").modal("show").on('shown.bs.modal', function () {				
 				$("#namaedit").val(data.name).focus();
 				$("#idedit").val(data.id);
 			});

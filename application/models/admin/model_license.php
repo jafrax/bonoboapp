@@ -9,15 +9,32 @@
 
 class Model_license extends CI_Model {
 	 
-	  public function get_config($config){      
-      $this->db->where('name',$config);
-		  return $this->db->get('tb_config');
-	  }
+	public function get_config($config){      
+      	$this->db->where('name',$config);
+		return $this->db->get('tb_config');
+	}
 
 
-	  function get_toko(){
+	function get_toko(){
 	  	return $this->db->get('tb_toko');
-	  }
+	}
+
+	public function get_license($limit=1000000,$offset=0){
+	  	$this->db->limit($limit,$offset);
+		$this->db->order_by('id','desc');
+		$this->db->where('validity',$_SESSION['option']);
+	  	return $this->db->get('tb_activation_code');	
+	}
+
+	public function search($search,$limit=1000000,$offset=0){
+	    if($search != "all-search"){
+	        $this->db->like("email",$search);
+	    }
+		$this->db->limit($limit,$offset);
+	    $this->db->order_by("id","desc");
+	    $this->db->where('validity',$_SESSION['option']);
+		return $this->db->get('tb_activation_code');
+	}
 }
 
 ?>

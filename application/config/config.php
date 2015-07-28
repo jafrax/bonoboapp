@@ -366,3 +366,4 @@ $config['default_auto_add_license']	= 'default_auto_add_license';
 $config['default_code']				= 'default_code';
 $config['default_duration_type']	= 'default_duration_type';
 $config['default_duration']			= 'default_duration';
+$config['saltkey']					= 'v1510n3';

@@ -1,17 +1,17 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
-* Admin CONTROLLER master_kategori
+* Admin CONTROLLER master_bank
 *
 * Log Activity : ~ Create your log if you change this controller ~
-* 1. Create 24 July 2015 by Adi Setyo, Create controller : Coding index, delete, seearch
+* 1. Create 28 July 2015 by Adi Setyo, Create controller : Coding index, delete, search, edit, add
 */
-class Master_kategori extends CI_Controller {
-    var $data = array('scjav'=>'assets/jController/admin/CtrlMkategori.js');
+class Master_bank extends CI_Controller {
+    var $data = array('scjav'=>'assets/jController/admin/CtrlMbank.js');
 	var $limit = 10;
 	var $offset = 0;
     function __construct(){
         parent::__construct();
-        $this->load->model("admin/model_kategori");
+        $this->load->model("admin/model_bank");
 		if(empty($_SESSION['bonobo_admin']) || empty($_SESSION['bonobo_admin']->id)){
 			redirect('admin/index/signin');
             return;
@@ -27,15 +27,17 @@ class Master_kategori extends CI_Controller {
             else:
             $offset = $page;
         endif;
-        $pg=$this->model_kategori->get_all_kategori();
-        $url='admin/master_kategori/index';
+        $pg=$this->model_bank->get_all_bank();
+        $url='admin/master_bank/index';
         $this->data['pagination'] = $this->template->paging2($pg,$uri,$url,$limit);        
-        $this->data['allMKategori']=$this->model_kategori->get_all_kategori($limit,$offset);
+
+        $this->data['allMBank']=$this->model_bank->get_all_bank($limit,$offset);
         
 		if ($this->input->post('ajax')) {
-            $this->load->view('admin/master_kategori/bg_kategori_ajax', $this->data);
+            $this->load->view('admin/master_bank/bg_masterbank_ajax', $this->data);
         } else {
-            $this->template->bonobo_admin('master_kategori/bg_kategori', $this->data);
+            $this->template->bonobo_admin('master_bank/bg_masterbank', $this->data);
+
         } 
     }
 		
@@ -49,7 +51,7 @@ class Master_kategori extends CI_Controller {
 				$del[] = $delete[$i];
             }
             
-			$this->db->where_in('id',$delete)->delete('ms_category');
+			$this->db->where_in('id',$delete)->delete('ms_bank');
 		}
 	}
 	
@@ -71,18 +73,20 @@ class Master_kategori extends CI_Controller {
 			}
 			
 			$this->data["search"]	= $_SESSION['search'];
-			$pg		            	= $this->model_kategori->search($_SESSION['search']);
-			$url	           		= 'admin/master_kategori/search';
+			$pg		            	= $this->model_bank->search($_SESSION['search']);
+			$url	           		= 'admin/master_bank/search';
 			$this->data['pagination']	= $this->template->paging2($pg,$uri,$url,$limit);
-			$this->data['allMKategori']		= $this->model_kategori->search($_SESSION['search'],$limit,$offset);
-			$this->load->view('admin/master_kategori/bg_kategori_ajax', $this->data);
+
+			$this->data['allMBank']		= $this->model_bank->search($_SESSION['search'],$limit,$offset);
+			$this->load->view('admin/master_bank/bg_masterbank_ajax', $this->data);
+
 		}
 	}
 	
 	public function edit(){
         $getid = $this->input->post("getid");
         if($getid){
-            $cek   = $this->model_kategori->edit($getid);
+            $cek   = $this->model_bank->edit($getid);
             $msg    = "error";
             if(count($cek)>0){
                 $msg    = "success";
@@ -100,11 +104,13 @@ class Master_kategori extends CI_Controller {
                 $name    	= $this->db->escape_str($this->input->post('namaedit'));
                 $idedit     = $this->db->escape_str($this->input->post('idedit'));
                 $param  = array(
+
                     'name'          => $name,
 					'update_user'   => $_SESSION['bonobo_admin']->email
+
                 );
                 
-                $insert = $this->db->where("id",$idedit)->update('ms_category',$param);
+                $insert = $this->db->where("id",$idedit)->update('ms_bank',$param);
                 if($insert){
                     $msg    = "success";
                     $notif  = "Berhasil";
@@ -118,20 +124,30 @@ class Master_kategori extends CI_Controller {
 		$this->form_validation->set_rules('namaadd', '', 'required');
 		$msg    = "error";
 		$notif  = "";
+		$url    = 'assets/pic/bank/';
 		if ($this->form_validation->run() == TRUE){
-            $name    	= $this->db->escape_str($this->input->post('namaadd'));
-			 $data_add  = array(
-								'name'          => $name,
-								'create_date'	=> date("Y-m-d H:i:s"),
-								'create_user'   => $_SESSION['bonobo_admin']->email
-            );
-			$insert = $this->db->insert('ms_category',$data_add);
-            if($insert){
-                $msg    = "success";
-                $notif  = "Berhasil";
-            }
+			if(isset($_FILES['file-image']['name'])){
+				$picture = $this->template->upload_picture($url,'file-image');
+				if($picture != 'error'){
+					$name    	= $this->db->escape_str($this->input->post('namaadd'));
+					$data_add  = array(
+										'name'          => $name,
+										'image'         => $picture,
+										'create_date'	=> date("Y-m-d H:i:s"),
+										'create_user'   => $_SESSION['bonobo_admin']->email
+
+		            );
+					$insert = $this->db->insert('ms_bank',$data_add);
+		            if($insert){
+		                $msg    = "success";
+		                $notif  = "Berhasil";
+		                redirect('admin/master_bank/');
+		            }
+				}							
+			}
+            
 		}else{
-		
+
 		}
 		echo json_encode(array("msg"=>$msg,"notif"=>$notif));
 	}

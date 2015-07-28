@@ -3,7 +3,9 @@ $(function() {
     $('#tanggalindong').daterangepicker();
 });
 $(document).ready(function() {
-    $('#form-kategori-edit').validate({
+
+    $('#form-bank-edit').validate({
+
         rules:{
             namaedit        : {required: true}
         },
@@ -15,23 +17,23 @@ $(document).ready(function() {
     });
 })
 
-function kategori_modal_add() {
-$("#box-form-kategori-add").modal("show").on('shown.bs.modal', function () {
-	$('#form-kategori-add')[0].reset();
+function bank_modal_add() {
+$("#box-form-bank-add").modal("show").on('shown.bs.modal', function () {
+	$('#form-bank-add')[0].reset();
 	$('label.error').hide();
 });
 }
-function kategori_modal(id) {
+function bank_modal(id) {
 $.ajax({
 	type    : "POST",
-	url     : base_url+"admin/master_kategori/edit",
+	url     : base_url+"admin/master_bank/edit",
 	data    : "getid="+id,
 	dataType: 'json',
 	success : function(response){
 		if (response.msg == "success") {
 			var data = response[0];
 			idedit      = data.id;
-			$("#box-form-kategori-edit").modal("show").on('shown.bs.modal', function () {				
+			$("#box-form-bank-edit").modal("show").on('shown.bs.modal', function () {				
 				$("#namaedit").val(data.name).focus();
 				$("#idedit").val(data.id);
 			});
@@ -63,4 +65,17 @@ function submit_data_edit(selection,url) {
             }
         });
     }
+}
+
+
+function klik (a) {
+    $('#'+a).click();
+}
+
+function picture_upload(id){   
+   var URL     = window.URL || window.webkitURL;
+   var input   = document.querySelector('#'+id);
+   var preview = document.querySelector('#'+id+'-add');
+   preview.src = URL.createObjectURL(input.files[0]); 
+
 }

@@ -20,6 +20,8 @@ echo"
         <link href='".site_url("html/admin/css/timepicker/bootstrap-timepicker.min.css.")."' rel='stylesheet'/>
         <!-- Theme style -->
         <link href='".site_url("html/admin/css/AdminLTE.css")."' rel='stylesheet' type='text/css' />
+        
+        <link type='text/css' rel='stylesheet' href='".base_url("html/css/chosen.css")."' />
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -27,6 +29,5 @@ echo"
           <script src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'></script>
           <script src='https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js'></script>
         <![endif]-->
-        <script >var base_url = '".base_url()."';</script>
     </head>";
 ?>

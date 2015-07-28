@@ -41,26 +41,29 @@ class Master_lokasi extends CI_Controller {
     }    
 	
 	public function search(){
-		$search=$this->input->post('search');
-        $page=$this->uri->segment(4);
-        $uri=4;
-        $limit=$this->limit;
-        if(!$page):
-        $offset = $this->offset;
-            else:
-            $offset = $page;
-        endif;
-        $pg=$this->model_lokasi->get_all_lokasi();
-        $url='admin/master_lokasi/search';
-        $this->data['pagination'] = $this->template->paging2($pg,$uri,$url,$limit);        
-        $this->data['allSMLokasi']=$this->model_lokasi->get_all_lokasi($limit,$offset);
-
-        if ($this->input->post('ajax')) {
-            $this->load->view('admin/master_lokasi/bg_smasterlokasi_ajax', $this->data);
-        } else {
-            $this->template->bonobo_admin('master_lokasi/bg_smasterlokasi', $this->data);
-        } 
-
-    } 
+		if(isset($_POST['search'])  ){
+			$search = $this->db->escape_str($this->input->post('search'));
+			
+			if(empty($search)){$search ='all-search';}
+			$_SESSION['search']	= $search;
+		}	
+		if(isset($_SESSION['search'])){			
+			$page	= $this->uri->segment(4);
+			$uri	= 4;
+			$limit	= $this->limit;
+			if(!$page){
+				$offset = $this->offset;
+			}else{
+				$offset = $page;
+			}
+			
+			$this->data["search"]	= $_SESSION['search'];
+			$pg		            	= $this->model_lokasi->search($_SESSION['search']);
+			$url	           		= 'admin/master_lokasi/search';
+			$this->data['pagination']	= $this->template->paging2($pg,$uri,$url,$limit);
+			$this->data['allMLokasi']		= $this->model_lokasi->search($_SESSION['search'],$limit,$offset);
+			$this->load->view('admin/master_lokasi/bg_masterlokasi_ajax', $this->data);
+		}
+	}
 	
 }

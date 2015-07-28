@@ -6,13 +6,13 @@
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class='sidebar'>
                     <!-- sidebar menu: : style can be found in sidebar.less -->
-                    <ul class='sidebar-menu'>
+                    <ul class='nav sidebar-menu'>
                         <li >
                             <a href='".base_url("admin/index/dashboard")."'>
                                 <i class='fa fa-dashboard'></i> <span>DASHBOARD</span>
                             </a>
                         </li>
-                        <li class='active'>
+                        <li>
                             <a href='".base_url("admin/daftar_toko")."'>
                                 <i class='fa fa-laptop'></i> <span>DAFTAR TOKO</span>
                             </a>
