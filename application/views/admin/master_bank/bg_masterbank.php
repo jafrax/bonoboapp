@@ -54,6 +54,10 @@
 						if ($allMBank->num_rows > 0){
 						foreach ($allMBank->result() as $row ){
 								$i++;
+								$image = base_url().'html/admin/img/credit/dummy_logo.png';
+								if(!empty($row->image) && file_exists("./assets/pic/bank/".$row->image)){
+									$image = base_url("assets/pic/bank/resize/".$row->image);
+								}
 								echo "
 								<tr class='toko-".$row->id."'>
 									<td>
@@ -63,7 +67,7 @@
 									</td>
 									<td>$i</td>
 									<td id='nama-".$row->id."'>".$row->name."</td>
-									<td><img class='logobank' src='img/credit/dummy_logo.png' /></td>
+									<td><img class='logobank' src='$image' /></td>
 									<td>
 										<button class='btn btn-primary btn-sm' onClick=javascript:bank_modal('".$row->id."') >Edit</button>
 									</td>
@@ -119,8 +123,9 @@
                             <label for='exampleInputEmail1'>Logo</label>
                             <button type='button' class='btn btn-info btn-xs'>Broswe</button>
                             <div class='colimg'>
-                                <img class='logobankbig' src='img/credit/dummy_logo_big.png' />
+                                <img id='image' class='logobankbig' src='".base_url()."html/admin/img/credit/dummy_logo.png' />
                                 <button type='button' class='close'>×</button>
+                                <input type='file' id='file-image-edit' name='file-image'>
                             </div>
                         </div>
 						
@@ -144,7 +149,7 @@
                     <h3 class='box-title'>add bank</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role='form' id='form-bank-add'>
+                <form role='form' id='form-bank-add' enctype='multipart/form-data' method='post' action='".base_url()."admin/master_bank/add'>
                     <div class='box-body'>
                         <div class='form-group'>
                             <label for='namaadd'>Nama bank</label>
@@ -152,16 +157,16 @@
                         </div>
 						<div class='form-group'>
                             <label for='exampleInputEmail1'>Logo</label>
-                            <button type='button' class='btn btn-info btn-xs'>Broswe</button>
+                            <button type='button' class='btn btn-info btn-xs' onClick=javascript:klik('file-image')>Broswe</button>
                             <div class='colimg'>
-                                <img class='logobankbig' src='img/credit/dummy_logo_big.png' />
-                                <button type='button' class='close'>×</button>
+                                <img class='logobankbig' id='file-image-add' src='".base_url()."html/admin/img/credit/dummy_logo.png' />
+                                <input type='file' id='file-image' name='file-image' style='display:none;' OnChange=javascript:picture_upload(this.id)>
                             </div>
                         </div>
                     </div><!-- /.box-body -->
                         
                     <div class='box-footer'>
-                        <button type='button' class='btn btn-primary form-bank-edit-btn' onclick=javascript:submit_data('form-bank-add','admin/master_bank/add') >Submit</button>
+                        <button type='submit' class='btn btn-primary form-bank-edit-btn'  >Submit</button>
                         <button type='button' class='btn btn-primary' data-dismiss='modal' >Cancel</button>
                     </div>
                 </form>

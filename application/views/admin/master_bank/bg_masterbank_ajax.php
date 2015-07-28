@@ -19,6 +19,10 @@ echo"
 	if ($allMBank->num_rows > 0){
 	foreach ($allMBank->result() as $row ){
 			$i++;
+			$image = base_url().'html/admin/img/credit/dummy_logo.png';
+			if(!empty($row->image) && file_exists("./assets/pic/bank/".$row->image)){
+				$image = base_url("assets/pic/bank/resize/".$row->image);
+			}
 			echo "
 			<tr class='toko-".$row->id."'>
 				<td>
@@ -28,7 +32,7 @@ echo"
 				</td>
 				<td>$i</td>
 				<td id='nama-".$row->id."'>".$row->name."</td>
-				<td><img class='logobank' src='img/credit/dummy_logo.png' /></td>
+				<td><img class='logobank' src='$image' /></td>
 				<td>
 					<button class='btn btn-primary btn-sm' onClick=javascript:bank_modal('".$row->id."') >Edit</button>
 				</td>

@@ -124,20 +124,28 @@ class Master_bank extends CI_Controller {
 		$this->form_validation->set_rules('namaadd', '', 'required');
 		$msg    = "error";
 		$notif  = "";
+		$url    = 'assets/pic/bank/';
 		if ($this->form_validation->run() == TRUE){
-            $name    	= $this->db->escape_str($this->input->post('namaadd'));
-			 $data_add  = array(
-								'name'          => $name,
-								'create_date'	=> date("Y-m-d H:i:s"),
+			if(isset($_FILES['file-image']['name'])){
+				$picture = $this->template->upload_picture($url,'file-image');
+				if($picture != 'error'){
+					$name    	= $this->db->escape_str($this->input->post('namaadd'));
+					$data_add  = array(
+										'name'          => $name,
+										'image'         => $picture,
+										'create_date'	=> date("Y-m-d H:i:s"),
+										'create_user'   => $_SESSION['bonobo_admin']->email
 
-								'create_user'   => $_SESSION['bonobo_admin']->email
-
-            );
-			$insert = $this->db->insert('ms_bank',$data_add);
-            if($insert){
-                $msg    = "success";
-                $notif  = "Berhasil";
-            }
+		            );
+					$insert = $this->db->insert('ms_bank',$data_add);
+		            if($insert){
+		                $msg    = "success";
+		                $notif  = "Berhasil";
+		                redirect('admin/master_bank/');
+		            }
+				}							
+			}
+            
 		}else{
 		
 		}
