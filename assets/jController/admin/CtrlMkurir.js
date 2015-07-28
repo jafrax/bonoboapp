@@ -3,7 +3,17 @@ $(function() {
     $('#tanggalindong').daterangepicker();
 });
 $(document).ready(function() {
-    $('#form-kategori-edit').validate({
+    $('#form-kurir-edit').validate({
+        rules:{
+            namaedit        : {required: true}
+        },
+        messages: {
+            namaedit: {
+                required: ("Name cannot be empty"),
+            }
+        },
+    });
+	$('#form-kurir-add').validate({
         rules:{
             namaedit        : {required: true}
         },

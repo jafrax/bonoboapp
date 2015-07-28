@@ -1,17 +1,17 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
-* Admin CONTROLLER master_kurir
+* Admin CONTROLLER Kurir_detail
 *
 * Log Activity : ~ Create your log if you change this controller ~
 * 1. Create 28 July 2015 by Adi Setyo, Create controller : Coding index, delete, search, edit, add
 */
-class master_kurir extends CI_Controller {
-    var $data = array('scjav'=>'assets/jController/admin/CtrlMkurir.js');
+class Kurir_detail extends CI_Controller {
+    var $data = array('scjav'=>'assets/jController/admin/CtrlDkurir.js');
 	var $limit = 10;
 	var $offset = 0;
     function __construct(){
         parent::__construct();
-        $this->load->model("admin/model_kurir");
+        $this->load->model("admin/model_dkurir");
 		if(empty($_SESSION['bonobo_admin']) || empty($_SESSION['bonobo_admin']->id)){
 			redirect('admin/index/signin');
             return;
@@ -19,23 +19,24 @@ class master_kurir extends CI_Controller {
     }
     
     public function index(){
-        $page=$this->uri->segment(4);
-        $uri=4;
+		$id_kurir=base64_decode($this->uri->segment(3));
+        $page=$this->uri->segment(5);
+        $uri=5;
         $limit=$this->limit;
         if(!$page):
         $offset = $this->offset;
             else:
             $offset = $page;
         endif;
-        $pg=$this->model_kurir->get_all_kurir();
-        $url='admin/master_kurir/index';
+        $pg=$this->model_dkurir->get_all_kurir($id_kurir);
+        $url='admin/master_kurir_detail/index';
         $this->data['pagination'] = $this->template->paging2($pg,$uri,$url,$limit);        
-        $this->data['allMKurir']=$this->model_kurir->get_all_kurir($limit,$offset);
+        $this->data['allDKurir']=$this->model_dkurir->get_all_kurir($limit,$offset);
         
 		if ($this->input->post('ajax')) {
-            $this->load->view('admin/master_kurir/bg_masterkurir_ajax', $this->data);
+            $this->load->view('admin/master_kurir_detail/master_kurir_detail_ajax', $this->data);
         } else {
-            $this->template->bonobo_admin('master_kurir/bg_masterkurir', $this->data);
+            $this->template->bonobo_admin('master_kurir_detail/master_kurir_detail', $this->data);
         } 
     }
 		
@@ -71,18 +72,18 @@ class master_kurir extends CI_Controller {
 			}
 			
 			$this->data["search"]	= $_SESSION['search'];
-			$pg		            	= $this->model_kurir->search($_SESSION['search']);
-			$url	           		= 'admin/master_kurir/search';
+			$pg		            	= $this->model_dkurir->search($_SESSION['search']);
+			$url	           		= 'admin/master_kurir_detail/search';
 			$this->data['pagination']	= $this->template->paging2($pg,$uri,$url,$limit);
-			$this->data['allMKurir']		= $this->model_kurir->search($_SESSION['search'],$limit,$offset);
-			$this->load->view('admin/master_kurir/bg_masterkurir_ajax', $this->data);
+			$this->data['allDKurir']		= $this->model_dkurir->search($_SESSION['search'],$limit,$offset);
+			$this->load->view('admin/master_kurir_detail/master_kurir_detail', $this->data);
 		}
 	}
 	
 	public function edit(){
         $getid = $this->input->post("getid");
         if($getid){
-            $cek   = $this->model_kurir->edit($getid);
+            $cek   = $this->model_dkurir->edit($getid);
             $msg    = "error";
             if(count($cek)>0){
                 $msg    = "success";

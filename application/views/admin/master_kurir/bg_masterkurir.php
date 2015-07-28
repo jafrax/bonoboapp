@@ -53,6 +53,7 @@
 						$i=0;
 						if ($allMKurir->num_rows > 0){
 						foreach ($allMKurir->result() as $row ){
+						$id_link=base64_encode($row->id);
 								$i++;
 								echo "
 								<tr class='toko-".$row->id."'>
@@ -66,6 +67,7 @@
 									<td><img class='logokurir' src='img/credit/dummy_logo.png' /></td>
 									<td>
 										<button class='btn btn-primary btn-sm' onClick=javascript:kurir_modal('".$row->id."') >Edit</button>
+										<a href='".base_url('admin/kurir_detail/'.$id_link.'')."' class='btn btn-info btn-sm'>Detail</a>
 									</td>
 								</tr>";
 								}
