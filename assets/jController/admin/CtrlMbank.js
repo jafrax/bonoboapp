@@ -5,12 +5,24 @@ $(function() {
 $(document).ready(function() {
 
     $('#form-bank-edit').validate({
-
+        ignore: ":hidden:not(select)",
         rules:{
-            namaedit        : {required: true}
+            namaedit        : {required: true}            
         },
         messages: {
             namaedit: {
+                required: ("Name cannot be empty"),
+            }
+        },
+    });
+    $('#form-bank-add').validate({
+        ignore: ":hidden:not(select)",
+        rules:{
+            namaadd        : {required: true},
+            fileimage      : {required: true,accept: 'image/*',filesize: 1000000},
+        },
+        messages: {
+            namaadd: {
                 required: ("Name cannot be empty"),
             }
         },
@@ -38,7 +50,7 @@ $.ajax({
 				$("#idedit").val(data.id);
                 if (data.image != '') {
                     $("#image").val(data.image);
-                    $("#file-image-edit-add").attr("src", base_url+"assets/pic/bank/resize/"+data.image);
+                    $("#fileimageedit-add").attr("src", base_url+"assets/pic/bank/resize/"+data.image);
                 };
 			});
 		}
@@ -72,14 +84,3 @@ function submit_data_edit(selection,url) {
 }
 
 
-function klik (a) {
-    $('#'+a).click();
-}
-
-function picture_upload(id){   
-   var URL     = window.URL || window.webkitURL;
-   var input   = document.querySelector('#'+id);
-   var preview = document.querySelector('#'+id+'-add');
-   preview.src = URL.createObjectURL(input.files[0]); 
-
-}

@@ -122,11 +122,11 @@
                         </div>
 						<div class='form-group'>
                             <label for='exampleInputEmail1'>Logo</label>
-                            <button type='button' class='btn btn-info btn-xs' onClick=javascript:klik('file-image-edit')>Broswe</button>
+                            <button type='button' class='btn btn-info btn-xs' onClick=javascript:klik('fileimageedit')>Broswe</button>
                             <div class='colimg'>
-                                <img id='file-image-edit-add' class='logobankbig' src='".base_url()."html/admin/img/credit/dummy_logo.png' />
+                                <img id='fileimageedit-add' class='logobankbig' src='".base_url()."html/admin/img/credit/dummy_logo.png' />
                                 <button type='button' class='close'>×</button>
-                                <input type='file' id='file-image-edit' name='file-image-edit' style='display:none;' OnChange=javascript:picture_upload(this.id)>
+                                <input type='file' id='fileimageedit' name='fileimageedit' style='display:none;' OnChange=javascript:picture_upload(this.id)>
                             </div>
                         </div>
 						
@@ -158,10 +158,10 @@
                         </div>
 						<div class='form-group'>
                             <label for='exampleInputEmail1'>Logo</label>
-                            <button type='button' class='btn btn-info btn-xs' onClick=javascript:klik('file-image')>Broswe</button>
+                            <button type='button' class='btn btn-info btn-xs' onClick=javascript:klik('fileimage')>Broswe</button>
                             <div class='colimg'>
-                                <img class='logobankbig' id='file-image-add' src='".base_url()."html/admin/img/credit/dummy_logo.png' />
-                                <input type='file' id='file-image' name='file-image' style='display:none;' OnChange=javascript:picture_upload(this.id)>
+                                <img class='logobankbig' id='fileimage-add' src='".base_url()."html/admin/img/credit/dummy_logo.png' />
+                                <input type='file' id='fileimage' name='fileimage' style='display:none;' OnChange=javascript:picture_upload(this.id)>
                             </div>
                         </div>
                     </div><!-- /.box-body -->

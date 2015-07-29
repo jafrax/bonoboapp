@@ -20,6 +20,10 @@ echo"
 	foreach ($allMKurir->result() as $row ){
 	$id_link=base64_encode($row->id);
 			$i++;
+			$image = base_url().'html/admin/img/credit/dummy_logo.png';
+			if(!empty($row->image) && file_exists("./assets/pic/kurir/".$row->image)){
+				$image = base_url("assets/pic/kurir/resize/".$row->image);
+			}
 			echo "
 			<tr class='toko-".$row->id."'>
 				<td>
@@ -29,7 +33,7 @@ echo"
 				</td>
 				<td>$i</td>
 				<td id='nama-".$row->id."'>".$row->name."</td>
-				<td><img class='logokurir' src='img/credit/dummy_logo.png' /></td>
+				<td><img class='logokurir' src='$image' /></td>
 				<td>
 					<button class='btn btn-primary btn-sm' onClick=javascript:kurir_modal('".$row->id."') >Edit</button>
 					 <a href='".base_url('admin/kurir_detail/'.$id_link.'')."' class='btn btn-info btn-sm'>Detail</a>

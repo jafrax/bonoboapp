@@ -55,6 +55,10 @@
 						foreach ($allMKurir->result() as $row ){
 						$id_link=base64_encode($row->id);
 								$i++;
+								$image = base_url().'html/admin/img/credit/dummy_logo.png';
+								if(!empty($row->image) && file_exists("./assets/pic/kurir/".$row->image)){
+									$image = base_url("assets/pic/kurir/resize/".$row->image);
+								}
 								echo "
 								<tr class='toko-".$row->id."'>
 									<td>
@@ -64,7 +68,7 @@
 									</td>
 									<td>$i</td>
 									<td id='nama-".$row->id."'>".$row->name."</td>
-									<td><img class='logokurir' src='img/credit/dummy_logo.png' /></td>
+									<td><img class='logobank' src='$image' /></td>
 									<td>
 										<button class='btn btn-primary btn-sm' onClick=javascript:kurir_modal('".$row->id."') >Edit</button>
 										<a href='".base_url('admin/kurir_detail/'.$id_link.'')."' class='btn btn-info btn-sm'>Detail</a>
@@ -110,26 +114,28 @@
                     <h3 class='box-title'>Edit kurir</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role='form' id='form-kurir-edit'>
+                <form role='form' id='form-kurir-edit' enctype='multipart/form-data' method='post' action='".base_url()."admin/master_kurir/edit'>
                     <div class='box-body'>
                         <div class='form-group'>
                             <label for='namaedit'>Nama kurir</label>
-                            <input type='text' class='form-control' id='namaedit' name='namaedit' placeholder='Enter nama kurir' onchange=javascript:submit_data_edit('form-kurir-edit','admin/master_kurir/edit') >
+                            <input type='text' class='form-control' id='namaedit' name='namaedit' placeholder='Enter nama kurir' >
                             <input type='hidden' name='idedit' id='idedit'/>
+                            <input type='hidden' name='image' id='image'/>
                         </div>
 						<div class='form-group'>
                             <label for='exampleInputEmail1'>Logo</label>
-                            <button type='button' class='btn btn-info btn-xs'>Broswe</button>
+                            <button type='button' class='btn btn-info btn-xs' onClick=javascript:klik('fileimageedit')>Broswe</button>
                             <div class='colimg'>
-                                <img class='logokurirbig' src='img/credit/dummy_logo_big.png' />
+                                <img id='fileimageedit-add' class='logobankbig' src='".base_url()."html/admin/img/credit/dummy_logo.png' />
                                 <button type='button' class='close'>×</button>
+                                <input type='file' id='fileimageedit' name='fileimageedit' style='display:none;' OnChange=javascript:picture_upload(this.id)>
                             </div>
                         </div>
 						
                     </div><!-- /.box-body -->
                         
                     <div class='box-footer'>
-                        <button type='button' class='btn btn-primary form-kurir-edit-btn' onclick=javascript:submit_data_edit('form-kurir-edit','admin/master_kurir/edit') >Submit</button>
+                        <button type='submit' class='btn btn-primary form-kurir-edit-btn' >Submit</button>
                         <button type='button' class='btn btn-primary' data-dismiss='modal' >Cancel</button>
                     </div>
                 </form>
@@ -146,24 +152,24 @@
                     <h3 class='box-title'>add kurir</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role='form' id='form-kurir-add'>
+                <form role='form' id='form-kurir-add' enctype='multipart/form-data' method='post' action='".base_url()."admin/master_kurir/add'>
                     <div class='box-body'>
                         <div class='form-group'>
                             <label for='namaadd'>Nama kurir</label>
-                            <input type='text' class='form-control' id='namaadd' name='namaadd' placeholder='Enter nama kurir' onkeypress=javascript:key_enter(event,'form-kurir-add','admin/master_kurir/add') >
+                            <input type='text' class='form-control' id='namaadd' name='namaadd' placeholder='Enter nama kurir' >
                         </div>
 						<div class='form-group'>
                             <label for='exampleInputEmail1'>Logo</label>
-                            <button type='button' class='btn btn-info btn-xs'>Broswe</button>
+                            <button type='button' class='btn btn-info btn-xs' onClick=javascript:klik('fileimage')>Broswe</button>
                             <div class='colimg'>
-                                <img class='logokurirbig' src='img/credit/dummy_logo_big.png' />
-                                <button type='button' class='close'>×</button>
+                                <img class='logobankbig' id='fileimage-add' src='".base_url()."html/admin/img/credit/dummy_logo.png' />
+                                <input type='file' id='fileimage' name='fileimage' style='display:none;' OnChange=javascript:picture_upload(this.id)>
                             </div>
                         </div>
                     </div><!-- /.box-body -->
                         
                     <div class='box-footer'>
-                        <button type='button' class='btn btn-primary form-kurir-edit-btn' onclick=javascript:submit_data('form-kurir-add','admin/master_kurir/add') >Submit</button>
+                        <button type='submit' class='btn btn-primary form-kurir-edit-btn' >Submit</button>
                         <button type='button' class='btn btn-primary' data-dismiss='modal' >Cancel</button>
                     </div>
                 </form>

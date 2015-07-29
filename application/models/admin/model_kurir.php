@@ -9,13 +9,13 @@
 
 class Model_kurir extends CI_Model {
 	 
-	  public function get_all_kurir ($limit=1000000,$offset=0){
+	public function get_all_kurir ($limit=1000000,$offset=0){
 		$this->db->limit($limit,$offset);
 		$this->db->order_by('name','asc');
 		return $this->db->get('ms_courier');
-	  }
-	  
-	  public function search($search,$limit=1000000,$offset=0){
+	}
+	
+	public function search($search,$limit=1000000,$offset=0){
         if($search != "all-search"){
             $this->db->like("name",$search);
         }
@@ -23,12 +23,11 @@ class Model_kurir extends CI_Model {
         $this->db->order_by("name","asc");
 		return $this->db->get('ms_courier');
     }
+
 	function edit($id){
         $this->db->where("id",$id);
 		return $this->db->get('ms_courier')->result();
     }
-
-
 }
 
 ?>
