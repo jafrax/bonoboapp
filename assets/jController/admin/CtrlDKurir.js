@@ -62,16 +62,13 @@ $.ajax({
 								ffkecamatan: data.location_from_kecamatan, 
 								ftprovince: data.location_to_province, 
 								ftkota: data.location_to_city, 
-								ftkecamatan: data.location_to_kecamatan
+								ftkecamatan: data.location_to_kecamatan,
+								price: data.price,
 								},
 						url: base_url+'admin/kurir_detail/set_edit', 
 						success: function(response) {
-							$('#ffprovince').html(response.ffprovince);
-							$('#ffkota').html(response.ffkota);
-							$('#ffkecamatan').html(response.ffkecamatan);
-							$('#ftprovince').html(response.ftprovince);
-							$('#ftkota').html(response.ftkota);
-							$('#ftkecamatan').html(response.ftkecamatan);
+							$('#edit_dk').html(response);
+							$('.chosen-select').chosen();
 						}
 				});
 				$('#hargapkg').val(data.price);
