@@ -206,5 +206,78 @@ class Kurir_detail extends CI_Controller {
 			}			
 		echo"</select>";
 	}
+	public function set_edit(){
+		$ffprovince = $this->input->post('ffprovince');
+		$ffkota = $this->input->post('ffkota');
+		$ffkecamatan = $this->input->post('ffkecamatan');
+		$ftprovince = $this->input->post('ftprovince');
+		$ftkota = $this->input->post('ftkota');
+		$ftkecamatan = $this->input->post('ftkecamatan');
+
+		$prove = $this->model_dkurir->get_province();
+		echo "
+		<label for=''>Lokasi Awal</label>
+		<select  class='chosen-select' name='fprovince' id='fprovince' onchange=javascript:set_city() >
+			<option value='' disabled selected>Pilih Provinsi</option>";
+			
+			foreach ($prove->result() as $row_p) {
+				$select = '';
+				if ($row_p->province == $ffprovince) {$select = 'selected';}
+				echo "<option $select value='".$row_p->province."'>".$row_p->province."</option>";
+			}			
+		echo"</select>";
+		//
+		$city = $this->model_dkurir->get_kota($ffprovince);
+		echo "<select  class='chosen-select' name='fkota' id='fkota' onchange=javascript:set_kecamatan()>
+			<option value='' disabled selected>Pilih Kota</option>";	
+			foreach ($city->result() as $row_p) {
+				$select = '';
+				if ($row_p->city == $ffkota) {$select = 'selected';}
+				echo "<option $select value='".$row_p->city."'>".$row_p->city."</option>";
+			}
+		echo"</select>";
+		//
+		$kota = $this->model_dkurir->get_kecamatan($ffkota);
+		echo "<select  class='chosen-select' name='fkecamatan' id='fkecamatan'>
+				<option value='' disabled selected>Pilih Kecamatan</option>";
+				foreach ($kota->result() as $row_p) {
+				$select = '';
+					if ($row_p->kecamatan == $ffkecamatan) {$select = 'selected';}
+					echo "<option $select value='".$row_p->kecamatan."'>".$row_p->kecamatan."</option>";
+				}	
+		echo"</select>";
+		//
+		$provet = $this->model_dkurir->get_province();
+		echo"
+		<select  class='chosen-select' name='tprovince' id='tprovince' onchange=javascript:set_tcity()>
+		<option value='' disabled selected>Pilih Provinsi</option>";
+		foreach ($provet->result() as $row_pp) {
+				$select = '';
+				if ($row_pp->province == $ftprovince) {$select = 'selected';}
+				echo "<option $select value='".$row_pp->province."'>".$row_pp->province."</option>";
+		}	
+		echo"
+		</select>";
+		//
+		$city = $this->model_dkurir->get_kota($ftprovince);
+		echo "<select  class='chosen-select' name='tkota' id='tkota' nchange=javascript:set_tkecamatan()>
+			<option value='' disabled selected>Pilih Kota</option>";	
+			foreach ($city->result() as $row_p) {
+				$select = '';
+				if ($row_p->city == $ftkota) {$select = 'selected';}
+				echo "<option $select value='".$row_p->city."'>".$row_p->city."</option>";
+			}
+		echo"</select>";
+		//
+		$kota = $this->model_dkurir->get_kecamatan($ftkota);
+		echo "<select  class='chosen-select' name='tkecamatan' id='tkecamatan'>
+				<option value='' disabled selected>Pilih Kecamatan</option>";
+				foreach ($kota->result() as $row_p) {
+				$select = '';
+					if ($row_p->kecamatan == $ftkecamatan) {$select = 'selected';}
+					echo "<option $select value='".$row_p->kecamatan."'>".$row_p->kecamatan."</option>";
+				}	
+		echo"</select>";
+	}
 	
 }

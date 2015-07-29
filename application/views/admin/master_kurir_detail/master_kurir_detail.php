@@ -76,6 +76,7 @@ echo "
 							<td>".$row->price."</td>
 							<td>
 								<button class='btn btn-primary btn-sm' onClick=javascript:dkurir_modal('".$row->id."') >Edit</button>
+								
 							</td>
 						</tr>";
 						}
@@ -131,7 +132,7 @@ echo "
 							<option value='' disabled selected>Pilih Provinsi</option>";
 							foreach ($get_province->result() as $row_p) {
 								$select = '';
-								//if ($row_p->province == $Shop->location_to_province) {$select = 'selected';}
+								//if ($row_p->province == $row->location_to_province) {$select = 'selected';}
 								echo "<option $select value='".$row_p->province."'>".$row_p->province."</option>";
 							}	
 							echo"
@@ -142,7 +143,7 @@ echo "
 							<option value='' disabled selected>Pilih Kota</option>";
 							foreach ($get_kota->result() as $row_c) {
 								$select = '';
-								//if ($row_p->city == $Shop->location_to_city) {$select = 'selected';}
+								//if ($row_p->city == $row->location_to_city) {$select = 'selected';}
 								echo "<option $select value='".$row_c->city."'>".$row_c->city."</option>";
 							}	
 							echo"
@@ -153,7 +154,7 @@ echo "
 							<option value='' disabled selected>Pilih Kecamatan</option>";
 							foreach ($get_kecamatan->result() as $row_p) {
 								$select = '';
-								//if ($row_p->province == $Shop->location_to_province) {$select = 'selected';}
+								//if ($row_p->province == $row->location_to_province) {$select = 'selected';}
 								echo "<option $select value='".$row_p->kecamatan."'>".$row_p->kecamatan."</option>";
 							}	
 							echo"
@@ -165,7 +166,7 @@ echo "
 							<option value='' disabled selected>Pilih Provinsi</option>";
 							foreach ($get_province->result() as $row_p) {
 								$select = '';
-								//if ($row_p->province == $Shop->location_to_province) {$select = 'selected';}
+								//if ($row_p->province == $row->location_to_province) {$select = 'selected';}
 								echo "<option $select value='".$row_p->province."'>".$row_p->province."</option>";
 							}	
 							echo"
@@ -176,7 +177,7 @@ echo "
 							<option value='' disabled selected>Pilih Kota</option>";
 							foreach ($get_kota->result() as $row_p) {
 								$select = '';
-								//if ($row_p->city == $Shop->location_to_city) {$select = 'selected';}
+								//if ($row_p->city == $row->location_to_city) {$select = 'selected';}
 								echo "<option $select value='".$row_p->city."'>".$row_p->city."</option>";
 							}	
 							echo"
@@ -187,7 +188,7 @@ echo "
 							<option value='' disabled selected>Pilih Kecamatan</option>";
 							foreach ($get_kecamatan->result() as $row_p) {
 								$select = '';
-								//if ($row_p->province == $Shop->location_to_province) {$select = 'selected';}
+								//if ($row_p->province == $row->location_to_province) {$select = 'selected';}
 								echo "<option $select value='".$row_p->kecamatan."'>".$row_p->kecamatan."</option>";
 							}	
 							echo"
@@ -209,24 +210,24 @@ echo "
       </div>
     </div>
 	
-	<div class='modal fade box-form-dkurir-edit' id='box-form-dkurir-edit' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel' aria-hidden='true'>
-      <div class='modal-dialog modal-sm'>
-        <div class='modal-content'>
-            <div class='box box-primary'>
-                <div class='box-header'>
-                    <h3 class='box-title'>Edit Lokasi</h3>
-                </div><!-- /.box-header -->
-                <!-- form start -->
-                <form role='form' id='form-dkurir-edit'>
-                     <div class='box-body' id='edit_dk'>
-					<div class='form-group'>
+	<div class='modal fade bs-edit-modal-sm' id='bs-edit-modal-sm' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel' aria-hidden='true'>
+	  <div class='modal-dialog modal-sm'>
+		<div class='modal-content'>
+			<div class='box box-primary'>
+				<div class='box-header'>
+					<h3 class='box-title'>Edit Lokasi</h3>
+				</div><!-- /.box-header -->
+				<!-- form start -->
+				<form role='form' id='form-dkurir-edit'>
+					 <div class='box-body' id='edit_dk'>
+					<div class='form-group' id='ffprovince'>
 						<label for=''>Lokasi Awal</label>
 						<select  class='chosen-select' name='fprovince' id='fprovince' onchange=javascript:set_city() >
 							<option value='' disabled selected>Pilih Provinsi</option>";
 							foreach ($get_province->result() as $row_p) {
 								$select = '';
-								//if ($row_p->province == $Shop->location_to_province) {$select = 'selected';}
-								echo "<option $select value='".$row_p->province."'>".$row_p->province."</option>";
+								if ($row_p->city == $row->location_to_province) {$select = 'selected';}
+								echo "<option $select value='".$row_c->province."'>".$row_c->province."</option>";
 							}	
 							echo"
 						</select>
@@ -236,7 +237,7 @@ echo "
 							<option value='' disabled selected>Pilih Kota</option>";
 							foreach ($get_kota->result() as $row_c) {
 								$select = '';
-								//if ($row_p->city == $Shop->location_to_city) {$select = 'selected';}
+								if ($row_p->city == $row->location_to_city) {$select = 'selected';}
 								echo "<option $select value='".$row_c->city."'>".$row_c->city."</option>";
 							}	
 							echo"
@@ -247,7 +248,7 @@ echo "
 							<option value='' disabled selected>Pilih Kecamatan</option>";
 							foreach ($get_kecamatan->result() as $row_p) {
 								$select = '';
-								//if ($row_p->province == $Shop->location_to_province) {$select = 'selected';}
+								if ($row_p->province == $row->location_to_province) {$select = 'selected';}
 								echo "<option $select value='".$row_p->kecamatan."'>".$row_p->kecamatan."</option>";
 							}	
 							echo"
@@ -259,7 +260,7 @@ echo "
 							<option value='' disabled selected>Pilih Provinsi</option>";
 							foreach ($get_province->result() as $row_p) {
 								$select = '';
-								//if ($row_p->province == $Shop->location_to_province) {$select = 'selected';}
+								if ($row_p->province == $row->location_to_province) {$select = 'selected';}
 								echo "<option $select value='".$row_p->province."'>".$row_p->province."</option>";
 							}	
 							echo"
@@ -270,7 +271,7 @@ echo "
 							<option value='' disabled selected>Pilih Kota</option>";
 							foreach ($get_kota->result() as $row_p) {
 								$select = '';
-								//if ($row_p->city == $Shop->location_to_city) {$select = 'selected';}
+								if ($row_p->city == $row->location_to_city) {$select = 'selected';}
 								echo "<option $select value='".$row_p->city."'>".$row_p->city."</option>";
 							}	
 							echo"
@@ -281,7 +282,7 @@ echo "
 							<option value='' disabled selected>Pilih Kecamatan</option>";
 							foreach ($get_kecamatan->result() as $row_p) {
 								$select = '';
-								//if ($row_p->province == $Shop->location_to_province) {$select = 'selected';}
+								if ($row_p->province == $row->location_to_province) {$select = 'selected';}
 								echo "<option $select value='".$row_p->kecamatan."'>".$row_p->kecamatan."</option>";
 							}	
 							echo"
@@ -289,17 +290,19 @@ echo "
 					</div>
 					<div class='form-group'>
 						<label for=''>Harga per Kg</label>
-						<input type='text' class='form-control' id='hargapkg' name='hargapkg'>
+						<input type='text' class='form-control' id='hargapkg' name='hargapkg' >
 					</div>
 					</div><!-- /.box-body -->
-                        
-                    <div class='box-footer'>
-                        <button type='button' class='btn btn-primary form-dkurir-edit-btn' onclick=javascript:submit_data_edit('form-dkurir-edit','admin/kurir_detail/edit') >Submit</button>
-                        <button type='button' class='btn btn-primary' data-dismiss='modal' >Cancel</button>
-                    </div>
-                </form>
-            </div><!-- /.box -->
-        </div>
-      </div>
-    </div>
+						
+					<div class='box-footer'>
+						<button type='button' class='btn btn-primary form-dkurir-edit-btn' onclick=javascript:submit_data_edit('form-dkurir-edit','admin/kurir_detail/edit') >Submit</button>
+						<button type='button' class='btn btn-primary' data-dismiss='modal' >Cancel</button>
+					</div>
+				</form>
+			</div><!-- /.box -->
+		</div>
+	  </div>
+	</div>
+	
+	
 "; ?>

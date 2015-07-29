@@ -53,9 +53,29 @@ $.ajax({
 		if (response.msg == "success") {
 			var data = response[0];
 			idedit      = data.id;
-			$("#box-form-dkurir-edit").modal("show").on('shown.bs.modal', function () {				
-				$("#namaedit").val(data.name).focus();
-				$("#idedit").val(data.id);
+			$("#bs-edit-modal-sm").modal("show").on('shown.bs.modal', function () {		
+			
+				$.ajax({
+						type: 'POST',
+						data: { ffprovince: data.location_from_province, 
+								ffkota: data.location_from_city, 
+								ffkecamatan: data.location_from_kecamatan, 
+								ftprovince: data.location_to_province, 
+								ftkota: data.location_to_city, 
+								ftkecamatan: data.location_to_kecamatan
+								},
+						url: base_url+'admin/kurir_detail/set_edit', 
+						success: function(response) {
+							$('#ffprovince').html(response.ffprovince);
+							$('#ffkota').html(response.ffkota);
+							$('#ffkecamatan').html(response.ffkecamatan);
+							$('#ftprovince').html(response.ftprovince);
+							$('#ftkota').html(response.ftkota);
+							$('#ftkecamatan').html(response.ftkecamatan);
+						}
+				});
+				$('#hargapkg').val(data.price);
+				$('.chosen-select').chosen();
 			});
 		}
 	},
