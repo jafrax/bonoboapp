@@ -19,20 +19,20 @@ class Kurir_detail extends CI_Controller {
     }
     
     public function index(){
-		$id_kurir=base64_decode($this->uri->segment(3));
-        $page=$this->uri->segment(5);
-        $uri=5;
+		$_SESSION['link_kurir_detail']=$this->uri->segment(4);
+		$_SESSION['kurir_detail']=base64_decode($_SESSION['link_kurir_detail']);
+        $page=$this->uri->segment(6);
+        $uri=6;
         $limit=$this->limit;
         if(!$page):
         $offset = $this->offset;
             else:
             $offset = $page;
         endif;
-        $pg=$this->model_dkurir->get_all_kurir($id_kurir);
-        $url='admin/master_kurir_detail/index';
+        $pg=$this->model_dkurir->get_all_dkurir($_SESSION['kurir_detail']);
+        $url='admin/kurir_detail/index/'.$_SESSION['link_kurir_detail'].'/index/';
         $this->data['pagination'] = $this->template->paging2($pg,$uri,$url,$limit);        
-        $this->data['allDKurir']=$this->model_dkurir->get_all_kurir($limit,$offset);
-        
+        $this->data['allDKurir']=$this->model_dkurir->get_all_dkurir($_SESSION['kurir_detail'],$limit,$offset);
 		if ($this->input->post('ajax')) {
             $this->load->view('admin/master_kurir_detail/master_kurir_detail_ajax', $this->data);
         } else {
@@ -61,7 +61,7 @@ class Kurir_detail extends CI_Controller {
 			if(empty($search)){$search ='all-search';}
 			$_SESSION['search']	= $search;
 		}	
-		if(isset($_SESSION['search'])){			
+		if(isset($_SESSION['search'])){
 			$page	= $this->uri->segment(4);
 			$uri	= 4;
 			$limit	= $this->limit;
@@ -72,11 +72,11 @@ class Kurir_detail extends CI_Controller {
 			}
 			
 			$this->data["search"]	= $_SESSION['search'];
-			$pg		            	= $this->model_dkurir->search($_SESSION['search']);
-			$url	           		= 'admin/master_kurir_detail/search';
+			$pg		            	= $this->model_dkurir->search($_SESSION['search'],$_SESSION['kurir_detail']);
+			$url					= 'admin/kurir_detail/search/';
 			$this->data['pagination']	= $this->template->paging2($pg,$uri,$url,$limit);
-			$this->data['allDKurir']		= $this->model_dkurir->search($_SESSION['search'],$limit,$offset);
-			$this->load->view('admin/master_kurir_detail/master_kurir_detail', $this->data);
+			$this->data['allDKurir']		= $this->model_dkurir->search($_SESSION['search'],$_SESSION['kurir_detail'],$limit,$offset);
+			$this->load->view('admin/master_kurir_detail/master_kurir_detail_ajax', $this->data);
 		}
 	}
 	

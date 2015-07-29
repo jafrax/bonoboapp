@@ -9,19 +9,26 @@
 
 class Model_dkurir extends CI_Model {
 	 
-	  public function get_all_dkurir ($limit=1000000,$offset=0){
+	  public function get_all_dkurir ($id_kurir,$limit=1000000,$offset=0){
+		$this->db->where('courier_id',$id_kurir);
 		$this->db->limit($limit,$offset);
-		$this->db->order_by('name','asc');
-		return $this->db->get('ms_courier');
+		$this->db->order_by('location_from_province','asc');
+		return $this->db->get('tb_courier_rate');
 	  }
 	  
-	  public function search($search,$limit=1000000,$offset=0){
+	  public function search($search,$id_kurir,$limit=1000000,$offset=0){
         if($search != "all-search"){
-            $this->db->like("name",$search);
+            $this->db->like("location_from_province",$search);
+            $this->db->or_like("location_from_city",$search);
+            $this->db->or_like("location_from_kecamatan",$search);
+            $this->db->or_like("location_to_province",$search);
+            $this->db->or_like("location_to_city",$search);
+            $this->db->or_like("location_to_kecamatan",$search);
         }
+		$this->db->where('courier_id',$id_kurir);
 		$this->db->limit($limit,$offset);
-        $this->db->order_by("name","asc");
-		return $this->db->get('ms_courier');
+        $this->db->order_by("location_from_province","asc");
+		return $this->db->get('tb_courier_rate');
     }
 	function edit($id){
         $this->db->where("id",$id);

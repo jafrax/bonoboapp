@@ -71,7 +71,7 @@
 									<td><img class='logobank' src='$image' /></td>
 									<td>
 										<button class='btn btn-primary btn-sm' onClick=javascript:kurir_modal('".$row->id."') >Edit</button>
-										<a href='".base_url('admin/kurir_detail/'.$id_link.'')."' class='btn btn-info btn-sm'>Detail</a>
+										<a href='".base_url('admin/kurir_detail/index/'.$id_link.'')."' class='btn btn-info btn-sm'>Detail</a>
 									</td>
 								</tr>";
 								}
