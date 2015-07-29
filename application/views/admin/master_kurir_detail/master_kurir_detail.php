@@ -26,6 +26,7 @@ echo "
 					<div class='input-group'>
 						<button onClick=javascript:dkurir_modal_add() class='btn btn-primary '>Tambah Baru</button>
 						<span></spam>
+						<button data-toggle='modal' data-target='.delete_modal' onclick=javascript:delete_table('admin/kurir_detail/delete') class='btn btn-warning'>Hapus</button>
 					</div>
 					<div class='input-group'>
 						<input type='text' id='search' name='table_search' class='form-control input-sm pull-right' style='width: 150px;' placeholder='Search' onChange=javascript:search('#search','admin/kurir_detail/search') />
@@ -74,8 +75,7 @@ echo "
 							</td>
 							<td>".$row->price."</td>
 							<td>
-								<button data-toggle='modal' data-target='.bs-edit-modal-sm' class='btn btn-primary btn-sm'>Edit</button>
-								<button data-toggle='modal' data-target='.confirm' class='btn btn-warning btn-sm'>Hapus</button>
+								<button class='btn btn-primary btn-sm' onClick=javascript:dkurir_modal('".$row->id."') >Edit</button>
 							</td>
 						</tr>";
 						}
@@ -123,11 +123,167 @@ echo "
                     <h3 class='box-title'>Tambah Lokasi</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role='form' id='form-dkurir-add'>
-                    
+                <form role='form' id='form-dkurir-add' name='form-dkurir-add'>
+                    <div class='box-body'>
+					<div class='form-group'>
+						<label for=''>Lokasi Awal</label>
+						<select  class='chosen-select' name='fprovince' id='fprovince' onchange=javascript:set_city() >
+							<option value='' disabled selected>Pilih Provinsi</option>";
+							foreach ($get_province->result() as $row_p) {
+								$select = '';
+								//if ($row_p->province == $Shop->location_to_province) {$select = 'selected';}
+								echo "<option $select value='".$row_p->province."'>".$row_p->province."</option>";
+							}	
+							echo"
+						</select>
+					</div>
+					<div class='form-group' id='ffkota'>
+						<select  class='chosen-select' name='fkota' id='fkota' onchange=javascript:set_kecamatan()>
+							<option value='' disabled selected>Pilih Kota</option>";
+							foreach ($get_kota->result() as $row_c) {
+								$select = '';
+								//if ($row_p->city == $Shop->location_to_city) {$select = 'selected';}
+								echo "<option $select value='".$row_c->city."'>".$row_c->city."</option>";
+							}	
+							echo"
+						</select>
+					</div>
+					<div class='form-group' id='ffkecamatan'>
+						<select  class='chosen-select' name='fkecamatan' id='fkecamatan'>
+							<option value='' disabled selected>Pilih Kecamatan</option>";
+							foreach ($get_kecamatan->result() as $row_p) {
+								$select = '';
+								//if ($row_p->province == $Shop->location_to_province) {$select = 'selected';}
+								echo "<option $select value='".$row_p->kecamatan."'>".$row_p->kecamatan."</option>";
+							}	
+							echo"
+						</select>
+					</div>
+					<div class='form-group'>
+						<label for=''>Lokasi Tujuan</label>
+						<select  class='chosen-select' name='tprovince' id='tprovince' onchange=javascript:set_tcity()>
+							<option value='' disabled selected>Pilih Provinsi</option>";
+							foreach ($get_province->result() as $row_p) {
+								$select = '';
+								//if ($row_p->province == $Shop->location_to_province) {$select = 'selected';}
+								echo "<option $select value='".$row_p->province."'>".$row_p->province."</option>";
+							}	
+							echo"
+						</select>
+					</div>
+					<div class='form-group' id='ftkota'>
+						<select  class='chosen-select' name='tkota' id='tkota' nchange=javascript:set_tkecamatan()>
+							<option value='' disabled selected>Pilih Kota</option>";
+							foreach ($get_kota->result() as $row_p) {
+								$select = '';
+								//if ($row_p->city == $Shop->location_to_city) {$select = 'selected';}
+								echo "<option $select value='".$row_p->city."'>".$row_p->city."</option>";
+							}	
+							echo"
+						</select>
+					</div>
+					<div class='form-group' id='ftkecamatan'>
+						<select  class='chosen-select' name='tkecamatan' id='tkecamatan'>
+							<option value='' disabled selected>Pilih Kecamatan</option>";
+							foreach ($get_kecamatan->result() as $row_p) {
+								$select = '';
+								//if ($row_p->province == $Shop->location_to_province) {$select = 'selected';}
+								echo "<option $select value='".$row_p->kecamatan."'>".$row_p->kecamatan."</option>";
+							}	
+							echo"
+						</select>
+					</div>
+					<div class='form-group'>
+						<label for=''>Harga per Kg</label>
+						<input type='text' class='form-control' id='hargapkg' name='hargapkg'>
+					</div>
+					</div><!-- /.box-body -->
                         
                     <div class='box-footer'>
                         <button type='button' class='btn btn-primary form-dkurir-edit-btn' onclick=javascript:submit_data('form-dkurir-add','admin/kurir_detail/add') >Submit</button>
+                        <button type='button' class='btn btn-primary' data-dismiss='modal' >Cancel</button>
+                    </div>
+                </form>
+            </div><!-- /.box -->
+        </div>
+      </div>
+    </div>
+	
+	<div class='modal fade box-form-dkurir-edit' id='box-form-dkurir-edit' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel' aria-hidden='true'>
+      <div class='modal-dialog modal-sm'>
+        <div class='modal-content'>
+            <div class='box box-primary'>
+                <div class='box-header'>
+                    <h3 class='box-title'>Edit Lokasi</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form role='form' id='form-dkurir-edit'>
+                    <div class='box-body'>
+                        <div class='form-group'>
+						<label for=''>Lokasi Awal</label>
+						<select class='chosen-select'>
+							<option disabled selected>Pilih Propinsi</option>
+							<option>option 2</option>
+							<option>option 3</option>
+							<option>option 4</option>
+							<option>option 5</option>
+						</select>
+					</div>
+					<div class='form-group'>
+						<select class='chosen-select'>
+							<option disabled selected>Pilih Kota</option>
+							<option>option 2</option>
+							<option>option 3</option>
+							<option>option 4</option>
+							<option>option 5</option>
+						</select>
+					</div>
+					<div class='form-group'>
+						<select class='chosen-select'>
+							<option disabled selected>Pilih Kecamatan</option>
+							<option>option 2</option>
+							<option>option 3</option>
+							<option>option 4</option>
+							<option>option 5</option>
+						</select>
+					</div>
+					<div class='form-group'>
+						<label for=''>Lokasi Tujuan</label>
+						<select class='chosen-select'>
+							<option disabled selected>Pilih Propinsi</option>
+							<option>option 2</option>
+							<option>option 3</option>
+							<option>option 4</option>
+							<option>option 5</option>
+						</select>
+					</div>
+					<div class='form-group'>
+						<select class='chosen-select'>
+							<option disabled selected>Pilih Kota</option>
+							<option>option 2</option>
+							<option>option 3</option>
+							<option>option 4</option>
+							<option>option 5</option>
+						</select>
+					</div>
+					<div class='form-group'>
+						<select class='chosen-select'>
+							<option disabled selected>Pilih Kecamatan</option>
+							<option>option 2</option>
+							<option>option 3</option>
+							<option>option 4</option>
+							<option>option 5</option>
+						</select>
+					</div>
+					<div class='form-group'>
+						<label for=''>Harga per Kg</label>
+						<input type='text' class='form-control' id=''>
+					</div>
+						
+                    </div><!-- /.box-body -->
+                        
+                    <div class='box-footer'>
+                        <button type='button' class='btn btn-primary form-dkurir-edit-btn' onclick=javascript:submit_data_edit('form-dkurir-edit','admin/kurir_detail/edit') >Submit</button>
                         <button type='button' class='btn btn-primary' data-dismiss='modal' >Cancel</button>
                     </div>
                 </form>

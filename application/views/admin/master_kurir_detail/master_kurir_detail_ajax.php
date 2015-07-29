@@ -39,8 +39,7 @@ echo "
 			</td>
 			<td>".$row->price."</td>
 			<td>
-				<button data-toggle='modal' data-target='.bs-edit-modal-sm' class='btn btn-primary btn-sm'>Edit</button>
-				<button data-toggle='modal' data-target='.confirm' class='btn btn-warning btn-sm'>Hapus</button>
+				<button class='btn btn-primary btn-sm' onClick=javascript:dkurir_modal('".$row->id."') >Edit</button>
 			</td>
 		</tr>";
 		}
