@@ -219,7 +219,7 @@ class Kurir_detail extends CI_Controller {
 		echo "
 		<div class='form-group' id='ffprovince'>
 		<label for=''>Lokasi Awal</label>
-		<select  class='chosen-select' name='fprovince' id='fprovince' onchange=javascript:set_city() >
+		<select  class='chosen-select' name='fprovince' id='fprovince' onchange='javascript:sset_city(".$ffprovince.")' >
 			<option value='' selected>Pilih Provinsi</option>";
 			
 			foreach ($prove->result() as $row_p) {
@@ -231,7 +231,7 @@ class Kurir_detail extends CI_Controller {
 		//
 		$city = $this->model_dkurir->get_kota($ffprovince);
 		echo "<div class='form-group' id='ffkota'>
-		<select  class='chosen-select' name='fkota' id='fkota' onchange=javascript:set_kecamatan()>
+		<select  class='chosen-select' name='fkota' id='fkota' onchange=javascript:sset_kecamatan('$ffkota')>
 			<option value='' selected>Pilih Kota</option>";	
 			foreach ($city->result() as $row_p) {
 				$select = '';
@@ -254,7 +254,7 @@ class Kurir_detail extends CI_Controller {
 		$provet = $this->model_dkurir->get_province();
 		echo"<div class='form-group'>
 						<label for=''>Lokasi Tujuan</label>
-		<select  class='chosen-select' name='tprovince' id='tprovince' onchange=javascript:set_tcity()>
+		<select  class='chosen-select' name='tprovince' id='tprovince' onchange=javascript:sset_tcity('$ftprovince')>
 		<option value='' selected>Pilih Provinsi</option>";
 		foreach ($provet->result() as $row_pp) {
 				$select = '';
@@ -266,7 +266,7 @@ class Kurir_detail extends CI_Controller {
 		//
 		$city = $this->model_dkurir->get_kota($ftprovince);
 		echo "<div class='form-group' id='ftkota'>
-		<select  class='chosen-select' name='tkota' id='tkota' nchange=javascript:set_tkecamatan()>
+		<select  class='chosen-select' name='tkota' id='tkota' nchange=javascript:sset_tkecamatan('$ftkota')>
 			<option value='' selected>Pilih Kota</option>";	
 			foreach ($city->result() as $row_p) {
 				$select = '';

@@ -110,6 +110,7 @@ function set_city(){
 			data: 'province='+province,
 			url: base_url+'admin/kurir_detail/set_city', 
 			success: function(city) {
+			alert(province);
 				$('#ffkota').html(city);
 				$('#fkota').chosen();
 			}
@@ -140,6 +141,55 @@ function set_tcity(){
 			});
 }
 function set_tkecamatan(){
+    var kota = $('#tkota').val();
+    $.ajax({
+			type: 'POST',
+			data: 'kota='+kota,
+			url: base_url+'admin/kurir_detail/set_tkecamatan', 
+			success: function(kec) {
+				$('#ftkecamatan').html(kec);
+				$('#tkecamatan').chosen();
+			}
+			});
+}
+//
+function sset_city(set){
+    $.ajax({
+			type: 'POST',
+			data: 'province='+set,
+			url: base_url+'admin/kurir_detail/set_city', 
+			success: function(city) {
+			alert(province);
+				$('#ffkota').html(city);
+				$('#fkota').chosen();
+			}
+			});
+}
+function sset_kecamatan(set){
+    var kota = $('#fkota').val();
+    $.ajax({
+			type: 'POST',
+			data: 'kota='+kota,
+			url: base_url+'admin/kurir_detail/set_kecamatan', 
+			success: function(kec) {
+				$('#ffkecamatan').html(kec);
+				$('#fkecamatan').chosen();
+			}
+			});
+}
+function sset_tcity(set){
+    var province = $('#tprovince').val();
+    $.ajax({
+			type: 'POST',
+			data: 'province='+province,
+			url: base_url+'admin/kurir_detail/set_tcity', 
+			success: function(city) {
+				$('#ftkota').html(city);
+				$('#tkota').chosen();
+			}
+			});
+}
+function sset_tkecamatan(set){
     var kota = $('#tkota').val();
     $.ajax({
 			type: 'POST',
