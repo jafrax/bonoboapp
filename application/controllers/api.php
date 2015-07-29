@@ -2759,6 +2759,16 @@ class Api extends CI_Controller {
 		}
 	}
 	
+	public function alphabet(){
+		if(empty($_SESSION["alphabet"])){
+			$_SESSION["alphabet"] = "A";
+		}else{
+			$_SESSION["alphabet"]++;
+		}
+		
+		echo $_SESSION["alphabet"]; 
+	}
+	
 	public function doCartSave(){
 		try{
 			/*
@@ -2953,6 +2963,16 @@ class Api extends CI_Controller {
 				}
 			}
 			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Get Shop of cart
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$QShop = $this->db
+					->where("id",$QCart->toko_id)
+					->get("tb_toko")
+					->row();
 			
 			/*
 			*	------------------------------------------------------------------------------
@@ -2960,10 +2980,80 @@ class Api extends CI_Controller {
 			*	------------------------------------------------------------------------------
 			*/
 			
-			$invoice_no = "123456789";
-			$price_total = 0;
+			$invoice_no = "";
+			$price_item = 0;
 			$price_shipment = 0;
 			$price_unique = 0;
+			$price_total = 0;
+			{
+				/*
+				*	------------------------------------------------------------------------------
+				*	Generate Invoice Number
+				*	------------------------------------------------------------------------------
+				*/
+				
+				$seq_no = $QShop->invoice_seq_no;
+				$seq_alphabet = $QShop->invoice_seq_alphabet;
+						
+				$LastInvoice = $this->db
+							->where("toko_id",$QShop->id)
+							->order_by("id","Desc")
+							->get("tb_invoice")
+							->row();
+							
+				if(!empty($LastInvoice)){
+					$LastInvoiceDates = explode(" ",$LastInvoice->create_date);
+					if( $LastInvoiceDates[0] != date("Y-m-d")){
+						$seq_no = 1;
+						$seq_alphabet = "A";
+					}
+				}
+					
+				$invoice_no = date("ymd").$seq_alphabet.sprintf("%03d", $seq_no);
+				
+				/*
+				*	------------------------------------------------------------------------------
+				*	Generate Invoice Price Unique (invoice_seq_payment)
+				*	------------------------------------------------------------------------------
+				*/
+				
+				if($QShop->invoice_confirm == 0){
+					$price_unique = $QShop->invoice_seq_payment;
+				}
+				
+				/*
+				*	------------------------------------------------------------------------------
+				*	Generate Invoice Price Shipment (ms_courier)
+				*	------------------------------------------------------------------------------
+				*/
+				if(!empty($QCourier)){
+					if(!empty($QShop->location_id)){
+						$QShopLocation = $this->db
+										->where("id",$QShop->location_id)
+										->get("ms_location")
+										->row();
+										
+						if(!empty($QShopLocation)){
+							$QCourierRate = $this->db
+											->where("courier_id",$QCourier->id)
+											->where("location_from_province",$QShopLocation->province)
+											->where("location_from_city",$QShopLocation->city)
+											->where("location_from_kecamatan",$QShopLocation->kecamatan)
+											->where("location_to_province",$QUserLocation->location_province)
+											->where("location_to_city",$QUserLocation->location_city)
+											->where("location_to_kecamatan",$QUserLocation->location_kecamatan)
+											->get("tb_courier_rate")
+											->row();
+						
+							if(!empty($QCourierRate)){
+								$price_shipment = $QCourierRate->price;
+							}
+						}
+					}
+				}
+			}
+			
+			
 			
 			$QCartProducts = $this->db
 					->select("tcp.*, tp.id as product_id, tp.name as product_name, tp.description as product_description, tp.price_base")
@@ -2973,7 +3063,59 @@ class Api extends CI_Controller {
 					->result();
 			
 			foreach($QCartProducts as $QCartProduct){
+				$product_price = 0;
 				$price_product = 0;
+				
+				/*
+				*	------------------------------------------------------------------------------
+				*	Mengambil Harga Barang
+				*	------------------------------------------------------------------------------
+				*/
+				
+				$QProduct = $this->db
+						->where("id",$QCartProduct->product_id)
+						->get("tb_product")
+						->row();
+				
+				if(!empty($QProduct)){
+					$product_price = $QProduct->price_1;
+					
+					$QShopMember = $this->db
+						->where("toko_id",$QShop->id)
+						->where("member_id",$QUser->id)
+						->get("tb_toko_member")
+						->row();
+									
+					if(!empty($QShopMember)){
+						switch($QShopMember->price_level){
+							case "1":
+								$product_price = $QProduct->price_1;
+							break;
+							
+							case "2":
+								$product_price = $QProduct->price_2;
+							break;
+							
+							case "3":
+								$product_price = $QProduct->price_3;
+							break;
+							
+							case "4":
+								$product_price = $QProduct->price_4;
+							break;
+							
+							case "5":
+								$product_price = $QProduct->price_5;
+							break;
+						}
+					}
+				}
+				
+				/*
+				*	------------------------------------------------------------------------------
+				*	Mengambil cata cart varian
+				*	------------------------------------------------------------------------------
+				*/
 				
 				$QCartVarians = $this->db
 					->select("tcv.*")
@@ -2983,8 +3125,8 @@ class Api extends CI_Controller {
 					->result();
 						
 				foreach($QCartVarians as $QCartVarian){
-					$price_total = $price_total + ($QCartVarian->quantity + $QCartProduct->price_base);
-					$price_product = $price_product + ($QCartVarian->quantity + $QCartProduct->price_base);
+					$price_item = $price_item + ($QCartVarian->quantity * $product_price);
+					$price_product = $price_product + ($QCartVarian->quantity * $product_price);
 				}
 				
 				$Data = array(
@@ -3000,9 +3142,12 @@ class Api extends CI_Controller {
 			*	------------------------------------------------------------------------------
 			*/
 			$Date = date("Y-m-d H:i:s");
+			$price_total = $price_item + $price_shipment + $price_unique;
+			
 			$Data = array(
 					"toko_id"=>$QCart->toko_id,
 					"member_id"=>$QCart->member_id,
+					"courier_id"=>$QCourier->id,
 					"invoice_no"=>$invoice_no,
 					"notes"=>$this->response->postDecode("note"),
 					"member_name"=>$QUser->name,
@@ -3010,12 +3155,15 @@ class Api extends CI_Controller {
 					"member_confirm"=>0,
 					"status"=>0,
 					"price_total"=>$price_total,
+					"price_item"=>$price_item,
 					"price_shipment"=>$price_shipment,
-					"price_unique"=>$price_unique,
-					"shipment_no"=>$QCourier->id,
+					"invoice_seq_payment"=>$price_unique,
+					"shipment_no"=>"",
 					"shipment_service"=>$QCourier->name,
 					"recipient_name"=>$QUserLocation->name,
-					"recipient_phone"=>$QUserLocation->phone,
+					"recipient_phone"=>$this->response->postDecode("location_phone"),
+					"recipient_address"=>$this->response->postDecode("location_address"),
+					"recipient_description"=>$this->response->postDecode("location_description"),
 					"location_to_province"=>$QUserLocation->location_province,
 					"location_to_city"=>$QUserLocation->location_city,
 					"location_to_kecamatan"=>$QUserLocation->location_kecamatan,
@@ -3037,6 +3185,7 @@ class Api extends CI_Controller {
 				$QInvoice = $this->db
 					->where("toko_id",$QCart->toko_id)
 					->where("member_id",$QCart->member_id)
+					->where("courier_id",$QCourier->id)
 					->where("invoice_no",$invoice_no)
 					->where("notes",$this->response->postDecode("note"))
 					->where("member_name",$QUser->name)
@@ -3044,25 +3193,78 @@ class Api extends CI_Controller {
 					->where("member_confirm",0)
 					->where("status",0)
 					->where("price_total",$price_total)
+					->where("price_item",$price_item)
 					->where("price_shipment",$price_shipment)
-					->where("price_unique",$price_unique)
-					->where("shipment_no",$QCourier->id)
+					->where("invoice_seq_payment",$price_unique)
+					->where("shipment_no","")
 					->where("shipment_service",$QCourier->name)
 					->where("recipient_name",$QUserLocation->name)
-					->where("recipient_phone",$QUserLocation->phone)
+					->where("recipient_phone",$this->response->postDecode("location_phone"))
+					->where("recipient_address",$this->response->postDecode("location_address"))
+					->where("recipient_description",$this->response->postDecode("location_description"))
 					->where("location_to_province",$QUserLocation->location_province)
 					->where("location_to_city",$QUserLocation->location_city)
 					->where("location_to_kecamatan",$QUserLocation->location_kecamatan)
 					->where("location_to_postal",$QUserLocation->location_postal)
 					->where("create_date",$Date)
-					->where("create_user",$$QUser->email)
+					->where("create_user",$QUser->email)
 					->where("update_date",$Date)
-					->where("update_user",$$QUser->email)
+					->where("update_user",$QUser->email)
 					->get("tb_invoice")
 					->row();
 					
 				if(!empty($QInvoice)){
 					$InvoiceProducts = array();
+					
+					/*
+					*	------------------------------------------------------------------------------
+					*	Update SEQ alphabet, nomor & payment pada table tb_toko
+					*	------------------------------------------------------------------------------
+					*/
+					
+					$seq_alphabet_new = $QShop->invoice_seq_alphabet;
+					$seq_no_new = $QShop->invoice_seq_no;
+					$seq_payment_new = $QShop->invoice_seq_payment;
+					
+					$LastInvoice = $this->db
+								->where("toko_id",$QShop->id)
+								->where("id != ",$QInvoice->id)
+								->order_by("id","Desc")
+								->get("tb_invoice")
+								->row();
+								
+					if(!empty($LastInvoice)){
+						$LastInvoiceDates = explode(" ",$LastInvoice->create_date);
+						if( $LastInvoiceDates[0] == date("Y-m-d")){
+							if($QShop->invoice_seq_no >= 999){
+								$seq_no_new = 1;
+								$seq_alphabet_new++;
+							}else{
+								$seq_no_new++;
+							}
+						}else{
+							$seq_no_new = 2;
+							$seq_alphabet_new = "A";
+						}
+					}
+					
+					if($QShop->invoice_confirm == 0){
+						if($QShop->invoice_seq_payment >= 999){
+							$seq_payment_new = 1;
+						}else{
+							$seq_payment_new++;
+						}
+					}
+					
+					$Data = array(
+							"invoice_seq_no"=>$seq_no_new,
+							"invoice_seq_payment"=>$seq_payment_new,
+							"invoice_seq_alphabet"=>$seq_alphabet_new,
+						);
+					
+					$Save = $this->db->where("id",$QShop->id)->update("tb_toko",$Data);
+					
+					
 					/*
 					*	------------------------------------------------------------------------------
 					*	Simpan data invoice product dari cart product
@@ -3164,11 +3366,11 @@ class Api extends CI_Controller {
 								*/
 								$InvoiceProduct = array(
 									"id"=>$QInvoiceProduct->id,
-									"price_product"=>$QInvoiceProduct->,
-									"product_name"=>$QInvoiceProduct->,
-									"product_image"=>$QInvoiceProduct->,
-									"product_description"=>$QInvoiceProduct->,
-									"product"=>$QInvoiceProduct->,
+									"price_product"=>$QInvoiceProduct->price_product,
+									"product_name"=>$QInvoiceProduct->product_name,
+									"product_image"=>"",
+									"product_description"=>$QInvoiceProduct->product_description,
+									"product"=>$this->getProductById($QInvoiceProduct->product_id),
 									"invoice_varians"=>$InvoiceVarians,
 								);
 								
@@ -3183,6 +3385,7 @@ class Api extends CI_Controller {
 					*	------------------------------------------------------------------------------
 					*/
 					$Invoice = array(
+							"id"=>$QInvoice->id,
 							"invoice_no"=>$QInvoice->invoice_no,
 							"notes"=>$QInvoice->notes,
 							"member_name"=>$QInvoice->member_name,
@@ -3190,12 +3393,15 @@ class Api extends CI_Controller {
 							"member_confirm"=>$QInvoice->member_confirm,
 							"status"=>$QInvoice->status,
 							"price_total"=>$QInvoice->price_total,
+							"price_item"=>$QInvoice->price_item,
 							"price_shipment"=>$QInvoice->price_shipment,
-							"price_unique"=>$QInvoice->price_unique,
+							"invoice_seq_payment"=>$QInvoice->invoice_seq_payment,
 							"shipment_no"=>$QInvoice->shipment_no,
 							"shipment_service"=>$QInvoice->shipment_service,
 							"recipient_name"=>$QInvoice->recipient_name,
-							"recipient_phone"=>$QInvoice->recipient_phone,
+							"recipient_phone"=>$QInvoice->recipient_address,
+							"recipient_address"=>$QInvoice->recipient_address,
+							"recipient_description"=>$QInvoice->recipient_phone,
 							"location_to_province"=>$QInvoice->location_to_province,
 							"location_to_city"=>$QInvoice->location_to_city,
 							"location_to_kecamatan"=>$QInvoice->location_to_kecamatan,
@@ -3203,26 +3409,22 @@ class Api extends CI_Controller {
 							"shop"=>$this->getShopById($QCart->toko_id),
 							"invoice_products"=>$InvoiceProducts,
 						);
-						
+					
+					/*
+					*	------------------------------------------------------------------------------
+					*	Hapus data Cart dan ambil data Toko
+					*	------------------------------------------------------------------------------
+					*/
+					
+					//$this->db->where("id",$QCart->id)->delete("tb_cart");
+				
 					$this->response->send(array("result"=>1,"invoice"=>$Invoice), true);
 				}else{
 					$this->response->send(array("result"=>0,"message"=>"Tidak dapat menemukan invoice","messageCode"=>5), true);
 				}
-				
-				/*
-				*	------------------------------------------------------------------------------
-				*	Hapus data Cart dan ambil data Toko
-				*	------------------------------------------------------------------------------
-				*/
-				
-				//$this->db->where("id",$QCart->id)->delete("tb_cart");
-				
-				
-				
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Tidak dapat membuat invoice","messageCode"=>5), true);
 			}
-			
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
