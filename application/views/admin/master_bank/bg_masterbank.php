@@ -112,27 +112,28 @@
                     <h3 class='box-title'>Edit bank</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role='form' id='form-bank-edit'>
+                <form role='form' id='form-bank-edit' enctype='multipart/form-data' method='post' action='".base_url()."admin/master_bank/edit'>
                     <div class='box-body'>
                         <div class='form-group'>
                             <label for='namaedit'>Nama bank</label>
-                            <input type='text' class='form-control' id='namaedit' name='namaedit' placeholder='Enter nama bank' onchange=javascript:submit_data_edit('form-bank-edit','admin/master_bank/edit') >
+                            <input type='text' class='form-control' id='namaedit' name='namaedit' placeholder='Enter nama bank'  >
                             <input type='hidden' name='idedit' id='idedit'/>
+                            <input type='hidden' name='image' id='image'/>
                         </div>
 						<div class='form-group'>
                             <label for='exampleInputEmail1'>Logo</label>
-                            <button type='button' class='btn btn-info btn-xs'>Broswe</button>
+                            <button type='button' class='btn btn-info btn-xs' onClick=javascript:klik('file-image-edit')>Broswe</button>
                             <div class='colimg'>
-                                <img id='image' class='logobankbig' src='".base_url()."html/admin/img/credit/dummy_logo.png' />
+                                <img id='file-image-edit-add' class='logobankbig' src='".base_url()."html/admin/img/credit/dummy_logo.png' />
                                 <button type='button' class='close'>×</button>
-                                <input type='file' id='file-image-edit' name='file-image'>
+                                <input type='file' id='file-image-edit' name='file-image-edit' style='display:none;' OnChange=javascript:picture_upload(this.id)>
                             </div>
                         </div>
 						
                     </div><!-- /.box-body -->
                         
                     <div class='box-footer'>
-                        <button type='button' class='btn btn-primary form-bank-edit-btn' onclick=javascript:submit_data_edit('form-bank-edit','admin/master_bank/edit') >Submit</button>
+                        <button type='submit' class='btn btn-primary form-bank-edit-btn'  >Submit</button>
                         <button type='button' class='btn btn-primary' data-dismiss='modal' >Cancel</button>
                     </div>
                 </form>
@@ -153,7 +154,7 @@
                     <div class='box-body'>
                         <div class='form-group'>
                             <label for='namaadd'>Nama bank</label>
-                            <input type='text' class='form-control' id='namaadd' name='namaadd' placeholder='Enter nama bank' onkeypress=javascript:key_enter(event,'form-bank-add','admin/master_bank/add') >
+                            <input type='text' class='form-control' id='namaadd' name='namaadd' placeholder='Enter nama bank'  >
                         </div>
 						<div class='form-group'>
                             <label for='exampleInputEmail1'>Logo</label>

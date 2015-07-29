@@ -195,9 +195,7 @@ class License extends CI_Controller {
 
     public function daftar(){
 
-        if (empty($_SESSION['option'])) {
-            $_SESSION['option'] = '';
-        }
+        
         $page=$this->uri->segment(4);
         $uri=4;
         $limit=$this->limit;
@@ -253,7 +251,7 @@ class License extends CI_Controller {
             if ($opt != 3) {
                 $_SESSION['option'] = $opt;
             }else{
-                $_SESSION['option'] = '';
+                $_SESSION['option'] = null;
             }
             
         }

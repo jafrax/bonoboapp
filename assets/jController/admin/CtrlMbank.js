@@ -36,6 +36,10 @@ $.ajax({
 			$("#box-form-bank-edit").modal("show").on('shown.bs.modal', function () {				
 				$("#namaedit").val(data.name).focus();
 				$("#idedit").val(data.id);
+                if (data.image != '') {
+                    $("#image").val(data.image);
+                    $("#file-image-edit-add").attr("src", base_url+"assets/pic/bank/resize/"+data.image);
+                };
 			});
 		}
 	},
