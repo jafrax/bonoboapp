@@ -931,11 +931,12 @@ class Toko extends CI_Controller {
 			$konfirmasi = $this->input->post('konfirmasi');
 			$step=$_SESSION['bonobo']['step'];
 			if($step != 0){
-				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',7)->update('tb_toko');
+				$this->db->where('id',$_SESSION['bonobo']['id'])->set('step',7)->update('tb_toko');
 			}
 			$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('invoice_confirm',$konfirmasi)->update('tb_toko');
 			if ($update) {
 				redirect('toko/step7');
+				
 			}
 		}
 

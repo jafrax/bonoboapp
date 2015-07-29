@@ -14,7 +14,7 @@ echo "
 						</div>
 						<div class='row formbody'>
 							<div class='input-field col s12 m8'>
-								<input id='publik' name='kofirmasi' value='0' type='radio' class='with-gap' checked>
+								<input id='publik' name='konfirmasi' value='0' type='radio' class='with-gap' ".($Shop->invoice_confirm == 0 ? "checked" : "").">
 								<label for='publik'>menggunakan 3 digit terakhir dari nomor nota anda.</label>
 							</div>
 							<div class='input-field col s12 m8'>
@@ -24,7 +24,7 @@ echo "
 								</p>
 							</div>
 							<div class='input-field col s12 m8'>
-								<input id='privasi' name='kofirmasi' value='1' type='radio' class='with-gap'>
+								<input id='privasi' name='konfirmasi' value='1' type='radio' class='with-gap' ".($Shop->invoice_confirm == 1 ? "checked" : "").">
 								<label for='privasi'>Melakukan konfirmasi pembayaran via Bonobo Apps</label>
 							</div>	
 							<div class='input-field col s12 m8'>

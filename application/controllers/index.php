@@ -344,6 +344,8 @@ class Index extends CI_Controller {
 			$this->response->send(array("result"=>0,"message"=>"Email yang anda masukkan tidak terdaftar !","messageCode"=>1));
 		}
 	}
+
+	
 	
 }
 
