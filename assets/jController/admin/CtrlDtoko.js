@@ -1,7 +1,51 @@
 $(function() {
     //Date range picker
-    $('#tanggalindong').daterangepicker();
+     $('#datepickermah').datepicker({
+       autoclose: true,
+       todayHighlight: true,
+       format: 'dd MM yyyy' 
+   });
 });
+function tanggal_modal(id) {
+$.ajax({
+	type    : "POST",
+	url     : base_url+"admin/daftar_toko/datechange",
+	data    : "getid="+id,
+	dataType: 'json',
+	success : function(response){
+		if (response.msg == "success") {
+			var data = response[0];
+			idedit      = data.id;
+			$("#bs-example-modal-smedit").modal("show").on('shown.bs.modal', function () {				
+				$("#datepickermah").val(data.expired_on).focus();
+				$("#idedit").val(data.id);
+			});
+		}
+	},
+	error : function(){
+		
+	}
+});
+}
+function submit_data_edit(selection,url) {
+        $.ajax({
+            type    : "POST",
+            url     : base_url+url,
+            data    : $("#"+selection).serialize(),
+            dataType: 'json',
+            success : function(response){
+                if (response.msg == "success") {
+                    $("#tanggalmu"+idedit).html($("#datepickermah").val());
+                    $(".modal").modal("hide");
+                }else{
+                    
+                }
+            },
+            error : function(){
+                
+            }
+        });
+}
 function toko_suspend(id) {
     $.ajax({
         type    : "POST",

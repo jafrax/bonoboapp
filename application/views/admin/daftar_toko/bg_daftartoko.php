@@ -125,31 +125,7 @@ echo"
 												echo "
 												</td>";
 												$date_time=date('d F Y',strtotime($row->expired_on));
-												echo"<td><a href='#' data-toggle='modal' data-target='.bs-example-modal-sm".$row->id."'> ".$date_time." </a> </td>
-													<div class='modal fade bs-example-modal-sm".$row->id."' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel' aria-hidden='true'>
-													  <div class='modal-dialog modal-sm'>
-														<div class='modal-content'>
-															<div class='box box-solid box-danger'>
-																<div class='box-header'>
-																	<h3 class='box-title'>Confirmation</h3>
-																	<div class='box-tools pull-right'>
-																		<button class='btn btn-danger btn-sm' data-widget='collapse'><i class='fa fa-minus'></i></button>
-																		<button class='btn btn-danger btn-sm' class='close' data-dismiss='modal' aria-label='Close'><i class='fa fa-times'></i></button>
-																	</div>
-																</div>
-																<div class='box-body' style='display: block;'>
-																	Box class: <code>.box.box-solid.box-primary</code>
-																	<p>
-																	</p>
-																</div><!-- /.box-body -->
-																<div class='box-footer'>
-																	<button type='submit' class='btn btn-danger'>Ok</button>
-																	<button type='submit' class='btn btn-danger'>Cancel</button>
-																</div>
-															</div>
-														</div>
-													  </div>
-													</div>
+												echo"<td><a href='#' id='tanggalmu".$row->id."' onClick=javascript:tanggal_modal('".$row->id."')> ".$date_time." </a> </td>
 											</tr>";
 											}
 									}else{
@@ -185,45 +161,36 @@ echo"
 			</section><!-- /.content -->
 		</aside><!-- /.right-side -->
 	</div><!-- ./wrapper -->
-	
 	<!-- ./modal -->
-		<div class='modal fade bs-example-modal-sm' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel' aria-hidden='true'>
-  <div class='modal-dialog modal-sm'>
-	<div class='modal-content'>
-		<div class='box box-primary'>
-			<div class='box-header'>
-				<h3 class='box-title'>Ganti account status</h3>
-			</div><!-- /.box-header -->
-			<!-- form start -->
-			<form role='form'>
-				<div class='box-body'>
-					<div class='form-group'>
-						<label for='exampleInputEmail1'>Status</label>
-						<select class='form-control'>
-							<option>Active</option>
-							<option>Nonactive</option>
-						</select>
-					</div>
-					<div class='form-group'>
-						<label for='exampleInputEmail1'>Berlaku s/d</label>
+	 <div class='modal fade bs-example-modal-smedit' id='bs-example-modal-smedit' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel' aria-hidden='true'>
+      <div class='modal-dialog modal-sm'>
+        <div class='modal-content'>
+            <div class='box box-primary'>
+                <div class='box-header'>
+                    <h3 class='box-title'>Ganti account status</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form role='form' id='date-munggah' name='date-munggah'>
+                    <div class='box-body'>
+                        <div class='form-group'>
 						<div class='input-group'>
-							<div class='input-group-addon'>
+                            <div class='input-group-addon'>
 								<i class='fa fa-calendar'></i>
 							</div>
-							<input type='text' class='form-control pull-right' id='tanggalindong'>
-						</div>
-					</div>
-				</div><!-- /.box-body -->
+							<input type='text' class='form-control pull-right' placeholder='Enter date' id='datepickermah' name='datepickermah'>
+							<input type='hidden' name='idedit' id='idedit'/>
+							</div>
+                        </div>
+                    </div><!-- /.box-body -->
 
-				<div class='box-footer'>
-					<button type='submit' class='btn btn-primary'>Submit</button>
-					<button type='submit' class='btn btn-primary' data-dismiss='modal'>Cancel</button>
-				</div>
-			</form>
-		</div><!-- /.box -->
-	</div>
-  </div>
-</div>
-		
+                    <div class='box-footer'>
+                        <button type='submit' class='btn btn-primary' data-dismiss='modal' onclick=javascript:submit_data_edit('date-munggah','admin/daftar_toko/datechange')>Submit</button>
+                        <button type='submit' class='btn btn-primary' data-dismiss='modal'>Cancel</button>
+                    </div>
+                </form>
+            </div><!-- /.box -->
+        </div>
+      </div>
+    </div>
 		";
 ?>

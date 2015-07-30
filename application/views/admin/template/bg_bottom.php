@@ -61,7 +61,7 @@ echo "
 		<script src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js'></script>
         <script src='".site_url("html/admin/js/jquery-ui-1.10.3.min.js")."' type='text/javascript'></script>
         <script src='".site_url("html/admin/js/bootstrap.min.js")."' type='text/javascript'></script>
-        <script src='".site_url("html/admin/js/plugins/daterangepicker/daterangepicker.js")."' type='text/javascript'></script>
+        <script src='".site_url("html/admin/js/plugins/datepicker/bootstrap-datepicker.min.js")."' type='text/javascript'></script>
         <script src='".site_url("html/admin/js/AdminLTE/app.js' type='text/javascript")."'></script>
         <script src='".site_url("html/admin/js/core.js' type='text/javascript")."'></script>
         <script type='text/javascript' src='".base_url("assets/jLib/jQuery/jquery.validate.js")."'></script>
