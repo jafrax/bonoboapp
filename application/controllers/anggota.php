@@ -28,9 +28,11 @@ class Anggota extends CI_Controller {
 		$this->load->model("enduser/model_member_location");
 		
 		if(empty($_SESSION['bonobo']) || empty($_SESSION['bonobo']['id'])){
+
 			redirect('index/');
 			return;
 		}
+		$this->template->cek_license();
     }
 	
 	private function countNewMember(){

@@ -49,9 +49,29 @@ function box_notif_alert (e) {
 function box_notif_success (a,b,c) {
 	var box = "	<div class='card-panel green darken-1'>"
 				      +"<span class='white-text '><h4>Selamat! Akun anda sudah aktif</h4></span>"
-				      +"<span class='white-text '>Masa aktif akun Anda sampai : <b style='text-decoration:underline'>"+a+"</b></span>"
-				      +"<span class='white-text '>License Code : <b style='text-decoration:underline'>"+b+"</b></span>"
+				      +"<span class='white-text '>Masa aktif akun Anda sampai : <b style='text-decoration:underline'>"+a+"</b></span><br>"
+				      +"<span class='white-text '>License Code : <b style='text-decoration:underline'>"+b+"</b></span><br>"
 				      +"<span class='white-text '>Email : <b style='text-decoration:underline'>"+c+"</b></span><button class='btn waves-effect right waves-light white green-text' type='button' name='action'>Go to Dashboard</button>"
 				    +"</div>";
 	$('#notif').html(box).hide().slideDown();
+}
+
+function box_notif_minta (a,b,c) {
+	var box = "	<div class='card-panel green darken-1'>"
+				      +"<span class='white-text '>Permintaan</span>"				      
+				    +"</div>";
+	$('#notif').html(box).hide().slideDown().delay(3000).slideUp('slow');
+}
+
+function minta_disini(id){
+	$.ajax({
+	    type: 'POST',
+	    data: 'id='+id,
+	    url: base_url+'license/minta_disini',	    
+	    success: function(response) {
+	    	if (response.msg == 'success') {	    		
+				box_notif_minta (response.notif);				
+	    	}
+	    }
+    });
 }

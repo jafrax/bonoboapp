@@ -21,9 +21,11 @@ class Message extends CI_Controller {
 		$this->load->model("enduser/model_member");
 		
 		if(empty($_SESSION['bonobo']) || empty($_SESSION['bonobo']['id'])){
+
 			redirect('index/');
 			return;
 		}
+		$this->template->cek_license();
     }
 	
 	

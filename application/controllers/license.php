@@ -16,9 +16,10 @@ class License extends CI_Controller {
 			redirect('index/');
 			return;
 		}		
+
     }
 	
-	public function index(){		
+	public function index(){
 		$this->load->view("enduser/license/bg_license");
 	}
 	
@@ -43,7 +44,7 @@ class License extends CI_Controller {
 			//echo $end_date;
 			$update = $this->db->where('id',$id)->set('activation_code',$code)->set('expired_on',$end_date)->update('tb_toko');
 			if ($update) {
-				$this->db->where('toko_id',$id)->where('code',$code)->set('validity',0)->get('tb_activation_code');
+				$this->db->where('toko_id',$id)->where('code',$code)->set('validity',0)->update('tb_activation_code');
 				$msg    = "success";
                 $msg    = array("msg"=>$msg,"end_date"=>$end_date);
 	            $data   = array_merge($msg,$active_code->result());
@@ -71,6 +72,12 @@ class License extends CI_Controller {
 		}
 
 		return $date->format('Y-m-d');
+	}
+
+	public function minta_disini()
+	{
+		$id = $this->input->post('id');
+		$update = $this->db->where('toko_id',$id)->where('code',$code)->set('validity',0)->update('tb_activation_code');
 	}
 	
 }
