@@ -3,7 +3,7 @@
 * Admin CONTROLLER daftar_toko
 *
 * Log Activity : ~ Create your log if you change this controller ~
-* 1. Create 22 July 2015 by Adi Setyo, Create controller : Coding index, delete, search
+* 1. Create 22 July 2015 by Adi Setyo, Create controller : Coding index, delete, search, suspend
 */
 class Daftar_toko extends CI_Controller {
     var $data = array('scjav'=>'assets/jController/admin/CtrlDtoko.js');
@@ -78,5 +78,67 @@ class Daftar_toko extends CI_Controller {
 			$this->load->view('admin/daftar_toko/bg_daftartoko_ajax', $this->data);
 		}
 	}
+	public function datechange(){
+        $getid = $this->input->post("getid");
+        if($getid){
+            $cek   = $this->model_toko->edit($getid);
+            $msg    = "error";
+            if(count($cek)>0){
+                $msg    = "success";
+            }
+            $msg    = array("msg"=>$msg);
+            $data   = array_merge($msg,$cek);
+            echo json_encode($data);
+        }else{
+            $this->form_validation->set_rules('datepickermah', '', 'required');
+            $this->form_validation->set_rules('idedit', '', 'required');
+            $msg    = "error";
+            $notif  = "";
+            if ($this->form_validation->run() == TRUE){
+                
+                $datepickermah    	= $this->db->escape_str($this->input->post('datepickermah'));
+                $idedit    			= $this->db->escape_str($this->input->post('idedit'));
+				$date_time=date('Y-m-d',strtotime($datepickermah));
+                $param  = array(
+                    'expired_on'          => $date_time,
+					'update_user'   	=> $_SESSION['bonobo_admin']->email
+                );
+                
+                $update = $this->db->where("id",$idedit)->update('tb_toko',$param);
+                if($update){
+                    $msg    = "success";
+                    $notif  = "Berhasil";
+					$date=$date_time;
+                }
+            }
+            echo json_encode(array("msg"=>$msg,"notif"=>$notif,"tanggal"=>$date));
+        }
+    }
+	public function suspend(){
+		$id 	= $this->input->post('id');
+		$msg    = "error";
+        $notif  = "";
+		if($id){
+			$cek	= $this->model_toko->edit($id);
+			if(count($cek) > 0){
+				$this->db->set('status',3)->where('id',$id)->update('tb_toko');
+				$msg    = "success";
+			}
+		}
+		echo json_encode(array("msg"=>$msg,"notif"=>$notif));
+    }
+	public function unsuspend(){
+        $id 	= $this->input->post('id');
+		$msg    = "error";
+        $notif  = "";
+		if($id){
+			$cek	= $this->model_toko->edit($id);
+			if(count($cek) > 0){
+				$this->db->set('status',2)->where('id',$id)->update('tb_toko');
+				$msg    = "success";
+			}
+		}
+		echo json_encode(array("msg"=>$msg,"notif"=>$notif));
+    }
 	
 }

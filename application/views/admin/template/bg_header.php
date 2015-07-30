@@ -14,8 +14,8 @@ echo"
         <link href='".site_url("html/admin/css/ionicons.min.css")."' rel='stylesheet' type='text/css' />
         <!-- DATA TABLES -->
         <link href='".site_url("html/admin/css/datatables/dataTables.bootstrap.css")."' rel='stylesheet' type='text/css' />
-        <!-- daterange picker -->
-        <link href='".site_url("html/admin/css/daterangepicker/daterangepicker-bs3.css")."' rel='stylesheet' type='text/css' />
+        <!-- date picker -->
+        <link href='".site_url("html/admin/css/datepicker/bootstrap-datepicker.css")."' rel='stylesheet' type='text/css' />
         <!-- Bootstrap time Picker -->
         <link href='".site_url("html/admin/css/timepicker/bootstrap-timepicker.min.css.")."' rel='stylesheet'/>
         <!-- Theme style -->
@@ -29,5 +29,13 @@ echo"
           <script src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'></script>
           <script src='https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js'></script>
         <![endif]-->
+		<style type='text/css'>
+			.error {
+				font-style: italic !important;
+				color: #E3695C !important;
+				font-size: 11px !important;
+				margin-top: 0px !important;
+			}
+		</style>
     </head>";
 ?>

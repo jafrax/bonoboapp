@@ -7,7 +7,7 @@
 				Master kurir
 			</h1>
 			<ol class='breadcrumb'>
-				<li><a href='#'><i class='fa fa-dashboard'></i> Dashboard</a></li>
+				<li><a href='".site_url('admin/index/dashboard')."'><i class='fa fa-dashboard'></i> Dashboard</a></li>
 
 				<li class='active'>Master kurir</li>
 			</ol>

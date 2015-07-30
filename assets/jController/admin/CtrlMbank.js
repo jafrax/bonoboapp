@@ -1,7 +1,4 @@
-$(function() {
-    //Date range picker
-    $('#tanggalindong').daterangepicker();
-});
+
 $(document).ready(function() {
 
     $('#form-bank-edit').validate({

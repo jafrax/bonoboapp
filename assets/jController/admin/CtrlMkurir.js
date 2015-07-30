@@ -1,7 +1,4 @@
-$(function() {
-    //Date range picker
-    $('#tanggalindong').daterangepicker();
-});
+
 $(document).ready(function() {
     $('#form-kurir-edit').validate({
         rules:{

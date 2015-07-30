@@ -12,7 +12,6 @@ echo"
 			<th>No</th>
 			<th>Nama Toko</th>
 			<th>Email</th>
-			<th>Email Status</th>
 			<th>Account Status</th>
 			<th>Berlaku s/d</th>
 		</tr>
@@ -34,40 +33,65 @@ echo"
 				<td>".$nama."</td>
 				<td>".$row->email."</td>
 				<td>";
-				if($row->status == 2){
-						echo "<span class='label label-success'>Verified</span>";
-				}else{
-						echo "<span class='label label-danger'>! Verified</span>";
-				}
-				echo"
-				</td>
-				<td><a href='#' data-toggle='modal' data-target='.bs-example-modal-sm'><span class='label label-success'>Active</span></button></td>";
-				$date_time=date('d F Y',strtotime($row->expired_on));
-				echo"<td><a href='#' data-toggle='modal' data-target='.confirm_".$row->id."'> ".$date_time." </a> </td>
-					<div class='modal fade confirm_".$row->id."' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel' aria-hidden='true'>
-					  <div class='modal-dialog modal-sm'>
-						<div class='modal-content'>
-							<div class='box box-solid box-danger'>
-								<div class='box-header'>
-									<h3 class='box-title'>Confirmation</h3>
-									<div class='box-tools pull-right'>
-										<button class='btn btn-danger btn-sm' data-widget='collapse'><i class='fa fa-minus'></i></button>
-										<button class='btn btn-danger btn-sm' class='close' data-dismiss='modal' aria-label='Close'><i class='fa fa-times'></i></button>
+					if($row->status == 2){
+						echo "<button class='btn btn-info btn-sm btn-toko-".$row->id."' data-toggle='modal' data-target='.box-toko_suspend".$row->id."' >Suspend</button>";
+						echo "
+							<div class='modal fade box-toko_suspend".$row->id."' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel' aria-hidden='true'>
+								<div class='modal-dialog modal-sm'>
+									<div class='modal-content'>
+										<div class='box box-solid box-danger'>
+											<div class='box-header'>
+												<h3 class='box-title'>Confirmation</h3>
+												<div class='box-tools pull-right'>
+													<button class='btn btn-danger btn-sm' class='close' data-dismiss='modal' aria-label='Close'><i class='fa fa-times'></i></button>
+												</div>
+											</div>
+											<div class='box-body body-delete' style='display: block;'>
+												<p>
+													Suspend Toko ".$nama."
+												</p>
+											</div><!-- /.box-body -->
+											<div class='box-footer'>
+												<button type='button' class='btn btn-danger delete-ok' data-dismiss='modal' onclick=javascript:toko_suspend('".$row->id."')>Ok</button>
+												<button type='button' class='btn btn-danger delete-cancel' data-dismiss='modal'>Cancel</button>
+											</div>
+										</div>
 									</div>
 								</div>
-								<div class='box-body' style='display: block;'>
-									Box class: <code>.box.box-solid.box-primary</code>
-									<p>
-									</p>
-								</div><!-- /.box-body -->
-								<div class='box-footer'>
-									<button type='submit' class='btn btn-danger'>Ok</button>
-									<button type='submit' class='btn btn-danger'>Cancel</button>
+							</div>
+							";
+					
+					}else if($row->status == 3) {
+						echo "<button class='btn btn-danger btn-sm btn-toko-".$row->id."'  data-toggle='modal' data-target='.box-toko_unsuspend".$row->id."' >Unsuspend</button>";
+						echo "<div class='modal fade box-toko_unsuspend".$row->id."' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel' aria-hidden='true'>
+								<div class='modal-dialog modal-sm'>
+									<div class='modal-content'>
+										<div class='box box-solid box-danger'>
+											<div class='box-header'>
+												<h3 class='box-title'>Confirmation</h3>
+												<div class='box-tools pull-right'>
+													<button class='btn btn-danger btn-sm' class='close' data-dismiss='modal' aria-label='Close'><i class='fa fa-times'></i></button>
+												</div>
+											</div>
+											<div class='box-body body-delete' style='display: block;'>
+												<p>
+													Aktifkan Toko ".$nama."
+												</p>
+											</div><!-- /.box-body -->
+											<div class='box-footer'>
+												<button type='button' class='btn btn-danger delete-ok' data-dismiss='modal' onclick=javascript:toko_unsuspend('".$row->id."')>Ok</button>
+												<button type='button' class='btn btn-danger delete-cancel' data-dismiss='modal'>Cancel</button>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
-						</div>
-					  </div>
-					</div>
+							";
+					}
+					echo "
+				</td>";
+				$date_time=date('d F Y',strtotime($row->expired_on));
+				echo"<td><a href='#' id='tanggalmu".$row->id."' onClick=javascript:tanggal_modal('".$row->id."')> ".$date_time." </a> </td>
 				</tr>";
 			}
 	}else{
@@ -89,7 +113,6 @@ echo"
 			<th>No</th>
 			<th>Nama Toko</th>
 			<th>Email</th>
-			<th>Email Status</th>
 			<th>Account Status</th>
 			<th>Berlaku s/d</th>
 	</tfoot>
