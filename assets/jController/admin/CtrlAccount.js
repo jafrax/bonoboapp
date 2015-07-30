@@ -1,7 +1,3 @@
-$(function() {
-    //Date range picker
-    $('#tanggalindong').daterangepicker();
-});
 $(document).ready(function() {
     $('#form-account-edit').validate({
         rules:{

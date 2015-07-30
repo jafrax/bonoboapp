@@ -98,19 +98,20 @@ class Daftar_toko extends CI_Controller {
                 
                 $datepickermah    	= $this->db->escape_str($this->input->post('datepickermah'));
                 $idedit    			= $this->db->escape_str($this->input->post('idedit'));
-				$date_time=date('yy/mm/dd',strtotime($datepickermah));
+				$date_time=date('Y-m-d',strtotime($datepickermah));
                 $param  = array(
                     'expired_on'          => $date_time,
-					'update_user'   => $_SESSION['bonobo_admin']->email
+					'update_user'   	=> $_SESSION['bonobo_admin']->email
                 );
                 
-                $insert = $this->db->where("id",$idedit)->update('tb_toko',$param);
-                if($insert){
+                $update = $this->db->where("id",$idedit)->update('tb_toko',$param);
+                if($update){
                     $msg    = "success";
                     $notif  = "Berhasil";
+					$date=$date_time;
                 }
             }
-            echo json_encode(array("msg"=>$msg,"notif"=>$notif));
+            echo json_encode(array("msg"=>$msg,"notif"=>$notif,"tanggal"=>$date));
         }
     }
 	public function suspend(){
