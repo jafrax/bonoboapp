@@ -29,7 +29,7 @@ class Index extends CI_Controller {
 			$this->template->cek_license();
 				$step=$_SESSION['bonobo']['step'];
 				if($step == 1){
-					//redirect('toko');					
+					redirect('toko');					
 				}else if($step == 0){
 					redirect('nota');
 				}else{
