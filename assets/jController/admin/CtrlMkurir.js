@@ -29,6 +29,7 @@ function kurir_modal_add() {
 $("#box-form-kurir-add").modal("show").on('shown.bs.modal', function () {
 	$('#form-kurir-add')[0].reset();
 	$('label.error').hide();
+    $("#fileimage-add").attr("src", base_url+"html/admin/img/credit/dummy_logo.png");
 });
 }
 function kurir_modal(id) {
