@@ -29,6 +29,7 @@ class Kurir_detail extends CI_Controller {
             else:
             $offset = $page;
         endif;
+        $this->data['ini_nama']=$this->model_dkurir->name_id($_SESSION['kurir_detail']);
         $pg=$this->model_dkurir->get_all_dkurir($_SESSION['kurir_detail']);
         $url='admin/kurir_detail/index/'.$_SESSION['link_kurir_detail'].'/index/';
         $this->data['pagination'] = $this->template->paging2($pg,$uri,$url,$limit);        

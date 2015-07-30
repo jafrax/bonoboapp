@@ -12,10 +12,10 @@ $(document).ready(function() {
     });
 	$('#form-kurir-add').validate({
         rules:{
-            namaedit        : {required: true}
+            namaadd        : {required: true}
         },
         messages: {
-            namaedit: {
+            namaadd: {
                 required: ("Name cannot be empty"),
             }
         },

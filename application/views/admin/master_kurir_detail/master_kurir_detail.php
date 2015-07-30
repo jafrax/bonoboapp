@@ -18,8 +18,11 @@ echo "
 	<section class='content'>
 
 		<div class='box'>
-			<div class='box-header'>
-				<h3 class='box-title'>JNE</h3>                                    
+			<div class='box-header'>";
+			foreach ($ini_nama as $row){
+				echo "<h3 class='box-title'>".$row->name."</h3> ";
+			}
+			echo "	                                  
 			</div><!-- /.box-header -->
 			<div class='box-body table-responsive'>
 				<div class='box-tools'>

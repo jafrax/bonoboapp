@@ -10,6 +10,16 @@ $(document).ready(function() {
             }
         },
     });
+	$('#form-kategori-add').validate({
+        rules:{
+            namaadd        : {required: true}
+        },
+        messages: {
+            namaadd: {
+                required: ("Name cannot be empty"),
+            }
+        },
+    });
 })
 
 function kategori_modal_add() {

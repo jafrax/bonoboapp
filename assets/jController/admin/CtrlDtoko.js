@@ -6,6 +6,18 @@ $(function() {
        format: 'dd MM yyyy' 
    });
 });
+$(document).ready(function() {
+    $('#date-munggah').validate({
+        rules:{
+            datepickermah        : {required: true}
+        },
+        messages: {
+            datepickermah: {
+                required: ("cannot be empty"),
+            }
+        },
+    });
+})
 function tanggal_modal(id) {
 $.ajax({
 	type    : "POST",
@@ -28,6 +40,7 @@ $.ajax({
 });
 }
 function submit_data_edit(selection,url) {
+	if ($("#"+selection).valid()) {
         $.ajax({
             type    : "POST",
             url     : base_url+url,
@@ -45,6 +58,7 @@ function submit_data_edit(selection,url) {
                 
             }
         });
+	}
 }
 function toko_suspend(id) {
     $.ajax({
