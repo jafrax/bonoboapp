@@ -3,16 +3,6 @@ $(function() {
     $('#tanggalindong').daterangepicker();
 });
 $(document).ready(function() {
-    $('#form-dkurir-edit').validate({
-        rules:{
-            namaedit        : {required: true}
-        },
-        messages: {
-            namaedit: {
-                required: ("Name cannot be empty"),
-            }
-        },
-    });
 	$('#form-dkurir-add').validate({
         rules:{
             fprovince        : {required: true},
@@ -38,10 +28,20 @@ $(document).ready(function() {
 })
 
 function dkurir_modal_add() {
-$("#box-form-dkurir-add").modal("show").on('shown.bs.modal', function () {
-	$('#form-dkurir-add')[0].reset();
-	$('label.error').hide();
-});
+	$.ajax({
+            type    : "POST",
+            url     : base_url+"admin/kurir_detail/add_dk",
+            success : function(response){
+				$("#box-form-dkurir-add").modal("show").on('shown.bs.modal', function () {
+					$('#chosen-add').html(response);
+					$('.chosen-select').chosen();
+				});
+                
+            },
+            error : function(){
+                
+            }
+        });
 }
 function dkurir_modal(id) {
 $.ajax({
@@ -53,11 +53,11 @@ $.ajax({
 		if (response.msg == "success") {
 			var data = response[0];
 			idedit      = data.id;
-			$("#bs-edit-modal-sm").modal("show").on('shown.bs.modal', function () {		
-			
+				
 				$.ajax({
 						type: 'POST',
-						data: { ffprovince: data.location_from_province, 
+						data: { idedit: data.id, 
+								ffprovince: data.location_from_province, 
 								ffkota: data.location_from_city, 
 								ffkecamatan: data.location_from_kecamatan, 
 								ftprovince: data.location_to_province, 
@@ -65,15 +65,13 @@ $.ajax({
 								ftkecamatan: data.location_to_kecamatan,
 								price: data.price,
 								},
-						url: base_url+'admin/kurir_detail/set_edit', 
+						url: base_url+'admin/kurir_detail/set_edit',
 						success: function(response) {
-							$('#edit_dk').html(response);
+							$('#edit_dk'+id).html(response);
 							$('.chosen-select').chosen();
 						}
 				});
-				$('#hargapkg').val(data.price);
-				$('.chosen-select').chosen();
-			});
+			
 		}
 	},
 	error : function(){
@@ -83,7 +81,6 @@ $.ajax({
 }
 
 function submit_data_edit(selection,url) {
-    if ($("#"+selection).valid()) {
         $.ajax({
             type    : "POST",
             url     : base_url+url,
@@ -91,17 +88,22 @@ function submit_data_edit(selection,url) {
             dataType: 'json',
             success : function(response){
                 if (response.msg == "success") {
-                    $("#nama-"+idedit).html($("#namaedit").val());
+                    $("#fp-"+idedit).html($("#fprovince").val());
+                    $("#fc-"+idedit).html($("#fkota").val());
+                    $("#fk-"+idedit).html($("#fkecamatan").val());
+                    $("#tp-"+idedit).html($("#tprovince").val());
+                    $("#tc-"+idedit).html($("#tkota").val());
+                    $("#tk-"+idedit).html($("#tkecamatan").val());
+                    $("#pr-"+idedit).html($("#hargapkg").val());
                     $(".modal").modal("hide");
                 }else{
-                    
+                     $("#edit_num"+idedit).show();
                 }
             },
             error : function(){
                 
             }
         });
-    }
 }
 function set_city(){
     var province = $('#fprovince').val();
@@ -110,9 +112,10 @@ function set_city(){
 			data: 'province='+province,
 			url: base_url+'admin/kurir_detail/set_city', 
 			success: function(city) {
-			alert(province);
 				$('#ffkota').html(city);
 				$('#fkota').chosen();
+				$('#ffkecamatan').html("<select  class='chosen-select' name='fkecamatan' id='fkecamatan'><option value='' disabled selected>Pilih Kecamatan</option></select>");
+				$('#fkecamatan').chosen();
 			}
 			});
 }
@@ -137,6 +140,8 @@ function set_tcity(){
 			success: function(city) {
 				$('#ftkota').html(city);
 				$('#tkota').chosen();
+				$('#ftkecamatan').html("<select  class='chosen-select' name='tkecamatan' id='tkecamatan'><option value='' disabled selected>Pilih Kecamatan</option></select>");
+				$('#tkecamatan').chosen();
 			}
 			});
 }
@@ -152,52 +157,5 @@ function set_tkecamatan(){
 			}
 			});
 }
-//
-function sset_city(set){
-    $.ajax({
-			type: 'POST',
-			data: 'province='+set,
-			url: base_url+'admin/kurir_detail/set_city', 
-			success: function(city) {
-			alert(province);
-				$('#ffkota').html(city);
-				$('#fkota').chosen();
-			}
-			});
-}
-function sset_kecamatan(set){
-    var kota = $('#fkota').val();
-    $.ajax({
-			type: 'POST',
-			data: 'kota='+kota,
-			url: base_url+'admin/kurir_detail/set_kecamatan', 
-			success: function(kec) {
-				$('#ffkecamatan').html(kec);
-				$('#fkecamatan').chosen();
-			}
-			});
-}
-function sset_tcity(set){
-    var province = $('#tprovince').val();
-    $.ajax({
-			type: 'POST',
-			data: 'province='+province,
-			url: base_url+'admin/kurir_detail/set_tcity', 
-			success: function(city) {
-				$('#ftkota').html(city);
-				$('#tkota').chosen();
-			}
-			});
-}
-function sset_tkecamatan(set){
-    var kota = $('#tkota').val();
-    $.ajax({
-			type: 'POST',
-			data: 'kota='+kota,
-			url: base_url+'admin/kurir_detail/set_tkecamatan', 
-			success: function(kec) {
-				$('#ftkecamatan').html(kec);
-				$('#tkecamatan').chosen();
-			}
-			});
-}
+
+

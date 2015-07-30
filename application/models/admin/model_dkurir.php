@@ -38,12 +38,12 @@ class Model_dkurir extends CI_Model {
 		$this->db->group_by('province');
 		return $this->db->get('ms_location');
 	}
-	function get_kota($id=''){
+	function get_kota($id){
 		$this->db->where('province',$id);
 		$this->db->group_by('city');
 		return $this->db->get('ms_location');
 	}
-	function get_kecamatan($id=''){
+	function get_kecamatan($id){
 		$this->db->where('city',$id);
 		$this->db->group_by('kecamatan');
 		return $this->db->get('ms_location');
