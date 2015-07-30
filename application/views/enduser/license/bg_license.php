@@ -59,10 +59,13 @@ echo "
 		<div class='containermain'>
 			<div class='row contentsebenarya'>
 				<div class='col s12 m12 l12'>
+					<div id='notif'>
+					</div>
 					<div class='card-panel red lighten-4'>
 				      <span class='blue-grey-text text-darken-4'>Sisa waktu aktif akun Anda : <b class='red-text' style='text-decoration:underline'>30 Days</b></span>
 				    </div>
-					<form class='formain' >
+				    
+					<form class='formain' id='form-license'>
 						<div class='formhead'>
 							<h2 class='titmain'><b>VERIFIKASI</b></h2>
 						</div>
@@ -70,20 +73,20 @@ echo "
 							<div class='nolautomar'>
 								<div class='linehead center'><h5>Silahkan masukan kode verifikasi</h5></div>
 								<div class='input-field col s12 m6 l3 nolpad'>
-									<input id='kode1' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='XXXX'>
+									<input id='kode1' name='kode1' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='XXXX'>
 								</div>
 								<div class='input-field col s12 m6 l3 nolpad'>
-									<input id='kode2' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='XXXX'>
+									<input id='kode2' name='kode2' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='XXXX'>
 								</div>
 								<div class='input-field col s12 m6 l3 nolpad'>
-									<input id='kode3' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='XXXX'>
+									<input id='kode3' name='kode3' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='XXXX'>
 								</div>
 								<div class='input-field col s12 m6 l3 nolpad'>
-									<input id='kode4' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='XXXX'>
+									<input id='kode4' name='kode4' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='XXXX'>
 								</div>
 							</div>
 							<div class='nolautomar center'>
-								<button class='btn waves-effect waves-light' type='button' name='action' onclick=javascript:verifikasi(".$_SESSION['bonobo']['id'].") >Ok</button>
+								<button class='btn waves-effect waves-light' type='button' name='action' id='ok-btn' onclick=javascript:verifikasi(".$_SESSION['bonobo']['id'].") >Ok</button>
 								<button class='btn waves-effect waves-light red' type='button' name='action'>Skip</button>
 							</div>
 							<div class='nolautomar'>
@@ -123,13 +126,16 @@ echo "
 		</div>
 	</div>
 </footer>
-<script type='text/javascript' src='".base_url("")."assets/jController/enduser/CtrlLicense.js'></script>
+
 <script type='text/javascript' src='".base_url()."html/js/jquery-2.1.4.min.js'></script>
 <script type='text/javascript' src='".base_url()."html/js/materialize.min.js'></script>
 <script type='text/javascript' src='".base_url()."html/js/jpushmenu.js'></script>
 <script type='text/javascript' src='".base_url()."html/js/chosen.jquery.js'></script>
 <script type='text/javascript' src='".base_url("assets/jLib/jQuery/jquery.price_format.2.0.min.js")."'></script>
+<script type='text/javascript' src='".base_url("assets/jLib/jQuery/jquery.validate.js")."'></script>
+<script type='text/javascript' src='".base_url("assets/jLib/jQuery/additional-methods.js")."'></script>
 <script type='text/javascript' src='".base_url()."html/js/core.js'></script>
+<script type='text/javascript' src='".base_url("")."assets/jController/enduser/CtrlLicense.js'></script>
 </body>
 </html>
 ";
