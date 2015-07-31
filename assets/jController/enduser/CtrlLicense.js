@@ -51,7 +51,7 @@ function box_notif_success (a,b,c) {
 				      +"<span class='white-text '><h4>Selamat! Akun anda sudah aktif</h4></span>"
 				      +"<span class='white-text '>Masa aktif akun Anda sampai : <b style='text-decoration:underline'>"+a+"</b></span><br>"
 				      +"<span class='white-text '>License Code : <b style='text-decoration:underline'>"+b+"</b></span><br>"
-				      +"<span class='white-text '>Email : <b style='text-decoration:underline'>"+c+"</b></span><button class='btn waves-effect right waves-light white green-text' type='button' name='action'>Go to Dashboard</button>"
+				      +"<span class='white-text '>Email : <b style='text-decoration:underline'>"+c+"</b></span><button class='btn waves-effect right waves-light white green-text' type='button' name='action' onclick='location.href=\""+base_url+"toko\"'>Go to Dashboard</button>"
 				    +"</div>";
 	$('#notif').html(box).hide().slideDown();
 }
