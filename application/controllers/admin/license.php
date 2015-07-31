@@ -65,29 +65,29 @@ class License extends CI_Controller {
             $insert = $this->db->insert('tb_activation_code',$data);
             if ($insert) {
                 echo "<div class='callout callout-info'>
-                                        <h4>License telah di generate!</h4>
-                                        <div class='box-body'>
-                                            <dl class='dl-horizontal'>
-                                                <dt>Nama Toko</dt>
-                                                <dd>".$toko_id->name."</dd>
-                                                <dt>Durasi</dt>
-                                                <dd>".$duration."</dd>                                                
-                                                <dt>Tipe Dusari</dt>
-                                                <dd>";
-                                                if ($duration_type =='d') {
-                                                    echo "Hari";
-                                                }elseif ($duration_type =='m') {
-                                                    echo "Bulan";
-                                                }else{
-                                                    echo "Tahun";
-                                                } echo"</dd>
-                                                <dt><br></dt>
-                                                <dd><br></dd>
-                                                <dt>LICENSI CODE</dt>
-                                                <dd><h4>".$code."</h4></dd>
-                                            </dl>
-                                        </div>
-                                    </div>";
+                        <h4>License telah di generate!</h4>
+                        <div class='box-body'>
+                            <dl class='dl-horizontal'>
+                                <dt>Nama Toko</dt>
+                                <dd>".$toko_id->name."</dd>
+                                <dt>Durasi</dt>
+                                <dd>".$duration."</dd>                                                
+                                <dt>Tipe Dusari</dt>
+                                <dd>";
+                                if ($duration_type =='d') {
+                                    echo "Hari";
+                                }elseif ($duration_type =='m') {
+                                    echo "Bulan";
+                                }else{
+                                    echo "Tahun";
+                                } echo"</dd>
+                                <dt><br></dt>
+                                <dd><br></dd>
+                                <dt>LICENSI CODE</dt>
+                                <dd><h4>".$code."</h4></dd>
+                            </dl>
+                        </div>
+                    </div>";
             }else{
                 echo "0";
             }
