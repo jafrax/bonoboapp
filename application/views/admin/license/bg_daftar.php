@@ -26,9 +26,9 @@ echo "
                                     <div class='padbottom col-xs-12 col-md-4'>
                                         <select class=' form-control' id='option' onchange=javascript:change_option()>
                                             <option value='3' >Pilih Status</option>
-                                            <option value='1' ".($_SESSION['option'] == 1 ? "selected" : "").">Kode belum diinput</option>
-                                            <option value='2' ".($_SESSION['option'] == 2 ? 'selected' : '').">Menunggu Kode</option>
-                                            <option value='0' ".($_SESSION['option'] == 0 ? 'selected' : '').">Kode sudah digunakan</option>
+                                            <option value='1' "; if (isset($_SESSION['option'])) {if ($_SESSION['option'] == 1) echo "selected";} echo">Kode belum diinput</option>
+                                            <option value='2' "; if (isset($_SESSION['option'])) {if ($_SESSION['option'] == 2) echo "selected";} echo">Menunggu Kode</option>
+                                            <option value='0' "; if (isset($_SESSION['option'])) {if ($_SESSION['option'] == 0) echo "selected";} echo">Kode sudah digunakan</option>
                                         </select>
                                     </div>
                                 </div>

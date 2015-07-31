@@ -26,14 +26,15 @@ class Index extends CI_Controller {
 			redirect('index/signin/');
 			return;
 		}else{
-			$step=$_SESSION['bonobo']['step'];
-			if($step == 1){
-				redirect('toko');
-			}else if($step == 0){
-				redirect('nota');
-			}else{
-				redirect('toko/step'.$step.'');
-			}
+			$this->template->cek_license();
+				$step=$_SESSION['bonobo']['step'];
+				if($step == 1){
+					redirect('toko');					
+				}else if($step == 0){
+					redirect('nota');
+				}else{
+					redirect('toko/step'.$step.'');
+				}
 			
 			return;
 		}
@@ -55,7 +56,7 @@ class Index extends CI_Controller {
 				$password   = mysql_real_escape_string($this->input->post('password'));
 				$repassword = mysql_real_escape_string($this->input->post('rePassword'));
 				$verify 	= $this->template->rand(20);
-				
+
 				$param  = array(					
 					"name"=>$name,
 					"email"=>$email,
@@ -80,6 +81,7 @@ class Index extends CI_Controller {
 				
 				$Save = $this->db->insert('tb_toko',$param);
 				if($Save){
+					/*
 					$message ="Hi ".$name.", Thank you for registering on bonobo <br>
 						To verified your account, you can access this link below :<br><br>
 						<a href='".base_url("index/signup_verification/".$email."/".$verify)."'>".base_url("index/signup_verification/".$email."/".$verify)."</a><br><br>
@@ -88,6 +90,8 @@ class Index extends CI_Controller {
 					";
 					
 					$send_email = $this->template->send_email($email,'no-reply@bonobo.com', $message);
+					*/
+					$this->signup_login($email,$password);
 					
 					$this->response->send(array("result"=>1,"message"=>"Pendaftaran berhasil, kami telah mengirimkan pesan verifikasi ke alamat email anda.","messageCode"=>1));
 				}else{
@@ -119,12 +123,43 @@ class Index extends CI_Controller {
 				$_SESSION['bonobo']['image'] = $QShop->image;				
 				$_SESSION['bonobo']['facebook'] = $QShop->facebook;
 				$_SESSION['bonobo']['step'] = $QShop->step;
+				$_SESSION['bonobo']['expired_on'] = $QShop->expired_on;
 				redirect('index');
 		}else{
 				redirect('index');
 		}
+	}
+	public function signup_login($email,$password){
+		$default_auto_add_license 	= $this->get_config($this->config->item('default_auto_add_license'));
+		$default_duration_type 		= $this->get_config($this->config->item('default_duration_type'));
+		$default_duration 			= $this->get_config($this->config->item('default_duration'));
+		$default_code 				= $this->get_config($this->config->item('default_code'));
+
 		
-	
+		$QShop = $this->model_toko->get_by_login($email,md5($password))->row();
+		if(!empty($QShop)){
+			if ($default_auto_add_license == 1) {
+				$this->db->set('toko_id',$QShop->id)
+						->set('code',$default_code)
+						->set('email',$email)
+						->set('duration',$default_duration)
+						->set('duration_type',$default_duration_type)
+						->set('validity',1)
+						->insert('tb_activation_code');
+			}
+			$_SESSION['bonobo']['id'] = $QShop->id;
+			$_SESSION['bonobo']['name'] = $QShop->name;
+			$_SESSION['bonobo']['email'] = $QShop->email;
+			$_SESSION['bonobo']['image'] = $QShop->image;				
+			$_SESSION['bonobo']['facebook'] = $QShop->facebook;
+			$_SESSION['bonobo']['step'] = $QShop->step;
+			$_SESSION['bonobo']['expired_on'] = $QShop->expired_on;
+			
+		}
+	}
+
+	private function get_config($name){		
+		return $this->db->where('name',$name)->get('tb_config')->row()->value;
 	}
 
 	public function cek_mail(){
@@ -151,11 +186,11 @@ class Index extends CI_Controller {
 			
             $QShop = $this->model_toko->get_by_login($email,$password)->row();
             if(!empty($QShop)){
-				if($QShop->status == 0){
+				/*if($QShop->status == 0){
 					$this->response->send(array("result"=>0,"message"=>$this->template->notif("account_not_verified"),"messageCode"=>1));
 				}elseif($QShop->status == 1){
 					$this->response->send(array("result"=>0,"message"=>$this->template->notif("account_not_activated"),"messageCode"=>2));
-				}elseif($QShop->status == 3){
+				}else*/if($QShop->status == 3){
 					$this->response->send(array("result"=>0,"message"=>$this->template->notif("account_suspended"),"messageCode"=>3));
 				}else{
 					$_SESSION['bonobo']['id'] = $QShop->id;
@@ -164,6 +199,7 @@ class Index extends CI_Controller {
 					$_SESSION['bonobo']['image'] = $QShop->image;				
 					$_SESSION['bonobo']['facebook'] = $QShop->facebook;
 					$_SESSION['bonobo']['step'] = $QShop->step;
+					$_SESSION['bonobo']['expired_on'] = $QShop->expired_on;
 					
 					$this->response->send(array("result"=>1,"message"=>"Selamat datang ".$QShop->name,"messageCode"=>3));
 				}
@@ -185,7 +221,11 @@ class Index extends CI_Controller {
 		
 		$email          = $fb_profile->email;
         $uid			= $this->fb->getUser();
-		
+
+		$default_auto_add_license 	= $this->get_config($this->config->item('default_auto_add_license'));
+		$default_duration_type 		= $this->get_config($this->config->item('default_duration_type'));
+		$default_duration 			= $this->get_config($this->config->item('default_duration'));
+		$default_code 				= $this->get_config($this->config->item('default_code'));
 		
 		$Save = $this->signup_facebook($fb_profile,$uid);
 		$QShop  = $this->model_toko->get_by_email($email)->row();		
@@ -196,6 +236,17 @@ class Index extends CI_Controller {
 			$_SESSION['bonobo']['image'] = $QShop->image;				
 			$_SESSION['bonobo']['facebook'] = $QShop->facebook;
 			$_SESSION['bonobo']['step'] = $QShop->step;
+			$_SESSION['bonobo']['expired_on'] = $QShop->expired_on;
+
+			if ($default_auto_add_license == 1) {
+				$this->db->set('toko_id',$QShop->id)
+						->set('code',$default_code)
+						->set('email',$email)
+						->set('duration',$default_duration)
+						->set('duration_type',$default_duration_type)
+						->set('validity',1)
+						->insert('tb_activation_code');
+			}
 			
 			$this->index();
 		}else{
@@ -232,6 +283,7 @@ class Index extends CI_Controller {
 				$_SESSION['bonobo']['image'] = $QShop->image;				
 				$_SESSION['bonobo']['facebook'] = $QShop->facebook;
 				$_SESSION['bonobo']['step'] = $QShop->step;
+				$_SESSION['bonobo']['expired_on'] = $QShop->expired_on;
 				
 				$this->index();
 			}
@@ -248,6 +300,7 @@ class Index extends CI_Controller {
 		$_SESSION['bonobo']['image'] = null;				
 		$_SESSION['bonobo']['facebook'] = null;
 		$_SESSION['bonobo']['step'] = null;
+		$_SESSION['bonobo']['expired_on'] = null;
 		
 		redirect('index/');
 	}

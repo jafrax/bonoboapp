@@ -134,6 +134,7 @@ function CtrlSignup(){
 						lblNotif.slideDown();
 						lblNotif.delay(5000).slideUp('slow');
 						document.getElementById("formSignup").reset();
+						window.location.replace(base_url);
 					}else{
 						lblNotif.html(response.message);
 						lblNotif.slideDown();

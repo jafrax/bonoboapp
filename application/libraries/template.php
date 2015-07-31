@@ -346,8 +346,17 @@
         else if ($timeCalc > 0) {$timeCalc .= " detik yang lalu";}
 
         return $timeCalc;
-    }
+    }    
 
-    
+    function cek_license(){
+	    $date1 = new DateTime();
+		$date2 = new DateTime($_SESSION['bonobo']['expired_on']);
+		$interval = $date1->diff($date2);
+		//echo $_SESSION['bonobo']['expired_on'];
+		//echo "difference " . $interval->y . " years, " . $interval->m." months, ".$interval->d." days "; 
+		if ($interval->m == 0 && $interval->y == 0 && date('Y-m-d') > $_SESSION['bonobo']['expired_on'] || $_SESSION['bonobo']['expired_on'] == "0000-00-00") {
+			redirect('license');
+		}
+	}
 	
 }
