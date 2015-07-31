@@ -955,7 +955,7 @@ class Toko extends CI_Controller {
 		if($step != 0){
 			$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',0)->update('tb_toko');
 		}
-		redirect('nota');
+		redirect('toko');
 	}
 }
 
