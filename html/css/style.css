@@ -177,6 +177,7 @@ header,section,content,footer{ width:100%; }
 .nota-product p{ padding-left:0px; }
 
 .upbottom{ padding:45px 0 90px 0; }
+.title-faq{ font-size:24px; line-height:24px; margin: 8px 0 5px 0; }
 
 /*FOOTER*/
 .footer{ position:fixed; bottom:0; right:0; }
