@@ -197,20 +197,20 @@ function CtrlShopStep1(){
 			valid = false;
 		}
 		
-		if(formStep1.cmbProvince.value == ""){
-			$hs_notif("#notifProvince","<i class='fa fa-warning'></i> Harus diisi !");
-			valid = false;
-		}
+		//if(formStep1.cmbProvince.value == ""){
+		//	$hs_notif("#notifProvince","<i class='fa fa-warning'></i> Harus diisi !");
+	//		valid = false;
+	//	}
 		
-		if(formStep1.cmbCity.value == ""){
-			$hs_notif("#notifCity","<i class='fa fa-warning'></i> Harus diisi !");
-			valid = false;
-		}
+	//	if(formStep1.cmbCity.value == ""){
+	//		$hs_notif("#notifCity","<i class='fa fa-warning'></i> Harus diisi !");
+	//		valid = false;
+	//	}
 		
-		if(formStep1.cmbKecamatan.value == ""){
-			$hs_notif("#notifKecamatan","<i class='fa fa-warning'></i> Harus diisi !");
-			valid = false;
-		}
+	//	if(formStep1.cmbKecamatan.value == ""){
+	//		$hs_notif("#notifKecamatan","<i class='fa fa-warning'></i> Harus diisi !");
+	//		valid = false;
+	//	}
 		
 		if(!formStep1JQuery.valid()){
 			return false;
@@ -979,6 +979,32 @@ function set_location(){
             } 
         });
     }
+}
+function set_city(){
+    var province = $('#province').val();
+    $.ajax({
+			type: 'POST',
+			data: 'province='+province,
+			url: base_url+'toko/comboboxCity', 
+			success: function(city) {
+				$('#panggon-city').html(city);
+				$('#city').chosen();
+				$('#panggon-kecamatan').html("<select name='kecamatan' id='kecamatan' class='chosen-select'><option value='' disabled selected>Pilih Kecamatan</option></select>");
+				$('#kecamatan').chosen();
+			}
+			});
+}
+function set_kecamatan(){
+    var kota = $('#cmbCity').val();
+    $.ajax({
+			type: 'POST',
+			data: 'kota='+kota,
+			url: base_url+'toko/comboboxKecamatan', 
+			success: function(kec) {
+				$('#panggon-kecamatan').html(kec);
+				$('#tkecamatan').chosen();
+			}
+			});
 }
 
 

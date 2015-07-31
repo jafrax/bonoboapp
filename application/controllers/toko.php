@@ -45,6 +45,7 @@ class Toko extends CI_Controller {
 		$data["Cities"] = $this->model_location->get_cities()->result();
 		$data["Kecamatans"] = $this->model_location->get_kecamatans()->result();
 		$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+		$data["Shopp"] = $this->model_toko->get_alamat($_SESSION['bonobo']['id']);
 		$data["Attributes"] = $this->model_toko_attribute->get_by_shop($_SESSION["bonobo"]["id"])->result();
 		
 		$this->template->bonobo_step("enduser/toko/bg_step_1",$data);
@@ -378,6 +379,11 @@ class Toko extends CI_Controller {
 				$Location = null;
 			}
 		}
+		$code_pos='';
+			$scl=$this->model_toko->get_id_location($postal)->result();
+			foreach($scl as $row){
+				$code_pos=$row->id;
+			}
 		$UploadPath    = 'assets/pic/shop/';
 			$Upload = $this->template->upload_picture($UploadPath,"txtShopLogoFile");
 		if(!empty($_FILES['txtShopLogoFile']) && isset($_FILES['txtShopLogoFile']['name']) && !empty($_FILES['txtShopLogoFile']['name'])){
@@ -390,6 +396,7 @@ class Toko extends CI_Controller {
 				$_SESSION['bonobo']['image'] = $Upload;
 			}
 			
+			
 			$Data = array(
 				"name"=>$this->response->post("txtName"),
 				"tag_name"=>$this->response->post("txtTagname"),
@@ -400,7 +407,7 @@ class Toko extends CI_Controller {
 				"postal"=>$this->response->post("txtPostal"),
 				"image"=>$Upload,
 				"category_id"=>$Category,
-				"location_id"=>$Location,
+				"location_id"=>$code_pos,
 			);
 		}else{
 			$Data = array(
@@ -412,7 +419,7 @@ class Toko extends CI_Controller {
 				"address"=>$this->response->post("txtAddress"),
 				"postal"=>$this->response->post("txtPostal"),
 				"category_id"=>$Category,
-				"location_id"=>$Location,
+				"location_id"=>$code_pos,
 			);
 		}
 		$step=$_SESSION['bonobo']['step'];
@@ -835,12 +842,11 @@ class Toko extends CI_Controller {
         }
 	
 	public function comboboxCity(){
-		$Cities = $this->model_location->get_cities_by_province($this->response->post("province"),$this->response->post("zip_code"))->result();
-		
-		echo"<select name='cmbCity' onChange=ctrlShopStep1.loadComboboxKecamatan(); class='chzn-select'><option value='' disabled selected>Pilih Kota</option>";
+		$Cities = $this->model_toko->get_kota($this->input->post("province"))->result();
+		echo"<select name='cmbCity' id='cmbCity' onchange=javascript:set_kecamatan() class='chzn-select'><option value='' disabled selected>Pilih Kota</option>";
 
 		foreach($Cities as $City){
-			echo"<option value='".$City->city."' selected>".$City->city."</option>";
+			echo"<option value='".$City->city."'>".$City->city."</option>";
 		}
 			
 		echo"
@@ -851,12 +857,12 @@ class Toko extends CI_Controller {
 	}
 	
 	public function comboboxKecamatan(){
-		$Kecamatans = $this->model_location->get_kecamatans_by_city_province($this->response->post("city"),$this->response->post("province"),$this->response->post("zip_code"))->result();
-		
-		echo"<select name='cmbKecamatan' class='chzn-select'><option value='' disabled selected>Pilih Kecamatan</option>";
+		//$Kecamatans = $this->model_location->get_kecamatans_by_city_province($this->response->post("city"),$this->response->post("province"),$this->response->post("zip_code"))->result();
+		$Kecamatans = $this->model_toko->get_kecamatan($this->input->post("kota"))->result();
+		echo"<select name='cmbKecamatan' id='tkecamatan' class='chosen-select'><option value='' disabled selected>Pilih Kecamatan</option>";
 
 		foreach($Kecamatans as $Kecamatan){
-			echo"<option value='".$Kecamatan->kecamatan."' selected>".$Kecamatan->kecamatan."</option>";
+			echo"<option value='".$Kecamatan->kecamatan."' >".$Kecamatan->kecamatan."</option>";
 		}
 			
 		echo"

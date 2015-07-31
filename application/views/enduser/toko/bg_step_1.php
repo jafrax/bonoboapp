@@ -163,64 +163,73 @@ echo"
 				<div class=' col s12 m8'>
 					<label>Provinsi</label>
 					<label id='notifProvince' class='error error-chosen' style='display:none;'></label>
-					<div id='panggon-province' class='input-field'>
-						<select  class='chosen-select' name='cmbProvince' id='province' onchange=javascript:set_city()>
+					<div id='panggon-province' class='input-field'>";
+					echo "<select  class='chosen-select' name='cmbProvince' id='province' onchange=javascript:set_city()>
 							<option value='' disabled selected>Pilih Provinsi</option>";
-							$provinsi = $this->model_nota->get_province();
-							foreach ($provinsi->result() as $row_p) {
-								$select = '';
-								if ($row_p->province == $Shop->location_to_province) {$select = 'selected';}
-								echo "<option $select value='".$row_p->province."'>".$row_p->province."</option>";
-							}	
-							echo"
-						</select>
+							if ($Shopp->num_rows() > 0) {
+								foreach($Shopp->result() as $row_x){
+										$provinsi = $this->model_nota->get_province();
+										foreach ($provinsi->result() as $row_p) {
+											echo "<option value='".$row_p->province."' ".($row_p->province == $row_x->province ? "selected='selected'" : "")." >".$row_p->province."</option>";
+										}	
+									}
+							} else {
+								$provinsi = $this->model_nota->get_province();
+										foreach ($provinsi->result() as $row_p) {
+											echo "<option value='".$row_p->province."' ".($row_p->province == $row_x->province ? "selected='selected'" : "")." >".$row_p->province."</option>";
+										}
+							}		
+						echo" 
+						</select>";
+						echo "
 					</div>
 				</div>
 				<div class=' col s12 m8'>
 					<label>Kota</label>
 					<label id='notifCity' class='error error-chosen' style='display:none;'></label>
-					<div id='panggon-city' class='input-field'>
-						<select  class='chosen-select' name='cmbCity' id='city' onchange=javascript:set_kecamatan()>
-							<option value='' disabled selected>Pilih Kota</option>";
-							if ($Shop->location_to_city != '') {
-								$kota = $this->model_nota->get_city($Shop->location_to_province);
-								foreach ($kota->result() as $row_k) {
-									$select = '';
-									if ($row_k->city == $Shop->location_to_city) {$select = 'selected';}
-									echo "<option $select value='".$row_k->city."'>".$row_k->city."</option>";
-								}	
+					<div id='panggon-city' class='input-field'>";
+					echo "	<select  class='chosen-select' name='cmbCity' id='city' onchange=javascript:set_kecamatan()>
+												<option value='' disabled selected>Pilih Kota</option>	";
+												
+							if ($Shopp->num_rows() > 0) {
+								foreach($Shopp->result() as $row_x){
+												$kota = $this->model_toko->get_kota($row_x->province);
+												foreach ($kota->result() as $row_p) {
+													echo "<option value='".$row_p->city."' ".($row_p->city == $row_x->city ? "selected='selected'" : "")." >".$row_p->city."</option>";
+												}				
+								}
 							}else{
-								$kota = $this->model_nota->get_city($Shop->location_to_province);
+								$kota = $this->model_toko->get_allkota();
 								foreach ($kota->result() as $row_k) {
 									echo "<option value='".$row_k->city."'>".$row_k->city."</option>";
 								}	
 							}
-							
+							echo"</select>";
 							echo"
-						</select>
 					</div>
 				</div>
 				<div class=' col s12 m8'>
 					<label>Kecamatan</label>
 					<label id='notifKecamatan' class='error error-chosen' style='display:none;'></label>
-					<div id='panggon-kecamatan' class='input-field'>
-						<select  class='chosen-select' name='cmbKecamatan' id='kecamatan'>
+					<div id='panggon-kecamatan' class='input-field'>";
+						echo "<select  class='chosen-select' name='cmbKecamatan' id='kecamatan'>
 							<option value='' disabled selected>Pilih Kecamatan</option>";
-							if ($Shop->location_to_kecamatan != '') {
-								$kecamatan = $this->model_nota->get_kecamatan($Shop->location_to_city);
-								foreach ($kecamatan->result() as $row_c) {
-									$select = '';
-									if ($row_c->kecamatan == $Shop->location_to_kecamatan) {$select = 'selected';}
-									echo "<option $select value='".$row_c->kecamatan."'>".$row_c->kecamatan."</option>";
-								}
-							}else{
-								$kecamatan = $this->model_nota->get_kecamatan($Shop->location_to_city);
+							if ($Shopp->num_rows() > 0) {
+								foreach($Shopp->result() as $row_x){
+									$kecamatan = $this->model_toko->get_kecamatan($row_x->city);
+									foreach ($kecamatan->result() as $row_p) {
+										echo "<option value='".$row_p->kecamatan."' ".($row_p->kecamatan == $row_x->kecamatan ? "selected='selected'" : "")." >".$row_p->kecamatan."</option>";
+									}
+								}	
+							} else {
+								$kecamatan = $this->model_toko->get_allkecamatan();
 								foreach ($kecamatan->result() as $row_c) {
 									echo "<option value='".$row_c->kecamatan."'>".$row_c->kecamatan."</option>";
 								}
 							}
 							echo"
-						</select>
+						</select>";
+						echo "
 					</div>
 				</div>
 				<div class='input-field col s12 m8'>
