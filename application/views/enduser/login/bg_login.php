@@ -51,12 +51,6 @@ echo "
 		<div class='containermain'>
 			<div class='row col-signin'>
 				<h4 class='titlin'>Masuk ke bonobo</h4>
-				<div class='col s12 col-btn-fb' align='center'>
-					<a href='".$this->facebook->getLoginUrl($fb_params)."'>
-						<button class='waves-effect waves-light btn light-blue darken-4'><i class='fa fa-facebook-official left'></i>Masuk dengan facebook</button>
-					</a>
-				</div>
-				<p class='or'>Atau akun bonobo</p>
 				<form id='formSignin' class='signin z-depth-2'>
 					<div class='row'>
 					".$pesan."
