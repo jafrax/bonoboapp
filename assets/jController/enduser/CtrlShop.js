@@ -1029,4 +1029,14 @@ function set_kecamatan(){
 			});
 }
 
+$(document).ready(function() {
+		/*NUMBER FORMAT*/
+	$('input.price').priceFormat({	    
+	    limit: 7,
+    	centsLimit: 2,
+    	thousandsSeparator: '',
+    	prefix: '',
+	});
+	/*NUMBER FORMAT*/
+});
 

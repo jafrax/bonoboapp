@@ -33,5 +33,17 @@ foreach($Rates as $Rate){
 	";
 }
 
-echo"<script>$('.modal-trigger').leanModal();</script>";
+echo"<script>
+$(document).ready(function() {
+		/*NUMBER FORMAT*/
+	$('input.price').priceFormat({	    
+	    limit: 18,
+    	centsLimit: 2,
+		centsSeparator: ',',
+    	thousandsSeparator: '.',
+    	prefix: 'Rp. ',
+	});
+	/*NUMBER FORMAT*/
+});
+</script>";
 ?>
