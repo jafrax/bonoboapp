@@ -379,7 +379,7 @@ class Toko extends CI_Controller {
 				$Location = null;
 			}
 		}
-		$code_pos='';
+		$code_pos=null;
 			$scl=$this->model_toko->get_id_location($postal)->result();
 			foreach($scl as $row){
 				$code_pos=$row->id;

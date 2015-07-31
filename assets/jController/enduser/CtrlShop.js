@@ -141,30 +141,52 @@ function CtrlShopStep1(){
 			rules:{
 				txtName: {
 					required: true,
+					minlength:5,
+					maxlength:50,
 				},
 				txtTagname: {
 					required: true,
 					minlength:3,
 					maxlength:15,
 				},
-				cmbProvince: {
-					required: true,
+				txtDescription:{
+					maxlength:250,
 				},
-				cmbCity: {
-					required: true,
+				txtPhone:{
+					maxlength:15,
 				},
-				cmbKecamatan: {
-					required: true,
+				txtAddress:{
+					maxlength:150,
 				},
+				//cmbProvince: {
+					//required: true,
+				//},
+				//cmbCity: {
+					//required: true,
+				//},
+				//cmbKecamatan: {
+					//required: true,
+				//},
 			},
 			messages: {
 				txtName:{
 					required: message_alert("Harus diisi !"),
+					minlength: message_alert("Masukkan minimal 5 karakter"),
+					maxlength: message_alert("Masukkan maksimal 50 karakter"),
 				},
 				txtTagname:{
 					required: message_alert("Harus diisi !"),
 					minlength: message_alert("Masukkan minimal 3 karakter"),
 					maxlength: message_alert("Masukkan maksimal 15 karakter"),
+				},
+				txtPhone:{
+					maxlength: message_alert("Masukkan maksimal 15 karakter"),
+				},
+				txtDescription:{
+					maxlength: message_alert("Masukkan maksimal 250 karakter"),
+				},
+				txtAddress:{
+					maxlength: message_alert("Masukkan maksimal 150 karakter"),
 				},
 				cmbProvince:{
 					required: message_alert("Harus diisi !"),
@@ -412,7 +434,7 @@ function CtrlShopStep7(){
 		sequence = sequence+2;
 
 		
-		div.innerHTML = "<div id='divCourier"+sequence+"' class='input-field col s12 m12 counter'><div class='input-field col s12 m12 l6'><input type='hidden' id='txtCourierId"+sequence+"' name='txtCourierId1'><input type='text' id='txtCourierName"+sequence+"' name='txtCourierName1'><label for='txtCourierName"+sequence+"'>Nama Jasa Pengiriman</label></div><div class='input-field col s12 m12 l6'><button type='button' class='waves-effect waves-light btn  ' onclick=ctrlShopStep7.doCourierSave("+sequence+");><i class='material-icons left'>library_add</i> Simpan</button> <button class='waves-effect waves-light btn red' type='button' onclick=ctrlShopStep7.doCourierDelete("+sequence+");><i class='mdi-action-delete left'></i>Hapus</button> <button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail"+sequence+"'  onclick=ctrlShopStep7.showDetail("+sequence+"); style='display:none;'><i class='material-icons left'>list</i>Detail</button> </div></div>";
+		div.innerHTML = "<div id='divCourier"+sequence+"' class='input-field col s12 m12 counter'><div class='input-field col s12 m12 l6'><input type='hidden' id='txtCourierId"+sequence+"' name='txtCourierId1'><input type='text' id='txtCourierName"+sequence+"' name='txtCourierName1' maxlength='50' minlength='5'><label for='txtCourierName"+sequence+"'>Nama Jasa Pengiriman</label></div><div class='input-field col s12 m12 l6'><button type='button' class='waves-effect waves-light btn  ' onclick=ctrlShopStep7.doCourierSave("+sequence+");><i class='material-icons left'>library_add</i> Simpan</button> <button class='waves-effect waves-light btn red' type='button' onclick=ctrlShopStep7.doCourierDelete("+sequence+");><i class='mdi-action-delete left'></i>Hapus</button> <button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail"+sequence+"'  onclick=ctrlShopStep7.showDetail("+sequence+"); style='display:none;'><i class='material-icons left'>list</i>Detail</button> </div></div>";
 		
 		divCustomCourier.append(div);
 		txtCustomeCourierCount.value = sequence;
