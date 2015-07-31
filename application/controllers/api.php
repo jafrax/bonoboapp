@@ -159,7 +159,7 @@ class Api extends CI_Controller {
 		foreach($QProductImages as $QProductImage){
 			$ProductImage = array(
 						"id"=>$QProductImage->id,
-						"image_url"=>base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/product/resize/".$QProductImage->file))),
+						"image_url"=>base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/product/".$QProductImage->file))),
 					);
 							
 			array_push($ProductImages,$ProductImage);
@@ -2335,11 +2335,11 @@ class Api extends CI_Controller {
 			
 			/*
 			*	------------------------------------------------------------------------------
-			*	Delete data shipment
+			*	ubah data password
 			*	------------------------------------------------------------------------------
 			*/
 			$Data = array(
-					"password"=>md5($this->response->postDecode("password_old")),
+					"password"=>md5($this->response->postDecode("password_new")),
 				);
 			
 			$Save = $this->db->where("id",$QUser->id)->update("tb_member",$Data);

@@ -63,7 +63,7 @@ $(document).ready(function() {
 	/*NUMBER ONLY*/
 
 	/*NUMBER FORMAT*/
-	$('.berat').priceFormat({	    
+	$('.berat').priceFormat({
 	    limit: 7,
     	centsLimit: 2,
     	thousandsSeparator: '',

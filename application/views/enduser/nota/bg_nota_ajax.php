@@ -214,7 +214,7 @@
 									                	<dt><b>Kode Pos Penerima : </b></dt>
 									                	<dd>".$row->location_to_postal."</dd>
 									                	<dt><b>Alamat Penerima : </b></dt>
-									                	<dd>".$row->location_to_address."</dd>
+									                	<dd>".$row->recipient_address."</dd>
 								                	</dl>
 									              
 								                </div>
@@ -262,7 +262,7 @@
 																<label for='postal-code'>Kode Pos</label>
 															</div>
 															<div class='input-field col s12 m8'>
-																<textarea disabled id='alamat' name='alamat' class='materialize-textarea' >".$row->location_to_address."</textarea>
+																<textarea disabled id='alamat' name='alamat' class='materialize-textarea' >".$row->recipient_address."</textarea>
 																<label for='alamat'>Alamat Penerima</label>
 															</div>
 															<div class='input-field col s12 m6' id='panggon-province'>

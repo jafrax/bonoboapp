@@ -228,6 +228,8 @@ function CtrlSignin(){
 					var response = JSON.parse(result);
 					if(response.result == 1){
 						top.location.href = base_url+'index';
+					}else if(response.result == 2){
+						top.location.href = base_url+'license';
 					}else{
 						lblNotif.html(response.message);
 						lblNotif.slideDown();
