@@ -95,19 +95,40 @@ class master_kurir extends CI_Controller {
             $this->form_validation->set_rules('idedit', '', 'required');
             $msg    = "error";
             $notif  = "";
+            
             if ($this->form_validation->run() == TRUE){
-                
+
                 $name    	= $this->db->escape_str($this->input->post('namaedit'));
                 $idedit     = $this->db->escape_str($this->input->post('idedit'));
-                $param  = array(
-                    'name'          => $name,
-					'update_user'   => $_SESSION['bonobo_admin']->email
-                );
+                $image     	= $this->db->escape_str($this->input->post('image'));
                 
-                $insert = $this->db->where("id",$idedit)->update('ms_courier',$param);
+                $url    = 'assets/pic/kurir/';
+                if(isset($_FILES['fileimageedit']['name'])){
+					$picture = $this->template->upload_picture($url,'fileimageedit',$image);
+					if($picture != 'error'){
+						$data_edit  = array(
+							'name'          => $name,
+							'image'         => $picture,
+							'update_user'   => $_SESSION['bonobo_admin']->email
+			            );
+					}else{
+						$data_edit  = array(
+							'name'          => $name,						
+							'update_user'   => $_SESSION['bonobo_admin']->email
+			            );
+					}
+				}else{
+					$data_edit  = array(
+						'name'          => $name,						
+						'update_user'   => $_SESSION['bonobo_admin']->email
+		            );
+				}
+                
+                $insert = $this->db->where("id",$idedit)->update('ms_courier',$data_edit);
                 if($insert){
                     $msg    = "success";
                     $notif  = "Berhasil";
+                    redirect('admin/master_kurir/');
                 }
             }
             echo json_encode(array("msg"=>$msg,"notif"=>$notif));
@@ -118,21 +139,44 @@ class master_kurir extends CI_Controller {
 		$this->form_validation->set_rules('namaadd', '', 'required');
 		$msg    = "error";
 		$notif  = "";
+		$url    = 'assets/pic/kurir/';
 		if ($this->form_validation->run() == TRUE){
-            $name    	= $this->db->escape_str($this->input->post('namaadd'));
-			 $data_add  = array(
-								'name'          => $name,
-								'create_date'	=> date("Y-m-d H:i:s"),
-								'create_user'   => $_SESSION['bonobo_admin']->email
-            );
-			$insert = $this->db->insert('ms_courier',$data_add);
+			$name    	= $this->db->escape_str($this->input->post('namaadd'));
+			if(isset($_FILES['fileimage']['name'])){
+				$picture = $this->template->upload_picture($url,'fileimage');
+				if($picture != 'error'){					
+					$data_add  = array(
+						'name'          => $name,
+						'image'         => $picture,
+						'create_date'	=> date("Y-m-d H:i:s"),
+						'create_user'   => $_SESSION['bonobo_admin']->email
+		            );
+				}else{
+					$data_add  = array(
+						'name'          => $name,						
+						'create_date'	=> date("Y-m-d H:i:s"),
+						'create_user'   => $_SESSION['bonobo_admin']->email
+		            );
+				}						
+			}else{
+				$data_add  = array(
+					'name'          => $name,						
+					'create_date'	=> date("Y-m-d H:i:s"),
+					'create_user'   => $_SESSION['bonobo_admin']->email
+	            );
+			}
+
+            $insert = $this->db->insert('ms_courier',$data_add);
             if($insert){
                 $msg    = "success";
                 $notif  = "Berhasil";
+                redirect('admin/master_kurir/');
             }
+            
 		}else{
-		
+
 		}
+		
 		echo json_encode(array("msg"=>$msg,"notif"=>$notif));
 	}
 	

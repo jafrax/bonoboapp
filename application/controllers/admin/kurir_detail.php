@@ -19,20 +19,23 @@ class Kurir_detail extends CI_Controller {
     }
     
     public function index(){
-		$id_kurir=base64_decode($this->uri->segment(3));
-        $page=$this->uri->segment(5);
-        $uri=5;
+		$_SESSION['link_kurir_detail']=$this->uri->segment(4);
+		$_SESSION['kurir_detail']=base64_decode($_SESSION['link_kurir_detail']);
+        $page=$this->uri->segment(6);
+        $uri=6;
         $limit=$this->limit;
         if(!$page):
         $offset = $this->offset;
             else:
             $offset = $page;
         endif;
-        $pg=$this->model_dkurir->get_all_kurir($id_kurir);
-        $url='admin/master_kurir_detail/index';
+        $pg=$this->model_dkurir->get_all_dkurir($_SESSION['kurir_detail']);
+        $url='admin/kurir_detail/index/'.$_SESSION['link_kurir_detail'].'/index/';
         $this->data['pagination'] = $this->template->paging2($pg,$uri,$url,$limit);        
-        $this->data['allDKurir']=$this->model_dkurir->get_all_kurir($limit,$offset);
-        
+        $this->data['allDKurir']=$this->model_dkurir->get_all_dkurir($_SESSION['kurir_detail'],$limit,$offset);
+		$this->data['get_province'] = $this->model_dkurir->get_province();
+		$this->data['get_kota'] = $this->model_dkurir->get_allkota();
+		$this->data['get_kecamatan'] = $this->model_dkurir->get_allkecamatan();
 		if ($this->input->post('ajax')) {
             $this->load->view('admin/master_kurir_detail/master_kurir_detail_ajax', $this->data);
         } else {
@@ -50,7 +53,7 @@ class Kurir_detail extends CI_Controller {
 				$del[] = $delete[$i];
             }
             
-			$this->db->where_in('id',$delete)->delete('ms_courier');
+			$this->db->where_in('id',$delete)->delete('tb_courier_rate');
 		}
 	}
 	
@@ -61,7 +64,7 @@ class Kurir_detail extends CI_Controller {
 			if(empty($search)){$search ='all-search';}
 			$_SESSION['search']	= $search;
 		}	
-		if(isset($_SESSION['search'])){			
+		if(isset($_SESSION['search'])){
 			$page	= $this->uri->segment(4);
 			$uri	= 4;
 			$limit	= $this->limit;
@@ -72,11 +75,11 @@ class Kurir_detail extends CI_Controller {
 			}
 			
 			$this->data["search"]	= $_SESSION['search'];
-			$pg		            	= $this->model_dkurir->search($_SESSION['search']);
-			$url	           		= 'admin/master_kurir_detail/search';
+			$pg		            	= $this->model_dkurir->search($_SESSION['search'],$_SESSION['kurir_detail']);
+			$url					= 'admin/kurir_detail/search/';
 			$this->data['pagination']	= $this->template->paging2($pg,$uri,$url,$limit);
-			$this->data['allDKurir']		= $this->model_dkurir->search($_SESSION['search'],$limit,$offset);
-			$this->load->view('admin/master_kurir_detail/master_kurir_detail', $this->data);
+			$this->data['allDKurir']		= $this->model_dkurir->search($_SESSION['search'],$_SESSION['kurir_detail'],$limit,$offset);
+			$this->load->view('admin/master_kurir_detail/master_kurir_detail_ajax', $this->data);
 		}
 	}
 	
@@ -105,7 +108,7 @@ class Kurir_detail extends CI_Controller {
 					'update_user'   => $_SESSION['bonobo_admin']->email
                 );
                 
-                $insert = $this->db->where("id",$idedit)->update('ms_courier',$param);
+                $insert = $this->db->where("id",$idedit)->update('tb_courier_rate',$param);
                 if($insert){
                     $msg    = "success";
                     $notif  = "Berhasil";
@@ -116,17 +119,36 @@ class Kurir_detail extends CI_Controller {
     }
 	
 	public function add (){
-		$this->form_validation->set_rules('namaadd', '', 'required');
+		$this->form_validation->set_rules('fprovince', '', 'required');
+		$this->form_validation->set_rules('fkota', '', 'required');
+		$this->form_validation->set_rules('fkecamatan', '', 'required');
+		$this->form_validation->set_rules('tprovince', '', 'required');
+		$this->form_validation->set_rules('tkota', '', 'required');
+		$this->form_validation->set_rules('tkecamatan', '', 'required');
+		$this->form_validation->set_rules('hargapkg', '', 'required');
 		$msg    = "error";
 		$notif  = "";
 		if ($this->form_validation->run() == TRUE){
-            $name    	= $this->db->escape_str($this->input->post('namaadd'));
+            $fprovince    	= $this->db->escape_str($this->input->post('fprovince'));
+            $fkota    	= $this->db->escape_str($this->input->post('fkota'));
+            $fkecamatan    	= $this->db->escape_str($this->input->post('fkecamatan'));
+            $tprovince    	= $this->db->escape_str($this->input->post('tprovince'));
+            $tkota    	= $this->db->escape_str($this->input->post('tkota'));
+            $tkecamatan    	= $this->db->escape_str($this->input->post('tkecamatan'));
+            $hargapkg    	= $this->db->escape_str($this->input->post('hargapkg'));
 			 $data_add  = array(
-								'name'          => $name,
+								'courier_id' 	=>$_SESSION['kurir_detail'],
+								'location_from_province' => $fprovince ,
+								'location_from_city'=>$fkota,
+								'location_from_kecamatan'=>$fkecamatan,
+								'location_to_province'=>$tprovince,
+								'location_to_city'=>$tkota,
+								'location_to_kecamatan'=>$tkecamatan,
+								'price'=>$hargapkg,
 								'create_date'	=> date("Y-m-d H:i:s"),
 								'create_user'   => $_SESSION['bonobo_admin']->email
             );
-			$insert = $this->db->insert('ms_courier',$data_add);
+			$insert = $this->db->insert('tb_courier_rate',$data_add);
             if($insert){
                 $msg    = "success";
                 $notif  = "Berhasil";
@@ -135,6 +157,54 @@ class Kurir_detail extends CI_Controller {
 		
 		}
 		echo json_encode(array("msg"=>$msg,"notif"=>$notif));
+	}
+	
+	public function set_city(){
+		$province = $this->input->post('province');
+
+		$city = $this->model_dkurir->get_kota($province);
+		echo "<select  class='chosen-select' name='fkota' id='fkota' onchange=javascript:set_kecamatan()>
+			<option value='' disabled selected>Pilih Kota</option>";
+			foreach ($city->result() as $row_p) {
+				echo "<option value='".$row_p->city."'>".$row_p->city."</option>";
+			}			
+		echo"</select>";
+	}
+	
+	public function set_kecamatan(){
+		$kota = $this->input->post('kota');
+
+		$kota = $this->model_dkurir->get_kecamatan($kota);
+		echo "<select  class='chosen-select' name='fkecamatan' id='fkecamatan'>
+				<option value='' disabled selected>Pilih Kecamatan</option>";
+			foreach ($kota->result() as $row_p) {
+				echo "<option value='".$row_p->kecamatan."'>".$row_p->kecamatan."</option>";
+			}			
+		echo"</select>";
+	}
+	
+	public function set_tcity(){
+		$province = $this->input->post('province');
+
+		$city = $this->model_dkurir->get_kota($province);
+		echo "<select  class='chosen-select' name='tkota' id='tkota' onchange=javascript:set_tkecamatan()>
+			<option value='' disabled selected>Pilih Kota</option>";
+			foreach ($city->result() as $row_p) {
+				echo "<option value='".$row_p->city."'>".$row_p->city."</option>";
+			}			
+		echo"</select>";
+	}
+	
+	public function set_tkecamatan(){
+		$kota = $this->input->post('kota');
+
+		$kota = $this->model_dkurir->get_kecamatan($kota);
+		echo "<select  class='chosen-select' name='tkecamatan' id='tkecamatan'>
+				<option value='' disabled selected>Pilih Kecamatan</option>";
+			foreach ($kota->result() as $row_p) {
+				echo "<option value='".$row_p->kecamatan."'>".$row_p->kecamatan."</option>";
+			}			
+		echo"</select>";
 	}
 	
 }

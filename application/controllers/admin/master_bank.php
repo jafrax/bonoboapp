@@ -99,21 +99,40 @@ class Master_bank extends CI_Controller {
             $this->form_validation->set_rules('idedit', '', 'required');
             $msg    = "error";
             $notif  = "";
+
             if ($this->form_validation->run() == TRUE){
-                
+
                 $name    	= $this->db->escape_str($this->input->post('namaedit'));
                 $idedit     = $this->db->escape_str($this->input->post('idedit'));
-                $param  = array(
-
-                    'name'          => $name,
-					'update_user'   => $_SESSION['bonobo_admin']->email
-
-                );
+                $image     = $this->db->escape_str($this->input->post('image'));
                 
-                $insert = $this->db->where("id",$idedit)->update('ms_bank',$param);
+                $url    = 'assets/pic/bank/';
+                if(isset($_FILES['fileimageedit']['name'])){
+					$picture = $this->template->upload_picture($url,'fileimageedit',$image);
+					if($picture != 'error'){
+						$data_edit  = array(
+							'name'          => $name,
+							'image'         => $picture,
+							'update_user'   => $_SESSION['bonobo_admin']->email
+			            );
+					}else{
+						$data_edit  = array(
+							'name'          => $name,						
+							'update_user'   => $_SESSION['bonobo_admin']->email
+			            );
+					}
+				}else{
+					$data_edit  = array(
+						'name'          => $name,						
+						'update_user'   => $_SESSION['bonobo_admin']->email
+		            );
+				}
+                
+                $insert = $this->db->where("id",$idedit)->update('ms_bank',$data_edit);
                 if($insert){
                     $msg    = "success";
                     $notif  = "Berhasil";
+                    redirect('admin/master_bank/');
                 }
             }
             echo json_encode(array("msg"=>$msg,"notif"=>$notif));
@@ -126,26 +145,37 @@ class Master_bank extends CI_Controller {
 		$notif  = "";
 		$url    = 'assets/pic/bank/';
 		if ($this->form_validation->run() == TRUE){
-			if(isset($_FILES['file-image']['name'])){
-				$picture = $this->template->upload_picture($url,'file-image');
-				if($picture != 'error'){
-					$name    	= $this->db->escape_str($this->input->post('namaadd'));
+			$name    	= $this->db->escape_str($this->input->post('namaadd'));
+			if(isset($_FILES['fileimage']['name'])){
+				$picture = $this->template->upload_picture($url,'fileimage');
+				if($picture != 'error'){					
 					$data_add  = array(
-										'name'          => $name,
-										'image'         => $picture,
-										'create_date'	=> date("Y-m-d H:i:s"),
-										'create_user'   => $_SESSION['bonobo_admin']->email
-
+						'name'          => $name,
+						'image'         => $picture,
+						'create_date'	=> date("Y-m-d H:i:s"),
+						'create_user'   => $_SESSION['bonobo_admin']->email
 		            );
-					$insert = $this->db->insert('ms_bank',$data_add);
-		            if($insert){
-		                $msg    = "success";
-		                $notif  = "Berhasil";
-		                redirect('admin/master_bank/');
-		            }
-				}							
+				}else{
+					$data_add  = array(
+						'name'          => $name,						
+						'create_date'	=> date("Y-m-d H:i:s"),
+						'create_user'   => $_SESSION['bonobo_admin']->email
+		            );
+				}						
+			}else{
+				$data_add  = array(
+					'name'          => $name,						
+					'create_date'	=> date("Y-m-d H:i:s"),
+					'create_user'   => $_SESSION['bonobo_admin']->email
+	            );
 			}
-            
+
+            $insert = $this->db->insert('ms_bank',$data_add);
+            if($insert){
+                $msg    = "success";
+                $notif  = "Berhasil";
+                redirect('admin/master_bank/');
+            }
 		}else{
 
 		}

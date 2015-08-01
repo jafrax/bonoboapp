@@ -44,6 +44,10 @@ $.ajax({
 			$("#box-form-kurir-edit").modal("show").on('shown.bs.modal', function () {				
 				$("#namaedit").val(data.name).focus();
 				$("#idedit").val(data.id);
+                if (data.image != '') {
+                    $("#image").val(data.image);
+                    $("#fileimageedit-add").attr("src", base_url+"assets/pic/kurir/resize/"+data.image);
+                };
 			});
 		}
 	},

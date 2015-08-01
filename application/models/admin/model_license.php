@@ -22,7 +22,9 @@ class Model_license extends CI_Model {
 	public function get_license($limit=1000000,$offset=0){
 	  	$this->db->limit($limit,$offset);
 		$this->db->order_by('id','desc');
-		$this->db->where('validity',$_SESSION['option']);
+		if (isset($_SESSION['option'])) {
+	    	$this->db->where('validity',$_SESSION['option']);
+	    }
 	  	return $this->db->get('tb_activation_code');	
 	}
 
@@ -32,7 +34,10 @@ class Model_license extends CI_Model {
 	    }
 		$this->db->limit($limit,$offset);
 	    $this->db->order_by("id","desc");
-	    $this->db->where('validity',$_SESSION['option']);
+	    if (isset($_SESSION['option'])) {
+	    	$this->db->where('validity',$_SESSION['option']);
+	    }
+	    
 		return $this->db->get('tb_activation_code');
 	}
 }

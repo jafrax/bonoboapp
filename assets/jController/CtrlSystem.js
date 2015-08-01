@@ -317,3 +317,15 @@ function change_password(selection,url) {
         });
     }
 }
+
+function klik (a) {
+    $('#'+a).click();
+}
+
+function picture_upload(id){   
+   var URL     = window.URL || window.webkitURL;
+   var input   = document.querySelector('#'+id);
+   var preview = document.querySelector('#'+id+'-add');
+   preview.src = URL.createObjectURL(input.files[0]); 
+
+}
