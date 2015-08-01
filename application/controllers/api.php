@@ -3416,7 +3416,7 @@ class Api extends CI_Controller {
 					*	------------------------------------------------------------------------------
 					*/
 					
-					//$this->db->where("id",$QCart->id)->delete("tb_cart");
+					$this->db->where("id",$QCart->id)->delete("tb_cart");
 				
 					$this->response->send(array("result"=>1,"invoice"=>$Invoice), true);
 				}else{
