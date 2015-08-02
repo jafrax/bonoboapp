@@ -14,8 +14,8 @@ echo"
         <link href='".site_url("html/admin/css/ionicons.min.css")."' rel='stylesheet' type='text/css' />
         <!-- DATA TABLES -->
         <link href='".site_url("html/admin/css/datatables/dataTables.bootstrap.css")."' rel='stylesheet' type='text/css' />
-        <!-- daterange picker -->
-        <link href='".site_url("html/admin/css/daterangepicker/daterangepicker-bs3.css")."' rel='stylesheet' type='text/css' />
+        <!-- date picker -->
+        <link href='".site_url("html/admin/css/datepicker/bootstrap-datepicker.css")."' rel='stylesheet' type='text/css' />
         <!-- Bootstrap time Picker -->
         <link href='".site_url("html/admin/css/timepicker/bootstrap-timepicker.min.css.")."' rel='stylesheet'/>
         <!-- Theme style -->

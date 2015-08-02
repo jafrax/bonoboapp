@@ -78,6 +78,42 @@ class Daftar_toko extends CI_Controller {
 			$this->load->view('admin/daftar_toko/bg_daftartoko_ajax', $this->data);
 		}
 	}
+	public function datechange(){
+        $getid = $this->input->post("getid");
+        if($getid){
+            $cek   = $this->model_toko->edit($getid);
+            $msg    = "error";
+            if(count($cek)>0){
+                $msg    = "success";
+            }
+            $msg    = array("msg"=>$msg);
+            $data   = array_merge($msg,$cek);
+            echo json_encode($data);
+        }else{
+            $this->form_validation->set_rules('datepickermah', '', 'required');
+            $this->form_validation->set_rules('idedit', '', 'required');
+            $msg    = "error";
+            $notif  = "";
+            if ($this->form_validation->run() == TRUE){
+                
+                $datepickermah    	= $this->db->escape_str($this->input->post('datepickermah'));
+                $idedit    			= $this->db->escape_str($this->input->post('idedit'));
+				$date_time=date('Y-m-d',strtotime($datepickermah));
+                $param  = array(
+                    'expired_on'          => $date_time,
+					'update_user'   	=> $_SESSION['bonobo_admin']->email
+                );
+                
+                $update = $this->db->where("id",$idedit)->update('tb_toko',$param);
+                if($update){
+                    $msg    = "success";
+                    $notif  = "Berhasil";
+					$date=$date_time;
+                }
+            }
+            echo json_encode(array("msg"=>$msg,"notif"=>$notif,"tanggal"=>$date));
+        }
+    }
 	public function suspend(){
 		$id 	= $this->input->post('id');
 		$msg    = "error";
@@ -91,7 +127,7 @@ class Daftar_toko extends CI_Controller {
 		}
 		echo json_encode(array("msg"=>$msg,"notif"=>$notif));
     }
-	function unsuspend(){
+	public function unsuspend(){
         $id 	= $this->input->post('id');
 		$msg    = "error";
         $notif  = "";
