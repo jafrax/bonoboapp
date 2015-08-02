@@ -3163,7 +3163,6 @@ class Api extends CI_Controller {
 					"recipient_name"=>$QUserLocation->name,
 					"recipient_phone"=>$this->response->postDecode("location_phone"),
 					"recipient_address"=>$this->response->postDecode("location_address"),
-					"recipient_description"=>$this->response->postDecode("location_description"),
 					"location_to_province"=>$QUserLocation->location_province,
 					"location_to_city"=>$QUserLocation->location_city,
 					"location_to_kecamatan"=>$QUserLocation->location_kecamatan,
@@ -3201,7 +3200,6 @@ class Api extends CI_Controller {
 					->where("recipient_name",$QUserLocation->name)
 					->where("recipient_phone",$this->response->postDecode("location_phone"))
 					->where("recipient_address",$this->response->postDecode("location_address"))
-					->where("recipient_description",$this->response->postDecode("location_description"))
 					->where("location_to_province",$QUserLocation->location_province)
 					->where("location_to_city",$QUserLocation->location_city)
 					->where("location_to_kecamatan",$QUserLocation->location_kecamatan)
@@ -3387,7 +3385,7 @@ class Api extends CI_Controller {
 					$Invoice = array(
 							"id"=>$QInvoice->id,
 							"invoice_no"=>$QInvoice->invoice_no,
-							"notes"=>$QInvoice->notes,
+							"note"=>$QInvoice->notes,
 							"member_name"=>$QInvoice->member_name,
 							"member_email"=>$QInvoice->member_email,
 							"member_confirm"=>$QInvoice->member_confirm,
@@ -3399,9 +3397,8 @@ class Api extends CI_Controller {
 							"shipment_no"=>$QInvoice->shipment_no,
 							"shipment_service"=>$QInvoice->shipment_service,
 							"recipient_name"=>$QInvoice->recipient_name,
-							"recipient_phone"=>$QInvoice->recipient_address,
+							"recipient_phone"=>$QInvoice->recipient_phone,
 							"recipient_address"=>$QInvoice->recipient_address,
-							"recipient_description"=>$QInvoice->recipient_phone,
 							"location_to_province"=>$QInvoice->location_to_province,
 							"location_to_city"=>$QInvoice->location_to_city,
 							"location_to_kecamatan"=>$QInvoice->location_to_kecamatan,
