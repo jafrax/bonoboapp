@@ -1894,42 +1894,120 @@ class Api extends CI_Controller {
 				return;
 			}
 			
+			if($this->response->post("province") == "" || $this->response->postDecode("province") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data propinsi yang dipilih","messageCode"=>1), true);
+				return;
+			}
+			
+			if($this->response->post("city") == "" || $this->response->postDecode("city") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data kota yang dipilih","messageCode"=>1), true);
+				return;
+			}
+			
+			if($this->response->post("kecamatan") == "" || $this->response->postDecode("kecamatan") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data kecamatan yang dipilih","messageCode"=>1), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Cari data location berdasarkan province, city & kecamatan
+			*	------------------------------------------------------------------------------
+			*/
+			$QLocation = $this->db
+					->where("province",$this->response->postDecode("province"))
+					->where("city",$this->response->postDecode("city"))
+					->where("kecamatan",$this->response->postDecode("kecamatan"))
+					->get("ms_location")
+					->row();
+			
+			if(empty($QLocation)){
+				$this->response->send(array("result"=>0,"message"=>"Data lokasi tidak ditemukan","messageCode"=>1), true);
+				return;
+			}
+			
 			/*
 			*	------------------------------------------------------------------------------
 			*	Simpan data shipment
 			*	------------------------------------------------------------------------------
 			*/
 			$Save = false;
+			$Date = date("Y-m-d H:i:s");
 			
 			if($this->response->post("user_location_id") == "" || $this->response->postDecode("user_location_id") == ""){
 				$Data = array(
-						"location_id"=>$this->response->postDecode("kecamatan"),
+						"location_id"=>$QLocation->id,
 						"member_id"=>$QUser->id,
 						"name"=>$this->response->postDecode("name"),
 						"address"=>$this->response->postDecode("address"),
 						"phone"=>$this->response->postDecode("phone"),
-						"create_date"=>date("Y-m-d H:i:s"),
+						"postal"=>$this->response->postDecode("postal"),
+						"create_date"=>$Date,
 						"create_user"=>$QUser->email,
-						"update_date"=>date("Y-m-d H:i:s"),
+						"update_date"=>$Date,
 						"update_user"=>$QUser->email,
 					);
 				
 				$Save = $this->db->insert("tb_member_location",$Data);
 			}else{
 				$Data = array(
-						"location_id"=>$this->response->postDecode("kecamatan"),
+						"location_id"=>$QLocation->id,
 						"member_id"=>$QUser->id,
 						"name"=>$this->response->postDecode("name"),
 						"address"=>$this->response->postDecode("address"),
 						"phone"=>$this->response->postDecode("phone"),
-						"update_date"=>date("Y-m-d H:i:s"),
+						"postal"=>$this->response->postDecode("postal"),
+						"update_date"=>$Date,
 						"update_user"=>$QUser->email,
 					);
-				$Save = $this->db->where("id",$this->response->postDecode("user_location_id"))->update("tb_member_location",$Data);
+				$Save = $this->db->where("id",$this->response->postDecode("user_location"))->update("tb_member_location",$Data);
 			}
 			
 			if($Save){
-				$this->response->send(array("result"=>1,"message"=>"Data shipment telah diubah","messageCode"=>4), true);
+				/*
+				*	------------------------------------------------------------------------------
+				*	Ambil data user location yang telah disimpan
+				*	------------------------------------------------------------------------------
+				*/
+				if($this->response->post("user_location_id") == "" || $this->response->postDecode("user_location_id") == ""){
+					$QUserLocation = $this->db
+							->where("location_id",$QLocation->id)
+							->where("member_id",$QUser->id)
+							->where("name",$this->response->postDecode("name"))
+							->where("address",$this->response->postDecode("address"))
+							->where("phone",$this->response->postDecode("phone"))
+							->where("postal",$this->response->postDecode("postal"))
+							->where("create_date",$Date)
+							->where("create_user",$QUser->email)
+							->where("update_date",$Date)
+							->where("update_user",$QUser->email)
+							->get("tb_member_location")
+							->row();
+				}else{
+					$QUserLocation = $this->db
+							->where("id",$this->response->postDecode("user_location"))
+							->get("tb_member_location")
+							->row();
+				}
+				
+				/*
+				*	------------------------------------------------------------------------------
+				*	Buat object user location
+				*	------------------------------------------------------------------------------
+				*/
+				$UserLocation = array(
+							"id"=>$QUserLocation->id,
+							"name"=>$QUserLocation->name,
+							"phone"=>$QUserLocation->phone,
+							"postal"=>$QUserLocation->postal,
+							"address"=>$QUserLocation->address,
+							"location_id"=>$QUserLocation->location_id,
+							"province"=>$QLocation->province,
+							"city"=>$QLocation->city,
+							"kecamatan"=>$QLocation->kecamatan,
+						);
+				
+				$this->response->send(array("result"=>1,"user_location"=>$UserLocation,"messageCode"=>4), true);
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Data shipment tidak dapat disimpan","messageCode"=>5), true);
 			}
@@ -3780,7 +3858,6 @@ class Api extends CI_Controller {
 				$this->response->send(array("result"=>0,"message"=>"Tidak ada kota yang dipilih","messageCode"=>4), true);
 				return;
 			}
-			
 			
 			$Kecamatans = array();
 			$QKecamatans = $this->db
