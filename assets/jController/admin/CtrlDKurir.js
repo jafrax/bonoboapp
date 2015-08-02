@@ -53,9 +53,26 @@ $.ajax({
 		if (response.msg == "success") {
 			var data = response[0];
 			idedit      = data.id;
-			$("#box-form-dkurir-edit").modal("show").on('shown.bs.modal', function () {				
-				$("#namaedit").val(data.name).focus();
-				$("#idedit").val(data.id);
+			$("#bs-edit-modal-sm").modal("show").on('shown.bs.modal', function () {		
+			
+				$.ajax({
+						type: 'POST',
+						data: { ffprovince: data.location_from_province, 
+								ffkota: data.location_from_city, 
+								ffkecamatan: data.location_from_kecamatan, 
+								ftprovince: data.location_to_province, 
+								ftkota: data.location_to_city, 
+								ftkecamatan: data.location_to_kecamatan,
+								price: data.price,
+								},
+						url: base_url+'admin/kurir_detail/set_edit', 
+						success: function(response) {
+							$('#edit_dk').html(response);
+							$('.chosen-select').chosen();
+						}
+				});
+				$('#hargapkg').val(data.price);
+				$('.chosen-select').chosen();
 			});
 		}
 	},
@@ -93,6 +110,7 @@ function set_city(){
 			data: 'province='+province,
 			url: base_url+'admin/kurir_detail/set_city', 
 			success: function(city) {
+			alert(province);
 				$('#ffkota').html(city);
 				$('#fkota').chosen();
 			}
@@ -123,6 +141,55 @@ function set_tcity(){
 			});
 }
 function set_tkecamatan(){
+    var kota = $('#tkota').val();
+    $.ajax({
+			type: 'POST',
+			data: 'kota='+kota,
+			url: base_url+'admin/kurir_detail/set_tkecamatan', 
+			success: function(kec) {
+				$('#ftkecamatan').html(kec);
+				$('#tkecamatan').chosen();
+			}
+			});
+}
+//
+function sset_city(set){
+    $.ajax({
+			type: 'POST',
+			data: 'province='+set,
+			url: base_url+'admin/kurir_detail/set_city', 
+			success: function(city) {
+			alert(province);
+				$('#ffkota').html(city);
+				$('#fkota').chosen();
+			}
+			});
+}
+function sset_kecamatan(set){
+    var kota = $('#fkota').val();
+    $.ajax({
+			type: 'POST',
+			data: 'kota='+kota,
+			url: base_url+'admin/kurir_detail/set_kecamatan', 
+			success: function(kec) {
+				$('#ffkecamatan').html(kec);
+				$('#fkecamatan').chosen();
+			}
+			});
+}
+function sset_tcity(set){
+    var province = $('#tprovince').val();
+    $.ajax({
+			type: 'POST',
+			data: 'province='+province,
+			url: base_url+'admin/kurir_detail/set_tcity', 
+			success: function(city) {
+				$('#ftkota').html(city);
+				$('#tkota').chosen();
+			}
+			});
+}
+function sset_tkecamatan(set){
     var kota = $('#tkota').val();
     $.ajax({
 			type: 'POST',
