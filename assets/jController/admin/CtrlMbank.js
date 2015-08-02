@@ -30,6 +30,7 @@ function bank_modal_add() {
 $("#box-form-bank-add").modal("show").on('shown.bs.modal', function () {
 	$('#form-bank-add')[0].reset();
 	$('label.error').hide();
+    $("#fileimage-add").attr("src", base_url+"html/admin/img/credit/dummy_logo.png");
 });
 }
 function bank_modal(id) {

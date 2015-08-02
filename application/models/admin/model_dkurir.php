@@ -30,6 +30,10 @@ class Model_dkurir extends CI_Model {
         $this->db->order_by("location_from_province","asc");
 		return $this->db->get('tb_courier_rate');
     }
+	function name_id($id){
+        $this->db->where("id",$id);
+		return $this->db->get('ms_courier')->result();
+    }
 	function edit($id){
         $this->db->where("id",$id);
 		return $this->db->get('tb_courier_rate')->result();

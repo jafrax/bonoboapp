@@ -13,10 +13,11 @@ class Nota extends CI_Controller {
 	function __construct(){
         parent::__construct();
 		if(empty($_SESSION['bonobo']) || empty($_SESSION['bonobo']['id'])){
+			
 			redirect('index/signin/');
 			return;
 		}
-
+		$this->template->cek_license();
 		$this->load->model("enduser/model_nota");		
     }
 	

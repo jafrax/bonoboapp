@@ -126,8 +126,7 @@
                             <label for='exampleInputEmail1'>Logo</label>
                             <button type='button' class='btn btn-info btn-xs' onClick=javascript:klik('fileimageedit')>Broswe</button>
                             <div class='colimg'>
-                                <img id='fileimageedit-add' class='logobankbig' src='".base_url()."html/admin/img/credit/dummy_logo.png' />
-                                <button type='button' class='close'>×</button>
+                                <img id='fileimageedit-add' class='logobankbig' src='".base_url()."html/admin/img/credit/dummy_logo.png' />                                
                                 <input type='file' id='fileimageedit' name='fileimageedit' style='display:none;' OnChange=javascript:picture_upload(this.id)>
                             </div>
                         </div>
