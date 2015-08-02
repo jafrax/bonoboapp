@@ -57,7 +57,7 @@ class response {
 	}
 	
 	public function clean($string){
-		$string = mysql_real_escape_string($string);
+		//$string = mysql_real_escape_string($string);
 		$string = trim($string);
 		$string = strip_tags($string);
 		$string = trim($string);

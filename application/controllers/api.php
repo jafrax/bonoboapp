@@ -3742,7 +3742,7 @@ class Api extends CI_Controller {
 				
 				$this->response->send(array("result"=>1,"cities"=>$Cities,"kecamatans"=>$Kecamatans,"messageCode"=>4), true);
 			}else{
-				$this->response->send(array("result"=>0,"message"=>"Kota tidak ditemukan","messageCode"=>5), true);
+				$this->response->send(array("result"=>0,"message"=>"Kota tidak ditemukan : ".$this->response->postDecode("province"),"messageCode"=>5), true);
 			}
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
@@ -3802,7 +3802,7 @@ class Api extends CI_Controller {
 			if(sizeOf($Kecamatans) > 0){
 				$this->response->send(array("result"=>1,"kecamatans"=>$Kecamatans,"messageCode"=>5), true);
 			}else{
-				$this->response->send(array("result"=>0,"message"=>"Kota tidak ditemukan","messageCode"=>6), true);
+				$this->response->send(array("result"=>0,"message"=>"Kecamatan tidak ditemukan","messageCode"=>6), true);
 			}
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
