@@ -33,15 +33,26 @@ echo "
 				<span id='fk-".$row->id."'> ".$row->location_from_kecamatan." </span>
 			
 			</td>
-			<td><span id='fp-".$row->id."'>".$row->location_to_province."</span> /
-				<span id='fc-".$row->id."'> ".$row->location_to_city." </span> /
-				<span id='fk-".$row->id."'> ".$row->location_to_kecamatan." </span>
+			<td><span id='tp-".$row->id."'>".$row->location_to_province."</span> /
+				<span id='tc-".$row->id."'> ".$row->location_to_city." </span> /
+				<span id='tk-".$row->id."'> ".$row->location_to_kecamatan." </span>
 			</td>
-			<td>".$row->price."</td>
+			<td><span id='pr-".$row->id."'>".$row->price."</span></td>
 			<td>
-				<button class='btn btn-primary btn-sm' onClick=javascript:dkurir_modal('".$row->id."') >Edit</button>
+				<button data-toggle='modal' data-target='.bs-edit-modal-sm-".$row->id."' class='btn btn-primary btn-sm' onClick=javascript:dkurir_modal('".$row->id."') >Edit</button>
 			</td>
-		</tr>";
+		</tr>
+		<div class='modal fade bs-edit-modal-sm-".$row->id."' id='bs-edit-modal-sm-".$row->id."' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel' aria-hidden='true'>
+		  <div class='modal-dialog modal-sm'>
+			<div class='modal-content'>
+				<div class='box box-primary'>
+			<div id='edit_dk".$row->id."'>
+			</div>
+			</div><!-- /.box -->
+					</div>
+				  </div>								
+		</div>
+		";
 		}
 	  } else {
 			if(isset($search)){
