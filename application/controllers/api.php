@@ -3215,15 +3215,15 @@ class Api extends CI_Controller {
 										
 						if(!empty($QShopLocation)){
 							$QCourierRate = $this->db
-											->where("courier_id",$QCourier->id)
-											->where("location_from_province",$QShopLocation->province)
-											->where("location_from_city",$QShopLocation->city)
-											->where("location_from_kecamatan",$QShopLocation->kecamatan)
-											->where("location_to_province",$QUserLocation->location_province)
-											->where("location_to_city",$QUserLocation->location_city)
-											->where("location_to_kecamatan",$QUserLocation->location_kecamatan)
-											->get("tb_courier_rate")
-											->row();
+									->where("courier_id",$QCourier->id)
+									->where("location_from_province",$QShopLocation->province)
+									->where("location_from_city",$QShopLocation->city)
+									->where("location_from_kecamatan",$QShopLocation->kecamatan)
+									->where("location_to_province",$QUserLocation->location_province)
+									->where("location_to_city",$QUserLocation->location_city)
+									->where("location_to_kecamatan",$QUserLocation->location_kecamatan)
+									->get("tb_courier_rate")
+									->row();
 						
 							if(!empty($QCourierRate)){
 								$price_shipment = $QCourierRate->price;
@@ -3329,7 +3329,7 @@ class Api extends CI_Controller {
 					"member_id"=>$QCart->member_id,
 					"courier_id"=>$QCourier->id,
 					"invoice_no"=>$invoice_no,
-					"notes"=>$this->response->postDecode("note"),
+					"notes"=>$this->response->postDecode("location_description"),
 					"member_name"=>$QUser->name,
 					"member_email"=>$QUser->email,
 					"member_confirm"=>0,
@@ -3366,7 +3366,7 @@ class Api extends CI_Controller {
 					->where("member_id",$QCart->member_id)
 					->where("courier_id",$QCourier->id)
 					->where("invoice_no",$invoice_no)
-					->where("notes",$this->response->postDecode("note"))
+					->where("notes",$this->response->postDecode("location_description"))
 					->where("member_name",$QUser->name)
 					->where("member_email",$QUser->email)
 					->where("member_confirm",0)

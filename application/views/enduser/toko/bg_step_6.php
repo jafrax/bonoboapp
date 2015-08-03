@@ -39,7 +39,7 @@ foreach($ShopBanks as $ShopBank){
 							<div class='col s12 m6 l8'>
 								<blockquote>
 									<h5>".$ShopBank->bank_name."</h5>
-									<h6>".$ShopBank->acc_name."</h6>
+									<h6> a.n ".$ShopBank->acc_name."</h6>
 									<h6>".$ShopBank->acc_no."</h6>
 								</blockquote>
 								<div class='input-field col s12 m12'>
@@ -103,7 +103,7 @@ echo"
 							</div>
 							<div class='input-field col s12 m12'>
 								<span for='txtNo'>Nomor Rekening</span>
-								<input id='txtNo' name='txtNo' type='text' class='validate'>
+								<input id='txtNo' name='txtNo' type='text' class='validate numbersOnly' maxlength='20'>
 							</div>															
 						</div>
 					</div>

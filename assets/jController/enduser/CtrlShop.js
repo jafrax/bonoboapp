@@ -622,12 +622,26 @@ function CtrlShopStep8(){
 	function init(){
 		initComponent();
 		initEventlistener();
+		initValidation();
 	}
 	
 	function initComponent(){
 		formStep8Add = $hs("formStep6Add");
 		btnAddNew = $hs("btnAddNew");
 		btnSave = $hs("btnSave");
+	}
+	function initValidation(){
+		   $('#formStep6Add').validate({
+        rules:{
+            txtNo     : {maxlength:20,remote: base_url+"admin/toko/nomer_rekening"},
+        },
+        messages: {
+            txtNo: {
+                remote: message_alert("Old password is wrong"),
+				maxlength : message_alert ("Masukkan maksimal 20 karakter "),
+            },
+        },
+    });
 	}
 	
 	function initEventlistener(){
@@ -666,7 +680,10 @@ function CtrlShopStep8(){
 				$("#divCmbBank").html(result);
 			}
 		});
-		
+		//tambah validasi
+		if(!$('#formStep6Add').valid()){
+			return false;
+		}else{
 		$.ajax({
 			type: 'POST',
 			data: "id="+e,
@@ -685,9 +702,11 @@ function CtrlShopStep8(){
 				}
 			}
 		});
+		}
 	}
 	
 	function doSave(){
+		//tambah validasi
 		$.ajax({
 			type: 'POST',
 			data: $("#formStep6Add").serialize(),
@@ -701,6 +720,7 @@ function CtrlShopStep8(){
 				}
 			}
 		});
+		
 	}
 	
 	function doDelete(e){
@@ -1039,4 +1059,21 @@ $(document).ready(function() {
 	});
 	/*NUMBER FORMAT*/
 });
+
+$(document).ready(function() {
+    $.validator.setDefaults({
+        ignore: []
+    });
+    
+    $('#formStep6Add').validate({
+        rules:{
+            txtNo     : {required: true,remote: base_url+"admin/account/rules_password"},
+        },
+        messages: {
+            txtNo: {
+                remote: message_alert("Old password is wrong"),
+            },
+        },
+    });
+})
 
