@@ -142,7 +142,19 @@ function picture_upload(id){
    var URL     = window.URL || window.webkitURL;
    var input   = document.querySelector('#'+id);
    var preview = document.querySelector('#img_'+id);
-   preview.src = URL.createObjectURL(input.files[0]);    
+   var img     = $(input).val();
+
+    switch(img.substring(img.lastIndexOf('.') + 1).toLowerCase()){
+        case 'gif': case 'jpg': case 'png':
+            preview.src = URL.createObjectURL(input.files[0]);  
+            break;
+        default:
+            $(input).val('');
+            // error message here
+            Materialize.toast('Silahkan pilih file format gambar jpg/png/gif', 4000);
+            break;
+    }
+     
 }
 
 function remove_picture(id) {
@@ -235,46 +247,56 @@ function deleteVarian(varian) {
 
 
 // view ready stock============================================================================
+var typingTimer;                
+var doneTypingInterval = 500;
 
 function change_stock(id){
   var stok = $('.stok-'+id).val();
+  
   if (stok != '') {
-    $.ajax({
-      type: 'POST',
-      data: 'id='+id+'&stok='+stok,
-      url: base_url+'produk/change_stock',
-      success: function(msg) {
-        if (stok == 0) {
-          $('.habis-'+id).fadeIn();
-        }else{
-          $('.habis-'+id).fadeOut();
-        };
-        $('.stok-'+id).val(msg);
-        $('.ok-'+id).fadeIn();
-        $('.ok-'+id).delay(500).fadeOut();        
-      }
-    }); 
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(function(){ 
+      $.ajax({
+        type: 'POST',
+        data: 'id='+id+'&stok='+stok,
+        url: base_url+'produk/change_stock',
+        success: function(msg) {
+          if (stok == 0) {
+            $('.habis-'+id).fadeIn();
+          }else{
+            $('.habis-'+id).fadeOut();
+          };
+          $('.stok-'+id).val(msg);
+          $('.ok-'+id).fadeIn();
+          $('.ok-'+id).delay(500).fadeOut();        
+        }
+      });
+    }, doneTypingInterval);
   }
 }
+
 
 function change_stock2(id){
   var stok = $('.stok-2-'+id).val();
   if (stok != '') {
-    $.ajax({
-      type: 'POST',
-      data: 'id='+id+'&stok='+stok,
-      url: base_url+'produk/change_stock',
-      success: function(msg) {
-        if (stok == 0) {
-          $('.habis-'+id).fadeIn();
-        }else{
-          $('.habis-'+id).fadeOut();
-        };
-        $('.stok-'+id).val(msg);
-        $('.ok-'+id).fadeIn();
-        $('.ok-'+id).delay(500).fadeOut();        
-      }
-    }); 
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(function(){ 
+      $.ajax({
+        type: 'POST',
+        data: 'id='+id+'&stok='+stok,
+        url: base_url+'produk/change_stock',
+        success: function(msg) {
+          if (stok == 0) {
+            $('.habis-'+id).fadeIn();
+          }else{
+            $('.habis-'+id).fadeOut();
+          };
+          $('.stok-'+id).val(msg);
+          $('.ok-'+id).fadeIn();
+          $('.ok-'+id).delay(500).fadeOut();        
+        }
+      });
+    }, doneTypingInterval);
   }
 }
 

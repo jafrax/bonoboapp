@@ -125,12 +125,12 @@ echo"
 															echo "
 															<div class=' col s12 m12'>
 																
-																<label for='varian'><b class='label-stock'>".$row_stok->name."</b> Stok : <span class='text-green'>selalu tersediaa</span></label>
+																<label for='varian'><b class='label-stock'>".$row_stok->name."</b> Stok : <span class='text-green'>selalu tersedia</span></label>
 															</div>";
 														}else if($row_stok->name == 'null'){
 															echo "
 															<div class=' col s12 m12'>																
-																<label for='varian'>Stok : <span class='text-green'>selalu tersedica</span></label>
+																<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
 															</div>";
 														}
 

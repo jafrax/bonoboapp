@@ -367,3 +367,4 @@ $config['default_code']				= 'default_code';
 $config['default_duration_type']	= 'default_duration_type';
 $config['default_duration']			= 'default_duration';
 $config['saltkey']					= 'v1510n3';
+$config['email_admin']				= 'ysahaduta@gmail.com';

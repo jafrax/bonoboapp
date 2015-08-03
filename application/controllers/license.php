@@ -76,12 +76,16 @@ class License extends CI_Controller {
 	}
 
 	public function minta_disini()
-	{
-		$id = $this->input->post('id');
-		$insert = $this->db->where('toko_id',$id)
-							->set('code',$code)
-							->set('validity',2)
-							->insert('tb_activation_code');
+	{	
+		if (!$_POST) {
+			
+		}else{
+			$id = $this->input->post('id');
+			$insert = $this->db->where('toko_id',$id)
+								->set('code',$code)
+								->set('validity',2)
+								->insert('tb_activation_code');
+		}		
 	}
 	
 }
