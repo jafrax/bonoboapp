@@ -1934,7 +1934,7 @@ class Api extends CI_Controller {
 			$Save = false;
 			$Date = date("Y-m-d H:i:s");
 			
-			if($this->response->post("user_location_id") == "" || $this->response->postDecode("user_location_id") == ""){
+			if($this->response->post("user_location") == "" || $this->response->postDecode("user_location") == ""){
 				$Data = array(
 						"location_id"=>$QLocation->id,
 						"member_id"=>$QUser->id,
@@ -1969,7 +1969,7 @@ class Api extends CI_Controller {
 				*	Ambil data user location yang telah disimpan
 				*	------------------------------------------------------------------------------
 				*/
-				if($this->response->post("user_location_id") == "" || $this->response->postDecode("user_location_id") == ""){
+				if($this->response->post("user_location") == "" || $this->response->postDecode("user_location") == ""){
 					$QUserLocation = $this->db
 							->where("location_id",$QLocation->id)
 							->where("member_id",$QUser->id)
@@ -2039,12 +2039,12 @@ class Api extends CI_Controller {
 				return;
 			}
 			
-			if($this->response->post("user_location_id") == "" || $this->response->postDecode("user_location_id") == ""){
+			if($this->response->post("user_location") == "" || $this->response->postDecode("user_location") == ""){
 				$this->response->send(array("result"=>0,"message"=>"Tidak ada lokasi user yang dipilih","messageCode"=>3), true);
 				return;
 			}
 			
-			$QUserLocation = $this->db->where("id",$this->response->postDecode("user_location_id"))->get("tb_member_location")->row();
+			$QUserLocation = $this->db->where("id",$this->response->postDecode("user_location"))->get("tb_member_location")->row();
 			if(empty($QUserLocation)){
 				$this->response->send(array("result"=>0,"message"=>"Data lokasi user tidak ditemukan","messageCode"=>4), true);
 				return;
@@ -2056,7 +2056,7 @@ class Api extends CI_Controller {
 			*	------------------------------------------------------------------------------
 			*/
 			
-			$Delete = $this->db->where("id",$this->response->postDecode("user_location_id"))->delete("tb_member_location");
+			$Delete = $this->db->where("id",$this->response->postDecode("user_location"))->delete("tb_member_location");
 			if($Delete){
 				$this->response->send(array("result"=>1,"message"=>"Data lokasi user telah dihapus","messageCode"=>5), true);
 			}else{
