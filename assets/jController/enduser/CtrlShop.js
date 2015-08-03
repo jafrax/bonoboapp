@@ -127,7 +127,7 @@ function CtrlShopStep1(){
 				success: function(result) {
 					var response = JSON.parse(result);
 					if(response.result == 1){
-						top.location.href = base_url+"toko/step2";
+						//top.location.href = base_url+"toko/step2";
 					}else{
 						$hs_notif("#notifStep1",response.message);
 					}
@@ -137,6 +137,10 @@ function CtrlShopStep1(){
 	}
 	
 	function initValidation(){
+		jQuery.validator.addMethod("noSpace", function(value, element) { 
+			return value.indexOf(" ") < 0 && value != ""; 
+		}, "<i class='fa fa-warning'></i> Jangan gunakan spasi !");
+
 		formStep1JQuery.validate({
 			rules:{
 				txtName: {
@@ -148,6 +152,7 @@ function CtrlShopStep1(){
 					required: true,
 					minlength:3,
 					maxlength:15,
+					noSpace:true,
 				},
 				txtDescription:{
 					maxlength:250,
@@ -157,6 +162,10 @@ function CtrlShopStep1(){
 				},
 				txtAddress:{
 					maxlength:150,
+				},
+				txtShopLogoFile:{
+					required: true,
+					extension: "png|jpe?g|gif",
 				},
 				//cmbProvince: {
 					//required: true,
@@ -178,6 +187,10 @@ function CtrlShopStep1(){
 					required: message_alert("Harus diisi !"),
 					minlength: message_alert("Masukkan minimal 3 karakter"),
 					maxlength: message_alert("Masukkan maksimal 15 karakter"),
+				},
+				txtShopLogoFile:{
+					required: message_alert("Harus diisi !"),
+					extension:message_alert('Pilih salah satu jenis file JPG, GIF atau PNG'),
 				},
 				txtPhone:{
 					maxlength: message_alert("Masukkan maksimal 15 karakter"),
@@ -1081,7 +1094,7 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: base_url+'toko/kodepos',
-			data:"txtPostal="+$('#postal-code').val()+"&cmbProvince="+$('#province').val()+"&cmbCity="+$('#cmbCity').val()+"&cmbKecamatan="+$('#tkecamatan').val(),
+			data:"txtPostal="+$('#postal-code').val()+"&cmbProvince="+$('#province').val()+"&cmbCity="+$('.cmbCity').val()+"&cmbKecamatan="+$('.cmbKecamatan').val(),
             dataType: "json",
             success: function (data) {
                 if (data.length > 0) {
@@ -1094,14 +1107,17 @@ $(document).ready(function () {
                 }
                 $.each(data, function (key,value) {
                     if (data.length >= 0)
-                        $('#dropdownpos').append('<li role="presentation" ><a role="menuitem dropdownnameli" class="dropdownlivalue">' + value['postal_code'] + '</a></li>');
+                        $('#dropdownpos').append('<li id="sembarang" role="presentation" ><a role="menuitem dropdownnameli" class="dropdownlivalue" onclick="javascript:hide_var()">' + value['postal_code'] + '</a></li>');
                 });
             }
         });
     });
     $('ul.txtpos').on('click', 'li a', function () {
         $('#postal-code').val($(this).text());
-		$('#ul.txtpos').hide();
     });
 });
+ 
+ function hide_var(){
+	 $('ul.txtpos').hide();
+ }
 
