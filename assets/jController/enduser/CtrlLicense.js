@@ -1,5 +1,5 @@
 $(document).ready(function() {
-   $("#form-license").validate({
+   	$("#form-license").validate({
       errorClass:'error',
       ignore: ":hidden:not(select)",
       rules:{
@@ -8,7 +8,17 @@ $(document).ready(function() {
           kode3                    : {required: true,maxlength:4,minlength:4},          
           kode4                    : {required: true,maxlength:4,minlength:4},          
       }
-  });  
+  	});
+
+  	$("#form-minta").validate({
+      errorClass:'error',
+      ignore: ":hidden:not(select)",
+      rules:{
+          nama	: {required: true,maxlength:50,minlength:5},
+          telp	: {required: true,number:true,maxlength:12},
+          hp	: {required: true,number:true,maxlength:12},          
+      }
+  	});  
 
   $('#kode1').focus();
 
@@ -58,20 +68,47 @@ function box_notif_success (a,b,c) {
 
 function box_notif_minta (a,b,c) {
 	var box = "	<div class='card-panel green darken-1'>"
-				      +"<span class='white-text '>Permintaan</span>"				      
+				      +"<span class='white-text '>Permintaan telah dikirim</span>"				      
 				    +"</div>";
 	$('#notif').html(box).hide().slideDown().delay(3000).slideUp('slow');
 }
 
 function minta_disini(id){
-	$.ajax({
-	    type: 'POST',
-	    data: 'id='+id,
-	    url: base_url+'license/minta_disini',	    
-	    success: function(response) {
-	    	if (response.msg == 'success') {	    		
-				box_notif_minta (response.notif);				
-	    	}
-	    }
-    });
+	var nama = $('#nama').val();
+	var telp = $('#telp').val();
+	var hp = $('#hp').val();
+	var capcha = $("#g-recaptcha-response").val();
+	 if(capcha == ""){		 
+		 $('#error-captcha').html("<i class='fa fa-warning'></i> Captcha harus diisi!");
+		 $('#error-captcha').slideDown();
+		 $('#error-captcha').delay(3000).slideUp('slow');
+	 return;
+     }
+
+    $('#minta-button').fadeTo(0.3);
+	$('#minta-button').html("<img width='16px' src='"+base_url+"html/images/comp/loading2.GIF' /> Loading...");
+
+    if ($("#form-minta").valid()) {
+    	$.ajax({
+		    type: 'POST',
+		    data: 'nama='+nama+'&telp='+telp+'&hp='+hp+'&captcha='+capcha,
+		    url: base_url+'license/minta_disini',
+		    dataType: 'json',
+		    success: function(response) {
+		    	if (response.result == 1) {
+		    		Materialize.toast(response.message, 4000);	
+		    		$("#form-minta")[0].reset();
+					grecaptcha.reset();
+					$('#minta-button').fadeTo(1);
+					$('#minta-button').html("Pesan kode aktivasi");
+		    	}else{
+		    		Materialize.toast(response.message, 4000);
+		    		$("#form-minta")[0].reset();
+		    		grecaptcha.reset();
+		    		$('#minta-button').fadeTo(1);
+					$('#minta-button').html("Pesan kode aktivasi");
+		    	}
+		    }
+	    });
+    };	
 }

@@ -15,8 +15,13 @@ echo"
 		<div class='formain'>
 			<div class='formhead'>
 				<h2 class='titmain'><b>ANGGOTA BARU</b></h2>
-				<p>Pantau kedatangan anggota baru di toko anda !</p>
-				<a href='javascript:void(0);' onclick=ctrlAnggotaJoinin.doDeletes('".$shop->id."') class='modal-trigger right'><b>Hapus semua</b></a><br>
+				<p>Pantau kedatangan anggota baru di toko anda !</p>";
+				if(sizeOf($joinins) <= 0){
+					echo "<span></span>";
+				}else{
+					echo "<a href='javascript:void(0);' onclick=ctrlAnggotaJoinin.doDeletes('".$shop->id."') class='modal-trigger right'><b>Hapus semua</b></a><br>";
+				}
+				echo "
 			</div>
 			<label id='notifJoinin'></label>
 			<ul class='row formbody'>

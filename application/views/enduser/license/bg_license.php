@@ -111,7 +111,8 @@ echo "
 								echo"
 							</div>
 							<div class='nolautomar'>
-								<p class='center upbottom'>Belum punya kode verifikasi ? <a href='javascript:void(0)' onclick:javascript:minta_disini(".$_SESSION['bonobo']['id'].") >Minta disini</a></p>
+								<p class='center upbottom'>Ingin tau lebih banyak tentang halaman ini ? <a href='".base_url()."license/faq/'>Pelajari lebih lanjut</a>
+								<br><br>Belum punya kode verifikasi ? <a href='".base_url()."license/minta_disini/'>Minta disini</a></p>
 							</div>
 						</div>
 					</form>

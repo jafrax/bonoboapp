@@ -63,7 +63,8 @@ echo"
 						<a id='aShopLogoDelete' class='delimg'><i class='mdi-navigation-close right'></i></a>
 						<div class='card-image waves-effect waves-block waves-light'>
 							<img id='imgShopLogo' src='".$ShopImage."' class='responsive-img circle-logo' style='cursor:pointer; width:100%;'>
-							<input id='txtShopLogoFile' name='txtShopLogoFile' type='file' style='display:none;'>
+							<input id='txtShopLogoFile' name='txtShopLogoFile' type='file' style='display:none;' data-type='image' class='txtShopLogoFile'>
+							<span id='untukgambar' style='color:red;'></span>
 						</div>
 					</div>
 				</div>
@@ -160,7 +161,7 @@ echo"
 					<label>Provinsi</label>
 					<label id='notifProvince' class='error error-chosen' style='display:none;'></label>
 					<div id='panggon-province' class='input-field'>";
-					echo "<select  class='chosen-select' name='cmbProvince' id='province' onchange=javascript:set_city()>
+					echo "<select  class='chosen-select cmbProvince' name='cmbProvince' id='province' onchange=javascript:set_city()>
 							<option value='' disabled selected>Pilih Provinsi</option>";
 							if ($Shopp->num_rows() > 0) {
 								foreach($Shopp->result() as $row_x){
@@ -184,7 +185,7 @@ echo"
 					<label>Kota</label>
 					<label id='notifCity' class='error error-chosen' style='display:none;'></label>
 					<div id='panggon-city' class='input-field'>";
-					echo "	<select  class='chosen-select' name='cmbCity' id='city' onchange=javascript:set_kecamatan()>
+					echo "	<select  class='chosen-select cmbCity' name='cmbCity' id='city' onchange=javascript:set_kecamatan()>
 												<option value='' disabled selected>Pilih Kota</option>	";
 												
 							if ($Shopp->num_rows() > 0) {
@@ -208,7 +209,7 @@ echo"
 					<label>Kecamatan</label>
 					<label id='notifKecamatan' class='error error-chosen' style='display:none;'></label>
 					<div id='panggon-kecamatan' class='input-field'>";
-						echo "<select  class='chosen-select' name='cmbKecamatan' id='kecamatan'  >
+						echo "<select  class='chosen-select cmbKecamatan' name='cmbKecamatan' id='kecamatan'  >
 							<option value='' disabled selected>Pilih Kecamatan</option>";
 							if ($Shopp->num_rows() > 0) {
 								foreach($Shopp->result() as $row_x){

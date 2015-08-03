@@ -78,14 +78,64 @@ class License extends CI_Controller {
 	public function minta_disini()
 	{	
 		if (!$_POST) {
-			
+			$data['captcha']=$this->recaptcha->render();
+			$this->load->view('enduser/license/bg_minta',$data);
 		}else{
-			$id = $this->input->post('id');
-			$insert = $this->db->where('toko_id',$id)
-								->set('code',$code)
-								->set('validity',2)
-								->insert('tb_activation_code');
+			$nama = $this->input->post('nama');
+			$telp = $this->input->post('telp');
+			$hp   = $this->input->post('hp');
+			$id   = $_SESSION['bonobo']['id'];
+
+			$this->form_validation->set_rules('nama', '', 'required|min_length[5]|max_length[50]');
+			$this->form_validation->set_rules('telp', '', 'required|max_length[20]');
+			$this->form_validation->set_rules('hp', '', 'required|max_length[20]');
+			
+			$captcha_answer = $this->response->post("captcha");
+			$response	= $this->recaptcha->verifyResponse($captcha_answer);
+			if(!empty($response['error-codes'])){
+				$this->response->send(array("result"=>0,"message"=>"You are spammer","messageCode"=>1));
+				return;
+			}
+
+			if ($this->form_validation->run() == TRUE){
+
+				$request = $this->db->where('toko_id',$id)->where('validity',2)->get('tb_activation_code')->num_rows();
+				if ($request == 0) {
+					$insert = $this->db->set('toko_id',$id)								
+									->set('validity',2)
+									->set('email',$_SESSION['bonobo']['email'])
+									->set('create_user',$_SESSION['bonobo']['email'])
+									->set('create_date',date('Y-m-d'))
+									->insert('tb_activation_code');
+					if ($insert) {
+						$message1 ="Hallo ".$nama.", terima kasih telah mengajukan permohonan lisensi kepada Kami<br>Berikut adalah data Anda <br>
+								Nama : ".$nama."<br>
+								No. Telp : ".$telp."<br>
+								No. HP : ".$hp."<br><br>
+								Regards,<br> Bonobo.com
+							";
+						$message2 ="Berikut adalah data pengajuan lisensi baru member Anda <br>
+								Nama : ".$nama."<br>
+								No. Telp : ".$telp."<br>
+								No. HP : ".$hp."<br><br>
+								Regards,<br> Bonobo.com
+							";
+							
+						$this->template->send_email($_SESSION['bonobo']['email'],'no-reply@bonobo.com', $message1);
+						$this->template->send_email($this->config->item('email_admin'),'no-reply@bonobo.com', $message2);
+						$this->response->send(array("result"=>1,"message"=>"Permintaan telah dikirim","messageCode"=>1));
+					}
+				}else{
+					$this->response->send(array("result"=>1,"message"=>"Anda sudah pernah mengajukan Permintaan","messageCode"=>1));
+				}
+				
+			}
 		}		
+	}
+
+	public function faq()
+	{
+		$this->load->view('enduser/license/bg_faq');
 	}
 	
 }

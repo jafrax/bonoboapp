@@ -397,9 +397,9 @@ class Toko extends CI_Controller {
 			$Upload = $this->template->upload_picture($UploadPath,"txtShopLogoFile");
 			
 			if($Upload == 'error'){
-				$Upload = "";
+				$Unggah = "";
 			}else{
-				$_SESSION['bonobo']['image'] = $Upload;
+				$_SESSION['bonobo']['image'] = $Unggah;
 			}
 			
 			
@@ -411,7 +411,7 @@ class Toko extends CI_Controller {
 				"phone"=>$this->response->post("txtPhone"),
 				"address"=>$this->response->post("txtAddress"),
 				"postal"=>$data['postal'],
-				"image"=>$Upload,
+				"image"=>$Unggah,
 				"category_id"=>$Category,
 				"location_id"=>$code_pos,
 			);
@@ -432,43 +432,48 @@ class Toko extends CI_Controller {
 		if($step != 0){
 			$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',2)->update('tb_toko');
 		}	
-		$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
-		if($Save){
+		if($Upload == 'error'){
+			$this->response->send(array("result"=>5,"message"=>"Format File : .bmp, .jpg, .png.","messageCode"=>1));
+		}else{
+			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
+			if($Save){
 
-			$_SESSION['bonobo']['name'] = $this->response->post("txtName");
-			if($this->response->post("intAttributeCount") > 0){
-				for($i=1;$i<=$this->response->post("intAttributeCount");$i++){
-					if($this->response->post("txtAttributeName".$i) != "" && $this->response->post("txtAttributeValue".$i) != ""){
-						if($this->response->post("txtAttributeId".$i) == ""){						
-							$Data = array(
-								"toko_id"=>$_SESSION["bonobo"]["id"],
-								"name"=>$this->response->post("txtAttributeName".$i),
-								"value"=>$this->response->post("txtAttributeValue".$i),
-								"create_date"=>date("Y-m-d H:i:s"),
-								"create_user"=>$_SESSION['bonobo']['email'],
-								"update_date"=>date("Y-m-d H:i:s"),
-								"update_user"=>$_SESSION['bonobo']['email'],
-							);
-							
-							$Save = $this->db->insert("tb_toko_attribute",$Data);
-						}else{
-							$Data = array(
-								"toko_id"=>$_SESSION["bonobo"]["id"],
-								"name"=>$this->response->post("txtAttributeName".$i),
-								"value"=>$this->response->post("txtAttributeValue".$i),
-								"update_user"=>$_SESSION['bonobo']['email'],
-							);
-							
-							$Save = $this->db->where("id",$this->response->post("txtAttributeId".$i))->update("tb_toko_attribute",$Data);
+				$_SESSION['bonobo']['name'] = $this->response->post("txtName");
+				if($this->response->post("intAttributeCount") > 0){
+					for($i=1;$i<=$this->response->post("intAttributeCount");$i++){
+						if($this->response->post("txtAttributeName".$i) != "" && $this->response->post("txtAttributeValue".$i) != ""){
+							if($this->response->post("txtAttributeId".$i) == ""){						
+								$Data = array(
+									"toko_id"=>$_SESSION["bonobo"]["id"],
+									"name"=>$this->response->post("txtAttributeName".$i),
+									"value"=>$this->response->post("txtAttributeValue".$i),
+									"create_date"=>date("Y-m-d H:i:s"),
+									"create_user"=>$_SESSION['bonobo']['email'],
+									"update_date"=>date("Y-m-d H:i:s"),
+									"update_user"=>$_SESSION['bonobo']['email'],
+								);
+								
+								$Save = $this->db->insert("tb_toko_attribute",$Data);
+							}else{
+								$Data = array(
+									"toko_id"=>$_SESSION["bonobo"]["id"],
+									"name"=>$this->response->post("txtAttributeName".$i),
+									"value"=>$this->response->post("txtAttributeValue".$i),
+									"update_user"=>$_SESSION['bonobo']['email'],
+								);
+								
+								$Save = $this->db->where("id",$this->response->post("txtAttributeId".$i))->update("tb_toko_attribute",$Data);
+							}
 						}
 					}
 				}
+				
+				$this->response->send(array("result"=>1,"message"=>"Informasi toko telah disimpan : ","messageCode"=>1));
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Informasi tidak dapat disimpan","messageCode"=>1));
 			}
-			
-			$this->response->send(array("result"=>1,"message"=>"Informasi toko telah disimpan : ","messageCode"=>1));
-		}else{
-			$this->response->send(array("result"=>0,"message"=>"Informasi tidak dapat disimpan","messageCode"=>1));
 		}
+		
 	}
 	
 	public function doStep7CourierSave(){
@@ -849,7 +854,7 @@ class Toko extends CI_Controller {
 	
 	public function comboboxCity(){
 		$Cities = $this->model_toko->get_kota($this->input->post("province"))->result();
-		echo"<select name='cmbCity' id='cmbCity' onchange=javascript:set_kecamatan() class='chzn-select'><option value='' disabled selected>Pilih Kota</option>";
+		echo"<select name='cmbCity' id='cmbCity' onchange=javascript:set_kecamatan() class='chzn-select cmbCity'><option value='' disabled selected>Pilih Kota</option>";
 
 		foreach($Cities as $City){
 			echo"<option value='".$City->city."'>".$City->city."</option>";
@@ -865,7 +870,7 @@ class Toko extends CI_Controller {
 	public function comboboxKecamatan(){
 		//$Kecamatans = $this->model_location->get_kecamatans_by_city_province($this->response->post("city"),$this->response->post("province"),$this->response->post("zip_code"))->result();
 		$Kecamatans = $this->model_toko->get_kecamatan($this->input->post("kota"))->result();
-		echo"<select name='cmbKecamatan' id='tkecamatan' class='chosen-select'><option value='' disabled selected>Pilih Kecamatan</option>";
+		echo"<select name='cmbKecamatan' id='tkecamatan' class='chosen-select cmbKecamatan'><option value='' disabled selected>Pilih Kecamatan</option>";
 
 		foreach($Kecamatans as $Kecamatan){
 			echo"<option value='".$Kecamatan->kecamatan."' >".$Kecamatan->kecamatan."</option>";
@@ -975,6 +980,66 @@ class Toko extends CI_Controller {
 			$kodepos=$this->model_toko->getcode_pos($data)->result();
 		}
 			 echo json_encode($kodepos);
+	}
+	function nomer_rekening(){
+		$data['rekeningmu'] 	= $_REQUEST['txtNo'];
+		$respon=$this->model_toko->get_rekeningsama($data);
+		if($respon > 0){
+			$valid = "false";
+		}else{
+			$valid = "true";
+		}
+		echo $valid;
+	}
+	function ceklevel1(){
+		$data 	= $_REQUEST['txtLevel1'];
+	    $cek	= $this->db->where('level_1_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
+	    if(count($cek->result())>0){
+			$valid = "false";
+	    }else{
+			$valid = "true";
+	    }
+	    echo $valid;
+	}
+	function ceklevel2(){
+		$data 	= $_REQUEST['txtLevel22'];
+	    $cek	= $this->db->where('level_2_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
+	    if(count($cek->result())>0){
+			$valid = "false";
+	    }else{
+			$valid = "true";
+	    }
+	    echo $valid;
+	}
+	function ceklevel3(){
+		$data 	= $_REQUEST['txtLevel33'];
+	    $cek	= $this->db->where('level_3_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
+	    if(count($cek->result())>0){
+			$valid = "false";
+	    }else{
+			$valid = "true";
+	    }
+	    echo $valid;
+	}
+	function ceklevel4(){
+		$data 	= $_REQUEST['txtLevel44'];
+	    $cek	= $this->db->where('level_4_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
+	    if(count($cek->result())>0){
+			$valid = "false";
+	    }else{
+			$valid = "true";
+	    }
+	    echo $valid;
+	}
+	function ceklevel5(){
+		$data 	= $_REQUEST['txtLevel55'];
+	    $cek	= $this->db->where('level_5_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
+	    if(count($cek->result())>0){
+			$valid = "false";
+	    }else{
+			$valid = "true";
+	    }
+	    echo $valid;
 	}
 	
 }

@@ -36,7 +36,7 @@ class Model_nota extends CI_Model
 		return $this->db->where('invoice_no',$id)->get('tb_invoice');
 	}
 	function get_nota_product($id){
-		return $this->db->where('i.invoice_no',$id)->join('tb_invoice i','i.id=p.invoice_id')->get('tb_invoice_product p');
+		return $this->db->select('p.*')->where('i.invoice_no',$id)->join('tb_invoice i','i.id=p.invoice_id')->get('tb_invoice_product p');
 	}
 
 	function get_nota_product_image($id)
@@ -92,4 +92,8 @@ class Model_nota extends CI_Model
 		return $this->db->where('postal_code',$postal)->get('ms_location');	
 	}
 
+	function get_varian_product($id)
+	{
+		return $this->db->where('invoice_product_id',$id)->get('tb_invoice_varian');
+	}
 }
