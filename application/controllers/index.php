@@ -26,7 +26,7 @@ class Index extends CI_Controller {
 			redirect('index/signin/');
 			return;
 		}else{
-			$this->template->cek_license();
+				$this->template->cek_license();
 				$step=$_SESSION['bonobo']['step'];
 				if($step == 1){
 					redirect('toko');					
@@ -201,7 +201,21 @@ class Index extends CI_Controller {
 					$_SESSION['bonobo']['step'] = $QShop->step;
 					$_SESSION['bonobo']['expired_on'] = $QShop->expired_on;
 					
-					$this->response->send(array("result"=>1,"message"=>"Selamat datang ".$QShop->name,"messageCode"=>3));
+					$date1 = date("Y-m-d");
+					$date2 = $_SESSION['bonobo']['expired_on'];
+
+					$diff = abs(strtotime($date2) - strtotime($date1));
+
+					$years = floor($diff / (365*60*60*24));
+					$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+					$days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+
+					if ($months == 0 && $years == 0 && $days <=30 && date('Y-m-d') <= $_SESSION['bonobo']['expired_on']) {
+						$this->response->send(array("result"=>2,"message"=>"Selamat datang ".$QShop->name,"messageCode"=>3));
+					}else{
+						$this->response->send(array("result"=>1,"message"=>"Selamat datang ".$QShop->name,"messageCode"=>3));	
+					}
+					
 				}
 			}else{
 				$this->response->send(array("result"=>0,"message"=>$this->template->notif("email_password_failed"),"messageCode"=>3));
