@@ -2257,12 +2257,12 @@ class Api extends CI_Controller {
 				return;
 			}
 			
-			if($this->response->post("user_bank_id") == "" || $this->response->postDecode("user_bank_id") == ""){
+			if($this->response->post("user_bank") == "" || $this->response->postDecode("user_bank") == ""){
 				$this->response->send(array("result"=>0,"message"=>"Tidak ada bank user yang dipilih","messageCode"=>3), true);
 				return;
 			}
 			
-			$QUserBank = $this->db->where("id",$this->response->postDecode("user_bank_id"))->get("tb_member_bank")->row();
+			$QUserBank = $this->db->where("id",$this->response->postDecode("user_bank"))->get("tb_member_bank")->row();
 			if(empty($QUserBank)){
 				$this->response->send(array("result"=>0,"message"=>"Data bank user tidak ditemukan","messageCode"=>4), true);
 				return;
@@ -2274,7 +2274,7 @@ class Api extends CI_Controller {
 			*	------------------------------------------------------------------------------
 			*/
 			
-			$Delete = $this->db->where("id",$this->response->postDecode("user_bank_id"))->delete("tb_member_bank");
+			$Delete = $this->db->where("id",$this->response->postDecode("user_bank"))->delete("tb_member_bank");
 			if($Delete){
 				$this->response->send(array("result"=>1,"message"=>"Data bank user telah dihapus","messageCode"=>5), true);
 			}else{
