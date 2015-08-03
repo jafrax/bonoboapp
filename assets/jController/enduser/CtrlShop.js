@@ -652,11 +652,11 @@ function CtrlShopStep8(){
 	function initValidation(){
 		   $('#formStep6Add').validate({
         rules:{
-            txtNo     : {maxlength:20,remote: base_url+"admin/toko/nomer_rekening"},
+            txtNo     : {maxlength:20,remote: base_url+"toko/nomer_rekening"},
         },
         messages: {
             txtNo: {
-                remote: message_alert("Old password is wrong"),
+                remote: message_alert("Nomer rekening telah digunakan"),
 				maxlength : message_alert ("Masukkan maksimal 20 karakter "),
             },
         },
@@ -726,6 +726,9 @@ function CtrlShopStep8(){
 	
 	function doSave(){
 		//tambah validasi
+		if(!$('#formStep6Add').valid()){
+			return false;
+		}else{
 		$.ajax({
 			type: 'POST',
 			data: $("#formStep6Add").serialize(),
@@ -739,7 +742,7 @@ function CtrlShopStep8(){
 				}
 			}
 		});
-		
+		}
 	}
 	
 	function doDelete(e){

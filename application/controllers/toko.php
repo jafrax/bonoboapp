@@ -981,6 +981,16 @@ class Toko extends CI_Controller {
 		}
 			 echo json_encode($kodepos);
 	}
+	function nomer_rekening(){
+		$data['rekeningmu'] 	= $_REQUEST['txtNo'];
+		$respon=$this->model_toko->get_rekeningsama($data);
+		if($respon > 0){
+			$valid = "false";
+		}else{
+			$valid = "true";
+		}
+		echo $valid;
+	}
 	
 }
 
