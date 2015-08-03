@@ -82,13 +82,14 @@ class Api extends CI_Controller {
 		if(empty($QShop)){
 			return null;
 		}else{
+			$join = 0;
+			$price_level = 1;
+			
 			if(@getimagesize(base_url("assets/pic/shop/".$QShop->image))){
 				$ShopImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/shop/".$QShop->image)));
 			}else{
 				$ShopImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
 			}
-			$join = 0;
-			$price_level = 1;
 			
 			if(!empty($user)){
 				$ShopMember = $this->db->where("toko_id",$id)->where("member_id",$user)->get("tb_toko_member")->row();
@@ -424,7 +425,38 @@ class Api extends CI_Controller {
 				}
 			}
 			
-			$this->response->send(array("result"=>1,"products"=>$Products,"couriers"=>$Couriers,"provinces"=>$Provinces,"cities"=>$Cities,"kecamatans"=>$Kecamatans), true);
+			/*
+			*	------------------------------------------------------------------------------
+			*	Get data banks
+			*	------------------------------------------------------------------------------
+			*/
+			$Banks = array();
+			$QBanks = $this->db
+							->get("ms_bank")
+							->result();
+			
+			foreach($QBanks as $QBank){
+				if(@getimagesize(base_url("assets/pic/bank/".$QBank->image))){
+					$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
+				}else{
+					$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+				}
+			
+				$Bank = array(
+						"id"=>$QBank->id,
+						"name"=>$QBank->name,
+						"image_url"=>$BankImageUrl,
+					);
+				
+				array_push($Banks,$Bank);				
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Sending response
+			*	------------------------------------------------------------------------------
+			*/
+			$this->response->send(array("result"=>1,"products"=>$Products,"couriers"=>$Couriers,"provinces"=>$Provinces,"cities"=>$Cities,"kecamatans"=>$Kecamatans,"banks"=>$Banks), true);
 		
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
@@ -2090,42 +2122,112 @@ class Api extends CI_Controller {
 				return;
 			}
 			
+			if($this->response->post("bank") == "" || $this->response->postDecode("bank") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Nama bank belum dipilih","messageCode"=>3), true);
+				return;
+			}
+			
+			$QBank = $this->db->where("name",$this->response->postDecode("bank"))->get("ms_bank")->row();
+			if(empty($QBank)){
+				$this->response->send(array("result"=>0,"message"=>"Nama bank yang dipilih tidak ditemukan","messageCode"=>4), true);
+				return;
+			}
+			
+			if($this->response->post("acc_name") == "" || $this->response->postDecode("acc_name") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Nama nasabah masih kosong","messageCode"=>5), true);
+				return;
+			}
+			
+			if($this->response->post("acc_no") == "" || $this->response->postDecode("acc_no") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Nomor rekening masih kosong","messageCode"=>6), true);
+				return;
+			}
 			/*
 			*	------------------------------------------------------------------------------
 			*	Simpan data shipment
 			*	------------------------------------------------------------------------------
 			*/
 			$Save = false;
+			$Date = date("Y-m-d H:i:s");
 			
-			if($this->response->post("user_bank_id") == "" || $this->response->postDecode("user_bank_id") == ""){
+			if($this->response->post("user_bank") == "" || $this->response->postDecode("user_bank") == ""){
 				$Data = array(
-						"bank_id"=>$this->response->postDecode("bank_id"),
+						"bank_id"=>$QBank->id,
 						"member_id"=>$QUser->id,
 						"acc_name"=>$this->response->postDecode("acc_name"),
 						"acc_no"=>$this->response->postDecode("acc_no"),
-						"create_date"=>date("Y-m-d H:i:s"),
+						"create_date"=>$Date,
 						"create_user"=>$QUser->email,
-						"update_date"=>date("Y-m-d H:i:s"),
+						"update_date"=>$Date,
 						"update_user"=>$QUser->email,
 					);
 				
-				$Save = $this->db->insert("tb_member_location",$Data);
+				$Save = $this->db->insert("tb_member_bank",$Data);
 			}else{
 				$Data = array(
-						"bank_id"=>$this->response->postDecode("bank_id"),
+						"bank_id"=>$QBank->id,
 						"member_id"=>$QUser->id,
 						"acc_name"=>$this->response->postDecode("acc_name"),
 						"acc_no"=>$this->response->postDecode("acc_no"),
-						"update_date"=>date("Y-m-d H:i:s"),
+						"update_date"=>$Date,
 						"update_user"=>$QUser->email,
 					);
-				$Save = $this->db->where("id",$this->response->postDecode("user_bank_id"))->update("tb_member_bank",$Data);
+					
+				$Save = $this->db->where("id",$this->response->postDecode("user_bank"))->update("tb_member_bank",$Data);
 			}
 			
 			if($Save){
-				$this->response->send(array("result"=>1,"message"=>"Data bank telah diubah","messageCode"=>3), true);
+				if($this->response->post("user_bank") == "" || $this->response->postDecode("user_bank") == ""){
+					$QUserBank = $this->db
+								->where("bank_id",$QBank->id)
+								->where("member_id",$QUser->id)
+								->where("acc_name",$this->response->postDecode("acc_name"))
+								->where("acc_no",$this->response->postDecode("acc_no"))
+								->where("create_date",$Date)
+								->where("create_user",$QUser->email)
+								->where("update_date",$Date)
+								->where("update_user",$QUser->email)
+								->get("tb_member_bank")
+								->row();
+				}else{
+					$QUserBank = $this->db
+								->where("id",$this->response->postDecode("user_bank"))
+								->get("tb_member_bank")
+								->row();
+				}
+				$UserBank = array();
+				if(!empty($QUserBank)){
+					$QBank = $this->db
+							->where("id",$QUserBank->bank_id)
+							->get("ms_bank")
+							->row();
+					
+					$Bank = array();
+					if(!empty($QBank)){
+						if(@getimagesize(base_url("assets/pic/bank/".$QBank->image))){
+							$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
+						}else{
+							$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+						}
+				
+						$Bank = array(
+								"id"=>$QBank->id,
+								"name"=>$QBank->name,
+								"image_url"=>$BankImageUrl,
+							);
+					}
+					
+					$UserBank = array(
+							"id"=>$QUserBank->id,
+							"acc_name"=>$QUserBank->acc_name,
+							"acc_no"=>$QUserBank->acc_no,
+							"bank"=>$Bank,
+						);
+				}
+							
+				$this->response->send(array("result"=>1,"user_bank"=>$UserBank), true);
 			}else{
-				$this->response->send(array("result"=>0,"message"=>"Data bank tidak dapat disimpan","messageCode"=>4), true);
+				$this->response->send(array("result"=>0,"message"=>"Data bank tidak dapat disimpan","messageCode"=>7), true);
 			}
 			
 		} catch (Exception $e) {
