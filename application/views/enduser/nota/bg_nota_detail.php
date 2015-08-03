@@ -109,7 +109,8 @@ echo "
 			            		$old_date = $nota->create_date;
 								$old_date_timestamp = strtotime($old_date);
 								$date = date('d F Y', $old_date_timestamp);
-								$ago 		= $this->template->xTimeAgoDesc($old_date_timestamp,date('Y-m-d H:i:s'));
+
+								$ago 		= $this->template->xTimeAgoDesc($old_date,date('Y-m-d H:i:s'));
 			            		echo"
 								<h6>Tanggal : $date ( $ago )</h6>
 								<h5><br></h5>
@@ -138,9 +139,20 @@ echo "
 									echo "<div class='nota-product col s12 m6'>
 											<img src='".$images."' class='responsive-img col s4 m4 left'>
 											<div class='col s8 m8'>
-												<p class='blue-text'></p>
-												<p >Rp. </p>
-												<p >Jumlah : </p>
+												<p class='blue-text'>".$row_p->product_name."</p>
+												<p >Rp. ".$row_p->price_product."</p>";
+
+												$varian = $this->model_nota->get_varian_product($row_p->id);
+												if ($varian->num_rows() > 0) {
+													foreach ($varian->result() as $row_v) {
+														if ($row_v->varian_name == 'null') {
+															echo "<p >Jumlah : ".$row_v->quantity."</p>";
+														}else{
+															echo "<p >Varian : ".$row_v->varian_name." , Jumlah : ".$row_v->quantity."</p>";
+														}
+													}
+												}
+											echo "
 											</div>
 										</div>";
 								}
@@ -194,7 +206,7 @@ echo "
 								<div class='col s6 m6 right-align'>
 									<a href='#pengiriman' class='modal-trigger' >edit</a>
 									<p>".$nota->shipment_service."</p>
-									<p>".$nota->shipment_no."</p>
+									<p>".($nota->shipment_no == '' ? "<br>" : $nota->shipment_no)."</p>
 									<p>".$nota->recipient_name."</p>
 									<p>".$nota->recipient_phone."</p>
 									<p>".$nota->recipient_address."</p>
@@ -209,7 +221,7 @@ echo "
 								<h5><br></h5>
 								<div class='col s12 m12'>
 									<a class='right col s2 m2 right-align' onclick=javascript:edit_notes(".$nota->id.") >Edit</a>
-									<textarea id='note' class='materialize-textarea notes-".$nota->id."' >".$nota->notes."</textarea>
+									<textarea id='note' disabled class='materialize-textarea notes-".$nota->id."' >".$nota->notes."</textarea>
 									<label for='note'>Note</label>							
 								</div>
 								<div class='col s12 m12'>
