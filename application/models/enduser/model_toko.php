@@ -171,6 +171,7 @@ class Model_toko extends CI_Model {
 		return $this->db->get('tb_toko_bank')->num_rows();
 	}
 	
+	
 		
 
 }

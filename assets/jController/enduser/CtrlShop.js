@@ -650,16 +650,16 @@ function CtrlShopStep8(){
 		btnSave = $hs("btnSave");
 	}
 	function initValidation(){
-		   $('#formStep6Add').validate({
-        rules:{
-            txtNo     : {maxlength:20,remote: base_url+"toko/nomer_rekening"},
-        },
-        messages: {
-            txtNo: {
-                remote: message_alert("Nomer rekening telah digunakan"),
-				maxlength : message_alert ("Masukkan maksimal 20 karakter "),
-            },
-        },
+		$('#formStep6Add').validate({
+			rules:{
+				txtNo     : {maxlength:20,remote: base_url+"toko/nomer_rekening"},
+			},
+			messages: {
+				txtNo: {
+					remote: message_alert("Nomer rekening telah digunakan"),
+					maxlength : message_alert ("Masukkan maksimal 20 karakter "),
+				},
+			},
     });
 	}
 	
@@ -773,6 +773,7 @@ function CtrlShopStep5(){
                 initComponent();
                 initEventlistener();
                 initActive();
+				initValidation();
         }
        
         function initComponent(){
@@ -790,6 +791,24 @@ function CtrlShopStep5(){
                         doSave();
                 };
         }
+		function initValidation(){
+			$('#formStep7').validate({
+				rules:{
+					//txtLevel1     : {remote: base_url+"toko/ceklevel1"},
+					txtLevel22     : {remote: base_url+"toko/ceklevel2"},
+					txtLevel33     : {remote: base_url+"toko/ceklevel3"},
+					txtLevel44     : {remote: base_url+"toko/ceklevel4"},
+					txtLevel55     : {remote: base_url+"toko/ceklevel5"},
+				},
+				messages: {
+					//txtLevel1: {remote: message_alert("Nama Level Harga Telah Digunakan"),},
+					txtLevel22: {remote: message_alert("Nama Level Harga Telah Digunakan"),},
+					txtLevel33: {remote: message_alert("Nama Level Harga Telah Digunakan"),},
+					txtLevel44: {remote: message_alert("Nama Level Harga Telah Digunakan"),},
+					txtLevel55: {remote: message_alert("Nama Level Harga Telah Digunakan"),},
+				},
+    });
+		}
        
         function initActive(){
             $('#chkLevel2').change(function () {
@@ -977,6 +996,9 @@ function CtrlShopStep5(){
                 }
 
         function doSave(){
+			if(!formStep5.valid()){
+				return false;
+			}else{
                 $.ajax({
                     type: 'POST',
                     data:formStep5.serialize(),
@@ -990,6 +1012,7 @@ function CtrlShopStep5(){
                             }
                         }
                 });
+			}
         }
 }
 
