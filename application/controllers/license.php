@@ -45,6 +45,7 @@ class License extends CI_Controller {
 			$update = $this->db->where('id',$id)->set('activation_code',$code)->set('expired_on',$end_date)->update('tb_toko');
 			if ($update) {
 				$this->db->where('toko_id',$id)->where('code',$code)->set('validity',0)->update('tb_activation_code');
+				$_SESSION['bonobo']['expired_on'] = $end_date;
 				$msg    = "success";
                 $msg    = array("msg"=>$msg,"end_date"=>$end_date);
 	            $data   = array_merge($msg,$active_code->result());

@@ -61,11 +61,12 @@ echo "
 				<div class='col s12 m12 l12'>
 					<div id='notif'>
 					</div>";					
-					$date1 = new DateTime();
-					$date2 = new DateTime($_SESSION['bonobo']['expired_on']);
+					$date1 = new DateTime($_SESSION['bonobo']['expired_on']);
+					$date2 = new DateTime();
 					$interval = $date1->diff($date2);
+					//echo $_SESSION['bonobo']['expired_on'];
 					//echo "difference " . $interval->y . " years, " . $interval->m." months, ".$interval->d." days "; 
-					if ($interval->m == 0 && $interval->y == 0 && $interval->d >= 0) {
+					if ($interval->m == 0 && $interval->y == 0 && $interval->d >= 0 && date('Y-m-d') < $_SESSION['bonobo']['expired_on']) {
 						echo "<div class='card-panel red lighten-4'>
 				      <span class='blue-grey-text text-darken-4'>Sisa waktu aktif akun Anda : <b class='red-text' style='text-decoration:underline'>".$interval->d." Days</b></span>
 				    </div>	";
@@ -94,7 +95,7 @@ echo "
 							</div>
 							<div class='nolautomar center'>
 								<button class='btn waves-effect waves-light' type='button' name='action' id='ok-btn' onclick=javascript:verifikasi(".$_SESSION['bonobo']['id'].") >Ok</button>";
-								if ($interval->m == 0 && $interval->y == 0 && $interval->d > 0) {
+								if ($interval->m == 0 && $interval->y == 0 && $interval->d > 0 && date('Y-m-d') < $_SESSION['bonobo']['expired_on']) {
 									echo "<button class='btn waves-effect waves-light red' type='button' onclick='location.href=\"".base_url()."toko\"' name='action'>Skip</button>";
 								}
 
