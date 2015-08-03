@@ -88,7 +88,7 @@ echo "
 								</div>								
 							</div>
 							<div class='nolautomar center upbottom'>
-								<button class='btn waves-effect waves-light ' type='button' name='action' onclick=javascript:minta_disini()>Pesan kode aktivasi</button>
+								<button class='btn waves-effect waves-light ' id='minta-button' type='button' name='action' onclick=javascript:minta_disini()>Pesan kode aktivasi</button>
 							</div>
 						</div>
 					</form>

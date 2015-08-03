@@ -84,6 +84,10 @@ function minta_disini(id){
 		 $('#error-captcha').delay(3000).slideUp('slow');
 	 return;
      }
+
+    $('#minta-button').fadeTo(0.3);
+	$('#minta-button').html("<img width='16px' src='"+base_url+"html/images/comp/loading2.GIF' /> Loading...");
+
     if ($("#form-minta").valid()) {
     	$.ajax({
 		    type: 'POST',
@@ -95,10 +99,14 @@ function minta_disini(id){
 		    		Materialize.toast(response.message, 4000);	
 		    		$("#form-minta")[0].reset();
 					grecaptcha.reset();
+					$('#minta-button').fadeTo(1);
+					$('#minta-button').html("Pesan kode aktivasi");
 		    	}else{
 		    		Materialize.toast(response.message, 4000);
 		    		$("#form-minta")[0].reset();
 		    		grecaptcha.reset();
+		    		$('#minta-button').fadeTo(1);
+					$('#minta-button').html("Pesan kode aktivasi");
 		    	}
 		    }
 	    });

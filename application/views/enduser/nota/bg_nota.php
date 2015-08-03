@@ -106,7 +106,7 @@ echo"
 							            		$old_date 	= $row->create_date;
 												$old_date_timestamp = strtotime($old_date);
 												$date 		= date('d F Y, H.i', $old_date_timestamp);
-
+												
 												$ago 		= $this->template->xTimeAgoDesc($old_date,date('Y-m-d H:i:s'));
 							            		echo"
 								              	<p class='blue-grey-text lighten-3 right'>$date ( $ago )</p>
