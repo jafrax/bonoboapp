@@ -3165,6 +3165,8 @@ class Api extends CI_Controller {
 			$price_shipment = 0;
 			$price_unique = 0;
 			$price_total = 0;
+			$shipment_rate = 0;
+			$shipment_weight = 0;
 			{
 				/*
 				*	------------------------------------------------------------------------------
@@ -3226,21 +3228,25 @@ class Api extends CI_Controller {
 									->row();
 						
 							if(!empty($QCourierRate)){
-								$price_shipment = $QCourierRate->price;
+								$shipment_rate = $QCourierRate->price;
 							}
 						}
 					}
 				}
 			}
 			
-			
-			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Generate Invoice Price product
+			*	------------------------------------------------------------------------------
+			*/
 			$QCartProducts = $this->db
 					->select("tcp.*, tp.id as product_id, tp.name as product_name, tp.description as product_description, tp.price_base")
 					->join("tb_product tp","tcp.product_id = tp.id")
 					->where("tcp.cart_id",$QCart->id)
 					->get("tb_cart_product tcp")
 					->result();
+			
 			
 			foreach($QCartProducts as $QCartProduct){
 				$product_price = 0;
@@ -3293,7 +3299,7 @@ class Api extends CI_Controller {
 				
 				/*
 				*	------------------------------------------------------------------------------
-				*	Mengambil cata cart varian
+				*	Mengambil data cart varian
 				*	------------------------------------------------------------------------------
 				*/
 				
@@ -3307,6 +3313,12 @@ class Api extends CI_Controller {
 				foreach($QCartVarians as $QCartVarian){
 					$price_item = $price_item + ($QCartVarian->quantity * $product_price);
 					$price_product = $price_product + ($QCartVarian->quantity * $product_price);
+					
+					if(!empty($QProduct)){
+						$weightVarian = $QProduct->weight * $QCartVarian->quantity;
+						
+						$shipment_weight = $shipment_weight + $weightVarian;
+					}
 				}
 				
 				$Data = array(
@@ -3322,6 +3334,7 @@ class Api extends CI_Controller {
 			*	------------------------------------------------------------------------------
 			*/
 			$Date = date("Y-m-d H:i:s");
+			$price_shipment = $shipment_rate * $shipment_weight;
 			$price_total = $price_item + $price_shipment + $price_unique;
 			
 			$Data = array(
@@ -3602,6 +3615,102 @@ class Api extends CI_Controller {
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Tidak dapat membuat invoice","messageCode"=>5), true);
 			}
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function getShipmentRate(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			if($this->response->post("courier") == "" || $this->response->postDecode("courier") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada kurir yang dipilih","messageCode"=>3), true);
+				return;
+			}
+			
+			$QCourier = $this->db->where("name",$this->response->postDecode("courier"))->get("ms_courier")->row();
+			if(empty($QCourier)){
+				$this->response->send(array("result"=>0,"message"=>"Kurir yang dipilih tidak ditemukan.","messageCode"=>4), true);
+				return;
+			}
+			
+			if($this->response->post("shop") == "" || $this->response->postDecode("shop") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada toko yang dipilih","messageCode"=>5), true);
+				return;
+			}
+			
+			$QShop = $this->db->where("id",$this->response->postDecode("shop"))->get("tb_toko")->row();
+			if(empty($QShop)){
+				$this->response->send(array("result"=>0,"message"=>"Toko yang dipilih tidak ditemukan","messageCode"=>6), true);
+				return;
+			}
+			
+			if(empty($QShop->location_id)){
+				$this->response->send(array("result"=>0,"message"=>"Tidak dapat menemukan biaya pengiriman untuk toko ini","messageCode"=>7), true);
+				return;
+			}
+			
+			$ShopLocation = $this->db
+						->where("id",$QShop->location_id)
+						->get("ms_location")
+						->row();
+			
+			if(empty($ShopLocation)){
+				$this->response->send(array("result"=>0,"message"=>"Tidak dapat menemukan biaya pengiriman untuk toko ini","messageCode"=>8), true);
+				return;
+			}
+			
+			if($this->response->post("province") == "" || $this->response->postDecode("province") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada product yang dipilih","messageCode"=>9), true);
+				return;
+			}
+			
+			if($this->response->post("city") == "" || $this->response->postDecode("city") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada product yang dipilih","messageCode"=>10), true);
+				return;
+			}
+			
+			if($this->response->post("kecamatan") == "" || $this->response->postDecode("kecamatan") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada product yang dipilih","messageCode"=>11), true);
+				return;
+			}
+			
+			$QRate = $this->db
+				->where("courier_id",$QCourier->id)
+				->where("location_from_province",$ShopLocation->province)
+				->where("location_from_city",$ShopLocation->city)
+				->where("location_from_kecamatan",$ShopLocation->kecamatan)
+				->where("location_to_province",$this->response->postDecode("province"))
+				->where("location_to_city",$this->response->postDecode("city"))
+				->where("location_to_kecamatan",$this->response->postDecode("kecamatan"))
+				->get("tb_courier_rate")
+				->row();
+				
+			if(!empty($QRate)){
+				$this->response->send(array("result"=>1,"price"=>$QRate->price,"messageCode"=>12), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Tidak dapat menemukan biaya pengiriman untuk toko ini","messageCode"=>13), true);
+			}
+		
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
