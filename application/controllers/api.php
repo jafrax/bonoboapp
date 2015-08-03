@@ -159,7 +159,7 @@ class Api extends CI_Controller {
 		foreach($QProductImages as $QProductImage){
 			$ProductImage = array(
 						"id"=>$QProductImage->id,
-						"image_url"=>base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/product/resize/".$QProductImage->file))),
+						"image_url"=>base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/product/".$QProductImage->file))),
 					);
 							
 			array_push($ProductImages,$ProductImage);
