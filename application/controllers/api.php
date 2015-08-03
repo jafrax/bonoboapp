@@ -2335,11 +2335,11 @@ class Api extends CI_Controller {
 			
 			/*
 			*	------------------------------------------------------------------------------
-			*	Delete data shipment
+			*	ubah data password
 			*	------------------------------------------------------------------------------
 			*/
 			$Data = array(
-					"password"=>md5($this->response->postDecode("password_old")),
+					"password"=>md5($this->response->postDecode("password_new")),
 				);
 			
 			$Save = $this->db->where("id",$QUser->id)->update("tb_member",$Data);
