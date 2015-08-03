@@ -119,6 +119,45 @@ class Model_toko extends CI_Model {
 		$return=$this->db->get('ms_location tt');
 		return $return;
 	  }
+	  
+	  public function get_siti($id){
+		$this->db->where('id',$id);
+		return $this->db->get('ms_location');
+	  }
+	  public function get_kota($id){
+		$this->db->where('province',$id);
+		$this->db->group_by('city');
+		return $this->db->get('ms_location');
+	}
+	function get_kecamatan($id){
+		$this->db->where('city',$id);
+		$this->db->group_by('kecamatan');
+		return $this->db->get('ms_location');
+	}
+	
+	public function get_alamat($id){
+		$this->db->select('tb_toko.location_id,ms_location.city,ms_location.kecamatan,ms_location.province');
+		$this->db->from('tb_toko');
+		$this->db->join('ms_location', 'tb_toko.location_id = ms_location.id','inner');
+		$this->db->where('tb_toko.id',$id);
+		return $this->db->get();
+	}
+	public function get_allkota(){
+		$this->db->group_by('city');
+		return $this->db->get('ms_location');
+	}
+	public function get_allkecamatan(){
+		$this->db->group_by('kecamatan');
+		return $this->db->get('ms_location');
+	}
+	
+	public function get_id_location($pos){
+		$this->db->where('postal_code',$pos);
+		return $this->db->get('ms_location');
+	}
+	
+		
+
 }
 
 ?>
