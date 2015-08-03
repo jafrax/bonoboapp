@@ -60,59 +60,35 @@ echo "
 			<div class='row contentsebenarya'>
 				<div class='col s12 m12 l12'>
 					<div id='notif'>
-					</div>";		
-					$date1 = date("Y-m-d");
-					$date2 = $_SESSION['bonobo']['expired_on'];
-
-					$diff = abs(strtotime($date2) - strtotime($date1));
-
-					$years = floor($diff / (365*60*60*24));
-					$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-					$days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
-					//echo "$years years, $months months, $days days\n";			
-					/*$date1 = new DateTime($_SESSION['bonobo']['expired_on']);
-					$date2 = new DateTime();
-					$interval = $date1->diff($date2);
-					//echo $_SESSION['bonobo']['expired_on'];
-					//echo "difference " . $interval->y . " years, " . $interval->m." months, ".$interval->d." days "; */
-					if ($months == 0 && $years == 0 && $days >= 0 && date('Y-m-d') <= $_SESSION['bonobo']['expired_on']) {
-						echo "<div class='card-panel red lighten-4'>
-				      <span class='blue-grey-text text-darken-4'>Sisa waktu aktif akun Anda : <b class='red-text' style='text-decoration:underline'>".$days." Days</b></span>
-				    </div>	";
-					}
-					
-				   	echo"			    
-					<form class='formain' id='form-license'>
+					</div>
+					<a href='".base_url()."license'>&larr; Kembali</a>
+					<form class='formain' id='form-minta'>
 						<div class='formhead'>
-							<h2 class='titmain'><b>VERIFIKASI</b></h2>
+							<h2 class='titmain'><b>MINTA LISENSI</b></h2>
 						</div>
 						<div class='row formbody'>
 							<div class='nolautomar'>
-								<div class='linehead center'><h5>Silahkan masukan kode verifikasi</h5></div>
-								<div class='input-field col s12 m6 l3 nolpad'>
-									<input id='kode1' name='kode1' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='XXXX'>
+								<div class='linehead center'><h5>Lengkapi data berikut untuk melakukan pemesanan</h5></div>
+								<div class='input-field col s12 m12 l12 nolpad'>
+									<span>Nama</span>
+									<input name='nama' id='nama' type='text' maxlength='50' class=' validate' placeholder='Nama'>
 								</div>
-								<div class='input-field col s12 m6 l3 nolpad'>
-									<input id='kode2' name='kode2' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='XXXX'>
+								<div class='input-field col s12 m12 l12 nolpad'>
+									<span>No Telepon</span>
+									<input name='telp' id='telp' type='text' maxlength='12' class='numbersOnly validate' placeholder='No Telepon'>
 								</div>
-								<div class='input-field col s12 m6 l3 nolpad'>
-									<input id='kode3' name='kode3' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='XXXX'>
+								<div class='input-field col s12 m12 l12 nolpad'>
+									<span>Handphone</span>
+									<input name='hp' id='hp' type='text' maxlength='12' class='numbersOnly validate' placeholder='Handphone'>
 								</div>
-								<div class='input-field col s12 m6 l3 nolpad'>
-									<input id='kode4' name='kode4' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='XXXX'>
-								</div>
+								<label id='error-captcha'  style='display:none;'></label>
+								<div class='input-field col s12 m12 l12 nolpad'>
+									<span>".$captcha."</span>
+									
+								</div>								
 							</div>
-							<div class='nolautomar center'>
-								<button class='btn waves-effect waves-light' type='button' name='action' id='ok-btn' onclick=javascript:verifikasi(".$_SESSION['bonobo']['id'].") >Ok</button>";
-								if ($months == 0 && $years == 0 && $days >= 0 && date('Y-m-d') <= $_SESSION['bonobo']['expired_on']) {
-									echo "<button class='btn waves-effect waves-light red' type='button' onclick='location.href=\"".base_url()."toko\"' name='action'>Skip</button>";
-								}
-
-								echo"
-							</div>
-							<div class='nolautomar'>
-								<p class='center upbottom'>Ingin tau lebih banyak tentang halaman ini ? <a href='".base_url()."license/faq/'>Pelajari lebih lanjut</a>
-								<br><br>Belum punya kode verifikasi ? <a href='".base_url()."license/minta_disini/'>Minta disini</a></p>
+							<div class='nolautomar center upbottom'>
+								<button class='btn waves-effect waves-light ' type='button' name='action' onclick=javascript:minta_disini()>Pesan kode aktivasi</button>
 							</div>
 						</div>
 					</form>

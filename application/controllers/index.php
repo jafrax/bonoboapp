@@ -145,6 +145,8 @@ class Index extends CI_Controller {
 						->set('duration',$default_duration)
 						->set('duration_type',$default_duration_type)
 						->set('validity',1)
+						->set('create_user',$email)
+						->set('create_date',date('Y-m-d'))
 						->insert('tb_activation_code');
 			}
 			$_SESSION['bonobo']['id'] = $QShop->id;
