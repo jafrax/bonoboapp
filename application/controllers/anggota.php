@@ -96,25 +96,29 @@ class Anggota extends CI_Controller {
 						"update_date"=>date("Y-m-d H:i:s"),
 						"update_user"=>$_SESSION['bonobo']['email'],
 					);
-				
-				$Save = $this->db->insert("tb_invite",$Data);
-				if($Save){
-					$message ="Hi ".$data["email"].",<br><br>
-						Anda mendapat undangan untuk bergabung dengan Toko ".$data["shop"]->name.".<br><br>
-						<b>Pesan :</b><br>
-						<i>\"".$data["message"]."\"</i><br><br>
-						<a href='".base_url()."' style='background:#eaeaea;padding:7px;'>BERGABUNG</a><br><br>
-						Thanks, Bonobo.com
-					";
+				if($data["email"]!=$_SESSION['bonobo']['email']){
+					$Save = $this->db->insert("tb_invite",$Data);
+					if($Save){
+						$message ="Hi ".$data["email"].",<br><br>
+							Anda mendapat undangan untuk bergabung dengan Toko ".$data["shop"]->name.".<br><br>
+							<b>Pesan :</b><br>
+							<i>\"".$data["message"]."\"</i><br><br>
+							<a href='".base_url()."' style='background:#eaeaea;padding:7px;'>BERGABUNG</a><br><br>
+							Thanks, Bonobo.com
+						";
+						
+						$this->template->send_email($data["email"],'no-reply@bonobo.com', $message);
 					
-					$this->template->send_email($data["email"],'no-reply@bonobo.com', $message);
-				
-					$data["notif"] = "<label class='text-green'>Undangan anda telah dikirim ke email : ".$data["email"]."</label>";
-					$data["email"] = "";
-					$data["message"] = "";
+						$data["notif"] = "<label class='text-green'>Undangan anda telah dikirim ke email : ".$data["email"]."</label>";
+						$data["email"] = "";
+						$data["message"] = "";
+					}else{
+						$data["notif"] = "<label class='text-red'>Undangan anda tidak dapat dikirim !</label>";
+					}
 				}else{
-					$data["notif"] = "<label class='text-red'>Undangan anda tidak dapat dikirim !</label>";
+						$data["notif"] = "<label class='text-red'>Undangan anda tidak dapat dikirim !</label>";
 				}
+				
 			}
 		}
 		
