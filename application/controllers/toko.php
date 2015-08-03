@@ -397,9 +397,9 @@ class Toko extends CI_Controller {
 			$Upload = $this->template->upload_picture($UploadPath,"txtShopLogoFile");
 			
 			if($Upload == 'error'){
-				$Upload = "";
+				$Unggah = "";
 			}else{
-				$_SESSION['bonobo']['image'] = $Upload;
+				$_SESSION['bonobo']['image'] = $Unggah;
 			}
 			
 			
@@ -411,7 +411,7 @@ class Toko extends CI_Controller {
 				"phone"=>$this->response->post("txtPhone"),
 				"address"=>$this->response->post("txtAddress"),
 				"postal"=>$data['postal'],
-				"image"=>$Upload,
+				"image"=>$Unggah,
 				"category_id"=>$Category,
 				"location_id"=>$code_pos,
 			);
@@ -432,43 +432,48 @@ class Toko extends CI_Controller {
 		if($step != 0){
 			$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',2)->update('tb_toko');
 		}	
-		$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
-		if($Save){
+		if($Upload == 'error'){
+			$this->response->send(array("result"=>5,"message"=>"Format File : .bmp, .jpg, .png.","messageCode"=>1));
+		}else{
+			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
+			if($Save){
 
-			$_SESSION['bonobo']['name'] = $this->response->post("txtName");
-			if($this->response->post("intAttributeCount") > 0){
-				for($i=1;$i<=$this->response->post("intAttributeCount");$i++){
-					if($this->response->post("txtAttributeName".$i) != "" && $this->response->post("txtAttributeValue".$i) != ""){
-						if($this->response->post("txtAttributeId".$i) == ""){						
-							$Data = array(
-								"toko_id"=>$_SESSION["bonobo"]["id"],
-								"name"=>$this->response->post("txtAttributeName".$i),
-								"value"=>$this->response->post("txtAttributeValue".$i),
-								"create_date"=>date("Y-m-d H:i:s"),
-								"create_user"=>$_SESSION['bonobo']['email'],
-								"update_date"=>date("Y-m-d H:i:s"),
-								"update_user"=>$_SESSION['bonobo']['email'],
-							);
-							
-							$Save = $this->db->insert("tb_toko_attribute",$Data);
-						}else{
-							$Data = array(
-								"toko_id"=>$_SESSION["bonobo"]["id"],
-								"name"=>$this->response->post("txtAttributeName".$i),
-								"value"=>$this->response->post("txtAttributeValue".$i),
-								"update_user"=>$_SESSION['bonobo']['email'],
-							);
-							
-							$Save = $this->db->where("id",$this->response->post("txtAttributeId".$i))->update("tb_toko_attribute",$Data);
+				$_SESSION['bonobo']['name'] = $this->response->post("txtName");
+				if($this->response->post("intAttributeCount") > 0){
+					for($i=1;$i<=$this->response->post("intAttributeCount");$i++){
+						if($this->response->post("txtAttributeName".$i) != "" && $this->response->post("txtAttributeValue".$i) != ""){
+							if($this->response->post("txtAttributeId".$i) == ""){						
+								$Data = array(
+									"toko_id"=>$_SESSION["bonobo"]["id"],
+									"name"=>$this->response->post("txtAttributeName".$i),
+									"value"=>$this->response->post("txtAttributeValue".$i),
+									"create_date"=>date("Y-m-d H:i:s"),
+									"create_user"=>$_SESSION['bonobo']['email'],
+									"update_date"=>date("Y-m-d H:i:s"),
+									"update_user"=>$_SESSION['bonobo']['email'],
+								);
+								
+								$Save = $this->db->insert("tb_toko_attribute",$Data);
+							}else{
+								$Data = array(
+									"toko_id"=>$_SESSION["bonobo"]["id"],
+									"name"=>$this->response->post("txtAttributeName".$i),
+									"value"=>$this->response->post("txtAttributeValue".$i),
+									"update_user"=>$_SESSION['bonobo']['email'],
+								);
+								
+								$Save = $this->db->where("id",$this->response->post("txtAttributeId".$i))->update("tb_toko_attribute",$Data);
+							}
 						}
 					}
 				}
+				
+				$this->response->send(array("result"=>1,"message"=>"Informasi toko telah disimpan : ","messageCode"=>1));
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Informasi tidak dapat disimpan","messageCode"=>1));
 			}
-			
-			$this->response->send(array("result"=>1,"message"=>"Informasi toko telah disimpan : ","messageCode"=>1));
-		}else{
-			$this->response->send(array("result"=>0,"message"=>"Informasi tidak dapat disimpan","messageCode"=>1));
 		}
+		
 	}
 	
 	public function doStep7CourierSave(){

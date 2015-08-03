@@ -110,32 +110,6 @@ function CtrlShopStep1(){
 			});
 		}
 	}
-
-	
-	function doNext(){
-			var formData = new FormData($hs("formStep1"));
-		if(!formStep1JQuery.valid()){
-			return false;
-		}else{
-			$.ajax({
-				type: 'POST',
-				data: formData,
-				url: base_url+'toko/doStep1Save/',
-				cache:false,
-				contentType: false,
-				processData: false,
-				success: function(result) {
-					var response = JSON.parse(result);
-					if(response.result == 1){
-						//top.location.href = base_url+"toko/step2";
-					}else{
-						$hs_notif("#notifStep1",response.message);
-					}
-				}
-			});
-		}
-	}
-	
 	function initValidation(){
 		jQuery.validator.addMethod("noSpace", function(value, element) { 
 			return value.indexOf(" ") < 0 && value != ""; 
@@ -163,10 +137,6 @@ function CtrlShopStep1(){
 				txtAddress:{
 					maxlength:150,
 				},
-				txtShopLogoFile:{
-					required: true,
-					extension: "png|jpe?g|gif",
-				},
 				//cmbProvince: {
 					//required: true,
 				//},
@@ -187,10 +157,6 @@ function CtrlShopStep1(){
 					required: message_alert("Harus diisi !"),
 					minlength: message_alert("Masukkan minimal 3 karakter"),
 					maxlength: message_alert("Masukkan maksimal 15 karakter"),
-				},
-				txtShopLogoFile:{
-					required: message_alert("Harus diisi !"),
-					extension:message_alert('Pilih salah satu jenis file JPG, GIF atau PNG'),
 				},
 				txtPhone:{
 					maxlength: message_alert("Masukkan maksimal 15 karakter"),
@@ -213,6 +179,34 @@ function CtrlShopStep1(){
 			}
 		});
 	}
+	
+	function doNext(){
+			var formData = new FormData($hs("formStep1"));
+		if(!formStep1JQuery.valid()){
+			return false;
+		}else{
+			$.ajax({
+				type: 'POST',
+				data: formData,
+				url: base_url+'toko/doStep1Save/',
+				cache:false,
+				contentType: false,
+				processData: false,
+				success: function(result) {
+					var response = JSON.parse(result);
+					if(response.result == 1){
+						top.location.href = base_url+"toko/step2";
+					}else if(response.result == 5){
+						Materialize.toast('Silahkan pilih file format gambar jpg/png/bmp', 4000);
+					}else{
+						$hs_notif("#notifStep1",response.message);
+					}
+				}
+			});
+		}
+	}
+	
+
 	
 	function doSave(){
 		var valid = true;
@@ -310,8 +304,20 @@ function CtrlShopStep1(){
 	
 	function doImageUpload(){
 		var URL = window.URL || window.webkitURL;
+		var img = $('#txtShopLogoFile').val();
+
+		switch(img.substring(img.lastIndexOf('.') + 1).toLowerCase()){
+			case 'bmp': case 'jpg': case 'png':
+				imgShopLogo.src = URL.createObjectURL(txtShopLogoFile.files[0]);  
+				break;
+			default:
+				$('#txtShopLogoFile').val('');
+				// error message here
+				Materialize.toast('Silahkan pilih file format gambar jpg/png/bmp', 4000);
+				break;
+		}
 			
-		imgShopLogo.src = URL.createObjectURL(txtShopLogoFile.files[0]);
+		//imgShopLogo.src = URL.createObjectURL(txtShopLogoFile.files[0]);
 	}
 	
 	function doImageDelete(){
