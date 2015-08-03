@@ -3317,7 +3317,7 @@ class Api extends CI_Controller {
 					if(!empty($QProduct)){
 						$weightVarian = $QProduct->weight * $QCartVarian->quantity;
 						
-						$weight = $weight + $weightVarian;
+						$shipment_weight = $shipment_weight + $weightVarian;
 					}
 				}
 				
@@ -3334,7 +3334,7 @@ class Api extends CI_Controller {
 			*	------------------------------------------------------------------------------
 			*/
 			$Date = date("Y-m-d H:i:s");
-			$price_shipment = $shipment_rate * $weight;
+			$price_shipment = $shipment_rate * $shipment_weight;
 			$price_total = $price_item + $price_shipment + $price_unique;
 			
 			$Data = array(

@@ -59,61 +59,35 @@ echo "
 		<div class='containermain'>
 			<div class='row contentsebenarya'>
 				<div class='col s12 m12 l12'>
-					<div id='notif'>
-					</div>";		
-					$date1 = date("Y-m-d");
-					$date2 = $_SESSION['bonobo']['expired_on'];
-
-					$diff = abs(strtotime($date2) - strtotime($date1));
-
-					$years = floor($diff / (365*60*60*24));
-					$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-					$days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
-					//echo "$years years, $months months, $days days\n";			
-					/*$date1 = new DateTime($_SESSION['bonobo']['expired_on']);
-					$date2 = new DateTime();
-					$interval = $date1->diff($date2);
-					//echo $_SESSION['bonobo']['expired_on'];
-					//echo "difference " . $interval->y . " years, " . $interval->m." months, ".$interval->d." days "; */
-					if ($months == 0 && $years == 0 && $days >= 0 && date('Y-m-d') <= $_SESSION['bonobo']['expired_on']) {
-						echo "<div class='card-panel red lighten-4'>
-				      <span class='blue-grey-text text-darken-4'>Sisa waktu aktif akun Anda : <b class='red-text' style='text-decoration:underline'>".$days." Days</b></span>
-				    </div>	";
-					}
-					
-				   	echo"			    
-					<form class='formain' id='form-license'>
+					<a href='".base_url()."license'>&larr; Kembali</a>
+					<form class='formain'>
 						<div class='formhead'>
-							<h2 class='titmain'><b>VERIFIKASI</b></h2>
+							<h2 class='titmain'><b>FAQ</b></h2>
 						</div>
-						<div class='row formbody'>
-							<div class='nolautomar'>
-								<div class='linehead center'><h5>Silahkan masukan kode verifikasi</h5></div>
-								<div class='input-field col s12 m6 l3 nolpad'>
-									<input id='kode1' name='kode1' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='XXXX'>
-								</div>
-								<div class='input-field col s12 m6 l3 nolpad'>
-									<input id='kode2' name='kode2' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='XXXX'>
-								</div>
-								<div class='input-field col s12 m6 l3 nolpad'>
-									<input id='kode3' name='kode3' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='XXXX'>
-								</div>
-								<div class='input-field col s12 m6 l3 nolpad'>
-									<input id='kode4' name='kode4' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='XXXX'>
-								</div>
-							</div>
-							<div class='nolautomar center'>
-								<button class='btn waves-effect waves-light' type='button' name='action' id='ok-btn' onclick=javascript:verifikasi(".$_SESSION['bonobo']['id'].") >Ok</button>";
-								if ($months == 0 && $years == 0 && $days >= 0 && date('Y-m-d') <= $_SESSION['bonobo']['expired_on']) {
-									echo "<button class='btn waves-effect waves-light red' type='button' onclick='location.href=\"".base_url()."toko\"' name='action'>Skip</button>";
-								}
 
-								echo"
-							</div>
-							<div class='nolautomar'>
-								<p class='center upbottom'>Ingin tau lebih banyak tentang halaman ini ? <a href='".base_url()."license/faq/'>Pelajari lebih lanjut</a>
-								<br><br>Belum punya kode verifikasi ? <a href='".base_url()."license/minta_disini/'>Minta disini</a></p>
-							</div>
+						<div class='row formbody'>
+							<p>
+								<h2 class='light title-faq '>Apa itu kode Aktivasi?</h2>
+									<p class='light'>Kode aktivasi merupakan kode yang diberikan oleh Admin Bonobo kepada setiap Pengguna (Toko) yang mendaftarkan akun di Bonobo.com.<br> Setiap kode ini bersifat unik dan hanya bisa digunakan 1 kali.</p><br>
+
+									<h2 class='light title-faq '>Kegunaan kode aktivasi?</h2>
+									<p class='light'>Kode aktivasi digunakan untuk melakukan validasi atas akun Anda.<br> Tanpa kode aktivasi, Anda tidak dapat menggunakan fitur-fitur yang ada di Bonobo.com. </p><br>
+
+									<h2 class='light title-faq '>Kapan saya harus memasukkan kode Aktivasi?</h2>
+									<p class='light'>- Saat Anda pertama kali mendaftarkan Akun Anda di Bonobo.com.<br> Di sini anda perlu memasukkan kode aktivasi untuk mem-validasi Akun Anda.</p>
+									 
+									<p class='light'>- Saat akun Anda expired. Setiap akun di Bonobo.com memiliki masa berlaku tertentu. Anda bisa melihat sisa hari aktif akun Anda di menu profile.<br> Jika akun anda sudah expired, maka Anda perlu memasukkan kode aktivasi kembali untuk memperpanjang akun Anda.</p><br>
+
+									<h2 class='light title-faq '>Bagaimana saya mendapatkan kode Aktivasi?</h2>
+									<p class='light'>Dengan melakukan langkah mudah berikut:<br>
+									- Klik hyperlink 'Minta Disini' yang terdapat di halaman Aktivasi. (Halaman sebelum ini)<br>
+									- Isi data dengan lengkap.<br>
+									- Admin kami akan menghubungi Anda untuk menginformasikan langkah selanjutnya.<br>
+									- Setelah Anda menyelesaikan langkah tersebut, kode aktivasi akan dikirimkan kepada Anda melalui email.</p><br>
+
+									<p class='light'>Saya masih memiliki pertanyaan lanjutan
+									Silakan kirimkan pertanyaan Anda ke <a href='mailto:cs@bonobo.com'>CS@bonobo.com.</a><br> Kami akan segera menjawab pertanyaan Anda.</p>
+							</p>
 						</div>
 					</form>
 
