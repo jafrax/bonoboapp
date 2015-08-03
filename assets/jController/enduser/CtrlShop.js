@@ -1002,7 +1002,7 @@ function deletestep1(e,a){
 	}
 
 function set_location(){
-    var postal = $('#postal-code').val();
+    /*var postal = $('#postal-code').val();
     if (postal.length == 5) {        
         $.ajax({
             type: 'POST',
@@ -1020,7 +1020,7 @@ function set_location(){
                 }
             } 
         });
-    }
+    }*/
 }
 function set_city(){
     var province = $('#province').val();
@@ -1076,4 +1076,32 @@ $(document).ready(function() {
         },
     });
 })
+$(document).ready(function () {
+    $("#postal-code").keyup(function () {
+        $.ajax({
+            type: "POST",
+            url: base_url+'toko/kodepos',
+			data:"txtPostal="+$('#postal-code').val()+"&cmbProvince="+$('#province').val()+"&cmbCity="+$('#cmbCity').val()+"&cmbKecamatan="+$('#tkecamatan').val(),
+            dataType: "json",
+            success: function (data) {
+                if (data.length > 0) {
+                    $('#dropdownpos').empty();
+                    $('#postal-code').attr("data-toggle", "dropdown");
+                    $('#dropdownpos').dropdown('toggle');
+                }
+                else if (data.length == 0) {
+                    $('#postal-code').attr("data-toggle", "");
+                }
+                $.each(data, function (key,value) {
+                    if (data.length >= 0)
+                        $('#dropdownpos').append('<li role="presentation" ><a role="menuitem dropdownnameli" class="dropdownlivalue">' + value['postal_code'] + '</a></li>');
+                });
+            }
+        });
+    });
+    $('ul.txtpos').on('click', 'li a', function () {
+        $('#postal-code').val($(this).text());
+		$('#ul.txtpos').hide();
+    });
+});
 

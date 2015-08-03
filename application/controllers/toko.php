@@ -379,11 +379,17 @@ class Toko extends CI_Controller {
 				$Location = null;
 			}
 		}
+					
+		$data['postal'] = $this->input->post("txtPostal");
+		$data['kecamatan'] = $this->input->post("cmbKecamatan");
+		$data['city'] = $this->input->post("cmbCity");
+		$data['province'] = $this->input->post("cmbProvince");
 		$code_pos=null;
 			$scl=$this->model_toko->get_id_location($postal)->result();
 			foreach($scl as $row){
 				$code_pos=$row->id;
 			}
+			
 		$UploadPath    = 'assets/pic/shop/';
 			$Upload = $this->template->upload_picture($UploadPath,"txtShopLogoFile");
 		if(!empty($_FILES['txtShopLogoFile']) && isset($_FILES['txtShopLogoFile']['name']) && !empty($_FILES['txtShopLogoFile']['name'])){
@@ -404,7 +410,7 @@ class Toko extends CI_Controller {
 				"description"=>$this->response->post("txtDescription"),
 				"phone"=>$this->response->post("txtPhone"),
 				"address"=>$this->response->post("txtAddress"),
-				"postal"=>$this->response->post("txtPostal"),
+				"postal"=>$data['postal'],
 				"image"=>$Upload,
 				"category_id"=>$Category,
 				"location_id"=>$code_pos,
@@ -417,7 +423,7 @@ class Toko extends CI_Controller {
 				"description"=>$this->response->post("txtDescription"),
 				"phone"=>$this->response->post("txtPhone"),
 				"address"=>$this->response->post("txtAddress"),
-				"postal"=>$this->response->post("txtPostal"),
+				"postal"=>$data['postal'],
 				"category_id"=>$Category,
 				"location_id"=>$code_pos,
 			);
@@ -957,5 +963,19 @@ class Toko extends CI_Controller {
 		}
 		redirect('toko');
 	}
+	
+	public function kodepos(){
+		$data['postal'] = $this->input->post("txtPostal");
+		$data['kecamatan'] = $this->input->post("cmbKecamatan");
+		$data['city'] = $this->input->post("cmbCity");
+		$data['province'] = $this->input->post("cmbProvince");
+		if (($data['province']=='null') and ($data['kecamatan']=='null') and ($data['city']=='null')){
+			$kodepos=array('postal_code'=>'Alamat Pos tidak ditemukan');
+		}else{
+			$kodepos=$this->model_toko->getcode_pos($data)->result();
+		}
+			 echo json_encode($kodepos);
+	}
+	
 }
 

@@ -155,6 +155,16 @@ class Model_toko extends CI_Model {
 		$this->db->where('postal_code',$pos);
 		return $this->db->get('ms_location');
 	}
+
+	public function getcode_pos($data){
+		$this->db->select('postal_code');
+        $this->db->like("province", $data['province'] );
+        $this->db->like("city", $data['city'] );
+        $this->db->like("kecamatan", $data['kecamatan'] );
+        $this->db->like("postal_code", $data['postal'] );
+		 $this->db->order_by('id', 'DESC');
+        return $this->db->get('ms_location');
+	}
 	
 		
 
