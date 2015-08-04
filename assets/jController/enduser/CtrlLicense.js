@@ -25,6 +25,13 @@ $(document).ready(function() {
 });
 
 function verifikasi(id) {
+	var capcha = $("#g-recaptcha-response").val();
+	if(capcha == ""){		 
+		$('#error-captcha').html("<i class='fa fa-warning'></i> Captcha tidak valid!");
+		$('#error-captcha').slideDown();
+		$('#error-captcha').delay(3000).slideUp('slow');
+	 	return;
+    }
 	if ($("#form-license").valid()) {
 		var code = $('#kode1').val()+"-"+$('#kode2').val()+"-"+$('#kode3').val()+"-"+$('#kode4').val();
 		$('#ok-btn').fadeTo(0.3);
@@ -39,10 +46,12 @@ function verifikasi(id) {
 		    	if (response.msg == 'success') {
 		    		var data = response[0];
 					box_notif_success (response.end_date,data.code,data.email);
-					$('#ok-btn').delay(1000).fadeTo(1,'slow').html("Ok");
+					$('#ok-btn').fadeTo(1,'slow').html("Ok");
+					$('.panel-day-left').slideUp();
+					$('.formain').slideUp();
 		    	}else{
 		    		box_notif_alert (response.notif);
-		    		$('#ok-btn').delay(1000).fadeTo(1,'slow').html("Ok");
+		    		$('#ok-btn').fadeTo(1,'slow').html("Ok");
 		    	}
 		    }
 	    });
@@ -50,8 +59,8 @@ function verifikasi(id) {
 }
 
 function box_notif_alert (e) {
-	var box = "	<div class='card-panel red lighten-4'>"
-				    +"<span class='blue-grey-text text-darken-4'>"+e+"</span>"
+	var box = "	<div class='card-panel red panel-day-left'>"
+				    +"<span class='white-text'>"+e+"</span>"
 				+"</div>";
 	$('#notif').html(box).hide().slideDown().delay(5000).slideUp('slow');
 }
@@ -79,7 +88,7 @@ function minta_disini(id){
 	var hp = $('#hp').val();
 	var capcha = $("#g-recaptcha-response").val();
 	 if(capcha == ""){		 
-		 $('#error-captcha').html("<i class='fa fa-warning'></i> Captcha harus diisi!");
+		 $('#error-captcha').html("<i class='fa fa-warning'></i> Captcha tidak valid!");
 		 $('#error-captcha').slideDown();
 		 $('#error-captcha').delay(3000).slideUp('slow');
 	 return;

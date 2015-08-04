@@ -20,7 +20,8 @@ class License extends CI_Controller {
     }
 	
 	public function index(){
-		$this->load->view("enduser/license/bg_license");
+		$data['captcha']=$this->recaptcha->render();
+		$this->load->view("enduser/license/bg_license",$data);
 	}
 	
 	public function submit_verification()
@@ -52,7 +53,11 @@ class License extends CI_Controller {
 	            echo json_encode($data);
 			}
 		}else{
-			$notif = "License code tidak berlaku !";
+			$notif = "License Code tidak diterima, mohon masukkan license code yang benar";
+			$active_code = $this->db->where('toko_id',$id)->where('validity',0)->where('code',$code)->get('tb_activation_code');
+			if ($active_code->num_rows() > 0) {
+				$notif = "License Code ini sudah pernah dipakai, mohon masukkan license code yang baru";
+			}
 			echo json_encode(array("msg"=>$msg,"notif"=>$notif));
 		}
 	}

@@ -61,16 +61,16 @@ echo "
                                             <label>Default Code</label> 
                                         </div>
                                         <div class='padbottom col-xs-12 col-md-3'>
-                                            <input type='text' class='form-control' name='code_1' maxlength='4' size='4' placeholder='xxxx' value='".($arr_code[0] != '' ? $arr_code[0] : "")."'/>
+                                            <input type='text' class='form-control numbersOnly' name='code_1' maxlength='4' size='4' placeholder='xxxx' value='".($arr_code[0] != '' ? $arr_code[0] : "")."'/>
                                         </div>
                                         <div class='padbottom col-xs-12 col-md-3'>
-                                            <input type='text' class='form-control' name='code_2' maxlength='4' size='4' placeholder='xxxx' value='".($arr_code[1] != '' ? $arr_code[1] : "")."'/>
+                                            <input type='text' class='form-control numbersOnly' name='code_2' maxlength='4' size='4' placeholder='xxxx' value='".($arr_code[1] != '' ? $arr_code[1] : "")."'/>
                                         </div>
                                         <div class='padbottom col-xs-12 col-md-3'>
-                                            <input type='text' class='form-control' name='code_3' maxlength='4' size='4' placeholder='xxxx' value='".($arr_code[2] != '' ? $arr_code[2] : "")."'/>
+                                            <input type='text' class='form-control numbersOnly' name='code_3' maxlength='4' size='4' placeholder='xxxx' value='".($arr_code[2] != '' ? $arr_code[2] : "")."'/>
                                         </div>
                                         <div class='padbottom col-xs-12 col-md-3'>
-                                            <input type='text' class='form-control' name='code_4' maxlength='4' size='4' placeholder='xxxx' value='".($arr_code[3] != '' ? $arr_code[3] : "")."'/>
+                                            <input type='text' class='form-control numbersOnly' name='code_4' maxlength='4' size='4' placeholder='xxxx' value='".($arr_code[3] != '' ? $arr_code[3] : "")."'/>
                                         </div>
                                     </div>
                                     <div class='row form-group'>

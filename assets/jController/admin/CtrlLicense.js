@@ -27,6 +27,16 @@
 
 
 function submit_setting () {
+	
+	if ($('#auto_add').is(":checked")) {
+
+		if ($('[name="code_1"]').val() == '' && $('[name="code_2"]').val() == '' && $('[name="code_3"]').val() == '' && $('[name="code_4"]').val() == '') {
+			notif('Apabila "Auto add license on Registration" aktif, Silahkan isi data default code.','error');
+			//alert('a');
+			$("#auto_add").removeAttr('checked');
+			return;
+		};
+	};
 	if ($("#form-setting").valid()==true) {
 		$('#btn-submit-setting').fadeTo(0.4,'slow');
 		$('#btn-submit-setting').html("<img width='16px' src='"+base_url+"html/images/comp/loading2.GIF' /> Loading...");
@@ -63,7 +73,11 @@ function generate(){
 			url:base_url+'admin/license/generate',
 			data:$('#form-generate').serialize(),
 			success:function(msg){
-				if (msg != 0) {
+				if(msg == 2){
+					$('#btn-generate').fadeTo(1,'slow');
+					$('#btn-generate').html("Generate");
+					notif('Toko masih memiliki License Code aktif','error');
+				}else if (msg != 0) {
 					$('#btn-generate').fadeTo(1,'slow');
 					$('#btn-generate').html("Generate");
 					notif('License telah di generate','success');
