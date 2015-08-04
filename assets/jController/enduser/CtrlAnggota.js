@@ -264,7 +264,7 @@ function CtrlAnggotaMembers(){
 	
 	function popupDelete(e,n){
 		memberDeleteID.value = e;
-		memberDeleteName.innerHTML = "'"+n.replace("+"," ")+"'";
+		memberDeleteName.innerHTML = "'"+atob(n)+"'";
 		memberDeleteBlacklist.checked = true;
 	}
 	
@@ -303,6 +303,7 @@ function CtrlAnggotaMembers(){
 function CtrlAnggotaBlacklist(){
 	this.init = init;
 	this.popupDetail = popupDetail;
+	this.popupDetail2 = popupDetail2;
 	this.popupDelete = popupDelete;
 	
 	var popupBlacklist;
@@ -338,6 +339,17 @@ function CtrlAnggotaBlacklist(){
 			type: 'POST',
 			data: "id="+e,
 			url: base_url+'anggota/members_detail',
+			success: function(result) {
+				popupBlacklist.html(result);
+			}
+		});
+	}
+	
+	function popupDetail2(e){
+		$.ajax({
+			type: 'POST',
+			data: "id="+e,
+			url: base_url+'anggota/members_detail_b',
 			success: function(result) {
 				popupBlacklist.html(result);
 			}

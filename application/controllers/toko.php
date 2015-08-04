@@ -1091,7 +1091,7 @@ class Toko extends CI_Controller {
 				$cek	= $this->db->where('password',md5($password))->where("id",$id)->get('tb_toko');
 				if(count($cek->result())>0){
 					$param  = array(
-					'password'      => md5($password),
+					'password'      => md5($this->input->post('newpass')),
 					'update_user'   => $_SESSION['bonobo']['email']
 					);
 				

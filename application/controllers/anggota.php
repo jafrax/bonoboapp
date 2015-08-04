@@ -158,6 +158,12 @@ class Anggota extends CI_Controller {
 		
 		$this->load->view("enduser/anggota/bg_members_detail",$data);
 	}
+	// diabuat oleh adi 04-08-2015
+	public function members_detail_b(){
+		$data["Member"] = $this->model_member->get_by_id($this->response->post("id"))->row();
+		
+		$this->load->view("enduser/anggota/bg_members_detailb",$data);
+	}
 	
 	public function doJoininDelete(){
 		if($this->response->post("id") == ""){
