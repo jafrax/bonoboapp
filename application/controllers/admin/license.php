@@ -38,7 +38,7 @@ class License extends CI_Controller {
             $unik = $this->db->where('email',$toko)->where('validity','1')->get('tb_activation_code');
 
             if ($unik->num_rows() > 0) {
-                echo "0";
+                echo "2";
                 return;
             }
 
@@ -62,7 +62,24 @@ class License extends CI_Controller {
                 'update_user'   => $_SESSION['bonobo_admin']->email
                 );
 
-            $insert = $this->db->insert('tb_activation_code',$data);
+            $data_edit = array(                
+                'code'          => $code,                
+                'duration'      => $duration,
+                'duration_type' => $duration_type,
+                'validity'      => 1,
+                'create_date'   => date("Y-m-d H:i:s"),
+                'create_user'   => $_SESSION['bonobo_admin']->email,
+                'update_user'   => $_SESSION['bonobo_admin']->email
+                );
+
+            $request = $this->db->where('email',$toko)->where('validity','2')->get('tb_activation_code');
+
+            if ($request->num_rows() > 0) {
+                $insert = $this->db->where('id',$request->row()->id)->update('tb_activation_code',$data_edit);
+            }else{
+                $insert = $this->db->insert('tb_activation_code',$data);
+            }
+            
             if ($insert) {
                 echo "<div class='callout callout-info'>
                         <h4>License telah di generate!</h4>
@@ -90,6 +107,7 @@ class License extends CI_Controller {
                     </div>";
             }else{
                 echo "0";
+                //echo $request->num_rows();
             }
         }
     }
