@@ -30,17 +30,17 @@ if(sizeOf($joinins) <= 0){
 	echo"Data tidak ditemukan";
 }else{
 	foreach($joinins as $joinin){
-		$Status = "Ingin bergabung di toko anda";
+		$Status = "<span id='pesan' class=''></span>Ingin bergabung di toko anda";
 		$Buttons = "<a href='#setting_harga' onclick=ctrlAnggotaJoinin.accept(".$joinin->id.") class='modal-trigger'><button class='waves-effect waves-light btn right'>Terima</button></a><button  onclick=ctrlAnggotaJoinin.doReject(".$joinin->id.") class='waves-effect waves-light btn red lighten-1 right'>Tolak</button>";
 		
 		if($joinin->status == 1){
 			$Status = "<b class='text-green'>diterima</b> menjadi Anggota toko Anda";
 			$Buttons = "<a class='waves-effect btn-flat right' onclick=ctrlAnggotaJoinin.doDelete(".$joinin->id.")><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>";
 		}elseif($joinin->status == 2){
-			$Status = "<b class='text-red'>ditolak</b> menjadi Anggota toko Anda";
+			$Status = "<b class='text-red'>ditolak</b>  menjadi Anggota toko Anda";
 			$Buttons = "<a class='waves-effect btn-flat right' onclick=ctrlAnggotaJoinin.doDelete(".$joinin->id.")><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>";
 		}elseif($joinin->status == 3){
-			$Status = "<b class='text-green'>menerima</b> undangan Anda untuk menjadi Anggota";
+			$Status = "<b class='text-green'>menerima</b>  undangan Anda untuk menjadi Anggota";
 			$Buttons = "<a class='waves-effect btn-flat right' onclick=ctrlAnggotaJoinin.doDelete(".$joinin->id.")><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>";
 		}elseif($joinin->status == 4){
 			$Status = "<b class='text-red'>menolak</b> undangan Anda untuk menjadi Anggota";
