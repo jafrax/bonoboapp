@@ -30,7 +30,7 @@ if(sizeOf($joinins) <= 0){
 	echo"Data tidak ditemukan";
 }else{
 	foreach($joinins as $joinin){
-		$Status = "<span id='pesan' class=''></span>Ingin bergabung di toko anda";
+		$Status = "<span id='pesan' class='pesan'></span> <span id='textku'>Ingin bergabung di toko anda</span>";
 		$Buttons = "<a href='#setting_harga' onclick=ctrlAnggotaJoinin.accept(".$joinin->id.") class='modal-trigger'><button class='waves-effect waves-light btn right'>Terima</button></a><button  onclick=ctrlAnggotaJoinin.doReject(".$joinin->id.") class='waves-effect waves-light btn red lighten-1 right'>Tolak</button>";
 		
 		if($joinin->status == 1){

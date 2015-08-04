@@ -146,7 +146,8 @@ function CtrlAnggotaJoinin(){
 					var response = JSON.parse(result);
 					if(response.result == 1){
 						divButton.html("<a class='waves-effect btn-flat right' onclick=ctrlAnggotaJoinin.doDelete("+e+")><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>");
-						$("#pesan").setAttribute("style", "color:red").html('ditolak');
+						$("#textku").html('menjadi Anggota toko Anda');
+						$(".pesan").css("color", "red").html('<b>ditolak</b>');
 						
 					}else{
 						$hs_notif("#notifJoinin",response.message);

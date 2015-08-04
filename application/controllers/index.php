@@ -93,7 +93,7 @@ class Index extends CI_Controller {
 					*/
 					$this->signup_login($email,$password);
 					
-					$this->response->send(array("result"=>1,"message"=>"Pendaftaran berhasil, kami telah mengirimkan pesan verifikasi ke alamat email anda.","messageCode"=>1));
+					$this->response->send(array("result"=>1,"message"=>"Pendaftaran berhasil.","messageCode"=>1));
 				}else{
 					$this->response->send(array("result"=>0,"message"=>"Pendaftaran anda tidak berhasil, coba ulangi lagi","messageCode"=>1));
 				}
