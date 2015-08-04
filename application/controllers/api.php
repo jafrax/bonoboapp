@@ -329,6 +329,178 @@ class Api extends CI_Controller {
 		return $Carts;
 	}
 	
+	private function getInvoicesByUser($user){
+		/*
+		*	------------------------------------------------------------------------------
+		*	Mengambil data Couriers
+		*	------------------------------------------------------------------------------
+		*/
+		
+		$Invoices = array();
+		$QInvoices = $this->db
+					->where("member_id",$user)
+					->get("tb_invoice")
+					->result();
+
+		foreach($QInvoices as $QInvoice){
+			/*
+			*	------------------------------------------------------------------------------
+			*	Mengambil data Courier
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$Courier = array();
+			
+			if(!empty($QInvoice->courier_id)){
+				$QCourier = $this->db
+							->where("id",$QInvoice->courier_id)
+							->get("ms_courier")
+							->row();
+							
+				if(!empty($QCourier)){
+					if(@getimagesize(base_url("assets/pic/courier/".$QCourier->image))){
+						$CourierImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/courier/".$QCourier->image)));
+					}else{
+						$CourierImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+					}
+				
+					$Courier = array(
+							"id"=>$QCourier->id,
+							"name"=>$QCourier->name,
+							"image_url"=>$CourierImageUrl,
+						);
+				}
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Mengambil data Invoice Products
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$InvoiceProducts = array();
+			$QInvoiceProducts = $this->db
+							->where("invoice_id",$QInvoice->id)
+							->get("tb_invoice_product")
+							->result();
+			
+			foreach($QInvoiceProducts as $QInvoiceProduct){
+				/*
+				*	------------------------------------------------------------------------------
+				*	Mengambil data Product
+				*	------------------------------------------------------------------------------
+				*/
+				$product = array();
+				if(!empty($QInvoiceProduct->product_id)){
+					$product = $this->getProductById($QInvoiceProduct->product_id);
+				}
+				
+				/*
+				*	------------------------------------------------------------------------------
+				*	Mengambil data Invoice Varians
+				*	------------------------------------------------------------------------------
+				*/
+				$InvoiceVarians = array();
+				$QInvoiceVarians = $this->db
+								->where("invoice_product_id",$QInvoiceProduct->id)
+								->get("tb_invoice_varian")
+								->result();
+				
+				foreach($QInvoiceVarians as $QInvoiceVarian){
+					/*
+					*	------------------------------------------------------------------------------
+					*	Mengambil data varian
+					*	------------------------------------------------------------------------------
+					*/
+					$Varian = array();
+					$QVarian = $this->db
+								->where("id",$QInvoiceVarian->product_varian_id)
+								->get("tb_product_varian")
+								->row();
+					
+					if(!empty($QVarian)){
+						$Varian = array(
+								"id"=>$QVarian->id,
+								"name"=>$QVarian->name,
+								"stock_qty"=>$QVarian->stock_qty,
+								"product"=>$this->getProductById($QVarian->product_id),
+							);
+					}
+					
+					/*
+					*	------------------------------------------------------------------------------
+					*	Membuat object Invoice Varian
+					*	------------------------------------------------------------------------------
+					*/
+				
+					$InvoiceVarian = array(
+								"id"=>$QInvoiceVarian->id,
+								"quantity"=>$QInvoiceVarian->quantity,
+								"varian_name"=>$QInvoiceVarian->varian_name,
+								"varian"=>$Varian,
+							);
+					
+					array_push($InvoiceVarians,$InvoiceVarian);
+				}
+				
+				/*
+				*	------------------------------------------------------------------------------
+				*	Membuat object Invoice Product
+				*	------------------------------------------------------------------------------
+				*/
+				$InvoiceProduct = array(
+							"id"=>$QInvoiceProduct->id,
+							"price_product"=>$QInvoiceProduct->price_product,
+							"product_name"=>$QInvoiceProduct->product_name,
+							"product_image"=>$QInvoiceProduct->product_image,
+							"product_description"=>$QInvoiceProduct->product_description,
+							"product"=>$product,
+							"invoice_varians"=>$InvoiceVarians,
+						);
+				
+				array_push($InvoiceProducts, $InvoiceProduct);
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Membuat object invoice
+			*	------------------------------------------------------------------------------
+			*/
+			$Invoice = array(
+					"id"=>$QInvoice->id,
+					"invoice_no"=>$QInvoice->invoice_no,
+					"invoice_seq_payment"=>$QInvoice->invoice_seq_payment,
+					"status"=>$QInvoice->status,
+					"status_pre_order"=>$QInvoice->status_pre_order,
+					"stock_type"=>$QInvoice->stock_type,
+					"member_name"=>$QInvoice->member_name,
+					"member_email"=>$QInvoice->member_email,
+					"member_confirm"=>$QInvoice->member_confirm,
+					"price_total"=>$QInvoice->price_total,
+					"price_item"=>$QInvoice->price_item,
+					"notes"=>$QInvoice->notes,
+					"shipment_no"=>$QInvoice->shipment_no,
+					"shipment_service"=>$QInvoice->shipment_service,
+					"price_shipment"=>$QInvoice->price_shipment,
+					"recipient_name"=>$QInvoice->recipient_name,
+					"recipient_phone"=>$QInvoice->recipient_phone,
+					"recipient_address"=>$QInvoice->recipient_address,
+					"location_to_province"=>$QInvoice->location_to_province,
+					"location_to_city"=>$QInvoice->location_to_city,
+					"location_to_kecamatan"=>$QInvoice->location_to_kecamatan,
+					"location_to_postal"=>$QInvoice->location_to_postal,
+					"create_date"=>$QInvoice->create_date,
+					"update_date"=>$QInvoice->update_date,
+					"shop"=>$this->getShopById($QInvoice->toko_id),
+					"courier"=>$Courier,
+					"invoice_products"=>$InvoiceProducts,
+				);
+			
+			array_push($Invoices,$Invoice);
+		}
+		
+		return $Invoices;
+	}
 	
 	public function index(){
 		try {
@@ -898,6 +1070,14 @@ class Api extends CI_Controller {
 			
 			/*
 			*	------------------------------------------------------------------------------
+			*	get data member invoice
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$Invoices = $this->getInvoicesByUser($QUser->id);
+			
+			/*
+			*	------------------------------------------------------------------------------
 			*	create object user data to response
 			*	------------------------------------------------------------------------------
 			*/
@@ -909,6 +1089,7 @@ class Api extends CI_Controller {
 					"products"=>$Favorites,
 					"shops"=>$Shops,
 					"carts"=>$Carts,
+					"invoices"=>$Invoices,
 				);
 			
 			$this->response->send($Object, true);
@@ -3002,7 +3183,7 @@ class Api extends CI_Controller {
 						->row();
 
 			if(empty($QCourier)){
-				$this->response->send(array("result"=>0,"message"=>"Data kurir tidak ditemukan : ".str_replace("+","",$this->response->postDecode("courier")),"messageCode"=>2), true);
+				$this->response->send(array("result"=>0,"message"=>"Data kurir tidak ditemukan","messageCode"=>2), true);
 				return;
 			}
 			

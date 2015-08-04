@@ -993,41 +993,61 @@ class Toko extends CI_Controller {
 	}
 	function ceklevel1(){
 		$data 	= $_REQUEST['txtLevel1'];
-	    $cek	= $this->db->where('level_1_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
+		$cek	= $this->db->where('level_1_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
 	    if(count($cek->result())>0){
-			$valid = "false";
+			$valid="true";
 	    }else{
-			$valid = "true";
+			$cek	= $this->db->where('level_2_name',$data)->or_where('level_3_name',$data)->or_where('level_4_name',$data)->or_where('level_5_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
+			if(count($cek->result())>0){
+			$valid = "false";
+			}else{
+				$valid="true";
+			}
 	    }
 	    echo $valid;
 	}
 	function ceklevel2(){
 		$data 	= $_REQUEST['txtLevel22'];
-	    $cek	= $this->db->where('level_2_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
+		$cek	= $this->db->where('level_2_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
 	    if(count($cek->result())>0){
-			$valid = "false";
+			$valid="true";
 	    }else{
-			$valid = "true";
+			$cek	= $this->db->where('level_1_name',$data)->or_where('level_3_name',$data)->or_where('level_4_name',$data)->or_where('level_5_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
+			if(count($cek->result())>0){
+			$valid = "false";
+			}else{
+				$valid="true";
+			}
 	    }
 	    echo $valid;
 	}
 	function ceklevel3(){
 		$data 	= $_REQUEST['txtLevel33'];
-	    $cek	= $this->db->where('level_3_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
+		 $cek	= $this->db->where('level_3_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
 	    if(count($cek->result())>0){
-			$valid = "false";
+			$valid="true";
 	    }else{
-			$valid = "true";
+			$cek	= $this->db->where('level_2_name',$data)->or_where('level_1_name',$data)->or_where('level_4_name',$data)->or_where('level_5_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
+			if(count($cek->result())>0){
+			$valid = "false";
+			}else{
+				$valid="true";
+			}
 	    }
 	    echo $valid;
 	}
 	function ceklevel4(){
 		$data 	= $_REQUEST['txtLevel44'];
-	    $cek	= $this->db->where('level_4_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
+		 $cek	= $this->db->where('level_4_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
 	    if(count($cek->result())>0){
-			$valid = "false";
+			$valid="true";
 	    }else{
-			$valid = "true";
+			$cek	= $this->db->where('level_2_name',$data)->or_where('level_3_name',$data)->or_where('level_1_name',$data)->or_where('level_5_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
+			if(count($cek->result())>0){
+			$valid = "false";
+			}else{
+				$valid="true";
+			}
 	    }
 	    echo $valid;
 	}
@@ -1035,9 +1055,14 @@ class Toko extends CI_Controller {
 		$data 	= $_REQUEST['txtLevel55'];
 	    $cek	= $this->db->where('level_5_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
 	    if(count($cek->result())>0){
-			$valid = "false";
+			$valid="true";
 	    }else{
-			$valid = "true";
+			$cek	= $this->db->where('level_2_name',$data)->or_where('level_3_name',$data)->or_where('level_4_name',$data)->or_where('level_1_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
+			if(count($cek->result())>0){
+			$valid = "false";
+			}else{
+				$valid="true";
+			}
 	    }
 	    echo $valid;
 	}
