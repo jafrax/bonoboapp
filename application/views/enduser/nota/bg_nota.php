@@ -139,6 +139,8 @@ echo"
 												</div>
 												<form class='modal-content'>
 													<p>Apakah Anda yakin ingin membatalkan pesanan?</p>
+													<p><input type='checkbox' class='filled-in' id='batal-cek-".$row->id."'  />
+      												<label for='batal-cek-".$row->id."'>Kembalikan stok?</label></p>
 												</form>
 												<div class='modal-footer'>
 													<a class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
@@ -286,8 +288,8 @@ echo"
 								                	</dl>
 								                </div>
 								                <div id='pengiriman' class='modal modal-fixed-footer'>
-													<div class='modal-content'>
-														<form id='form-pengiriman'>
+													<div class='modal-content' >
+														<form id='form-pengiriman' style='overflow:hidden; padding-bottom:50px;'>
 															<input type='hidden' value='".$row->id."' name='id_nota' />
 															<div class='input-field col s12 m6'>
 																<span>Jenis Pengiriman</span>
@@ -334,58 +336,17 @@ echo"
 															</div>
 															<div class='input-field col s12 m6' id='panggon-province'>
 																<span>Pilih Provinsi</span>
-																<select disabled class='chosen-select' name='province' id='province' onchange=javascript:set_city()>
-																	<option value='' disabled selected>Pilih Provinsi</option>";
-																	$provinsi = $this->model_nota->get_province();
-																	foreach ($provinsi->result() as $row_p) {
-																		$select = '';
-																		if ($row_p->province == $row->location_to_province) {$select = 'selected';}
-																		echo "<option $select value='".$row_p->province."'>".$row_p->province."</option>";
-																	}	
-																	echo"
-																</select>
+																<input disabled id='phone' name='phone' type='text' class='validate' value='".$row->location_to_province."'>
+																
 															</div>
 															<div class='input-field col s12 m6' id='panggon-city'>
 																<span>Pilih Kota</span>
-																<select disabled class='chosen-select' name='city' id='city' onchange=javascript:set_kecamatan()>
-																	<option value='' disabled selected>Pilih Kota</option>";
-																	if ($row->location_to_city != '') {
-																		$kota = $this->model_nota->get_city($row->location_to_province);
-																		foreach ($kota->result() as $row_k) {
-																			$select = '';
-																			if ($row_k->city == $row->location_to_city) {$select = 'selected';}
-																			echo "<option $select value='".$row_k->city."'>".$row_k->city."</option>";
-																		}	
-																	}else{
-																		$kota = $this->model_nota->get_city($row->location_to_province);
-																		foreach ($kota->result() as $row_k) {
-																			echo "<option value='".$row_k->city."'>".$row_k->city."</option>";
-																		}	
-																	}
-																	
-																	echo"
-																</select>
+																<input disabled id='phone' name='phone' type='text' class='validate' value='".$row->location_to_city."'>																
 															</div>
 															<div class='input-field col s12 m6' id='panggon-kecamatan'>
 																<span>Pilih Kecamatan</span>
-																<select disabled class='chosen-select' name='kecamatan' id='kecamatan'>
-																	<option value='' disabled selected>Pilih Kecamatan</option>";
-																	if ($row->location_to_kecamatan != '') {
-																		$kecamatan = $this->model_nota->get_kecamatan($row->location_to_city);
-																		foreach ($kecamatan->result() as $row_c) {
-																			$select = '';
-																			if ($row_c->kecamatan == $row->location_to_kecamatan) {$select = 'selected';}
-																			echo "<option $select value='".$row_c->kecamatan."'>".$row_c->kecamatan."</option>";
-																		}	
-																	}else{
-																		$kecamatan = $this->model_nota->get_kecamatan($row->location_to_city);
-																		foreach ($kecamatan->result() as $row_c) {
-																			echo "<option value='".$row_c->kecamatan."'>".$row_c->kecamatan."</option>";
-																		}	
-																	}																	
-																	echo"
-																</select>
-															</div>															
+																<input disabled id='phone' name='phone' type='text' class='validate' value='".$row->location_to_kecamatan."'>																
+															</div>
 														</form>
 													</div>
 													<div class='modal-footer'>

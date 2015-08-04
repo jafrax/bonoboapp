@@ -145,14 +145,14 @@ function set_tcity(){
 function set_tkecamatan(){
     var kota = $('#tkota').val();
     $.ajax({
-			type: 'POST',
-			data: 'kota='+kota,
-			url: base_url+'admin/kurir_detail/set_tkecamatan', 
-			success: function(kec) {
-				$('#ftkecamatan').html(kec);
-				$('#tkecamatan').chosen();
-			}
-			});
+		type: 'POST',
+		data: 'kota='+kota,
+		url: base_url+'admin/kurir_detail/set_tkecamatan', 
+		success: function(kec) {
+			$('#ftkecamatan').html(kec);
+			$('#tkecamatan').chosen();
+		}
+	});
 }
 
 

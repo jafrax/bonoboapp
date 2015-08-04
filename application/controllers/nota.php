@@ -100,18 +100,12 @@ class Nota extends CI_Controller {
 		$cek_stok = $this->model_nota->get_toko()->row();
 		if ($cek_stok->stock_adjust == 1) {
 			//echo "string";
-			$produk = $this->model_nota->get_nota_product_by_id($id);
+			$produk = $this->model_nota->get_nota_product_by_id($id);				
 				foreach ($produk->result() as $row) {
-					$stok_req = $row->quantity;
-					$stok = $this->db->where('id',$row->product_varian_id)->get('tb_product_varian')->row()->stock_qty;
-					if ($stok < $stok_req ) {
-						echo "0";
-						return;
-					}					
-				}
-				foreach ($produk->result() as $row) {
-					$stok = $row->quantity;
-					$this->db->where('id',$row->product_varian_id)->set('stock_qty','stock_qty - $stok')->update('tb_product_varian');
+					$stok 	= $row->quantity;
+					$oldstok= $this->db->where('id',$row->product_varian_id)->get('tb_product_varian')->row()->stock_qty;
+
+					$this->db->where('id',$row->product_varian_id)->set('stock_qty',$oldstok-$stok)->update('tb_product_varian');
 				}
 			
 		}
