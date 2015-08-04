@@ -3528,6 +3528,7 @@ class Api extends CI_Controller {
 					"member_email"=>$QUser->email,
 					"member_confirm"=>0,
 					"status"=>0,
+					"stock_type"=>1,
 					"price_total"=>$price_total,
 					"price_item"=>$price_item,
 					"price_shipment"=>$price_shipment,
@@ -3565,6 +3566,7 @@ class Api extends CI_Controller {
 					->where("member_email",$QUser->email)
 					->where("member_confirm",0)
 					->where("status",0)
+					->where("stock_type",1)
 					->where("price_total",$price_total)
 					->where("price_item",$price_item)
 					->where("price_shipment",$price_shipment)
@@ -3764,6 +3766,7 @@ class Api extends CI_Controller {
 							"member_email"=>$QInvoice->member_email,
 							"member_confirm"=>$QInvoice->member_confirm,
 							"status"=>$QInvoice->status,
+							"stock_type"=>$QInvoice->stock_type,
 							"price_total"=>$QInvoice->price_total,
 							"price_item"=>$QInvoice->price_item,
 							"price_shipment"=>$QInvoice->price_shipment,
