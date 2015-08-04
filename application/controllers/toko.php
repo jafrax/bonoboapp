@@ -975,11 +975,14 @@ class Toko extends CI_Controller {
 		$data['city'] = $this->input->post("cmbCity");
 		$data['province'] = $this->input->post("cmbProvince");
 		if (($data['province']=='null') and ($data['kecamatan']=='null') and ($data['city']=='null')){
-			$kodepos=array('postal_code'=>'Alamat Pos tidak ditemukan');
+			$kodpe=array('postal_code'=>'Alamat Pos tidak ditemukan');
 		}else{
 			$kodepos=$this->model_toko->getcode_pos($data)->result();
+			foreach($kodepos as $row){
+				$kodpe[]=$row->postal_code;
+			}
 		}
-			 echo json_encode($kodepos);
+			 echo json_encode($kodpe);
 	}
 	// diabuat oleh adi 04-08-2015
 	function nomer_rekening(){

@@ -26,6 +26,7 @@ echo"
 
 	<script>var base_url = '".base_url()."';</script>
 	<script type='text/javascript' src='".base_url("html/js/jquery-2.1.4.min.js")."'></script>
+	<script type='text/javascript' src='//code.jquery.com/jquery-1.10.2.js'></script>
 	<script type='text/javascript' src='//code.jquery.com/ui/1.11.4/jquery-ui.js'></script>
 	<script type='text/javascript' src='".base_url("html/js/materialize.min.js")."'></script>
 	<script type='text/javascript' src='".base_url("html/js/materialize-tags.min.js")."'></script>

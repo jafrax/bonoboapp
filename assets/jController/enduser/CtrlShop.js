@@ -1128,8 +1128,8 @@ $(document).ready(function () {
             url: base_url+'toko/kodepos',
 			data:"txtPostal="+$('#postal-code').val()+"&cmbProvince="+$('#province').val()+"&cmbCity="+$('.cmbCity').val()+"&cmbKecamatan="+$('.cmbKecamatan').val(),
             dataType: "json",
-            success: function (data) {
-				var availableTags = [data.postal_code];
+            success: function (response) {
+				var availableTags = response;
 				 $("#postal-code").autocomplete({
 					source: availableTags
 				});
