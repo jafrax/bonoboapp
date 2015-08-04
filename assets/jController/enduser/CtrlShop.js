@@ -1128,28 +1128,59 @@ $(document).ready(function () {
             url: base_url+'toko/kodepos',
 			data:"txtPostal="+$('#postal-code').val()+"&cmbProvince="+$('#province').val()+"&cmbCity="+$('.cmbCity').val()+"&cmbKecamatan="+$('.cmbKecamatan').val(),
             dataType: "json",
-            success: function (data) {
-                if (data.length > 0) {
-                    $('#dropdownpos').empty();
-                    $('#postal-code').attr("data-toggle", "dropdown");
-                    $('#dropdownpos').dropdown('toggle');
-                }
-                else if (data.length == 0) {
-                    $('#postal-code').attr("data-toggle", "");
-                }
-                $.each(data, function (key,value) {
-                    if (data.length >= 0)
-                        $('#dropdownpos').append('<li id="sembarang" role="presentation" ><a role="menuitem dropdownnameli" class="dropdownlivalue" onclick="javascript:hide_var()">' + value['postal_code'] + '</a></li>');
-                });
+            success: function (response) {
+				var availableTags = response;
+				 $("#postal-code").autocomplete({
+					source: availableTags
+				});
+				$("#postal-code").autocomplete("widget").attr('style', 'max-height: 200px; overflow-y: auto; overflow-x: hidden;')
             }
         });
     });
-    $('ul.txtpos').on('click', 'li a', function () {
-        $('#postal-code').val($(this).text());
-    });
 });
- 
- function hide_var(){
-	 $('ul.txtpos').hide();
- }
+
+ $(document).ready(function() {
+	$('#form-change-password').validate({
+        rules:{
+			oldpass     : {required: true,minlength:5,maxlength:50},
+            newpass     : {required: true,minlength:5,maxlength:50},
+            renewpass : {required: true,equalTo:'#newpass'}
+        },
+        messages: {
+			oldpass: {
+                required: message_alert("Password tidak boleh kosong"),
+            },
+            newpass: {
+                required: message_alert("Password Baru tidak boleh kosong"),
+                minlength: message_alert("Minimal 5 karakter dan maksimal 50"),
+                maxlength: message_alert("Minimal 5 karakter dan maksimal 50"),
+            },
+            renewpass: {
+                required: message_alert("Ulangi password baru tidak boleh kosong"),
+                equalTo: message_alert("Ulangi password anda"),
+            }
+        },
+    });
+})
+function c_password(selection,url) {
+    if ($("#"+selection).valid()) {
+        $.ajax({
+            type    : "POST",
+            url     : base_url+url,
+            data    : $("#"+selection).serialize(),
+            dataType: 'json',
+            success : function(response){
+                if (response.msg == "success") {
+					Materialize.toast('Password berhasil diperbaharui', 4000);
+                }else if(response.msg == "zero") {
+					Materialize.toast(response.notif, 4000);
+					location.reload();
+                }
+            },
+            error : function(){
+                
+            }
+        });
+    }
+}
 

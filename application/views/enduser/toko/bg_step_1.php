@@ -229,10 +229,10 @@ echo"
 						echo "
 					</div>
 				</div>
-				<div class='input-field col s12 m8'>
+				<div class='ui-widget input-field col s12 m8'>
+					<label for='tags' class=''>Kodepos</label>		
 					<input  id='postal-code' name='txtPostal' type='text' class='validate' value='".$Shop->postal."' autocoplate='off'>
-					<ul class='browser-default txtpos' style='margin-left:15px;margin-right:0px;height:50px' role='menu' aria-labelledby='dropdownMenu'  id='dropdownpos'> </ul>
-					<label for='postal-code'>Kodepos</label>
+					
 				</div>
 				<div class='input-field col s12 m8'>
 					<textarea id='txtAddress' name='txtAddress' placeholder='Ex : Jl. Raya Bonobo no.1' class='materialize-textarea' >".$Shop->address."</textarea>

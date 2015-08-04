@@ -50,41 +50,48 @@ class Model_toko extends CI_Model {
 						 ->where('tt.verified_code',$uri_veri)
 						 ->get('tb_toko tt');
 	}
+	// diabuat oleh adi 04-08-2015
 	public function cek_status_level_toko($data){
          $this->db->where('tt.id',$data['id_toko']);
          $return = $this->db->get('tb_toko tt');
          return $return;       
     }
+	// diabuat oleh adi 04-08-2015
     public function cek_member_use1($id){
          $this->db->where('tt.toko_id',$id['id_toko']);
          $this->db->where('tt.price_level',1);
          $return = $this->db->get('tb_toko_member tt');
          return $return;
     }
+	// diabuat oleh adi 04-08-2015
     public function cek_member_use2($id){
                 $this->db->where('tt.toko_id',$id['id_toko']);
                 $this->db->where('tt.price_level',2);
                 $return = $this->db->get('tb_toko_member tt');
                 return $return;
     }
+	// diabuat oleh adi 04-08-2015
     public function cek_member_use3($id){
                 $this->db->where('tt.toko_id',$id['id_toko']);
                 $this->db->where('tt.price_level',3);
                 $return = $this->db->get('tb_toko_member tt');
                 return $return;
     }
+	// diabuat oleh adi 04-08-2015
     public function cek_member_use4($id){
                 $this->db->where('tt.toko_id',$id['id_toko']);
                 $this->db->where('tt.price_level',4);
                 $return = $this->db->get('tb_toko_member tt');
                 return $return;
     }
+	// diabuat oleh adi 04-08-2015
     public function cek_member_use5($id){
                $this->db->where('tt.toko_id',$id['id_toko']);
                 $this->db->where('tt.price_level',5);
                 $return = $this->db->get('tb_toko_member tt');
                 return $return;
     }
+	// diabuat oleh adi 04-08-2015
     public function update_level_toko2($data,$data_update){
                 $this->db->set('level_2_active',$data_update);
                 $this->db->where('tt.id',$data['id_toko']);
@@ -92,6 +99,7 @@ class Model_toko extends CI_Model {
                 $return=$this->db->affected_rows();
                 return $return;
      }
+	 // diabuat oleh adi 04-08-2015
      public function update_level_toko3($data,$data_update){
                 $this->db->set('level_3_active',$data_update);
                 $this->db->where('tt.id',$data['id_toko']);
@@ -99,6 +107,7 @@ class Model_toko extends CI_Model {
                 $return=$this->db->affected_rows();
                 return $return;
      }
+	 // diabuat oleh adi 04-08-2015
      public function update_level_toko4($data,$data_update){
                 $this->db->set('level_4_active',$data_update);
                 $this->db->where('tt.id',$data['id_toko']);
@@ -106,6 +115,7 @@ class Model_toko extends CI_Model {
                 $return=$this->db->affected_rows();
                 return $return;
       }
+	  // diabuat oleh adi 04-08-2015
       public function update_level_toko5($data,$data_update){
                 $this->db->set('level_5_active',$data_update);
                 $this->db->where('tt.id',$data['id_toko']);
@@ -113,28 +123,30 @@ class Model_toko extends CI_Model {
                 $return=$this->db->affected_rows();
                 return $return;
       }
-	  
+	  // diabuat oleh adi 04-08-2015
 	  public function get_all_address($data){
 		$this->db->where('tt.postal_code',$data);
 		$return=$this->db->get('ms_location tt');
 		return $return;
 	  }
-	  
+	  // diabuat oleh adi 04-08-2015
 	  public function get_siti($id){
 		$this->db->where('id',$id);
 		return $this->db->get('ms_location');
 	  }
+	  // diabuat oleh adi 04-08-2015
 	  public function get_kota($id){
 		$this->db->where('province',$id);
 		$this->db->group_by('city');
 		return $this->db->get('ms_location');
 	}
+	// diabuat oleh adi 04-08-2015
 	function get_kecamatan($id){
 		$this->db->where('city',$id);
 		$this->db->group_by('kecamatan');
 		return $this->db->get('ms_location');
 	}
-	
+	// diabuat oleh adi 04-08-2015
 	public function get_alamat($id){
 		$this->db->select('tb_toko.location_id,ms_location.city,ms_location.kecamatan,ms_location.province');
 		$this->db->from('tb_toko');
@@ -142,20 +154,23 @@ class Model_toko extends CI_Model {
 		$this->db->where('tb_toko.id',$id);
 		return $this->db->get();
 	}
+
+	// diabuat oleh adi 04-08-2015	
 	public function get_allkota(){
 		$this->db->group_by('city');
 		return $this->db->get('ms_location');
 	}
+	// diabuat oleh adi 04-08-2015
 	public function get_allkecamatan(){
 		$this->db->group_by('kecamatan');
 		return $this->db->get('ms_location');
 	}
-	
+	// diabuat oleh adi 04-08-2015
 	public function get_id_location($pos){
 		$this->db->where('postal_code',$pos);
 		return $this->db->get('ms_location');
 	}
-
+	// diabuat oleh adi 04-08-2015
 	public function getcode_pos($data){
 		$this->db->select('postal_code');
         $this->db->like("province", $data['province'] );
@@ -165,7 +180,14 @@ class Model_toko extends CI_Model {
 		 $this->db->order_by('id', 'DESC');
         return $this->db->get('ms_location');
 	}
+	// diabuat oleh adi 04-08-2015
 	public function get_rekeningsama($data){
+		$this->db->where('acc_no',$data['rekeningmu']);
+		$this->db->where('toko_id',$_SESSION['bonobo']['id']);
+		return $this->db->get('tb_toko_bank')->num_rows();
+	}
+	// diabuat oleh adi 04-08-2015
+	public function get_rekeningsama2($data){
 		$this->db->where('acc_no',$data['rekeningmu']);
 		$this->db->where('toko_id',$_SESSION['bonobo']['id']);
 		return $this->db->get('tb_toko_bank')->num_rows();

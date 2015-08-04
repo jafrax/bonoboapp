@@ -14,6 +14,7 @@ echo"
 
 	<link type='text/css' rel='stylesheet' href='".base_url("html/css/materialize.min.css")."'  media='screen,projection'/>
 	<link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons' >
+	<link type='text/css' rel='stylesheet' href='//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css' />
 	<link type='text/css' rel='stylesheet' href='".base_url("html/css/font-awesome.min.css")."' />
 	<link type='text/css' rel='stylesheet' href='".base_url("html/css/materialize-tags.min.css")."'/>
 	<link type='text/css' rel='stylesheet' href='".base_url("html/css/jpushmenu.css")."' />
@@ -25,6 +26,8 @@ echo"
 
 	<script>var base_url = '".base_url()."';</script>
 	<script type='text/javascript' src='".base_url("html/js/jquery-2.1.4.min.js")."'></script>
+	<script type='text/javascript' src='//code.jquery.com/jquery-1.10.2.js'></script>
+	<script type='text/javascript' src='//code.jquery.com/ui/1.11.4/jquery-ui.js'></script>
 	<script type='text/javascript' src='".base_url("html/js/materialize.min.js")."'></script>
 	<script type='text/javascript' src='".base_url("html/js/materialize-tags.min.js")."'></script>
 	<script type='text/javascript' src='".base_url("html/js/jpushmenu.js")."'></script>
@@ -59,6 +62,7 @@ echo"
 			<li "; if ($uri == 'nota') echo"class='active'"; echo"><a "; if ($uri == 'nota') echo"class='active'"; echo" href='".base_url("nota")."'>Nota</a></li>
 			<!-- <li "; if ($uri == 'message') echo"class='active'"; echo"><a "; if ($uri == 'message') echo"class='active'"; echo" href='".base_url("message")."'>Pesan</a></li> -->
 			<li "; if ($uri == 'preorder') echo"class='active'"; echo"><a "; if ($uri == 'preorder') echo"class='active'"; echo" href='".base_url("preorder")."'>Pemesanan Pre Order</a></li>
+			<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='".base_url("index/change_password")."'>Change password</a></li>
 			<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='".base_url("index/logout")."'>Logout</a></li>
 		</ul>
 	</nav>
@@ -86,6 +90,7 @@ echo"
 							<text>".$_SESSION['bonobo']['name']."</text>
 						</a>
 						<ul id='duser' class='dropdown-content right'>
+							<li><a href='".base_url("toko/change_password")."'>Change Password</a></li>
 							<li><a href='".base_url("index/logout")."'>Logout</a></li>
 						</ul>
 					</div>

@@ -26,7 +26,7 @@ foreach($ShopBanks as $ShopBank){
 	$BankImage = base_url("assets/image/img_default_photo.jpg");
 	
 	if(!empty($ShopBank->bank_image) && file_exists("./assets/pic/bank/".$ShopBank->bank_image)){
-		$BankImage = base_url("assets/pic/user/resize/".$ShopBank->bank_image);
+		$BankImage = base_url("assets/pic/bank/resize/".$ShopBank->bank_image);
 	}
 		
 	echo"
@@ -86,15 +86,15 @@ echo"
 							<div id='divCmbBank' class='input-field col s12 m12'>																
 								<select name='cmbBank' class='select-standar'>
 									<option value='' disabled selected>Pilih Bank</option>
-";
+									";
+										
+										foreach($Banks as $Bank){
+											echo"	
+												<option value='".$Bank->id."'>".$Bank->name."</option>
+											";
+										}
 	
-	foreach($Banks as $Bank){
-		echo"	
-			<option value='".$Bank->id."'>".$Bank->name."</option>
-		";
-	}
-	
-echo"
+								echo"
 								</select>																
 							</div>
 							<div class='input-field col s12 m12'>
