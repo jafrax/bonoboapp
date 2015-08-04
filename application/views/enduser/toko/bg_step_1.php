@@ -21,12 +21,12 @@ echo"
 			<div class='row formbody '>
 				<div class='linehead'>Informasi Umum</div>
 				<div class='input-field col s12 m8'>
-					<input id='txtName' name='txtName' type='text' placeholder='Ex : PT Bonobo Indonesia' class='validate' value='".$Shop->name."' autofocus>
+					<input id='txtName' name='txtName' type='text' placeholder=' PT Bonobo Indonesia' class='validate' value='".$Shop->name."' autofocus>
 					<label for='txtName'>Nama toko *</label>
 					<label id='notifName' class='error' style='display:none;'></label>
 				</div>
 				<div class='input-field col s12 m8'>
-					<input id='txtTagname' name='txtTagname' type='text' placeholder='Ex : ptbonobo' class='validate'  value='".$Shop->tag_name."'>
+					<input id='txtTagname' name='txtTagname' type='text' placeholder=' ptbonobo' class='validate'  value='".$Shop->tag_name."'>
 					<label for='txtTagname'>Toko Id *</label>
 					<label id='notifTagname' class='error' style='display:none;'></label>
 				</div>
@@ -53,7 +53,7 @@ echo"
 					<label for='txtKeyword'>Kata kunci pencarian</label>
 				</div>
 				<div class='input-field col s12 m8'>
-					<textarea id='txtDescription' name='txtDescription' placeholder='Ex : Bonobo adalah platform Bisnis Online yang aman' class='materialize-textarea' >".$Shop->description."</textarea>
+					<textarea id='txtDescription' name='txtDescription' placeholder=' Bonobo adalah platform Bisnis Online yang aman' class='materialize-textarea' >".$Shop->description."</textarea>
 					<label for='txtDescription'>Deskripsi toko</label>
 				</div>
 				<div class='input-field col s12 m8'>
@@ -76,7 +76,7 @@ echo"
 			<div class='row formbody'>
 				<div class='linehead'>Kontak dan Alamat</div>
 				<div class='input-field col s12 m8'>
-					<input id='txtPhone' name='txtPhone' placeholder='Ex : 0271-987654' type='text' class='validate' value='".$Shop->phone."'>
+					<input id='txtPhone' name='txtPhone' placeholder=' 0271-987654' type='text' class='validate' value='".$Shop->phone."'>
 					<label for='txtPhone'>Telephone</label>
 				</div>
 				<div class='input-field col s12 m8'>								
@@ -100,7 +100,7 @@ if(sizeOf($Attributes) <= 0){
 				Pin/ID/Nomor
 			</div>
 			<div class='col s12 m5'>
-				<input name='txtAttributeValue1' placeholder='Ex : AD9876/bonoboLine' type='text' class='validate'>
+				<input name='txtAttributeValue1' placeholder=' AD9876/bonoboLine' type='text' class='validate'>
 			</div>
 		</div>
 	";
@@ -122,7 +122,7 @@ if(sizeOf($Attributes) <= 0){
 					Pin/ID/Nomor
 				</div>
 				<div class='col s12 m5'>
-					<input name='txtAttributeValue".$no."' placeholder='Ex : AD9876/bonoboLine' type='text' class='validate' value='".$Attribute->value."'>
+					<input name='txtAttributeValue".$no."' placeholder=' AD9876/bonoboLine' type='text' class='validate' value='".$Attribute->value."'>
 				</div>
 				<div class='col s12 m5'>
 					<a class='btn-floating btn-xs waves-effect waves-light red right' onclick=javascript:deletestep1(".$no.",".$Attribute->id.")>
@@ -229,13 +229,13 @@ echo"
 						echo "
 					</div>
 				</div>
-				<div class='input-field col s12 m8'>
+				<div class='ui-widget input-field col s12 m8'>
+					<label for='tags' class=''>Kodepos</label>		
 					<input  id='postal-code' name='txtPostal' type='text' class='validate' value='".$Shop->postal."' autocoplate='off'>
-					<ul class='browser-default txtpos' style='margin-left:15px;margin-right:0px;height:50px' role='menu' aria-labelledby='dropdownMenu'  id='dropdownpos'> </ul>
-					<label for='postal-code'>Kodepos</label>
+					
 				</div>
 				<div class='input-field col s12 m8'>
-					<textarea id='txtAddress' name='txtAddress' placeholder='Ex : Jl. Raya Bonobo no.1' class='materialize-textarea' >".$Shop->address."</textarea>
+					<textarea id='txtAddress' name='txtAddress' placeholder=' Jl. Raya Bonobo no.1' class='materialize-textarea' >".$Shop->address."</textarea>
 					<label for='txtAddress'>Alamat toko</label>
 				</div>
 				<div class='input-field col s12 m8'>

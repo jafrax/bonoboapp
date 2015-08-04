@@ -968,19 +968,23 @@ class Toko extends CI_Controller {
 		}
 		redirect('toko');
 	}
-	
+	// diabuat oleh adi 04-08-2015
 	public function kodepos(){
 		$data['postal'] = $this->input->post("txtPostal");
 		$data['kecamatan'] = $this->input->post("cmbKecamatan");
 		$data['city'] = $this->input->post("cmbCity");
 		$data['province'] = $this->input->post("cmbProvince");
 		if (($data['province']=='null') and ($data['kecamatan']=='null') and ($data['city']=='null')){
-			$kodepos=array('postal_code'=>'Alamat Pos tidak ditemukan');
+			$kodpe=array('postal_code'=>'Alamat Pos tidak ditemukan');
 		}else{
 			$kodepos=$this->model_toko->getcode_pos($data)->result();
+			foreach($kodepos as $row){
+				$kodpe[]=$row->postal_code;
+			}
 		}
-			 echo json_encode($kodepos);
+			 echo json_encode($kodpe);
 	}
+	// diabuat oleh adi 04-08-2015
 	function nomer_rekening(){
 		$data['rekeningmu'] 	= $_REQUEST['txtNo'];
 		$respon=$this->model_toko->get_rekeningsama($data);
@@ -991,6 +995,7 @@ class Toko extends CI_Controller {
 		}
 		echo $valid;
 	}
+	// diabuat oleh adi 04-08-2015
 	function ceklevel1(){
 		$data 	= $_REQUEST['txtLevel1'];
 		$cek	= $this->db->where('level_1_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
@@ -1006,6 +1011,7 @@ class Toko extends CI_Controller {
 	    }
 	    echo $valid;
 	}
+	// diabuat oleh adi 04-08-2015
 	function ceklevel2(){
 		$data 	= $_REQUEST['txtLevel22'];
 		$cek	= $this->db->where('level_2_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
@@ -1021,6 +1027,7 @@ class Toko extends CI_Controller {
 	    }
 	    echo $valid;
 	}
+	// diabuat oleh adi 04-08-2015
 	function ceklevel3(){
 		$data 	= $_REQUEST['txtLevel33'];
 		 $cek	= $this->db->where('level_3_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
@@ -1036,6 +1043,7 @@ class Toko extends CI_Controller {
 	    }
 	    echo $valid;
 	}
+	// diabuat oleh adi 04-08-2015
 	function ceklevel4(){
 		$data 	= $_REQUEST['txtLevel44'];
 		 $cek	= $this->db->where('level_4_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
@@ -1051,6 +1059,7 @@ class Toko extends CI_Controller {
 	    }
 	    echo $valid;
 	}
+	// diabuat oleh adi 04-08-2015
 	function ceklevel5(){
 		$data 	= $_REQUEST['txtLevel55'];
 	    $cek	= $this->db->where('level_5_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
@@ -1063,6 +1072,55 @@ class Toko extends CI_Controller {
 			}else{
 				$valid="true";
 			}
+	    }
+	    echo $valid;
+	}
+	// diabuat oleh adi 04-08-2015
+	public function change_password(){
+		if(!$_POST){
+			$this->template->bonobo('cp/bg_cp');
+		}else{
+			$this->form_validation->set_rules('oldpass', '', 'required|min_length[5]|max_length[50]');
+			$this->form_validation->set_rules('newpass', '', 'trim|required|min_length[5]|max_length[50]');
+			$this->form_validation->set_rules('renewpass', '', 'trim|required|matches[newpass]');
+			$msg    = "error";
+			$notif  = "";
+			if ($this->form_validation->run() == TRUE){
+				$id   		= $_SESSION['bonobo']['id'];
+				$password   = $this->db->escape_str($this->input->post('oldpass'));
+				$cek	= $this->db->where('password',md5($password))->where("id",$id)->get('tb_toko');
+				if(count($cek->result())>0){
+					$param  = array(
+					'password'      => md5($this->input->post('newpass')),
+					'update_user'   => $_SESSION['bonobo']['email']
+					);
+				
+				$insert = $this->db->where("id",$id)->update('tb_toko',$param);
+					if($insert){
+						$msg    = "success";
+						$notif  = "Berhasil";
+					}
+				}else{
+					$msg    = "zero";
+					$notif  = "Password yang anda masukkan salah";
+				}
+			}else{
+            
+				}
+			echo json_encode(array("msg"=>$msg,"notif"=>$notif));
+			
+		}
+			
+	}
+		// diabuat oleh adi 04-08-2015
+	function rules_password(){
+		$pass 	= $_REQUEST['oldpass'];
+		$id   	=$_SESSION['bonobo']['id'];
+	    $cek	= $this->db->where('password',md5($pass))->where("id",$id)->get('tb_toko');
+	    if(count($cek->result())>0){
+			$valid = "true";
+	    }else{
+			$valid = "false";
 	    }
 	    echo $valid;
 	}

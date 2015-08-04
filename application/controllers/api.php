@@ -2536,223 +2536,6 @@ class Api extends CI_Controller {
 		}
 	}
 	
-	public function getCarts(){
-		try{
-			/*
-			*	------------------------------------------------------------------------------
-			*	Validation POST data
-			*	------------------------------------------------------------------------------
-			*/
-			if(!$this->isValidApi($this->response->postDecode("api_key"))){
-				return;
-			}
-			
-			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
-				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
-				return;
-			}
-			
-			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
-			if(empty($QUser)){
-				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
-				return;
-			}
-			
-			/*
-			*	------------------------------------------------------------------------------
-			*	Query mengambil data carts
-			*	------------------------------------------------------------------------------
-			*/
-			
-			$QCarts = $this->db;
-			$QCarts = $QCarts->where("tc.member_id",$QUser->id);
-			
-			if($this->response->post("page") != "" && $this->response->postDecode("page") != ""){
-				$QCarts = $QCarts->limit(10,$this->response->postDecode("page"));
-			}else{
-				$QCarts = $QCarts->limit(10,0);
-			}
-			
-			$QCarts = $QCarts->get("tb_cart tc");
-			$QCarts = $QCarts->result();
-			
-			if(sizeOf($QCarts) <= 0){
-				$this->response->send(array("result"=>0,"message"=>"Anda tidak memiliki daftar belanja","messageCode"=>3), true);
-			}else{
-				$Carts = array();
-				foreach($QCarts as $QCart){
-					$Shop = $this->getShopById($QCart->toko_id);
-					
-					/*
-					*	------------------------------------------------------------------------------
-					*	Query mengambil data cart products
-					*	------------------------------------------------------------------------------
-					*/
-					$QCartProducts = $this->db
-									->select("tcp.*,tp.id as product_id, tp.name as product_name, tpv.id as product_varian_id, tpv.name as product_varian_name")
-									->join("tb_product_varian tpv","tpv.id = tcp.product_varian_id")
-									->join("tb_product tp","tp.id = tpv.product_id")
-									->where("tcp.cart_id",$QCart->id)
-									->get("tb_cart_product tcp")
-									->result();
-					
-					$CartProducts = array();
-					foreach($QCartProducts as $QCartProduct){
-						$CartProduct = array(
-									"id"=>$QCartProduct->id,
-									"price_product"=>$QCartProduct->price_product,
-									"quantity"=>$QCartProduct->quantity,
-									"product_id"=>$QCartProduct->product_id,
-									"product_name"=>$QCartProduct->product_name,
-									"product_varian_id"=>$QCartProduct->product_varian_id,
-									"product_varian_name"=>$QCartProduct->product_varian_name,
-								);
-						
-						array_push($CartProducts,$CartProduct);
-					}
-					
-					/*
-					*	------------------------------------------------------------------------------
-					*	Membentuk object cart
-					*	------------------------------------------------------------------------------
-					*/
-					$Cart = array(
-							"id"=>$QCart->id,
-							"price_total"=>$QCart->price_total,
-							"shop"=>$Shop,
-							"cart_products"=>$CartProducts,
-						);
-					
-					array_push($Carts,$Cart);
-				}
-				
-				/*
-				*	------------------------------------------------------------------------------
-				*	Menampilkan response API
-				*	------------------------------------------------------------------------------
-				*/
-				$this->response->send(array(
-						"result"=>0,
-						"total"=>sizeOf($QCarts),
-						"size"=>sizeOf($QCarts),
-						"count_product"=>100,
-						"count_shop"=>10,
-						"carts"=>$Carts,
-					), true);
-			}
-			
-		} catch (Exception $e) {
-			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
-		}
-	}
-	
-	public function getNotas(){
-		try{
-			/*
-			*	------------------------------------------------------------------------------
-			*	Validation POST data
-			*	------------------------------------------------------------------------------
-			*/
-			if(!$this->isValidApi($this->response->postDecode("api_key"))){
-				return;
-			}
-			
-			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
-				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
-				return;
-			}
-			
-			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
-			if(empty($QUser)){
-				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
-				return;
-			}
-			
-			/*
-			*	------------------------------------------------------------------------------
-			*	Query mengambil data invoice
-			*	------------------------------------------------------------------------------
-			*/
-			
-			$QInvoices = $this->db;
-			$QInvoices = $QInvoices->where("ti.member_id",$QUser->id);
-			
-			if($this->response->post("page") != "" && $this->response->postDecode("page") != ""){
-				$QInvoices = $QInvoices->limit(10,$this->response->postDecode("page"));
-			}else{
-				$QInvoices = $QInvoices->limit(10,0);
-			}
-			
-			$QInvoices = $QInvoices->get("tb_invoice ti");
-			$QInvoices = $QInvoices->result();
-			
-			if(sizeOf($QInvoices) <= 0){
-				$this->response->send(array("result"=>0,"message"=>"Anda tidak memiliki daftar nota","messageCode"=>3), true);
-			}else{
-				$Invoices = array();
-				foreach($QInvoices as $QInvoice){
-					$Shop = $this->getShopById($QInvoice->toko_id);
-					
-					$QInvoiceProducts = $this->db
-									->select("tip.*,tp.id as product_id, tp.name as product_name, tpv.id as product_varian_id, tpv.name as product_varian_name")
-									->join("tb_product_varian tpv","tpv.id = tip.product_varian_id")
-									->join("tb_product tp","tp.id = tpv.product_id")
-									->where("tip.invoice_id",$QInvoice->id)
-									->get("tb_invoice_product tip")
-									->result();
-					
-					$InvoiceProducts = array();
-					foreach($QInvoiceProducts as $QInvoiceProduct){
-						$InvoiceProduct = array(
-									"id"=>$QInvoiceProduct->id,
-									"quantity"=>$QInvoiceProduct->quantity,
-									"product_id"=>$QInvoiceProduct->product_id,
-									"product_name"=>$QInvoiceProduct->product_name,
-									"product_varian_id"=>$QInvoiceProduct->product_varian_id,
-									"product_varian_name"=>$QInvoiceProduct->product_varian_name,
-								);
-						
-						array_push($InvoiceProducts,$InvoiceProduct);
-					}
-					
-					$Invoice = array(
-							"id"=>$QInvoice->id,
-							"number"=>$QInvoice->invoice_no,
-							"member_name"=>$QInvoice->member_name,
-							"member_email"=>$QInvoice->member_email,
-							"member_confirm"=>$QInvoice->member_confirm,
-							"price_total"=>$QInvoice->price_total,
-							"price_shipment"=>$QInvoice->price_shipment,
-							"notes"=>$QInvoice->notes,
-							"shipment_no"=>$QInvoice->shipment_no,
-							"shipment_service"=>$QInvoice->shipment_service,
-							"recipient_name"=>$QInvoice->recipient_name,
-							"recipient_phone"=>$QInvoice->recipient_phone,
-							"location_to_province"=>$QInvoice->location_to_province,
-							"location_to_city"=>$QInvoice->location_to_city,
-							"location_to_kecamatan"=>$QInvoice->location_to_kecamatan,
-							"location_to_postal"=>$QInvoice->location_to_postal,
-							"status"=>$QInvoice->status,
-							"shop"=>$Shop,
-							"invoice_products"=>$InvoiceProducts,
-						);
-					
-					array_push($Invoices,$Invoice);
-				}
-				
-				$this->response->send(array(
-						"result"=>0,
-						"total"=>sizeOf($Invoices),
-						"size"=>sizeOf($QInvoices),
-						"notas"=>$Invoices,
-					), true);
-			}
-			
-		} catch (Exception $e) {
-			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
-		}
-	}
-	
 	public function doCartProductDelete(){
 		try{
 			/*
@@ -2804,6 +2587,56 @@ class Api extends CI_Controller {
 				$this->response->send(array("result"=>0,"message"=>"Data produk belanja tidak dapat dihapus","messageCode"=>5), true);
 			}
 			
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function doInvoiceConfirm(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			if($this->response->post("invoice") == "" || $this->response->postDecode("invoice") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data toko yang dipilih","messageCode"=>3), true);
+				return;
+			}
+			
+			$QInvoice = $this->db->where("id",$this->response->postDecode("invoice"))->get("tb_invoice")->row();
+			if(empty($QInvoice)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>4), true);
+				return;
+			}
+			
+			$Data = array(
+					"member_confirm"=>1,
+				);
+			
+			$Save = $this->db->where("id",$QInvoice->id)->update("tb_invoice",$Data);
+			if($Save){
+				$this->response->send(array("result"=>1,"message"=>"Konfirmasi pembayaran telah di kirimkan","messageCode"=>5), true);
+				return;
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Tidak dapat mengirim konfirmasi pembayaran nota anda","messageCode"=>6), true);
+				return;
+			}
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
