@@ -399,6 +399,7 @@ class Toko extends CI_Controller {
 			if($Upload == 'error'){
 				$Unggah = "";
 			}else{
+				$Unggah=$Upload;
 				$_SESSION['bonobo']['image'] = $Unggah;
 			}
 			
