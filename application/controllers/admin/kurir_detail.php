@@ -6,7 +6,7 @@
 * 1. Create 28 July 2015 by Adi Setyo, Create controller : Coding index, delete, search, edit, add
 */
 class Kurir_detail extends CI_Controller {
-    var $data = array('scjav'=>'assets/jController/admin/CtrlDkurir.js');
+    var $data = array('scjav'=>'assets/jController/admin/CtrlDKurir.js');
 	var $limit = 10;
 	var $offset = 0;
     function __construct(){
