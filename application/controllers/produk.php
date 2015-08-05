@@ -751,7 +751,7 @@ class Produk extends CI_Controller {
 					</div>
 					<div class='col s12 m5'>
 						<a href='#delete_kategori_".$row->id."' class='modal-trigger btn-flat right'><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>
-						<a href='#edit_kategori_".$row->id."' class='modal-trigger btn-flat right'><b class='blue-text'><i class='mdi-editor-border-color left'></i>Edit</b></a>
+						<a href='#edit_kategori_".$row->id."' onclick=javascript:set_rules(".$row->id.") class='modal-trigger btn-flat right'><b class='blue-text'><i class='mdi-editor-border-color left'></i>Edit</b></a>
 						<div id='delete_kategori_".$row->id."' class='modal confirmation'>
 							<div class='modal-header red'>
 								<i class='mdi-navigation-close left'></i> Hapus produk
@@ -769,16 +769,16 @@ class Produk extends CI_Controller {
 							<div class='modal-header deep-orange'>
 								<i class='mdi-action-spellcheck left'></i> Edit kategori
 							</div>
-							<form class='modal-content'>
+							<form class='modal-content' id='form_edit_kategori_".$row->id."'>
 								<p>
 									<div class='input-field col s12'>														
-										<input id='nama_".$row->id."' type='text' value='".$row->name."' class='validate'>
+										<input id='nama_".$row->id."' name='nama_kategori' type='text' value='".$row->name."' class='validate'>
 										<label for='nama_".$row->id."'>Kategori</label>
 									</div>
 							    </p>
 							</form>
 							<div class='modal-footer'>
-								<a onclick=javascript:edit_kategori('".$row->id."') class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
+								<a onclick=javascript:edit_kategori('".$row->id."') class=' modal-action waves-effect waves-red btn-flat'>YA</a>
 								<a  class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
 							</div>
 						</div>
