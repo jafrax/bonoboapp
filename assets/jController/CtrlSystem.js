@@ -160,31 +160,7 @@ function onlyNumber(evt) {
   }
 }
 
-$(function(){
-		//select active nav
-	var link=window.location;
-	$('ul.nav li a[href="'+link+'"]').parent().addClass("active");
-	
-	//pagination
-	$(document).on('click','.pagination li a',function() {
-		var url = $(this).attr('href');		
-		$.ajax({
-			type	: 'POST',
-			data	: 'ajax=1',
-			url		: url,
-			success: function(msg) {				
-				$('#div-paging').html(msg);
-				checkall();
-			}
-		});
-		return false;
-	});	
-		
-	//checkall cehckbox
-	$("table").on('click', '#checkall', function () {
-		$(this).parents('table:eq(0)').find(':checkbox').prop('checked', this.checked);
-	});
-});
+
 
 function checkall(args) {
     $("table").on('click', '#checkall', function () {
