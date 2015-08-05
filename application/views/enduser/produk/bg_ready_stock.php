@@ -143,9 +143,9 @@ echo"
 
 										<div class='col s12 m12 l12 '>";
 										if ($row->active == 0) {
-											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled' id='draft-".$row->id."'>DRAFT</button>";
+											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."'>DRAFT</button>";
 										}else{
-											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled' id='draft-".$row->id."' style='display:none;'>DRAFT</button>";
+											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."' style='display:none;'>DRAFT</button>";
 										}
 											echo"
 											<a href='#delete_produk_".$row->id."' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
@@ -241,6 +241,12 @@ echo"
 													echo"
 													</p>";
 												}
+											}
+
+											if ($row->active == 0) {
+											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."'>DRAFT</button>";
+											}else{
+												echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."' style='display:none;'>DRAFT</button>";
 											}
 											echo"
 										</div>

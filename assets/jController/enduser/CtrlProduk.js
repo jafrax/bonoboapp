@@ -358,9 +358,9 @@ function go(){
       if (option == 1) {
         $('.produk-'+id).fadeOut().remove();
       } else if (option == 2) {            
-        $('#draft-'+id).fadeIn();        
+        $('.draft-'+id).fadeIn();        
       } else if (option == 3) {            
-        $('#draft-'+id).fadeOut();
+        $('.draft-'+id).fadeOut();
       } else if (option == 4) {
         $('.produk-'+id).fadeOut().remove();
       } else if (option == 5) {
@@ -487,14 +487,14 @@ function change_date(id){
     data: 'date='+date+'&id='+id,
     url: base_url+'produk/change_date',
     success: function(msg) {
-      if (msg == 'sukses') {
-        var newdate = $('#tanggal-'+id).val();
-        $('#draft-'+id).fadeOut();
+      if (msg == 'sukses') {        
+        $('.draft-'+id).fadeOut();
         $('.kadal-'+id).fadeOut();
-        $('.date-'+id).html(newdate);
+        $('.date-'+id).html(date);
       }else{
-        $('#draft-'+id).fadeIn();
-        $('.kadal-'+id).fadeIn();        
+        $('.draft-'+id).fadeIn();
+        $('.kadal-'+id).fadeIn();
+        $('.date-'+id).html(date);       
       };
     } 
   });

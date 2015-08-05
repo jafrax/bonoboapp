@@ -110,15 +110,15 @@ echo"
 										<p class='titleproduct'><a href='".base_url()."produk/edit_pre_order/".base64_encode($row->id)."'><b >".$row->name."</b></a></p>
 										</p>
 										<p class='input-field col s12 m12 l6 nolpad'>
-											<input id='tanggal-".$row->id."' name='tanggal-".$row->id."' onchange=javascript:change_date(".$row->id.") type='text' data-value='".$date."'  placeholder='Tanggal Berakhir' class='validate datepicker date-".$row->id."'>
+											<input id='tanggal-".$row->id."' name='tanggal-".$row->id."' onchange=javascript:change_date(".$row->id.") type='text' data-value='".$date."'  placeholder='Tanggal Berakhir' class='validate datepicker '>
 											<span class='label red right kadal-".$row->id."' style='display:$kadal'>Kadaluarsa</span>
 										</p>
 
 										<div class='col s12 m12 l12 '>";
 										if ($row->active == 0) {
-											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled' id='draft-".$row->id."'>DRAFT</button>";
+											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."'>DRAFT</button>";
 										}else{
-											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled' id='draft-".$row->id."' style='display:none;'>DRAFT</button>";
+											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."' style='display:none;'>DRAFT</button>";
 										}
 											echo"
 											<a href='#delete_produk_".$row->id."' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
@@ -177,7 +177,12 @@ echo"
 											<div class='input-field col s12'>
 												<span class='date-".$row->id."'>".$row->end_date."</span>
 												<span class='label red right kadal-".$row->id."' style='display:$kadal'>Kadaluarsa</span>
-											</div>
+											</div>";
+											if ($row->active == 0) {
+												echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."'>DRAFT</button>";
+											}else{
+												echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."' style='display:none;'>DRAFT</button>";
+											}echo"
 										</p>
 									</div>
 								</div>";
