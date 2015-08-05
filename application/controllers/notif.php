@@ -21,4 +21,15 @@ class Notif extends CI_Controller {
 		
 	}
 
+    public function nota()
+    {
+        if(isset($_SESSION['bonobo'])){
+            $notif = $this->db->where('toko_id',$_SESSION['bonobo']['id'])->where('status',0)->get('tb_invoice')->num_rows();            
+            //echo $notif;
+            $this->response->send(array("result"=>1,"message"=>$notif));
+        }else{
+            $this->response->send(array("result"=>0,"message"=>'No Login'));
+        }
+    }
+
 }

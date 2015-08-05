@@ -108,6 +108,23 @@ function requestMessage () {
 			
 			
 		}
+	});
+
+	$.ajax({
+		type:'POST',
+		url: base_url+"notif/nota",
+		success:function(result){
+			var response = JSON.parse(result);
+			if(response.result == 1){
+				if (response.message == 0){
+					$('.notifinnota').html('');
+					$('.notifinnota').hide();
+				}else{
+					$('.notifinnota').html(response.message);
+					$('.notifinnota').fadeIn();
+				}
+			}
+		}
 	});	
 }
 

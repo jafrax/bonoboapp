@@ -40,19 +40,23 @@ function cek_all_nota(){
 function batal_nota(id){
     $('#btn-batal-'+id).html('loading...');
     $('#btn-batal-'+id).fadeTo('slow',0.5);
+    var cek = 0;
+    if ($('#batal-cek-'+id).is(':checked')) {
+        cek = 1;
+    };
     $.ajax({
         type: 'POST',
-        data: 'id='+id,
+        data: 'id='+id+'&cek='+cek,
         url: base_url+'nota/nota_batal',
         success: function(msg) {
             if (msg == 1) {             
                 $('#btn-batal-'+id).fadeOut();
                 $('#btn-bayar-'+id).fadeOut();
                 $('#lokasi-btn-'+id).html('<br>');
-                $('#lunas-'+id).html('Batal');              
+                $('#lunas-'+id).html('Batal');
                 $('#lunas-'+id).addClass('grey-text');
                 $('#lunas-'+id).addClass('red-text');
-            };              
+            };
         } 
     });
 
