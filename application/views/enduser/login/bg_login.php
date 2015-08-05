@@ -57,12 +57,12 @@ echo "
 					".$pesan."
 						<div id='lblNotif' class='notif-error'></div>
 						<div class='input-field col s12'>
-							<input id='email' name='email' type='text' class='validate' autofocus='' maxlength='30' placeholder='ex : email@mail.com' tabindex='1'>
+							<input id='email' name='email' type='text' class='validate' autofocus='' maxlength='50' placeholder='ex : email@mail.com' tabindex='1'>
 							<label for='email'>Email</label>
 							<label id='notifEmail' class='error' style='display:none;'><i class='fa fa-warning'></i> Harus diisi !</label>
 						</div>
 						<div class='input-field col s12'>
-							<input id='password' name='password' type='password' class='validate' tabindex='2' maxlength='30'>
+							<input id='password' name='password' type='password' class='validate' tabindex='2' maxlength='50'>
 							<label for='password'>Password</label>
 							<label id='notifPassword' class='error' style='display:none;'><i class='fa fa-warning'></i> Harus diisi !</label>
 						</div>
@@ -92,7 +92,7 @@ echo "
 		</div>
 		<form class='modal-content' id='formReset'>
 			<div class='input-field col s12'>
-				<input id='txtForgotEmail' name='txtForgotEmail' type='text' maxlength='30' class='validate'>
+				<input id='txtForgotEmail' name='txtForgotEmail' type='text' maxlength='50' class='validate'>
 				<label for='txtForgotEmail'>Reset Password</label>
 				
 			</div>

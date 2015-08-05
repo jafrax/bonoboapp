@@ -5,9 +5,12 @@ function CtrlAnggotaJoinin(){
 	this.doDeletes = doDeletes;
 	this.doAccept = doAccept;
 	this.doReject = doReject;
+	this.popupDetail3 = popupDetail3;
+
 	
 	var formJoininLevel;
 	var aJoinLevelYes,aJoinLevelNo;
+	var popupBlacklist;
 		
 	function init(){
 		initComponent();
@@ -18,7 +21,7 @@ function CtrlAnggotaJoinin(){
 		formJoininLevel = $hs("formJoininLevel");
 		aJoinLevelYes = $hs("aJoinLevelYes");
 		aJoinLevelNo = $hs("aJoinLevelNo");
-		
+		popupBlacklist = $("#popupBlacklist");
 		$('.modal-trigger').leanModal();
 	}
 	
@@ -30,6 +33,17 @@ function CtrlAnggotaJoinin(){
 		aJoinLevelNo.onclick = function(){
 			formJoininLevel.id.value = "";
 		};
+	}
+	
+	function popupDetail3(e){
+		$.ajax({
+			type: 'POST',
+			data: "id="+e,
+			url: base_url+'anggota/members_detail_ab',
+			success: function(result) {
+				popupBlacklist.html(result);
+			}
+		});
 	}
 	
 	function accept(e){
@@ -363,6 +377,7 @@ function CtrlAnggotaBlacklist(){
 			}
 		});
 	}
+
 	
 	function popupDelete(e,n){
 		blacklistDeleteID.value = e;
