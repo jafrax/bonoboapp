@@ -1,5 +1,51 @@
 // Created by : dinarwahyu13@gmail.com
 
+
+/*
+* MAIN SCROOL AJAX
+*/
+var offset=5;
+var scrolling=true;
+
+$(window).scroll(function () {      
+        if ($(window).scrollTop() == ( $(document).height() - $(window).height()) && scrolling==true) {
+            $('#preloader').slideDown();
+            
+            scrolling       = false;
+            var total_nota  = $('#total-nota').val();
+            var url         = base_url+'nota/index/'+offset;
+            
+            window.scrollTo(0, ($(window).scrollTop()-50) );
+
+            $.ajax({
+                type: 'POST',
+                data: 'ajax=1&scroll=1',
+                url: url,
+                success: function(msg) {
+                    if (msg){
+                        $('#ajax-div').append(msg);
+                        $('#preloader').slideUp();
+                        offset      = offset+5;
+                        scrolling   = true;
+                        $('#total-nota').val(total_nota+5);
+                    }else{
+                        $('#preloader').slideUp();
+                        scrolling   = false;
+                        $('#habis').slideDown();
+                    }
+                }
+            });
+            return false;
+        }
+    });
+
+/*
+* END MAIN SCROOL AJAX
+*/
+
+
+
+
 // Notes nota ======================================================================================
 function edit_notes (id) {
     $('.notes-'+id).prop("disabled", false);
@@ -62,7 +108,7 @@ function batal_nota(id){
 
 }
 function go(){
-  var total_nota  = $('#total-nota').val();
+  var total_nota    = $('#total-nota').val();
   var option        = $('#option-go').val();
   var url           = '';
 

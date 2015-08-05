@@ -362,8 +362,14 @@ echo"
 							</div>";
 						}
 						echo"
-						<input type='hidden' id='total-nota' value='$i' />
+						
 						</div>
+						<input type='hidden' id='total-nota' value='$i' />
+						<center>
+							<img id='preloader' src='".base_url()."html/images/comp/loading.GIF' style='display:none' /><br>
+							<label id='habis' class='green-text' style='display:none'>Semua nota telah ditampilkan</label>
+							<h3><br></h3>
+						</center>
 					</div>
 				</div>
 				<script type='text/javascript' src='".base_url("")."assets/jController/enduser/CtrlNota.js'></script>

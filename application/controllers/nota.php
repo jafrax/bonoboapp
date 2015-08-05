@@ -9,7 +9,8 @@
 */
 
 class Nota extends CI_Controller {
-
+	var $limit = 10;
+	var $offset = 0;
 	function __construct(){
         parent::__construct();
 		if(empty($_SESSION['bonobo']) || empty($_SESSION['bonobo']['id'])){
@@ -29,11 +30,28 @@ class Nota extends CI_Controller {
 		unset($_SESSION['search']);
 		unset($_SESSION['keyword']);
 		
-		$data['nota']		= $this->model_nota->get_nota();
+		//$data['nota']		= $this->model_nota->get_nota();
 		$data['rekening']	= $this->model_nota->get_rekening();
-		$data['toko']		= $this->model_nota->get_toko()->row();		
+		$data['toko']		= $this->model_nota->get_toko()->row();	
 
-		$this->template->bonobo('nota/bg_nota',$data);
+		$page 	= $this->uri->segment(3);        
+        $limit 	= $this->limit;
+        if(!$page){
+        	$offset = $this->offset;
+        }else{
+            $offset = $page;
+        }
+        $pg 	= $this->model_nota->get_nota();
+        $url 	= 'nota/index';
+        $data['nota'] 		= $this->model_nota->get_nota($limit,$offset);
+        
+		if ($this->input->post('ajax')) {
+			if ($data['nota']->num_rows() > 0){
+                $this->load->view('enduser/nota/bg_nota_ajax', $data);
+            }
+        } else {
+            $this->template->bonobo('nota/bg_nota', $data);
+        }		
 	}
 
 	public function change_note(){
@@ -55,12 +73,24 @@ class Nota extends CI_Controller {
 
 	public function nota_batal(){
 		$id 	= $this->input->post('id');
+		$cek 	= $this->input->post('cek');
 
 		$cek_id	= $this->model_nota->get_nota_by_id($id);
 
 		if ($cek_id->num_rows == 0) {
 			echo "0";
 			return;
+		}
+		if ($cek == 1) {
+			//echo "string";
+			$produk = $this->model_nota->get_nota_product_by_id($id);				
+				foreach ($produk->result() as $row) {
+					$stok 	= $row->quantity;
+					$oldstok= $this->db->where('id',$row->product_varian_id)->get('tb_product_varian')->row()->stock_qty;
+
+					$this->db->where('id',$row->product_varian_id)->set('stock_qty',$oldstok+$stok)->update('tb_product_varian');
+				}
+			
 		}
 
 		$update = $this->db->set('status',2)->where('id',$id)->update('tb_invoice');

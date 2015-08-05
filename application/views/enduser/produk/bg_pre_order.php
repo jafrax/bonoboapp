@@ -43,7 +43,7 @@ echo"
 											echo"
 										</select>
 									</div>
-								</div>								
+								</div>
 								<div class='input-field col s12 m6 l4 nolpad right'>
 									<i class='mdi-action-search prefix'></i>
 									<input id='keyword' type='text' class='validate' value='"; if (isset($_SESSION['keyword'])) {echo $_SESSION['keyword'];unset($_SESSION['keyword']);} echo"'>
@@ -59,9 +59,10 @@ echo"
 									<div class='input-field col s8 m4 l5'>
 										<select class='select-standar lectfilter' id='option-go'>
 											<option value='' disabled selected>Pilih tindakan</option>
-											<option value='1'>Hapus</option>
-											<option value='2'>Pindah ke Draft</option>
-											<option value='3'>Pindah ke Publish</option>
+											<option value='1'>Hapus</option>"; 
+											if ($uri3 == '' || $uri3 == '1'){ echo "<option value='2'>Pindah ke Draft</option>";} 
+											if ($uri3 != '' && $uri3 == '0'){ echo "<option value='3'>Pindah ke Publish</option>";} 
+											echo"
 											<option value='4'>Pindah ke Ready Stok</option>
 										</select>
 									</div>

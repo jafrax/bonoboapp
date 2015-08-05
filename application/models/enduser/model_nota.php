@@ -8,23 +8,24 @@ class Model_nota extends CI_Model
 				
 	}
 
-	function get_nota(){		
-			$this->db->where('toko_id',$_SESSION['bonobo']['id']);
-			if (isset($_SESSION['tipe_bayar'])) {
-				$this->db->where('status',$_SESSION['tipe_bayar']);
-			}
-			if (isset($_SESSION['tipe_stok'])) {
-				$this->db->where('stock_type',$_SESSION['tipe_stok']);
-			}
-			if (isset($_SESSION['flagger'])) {
-				$this->db->where('member_confirm',1);
-			}
-			if (isset($_SESSION['search'])) {
-				$this->db->like($_SESSION['search'],$_SESSION['keyword']);
-			}
-			if (isset($_SESSION['sort'])) {
-				$this->db->order_by('create_date',$_SESSION['sort']);
-			}
+	function get_nota($limit=1000000,$offset=0){
+		$this->db->limit($limit,$offset);
+		$this->db->where('toko_id',$_SESSION['bonobo']['id']);
+		if (isset($_SESSION['tipe_bayar'])) {
+			$this->db->where('status',$_SESSION['tipe_bayar']);
+		}
+		if (isset($_SESSION['tipe_stok'])) {
+			$this->db->where('stock_type',$_SESSION['tipe_stok']);
+		}
+		if (isset($_SESSION['flagger'])) {
+			$this->db->where('member_confirm',1);
+		}
+		if (isset($_SESSION['search'])) {
+			$this->db->like($_SESSION['search'],$_SESSION['keyword']);
+		}
+		if (isset($_SESSION['sort'])) {
+			$this->db->order_by('create_date',$_SESSION['sort']);
+		}
 			
 		return $this->db->get('tb_invoice');
 	}
