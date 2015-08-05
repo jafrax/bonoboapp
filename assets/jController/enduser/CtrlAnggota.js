@@ -33,6 +33,7 @@ function CtrlAnggotaJoinin(){
 	}
 	
 	function accept(e){
+		$("#levelbos").val('').trigger('chosen:updated');;
 		formJoininLevel.id.value = e;
 	}
 	
@@ -114,7 +115,10 @@ function CtrlAnggotaJoinin(){
 					var response = JSON.parse(result);
 					if(response.result == 1){
 						divButton.html("<a class='waves-effect btn-flat right' onclick=ctrlAnggotaJoinin.doDelete("+formJoininLevel.id.value+")><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>");
+						$("#textku"+formJoininLevel.id.value).html('menjadi Anggota toko Anda');
+						$(".pesan"+formJoininLevel.id.value).css("color", "#43a047!important").html('<b>diterima</b>');
 						formJoininLevel.id.value = "";
+						
 					}else{
 						$hs_notif("#notifJoinin",response.message);
 					}
@@ -126,6 +130,7 @@ function CtrlAnggotaJoinin(){
 	function doReject(e){
 		var valid = true;
 		var divButton = $("#divButton"+e);
+		var edi=e;
 		
 		if(e == ""){
 			$hs_notif("#notifJoinin","Data yang dipilih tidak valid");
@@ -146,7 +151,8 @@ function CtrlAnggotaJoinin(){
 					var response = JSON.parse(result);
 					if(response.result == 1){
 						divButton.html("<a class='waves-effect btn-flat right' onclick=ctrlAnggotaJoinin.doDelete("+e+")><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>");
-						$("#pesan").setAttribute("style", "color:red").html('ditolak');
+						$("#textku"+e).html('menjadi Anggota toko Anda');
+						$(".pesan"+e).css("color", "red").html('<b>ditolak</b>');
 						
 					}else{
 						$hs_notif("#notifJoinin",response.message);

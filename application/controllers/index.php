@@ -70,7 +70,7 @@ class Index extends CI_Controller {
 					"level_5_name"=>'level 5',
 					"pm_transfer"=>0,
 					"level_1_active"=>1,
-					"status"=> 0,
+					"status"=> 2,
 					"step"=>1,
 					"create_date"=>date("Y-m-d H:i:s"),
 					"create_user"=>$email,
@@ -93,7 +93,7 @@ class Index extends CI_Controller {
 					*/
 					$this->signup_login($email,$password);
 					
-					$this->response->send(array("result"=>1,"message"=>"Pendaftaran berhasil, kami telah mengirimkan pesan verifikasi ke alamat email anda.","messageCode"=>1));
+					$this->response->send(array("result"=>1,"message"=>"Pendaftaran berhasil.","messageCode"=>1));
 				}else{
 					$this->response->send(array("result"=>0,"message"=>"Pendaftaran anda tidak berhasil, coba ulangi lagi","messageCode"=>1));
 				}

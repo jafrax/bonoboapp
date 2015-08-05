@@ -165,6 +165,7 @@ function CtrlSignin(){
 	function init(){
 		initComponent();
 		initEventlistener();
+		initValidation();
 	}
 	
 	function initComponent(){
@@ -198,7 +199,36 @@ function CtrlSignin(){
 		if ($hs_onEnter(event)){
 			doSave();
 		}
-	}	
+	}
+
+	function initValidation(){
+		formSigninJQuery.validate({
+			rules:{
+				email: {
+					required: true,
+					email: true,
+					maxlength:50,
+				},
+				password: {
+					required: true,
+					minlength:5,
+					maxlength:50,
+				},
+			},
+			messages: {
+				email:{
+					required: message_alert("Field ini dibutuhkan"),
+					email: message_alert("Email tidak valid"),
+					maxlength: message_alert("Masukkan maksimal 50 karakter"),
+				},
+				password:{
+					required: message_alert("Field ini dibutuhkan"),
+					minlength: message_alert("Masukkan minimal 5 karakter"),
+					maxlength: message_alert("Masukkan maksimal 50 karakter"),
+				},
+			}
+		});
+	}
 	
 	$(function() {
 		lblMailNotif.delay(5000).slideUp('slow');
@@ -219,7 +249,9 @@ function CtrlSignin(){
 			valid = false;
 		}
 		
-		if(valid){
+		if(!formSigninJQuery.valid()){
+			return;
+		}else{
 			$.ajax({
 				type: 'POST',
 				data: formSigninJQuery.serialize(),
