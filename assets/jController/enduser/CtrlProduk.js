@@ -427,7 +427,8 @@ function tambah_kategori_atur(){
             $('#tempat-kategori').html(msg);
             $('#select-kategori').chosen();
             $('#nama_kategori').val('');
-            $('#tambah_kategori').closeModal();        
+            $('#tambah_kategori').closeModal();
+            $('.modal-trigger').leanModal();
           }
       });
   };
@@ -442,26 +443,42 @@ function delete_kategori(id){
           if (msg == 1) {
             Materialize.toast('Kategori telah dihapus', 4000);
             $('#kategori-'+id).fadeOut().remove();
+            $('.modal-trigger').leanModal();
           }else{
-            Materialize.toast('Gagal menghapus kategori', 4000);            
+            Materialize.toast('Gagal menghapus kategori', 4000);   
+            $('.modal-trigger').leanModal();         
           };          
         }
   });
 }
 
-function edit_kategori(id){
-  var nama  = $('#nama_'+id).val();  
+function set_rules (e) {
+  $("#form_edit_kategori_"+e).validate(); //sets up the validator
+  
+  $("input[id*=nama_"+e+"]").each(function () {
+    $(this).rules('add', {
+        required: true,maxlength:100,remote: base_url+"produk/rules_kategori",
+        messages: {remote: message_alert('Nama kategori sudah ada')}
+    });
+  });
+}
 
-  $.ajax({
+function edit_kategori(id){
+  var nama  = $('#nama_'+id).val();
+
+  if ($("#form_edit_kategori_"+id).valid()) {
+    $.ajax({
         type: 'POST',
         data: 'nama='+nama+'&id='+id,
         url: base_url+'produk/edit_kategori',
         success: function(msg) {
           Materialize.toast('Kategori telah disunting', 4000);
           $('#tempat-kategori').html(msg);
+          $('#edit_kategori_'+id).closeModal();
           $('.modal-trigger').leanModal();
         }
     });
+  };  
 }
 
 function cari_kategori(e){
@@ -472,7 +489,8 @@ function cari_kategori(e){
         data: 'keyword='+keyword,
         url: base_url+'produk/set_search_kategori',
         success: function(msg) {
-          $('#tempat-kategori').html(msg); 
+          $('#tempat-kategori').html(msg);
+          $('.modal-trigger').leanModal();
         } 
       });
     }
@@ -511,4 +529,9 @@ function filter_kategori(){
       location.reload();
     } 
   });
+}
+
+function reset_cat () {
+  $("#form_add_kategori")[0].reset();
+  $("#form_add_kategori .error-chosen").hide();
 }

@@ -76,7 +76,7 @@ echo "
 									</select>
 								</div>
 								<div class='input-field col s12 m6'>
-									<a href='#add_kategori' class='btn-flat right modal-trigger'><b class='blue-text'><i class='mdi-content-add-box left'></i>BUAT KATEGORI BARU</b></a>
+									<a href='#add_kategori' onclick=javascript:reset_cat() class='btn-flat right modal-trigger'><b class='blue-text'><i class='mdi-content-add-box left'></i>BUAT KATEGORI BARU</b></a>
 								</div>
 								<div class='input-field col s12 m8'>
 									<i class='grey-text'><b>Ukuran Maks</b> : 1 MB.</i><br>
