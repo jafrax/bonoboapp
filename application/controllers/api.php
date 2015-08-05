@@ -85,6 +85,11 @@ class Api extends CI_Controller {
 			$join = 0;
 			$price_level = 1;
 			
+			/*
+			*	---------------------------------------------------------------------------------------------
+			*	Membuat data toko
+			*	---------------------------------------------------------------------------------------------	
+			*/
 			if(@getimagesize(base_url("assets/pic/shop/".$QShop->image))){
 				$ShopImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/shop/".$QShop->image)));
 			}else{
@@ -100,6 +105,52 @@ class Api extends CI_Controller {
 				}
 			}
 			
+			/*
+			*	---------------------------------------------------------------------------------------------
+			*	Mengambil data shop banks
+			*	---------------------------------------------------------------------------------------------	
+			*/
+			$ShopBanks = array();
+			$QShopBanks = $this->db
+						->where("toko_id",$QShop->id)
+						->get("tb_toko_bank")
+						->result();
+			
+			foreach($QShopBanks as $QShopBank){
+				$QBank = $this->db->where("id",$QShopBank->bank_id)->get("ms_bank")->row();
+				
+				if(!empty($QBank)){
+					if(@getimagesize(base_url("assets/pic/bank/".$QBank->image))){
+						$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
+					}else{
+						$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+					}
+					
+					$Bank = array(
+						"id"=>$QBank->id,
+						"name"=>$QBank->name,
+						"image_url"=>$BankImageUrl,
+					);
+				}else{
+					$Bank = array();
+				}
+				
+				$ShopBank = array(
+					"id"=>$QShopBank->id,
+					"acc_name"=>$QShopBank->acc_name,
+					"acc_no"=>$QShopBank->acc_no,
+					"bank"=>$Bank,
+				);
+					
+				array_push($ShopBanks,$ShopBank);
+			}
+			
+			/*
+			*	---------------------------------------------------------------------------------------------
+			*	Membuat data toko
+			*	---------------------------------------------------------------------------------------------	
+			*/
+			
 			$Shop = array(
 				"id"=>$QShop->id,
 				"name"=>$QShop->name,
@@ -111,16 +162,17 @@ class Api extends CI_Controller {
 				"join"=>$join,
 				"price_level"=>$price_level,
 				"location"=>array(
-						"id"=>$QShop->location_id,
-						"kecamatan"=>$QShop->location_kecamatan,
-						"city"=>$QShop->location_city,
-						"province"=>$QShop->location_province,
-						"postal"=>$QShop->location_postal,
-					),
+					"id"=>$QShop->location_id,
+					"kecamatan"=>$QShop->location_kecamatan,
+					"city"=>$QShop->location_city,
+					"province"=>$QShop->location_province,
+					"postal"=>$QShop->location_postal,
+				),
 				"category"=>array(
-						"id"=>$QShop->category_id,
-						"name"=>$QShop->category_name,
-					),
+					"id"=>$QShop->category_id,
+					"name"=>$QShop->category_name,
+				),
+				"shop_banks"=>$ShopBanks,
 			);
 			
 			return $Shop;
