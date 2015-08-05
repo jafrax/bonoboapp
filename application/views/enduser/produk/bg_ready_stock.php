@@ -59,9 +59,10 @@ echo"
 									<div class='input-field col s8 m4 l5'>
 										<select class='select-standar lectfilter' id='option-go'>
 											<option value='' disabled selected>Pilih tindakan</option>
-											<option value='1'>Hapus</option>
-											<option value='2'>Pindah ke Draft</option>
-											<option value='3'>Pindah ke Publish</option>
+											<option value='1'>Hapus</option>"; 
+											if ($uri3 == '' || $uri3 == '1'){ echo "<option value='2'>Pindah ke Draft</option>";} 
+											if ($uri3 != '' && $uri3 == '0'){ echo "<option value='3'>Pindah ke Publish</option>";} 
+											echo"
 											<option value='5'>Pindah ke Pre Order</option>
 										</select>
 									</div>
@@ -142,9 +143,9 @@ echo"
 
 										<div class='col s12 m12 l12 '>";
 										if ($row->active == 0) {
-											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled' id='draft-".$row->id."'>DRAFT</button>";
+											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."'>DRAFT</button>";
 										}else{
-											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled' id='draft-".$row->id."' style='display:none;'>DRAFT</button>";
+											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."' style='display:none;'>DRAFT</button>";
 										}
 											echo"
 											<a href='#delete_produk_".$row->id."' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
@@ -240,6 +241,12 @@ echo"
 													echo"
 													</p>";
 												}
+											}
+
+											if ($row->active == 0) {
+											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."'>DRAFT</button>";
+											}else{
+												echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."' style='display:none;'>DRAFT</button>";
 											}
 											echo"
 										</div>

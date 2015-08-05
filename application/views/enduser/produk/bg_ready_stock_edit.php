@@ -176,10 +176,12 @@ echo "
 									$checked 	= '';
 									$cek_stok 	= 'none';
 									$uncek_stok	= 'block';
+									$stok_utama = $varian_null->row()->stock_qty;
 								}else{
 									$checked 	= 'checked';
 									$cek_stok 	= 'block';
 									$uncek_stok	= 'none';
+									$stok_utama = '';
 								}
 								
 								$varian = $this->model_produk->get_varian_produk($produk->id);
@@ -210,6 +212,7 @@ echo "
 												</li>";
 										}
 									}else{
+										foreach ($varian->result() as $row_var) {
 									echo"<li class='varsto' id='li_varian_1'>
 											<div class='input-field col s12 m5 nolmar'>
 												<input id='varian' name='nama_varian_1' type='text' placeholder='Misal: Pcs' class='validate'>
@@ -219,13 +222,14 @@ echo "
 												<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
 											</div>
 											<div class='input-field col s11 m5 pakai-stok' style='display:$guna_stok'>
-												<input id='varian' name='stok_varian_1' type='text' placeholder='Jumlah stok' class='validate numbersOnly'>
+												<input id='varian' name='stok_varian_1' type='text' placeholder='Jumlah stok'  class='validate numbersOnly'>
 												<label for='varian'>Stok <span></span></label>											
 											</div>
 											<div class='input-field col s1 m1' >
 												<a onclick=javascript:deleteVarian('li_varian_1'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
 											</div>
 										</li>";
+										}
 									}
 									
 									
@@ -242,7 +246,7 @@ echo "
 											<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
 										</div>
 										<div class='input-field col s12 m6 pakai-stok' style='display:$guna_stok'>
-											<input id='varian' name='stok_utama' type='text' placeholder='Jumlah stok' class='validate numbersOnly'>
+											<input id='varian' name='stok_utama' type='text' placeholder='Jumlah stok' value='$stok_utama' class='validate numbersOnly'>
 											<label for='varian'>Stok <span></span></label>
 										</div>
 									</li>

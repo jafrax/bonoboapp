@@ -70,7 +70,7 @@ class Index extends CI_Controller {
 					"level_5_name"=>'level 5',
 					"pm_transfer"=>0,
 					"level_1_active"=>1,
-					"status"=> 0,
+					"status"=> 2,
 					"step"=>1,
 					"create_date"=>date("Y-m-d H:i:s"),
 					"create_user"=>$email,
@@ -377,7 +377,7 @@ class Index extends CI_Controller {
 		}
 		$cek=$this->model_toko->cek_user_active($data);
 		if($cek->num_rows()>0){
-			$this->response->send(array("result"=>0,"message"=>"Reset Password Gagal dikirim. Harap lakukan verifikasi email !","messageCode"=>1));
+			$this->response->send(array("result"=>0,"message"=>"Reset Password Gagal dikirim. Silahkan hubungi Admin","messageCode"=>1));
 			return;
 		}
 		$captcha_answer = $this->response->post("rechapcha");

@@ -43,7 +43,7 @@ echo"
 											echo"
 										</select>
 									</div>
-								</div>								
+								</div>
 								<div class='input-field col s12 m6 l4 nolpad right'>
 									<i class='mdi-action-search prefix'></i>
 									<input id='keyword' type='text' class='validate' value='"; if (isset($_SESSION['keyword'])) {echo $_SESSION['keyword'];unset($_SESSION['keyword']);} echo"'>
@@ -59,9 +59,10 @@ echo"
 									<div class='input-field col s8 m4 l5'>
 										<select class='select-standar lectfilter' id='option-go'>
 											<option value='' disabled selected>Pilih tindakan</option>
-											<option value='1'>Hapus</option>
-											<option value='2'>Pindah ke Draft</option>
-											<option value='3'>Pindah ke Publish</option>
+											<option value='1'>Hapus</option>"; 
+											if ($uri3 == '' || $uri3 == '1'){ echo "<option value='2'>Pindah ke Draft</option>";} 
+											if ($uri3 != '' && $uri3 == '0'){ echo "<option value='3'>Pindah ke Publish</option>";} 
+											echo"
 											<option value='4'>Pindah ke Ready Stok</option>
 										</select>
 									</div>
@@ -109,15 +110,15 @@ echo"
 										<p class='titleproduct'><a href='".base_url()."produk/edit_pre_order/".base64_encode($row->id)."'><b >".$row->name."</b></a></p>
 										</p>
 										<p class='input-field col s12 m12 l6 nolpad'>
-											<input id='tanggal-".$row->id."' name='tanggal-".$row->id."' onchange=javascript:change_date(".$row->id.") type='text' data-value='".$date."'  placeholder='Tanggal Berakhir' class='validate datepicker date-".$row->id."'>
+											<input id='tanggal-".$row->id."' name='tanggal-".$row->id."' onchange=javascript:change_date(".$row->id.") type='text' data-value='".$date."'  placeholder='Tanggal Berakhir' class='validate datepicker '>
 											<span class='label red right kadal-".$row->id."' style='display:$kadal'>Kadaluarsa</span>
 										</p>
 
 										<div class='col s12 m12 l12 '>";
 										if ($row->active == 0) {
-											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled' id='draft-".$row->id."'>DRAFT</button>";
+											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."'>DRAFT</button>";
 										}else{
-											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled' id='draft-".$row->id."' style='display:none;'>DRAFT</button>";
+											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."' style='display:none;'>DRAFT</button>";
 										}
 											echo"
 											<a href='#delete_produk_".$row->id."' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
@@ -176,7 +177,12 @@ echo"
 											<div class='input-field col s12'>
 												<span class='date-".$row->id."'>".$row->end_date."</span>
 												<span class='label red right kadal-".$row->id."' style='display:$kadal'>Kadaluarsa</span>
-											</div>
+											</div>";
+											if ($row->active == 0) {
+												echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."'>DRAFT</button>";
+											}else{
+												echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."' style='display:none;'>DRAFT</button>";
+											}echo"
 										</p>
 									</div>
 								</div>";

@@ -20,6 +20,8 @@ echo "
 										</div>
 										<form class='modal-content'>
 											<p>Apakah Anda yakin ingin membatalkan pesanan?</p>
+											<p><input type='checkbox' class='filled-in' id='batal-cek-".$nota->id."'  />
+      												<label for='batal-cek-".$nota->id."'>Kembalikan stok?</label></p>
 										</form>
 										<div class='modal-footer'>
 											<a class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
