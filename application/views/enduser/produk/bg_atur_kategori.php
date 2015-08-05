@@ -7,7 +7,7 @@ echo"
 	</div>
 	<form class='modal-content' id='form_add_kategori'>
 		<input id='id-toko' name='nama' type='hidden' value='".$_SESSION['bonobo']['id']."' >
-		<input id='nama_kategori' name='nama_kategori' type='text' class='validate'>
+		<input id='nama_kategori'  name='nama_kategori' type='text' class='validate'>
 		<label for='nama_kategori'>Nama kategori <span class='text-red'>*</span></label>
 		<label class='error error-chosen' for='nama_kategori'></label>
 	</form>
@@ -85,7 +85,12 @@ echo"
 								</li>";
 							}
 						echo"
-						</div>
+						</div>						
+						<center>
+							<h3><br></h3>
+							<img id='preloader' src='".base_url()."html/images/comp/loading.GIF' style='display:none' /><br>
+							<label id='habis' class='green-text' style='display:none'>Semua kategori telah ditampilkan</label>							
+						</center>
 						</ul>
 					</div>
 				</div>

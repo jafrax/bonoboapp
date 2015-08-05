@@ -8,8 +8,9 @@ class Model_produk extends CI_Model
 				
 	}
 	
-	function get_kategori($id){
-		 $this->db->where('toko_id',$id);
+	function get_kategori($id,$limit=1000000,$offset=0){
+		$this->db->limit($limit,$offset);
+		$this->db->where('toko_id',$id);
 		if (isset($_SESSION['search_kategori'])) {
 		 	$this->db->like('name',$_SESSION['search_kategori']);
 		 }
