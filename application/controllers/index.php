@@ -70,7 +70,7 @@ class Index extends CI_Controller {
 					"level_5_name"=>'level 5',
 					"pm_transfer"=>0,
 					"level_1_active"=>1,
-					"status"=> 0,
+					"status"=> 2,
 					"step"=>1,
 					"create_date"=>date("Y-m-d H:i:s"),
 					"create_user"=>$email,
