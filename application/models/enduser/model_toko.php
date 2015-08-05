@@ -27,9 +27,10 @@ class Model_toko extends CI_Model {
 	public function cek_user_active($data){
 		return $this->db->select('tt.*')
 						->where("tt.email",$data['email_user'])
-						->where("tt.status",2)
+						->where("tt.status !=",2)
 						->get("tb_toko tt");
 	}
+	
 	
 	public function get_by_id($id){
 		return $this->db->select('tt.*, mc.name as category_name, ml.kecamatan as location_kecamatan, ml.city as location_city, ml.province as location_province')

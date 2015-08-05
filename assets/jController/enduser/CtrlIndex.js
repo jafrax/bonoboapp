@@ -139,7 +139,7 @@ function CtrlSignup(){
 						lblNotif.html(response.message);
 						lblNotif.slideDown();
 						lblNotif.delay(5000).slideUp('slow');
-						document.getElementById("formSignup").reset();
+						//document.getElementById("formSignup").reset();
 					}
 				}
 			});
