@@ -311,7 +311,7 @@ $.extend( $.validator, {
 
 	messages: {
 		required: message_alert("Harus diisi."),
-		remote: message_alert("Please fix this field."),
+		remote: message_alert("Data yang anda input sudah ada."),
 		email: message_alert("Silahkan masukkan email yang valid."),
 		url: message_alert("Please enter a valid URL."),
 		date: message_alert("Please enter a valid date."),

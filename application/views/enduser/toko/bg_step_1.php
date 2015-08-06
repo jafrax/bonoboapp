@@ -156,10 +156,6 @@ echo"
 						echo "
 					</div>
 				</div>
-				<div class='input-field col s12 m8'>
-					<input  id='postal-code' name='txtPostal' type='text' onkeyup=javascript:set_location() class='validate' value='".$Shop->postal."'>
-					<label for='postal-code'>Kodepos</label>
-				</div>
 				<div class=' col s12 m8'>
 					<label>Provinsi</label>
 					<label id='notifProvince' class='error error-chosen' style='display:none;'></label>
@@ -212,7 +208,7 @@ echo"
 					<label>Kecamatan</label>
 					<label id='notifKecamatan' class='error error-chosen' style='display:none;'></label>
 					<div id='panggon-kecamatan' class='input-field'>";
-						echo "<select  class='chosen-select' name='cmbKecamatan' id='kecamatan'>
+						echo "<select  class='chosen-select' name='cmbKecamatan' id='kecamatan'  >
 							<option value='' disabled selected>Pilih Kecamatan</option>";
 							if ($Shopp->num_rows() > 0) {
 								foreach($Shopp->result() as $row_x){
@@ -231,6 +227,11 @@ echo"
 						</select>";
 						echo "
 					</div>
+				</div>
+				<div class='input-field col s12 m8'>
+					<input  id='postal-code' name='txtPostal' type='text' class='validate' value='".$Shop->postal."' autocoplate='off'>
+					<ul class='browser-default txtpos' style='margin-left:15px;margin-right:0px;height:50px' role='menu' aria-labelledby='dropdownMenu'  id='dropdownpos'> </ul>
+					<label for='postal-code'>Kodepos</label>
 				</div>
 				<div class='input-field col s12 m8'>
 					<textarea id='txtAddress' name='txtAddress' placeholder='Ex : Jl. Raya Bonobo no.1' class='materialize-textarea' >".$Shop->address."</textarea>
