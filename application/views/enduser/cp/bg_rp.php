@@ -33,9 +33,7 @@ echo "
 	<header class='head'>
 		<div class='row'>
 			<div class='col s6 m4 l2'><img class='responsive-img' src='".base_url("html/images/comp/logo_shadow.png")."' /></div>
-			<div class='col s6 m8 l10'>
-				<p class='signup'><text>Baru datang ke bonobo ?</text><a href='".base_url("index/signup")."' class='waves-effect waves-light btn deep-orange darken-1' >Daftar</a></p>
-			</div>
+
 		</div>
 	</header>
 	<content>

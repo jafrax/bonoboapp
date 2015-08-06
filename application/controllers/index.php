@@ -407,9 +407,9 @@ class Index extends CI_Controller {
 			
 			$Save = $this->db->where("id",$QShop->id)->update("tb_toko",$Data);
 			if($Save){
-				$message ="Hi ".$QShop->name.", You can use the following link within the next day to reset your password in Bonobo.com<br>
+				$message ="Hi ".$QShop->name.", Silakan klik link (URL) berikut ini untuk mereset password. URL akan kadaluarsa dalam waktu 1 x 24 jam.<br>
 						".site_url("index/reset_password/".$data['email_user']."/".$token."")."
-						Thanks, Bonobo.com
+						Terima Kasih, Bonobo.com
 					";
 					
 				$this->template->send_email($QShop->email,'no-reply@bonobo.com', $message);
@@ -426,6 +426,7 @@ class Index extends CI_Controller {
 	// diabuat oleh adi 06-08-2015
 	public function reset_password(){
 			$data['email']=$this->uri->segment(3);
+			$_SESSION['bonobo']['email']=$data['email'];
 			$data['token']=$this->uri->segment(4);
 			$result=$this->model_toko->reset_akun($data);
 			if($result->num_rows() > 0 ){
@@ -456,25 +457,25 @@ class Index extends CI_Controller {
 			$msg    = "error";
 			$notif  = "";
 			if ($this->form_validation->run() == TRUE){
-				$email   		= $this->uri->segment(3);
+				//$email   		= $this->uri->segment(3);
 				$password   = $this->db->escape_str($this->input->post('newpass'));
-				$cek	= $this->db->where("email",$email)->get('tb_toko');
+				$cek	= $this->db->where("email",$_SESSION['bonobo']['email'])->get('tb_toko');
 				if(count($cek->result())>0){
 					
 					$key 		= $this->config->item('saltkey');
 					$date = new DateTime();
 					$date->modify('+1 day');
 					$ex_date = $date->format('Y-m-d H:i:s');
-					$string 	= $key."#".$email."#".$ex_date;
+					$string 	= $key."#".$_SESSION['bonobo']['email']."#".$ex_date;
 					$token		= $this->template->encrypt($string);							
 					
 					$param  = array(
 					"token"=>$token,
-					'password'      => md5($this->input->post('newpass')),
-					'update_user'   => $email
+					'password'      => md5($password),
+					'update_user'   => $_SESSION['bonobo']['email']
 					);
 				
-				$insert = $this->db->where("email",$email)->update('tb_toko',$param);
+				$insert = $this->db->where("email",$_SESSION['bonobo']['email'])->update('tb_toko',$param);
 					if($insert){
 						$msg    = "success";
 						$notif  = "Berhasil";

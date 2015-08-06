@@ -321,13 +321,13 @@ $(document).ready(function() {
         },
         messages: {
             newpass: {
-                required: message_alert("Password cannot be empty"),
-                minlength: message_alert("Min length 5 characters"),
-                maxlength: message_alert("Max length 50 characters"),
+                required: message_alert("Password baru tidak boleh kosong"),
+                minlength: message_alert("Masukkan minimal 5 karakter"),
+                maxlength: message_alert("Masukkan maksimal 5 karakter"),
             },
             renewpass: {
-                required: message_alert("Retype password cannot be empty"),
-                equalTo: message_alert("Please enter the same password baru"),
+                required: message_alert("Mohon ketik ulang password baru Anda"),
+                equalTo: message_alert("Mohon masukkan password yang sama"),
             }
         },
     });
