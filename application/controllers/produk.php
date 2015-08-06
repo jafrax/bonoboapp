@@ -714,11 +714,30 @@ class Produk extends CI_Controller {
 *
 * Create 1 Juli 2015 by Dinar Wahyu Wibowo
 */
-
+	var $limit 	= 10;
+	var $offset = 0;
 	function atur_kategori(){
 		$data['kategori']	= $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
 		unset($_SESSION['search_kategori']);
-		$this->template->bonobo('produk/bg_atur_kategori',$data);
+
+		$page 	= $this->uri->segment(3);        
+        $limit 	= $this->limit;
+        if(!$page){
+        	$offset = $this->offset;
+        }else{
+            $offset = $page;
+        }
+
+        $data['kategori'] 		= $this->model_produk->get_kategori($_SESSION['bonobo']['id'],$limit,$offset);
+        
+		if ($this->input->post('ajax')) {
+			if ($data['kategori']->num_rows() > 0){
+                $this->load->view('enduser/produk/bg_atur_kategori_ajax', $data);
+            }
+        } else {
+            $this->template->bonobo('produk/bg_atur_kategori', $data);
+        }		
+		
 	}
 
 	public function add_kategori2() {
@@ -741,7 +760,7 @@ class Produk extends CI_Controller {
 	}
 
 	private function print_kategori(){
-		$kategori = $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
+		$kategori = $this->model_produk->get_kategori($_SESSION['bonobo']['id'],10,0);
 
 			foreach ($kategori->result() as $row) {
 				$count = $this->model_produk->count_product_by_category($row->id);

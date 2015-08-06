@@ -429,6 +429,9 @@ function tambah_kategori_atur(){
             $('#nama_kategori').val('');
             $('#tambah_kategori').closeModal();
             $('.modal-trigger').leanModal();
+            offset_kat      = 10;
+            scrolling_kat   = true;
+            $('#habis').slideUp();
           }
       });
   };
@@ -443,7 +446,7 @@ function delete_kategori(id){
           if (msg == 1) {
             Materialize.toast('Kategori telah dihapus', 4000);
             $('#kategori-'+id).fadeOut().remove();
-            $('.modal-trigger').leanModal();
+            $('.modal-trigger').leanModal();            
           }else{
             Materialize.toast('Gagal menghapus kategori', 4000);   
             $('.modal-trigger').leanModal();         
@@ -476,6 +479,9 @@ function edit_kategori(id){
           $('#tempat-kategori').html(msg);
           $('#edit_kategori_'+id).closeModal();
           $('.modal-trigger').leanModal();
+          offset_kat      = 10;
+          scrolling_kat   = true; 
+          $('#habis').slideUp();
         }
     });
   };  
@@ -491,6 +497,9 @@ function cari_kategori(e){
         success: function(msg) {
           $('#tempat-kategori').html(msg);
           $('.modal-trigger').leanModal();
+          offset_kat      = 10;
+          scrolling_kat   = true;
+          $('#habis').slideUp();
         } 
       });
     }
@@ -534,4 +543,42 @@ function filter_kategori(){
 function reset_cat () {
   $("#form_add_kategori")[0].reset();
   $("#form_add_kategori .error-chosen").hide();
+  $("#nama_kategori").focus();
 }
+
+
+var offset_kat=10;
+var scrolling_kat=true;
+
+$(window).scroll(function () {      
+        if ($(window).scrollTop() == ( $(document).height() - $(window).height())  && scrolling_kat==true && $('#tempat-kategori').length > 0) {
+            $('#preloader').slideDown();
+            
+            scrolling_kat       = false;            
+            var url         = base_url+'produk/atur_kategori/'+offset_kat;
+            
+            window.scrollTo(0, ($(window).scrollTop()-50) );
+
+            $.ajax({
+                type: 'POST',
+                data: 'ajax=1&scroll=1',
+                url: url,
+                success: function(msg) {
+                    if (msg){
+                        $('#tempat-kategori').append(msg);
+                        $('#preloader').slideUp();
+                        offset_kat      = offset_kat+5;
+                        scrolling_kat   = true;
+                        $('#habis').slideUp();
+                        $('.modal-trigger').leanModal();
+                    }else{
+                        $('#preloader').slideUp();
+                        scrolling_kat   = false;
+                        $('#habis').slideDown();
+                        $('.modal-trigger').leanModal();
+                    }
+                }
+            });
+            return false;
+        }
+    });
