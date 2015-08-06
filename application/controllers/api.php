@@ -147,6 +147,68 @@ class Api extends CI_Controller {
 			
 			/*
 			*	---------------------------------------------------------------------------------------------
+			*	Mengambil data shop couriers
+			*	---------------------------------------------------------------------------------------------	
+			*/
+			
+			$ShopCouriers = array();
+			$QShopCouriers = $this->db
+								->where("toko_id",$QShop->id)
+								->get("tb_toko_courier")
+								->result();
+								
+			foreach($QShopCouriers as $QShopCourier){
+				$QCourier = $this->db
+								->where("id",$QShopCourier->courier_id)
+								->get("ms_courier")
+								->row();
+				$Courier = array();
+				if(!empty($QCourier)){
+					if(@getimagesize(base_url("assets/pic/kurir/".$QCourier->image))){
+						$CourierImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/kurir/".$QCourier->image)));
+					}else{
+						$CourierImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+					}
+					
+					$Courier = array(
+							"id"=>$QCourier->id,
+							"name"=>$QCourier->name,
+							"image_url"=>$CourierImageUrl,
+						);
+				}
+				
+				$ShopCourier = array(
+						"id"=>$QShopCourier->id,
+						"courier"=>$Courier,
+					);
+					
+				array_push($ShopCouriers,$ShopCourier);
+			}
+			
+			/*
+			*	---------------------------------------------------------------------------------------------
+			*	Mengambil data shop courier customs
+			*	---------------------------------------------------------------------------------------------	
+			*/
+			
+			$ShopCourierCustoms = array();
+			$QShopCourierCustoms = $this->db
+								->where("toko_id",$QShop->id)
+								->get("tb_courier_custom")
+								->result();
+								
+			foreach($QShopCourierCustoms as $QShopCourierCustom){
+				$ShopCourierCustom = array(
+						"id"=>$QShopCourierCustom->id,
+						"name"=>$QShopCourierCustom->name,
+						"status"=>$QShopCourierCustom->status,
+					);
+					
+				array_push($ShopCourierCustoms,$ShopCourierCustom);
+			}
+			
+			/*
+			*	---------------------------------------------------------------------------------------------
 			*	Membuat data toko
 			*	---------------------------------------------------------------------------------------------	
 			*/
@@ -173,6 +235,8 @@ class Api extends CI_Controller {
 					"name"=>$QShop->category_name,
 				),
 				"shop_banks"=>$ShopBanks,
+				"shop_couriers"=>$ShopCouriers,
+				"shop_courier_customs"=>$ShopCourierCustoms,
 			);
 			
 			return $Shop;
@@ -3057,45 +3121,65 @@ class Api extends CI_Controller {
 				return;
 			}
 			
-			if($this->response->post("courier") == ""){
-				$this->response->send(array("result"=>0,"message"=>"Tidak ada data kurir yang dipilih","messageCode"=>3), true);
+			if($this->response->post("courier_type") == "" || $this->response->postDecode("courier_type") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tipe pengiriman belum dipilih","messageCode"=>3), true);
 				return;
 			}
 			
-			$QCourier = $this->db
+			if($this->response->postDecode("courier_type") == "0"){
+				if($this->response->post("location_name") == "" || $this->response->postDecode("location_name") == ""){
+					$this->response->send(array("result"=>0,"message"=>"Tidak ada data nama penerima","messageCode"=>3), true);
+					return;
+				}
+				
+				if($this->response->post("location_address") == "" || $this->response->postDecode("location_address") == ""){
+					$this->response->send(array("result"=>0,"message"=>"Tidak ada data alamat penerima","messageCode"=>3), true);
+					return;
+				}
+				
+				if($this->response->post("province") == "" || $this->response->postDecode("province") == ""){
+					$this->response->send(array("result"=>0,"message"=>"Tidak ada data propinsi alamat penerima","messageCode"=>3), true);
+					return;
+				}
+				
+				if($this->response->post("city") == "" || $this->response->postDecode("city") == ""){
+					$this->response->send(array("result"=>0,"message"=>"Tidak ada data kota alamat penerima","messageCode"=>3), true);
+					return;
+				}
+				
+				if($this->response->post("kecamatan") == "" || $this->response->postDecode("kecamatan") == ""){
+					$this->response->send(array("result"=>0,"message"=>"Tidak ada data kecamatan alamat penerima","messageCode"=>3), true);
+					return;
+				}
+			}
+			
+		
+			if($this->response->postDecode("courier_type") == "1"){
+				$QCourier = $this->db
 						->where("name",$this->response->post("courier"))
 						->get("ms_courier")
 						->row();
-
-			if(empty($QCourier)){
-				$this->response->send(array("result"=>0,"message"=>"Data kurir tidak ditemukan","messageCode"=>2), true);
-				return;
+						
+				if(empty($QCourier)){
+					$this->response->send(array("result"=>0,"message"=>"Kurir tidak ditemukan","messageCode"=>3), true);
+					return;
+				}
+			}elseif($this->response->postDecode("courier_type") == "2"){
+				$QCourier = $this->db
+						->where("name",$this->response->post("courier"))
+						->where("toko_id",$QCart->toko_id)
+						->get("tb_courier_custom")
+						->row();
+				
+				if(empty($QCourier)){
+					$this->response->send(array("result"=>0,"message"=>"Kurir tidak ditemukan","messageCode"=>3), true);
+					return;
+				}
+			}else{
+				$QCourier = null;
 			}
 			
-			if($this->response->post("location_name") == "" || $this->response->postDecode("location_name") == ""){
-				$this->response->send(array("result"=>0,"message"=>"Tidak ada data nama penerima","messageCode"=>3), true);
-				return;
-			}
 			
-			if($this->response->post("location_phone") == "" || $this->response->postDecode("location_phone") == ""){
-				$this->response->send(array("result"=>0,"message"=>"Tidak ada data telphone penerima","messageCode"=>3), true);
-				return;
-			}
-			
-			if($this->response->post("location_address") == "" || $this->response->postDecode("location_address") == ""){
-				$this->response->send(array("result"=>0,"message"=>"Tidak ada data alamat penerima","messageCode"=>3), true);
-				return;
-			}
-			
-			if($this->response->post("province") == "" || $this->response->postDecode("province") == ""){
-				$this->response->send(array("result"=>0,"message"=>"Tidak ada data propinsi alamat penerima","messageCode"=>3), true);
-				return;
-			}
-			
-			if($this->response->post("city") == "" || $this->response->postDecode("city") == ""){
-				$this->response->send(array("result"=>0,"message"=>"Tidak ada data kota alamat penerima","messageCode"=>3), true);
-				return;
-			}
 			
 			/*
 			*	------------------------------------------------------------------------------
@@ -3120,54 +3204,29 @@ class Api extends CI_Controller {
 					->row();
 			}else{
 				$QLocation = $this->db
-						->where("kelurahan",$this->response->postDecode("location_kelurahan"))
-						->where("city",$this->response->postDecode("location_city"))
-						->where("province",$this->response->postDecode("location_province"))
+						->where("kecamatan",$this->response->postDecode("kecamatan"))
+						->where("city",$this->response->postDecode("city"))
+						->where("province",$this->response->postDecode("province"))
 						->where("postal_code",$this->response->postDecode("location_postal"))
 						->get("ms_location")
 						->row();
 						
 				if(empty($QLocation)){
 					$QLocation = $this->db
-						->where("kelurahan",$this->response->postDecode("location_kelurahan"))
-						->where("city",$this->response->postDecode("location_city"))
-						->where("province",$this->response->postDecode("location_province"))
+						->where("kecamatan",$this->response->postDecode("kecamatan"))
+						->where("city",$this->response->postDecode("city"))
+						->where("province",$this->response->postDecode("province"))
 						->get("ms_location")
 						->row();
-						
+				}
+				
+				if(!empty($QLocation)){
 					$Data = array(
 						"member_id"=>$QUser->id,
 						"location_id"=>$QLocation->id,
-						"name"=>$this->response->postDecode("user_location_name"),
-						"address"=>$this->response->postDecode("user_location_address"),
-						"phone"=>$this->response->postDecode("user_location_phone"),
-						"postal"=>$QLocation->postal_code,
-						"create_date"=>date("Y-m-d H:i:s"),
-						"create_user"=>$QUser->email, 
-						"update_date"=>date("Y-m-d H:i:s"),
-						"update_user"=>$QUser->email,
-					);
-					
-					$Save = $this->db->insert("tb_member_location",$Data);
-					
-					$QUserLocation = $this->db
-						->select("tml.*, ml.kecamatan as location_kecamatan, ml.city as location_city, ml.province as location_province, ml.postal_code as location_postal")
-						->join("ms_location ml","tml.location_id = ml.id")
-						->where("tml.member_id",$QUser->id)
-						->where("tml.location_id",$QLocation->id)
-						->where("tml.name",$this->response->postDecode("user_location_name"))
-						->where("tml.address",$this->response->postDecode("user_location_address"))
-						->where("tml.phone",$this->response->postDecode("user_location_phone"))
-						->where("tml.postal",$QLocation->postal_code)
-						->get("tb_member_location tml")
-						->row();
-				}else{
-					$Data = array(
-						"member_id"=>$QUser->id,
-						"location_id"=>$QLocation->id,
-						"name"=>$this->response->postDecode("user_location_name"),
-						"address"=>$this->response->postDecode("user_location_address"),
-						"phone"=>$this->response->postDecode("user_location_phone"),
+						"name"=>$this->response->postDecode("location_name"),
+						"address"=>$this->response->postDecode("location_address"),
+						"phone"=>$this->response->postDecode("location_phone"),
 						"postal"=>$this->response->postDecode("location_postal"),
 						"create_date"=>date("Y-m-d H:i:s"),
 						"create_user"=>$QUser->email, 
@@ -3182,12 +3241,15 @@ class Api extends CI_Controller {
 						->join("ms_location ml","tml.location_id = ml.id")
 						->where("tml.member_id",$QUser->id)
 						->where("tml.location_id",$QLocation->id)
-						->where("tml.name",$this->response->postDecode("user_location_name"))
-						->where("tml.address",$this->response->postDecode("user_location_address"))
-						->where("tml.phone",$this->response->postDecode("user_location_phone"))
+						->where("tml.name",$this->response->postDecode("location_name"))
+						->where("tml.address",$this->response->postDecode("location_address"))
+						->where("tml.phone",$this->response->postDecode("location_phone"))
 						->where("tml.postal",$this->response->postDecode("location_postal"))
 						->get("tb_member_location tml")
 						->row();
+				}else{
+					$this->response->send(array("result"=>0,"message"=>"Lokasi penerima tidak valid","messageCode"=>3), true);
+					return;
 				}
 			}
 			
@@ -3274,7 +3336,7 @@ class Api extends CI_Controller {
 				*	Generate Invoice Price Shipment (ms_courier)
 				*	------------------------------------------------------------------------------
 				*/
-				if(!empty($QCourier)){
+				if($this->response->postDecode("courier_type") == "1"){
 					if(!empty($QShop->location_id)){
 						$QShopLocation = $this->db
 										->where("id",$QShop->location_id)
@@ -3298,6 +3360,22 @@ class Api extends CI_Controller {
 							}
 						}
 					}
+				}else if($this->response->postDecode("courier_type") == "2"){
+					if(!empty($QShopLocation)){
+						$QCourierRate = $this->db
+								->where("courier_custom_id",$QCourier->id)
+								->where("location_to_province",$QUserLocation->location_province)
+								->where("location_to_city",$QUserLocation->location_city)
+								->where("location_to_kecamatan",$QUserLocation->location_kecamatan)
+								->get("tb_courier_custom_rate")
+								->row();
+					
+						if(!empty($QCourierRate)){
+							$shipment_rate = $QCourierRate->price;
+						}
+					}
+				}else{
+					$shipment_rate = 0;
 				}
 			}
 			
@@ -3403,36 +3481,71 @@ class Api extends CI_Controller {
 			$price_shipment = $shipment_rate * $shipment_weight;
 			$price_total = $price_item + $price_shipment + $price_unique;
 			
-			$Data = array(
-					"toko_id"=>$QCart->toko_id,
-					"member_id"=>$QCart->member_id,
-					"courier_id"=>$QCourier->id,
-					"invoice_no"=>$invoice_no,
-					"notes"=>$this->response->postDecode("location_description"),
-					"member_name"=>$QUser->name,
-					"member_email"=>$QUser->email,
-					"member_confirm"=>0,
-					"status"=>0,
-					"stock_type"=>1,
-					"price_total"=>$price_total,
-					"price_item"=>$price_item,
-					"price_shipment"=>$price_shipment,
-					"invoice_seq_payment"=>$price_unique,
-					"shipment_no"=>"",
-					"shipment_service"=>$QCourier->name,
-					"recipient_name"=>$QUserLocation->name,
-					"recipient_phone"=>$this->response->postDecode("location_phone"),
-					"recipient_address"=>$this->response->postDecode("location_address"),
-					"location_to_province"=>$QUserLocation->location_province,
-					"location_to_city"=>$QUserLocation->location_city,
-					"location_to_kecamatan"=>$QUserLocation->location_kecamatan,
-					"location_to_postal"=>$QUserLocation->location_postal,
-					"create_date"=>$Date,
-					"create_user"=>$QUser->email,
-					"update_date"=>$Date,
-					"update_user"=>$QUser->email,
-				);
-				
+			if($this->response->postDecode("courier_type") == "0"){
+				$Data = array(
+						"toko_id"=>$QCart->toko_id,
+						"member_id"=>$QUser->id,
+						"member_name"=>$QUser->name,
+						"member_email"=>$QUser->email,
+						"member_confirm"=>0,
+						"courier_id"=>null,
+						"courier_custom_id"=>null,
+						"courier_type"=>$this->response->postDecode("courier_type"),
+						"notes"=>$this->response->postDecode("location_description"),
+						"invoice_no"=>$invoice_no,
+						"price_total"=>$price_total,
+						"price_item"=>$price_item,
+						"price_shipment"=>$price_shipment,
+						"invoice_seq_payment"=>$price_unique,
+						"shipment_no"=>"",
+						"shipment_service"=>"",
+						"recipient_name"=>$this->response->postDecode("location_name"),
+						"recipient_phone"=>$this->response->postDecode("location_phone"),
+						"recipient_address"=>$this->response->postDecode("location_address"),
+						"location_to_province"=>$this->response->postDecode("province"),
+						"location_to_city"=>$this->response->postDecode("city"),
+						"location_to_kecamatan"=>$this->response->postDecode("kecamatan"),
+						"location_to_postal"=>$this->response->postDecode("location_postal"),
+						"status"=>0,
+						"stock_type"=>1,
+						"create_date"=>$Date,
+						"create_user"=>$QUser->email,
+						"update_date"=>$Date,
+						"update_user"=>$QUser->email,
+					);
+			}else{
+				$Data = array(
+						"toko_id"=>$QCart->toko_id,
+						"member_id"=>$QCart->member_id,
+						"member_name"=>$QUser->name,
+						"member_email"=>$QUser->email,
+						"member_confirm"=>0,
+						"courier_id"=>$QCourier->id,
+						"courier_custom_id"=>null,
+						"courier_type"=>$this->response->postDecode("courier_type"),
+						"notes"=>$this->response->postDecode("location_description"),
+						"invoice_no"=>$invoice_no,
+						"price_total"=>$price_total,
+						"price_item"=>$price_item,
+						"price_shipment"=>$price_shipment,
+						"invoice_seq_payment"=>$price_unique,
+						"shipment_no"=>"",
+						"shipment_service"=>$QCourier->name,
+						"recipient_name"=>$this->response->postDecode("location_name"),
+						"recipient_phone"=>$this->response->postDecode("location_phone"),
+						"recipient_address"=>$this->response->postDecode("location_address"),
+						"location_to_province"=>$this->response->postDecode("province"),
+						"location_to_city"=>$this->response->postDecode("city"),
+						"location_to_kecamatan"=>$this->response->postDecode("kecamatan"),
+						"location_to_postal"=>$this->response->postDecode("location_postal"),
+						"status"=>0,
+						"stock_type"=>1,
+						"create_date"=>$Date,
+						"create_user"=>$QUser->email,
+						"update_date"=>$Date,
+						"update_user"=>$QUser->email,
+					);
+			}
 			$Save = $this->db->insert("tb_invoice",$Data);
 			
 			if($Save){
@@ -3441,36 +3554,43 @@ class Api extends CI_Controller {
 				*	Query ambil data Invoice Terbaru
 				*	------------------------------------------------------------------------------
 				*/
-				$QInvoice = $this->db
-					->where("toko_id",$QCart->toko_id)
-					->where("member_id",$QCart->member_id)
-					->where("courier_id",$QCourier->id)
-					->where("invoice_no",$invoice_no)
-					->where("notes",$this->response->postDecode("location_description"))
-					->where("member_name",$QUser->name)
-					->where("member_email",$QUser->email)
-					->where("member_confirm",0)
-					->where("status",0)
-					->where("stock_type",1)
-					->where("price_total",$price_total)
-					->where("price_item",$price_item)
-					->where("price_shipment",$price_shipment)
-					->where("invoice_seq_payment",$price_unique)
-					->where("shipment_no","")
-					->where("shipment_service",$QCourier->name)
-					->where("recipient_name",$QUserLocation->name)
-					->where("recipient_phone",$this->response->postDecode("location_phone"))
-					->where("recipient_address",$this->response->postDecode("location_address"))
-					->where("location_to_province",$QUserLocation->location_province)
-					->where("location_to_city",$QUserLocation->location_city)
-					->where("location_to_kecamatan",$QUserLocation->location_kecamatan)
-					->where("location_to_postal",$QUserLocation->location_postal)
-					->where("create_date",$Date)
-					->where("create_user",$QUser->email)
-					->where("update_date",$Date)
-					->where("update_user",$QUser->email)
-					->get("tb_invoice")
-					->row();
+				
+				if($this->response->postDecode("courier_type") == "0"){
+					$QInvoice = $this->db
+						->where("toko_id",$QCart->toko_id)
+						->where("member_id",$QCart->member_id)
+						->where("member_name",$QUser->name)
+						->where("member_email",$QUser->email)
+						->where("member_confirm",0)
+						->where("courier_id",$QCourier->id)
+						->where("courier_custom_id",$QCourier->id)
+						->where("courier_type",$QCourier->id
+						->where("invoice_no",$invoice_no)
+						->where("notes",$this->response->postDecode("location_description"))
+						->where("price_total",$price_total)
+						->where("price_item",$price_item)
+						->where("price_shipment",$price_shipment)
+						->where("invoice_seq_payment",$price_unique)
+						->where("shipment_no","")
+						->where("shipment_service",$QCourier->name)
+						->where("recipient_name",$QUserLocation->name)
+						->where("recipient_phone",$this->response->postDecode("location_phone"))
+						->where("recipient_address",$this->response->postDecode("location_address"))
+						->where("location_to_province",$QUserLocation->location_province)
+						->where("location_to_city",$QUserLocation->location_city)
+						->where("location_to_kecamatan",$QUserLocation->location_kecamatan)
+						->where("location_to_postal",$QUserLocation->location_postal
+						->where("status",0)
+						->where("stock_type",1)
+						->where("create_date",$Date)
+						->where("create_user",$QUser->email)
+						->where("update_date",$Date)
+						->where("update_user",$QUser->email)
+						->get("tb_invoice")
+						->row();
+				}else{
+				
+				}
 					
 				if(!empty($QInvoice)){
 					$InvoiceProducts = array();
