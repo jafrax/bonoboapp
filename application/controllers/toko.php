@@ -433,9 +433,6 @@ class Toko extends CI_Controller {
 		if($step != 0){
 			$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',2)->update('tb_toko');
 		}	
-		if($Upload == 'error'){
-			$this->response->send(array("result"=>5,"message"=>"Format File : .bmp, .jpg, .png.","messageCode"=>1));
-		}else{
 			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
 			if($Save){
 
@@ -473,7 +470,6 @@ class Toko extends CI_Controller {
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Informasi tidak dapat disimpan","messageCode"=>1));
 			}
-		}
 		
 	}
 	
@@ -1125,6 +1121,7 @@ class Toko extends CI_Controller {
 	    }
 	    echo $valid;
 	}
+
 	
 }
 

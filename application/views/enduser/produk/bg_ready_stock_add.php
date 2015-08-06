@@ -84,7 +84,7 @@ echo "
 								</div>
 								<div class='input-field col s12 '>
 									<div class='picture-area'>
-										<div class='col s6 m4 l3' id='div_pic_1'>
+										<div class='col s6 m4 l2' id='div_pic_1'>
 											<div class='card' >
 												<a class='delimg' onclick=javascript:remove_picture('pic_1')><i class='mdi-navigation-close right'></i></a>
 												<div class='card-image img-product waves-effect waves-block waves-light'>
@@ -94,10 +94,50 @@ echo "
 												<label for='pic_1' class='error error-image' generated='true'></label>										
 											</div>										
 										</div>
+										<div class='col s6 m4 l2' id='div_pic_2'>
+											<div class='card' >
+												<a class='delimg' onclick=javascript:remove_picture('pic_2')><i class='mdi-navigation-close right'></i></a>
+												<div class='card-image img-product waves-effect waves-block waves-light'>
+													<img id='img_pic_2' onclick=javascript:click_picture('pic_2') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
+													<input type='file' class='pic_product' name='pic_2' id='pic_2' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
+												</div>
+												<label for='pic_2' class='error error-image' generated='true'></label>										
+											</div>										
+										</div>
+										<div class='col s6 m4 l2' id='div_pic_3'>
+											<div class='card' >
+												<a class='delimg' onclick=javascript:remove_picture('pic_3')><i class='mdi-navigation-close right'></i></a>
+												<div class='card-image img-product waves-effect waves-block waves-light'>
+													<img id='img_pic_3' onclick=javascript:click_picture('pic_3') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
+													<input type='file' class='pic_product' name='pic_3' id='pic_3' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
+												</div>
+												<label for='pic_3' class='error error-image' generated='true'></label>										
+											</div>										
+										</div>
+										<div class='col s6 m4 l2' id='div_pic_4'>
+											<div class='card' >
+												<a class='delimg' onclick=javascript:remove_picture('pic_4')><i class='mdi-navigation-close right'></i></a>
+												<div class='card-image img-product waves-effect waves-block waves-light'>
+													<img id='img_pic_4' onclick=javascript:click_picture('pic_4') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
+													<input type='file' class='pic_product' name='pic_4' id='pic_4' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
+												</div>
+												<label for='pic_4' class='error error-image' generated='true'></label>										
+											</div>										
+										</div>
+										<div class='col s6 m4 l2' id='div_pic_5'>
+											<div class='card' >
+												<a class='delimg' onclick=javascript:remove_picture('pic_5')><i class='mdi-navigation-close right'></i></a>
+												<div class='card-image img-product waves-effect waves-block waves-light'>
+													<img id='img_pic_5' onclick=javascript:click_picture('pic_5') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
+													<input type='file' class='pic_product' name='pic_5' id='pic_5' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
+												</div>
+												<label for='pic_5' class='error error-image' generated='true'></label>										
+											</div>										
+										</div>
 									</div>
-									<a id='add-poto' class='btn-flat left' onclick=javascript:add_picture()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH GAMBAR</b></a>
+									<!--<a id='add-poto' class='btn-flat left' onclick=javascript:add_picture()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH GAMBAR</b></a>-->
 								</div>
-								<input type='hidden' name='total_picture' id='total_picture' value='1'/>
+								<input type='hidden' name='total_picture' id='total_picture' value='5'/>
 								<div class='input-field col s12'>
 									<input id='perkiraan_berat' placeholder='0.00' type='text' name='berat' class='validate berat' maxlength='9'>
 									<label for='perkiraan_berat'>Perkiraan Berat <span>( Kilogram)</span></label>
@@ -107,7 +147,7 @@ echo "
 									<label for='satuan'>Satuan <span></span></label>
 								</div>
 								<div class='input-field col s12'>
-									<input id='min_order' placeholder='1' type='text' name='min_order' class='validate numbersOnly'>
+									<input id='min_order' value='1' type='text' name='min_order' class='validate numbersOnly'>
 									<label for='min_order'>Min Order</label>
 								</div>
 								<div class='input-field col s12'>
@@ -122,8 +162,8 @@ echo "
 								<label>Tipe Stok <span class='text-red'>*</span></label>
 								<label class='error error-chosen' for='stok'></label>
 									<select name='stok' id='stok' required OnChange=javascript:change_stok() class='select-standar lectfilter'>										
-										<option value='1' selected>Stok selalu tersedia</option>
-										<option value='0'>Gunakan stok</option>
+										<option value='1'>Stok selalu tersedia</option>
+										<option value='0' selected>Gunakan stok</option>
 									</select>									
 								</div>
 								<div class='input-field col s12 m12'>
@@ -156,10 +196,10 @@ echo "
 								</ul>
 								<ul class='col s12 m12 uncek-stok' >
 									<li class='varsto'>
-										<div class='input-field col s12 m6 tersedia'>
+										<div class='input-field col s12 m6 tersedia' style='display:none'>
 											<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
 										</div>
-										<div class='input-field col s12 m6 pakai-stok' style='display:none'>
+										<div class='input-field col s12 m6 pakai-stok' >
 											<input id='varian' name='stok_utama' type='text' placeholder='Jumlah stok' class='validate numbersOnly'>
 											<label for='varian'>Stok <span></span></label>
 										</div>

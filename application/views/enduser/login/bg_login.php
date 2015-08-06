@@ -54,7 +54,13 @@ echo "
 				<h4 class='titlin'>Masuk ke bonobo</h4>
 				<form id='formSignin' class='signin z-depth-2'>
 					<div class='row'>
-					".$pesan."
+					";
+					$text='';
+					if(!empty($pesan)){
+						$text= "<span id='repas' style='color:red;'>".$pesan."</span>";
+					}
+					echo $text;
+					echo "
 						<div id='lblNotif' class='notif-error'></div>
 						<div class='input-field col s12'>
 							<input id='email' name='email' type='text' class='validate' autofocus='' maxlength='50' placeholder='ex : email@mail.com' tabindex='1'>

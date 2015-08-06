@@ -312,3 +312,48 @@ function CtrlSignin(){
 		});
 	}
 }
+$(document).ready(function() {
+    
+    $('#form-reset-password').validate({
+        rules:{
+            newpass     : {required: true,minlength:4,maxlength:50},
+            renewpass   : {required: true,equalTo:'#newpass'}
+        },
+        messages: {
+            newpass: {
+                required: message_alert("Password baru tidak boleh kosong"),
+                minlength: message_alert("Masukkan minimal 5 karakter"),
+                maxlength: message_alert("Masukkan maksimal 5 karakter"),
+            },
+            renewpass: {
+                required: message_alert("Mohon ketik ulang password baru Anda"),
+                equalTo: message_alert("Mohon masukkan password yang sama"),
+            }
+        },
+    });
+})
+function r_password(selection,url) {
+    if ($("#"+selection).valid()) {
+        $.ajax({
+            type    : "POST",
+            url     : base_url+url,
+            data    : $("#"+selection).serialize(),
+            dataType: 'json',
+            success : function(response){
+                if (response.msg == "success") {
+                     window.location.href = base_url+'toko';
+                }else{
+                    
+                }
+            },
+            error : function(){
+                
+            }
+        });
+    }
+}
+
+ $(document).ready(function() {
+ $('#repas').delay(5000).slideUp('slow');
+ })
+

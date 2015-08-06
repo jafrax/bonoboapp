@@ -25,7 +25,7 @@ echo "
 												<span class='red-text' id='counter-".$row->id."'>$count Belum Selesai</span>										
 												<p>
 												<a onclick=javascript:all_done(".$row->id.") id='btn-selesai-".$row->id."' class='btn-flat waves-effect waves-light teal white-text right'>Selesai Semua</a> 
-												<a href='".base_url()."preorder/detail/".base64_encode($row->id)."' class='btn-flat waves-effect waves-light deep-orange white-text right'>Lihat Pesanan</a></p>
+												<a href='".base_url()."preorder/detail/".base64_encode($row->id)."/".base64_encode($row->name)."' class='btn-flat waves-effect waves-light deep-orange white-text right'>Lihat Pesanan</a></p>
 											</div>
 										</li>";
 									}
