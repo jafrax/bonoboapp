@@ -74,17 +74,30 @@ echo "
 						          	<div class='row '>";
 											foreach ($produk->result() as $row_p) {
 												$image = $this->model_nota->get_nota_product_image($row_p->id)->row();
-												if (count($image) > 0 && file_exists(base_url()."/assets/pic/product/".$image->image)) {
-													$images = base_url()."assets/pic/product/resize/".$image->image;
+												if (count($image) > 0 ) {
+													if (file_exists(base_url()."/assets/pic/product/".$image->product_image)) {
+														$images = base_url()."assets/pic/product/resize/".$image->product_image;
+													}										
 												}else{
 													$images = base_url()."html/images/comp/product.png";
 												}
 												echo "<div class='nota-product col s12 m6'>
 														<img src='".$images."' class='responsive-img col s4 m4 left'>
 														<div class='col s8 m8'>
-															<p class='titleproduct'><b >".$row_p->product_name."</b></p>
-															<p >Rp. ".number_format($row_p->price, 2 , ',' , '.')."</p>
-															<p >Jumlah : ".$row_p->quantity."</p>
+															<p class='blue-text'>".$row_p->product_name."</p>
+															<p >Rp. ".$row_p->price_product."</p>";
+
+															$varian = $this->model_nota->get_varian_product($row_p->id);
+															if ($varian->num_rows() > 0) {
+																foreach ($varian->result() as $row_v) {
+																	if ($row_v->varian_name == 'null') {
+																		echo "<p >Jumlah : ".$row_v->quantity."</p>";
+																	}else{
+																		echo "<p >Varian : ".$row_v->varian_name." , Jumlah : ".$row_v->quantity."</p>";
+																	}
+																}
+															}
+														echo "
 														</div>
 													</div>";
 											}
@@ -93,7 +106,7 @@ echo "
 						          	<div class='row '>
 										<dl class='dl-horizontal col s12 m10 l5 fontbig'>
 											<dt>Total Nota :</dt>
-											<dd><p class='green-text'>RP. ".number_format($nota->price_total, 2 , ',' , '.')."</p></dd>
+											<dd><p class='green-text'>RP. ".number_format($nota->price_item, 2 , ',' , '.')."</p></dd>
 											<dt>Biaya Kirim :</dt>
 											<dd><p class='green-text'>RP. ".number_format($nota->price_shipment, 2 , ',' , '.')."</p></dd>
 											";
@@ -104,7 +117,7 @@ echo "
 												echo"
 											<hr>
 											<dt>Total Transaksi :</dt>
-											<dd><p class='green-text'>RP. ".number_format($nota->price_total_transaction, 2 , ',' , '.')."</p></dd>
+											<dd><p class='green-text'>RP. ".number_format($nota->price_total, 2 , ',' , '.')."</p></dd>
 										</dl>
 						          	</div>
 						          	<div class='row footernota'>

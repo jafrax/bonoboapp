@@ -112,7 +112,7 @@ echo "
 									<label for='satuan'>Satuan <span></span></label>
 								</div>
 								<div class='input-field col s12'>
-									<input id='min_order' placeholder='1' type='text' name='min_order' class='validate numbersOnly'>
+									<input id='min_order' value='1' type='text' name='min_order' class='validate numbersOnly'>
 									<label for='min_order'>Min Order</label>
 								</div>
 								<div class='input-field col s12'>

@@ -1,4 +1,5 @@
 <?php
+$name = base64_decode($this->uri->segment(4));
 echo "
 				<div class='col s12 m12 l12'>
 					<div class='formain'>
@@ -10,7 +11,7 @@ echo "
 
 						<div class='row formbody'>
 							<div class='col s12 m6'>
-								<h4>Nama Produk</h4>
+								<h4>$name</h4>
 							</div>
 							<div class='col s12 m6'>
 								<div class='input-field col s5 right'>

@@ -98,7 +98,7 @@ var tot_picture = 1;
 function add_picture() {
     tot_picture = tot_picture+1;    
     var hitung = $('.picture-area .card').length;
-    if (hitung < 3) {
+    if (hitung < 5) {
         $('#total_picture').val(tot_picture);
         $('.picture-area').append(box_picture(tot_picture));
         $('#add-poto').show();
@@ -119,7 +119,7 @@ function add_picture() {
 }
 
 function box_picture(id) {
-    var box = "<div class='col s6 m4 l3' id='div_pic_"+tot_picture+"'><div class='card' >"
+    var box = "<div class='col s6 m4 l2' id='div_pic_"+tot_picture+"'><div class='card' >"
                   +"<a class='delimg' onclick=javascript:remove_picture('pic_"+tot_picture+"')><i class='mdi-navigation-close right'></i></a>"
                   +"<div class='card-image img-product waves-effect waves-block waves-light'>"
                      +"<img id='img_pic_"+tot_picture+"' onclick=javascript:click_picture('pic_"+tot_picture+"') class='img-product responsive-img' src='"+base_url+"html/images/comp/product_large.png'>"
@@ -158,7 +158,7 @@ function picture_upload(id){
 }
 
 function remove_picture(id) {
-   $('#div_'+id).remove();   
+   /*$('#div_'+id).remove();   
     var hitung = $('.picture-area .card').length;
     if (hitung == 0) {
         tot_picture = tot_picture+1;
@@ -166,19 +166,22 @@ function remove_picture(id) {
         $('.picture-area').append(box_picture(tot_picture));
     }
 
-    if (hitung < 3) {$('#add-poto').show();};
+    if (hitung < 3) {$('#add-poto').show();};*/
+  var loc = base_url+"html/images/comp/product_large.png";
+  $('#'+id).val('');
+  $('#img_'+id).attr("src",loc);  
 }
 
 function change_stok() {
-   var stok = $('#stok').val();
+  var stok = $('#stok').val();
 
-   if (stok == 1) {
-      $('.tersedia').show();
-      $('.pakai-stok').hide();
-   }else if (stok == 0) {
-      $('.pakai-stok').show();
-      $('.tersedia').hide();
-   }
+  if (stok == 1) {
+    $('.tersedia').show();
+    $('.pakai-stok').hide();
+  }else if (stok == 0) {
+    $('.pakai-stok').show();
+    $('.tersedia').hide();
+  }
 }
 
 function setVarian() {
