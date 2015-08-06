@@ -312,3 +312,48 @@ function CtrlSignin(){
 		});
 	}
 }
+$(document).ready(function() {
+    
+    $('#form-reset-password').validate({
+        rules:{
+            newpass     : {required: true,minlength:4,maxlength:50},
+            renewpass   : {required: true,equalTo:'#newpass'}
+        },
+        messages: {
+            newpass: {
+                required: message_alert("Password cannot be empty"),
+                minlength: message_alert("Min length 5 characters"),
+                maxlength: message_alert("Max length 50 characters"),
+            },
+            renewpass: {
+                required: message_alert("Retype password cannot be empty"),
+                equalTo: message_alert("Please enter the same password baru"),
+            }
+        },
+    });
+})
+function r_password(selection,url) {
+    if ($("#"+selection).valid()) {
+        $.ajax({
+            type    : "POST",
+            url     : base_url+url,
+            data    : $("#"+selection).serialize(),
+            dataType: 'json',
+            success : function(response){
+                if (response.msg == "success") {
+                     window.location.href = base_url+'toko';
+                }else{
+                    
+                }
+            },
+            error : function(){
+                
+            }
+        });
+    }
+}
+
+ $(document).ready(function() {
+ $('#repas').delay(5000).slideUp('slow');
+ })
+

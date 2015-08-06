@@ -194,6 +194,12 @@ class Model_toko extends CI_Model {
 		return $this->db->get('tb_toko_bank')->num_rows();
 	}
 	
+	public function reset_akun($data){
+		$this->db->where('email',$data['email']);
+		$this->db->where('token',$data['token']);
+		return $this->db->get('tb_toko');
+	}
+	
 	
 		
 
