@@ -120,7 +120,7 @@ label{ font-size: 14px; color: #565a5c; }
 .input-field .card { margin:5px; box-shadow:none; }
 .card { margin:5px; }
 .card .card-title { font-size: 14px; }
-.card-image img{ height:160px; }
+.card-image img{ height:100px; }
 .notacard { box-shadow:none; border: 1px solid #ddd; }
 .notacard .collapsible{ box-shadow:none; }
 .tool a{ border: 1px solid #ddd;  background: #fff; }
@@ -146,7 +146,7 @@ label{ font-size: 14px; color: #565a5c; }
 .userimg{ border:1px solid #efefef;}
 .div-circle-logo{ margin-top: 10px!important; }
 .circle-logo{ border-radius: 50%;width: 100px;height: 100px;text-align: center; border: 1px solid #eee;}
-.img-product{ height:160px; }
+.img-product{ height:100px; }
 .prordercrop{ height:160px; border:1px solid #efefef; overflow: hidden; }
 .prordercrop img{ width: 100%; }
 
