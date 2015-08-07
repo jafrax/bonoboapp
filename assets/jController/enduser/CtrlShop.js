@@ -1002,7 +1002,8 @@ function CtrlShopStep5(){
                             if(response.result == 1){
                                 window.location.href = base_url+'toko/step6';                                  
                             }else{
-                                $hs_notif("#notifStep7",response.message);
+								Materialize.toast(response.message, 4000);
+                                //$hs_notif("#notifStep7",response.message);
                             }
                         }
                 });
