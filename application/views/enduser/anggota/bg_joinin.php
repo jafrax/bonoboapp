@@ -49,7 +49,7 @@ if(sizeOf($joinins) <= 0){
 		
 		echo"
 					<li class='col s12 listanggonew'>
-						<div class='col s12 m8'><p><a href='#popupDetail3' onclick=ctrlAnggotaJoinin.popupDetail3(".$joinin->id.");><b>".$joinin->member_name."</b></a> ".$Status."</p>
+						<div class='col s12 m8'><p><a href='#popupBlacklist' onclick=ctrlAnggotaJoinin.popupDetail3(".$joinin->id.");><b>".$joinin->member_name."</b></a> ".$Status."</p>
 							<time>".$this->hs_datetime->getDate4String($joinin->create_date)." WIB</time>
 						</div>
 						<div class='col s12 m4' id='divButton".$joinin->id."'>

@@ -400,7 +400,7 @@ class Index extends CI_Controller {
 			$string 	= $key."#".$data['email_user']."#".$ex_date;
 			
 			$token		= $this->template->encrypt($string);
-			
+			//echo $ex_date;
 			$Data = array(
 						"token"=>$token
 					);
@@ -428,8 +428,8 @@ class Index extends CI_Controller {
 			$data['email']=$this->uri->segment(3);
 			$_SESSION['bonobo']['email']=$data['email'];
 			$data['token']=$this->uri->segment(4);
-			$result=$this->model_toko->reset_akun($data);
-			if($result->num_rows() > 0 ){
+			$result=$this->model_toko->reset_akun($data)->result();
+			if(count($result>0) ){
 				$string = $this->template->decrypt($data['token']);
 				$pcs = explode('#',$string);
 				
@@ -445,8 +445,9 @@ class Index extends CI_Controller {
 				
 				//echo $date;
 			}else{
-				$_SESSION['bonobo']['notifikasi']='URL yang anda gunakan tidak valid';
-				redirect('index/signin');
+				echo $this->uri->segment(3).'+'.$this->uri->segment(4);
+				$_SESSION['bonobo']['notifikasi']='URL yang anda gunakan tidak valid ';
+				//redirect('index/signin');
 			}
 	}
 	

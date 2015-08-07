@@ -6,7 +6,7 @@
 	<form class='row formbody' id='form-change-password'>
 		<div class='input-field col s12 m8'>
 			<input disabled id='email' type='email' name='email' class='validate' value='".$_SESSION['bonobo']['email']."'>
-			<label for='email'>Password</label>
+			<label for='email'>Email</label>
 		</div>
 		<div class='input-field col s12 m8'>
 			<input id='oldpass' type='password' name='oldpass' class='validate'>

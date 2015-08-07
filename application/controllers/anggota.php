@@ -39,6 +39,11 @@ class Anggota extends CI_Controller {
 		$count = sizeOf($this->model_joinin->get_news($_SESSION['bonobo']['id'])->result());
 		return $count;
 	}
+	//07-08-2015 create this function
+	private function jumlahbacklist(){
+		$count = sizeOf($this->model_toko_blacklist->get_member_by_shop($_SESSION['bonobo']['id'])->result());
+		return $count;
+	}
 	
 	public function index(){
 		$this->joinin();
@@ -149,7 +154,7 @@ class Anggota extends CI_Controller {
 		}
 		
 		$data["Members"] = $this->model_toko_blacklist->get_member_by_shop($data["shop"]->id, $data["keyword"])->result();
-		
+		$data["jumlahbacklist"] = $this->jumlahbacklist();
 		$this->template->bonobo("anggota/bg_blacklist",$data);
 	}
 	
@@ -164,6 +169,13 @@ class Anggota extends CI_Controller {
 		
 		$this->load->view("enduser/anggota/bg_members_detailb",$data);
 	}
+	// diabuat oleh adi 07-08-2015
+	public function members_detail_ab(){
+		$data["Member"] = $this->model_member->get_by_id($this->response->post("id"))->row();
+		
+		$this->load->view("enduser/anggota/bg_members_detailab",$data);
+	}
+	
 	
 	public function doJoininDelete(){
 		if($this->response->post("id") == ""){
