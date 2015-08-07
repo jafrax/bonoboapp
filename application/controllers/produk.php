@@ -512,7 +512,7 @@ class Produk extends CI_Controller {
 					$pic=1;
 					$url    = 'assets/pic/product/';
 					for($i=1;$i<=$total_picture;$i++){
-						if($pic <= 3){
+						if($pic <= 5){
 							if(isset($_FILES['pic_'.$i]['name'])){
 								$picture = $this->template->upload_picture($url,'pic_'.$i);
 								if($picture != 'error'){
@@ -625,7 +625,7 @@ class Produk extends CI_Controller {
 					$pic 	= 1;
 					
 					for($i=1;$i<=$total_picture;$i++){
-						if($pic <= 3){
+						if($pic <= 5){
 							if(isset($_FILES['pic_'.$i]['name'])){
 								$picture = $this->template->upload_picture($url,'pic_'.$i);
 								if($picture != 'error'){

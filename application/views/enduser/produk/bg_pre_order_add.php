@@ -36,7 +36,7 @@ echo "
 		<label for='nama_kategori'>Nama kategori <span class='text-red'>*</span></label>	
 		<label class='error error-chosen' for='nama_kategori'></label>
 	<div class='modal-footer'>
-		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>TUTUP</a>
+		<a href='#!'  class=' modal-action modal-close waves-effect waves-red btn-flat'>TUTUP</a>
 		<button type='button' id='tambah-kategori' onclick=javascript:tambah_kategori() class='waves-effect waves-red btn-flat'>TAMBAH</a>
 	</div>
 	</form>
@@ -88,7 +88,7 @@ echo "
 								</div>
 								<div class='input-field col s12'>
 									<div class='picture-area'>
-										<div class='col s6 m4 l3' id='div_pic_1'>
+										<div class='col s6 m4 l2' id='div_pic_1'>
 											<div class='card' >
 												<a class='delimg' onclick=javascript:remove_picture('pic_1')><i class='mdi-navigation-close right'></i></a>
 												<div class='card-image img-product waves-effect waves-block waves-light'>
@@ -98,10 +98,51 @@ echo "
 												<label for='pic_1' class='error error-image' generated='true'></label>										
 											</div>										
 										</div>
+										<div class='col s6 m4 l2' id='div_pic_2'>
+											<div class='card' >
+												<a class='delimg' onclick=javascript:remove_picture('pic_2')><i class='mdi-navigation-close right'></i></a>
+												<div class='card-image img-product waves-effect waves-block waves-light'>
+													<img id='img_pic_2' onclick=javascript:click_picture('pic_2') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
+													<input type='file' class='pic_product' name='pic_2' id='pic_2' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
+												</div>
+												<label for='pic_2' class='error error-image' generated='true'></label>										
+											</div>										
+										</div>
+										<div class='col s6 m4 l2' id='div_pic_3'>
+											<div class='card' >
+												<a class='delimg' onclick=javascript:remove_picture('pic_3')><i class='mdi-navigation-close right'></i></a>
+												<div class='card-image img-product waves-effect waves-block waves-light'>
+													<img id='img_pic_3' onclick=javascript:click_picture('pic_3') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
+													<input type='file' class='pic_product' name='pic_3' id='pic_3' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
+												</div>
+												<label for='pic_3' class='error error-image' generated='true'></label>										
+											</div>										
+										</div>
+										<div class='col s6 m4 l2' id='div_pic_4'>
+											<div class='card' >
+												<a class='delimg' onclick=javascript:remove_picture('pic_4')><i class='mdi-navigation-close right'></i></a>
+												<div class='card-image img-product waves-effect waves-block waves-light'>
+													<img id='img_pic_4' onclick=javascript:click_picture('pic_4') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
+													<input type='file' class='pic_product' name='pic_4' id='pic_4' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
+												</div>
+												<label for='pic_4' class='error error-image' generated='true'></label>										
+											</div>										
+										</div>
+										<div class='col s6 m4 l2' id='div_pic_5'>
+											<div class='card' >
+												<a class='delimg' onclick=javascript:remove_picture('pic_5')><i class='mdi-navigation-close right'></i></a>
+												<div class='card-image img-product waves-effect waves-block waves-light'>
+													<img id='img_pic_5' onclick=javascript:click_picture('pic_5') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
+													<input type='file' class='pic_product' name='pic_5' id='pic_5' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
+												</div>
+												<label for='pic_5' class='error error-image' generated='true'></label>										
+											</div>										
+										</div>
+
 									</div>
-									<a id='add-poto' class='btn-flat left' onclick=javascript:add_picture()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH GAMBAR</b></a>
+									<!--<a id='add-poto' class='btn-flat left' onclick=javascript:add_picture()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH GAMBAR</b></a>-->
 								</div>
-								<input type='hidden' name='total_picture' id='total_picture' value='1'/>
+								<input type='hidden' name='total_picture' id='total_picture' value='5'/>
 
 								<div class='input-field col s12'>
 									<input id='perkiraan_berat' placeholder='0.00' type='text' name='berat' class='validate berat' maxlength='9'>
