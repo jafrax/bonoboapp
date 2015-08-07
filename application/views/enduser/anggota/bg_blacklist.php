@@ -14,8 +14,10 @@ echo"
 	<div class='col s12 m12 l9'>
 		<div class='formain'>
 			<div class='formhead'>
-				<h2 class='titmain'><b>DAFTAR BLACKLIST</b></h2>
+			<div
+				<h2 class='titmain'><b>DAFTAR BLACKLIST</b> <span>( ".$jumlahbacklist." Anggota )</span> </h2>
 				<p>Pembeli yang berada dalam blacklist tidak bisa masuk kembali dalam toko anda.</p>
+			</div>
 			</div>
 			<div id='notifBlacklist' align='center' style='display:none;'></div>
 			<ul class='row formbody'>

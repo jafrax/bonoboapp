@@ -167,15 +167,6 @@ function CtrlShopStep1(){
 				txtAddress:{
 					maxlength: message_alert("Masukkan maksimal 150 karakter"),
 				},
-				cmbProvince:{
-					required: message_alert("Harus diisi !"),
-				},
-				cmbCity:{
-					required: message_alert("Harus diisi !"),
-				},
-				cmbKecamatan:{
-					required: message_alert("Harus diisi !"),
-				},
 			}
 		});
 	}
@@ -199,7 +190,7 @@ function CtrlShopStep1(){
 					}else if(response.result == 5){
 						Materialize.toast('Silahkan pilih file format gambar jpg/png/bmp', 4000);
 					}else{
-						$hs_notif("#notifStep1",response.message);
+						//$hs_notif("#notifStep1",response.message);
 					}
 				}
 			});
@@ -717,7 +708,8 @@ function CtrlShopStep8(){
 				}else{
 					//formClear();
 					$('#formStep6Add').reset();
-					$hs_notif("#notifStep6",response.message);
+					Materialize.toast(response.message, 4000);
+					//$hs_notif("#notifStep6",response.message);//ganti
 				}
 			}
 		});
@@ -738,7 +730,8 @@ function CtrlShopStep8(){
 				if(response.result == 1){
 					top.location.href = base_url+"toko/step8";
 				}else{
-					$hs_notif("#notifStep6",response.message);
+					Materialize.toast(response.message, 4000);
+					//$hs_notif("#notifStep6",response.message);//ganti
 				}
 			}
 		});
@@ -755,7 +748,8 @@ function CtrlShopStep8(){
 				if(response.result == 1){
 					top.location.href = base_url+"toko/step8/";
 				}else{
-					$hs_notif("#notifStep6",response.message);
+					Materialize.toast(response.message, 4000);
+					//$hs_notif("#notifStep6",response.message);//ganti
 				}
 			}
 		});

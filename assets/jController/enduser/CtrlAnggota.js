@@ -42,6 +42,7 @@ function CtrlAnggotaJoinin(){
 			url: base_url+'anggota/members_detail_ab',
 			success: function(result) {
 				popupBlacklist.html(result);
+				popupBlacklist.openModal();
 			}
 		});
 	}
