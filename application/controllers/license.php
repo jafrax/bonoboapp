@@ -21,7 +21,7 @@ class License extends CI_Controller {
 	
 	public function index(){
 		$data['captcha']=$this->recaptcha->render();
-		$this->load->view("enduser/license/bg_license",$data);
+		$this->template->bonobo("license/bg_license",$data);
 	}
 	
 	public function submit_verification()

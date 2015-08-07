@@ -89,7 +89,7 @@ echo "
 							<div class='toolb col s12 m6'>
 								<a href='#delete_nota_".$nota->id."' class='modal-trigger red-text right' href='#'><i class='mdi-action-delete small'></i></a>
 								<a href='".base_url()."message/kirim/".base64_encode($nota->member_email)."/".base64_encode($nota->member_name)."' class=' red-text right '><i class='mdi-content-mail small'></i></a>
-								<a class='red-text right ' href='".base_url()."nota/cetak/".$nota->invoice_no."' target='_new'><i class='mdi-action-print small'></i></a>
+								<a href='".base_url()."nota/cetak/".$nota->invoice_no."' onclick='window.open(\"".base_url()."nota/cetak/".$nota->invoice_no."\", \"newwindow\", \"width=800, height=600\"); return false;' class=' red-text right '><i class='mdi-action-print col s1 small'></i></a>
 							</div>
 							<div id='delete_nota_".$nota->id."' class='modal confirmation'>
 								<div class='modal-header red'>
@@ -134,12 +134,11 @@ echo "
 							<div class='col s12 m12'>";
 								foreach ($produk->result() as $row_p) {
 									$image = $this->model_nota->get_nota_product_image($row_p->id)->row();
+									$images = base_url()."html/images/comp/product.png";
 									if (count($image) > 0 ) {
 										if (file_exists(base_url()."/assets/pic/product/".$image->product_image)) {
 											$images = base_url()."assets/pic/product/resize/".$image->product_image;
 										}										
-									}else{
-										$images = base_url()."html/images/comp/product.png";
 									}
 									echo "<div class='nota-product col s12 m6'>
 											<img src='".$images."' class='responsive-img col s4 m4 left'>

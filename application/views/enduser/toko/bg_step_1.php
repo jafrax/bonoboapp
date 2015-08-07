@@ -231,7 +231,7 @@ echo"
 				</div>
 				<div class='ui-widget input-field col s12 m8'>
 					<label for='tags' class=''>Kodepos</label>		
-					<input  id='postal-code' name='txtPostal' type='text' class='validate' value='".$Shop->postal."' autocoplate='off'>
+					<input  id='postal-code' name='txtPostal' type='text' class='validate pos' value='".$Shop->postal."' autocoplate='off'>
 					
 				</div>
 				<div class='input-field col s12 m8'>

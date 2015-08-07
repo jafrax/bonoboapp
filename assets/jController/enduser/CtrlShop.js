@@ -1161,6 +1161,13 @@ $(document).ready(function () {
             }
         },
     });
+	
+	$('.pos').priceFormat({
+	    limit: 5,
+    	centsLimit: '',
+    	thousandsSeparator: '',
+    	prefix: '',
+	});
 })
 function c_password(selection,url) {
     if ($("#"+selection).valid()) {
