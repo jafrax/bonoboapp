@@ -76,7 +76,7 @@ echo"
 				</div>
 				<div class='input-field col s12 m8'>
 					<p>
-						<input name='txtRatePrice' type='text' class='validate price' maxlength='18 value='".(empty($Rate) ? "" : $Rate->id != null ? $Rate->price : "")."'>										
+						<input name='txtRatePrice' type='text' class='validate price' maxlength='18' value='".(empty($Rate) ? "" : $Rate->id != null ? $Rate->price : "")."'>										
 					</p>
 				</div>
 			</div>

@@ -458,8 +458,8 @@ function CtrlShopStep7(){
 	function showDetail(e){
 		divShipment.slideUp("slow");
 		divDetail.slideDown("slow");
-		
-		initCustomeCourierDetail(e);
+		var id = $('#txtCourierId'+e).val();
+		initCustomeCourierDetail(id);
 	}
 	
 	function hideDetail(){
@@ -509,8 +509,8 @@ function CtrlShopStep7(){
 					if(response.result == 1){
 						divCourier.slideUp("slow").remove();
 						if ($('.counter').length < 3  ) {			
-				$('#tombol-tambah').show();
-			}
+							$('#tombol-tambah').show();
+						}
 					}else{
 						Materialize.toast(response.message, 4000);
 					}

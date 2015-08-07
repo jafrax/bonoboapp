@@ -92,7 +92,7 @@ echo"
 					<div class='input-field col s12 m12 l6'>
 						<button type='button' class='waves-effect waves-light btn ' href='javascript:void(0);' onclick=ctrlShopStep7.doCourierSave(".$no.");><i class='material-icons left'>library_add</i>Simpan</button> 
 						<button type='button' class='waves-effect waves-light btn red' href='javascript:void(0);' onclick=ctrlShopStep7.doCourierDelete(".$no.");><i class='mdi-action-delete left'></i>Hapus</button> 
-						<button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail1' href='javascript:void(0);' onclick=ctrlShopStep7.showDetail(".$CustomeCourier->id.");><i class='material-icons left'>list</i>Detail</button> 
+						<button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail1' href='javascript:void(0);' onclick=ctrlShopStep7.showDetail(".$no.");><i class='material-icons left'>list</i>Detail</button> 
 					</div>
 				</div>
 			";
@@ -152,7 +152,7 @@ echo"
 					</table>		
 				</div>
 				<div class='input-field col s12 m12'>
-					<button id='btnStep5Back' class='waves-effect waves-light btn left'>KEMBALI</button>
+					<button id='btnStep5Back' type='button' class='waves-effect waves-light btn left'>KEMBALI</button>
 				</div>
 			</div>
 		</form>
