@@ -9,9 +9,9 @@ $active_production		= FALSE;
 if($active_online){
 	if($active_production){
 		$db['default']['hostname'] = 'localhost';
-		$db['default']['username'] = 'bonobo_production';
-		$db['default']['password'] = '[@v1510n3@]';
-		$db['default']['database'] = 'bonobo_production';
+		$db['default']['username'] = 'bonoboap_product';
+		$db['default']['password'] = '!@#v1510n3!@#';
+		$db['default']['database'] = 'bonoboap_production';
 	}else{
 		$db['default']['hostname'] = 'localhost';
 		$db['default']['username'] = 'bonoboxa_trial';
