@@ -112,25 +112,27 @@ echo "
 	                                            ";
 	                                            $i++;
 	                                        }
-	                                    }else{
+	                                    }
+	                                    $nol = 6-$i;
+	                                    for ($i=1; $i <= $nol ; $i++){
 	                                        echo "
-	                                            <div class='col s6 m4 l3' id='div_pic_1'>
+	                                            <div class='col s6 m4 l2' id='div_pic_".$i."'>
 													<div class='card' >
-														<a class='delimg' onclick=javascript:remove_picture('pic_1')><i class='mdi-navigation-close right'></i></a>
+														<a class='delimg' onclick=javascript:remove_picture('pic_".$i."')><i class='mdi-navigation-close right'></i></a>
 														<div class='card-image img-product waves-effect waves-block waves-light'>
-															<img id='img_pic_1' onclick=javascript:click_picture('pic_1') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
-															<input type='file' class='pic_product' name='pic_1' id='pic_1' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
+															<img id='img_pic_".$i."' onclick=javascript:click_picture('pic_".$i."') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
+															<input type='file' class='pic_product' name='pic_".$i."' id='pic_".$i."' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
 														</div>
-														<label for='pic_1' class='error error-image' generated='true'></label>										
+														<label for='pic_".$i."' class='error error-image' generated='true'></label>										
 													</div>										
 												</div>
 	                                        ";
 	                                    }
 	                                    echo "
 	                                </div>
-									<a class='btn-flat left' onclick=javascript:add_picture()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH GAMBAR</b></a>
+									<!--<a class='btn-flat left' onclick=javascript:add_picture()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH GAMBAR</b></a>-->
 								</div>
-								<input type='hidden' name='total_picture' id='total_picture' value='1'/>
+								<input type='hidden' name='total_picture' id='total_picture' value='$nol'/>
 
 								<div class='input-field col s12'>";
 									$pcs = explode(".", $produk->berat);

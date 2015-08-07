@@ -211,7 +211,7 @@ class Index extends CI_Controller {
 					$years = floor($diff / (365*60*60*24));
 					$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
 					$days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
-
+					
 					if ($months == 0 && $years == 0 && $days <=30 && date('Y-m-d') <= $_SESSION['bonobo']['expired_on']) {
 						$this->response->send(array("result"=>2,"message"=>"Selamat datang ".$QShop->name,"messageCode"=>3));
 					}else{

@@ -13,7 +13,7 @@ echo"
 	</form>
 	<div class='modal-footer'>
 		<a onclick=javascript:tambah_kategori_atur() class=' waves-effect waves-red btn-flat'>YA</a>
-		<a  class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
+		<a  class=' modal-action modal-close waves-effect waves-red btn-flat' onclick=javascript:reset_cat()>TIDAK</a>
 	</div>
 </div>
 <div class='col s12 m12 l3'>
