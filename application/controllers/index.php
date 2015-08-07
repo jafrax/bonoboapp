@@ -177,7 +177,7 @@ class Index extends CI_Controller {
 	
 	public function signin(){
 		if(!$_POST){
-			$data['capcha']=$this->recaptcha->render();//tahap ke 3
+			$data['capcha']=$this->recaptcha->render();
 			$this->load->view("enduser/login/bg_login",$data);
         }else{
             $this->form_validation->set_rules('email', '', 'required');
@@ -390,22 +390,31 @@ class Index extends CI_Controller {
 		
 		$QShop = $this->model_toko->get_by_email($this->response->post("email"))->row();
 		if(!empty($QShop)){
-			$NewPassword = $this->template->rand(6);
+			// start kirim kode ke email
+			
+			$key 		= $this->config->item('saltkey');
+			$date = new DateTime();
+			$date->modify('+1 day');
+			$ex_date = $date->format('Y-m-d H:i:s');
+			
+			$string 	= $key."#".$data['email_user']."#".$ex_date;
+			
+			$token		= $this->template->encrypt($string);
+			
 			$Data = array(
-						"password"=>md5($NewPassword)
+						"token"=>$token
 					);
 			
 			$Save = $this->db->where("id",$QShop->id)->update("tb_toko",$Data);
 			if($Save){
-				$message ="Hi ".$QShop->name.", this is your new password in Bonobo.com<br>
-						Email : ".$QShop->email."<br>
-						Password : ".$NewPassword."<br><br>
-						Thanks, Bonobo.com
+				$message ="Hi ".$QShop->name.", Silakan klik link (URL) berikut ini untuk mereset password. URL akan kadaluarsa dalam waktu 1 x 24 jam.<br>
+						".site_url("index/reset_password/".$data['email_user']."/".$token."")."
+						Terima Kasih, Bonobo.com
 					";
 					
 				$this->template->send_email($QShop->email,'no-reply@bonobo.com', $message);
-				
-				$this->response->send(array("result"=>1,"message"=>"Password anda telah diatur ulang, silahkan lihat pesan kami di email anda!","messageCode"=>1));
+				// end email send
+				$this->response->send(array("result"=>1,"message"=>"Silahkan lihat pesan kami di email anda!","messageCode"=>1));
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Password anda gagal diatur ulang !","messageCode"=>1));
 			}
@@ -413,7 +422,76 @@ class Index extends CI_Controller {
 			$this->response->send(array("result"=>0,"message"=>"Email yang anda masukkan tidak terdaftar !","messageCode"=>1));
 		}
 	}
-
+	
+	// diabuat oleh adi 06-08-2015
+	public function reset_password(){
+			$data['email']=$this->uri->segment(3);
+			$_SESSION['bonobo']['email']=$data['email'];
+			$data['token']=$this->uri->segment(4);
+			$result=$this->model_toko->reset_akun($data);
+			if($result->num_rows() > 0 ){
+				$string = $this->template->decrypt($data['token']);
+				$pcs = explode('#',$string);
+				
+				$date = $pcs[2];
+				
+				if (date("Y-m-d H:i:s") < $date){
+					$this->load->view("enduser/cp/bg_rp",$data);
+				}else{
+					$data['pesanreset']='URL yang anda gunakan tidak valid';
+					$data['capcha']=$this->recaptcha->render();
+					$this->load->view("enduser/login/bg_login",$data);
+				}
+				
+				//echo $date;
+			}else{
+				$_SESSION['bonobo']['notifikasi']='URL yang anda gunakan tidak valid';
+				redirect('index/signin');
+			}
+	}
+	
+		// diabuat oleh adi 04-08-2015
+	public function new_password(){
+			$this->form_validation->set_rules('newpass', '', 'trim|required|min_length[5]|max_length[50]');
+			$this->form_validation->set_rules('renewpass', '', 'trim|required|matches[newpass]');
+			$msg    = "error";
+			$notif  = "";
+			if ($this->form_validation->run() == TRUE){
+				//$email   		= $this->uri->segment(3);
+				$password   = $this->db->escape_str($this->input->post('newpass'));
+				$cek	= $this->db->where("email",$_SESSION['bonobo']['email'])->get('tb_toko');
+				if(count($cek->result())>0){
+					
+					$key 		= $this->config->item('saltkey');
+					$date = new DateTime();
+					$date->modify('+1 day');
+					$ex_date = $date->format('Y-m-d H:i:s');
+					$string 	= $key."#".$_SESSION['bonobo']['email']."#".$ex_date;
+					$token		= $this->template->encrypt($string);							
+					
+					$param  = array(
+					"token"=>$token,
+					'password'      => md5($password),
+					'update_user'   => $_SESSION['bonobo']['email']
+					);
+				
+				$insert = $this->db->where("email",$_SESSION['bonobo']['email'])->update('tb_toko',$param);
+					if($insert){
+						$msg    = "success";
+						$notif  = "Berhasil";
+					}
+				}else{
+					$msg    = "zero";
+					$notif  = "Password yang anda masukkan salah";
+				}
+			}else{
+            
+				}
+			echo json_encode(array("msg"=>$msg,"notif"=>$notif));
+			
+		
+			
+	}
 	
 	
 }

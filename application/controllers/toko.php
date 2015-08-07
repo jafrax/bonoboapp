@@ -380,15 +380,6 @@ class Toko extends CI_Controller {
 			}
 		}
 					
-		$data['postal'] = $this->input->post("txtPostal");
-		$data['kecamatan'] = $this->input->post("cmbKecamatan");
-		$data['city'] = $this->input->post("cmbCity");
-		$data['province'] = $this->input->post("cmbProvince");
-		$code_pos=null;
-			$scl=$this->model_toko->get_id_location($postal)->result();
-			foreach($scl as $row){
-				$code_pos=$row->id;
-			}
 			
 		$UploadPath    = 'assets/pic/shop/';
 			$Upload = $this->template->upload_picture($UploadPath,"txtShopLogoFile");
@@ -411,10 +402,10 @@ class Toko extends CI_Controller {
 				"description"=>$this->response->post("txtDescription"),
 				"phone"=>$this->response->post("txtPhone"),
 				"address"=>$this->response->post("txtAddress"),
-				"postal"=>$data['postal'],
+				"postal"=>$postal,
 				"image"=>$Unggah,
 				"category_id"=>$Category,
-				"location_id"=>$code_pos,
+				"location_id"=>$Location,
 			);
 		}else{
 			$Data = array(
@@ -424,18 +415,15 @@ class Toko extends CI_Controller {
 				"description"=>$this->response->post("txtDescription"),
 				"phone"=>$this->response->post("txtPhone"),
 				"address"=>$this->response->post("txtAddress"),
-				"postal"=>$data['postal'],
+				"postal"=>$postal,
 				"category_id"=>$Category,
-				"location_id"=>$code_pos,
+				"location_id"=>$Location,
 			);
 		}
 		$step=$_SESSION['bonobo']['step'];
 		if($step != 0){
 			$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',2)->update('tb_toko');
 		}	
-		if($Upload == 'error'){
-			$this->response->send(array("result"=>5,"message"=>"Format File : .bmp, .jpg, .png.","messageCode"=>1));
-		}else{
 			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
 			if($Save){
 
@@ -473,7 +461,6 @@ class Toko extends CI_Controller {
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Informasi tidak dapat disimpan","messageCode"=>1));
 			}
-		}
 		
 	}
 	
@@ -1125,6 +1112,7 @@ class Toko extends CI_Controller {
 	    }
 	    echo $valid;
 	}
+
 	
 }
 

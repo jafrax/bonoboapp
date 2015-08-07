@@ -378,5 +378,6 @@
 		$cetak = substr($text,0,$limit);
 		return $cetak;
 	}
+	
 }
 	
