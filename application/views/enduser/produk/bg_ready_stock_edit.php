@@ -20,7 +20,7 @@ echo "
 	<form class='modal-content'>
 		<p>Apakah anda yakin ingin menghapus varian ini ?</p>
 	</form>
-	<div class='modal-footer'>		
+	<div class='modal-footer'>
 		<a class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
 		<a class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
 	</div>
@@ -43,8 +43,8 @@ echo "
 </div>
 				<div class='col s12 m12 l3'>
 					<ul class='menucontent'>
-						<li><a class='active' href='".base_url()."produk/'>READY STOCK</a></li>
-						<li><a href='".base_url()."produk/pre_order'>PRE ORDER</a></li>
+						<li><a class='active' href='".base_url()."produk/index/1'>READY STOCK</a></li>
+						<li><a href='".base_url()."produk/pre_order/1'>PRE ORDER</a></li>
 						<li><a href='".base_url()."produk/atur_kategori'>ATUR KATEGORI</a></li>	
 					</ul>
 				</div>
@@ -198,14 +198,14 @@ echo "
 										foreach ($varian->result() as $row_var) {
 											echo"<li class='varsto' id='li_edit_varian_".$row_var->id."'>
 													<div class='input-field col s12 m5 nolmar'>
-														<input id='varian' name='nama_edit_varian_".$row_var->id."' value='".$row_var->name."' type='text' placeholder='Ex : Merah' class='validate'>
+														<input id='varian' name='nama_edit_varian_".$row_var->id."' maxlength='30' value='".$row_var->name."' type='text' placeholder='Ex : Merah' class='validate'>
 														<label for='varian'>Varian <span></span></label>
 													</div>
 													<div class='input-field col s11 m5 tersedia' style='display:$tersedia'>
 														<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
 													</div>
 													<div class='input-field col s11 m5 pakai-stok' style='display:$guna_stok'>
-														<input id='varian' name='stok_edit_varian_".$row_var->id."' value='".$row_var->stock_qty."' type='text' placeholder='Jumlah stok' class='validate numbersOnly'>
+														<input id='varian' name='stok_edit_varian_".$row_var->id."' value='".$row_var->stock_qty."' type='number' placeholder='Jumlah stok' class='validate numbersOnly'>
 														<label for='varian'>Stok <span></span></label>											
 													</div>
 													<div class='input-field col s1 m1' >
@@ -217,14 +217,14 @@ echo "
 										foreach ($varian->result() as $row_var) {
 									echo"<li class='varsto' id='li_varian_1'>
 											<div class='input-field col s12 m5 nolmar'>
-												<input id='varian' name='nama_varian_1' type='text' placeholder='Misal: Pcs' class='validate'>
+												<input id='varian' name='nama_varian_1' type='text' maxlength='30' placeholder='Misal: Pcs' class='validate'>
 												<label for='varian'>Varian <span></span></label>
 											</div>
 											<div class='input-field col s11 m5 tersedia' style='display:$tersedia'>
 												<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
 											</div>
 											<div class='input-field col s11 m5 pakai-stok' style='display:$guna_stok'>
-												<input id='varian' name='stok_varian_1' type='text' placeholder='Jumlah stok'  class='validate numbersOnly'>
+												<input id='varian' name='stok_varian_1' type='number' placeholder='Jumlah stok'  class='validate numbersOnly'>
 												<label for='varian'>Stok <span></span></label>											
 											</div>
 											<div class='input-field col s1 m1' >

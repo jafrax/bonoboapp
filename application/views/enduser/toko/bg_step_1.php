@@ -59,7 +59,7 @@ echo"
 				<div class='input-field col s12 m8'>
 					<label class='left'>Logo Toko</label><br>
 					
-					<div class='card div-circle-logo col s6 m4 l3 nolpad'>
+					<div class='card div-circle-logo col s6 m4 l2 nolpad'>
 						<a id='aShopLogoDelete' class='delimg'><i class='mdi-navigation-close right'></i></a>
 						<div class='card-image waves-effect waves-block waves-light'>
 							<img id='imgShopLogo' src='".$ShopImage."' class='responsive-img circle-logo' style='cursor:pointer; width:100%;'>

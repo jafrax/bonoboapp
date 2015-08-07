@@ -43,8 +43,8 @@ echo "
 </div>
 				<div class='col s12 m12 l3'>
 					<ul class='menucontent'>
-						<li><a class='active' href='".base_url()."produk/'>READY STOCK</a></li>
-						<li><a href='".base_url()."produk/pre_order'>PRE ORDER</a></li>
+						<li><a class='active' href='".base_url()."produk/index/1'>READY STOCK</a></li>
+						<li><a href='".base_url()."produk/pre_order/1'>PRE ORDER</a></li>
 						<li><a href='".base_url()."produk/atur_kategori'>ATUR KATEGORI</a></li>	
 					</ul>
 				</div>
@@ -174,14 +174,14 @@ echo "
 								<ul class='col s12 m12 cek-stok' id='tempat-varian' style='display:none'>
 									<li class='varsto' id='li_varian_1'>
 										<div class='input-field col s12 m5'>
-											<input id='varian' name='nama_varian_1' type='text' placeholder='Ex : Merah' class='validate' >
+											<input id='varian' name='nama_varian_1' type='text' maxlength='30' placeholder='Ex : Merah' class='validate' >
 											<label for='varian'>Varian <span></span></label>
 										</div>
-										<div class='input-field col s11 m5 tersedia'>
+										<div class='input-field col s11 m5 tersedia' style='display:none'>
 											<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
 										</div>
-										<div class='input-field col s11 m5 pakai-stok'  style='display:none'>
-											<input id='varian' name='stok_varian_1' type='text' placeholder='Jumlah stok' class='validate numbersOnly'>
+										<div class='input-field col s11 m5 pakai-stok'>
+											<input id='varian' name='stok_varian_1' type='number' placeholder='Jumlah stok' class='validate numbersOnly'>
 											<label for='varian'>Stok <span></span></label>											
 										</div>
 										<div class='input-field col s1 m1' >

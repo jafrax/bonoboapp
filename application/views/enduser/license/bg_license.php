@@ -39,7 +39,7 @@ echo "
 						</div>
 						<div class='row formbody'>
 							<div class='nolautomar'>
-								<div class='linehead center'><h5>Silahkan masukan kode verifikasi</h5></div>								
+								<div class='linehead center'><h5>Silahkan masukan Kode Aktivasi</h5></div>								
 								<div class='input-field col s12 nolpad'>
 									<h5><br></h5>
 								</div>

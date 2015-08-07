@@ -1,6 +1,58 @@
 // Created by : dinarwahyu13@gmail.com
 
 
+
+/*
+* MAIN SCROOL AJAX
+*/
+var offset_rs=5;
+var scrolling_rs=true;
+
+$(window).scroll(function () {      
+        if ($(window).scrollTop() == ( $(document).height() - $(window).height()) && scrolling_rs==true && $('#satu').hasClass('ready_stock')) {
+            $('#preloader').slideDown();
+            
+            scrolling_rs      = false;
+            var total_produk  = $('#total_produk').val();
+            var uri           = $('#uri').val();
+            var url           = base_url+'produk/index/'+uri+'/'+offset_rs;
+            
+            window.scrollTo(0, ($(window).scrollTop()-50) );
+
+            $.ajax({
+                type: 'POST',
+                data: 'ajax=1&scroll=1',
+                url: url,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.msg == 'success'){
+                        $('#satu').append(atob(response.satu));
+                        $('#dua').append(atob(response.dua));
+                        $('#preloader').slideUp();
+                        offset_rs      = offset_rs+5;
+                        scrolling_rs   = true;
+                        $('ul.tabs').tabs();
+                        Materialize.updateTextFields();
+                        $('#total_produk').val(total_produk+5);
+                    }else{
+                        $('#preloader').slideUp();
+                        scrolling_rs   = false;
+                        $('#habis').slideDown();
+                    }
+                }
+            });
+            return false;
+        }
+    });
+
+/*
+* END MAIN SCROOL AJAX
+*/
+
+
+
+
+
 (function() {   
 
   $("#form-ready").validate({
@@ -197,9 +249,11 @@ function setVarian() {
 var tot_varian= 1;
 function addVarian() {  
   tot_varian = tot_varian+1;
-  
-  $('#tempat-varian').append(boxVarian(tot_varian));
-  $('#tot_varian').val(tot_varian);
+  var hitung = $('#tempat-varian .varsto').length;
+    if (hitung < 5) {
+      $('#tempat-varian').append(boxVarian(tot_varian));
+      $('#tot_varian').val(tot_varian);
+    }
 }
 
 function boxVarian(id) {
@@ -207,13 +261,13 @@ function boxVarian(id) {
   if (stok == 1) {
       var varian = "<li class='varsto' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 nolmar'>"
                       +"<span for='varian'>Varian</span>"
-                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' placeholder='Ex : Merah' class='validate'>"
+                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' maxlength='30' placeholder='Ex : Merah' class='validate'>"
                     +"</div>"
                     +"<div class='input-field col s11 m5 tersedia'>"
                         +"<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>"
                       +"</div>"
                       +"<div class='input-field col s11 m5 pakai-stok'  style='display:none'>"
-                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='text' placeholder='Jumlah stok' class='validate'>"
+                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='number' placeholder='Jumlah stok' class='validate'>"
                         +"<label for='varian'>Stok <span></span></label>"
                       +"</div>"
                       +"<div class='input-field col s1 m1' >"
@@ -223,13 +277,13 @@ function boxVarian(id) {
    }else if (stok == 0) {
       var varian = "<li class='varsto' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 nolmar'>"
                       +"<span for='varian'>Varian</span>"
-                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' placeholder='Ex : Merah' class='validate'>"
+                      +"<input id='varian' name='nama_varian_"+tot_varian+"' maxlength='30' type='text' placeholder='Ex : Merah' class='validate'>"
                     +"</div>"
                     +"<div class='input-field col s11 m5 tersedia' style='display:none'>"
                         +"<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>"
                       +"</div>"
                       +"<div class='input-field col s11 m5 pakai-stok'>"
-                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='text' placeholder='Jumlah stok' class='validate'>"
+                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='number' placeholder='Jumlah stok' class='validate'>"
                         +"<label for='varian'>Stok <span></span></label>"
                       +"</div>"
                       +"<div class='input-field col s1 m1' >"
@@ -259,6 +313,7 @@ function change_stock(id){
   if (stok != '') {
     clearTimeout(typingTimer);
     typingTimer = setTimeout(function(){ 
+      var stok = $('.stok-'+id).val();
       $.ajax({
         type: 'POST',
         data: 'id='+id+'&stok='+stok,

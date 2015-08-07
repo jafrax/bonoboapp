@@ -1,0 +1,92 @@
+<?php
+$uri3 = $this->uri->segment(3);
+
+							$i=0;
+							foreach ($produk->result() as $row) {
+								$i++;
+								$image = $this->model_produk->get_one_image($row->id)->row();
+								echo"
+								<li class='col s12 m12 listanggodaf produk-".$row->id."'>
+									<p class='col s1 m1 l1'>
+										<input type='checkbox' class='filled-in cek_produk' onclick=javascript:ngeklik('cek-2-$i','cek-1-$i') name='cek_produk_".$row->id."' id='cek-1-$i' />
+										<label for='cek-1-$i'></label>
+										<input type='hidden' id='cek-$i' value='".$row->id."'>
+									</p>
+									<div class='col s12 m3 l2'>";
+										if ($image) {
+											echo "<img src='".base_url()."assets/pic/product/resize/".$image->file."' class='responsive-img userimg'>";											
+										}else{
+											echo "<img src='".base_url()."html/images/comp/product.png' class='responsive-img userimg'>";
+										}
+									echo"	
+									</div>
+									<div class='col s12 m8 l9'>
+										<p class='titleproduct'><a href='".base_url()."produk/edit/".base64_encode($row->id)."'><b >".$row->name."</b></a></p>
+										</p>";
+										if ($row->stock_type_detail == 0) {
+											$stok =  $this->model_produk->get_varian_produk($row->id);
+											foreach ($stok->result() as $row_stok) {
+												echo"
+												<p class='input-field col s12 m12 l7 nolpad'>
+													<input onkeyup=javascript:change_stock(".$row_stok->id.") type='text' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate numbersOnly stok-".$row_stok->id."'>";
+													if ($row_stok->name != 'null') {
+														echo "<label for='stok'>".$row_stok->name."</label>";
+													}
+													
+													if ($row_stok->stock_qty == 0) {
+														echo"<span class='label red right habis-".$row_stok->id."'>Stok habis</span>";
+													}else{
+														echo"<span class='label red right habis-".$row_stok->id."' style='display:none'>Stok habis</span>";
+													}
+												echo"<i class='fa fa-check-circle green-text ok-".$row_stok->id."' style='display:none'> </i>
+												</p>";
+											}											
+										}else{
+											$stok =  $this->model_produk->get_varian_produk($row->id);
+												foreach ($stok->result() as $row_stok) {
+													echo"
+													<p class='col s12 m12 l12 '>	";													
+														if ($row_stok->name != 'null') {
+															echo "
+															<div class=' col s12 m12'>
+																
+																<label for='varian'><b class='label-stock'>".$row_stok->name."</b> Stok : <span class='text-green'>selalu tersedia</span></label>
+															</div>";
+														}else if($row_stok->name == 'null'){
+															echo "
+															<div class=' col s12 m12'>																
+																<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
+															</div>";
+														}
+
+													echo"
+													</p>";
+												}
+										}
+										echo"
+
+										<div class='col s12 m12 l12 '>";
+										if ($row->active == 0) {
+											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."'>DRAFT</button>";
+										}else{
+											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."' style='display:none;'>DRAFT</button>";
+										}
+											echo"
+											<a href='#delete_produk_".$row->id."' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
+											<div id='delete_produk_".$row->id."' class='modal confirmation'>
+												<div class='modal-header red'>
+													<i class='mdi-navigation-close left'></i> Hapus produk
+												</div>
+												<form class='modal-content'>
+													<p>Apakah anda yakin ingin menghapus <b>'".$row->name."'</b> ?</p>
+												</form>
+												<div class='modal-footer'>
+													<a href='#!' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
+													<button type='button' onclick=javascript:delete_produk(".$row->id.") class='btn-flat modal-action modal-close waves-effect '>YA</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>";
+							}
+?>		

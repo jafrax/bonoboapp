@@ -4,8 +4,8 @@ $uri3 = $this->uri->segment(3);
 echo"
 			<div class='col s12 m12 l3'>
 					<ul class='menucontent'>
-						<li><a class='active' href='".base_url()."produk/'>READY STOCK</a></li>
-						<li><a href='".base_url()."produk/pre_order'>PRE ORDER</a></li>
+						<li><a class='active' href='".base_url()."produk/index/1'>READY STOCK</a></li>
+						<li><a href='".base_url()."produk/pre_order/1'>PRE ORDER</a></li>
 						<li><a href='".base_url()."produk/atur_kategori'>ATUR KATEGORI</a></li>	
 					</ul>
 				</div>
@@ -76,7 +76,7 @@ echo"
 								</ul>
 							</li>
 
-							<div id='satu'>";
+							<div id='satu' class='ready_stock'>";
 							$i=0;
 							foreach ($produk->result() as $row) {
 								$i++;
@@ -256,6 +256,12 @@ echo"
 							}
 							echo "
 							</div>
+							<center class='col s12 m12 l12 '>
+								<h5><br></h5>
+								<input type='hidden' id='uri' value='$uri3'>
+								<img id='preloader' src='".base_url()."html/images/comp/loading.GIF' style='display:none' /><br>
+								<label id='habis' class='green-text' style='display:none'>Semua produk telah ditampilkan</label>							
+							</center>
 						</ul>
 					</div>
 				</div>

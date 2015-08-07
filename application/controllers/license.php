@@ -48,7 +48,10 @@ class License extends CI_Controller {
 				$this->db->where('toko_id',$id)->where('code',$code)->set('validity',0)->update('tb_activation_code');
 				$_SESSION['bonobo']['expired_on'] = $end_date;
 				$msg    = "success";
-                $msg    = array("msg"=>$msg,"end_date"=>$end_date);
+				$old_date 	= $end_date;
+				$old_date_timestamp = strtotime($old_date);
+				$date 		= date('d F Y', $old_date_timestamp);
+                $msg    = array("msg"=>$msg,"end_date"=>$date);
 	            $data   = array_merge($msg,$active_code->result());
 	            echo json_encode($data);
 			}
@@ -113,13 +116,13 @@ class License extends CI_Controller {
 									->set('create_date',date('Y-m-d'))
 									->insert('tb_activation_code');
 					if ($insert) {
-						$message1 ="Hallo ".$nama.", terima kasih telah mengajukan permohonan lisensi kepada Kami<br>Berikut adalah data Anda <br>
+						$message1 ="Hallo ".$nama.", terima kasih telah mengajukan permohonan Kode Aktivasi kepada Kami<br>Berikut adalah data Anda <br>
 								Nama : ".$nama."<br>
 								No. Telp : ".$telp."<br>
 								No. HP : ".$hp."<br><br>
 								Regards,<br> Bonobo.com
 							";
-						$message2 ="Berikut adalah data pengajuan lisensi baru member Anda <br>
+						$message2 ="Berikut adalah data pengajuan Kode Aktivasi baru member Anda <br>
 								Nama : ".$nama."<br>
 								No. Telp : ".$telp."<br>
 								No. HP : ".$hp."<br><br>

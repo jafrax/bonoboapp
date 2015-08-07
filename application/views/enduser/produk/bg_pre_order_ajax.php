@@ -1,82 +1,6 @@
 <?php
 $uri3 = $this->uri->segment(3);
 
-echo"
-			<div class='col s12 m12 l3'>
-					<ul class='menucontent'>
-						<li><a href='".base_url()."produk/index/1'>READY STOCK</a></li>
-						<li><a class='active' href='".base_url()."produk/pre_order/1'>PRE ORDER</a></li>
-						<li><a href='".base_url()."produk/atur_kategori'>ATUR KATEGORI</a></li>	
-					</ul>
-				</div>
-				<div class='col s12 m12 l9'>
-					<div class='formain'>
-						<div class='formhead'>
-						<div class='input-field col right'>
-								<button class='waves-effect waves-light btn deep-orange darken-1 right' onclick='location.href=\"".base_url()."produk/add_pre_order\"'><i class='mdi-content-add-circle-outline left'></i>TAMBAH PRODUK</button>
-							</div>
-							<h2 class='titmain'><b>PRE ORDER</b> <span>( ".$produk->num_rows()." Produk )</span></h2>
-							<p>Halaman ini menampilkan barang-barang pre order yang ada di toko anda !</p>
-
-						</div>
-						<ul class='row formbody'>
-							<li class='col s12 listanggodaf'>
-								<div class='input-field col s12 m6 l6 nolpad'>
-									<div class=' col s12 m8 l6'>
-										<select class='select-standar lectfilter' onchange=javascript:change_active_pre() id='active_type'>
-											<option value='' disabled >Pilih filter</option>
-											<option value='1' "; if ($uri3 == '' || $uri3 == '1'){ echo "selected";} echo">Published</option>
-											<option value='0' "; if ($uri3 != '' && $uri3 == '0'){ echo "selected";} echo">Draft</option>											
-										</select>
-
-									</div>
-									<div class=' col s12 m8 l6'>
-										<select class='chosen-select lectfilter' onchange=javascript:filter_kategori() id='filter-kategori'>											
-											<option value=''>Semua Kategori</option>";
-											foreach ($kategori->result() as $row_kt) {
-												$select = '';
-												if (isset($_SESSION['filter_kategori'])) {
-													if ($_SESSION['filter_kategori'] == $row_kt->id) {$select = 'selected';unset($_SESSION['filter_kategori']);}
-												}
-												echo "<option value='".$row_kt->id."' $select>".$row_kt->name."</option>";
-											}
-											echo"
-										</select>
-									</div>
-								</div>
-								<div class='input-field col s12 m6 l4 nolpad right'>
-									<i class='mdi-action-search prefix'></i>
-									<input id='keyword' type='text' class='validate' value='"; if (isset($_SESSION['keyword'])) {echo $_SESSION['keyword'];unset($_SESSION['keyword']);} echo"'>
-									<label for='keyword'>Cari produk</label >
-								</div>
-							</li>
-							<li class='col s12 listanggodaf'>
-								<div class='col s12 m12 l9 nolpad'>
-									<p class='col s1 m1 l1'>
-										<input type='checkbox' class='filled-in' onclick=javascript:cek_all() id='cek_all' />
-										<label for='cek_all'></label>
-									</p>
-									<div class='input-field col s8 m4 l5'>
-										<select class='select-standar lectfilter' id='option-go'>
-											<option value='' disabled selected>Pilih tindakan</option>
-											<option value='1'>Hapus</option>"; 
-											if ($uri3 == '' || $uri3 == '1'){ echo "<option value='2'>Pindah ke Draft</option>";} 
-											if ($uri3 != '' && $uri3 == '0'){ echo "<option value='3'>Pindah ke Publish</option>";} 
-											echo"
-											<option value='4'>Pindah ke Ready Stok</option>
-										</select>
-									</div>
-									<div class='input-field col s12 m4 l3'>
-										<button class='waves-effect waves-light btn deep-orange darken-1 left' onclick=javascript:go()>GO</button>
-									</div>
-								</div>
-								<ul class='tabs navthum col s12 m12 l3 nolpad right'>
-									<li class='tab'><a class='active' href='#satu' ><i class='mdi-action-view-stream'></i></a></li>
-									<li class='tab'><a href='#dua'><i class='mdi-action-view-module'></i></a></li>
-								</ul>
-							</li>
-
-							<div id='satu'>";
 							$i=0;
 							foreach ($produk->result() as $row) {
 								$i++;
@@ -187,16 +111,5 @@ echo"
 									</div>
 								</div>";
 							}
-							echo "
-							</div>
-							<center>
-								<h3><br></h3>
-								<img id='preloader' src='".base_url()."html/images/comp/loading.GIF' style='display:none' /><br>
-								<label id='habis' class='green-text' style='display:none'>Semua kategori telah ditampilkan</label>							
-							</center>
-						</ul>
-					</div>
-				</div>
-				<script type='text/javascript' src='".base_url("")."assets/jController/enduser/CtrlProduk.js'></script>
-";
+							
 ?>		

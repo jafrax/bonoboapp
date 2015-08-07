@@ -20,16 +20,41 @@ class Produk extends CI_Controller {
 		$this->template->cek_license();
 		$this->load->model("enduser/model_produk");		
     }
+
+    var $limit_pro 	= 5;
+	var $offset_pro = 0;
 	
 	public function index(){
 		$uri =  $this->uri->segment(3);
+
+		$page 	= $this->uri->segment(4);        
+        $limit_pro 	= $this->limit_pro;
+        if(!$page){
+        	$offset_pro = $this->offset_pro;
+        }else{
+            $offset_pro = $page;
+        }
+
 		if ($uri != '') {
-			$data['produk'] = $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],1,$uri);
+			
 		}else{
-			$data['produk'] = $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],1);			
+			
 		}
-		$data['kategori']		= $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
-		$this->template->bonobo('produk/bg_ready_stock',$data);
+		$data['produk'] 	= $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],1,$uri,$limit_pro,$offset_pro);
+		$data['kategori']	= $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
+
+		if ($this->input->post('ajax')) {
+			if ($data['produk']->num_rows() > 0){
+                $satu = $this->load->view('enduser/produk/bg_ready_stock_ajax1', $data,TRUE);
+                $dua = $this->load->view('enduser/produk/bg_ready_stock_ajax2', $data,TRUE);
+                echo json_encode(array('msg' => 'success','satu' => base64_encode($satu),'dua' => base64_encode($dua)));
+            }else{
+            	echo json_encode(array('msg' => 'habis'));
+            }
+        } else {
+            $this->template->bonobo('produk/bg_ready_stock',$data);
+        }
+		
 	}
 
 	public function add(){
@@ -723,13 +748,12 @@ class Produk extends CI_Controller {
             }
         } else {
             $this->template->bonobo('produk/bg_atur_kategori', $data);
-        }		
-		
+        }
 	}
 
 	public function add_kategori2() {
 		$id 	= $this->input->post('id');
-		$nama 	= $this->input->post('nama');
+		$nama 	= $this->template->clearInput($this->input->post('nama'));
 
 		$data	= array(
 			'toko_id'		=> $id,
