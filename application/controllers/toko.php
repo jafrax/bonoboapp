@@ -380,15 +380,6 @@ class Toko extends CI_Controller {
 			}
 		}
 					
-		/*$data['postal'] = $this->input->post("txtPostal");
-		$data['kecamatan'] = $this->input->post("cmbKecamatan");
-		$data['city'] = $this->input->post("cmbCity");
-		$data['province'] = $this->input->post("cmbProvince");
-		$code_pos=null;
-			$scl=$this->model_toko->get_id_location($postal)->result();
-			foreach($scl as $row){
-				$code_pos=$row->id;
-			}*/
 			
 		$UploadPath    = 'assets/pic/shop/';
 			$Upload = $this->template->upload_picture($UploadPath,"txtShopLogoFile");
