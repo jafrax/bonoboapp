@@ -675,6 +675,7 @@ class Api extends CI_Controller {
 				array_push($Products,$Product);				
 			}
 			
+			
 			/*
 			*	------------------------------------------------------------------------------
 			*	Get data couriers
@@ -711,40 +712,12 @@ class Api extends CI_Controller {
 				array_push($Provinces,$Province);
 			}
 			
-			$Cities = array();
-			$Kecamatans = array();
-			if(sizeOf($Provinces) > 0){
-				$QCities = $this->db->where("province",$Provinces[0]["name"])->group_by("city")->order_by("city","ASC")->get("ms_location")->result();
-			
-				foreach($QCities as $QCity){
-					$City = array(
-							"id"=>$QCity->id,
-							"name"=>$QCity->city,
-						);
-						
-					array_push($Cities,$City);
-				}
-				
-				if(sizeOf($Cities) > 0){
-					$QKecamatans = $this->db->where("city",$Cities[0]["name"])->where("province",$Provinces[0]["name"])->group_by("kecamatan")->order_by("kecamatan","ASC")->get("ms_location")->result();
-				
-					foreach($QKecamatans as $QKecamatan){
-						$Kecamatan = array(
-								"id"=>$QKecamatan->id,
-								"name"=>$QKecamatan->kecamatan,
-							);
-							
-						array_push($Kecamatans,$Kecamatan);
-					}
-				}
-			}
-			
 			/*
 			*	------------------------------------------------------------------------------
 			*	Get data banks
 			*	------------------------------------------------------------------------------
 			*/
-			$Banks = array();
+			$Banks = array();			
 			$QBanks = $this->db
 							->get("ms_bank")
 							->result();
@@ -770,7 +743,7 @@ class Api extends CI_Controller {
 			*	Sending response
 			*	------------------------------------------------------------------------------
 			*/
-			$this->response->send(array("result"=>1,"products"=>$Products,"couriers"=>$Couriers,"provinces"=>$Provinces,"cities"=>$Cities,"kecamatans"=>$Kecamatans,"banks"=>$Banks), true);
+			$this->response->send(array("result"=>1,"products"=>$Products,"couriers"=>$Couriers,"provinces"=>$Provinces,"banks"=>$Banks), true);
 		
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
@@ -1417,12 +1390,12 @@ class Api extends CI_Controller {
 			*	Query data-data toko
 			*	------------------------------------------------------------------------------
 			*/
-			$QShops = $this->db;
+			$QShops = $this->db->select("tt.id");
 			
 			if($this->response->post("keyword") != "" && $this->response->postDecode("keyword") != ""){
-				$QShops = $QShops->where("tt.name LIKE ","%".$this->response->postDecode("keyword")."%");
+				$QShops = $QShops->where("tt.tag_name",$this->response->postDecode("keyword"));
 			}
-			
+			/*
 			if($this->response->post("follow") != "" && $this->response->postDecode("follow") != ""){
 				if($this->response->postDecode("follow") == 1){
 					$QShops = $QShops->where("tt.id in (SELECT id FROM tb_toko_member WHERE member_id = ".$QUser->id.")",true);
@@ -1434,69 +1407,19 @@ class Api extends CI_Controller {
 			}else{
 				$QShops = $QShops->limit(10,0);
 			}
-			
+			*/
 			$QShops = $QShops->get("tb_toko tt");
 			$QShops = $QShops->result();
 			
 			if(sizeOf($QShops) > 0){
 				$Shops = array();
 				foreach($QShops as $QShop){
-					$QShopBanks = $this->db
-								->select("ttb.id,ttb.acc_name,ttb.acc_no,mb.id as bank_id, mb.name as bank_name")
-								->join("ms_bank mb","mb.id = ttb.bank_id")
-								->where("ttb.toko_id",$QShop->id)
-								->get("tb_toko_bank ttb")
-								->result();
-								
-					$ShopBanks = array();
-					foreach($QShopBanks as $QShopBank){
-						$ShopBank = array(
-								"id"=>$QShopBank->id,
-								"acc_name"=>$QShopBank->acc_name,
-								"acc_no"=>$QShopBank->acc_no,
-								"bank"=>array(
-										"id"=>$QShopBank->bank_id,
-										"name"=>$QShopBank->bank_name,
-									),
-							);
-						
-						array_push($ShopBanks,$ShopBank);
-					}
-								
-					$ShopAttributes = $this->db
-								->select("id,name,value")
-								->where("toko_id",$QShop->id)
-								->get("tb_toko_attribute")
-								->result();
-					
-					$Shop = array(
-							"id"=>$QShop->id,
-							"name"=>$QShop->name,
-							"tag_name"=>$QShop->tag_name,
-							"keyword"=>$QShop->keyword,
-							"description"=>$QShop->description,
-							"phone"=>$QShop->phone,
-							"privacy"=>$QShop->privacy,
-							"pm_store_payment"=>$QShop->pm_store_payment,
-							"pm_transfer"=>$QShop->pm_transfer,
-							"dm_pick_up_store"=>$QShop->dm_pick_up_store,
-							"dm_store_delivery"=>$QShop->dm_store_delivery,
-							"dm_expedition"=>$QShop->dm_expedition,
-							"level_1_name"=>$QShop->level_1_name,
-							"level_2_name"=>$QShop->level_2_name,
-							"level_3_name"=>$QShop->level_3_name,
-							"level_4_name"=>$QShop->level_4_name,
-							"level_5_name"=>$QShop->level_5_name,
-							"status"=>$QShop->status,
-							"image_url"=>base_url("image.php?q=100&fe=".base64_encode($QShop->image)),
-							"shopBanks"=>$ShopBanks,
-							"attributes"=>$ShopAttributes,
-						);
+					$Shop = $this->getShopById($QShop->id);
 					
 					array_push($Shops,$Shop);
 				}
 				
-				$this->response->send(array("result"=>1,"total"=>sizeOf($QShops),"size"=>sizeOf($QShops),"shops"=>$Shops), true);
+				$this->response->send(array("result"=>1,"shops"=>$Shops), true);
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Tidak ada toko yang ditemukan","messageCode"=>3), true);
 			}
