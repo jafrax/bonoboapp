@@ -203,7 +203,7 @@ function picture_upload(id){
         default:
             $(input).val('');
             // error message here
-            Materialize.toast('Silahkan pilih file format gambar jpg/png/gif', 4000);
+            Materialize.toast('Silahkan pilih file format gambar .bmp / .jpg / .png.', 4000);
             break;
     }
      
@@ -515,7 +515,7 @@ function delete_kategori(id){
 
 function set_rules (e) {
   $("#form_edit_kategori_"+e).validate(); //sets up the validator
-  
+  Materialize.updateTextFields();
   $("input[id*=nama_"+e+"]").each(function () {
     $(this).rules('add', {
         required: true,maxlength:100,remote: base_url+"produk/rules_kategori",
@@ -540,6 +540,7 @@ function edit_kategori(id){
           offset_kat      = 10;
           scrolling_kat   = true; 
           $('#habis').slideUp();
+          
         }
     });
   };  

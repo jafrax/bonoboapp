@@ -1000,11 +1000,11 @@ class Toko extends CI_Controller {
 	function ceklevel1(){
 		$data 	= $_REQUEST['txtLevel1'];
 		$cek	= $this->db->where('level_1_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
-	    if(count($cek->result())>0){
+	    if(count($cek->result()) > 0){
 			$valid="true";
 	    }else{
 			$cek	= $this->db->where('level_2_name',$data)->or_where('level_3_name',$data)->or_where('level_4_name',$data)->or_where('level_5_name',$data)->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
-			if(count($cek->result())>0){
+			if(count($cek->result()) > 0){
 			$valid = "false";
 			}else{
 				$valid="true";
