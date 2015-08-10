@@ -11,6 +11,9 @@ echo "
                                 </thead>
                                 <tbody>";
                                 $i=1;
+								if ($this->uri->segment(4)!= ''){
+									$i = $this->uri->segment(4);
+								}
                                 foreach ($license->result() as $row) {
                                     echo "<tr>
                                                 <td>$i</td>

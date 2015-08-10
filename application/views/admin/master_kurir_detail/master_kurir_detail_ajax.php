@@ -17,6 +17,9 @@ echo "
 	</thead>
 	<tbody>";
 	$i=0;
+	if ($this->uri->segment(4)!= ''){
+			$i = $this->uri->segment(4);
+		}
 	if ($allDKurir->num_rows > 0){
 		foreach($allDKurir->result() as $row ){
 		$i++;

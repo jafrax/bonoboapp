@@ -98,8 +98,8 @@ echo "
 		</div>
 		<form class='modal-content' id='formReset'>
 			<div class='input-field col s12'>
-				<input id='txtForgotEmail' name='txtForgotEmail' type='text' maxlength='50' class='validate'>
-				<label for='txtForgotEmail'>Reset Password</label>
+				<input id='txtForgotEmail' name='txtForgotEmail' type='text' maxlength='50' class='validate' placeholder='ex : email@mail.com'>
+				<label for='txtForgotEmail'>Masukkan Akun email anda</label>
 				
 			</div>
 			<label id='notifForgotPassword'  style='display:none;'></label>

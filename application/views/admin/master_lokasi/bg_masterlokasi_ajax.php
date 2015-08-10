@@ -13,6 +13,9 @@ echo"
 	</thead>
 	<tbody>";
 	$i=0;
+	if ($this->uri->segment(4)!= ''){
+			$i = $this->uri->segment(4);
+		}
 	if($allMLokasi->num_rows > 0){
 		foreach ($allMLokasi->result() as $row ){
 			$i++;
