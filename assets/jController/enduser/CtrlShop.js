@@ -188,7 +188,7 @@ function CtrlShopStep1(){
 					if(response.result == 1){
 						top.location.href = base_url+"toko/step2";
 					}else if(response.result == 5){
-						Materialize.toast('Silahkan pilih file format gambar jpg/png/bmp', 4000);
+						Materialize.toast('Silahkan pilih file format gambar .bmp, .jpg, .png', 4000);
 					}else{
 						//$hs_notif("#notifStep1",response.message);
 					}
@@ -304,7 +304,7 @@ function CtrlShopStep1(){
 			default:
 				$('#txtShopLogoFile').val('');
 				// error message here
-				Materialize.toast('Silahkan pilih file format gambar jpg/png/bmp', 4000);
+				Materialize.toast('Silahkan pilih file format gambar .bmp, .jpg, .png', 4000);
 				break;
 		}
 			
