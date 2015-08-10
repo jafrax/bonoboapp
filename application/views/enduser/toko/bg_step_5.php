@@ -70,7 +70,7 @@ echo"
 				<div id='divCourier".$no."' class='input-field col s12 m12 counter'>
 					<div class='input-field col s12 m12 l6'>
 						<input type='hidden' id='txtCourierId".$no."' name='txtCourierId".$no."'>
-						<input type='text' id='txtCourierName".$no."' name='txtCourierName".$no."'>
+						<input type='text' id='txtCourierName".$no."' name='txtCourierName".$no."' maxlength='20'>
 						<label for='txtCourierName".$no."'>Nama Jasa Pengiriman</label>
 					</div>
 					<div class='input-field col s12 m12 l6'>

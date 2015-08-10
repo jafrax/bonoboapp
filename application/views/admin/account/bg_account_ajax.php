@@ -5,14 +5,17 @@
 			<th style='width: 10px'>
 				<input type='checkbox' id='checkall' >
 			</th>
+			<th>No</th>
 			<th>Nama Admin</th>
 			<th>Email Admin</th>
 			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody>";
+	$i=0;
 		if($Account->num_rows() >0){
 			foreach($Account->result() as $row){
+				$i++;
 				echo "
 					<tr>
 						<td>";
@@ -23,6 +26,7 @@
 							}
 							echo "
 						</td>
+						<td>$i</td>
 						<td id='nama-".$row->id."' >".$row->name."</td>
 						<td>".$row->email."</td>
 						<td>";
@@ -55,6 +59,7 @@
 			<th style='width: 10px'>
 				<input type='checkbox' id='checkall' >
 			</th>
+			<th>No</th>
 			<th>Nama Admin</th>
 			<th>Email Admin</th>
 			<th>Action</th>

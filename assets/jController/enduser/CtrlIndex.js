@@ -299,7 +299,7 @@ function CtrlSignin(){
 					txtForgotEmail.value = "";
 					notifForgotPassword.html("<div style='color:blue;'>"+response.message+"</div>");
 					notifForgotPassword.slideDown();
-					notifForgotPassword.delay(5000).slideUp('slow');
+					notifForgotPassword.delay(5000).slideUp('slow').remove();
 					grecaptcha.reset();
 				}else{					
 					notifForgotPassword.html("<i class='fa fa-warning'></i> "+response.message+"</div>");

@@ -114,14 +114,14 @@ class Anggota extends CI_Controller {
 						
 						$this->template->send_email($data["email"],'no-reply@bonobo.com', $message);
 					
-						$data["notif"] = "<label class='text-green' style='color: red !important;'>Undangan anda telah dikirim ke email : ".$data["email"]."</label>";
+						$data["notif"] = "<label id='notifinvite' class='text-green' style='color: green  ;'>Undangan anda telah dikirim ke email : ".$data["email"]."</label>";
 						$data["email"] = "";
 						$data["message"] = "";
 					}else{
-						$data["notif"] = "<label class='text-red' style='color: red !important;' >Undangan anda tidak dapat dikirim !</label>";
+						$data["notif"] = "<label id='notifinvite' class='text-red' style='color: red;' >Undangan anda tidak dapat dikirim !</label>";
 					}
 				}else{
-						$data["notif"] = "<label class='text-red' style='color: red !important;'>Undangan anda tidak dapat dikirim !</label>";
+						$data["notif"] = "<label id='notifinvite' class='text-red' style='color: red;'>Undangan anda tidak dapat dikirim !</label>";
 				}
 				
 			}

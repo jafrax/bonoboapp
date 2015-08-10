@@ -16,6 +16,9 @@ echo"
 	</thead>
 	<tbody>";
 	$i=0;
+	if ($this->uri->segment(4)!= ''){
+			$i = $this->uri->segment(4);
+		}
 	if ($allMKurir->num_rows > 0){
 	foreach ($allMKurir->result() as $row ){
 	$id_link=base64_encode($row->id);

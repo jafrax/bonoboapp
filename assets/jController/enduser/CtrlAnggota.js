@@ -404,3 +404,6 @@ function CtrlAnggotaBlacklist(){
 		blacklistDeleteID.value = "";
 	}
 }
+$(document).ready(function() {
+	$('#notifinvite').delay(5000).slideUp('slow');
+})
