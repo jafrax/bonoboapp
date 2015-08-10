@@ -147,7 +147,7 @@ header,section,content,footer{ width:100%; }
 .formhead .pesan{ margin:15px 0 5px 0; }
 .titmain{ font-size:18px; color: #565a5c; margin:0; line-height:40px; }
 
-.formbody{ padding:15px 15px 0 15px; color:#565a5c!important; }
+.formbody{ padding:15px 15px 0 15px; color:#565a5c!important; min-height: 500px;}
 .formbody .input-field label{ color:#565a5c; }
 .formbody .input-field textarea:focus{ border-bottom: 1px solid #565a5c!important; box-shadow: 0 1px 0 0 #565a5c!important; }
 
@@ -192,3 +192,9 @@ footer.page-footer{ margin-top: 0px; }
 }
 
 .footernota{ padding:80px 0 40px 0; }
+
+#duser{
+    left: none;
+    right: 1px;
+    width: 200px;
+}

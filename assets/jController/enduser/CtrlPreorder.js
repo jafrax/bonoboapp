@@ -1,6 +1,45 @@
 // Created by : dinarwahyu13@gmail.com
 
 
+/*
+* MAIN SCROOL AJAX
+*/
+var offset_rs=6;
+var scrolling_rs=true;
+
+$(window).scroll(function () {      
+        if ($(window).scrollTop() == ( $(document).height() - $(window).height()) && scrolling_rs==true) {
+            $('#preloader').slideDown();
+            
+            scrolling_rs      = false;
+            var total_produk  = $('#total_produk').val();
+            var uri           = $('#uri').val();
+            var url           = base_url+'preorder/index/'+offset_rs;
+            
+            window.scrollTo(0, ($(window).scrollTop()-50) );
+
+            $.ajax({
+                type: 'POST',
+                data: 'ajax=1&scroll=1',
+                url: url,
+                success: function(msg) {
+                    if (msg){
+                        $('#ajax-div').append(msg);
+                        $('#preloader').slideUp();
+                        offset      = offset+5;
+                        scrolling   = true;                        
+                    }else{
+                        $('#preloader').slideUp();
+                        scrolling   = false;
+                        $('#habis').slideDown();
+                    }
+                }
+            });
+            return false;
+        }
+    });
+
+
 // Notes nota ======================================================================================
 function edit_notes (id) {
 	$('.notes-'+id).prop("disabled", false);

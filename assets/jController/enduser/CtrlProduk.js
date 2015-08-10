@@ -93,7 +93,7 @@ $(window).scroll(function () {
 
 
 
-(function() {   
+$(document).ready(function() {   
 
   $("#form-ready").validate({
       errorClass:'error',
@@ -216,7 +216,15 @@ $(window).scroll(function () {
       });
     }
   });
-})();
+
+  $('.modal-trigger').leanModal({
+      ready: function() { $("#nama_kategori").focus(); Materialize.updateTextFields();}, // Callback for Modal open
+      complete: function() { Materialize.updateTextFields(); } // Callback for Modal close
+    }
+  );
+      
+});
+
 
 var tot_picture = 1;
 function add_picture() {
@@ -481,10 +489,11 @@ function go(){
     url = base_url+'produk/pre_order_product';
   }   
 
-
+  var a = 0;
   for (var i = 1 ; i <= total_produk; i++) {
     if ($('#cek-1-'+i).is(":checked")) {
       var id = $('#cek-'+i).val();
+      a++;
       if (option == 1) {
         $('.produk-'+id).fadeOut().remove();
       } else if (option == 2) {            
@@ -505,7 +514,7 @@ function go(){
           
         }
       });
-    }   if (i == total_produk) {location.reload();}; 
+    }   if (i == total_produk) {if (a > 0) {location.reload();}else{Materialize.toast('Tidak ada produk yang dipilih', 4000);}}; 
   }
 }
 

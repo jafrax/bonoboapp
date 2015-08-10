@@ -86,7 +86,7 @@ echo"
 						<img class='responsive-img logo' src='".base_url()."html/images/comp/logo_shadow.png' />
 					</a>
 				</div>
-				<div class='col s6 m8 l10'>
+				<div class='col s5 m8 l10'>
 					
 					<div class='usermain right'>";
 						if ($_SESSION['bonobo']['image']) {
@@ -98,7 +98,7 @@ echo"
 						<a class='dropdown-button right' data-beloworigin='true' href='#' data-activates='duser' >
 							<text>".$_SESSION['bonobo']['name']."</text>
 						</a>
-						<ul id='duser' class='dropdown-content right'>
+						<ul id='duser' class='dropdown-content right' data-gutter='20' data-beloworigin='true' data-constrainwidth='false'>
 							<li><a href='".base_url("toko/change_password")."'>Change Password</a></li>
 							<li><a href='".base_url("license")."'>Perpanjang Masa Aktif</a></li>
 							<li><a href='".base_url("index/logout")."'>Logout</a></li>

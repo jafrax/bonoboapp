@@ -1279,6 +1279,7 @@ $.extend( $.validator, {
 				port: "validate" + element.name,
 				dataType: "json",
 				data: data,
+				async: false,
 				context: validator.currentForm,
 				success: function( response ) {
 					var valid = response === true || response === "true",

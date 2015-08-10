@@ -61,7 +61,7 @@ echo "
 								</div>
 								<div class='input-field col s12'>
 									<input id='nomor_sku' type='text' name='sku' placeholder='Ex : AD001' class='validate' length='20' value='".$produk->sku_no."'>
-									<label for='nomor_sku'>SKU</label>
+									<label for='nomor_sku'>Kode Barang</label>
 								</div>
 								<div class='col s12 m6' id='tempat-kategori'>
 									<label>Kategori Barang <span class='text-red'>*</span></label>
