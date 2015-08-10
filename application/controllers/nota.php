@@ -41,8 +41,7 @@ class Nota extends CI_Controller {
         }else{
             $offset = $page;
         }
-        $pg 	= $this->model_nota->get_nota();
-        $url 	= 'nota/index';
+        
         $data['nota'] 		= $this->model_nota->get_nota($limit,$offset);
         
 		if ($this->input->post('ajax')) {

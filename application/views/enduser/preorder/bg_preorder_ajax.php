@@ -1,11 +1,5 @@
 <?php
-echo "
-				<div class='col s12 m12 l12'>
-					<div class='formain'>
-						<div class='row formbody'>
-							<div class='col s12 m12'>
-								<ul class='row formbody' id='ajax-div'>";
-								if ($produk->num_rows() > 0) {
+
 									foreach ($produk->result() as $row) {
 										$count = $this->model_preorder->get_belum_selesai($row->id)->num_rows();
 										$ago 		= $this->template->xTimeAgoDesc($row->create_date,date('Y-m-d H:i:s'));
@@ -29,27 +23,6 @@ echo "
 											</div>
 										</li>";
 									}
-								}else{
-									echo "
-										<li class='col s12 m6'>
-											<div class='col s12 m5 l4 nolpad'>
-												Data pemesanan kosong
-											</div>
-										</li>";
-								}
-									echo"
-									
-								</ul>
-								<center>
-										<h3><br></h3>
-										<img id='preloader' src='".base_url()."html/images/comp/loading.GIF' style='display:none' /><br>
-										<label id='habis' class='green-text' style='display:none'>Semua produk telah ditampilkan</label>							
-									</center>
-							</div>							
-						</div>
-					</div>
-				</div>
-<script type='text/javascript' src='".base_url("")."assets/jController/enduser/CtrlPreorder.js'></script>
-";
+								
 
 ?>

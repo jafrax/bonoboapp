@@ -61,7 +61,7 @@ echo "
 								</div>
 								<div class='input-field col s12'>
 									<input id='nomor_sku' type='text' name='sku' placeholder='Ex : AD001' class='validate' length='20' value='".$produk->sku_no."'>
-									<label for='nomor_sku'>SKU</label>
+									<label for='nomor_sku'>Kode Barang</label>
 								</div>";
 								$old_date 			= $produk->end_date;
 								$old_date_timestamp = strtotime($old_date);

@@ -20,15 +20,31 @@ class Preorder extends CI_Controller {
 		$this->template->cek_license();
 		$this->load->model("enduser/model_preorder");		
     }
-	
+
+	var $limit = 6;
+	var $offset = 0;
 	public function index(){
 		unset($_SESSION['search']);
 		unset($_SESSION['keyword']);		
 		unset($_SESSION['sort']);
 		unset($_SESSION['selesai']);
-		$data['produk']		= $this->model_preorder->get_product_preorder();
+		$page 	= $this->uri->segment(3);        
+        $limit 	= $this->limit;
+        if(!$page){
+        	$offset = $this->offset;
+        }else{
+            $offset = $page;
+        }
 
-		$this->template->bonobo('preorder/bg_preorder',$data);
+        $data['produk'] 		= $this->model_preorder->get_product_preorder($limit,$offset);
+        
+		if ($this->input->post('ajax')) {
+			if ($data['produk']->num_rows() > 0){
+                $this->load->view('enduser/preorder/bg_preorder_ajax', $data);
+            }
+        } else {
+            $this->template->bonobo('preorder/bg_preorder', $data);
+        }
 	}
 
 	public function detail($id){

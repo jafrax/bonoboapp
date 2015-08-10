@@ -61,7 +61,7 @@ echo "
 								</div>
 								<div class='input-field col s12'>
 									<input id='nomor_sku' type='text' name='sku' placeholder='Ex : AD001' class='validate' length='20'>
-									<label for='nomor_sku'>SKU</label>
+									<label for='nomor_sku'>Kode Barang</label>
 								</div>
 								<div class='input-field col s12'>
 									<input id='tgl_pre_order' name='tgl_pre_order' type='text' placeholder='Tanggal selesai PRE ORDER' class='datepicker validate' >
