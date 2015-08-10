@@ -250,7 +250,7 @@ echo"
 		var ctrlShopStep1 = new CtrlShopStep1();
 		ctrlShopStep1.init();
 	</script>
-	<script 
+	
 
 ";
 
