@@ -148,9 +148,24 @@ echo "
             </div><!-- /.box -->
         </div>
       </div>
-    </div>
-	
+    </div>	
+"; 
+echo"<script>
+$(document).ready(function() {
+		/*NUMBER FORMAT*/
+	$('.price').priceFormat({	    
+	    limit: 18,
+    	centsLimit: 2,
+		centsSeparator: ',',
+    	thousandsSeparator: '.',
+    	prefix: 'Rp. ',
+	});
+	/*NUMBER FORMAT*/
+});
+</script>
+<script src=".base_url('assets/jLib/jQuery/jquery.price_format.2.0.min.js')." type='text/jav'></script>
 
-	
-	
-"; ?>
+";
+
+
+?>
