@@ -76,7 +76,7 @@ echo"
 			<div class='row formbody'>
 				<div class='linehead'>Kontak dan Alamat</div>
 				<div class='input-field col s12 m8'>
-					<input id='txtPhone' name='txtPhone' placeholder=' 0271-987654' type='text' class='validate' value='".$Shop->phone."'>
+					<input id='txtPhone' name='txtPhone' placeholder=' 0271987654' type='text' class='validate numbersOnly' maxlength='12' value='".$Shop->phone."'>
 					<label for='txtPhone'>Telephone</label>
 				</div>
 				<div class='input-field col s12 m8'>								

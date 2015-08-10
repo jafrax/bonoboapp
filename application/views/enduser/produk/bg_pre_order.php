@@ -147,6 +147,7 @@ echo"
 							foreach ($produk->result() as $row) {
 								$a++;
 								$image = $this->model_produk->get_one_image($row->id)->row();
+								$enddate=date('d M Y', strtotime($row->end_date));
 								echo "
 								<div class='card col s12 m4 l3 nolpad produk-".$row->id."' >
 									<p class='checkiniabs'>
@@ -176,7 +177,7 @@ echo"
 											<div class='col s12'>".$row->kategori."</div>
 											<div class='col s12'><b>Tanggal Berakhir</b></div>
 											<div class='input-field col s12'>
-												<span class='date-".$row->id."'>".$row->end_date."</span>
+												<span class='date-".$row->id."'>".$enddate."</span>
 												<span class='label red right kadal-".$row->id."' style='display:$kadal'>Kadaluarsa</span>
 											</div>";
 											if ($row->active == 0) {

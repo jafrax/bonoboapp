@@ -9,8 +9,11 @@ echo"
 			<li><a href='".base_url("anggota/blacklist")."'>BLACKLIST</a></li>
 		</ul>
 	</div>
-	
-	
+	<div class='col s12 m12 l9'>
+		<div class='.notifinvite'><b>
+				".$notif."
+			</b></div>
+	</div>
 	<div class='col s12 m12 l9'>
 		<div class='formain'>
 			<div class='formhead'>
@@ -27,7 +30,7 @@ echo"
 					<label for='message'>Pesan</label>
 				</div>
 				<div class='input-field col s12 m8'>
-					".$notif."<button id='btnSave' type='button' class='waves-effect waves-light btn deep-orange darken-1 right'>Kirim</button>
+					<button id='btnSave' type='button' class='waves-effect waves-light btn deep-orange darken-1 right'>Kirim</button>
 				</div>
 			</form>
 		</div>

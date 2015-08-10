@@ -16,6 +16,10 @@ echo "
 		</thead>
 		<tbody>";
 		$i=0;
+		if ($this->uri->segment(4)!= ''){
+			$i = $this->uri->segment(4);
+		}
+		}
 			if ($allMbank->num_rows > 0){
 			foreach ($allMbank->result() as $row ){
 					$i++;

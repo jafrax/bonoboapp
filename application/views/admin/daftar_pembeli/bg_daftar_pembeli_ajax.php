@@ -15,6 +15,9 @@ echo "
 		</thead>
 		<tbody>";
 		$i=0;
+		if ($this->uri->segment(4)!= ''){
+			$i = $this->uri->segment(4);
+		}
 		if ($allPembeli->num_rows > 0) {
 		foreach($allPembeli->result() as $row){
 			$i++;

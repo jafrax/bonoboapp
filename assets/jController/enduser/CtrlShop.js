@@ -188,7 +188,7 @@ function CtrlShopStep1(){
 					if(response.result == 1){
 						top.location.href = base_url+"toko/step2";
 					}else if(response.result == 5){
-						Materialize.toast('Silahkan pilih file format gambar jpg/png/bmp', 4000);
+						Materialize.toast('Silahkan pilih file format gambar .bmp, .jpg, .png', 4000);
 					}else{
 						//$hs_notif("#notifStep1",response.message);
 					}
@@ -304,7 +304,7 @@ function CtrlShopStep1(){
 			default:
 				$('#txtShopLogoFile').val('');
 				// error message here
-				Materialize.toast('Silahkan pilih file format gambar jpg/png/bmp', 4000);
+				Materialize.toast('Silahkan pilih file format gambar .bmp, .jpg, .png', 4000);
 				break;
 		}
 			
@@ -444,7 +444,7 @@ function CtrlShopStep7(){
 		sequence = sequence+2;
 
 		
-		div.innerHTML = "<div id='divCourier"+sequence+"' class='input-field col s12 m12 counter'><div class='input-field col s12 m12 l6'><input type='hidden' id='txtCourierId"+sequence+"' name='txtCourierId1'><input type='text' id='txtCourierName"+sequence+"' name='txtCourierName1' maxlength='50' minlength='5'><label for='txtCourierName"+sequence+"'>Nama Jasa Pengiriman</label></div><div class='input-field col s12 m12 l6'><button type='button' class='waves-effect waves-light btn  ' onclick=ctrlShopStep7.doCourierSave("+sequence+");><i class='material-icons left'>library_add</i> Simpan</button> <button class='waves-effect waves-light btn red' type='button' onclick=ctrlShopStep7.doCourierDelete("+sequence+");><i class='mdi-action-delete left'></i>Hapus</button> <button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail"+sequence+"'  onclick=ctrlShopStep7.showDetail("+sequence+"); style='display:none;'><i class='material-icons left'>list</i>Detail</button> </div></div>";
+		div.innerHTML = "<div id='divCourier"+sequence+"' class='input-field col s12 m12 counter'><div class='input-field col s12 m12 l6'><input type='hidden' id='txtCourierId"+sequence+"' name='txtCourierId1'><input type='text' id='txtCourierName"+sequence+"' name='txtCourierName1' maxlength='20' minlength='5'><label for='txtCourierName"+sequence+"'>Nama Jasa Pengiriman</label></div><div class='input-field col s12 m12 l6'><button type='button' class='waves-effect waves-light btn  ' onclick=ctrlShopStep7.doCourierSave("+sequence+");><i class='material-icons left'>library_add</i> Simpan</button> <button class='waves-effect waves-light btn red' type='button' onclick=ctrlShopStep7.doCourierDelete("+sequence+");><i class='mdi-action-delete left'></i>Hapus</button> <button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail"+sequence+"'  onclick=ctrlShopStep7.showDetail("+sequence+"); style='display:none;'><i class='material-icons left'>list</i>Detail</button> </div></div>";
 		
 		divCustomCourier.append(div);
 		txtCustomeCourierCount.value = sequence;
