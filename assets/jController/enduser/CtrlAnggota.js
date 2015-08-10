@@ -230,9 +230,24 @@ function CtrlAnggotaInvite(){
 			Messagebox_timer();
 			return;
 		}else{
-			form.attr("method","POST");
-			form.attr("action",base_url+"anggota/invite");
-			form.submit();
+        $.ajax({
+            type    : "POST",
+            url     : base_url+"anggota/invite",
+            data    : $("#formInvite").serialize(),
+            dataType: 'json',
+            success : function(response){
+                if (response.msg == "success") {
+                    $('#formInvite')[0].reset();
+					Materialize.toast(response.notif, 4000);
+                    $("label.error").hide();
+                }else{
+                    
+                }
+            },
+            error : function(){
+                
+            }
+        });
 		}
 	}
 }
