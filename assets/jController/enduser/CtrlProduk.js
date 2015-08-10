@@ -93,7 +93,7 @@ $(window).scroll(function () {
 
 
 
-(function() {   
+$(document).ready(function() {   
 
   $("#form-ready").validate({
       errorClass:'error',
@@ -223,7 +223,8 @@ $(window).scroll(function () {
     }
   );
       
-})();
+});
+
 
 var tot_picture = 1;
 function add_picture() {
