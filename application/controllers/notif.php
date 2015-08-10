@@ -10,23 +10,24 @@ class Notif extends CI_Controller {
 	public function index(){
         if(isset($_SESSION['bonobo'])){
             $notif = $this->db->where('toko_id',$_SESSION['bonobo']['id'])->where('flag_read',0)->get('tb_toko_message')->num_rows();            
+            $notif2 = $this->db->where('toko_id',$_SESSION['bonobo']['id'])->where('status',0)->get('tb_invoice')->num_rows(); 
 
-            $this->response->send(array("result"=>1,"message"=>$notif));
+            $this->response->send(array("result"=>1,"message"=>$notif,"message2"=>$notif2));
         }else{
-            $this->response->send(array("result"=>0,"message"=>'No Login'));
+            $this->response->send(array("result"=>0,"message"=>'No Login',"message2"=>'No Login'));
         }
 		
 	}
-
+/*
     public function nota()
     {
         if(isset($_SESSION['bonobo'])){
-            $notif = $this->db->where('toko_id',$_SESSION['bonobo']['id'])->where('status',0)->get('tb_invoice')->num_rows();            
+                       
 
             $this->response->send(array("result"=>1,"message"=>$notif));
         }else{
             $this->response->send(array("result"=>0,"message"=>'No Login'));
         }
     }
-
+*/
 }

@@ -76,7 +76,7 @@ $(document).ready(function() {
 
 
 /*LOOPING NOTIFICATION MESSAGE*/
-
+/*
 if($('.notifindong').length > 0){
 	//alert('a');
 	requestMessage();
@@ -85,13 +85,14 @@ if($('.notifindong').length > 0){
 	  setInterval(requestMessage, 10000);
 	});
 }
-	
+*/	
 
 
 function requestMessage () {
 	$.ajax({
 		type:'POST',
 		url: base_url+"notif",
+		async: false,
 		success:function(result){
 			var response = JSON.parse(result);
 			if(response.result == 1){
@@ -102,27 +103,16 @@ function requestMessage () {
 					$('.notifindong').html(response.message);
 					$('.notifindong').fadeIn();
 				}
-			}else{
-				window.location = base_url+"index/logout";	
-			}
-			
-			
-		}
-	});
 
-	$.ajax({
-		type:'POST',
-		url: base_url+"notif/nota",
-		success:function(result){
-			var response = JSON.parse(result);
-			if(response.result == 1){
-				if (response.message == 0){
+				if (response.message2 == 0){
 					$('.notifinnota').html('');
 					$('.notifinnota').hide();
 				}else{
-					$('.notifinnota').html(response.message);
+					$('.notifinnota').html(response.message2);
 					$('.notifinnota').fadeIn();
 				}
+			}else{
+				window.location = base_url+"index/logout";	
 			}
 		}
 	});	
