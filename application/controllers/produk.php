@@ -35,11 +35,10 @@ class Produk extends CI_Controller {
             $offset_pro = $page;
         }
 
-		if ($uri != '') {
-			
-		}else{
-			
+		if ($uri == '') {
+			redirect('produk/index/1');	
 		}
+
 		$data['produk'] 	= $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],1,$uri,$limit_pro,$offset_pro);
 		$data['kategori']	= $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
 
@@ -467,16 +466,38 @@ class Produk extends CI_Controller {
 *
 * Create 30 Juni 2015 by Dinar Wahyu Wibowo
 */
-
+	var $limit_pre 	= 5;
+	var $offset_pre = 0;
 	public function pre_order(){
 		$uri =  $this->uri->segment(3);
-		if ($uri != '') {
-			$data['produk'] = $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],0,$uri);
-		}else{
-			$data['produk'] = $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],0);			
+
+		$page 	= $this->uri->segment(4);        
+        $limit_pre 	= $this->limit_pre;
+        if(!$page){
+        	$offset_pre = $this->offset_pre;
+        }else{
+            $offset_pre = $page;
+        }
+
+		if ($uri == '') {
+			redirect('produk/pre_order/1');	
 		}
-		$data['kategori']		= $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
-		$this->template->bonobo('produk/bg_pre_order',$data);
+
+		$data['produk'] 	= $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],0,$uri,$limit_pre,$offset_pre);
+		$data['kategori']	= $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
+
+		if ($this->input->post('ajax')) {
+			if ($data['produk']->num_rows() > 0){
+                $satu = $this->load->view('enduser/produk/bg_pre_order_ajax1', $data,TRUE);
+                $dua = $this->load->view('enduser/produk/bg_pre_order_ajax2', $data,TRUE);
+                echo json_encode(array('msg' => 'success','satu' => base64_encode($satu),'dua' => base64_encode($dua)));
+            }else{
+            	echo json_encode(array('msg' => 'habis'));
+            }
+        } else {
+            $this->template->bonobo('produk/bg_pre_order',$data);
+        }
+		
 	}
 
 	public function add_pre_order(){

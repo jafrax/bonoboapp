@@ -89,7 +89,7 @@ class License extends CI_Controller {
                                 <dd>".$toko_id->name."</dd>
                                 <dt>Durasi</dt>
                                 <dd>".$duration."</dd>                                                
-                                <dt>Tipe Dusari</dt>
+                                <dt>Tipe Durasi</dt>
                                 <dd>";
                                 if ($duration_type =='d') {
                                     echo "Hari";

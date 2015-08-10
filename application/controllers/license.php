@@ -129,8 +129,8 @@ class License extends CI_Controller {
 								Regards,<br> Bonobo.com
 							";
 							
-						$this->template->send_email($_SESSION['bonobo']['email'],'no-reply@bonobo.com', $message1);
-						$this->template->send_email($this->config->item('email_admin'),'no-reply@bonobo.com', $message2);
+						$this->template->send_email($_SESSION['bonobo']['email'],'Permintaan kode aktivasi code', $message1);
+						$this->template->send_email($this->config->item('email_admin'),'Permintaan kode aktivasi code', $message2);
 						$this->response->send(array("result"=>1,"message"=>"Permintaan telah dikirim","messageCode"=>1));
 					}
 				}else{
