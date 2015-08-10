@@ -646,7 +646,6 @@ class Api extends CI_Controller {
 	
 	public function index(){
 		try {
-		
 			/*
 			*	------------------------------------------------------------------------------
 			*	Validation POST data
@@ -655,26 +654,6 @@ class Api extends CI_Controller {
 			if(!$this->isValidApi($this->response->postDecode("api_key"))){
 				return;
 			}
-
-			/*
-			*	------------------------------------------------------------------------------
-			*	Get data products
-			*	------------------------------------------------------------------------------
-			*/
-			$Products = array();
-			$QProducts = $this->db
-					->select("id")
-					->where("active",1)
-					->limit(10,0)
-					->order_by("id","DESC")
-					->get("tb_product")
-					->result();
-			
-			foreach($QProducts as $QProduct){
-				$Product = $this->getProductById($QProduct->id);
-				array_push($Products,$Product);				
-			}
-			
 			
 			/*
 			*	------------------------------------------------------------------------------
@@ -743,7 +722,7 @@ class Api extends CI_Controller {
 			*	Sending response
 			*	------------------------------------------------------------------------------
 			*/
-			$this->response->send(array("result"=>1,"products"=>$Products,"couriers"=>$Couriers,"provinces"=>$Provinces,"banks"=>$Banks), true);
+			$this->response->send(array("result"=>1,"couriers"=>$Couriers,"provinces"=>$Provinces,"banks"=>$Banks), true);
 		
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
