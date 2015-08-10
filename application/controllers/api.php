@@ -1118,7 +1118,7 @@ class Api extends CI_Controller {
 			*	get data member product favorite
 			*	------------------------------------------------------------------------------
 			*/
-			
+			$Favorites = array();
 			$QFavorites = $this->db
 					->join("tb_product tp","tf.product_id = tp.id")
 					->where("tp.active",1)
@@ -1126,11 +1126,31 @@ class Api extends CI_Controller {
 					->get("tb_favorite tf")
 					->result();
 			
-			$Favorites = array();
 			foreach($QFavorites as $QFavorite){
 				$Favorite = $this->getProductById($QFavorite->product_id,$QUser->id);
 				if(!empty($Favorite)){
 					array_push($Favorites,$Favorite);
+				}
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	get data member product favorite
+			*	------------------------------------------------------------------------------
+			*/
+			$Products = array();
+			$QProducts = $this->db
+					->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
+					->where("tp.active",1)
+					->where("ttcp.toko_id IN (SELECT ttm.toko_id FROM tb_toko_member ttm WHERE ttm.member_id = ".$QUser->id.")",null,false)
+					->limit(10,0)
+					->get("tb_product tp")
+					->result();
+			
+			foreach($QProducts as $QProduct){
+				$Product = $this->getProductById($QProduct->id,$QUser->id);
+				if(!empty($Product)){
+					array_push($Products,$Product);
 				}
 			}
 			
@@ -1180,13 +1200,58 @@ class Api extends CI_Controller {
 					"contacts"=>$Attributes, 
 					"banks"=>$Banks, 
 					"locations"=>$Locations, 
-					"products"=>$Favorites,
+					"favorites"=>$Favorites,
+					"products"=>$Products,
 					"shops"=>$Shops,
 					"carts"=>$Carts,
 					"invoices"=>$Invoices,
 				);
 			
 			$this->response->send($Object, true);
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function doRunService(){
+		try {
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>3), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Mengambil data toko joined
+			*	------------------------------------------------------------------------------
+			*/
+			$Shops = array();
+			$QShops = $this->db
+						->where("member_id",$QUser->id)
+						->get("tb_toko_member")
+						->result();
+						
+			foreach($QShops as $QShop){
+				$Shop = $this->getShopById($QShop->toko_id);
+				array_push($Shops,$Shop);
+			}
+			
+			$this->response->send(array("result"=>1,"shops"=>$Shops), true);
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
@@ -1341,7 +1406,7 @@ class Api extends CI_Controller {
 		}
 	}
 	
-	public function getShops(){
+	public function getShopsByPin(){
 		try {
 		
 			/*
@@ -1364,6 +1429,10 @@ class Api extends CI_Controller {
 				return;
 			}
 			
+			if($this->response->post("pin") == "" || $this->response->postDecode("pin") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tulis PIN toko yang anda cari","messageCode"=>1), true);
+				return;
+			}
 			
 			/*
 			*	------------------------------------------------------------------------------
@@ -1372,22 +1441,10 @@ class Api extends CI_Controller {
 			*/
 			$QShops = $this->db->select("tt.id");
 			
-			if($this->response->post("keyword") != "" && $this->response->postDecode("keyword") != ""){
-				$QShops = $QShops->where("tt.tag_name",$this->response->postDecode("keyword"));
-			}
-			/*
-			if($this->response->post("follow") != "" && $this->response->postDecode("follow") != ""){
-				if($this->response->postDecode("follow") == 1){
-					$QShops = $QShops->where("tt.id in (SELECT id FROM tb_toko_member WHERE member_id = ".$QUser->id.")",true);
-				}
+			if($this->response->post("pin") != "" && $this->response->postDecode("pin") != ""){
+				$QShops = $QShops->where("tt.tag_name",$this->response->postDecode("pin"));
 			}
 			
-			if($this->response->post("page") != "" && $this->response->postDecode("page") != ""){
-				$QShops = $QShops->limit(10,$this->response->postDecode("page"));
-			}else{
-				$QShops = $QShops->limit(10,0);
-			}
-			*/
 			$QShops = $QShops->get("tb_toko tt");
 			$QShops = $QShops->result();
 			
@@ -1720,58 +1777,76 @@ class Api extends CI_Controller {
 			*/ 
 			
 			$QFollow = $this->db
-					->where("toko_id",$this->response->postDecode("shop"))
-					->where("member_id",$this->response->postDecode("user"))
+					->where("toko_id",$QShop->id)
+					->where("member_id",$QUser->id)
 					->get("tb_toko_member")
 					->row();
 						
 			if(empty($QFollow)){
-				if($QShop->privacy == 0){
-					$Follow = array(
-						"toko_id"=>$this->response->postDecode("shop"),
-						"member_id"=>$this->response->postDecode("user"),
+				if($QShop->privacy == 1){
+					$FollowData = array(
+						"toko_id"=>$QShop->id,
+						"member_id"=>$QUser->id,
 						"create_date"=>date("Y-m-d H:i:s"),
 						"create_user"=>$QUser->email,
 						"update_date"=>date("Y-m-d H:i:s"),
 						"update_user"=>$QUser->email,
 					);
 						
-					$Save = $this->db->insert("tb_toko_member",$Follow);
-					
-					$Join = array(
-						"toko_id"=>$this->response->postDecode("shop"),
-						"member_id"=>$this->response->postDecode("user"),
-						"status"=>1,
-						"create_date"=>date("Y-m-d H:i:s"),
-						"create_user"=>$QUser->email,
-						"update_date"=>date("Y-m-d H:i:s"),
-						"update_user"=>$QUser->email,
-					);
-						
-					$Save = $this->db->insert("tb_join_in",$Join);
+					$Save = $this->db->insert("tb_toko_member",$FollowData);
 					
 					if($Save){
+						$QJoin = $this->db
+								->where("toko_id",$QShop->id)
+								->where("member_id",$QUser->id)
+								->get("tb_join_in")
+								->row();
+						
+						if(empty($QJoin)){
+							$JoinData = array(
+								"toko_id"=>$QShop->id,
+								"member_id"=>$QUser->id,
+								"status"=>1,
+								"create_date"=>date("Y-m-d H:i:s"),
+								"create_user"=>$QUser->email,
+							"update_date"=>date("Y-m-d H:i:s"),
+								"update_user"=>$QUser->email,
+							);
+								
+							$Save = $this->db->insert("tb_join_in",$JoinData);
+						}
+					
 						$this->response->send(array("result"=>1,"message"=>"Anda telah tergabung dengan toko ini","messageCode"=>5), true);
 					}else{
 						$this->response->send(array("result"=>0,"message"=>"Anda tidak dapat bergabung dengan toko ini","messageCode"=>6), true);
 					}
 				}else{
-					$Join = array(
-						"toko_id"=>$this->response->postDecode("shop"),
-						"member_id"=>$this->response->postDecode("user"),
-						"status"=>0,
-						"create_date"=>date("Y-m-d H:i:s"),
-						"create_user"=>$QUser->email,
-						"update_date"=>date("Y-m-d H:i:s"),
-						"update_user"=>$QUser->email,
-					);
+					$QJoin = $this->db
+							->where("toko_id",$QShop->id)
+							->where("member_id",$QUser->id)
+							->get("tb_join_in")
+							->row();
 						
-					$Save = $this->db->insert("tb_join_in",$Join);
-					
-					if($Save){
-						$this->response->send(array("result"=>1,"message"=>"Permintaan beganbung anda telah dikirim","messageCode"=>7), true);
+					if(empty($QJoin)){
+						$Join = array(
+							"toko_id"=>$QShop->id,
+							"member_id"=>$QUser->id,
+							"status"=>0,
+							"create_date"=>date("Y-m-d H:i:s"),
+							"create_user"=>$QUser->email,
+							"update_date"=>date("Y-m-d H:i:s"),
+							"update_user"=>$QUser->email,
+						);
+							
+						$Save = $this->db->insert("tb_join_in",$Join);
+						
+						if($Save){
+							$this->response->send(array("result"=>1,"message"=>"Permintaan bergabung anda telah dikirim","messageCode"=>7), true);
+						}else{
+							$this->response->send(array("result"=>0,"message"=>"Anda tidak dapat bergabung dengan toko ini","messageCode"=>8), true);
+						}
 					}else{
-						$this->response->send(array("result"=>0,"message"=>"Anda tidak dapat bergabung dengan toko ini","messageCode"=>8), true);
+						$this->response->send(array("result"=>1,"message"=>"Permintaan bergabung telah dikirim","messageCode"=>8), true);
 					}
 				}
 			}else{
