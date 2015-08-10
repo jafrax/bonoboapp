@@ -81,13 +81,15 @@ function generate(){
 					$('#btn-generate').fadeTo(1,'slow');
 					$('#btn-generate').html("Generate");
 					notif('License telah di generate','success');
-					$('#generate-notif').html(msg).hide().slideDown();					
+					$('#generate-notif').html(msg).hide().slideDown();
 					document.getElementById("form-generate").reset();
+					$(".chosen-select").val('').trigger("chosen:updated");
 				}else{
 					$('#btn-generate').fadeTo(1,'slow');
 					$('#btn-generate').html("Generate");
 					notif('License gagal di generate','error');
 					document.getElementById("form-generate").reset();
+					$(".chosen-select").val('').trigger("chosen:updated");
 				};
 			}
 		});

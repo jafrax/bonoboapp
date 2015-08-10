@@ -7,12 +7,12 @@ echo"
 	</div>
 	<form class='modal-content' id='form_add_kategori'>
 		<input id='id-toko' name='nama' type='hidden' value='".$_SESSION['bonobo']['id']."' >
-		<input id='nama_kategori'  name='nama_kategori' type='text' class='validate'>
+		<input id='nama_kategori' maxlength='20' name='nama_kategori' type='text' class='validate'>
 		<label for='nama_kategori'>Nama kategori <span class='text-red'>*</span></label>
 		<label class='error error-chosen' for='nama_kategori'></label>
 	</form>
 	<div class='modal-footer'>
-		<a onclick=javascript:tambah_kategori_atur() class=' waves-effect waves-red btn-flat'>YA</a>
+		<a onclick=javascript:tambah_kategori_atur() class=' waves-effect waves-red btn-flat add-kateg' >YA</a>
 		<a  class=' modal-action modal-close waves-effect waves-red btn-flat' onclick=javascript:reset_cat()>TIDAK</a>
 	</div>
 </div>
@@ -71,7 +71,7 @@ echo"
 											<form class='modal-content' id='form_edit_kategori_".$row->id."'>
 												<p>
 													<div class='input-field col s12'>														
-														<input id='nama_".$row->id."' name='nama_kategori' type='text' value='".$row->name."' class='validate' required>
+														<input id='nama_".$row->id."' name='nama_kategori' maxlength='20' type='text' value='".$row->name."' class='validate' required>
 														<label for='nama_".$row->id."'>Kategori</label>														
 													</div>
 											    </p>

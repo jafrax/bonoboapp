@@ -45,6 +45,46 @@ $(window).scroll(function () {
         }
     });
 
+var offset_po=5;
+var scrolling_po=true;
+
+$(window).scroll(function () {      
+        if ($(window).scrollTop() == ( $(document).height() - $(window).height()) && scrolling_po==true && $('#satu').hasClass('pre_order')) {
+            $('#preloader').slideDown();
+            
+            scrolling_po      = false;
+            var total_produk  = $('#total_produk').val();
+            var uri           = $('#uri').val();
+            var url           = base_url+'produk/pre_order/'+uri+'/'+offset_po;
+            
+            window.scrollTo(0, ($(window).scrollTop()-50) );
+
+            $.ajax({
+                type: 'POST',
+                data: 'ajax=1&scroll=1',
+                url: url,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.msg == 'success'){
+                        $('#satu').append(atob(response.satu));
+                        $('#dua').append(atob(response.dua));
+                        $('#preloader').slideUp();
+                        offset_po      = offset_po+5;
+                        scrolling_po   = true;
+                        $('ul.tabs').tabs();
+                        Materialize.updateTextFields();
+                        $('#total_produk').val(total_produk+5);
+                    }else{
+                        $('#preloader').slideUp();
+                        scrolling_po   = false;
+                        $('#habis').slideDown();
+                    }
+                }
+            });
+            return false;
+        }
+    });
+
 /*
 * END MAIN SCROOL AJAX
 */
@@ -64,6 +104,10 @@ $(window).scroll(function () {
           sku                     : {maxlength:20},
           kategori                : {required: true,maxlength:50},
           pic_1                   : {accept: 'image/*',filesize: 1000000},
+          pic_2                   : {accept: 'image/*',filesize: 1000000},
+          pic_3                   : {accept: 'image/*',filesize: 1000000},
+          pic_4                   : {accept: 'image/*',filesize: 1000000},
+          pic_5                   : {accept: 'image/*',filesize: 1000000},
           berat                   : {number:true,maxlength:50},
           satuan                  : {maxlength:5},
           min_order               : {digits: true,maxlength:11},
@@ -79,7 +123,19 @@ $(window).scroll(function () {
       messages: {
           pic_1: {
                 filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
-              }
+              },
+          pic_2: {
+                filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
+              },
+          pic_3: {
+                filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
+              },
+          pic_4: {
+                filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
+              },
+          pic_5: {
+                filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
+              },
       }
   }); 
 
@@ -93,6 +149,10 @@ $(window).scroll(function () {
           sku                     : {maxlength:20},
           kategori                : {required: true,maxlength:50},
           pic_1                   : {accept: 'image/*',filesize: 1000000},
+          pic_2                   : {accept: 'image/*',filesize: 1000000},
+          pic_3                   : {accept: 'image/*',filesize: 1000000},
+          pic_4                   : {accept: 'image/*',filesize: 1000000},
+          pic_5                   : {accept: 'image/*',filesize: 1000000},
           berat                   : {number:true,maxlength:50},
           satuan                  : {maxlength:5},
           min_order               : {digits: true,maxlength:11},
@@ -108,14 +168,26 @@ $(window).scroll(function () {
       messages: {
           pic_1: {
                 filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
-              }
+              },
+          pic_2: {
+                filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
+              },
+          pic_3: {
+                filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
+              },
+          pic_4: {
+                filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
+              },
+          pic_5: {
+                filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
+              },
       }
   });  
 
   $("#form_add_kategori").validate({
       errorClass:'error',
       rules:{
-          nama_kategori           : {required: true,maxlength:100,remote: base_url+"produk/rules_kategori"},     
+          nama_kategori           : {required: true,maxlength:20,remote: base_url+"produk/rules_kategori"},     
       },
       messages: {
           nama_kategori: {
@@ -197,13 +269,13 @@ function picture_upload(id){
    var img     = $(input).val();
 
     switch(img.substring(img.lastIndexOf('.') + 1).toLowerCase()){
-        case 'gif': case 'jpg': case 'png':
+        case 'jpg': case 'png':
             preview.src = URL.createObjectURL(input.files[0]);  
             break;
         default:
             $(input).val('');
             // error message here
-            Materialize.toast('Silahkan pilih file format gambar .bmp / .jpg / .png.', 4000);
+            Materialize.toast('Silahkan pilih file format gambar .jpg / .png.', 4000);
             break;
     }
      
@@ -471,15 +543,17 @@ function tambah_kategori(){
   };
 }
 
-function tambah_kategori_atur(){
+function tambah_kategori_atur(){  
+  $('.add-kateg').attr('disabled', true);
   var nama  = $('#nama_kategori').val();
-  var id    = $('#id-toko').val();
+  var id    = $('#id-toko').val();  
 
   if ($('#form_add_kategori').valid() == true) {
     $.ajax({
           type: 'POST',
           data: 'nama='+nama+'&id='+id,
           url: base_url+'produk/add_kategori2',
+          async: false,
           success: function(msg) {
             Materialize.toast('Kategori telah ditambahkan', 4000);
             $('#tempat-kategori').html(msg);
@@ -487,11 +561,14 @@ function tambah_kategori_atur(){
             $('#nama_kategori').val('');
             $('#tambah_kategori').closeModal();
             $('.modal-trigger').leanModal();
+            $('.add-kateg').attr('disabled', false);
             offset_kat      = 10;
             scrolling_kat   = true;
             $('#habis').slideUp();
           }
       });
+  }else{
+    $('.add-kateg').attr('disabled', false);
   };
 }
 
@@ -518,7 +595,7 @@ function set_rules (e) {
   Materialize.updateTextFields();
   $("input[id*=nama_"+e+"]").each(function () {
     $(this).rules('add', {
-        required: true,maxlength:100,remote: base_url+"produk/rules_kategori",
+        required: true,maxlength:20,remote: base_url+"produk/rules_kategori",
         messages: {remote: message_alert('Nama kategori sudah ada')}
     });
   });

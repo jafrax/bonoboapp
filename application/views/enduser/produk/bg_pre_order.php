@@ -76,7 +76,7 @@ echo"
 								</ul>
 							</li>
 
-							<div id='satu'>";
+							<div id='satu' class='pre_order'>";
 							$i=0;
 							foreach ($produk->result() as $row) {
 								$i++;
@@ -139,8 +139,9 @@ echo"
 								</li>";
 							}
 							echo"
-							<input type='hidden' id='total_produk' value='$i'>
 							</div>
+							<input type='hidden' id='total_produk' value='$i'>
+							<input type='hidden' id='uri' value='$uri3'>
 							<div id='dua'>";
 							$a=0;
 							foreach ($produk->result() as $row) {
@@ -192,7 +193,7 @@ echo"
 							<center>
 								<h3><br></h3>
 								<img id='preloader' src='".base_url()."html/images/comp/loading.GIF' style='display:none' /><br>
-								<label id='habis' class='green-text' style='display:none'>Semua kategori telah ditampilkan</label>							
+								<label id='habis' class='green-text' style='display:none'>Semua produk telah ditampilkan</label>							
 							</center>
 						</ul>
 					</div>
