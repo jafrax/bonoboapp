@@ -646,12 +646,18 @@ class Toko extends CI_Controller {
 					"update_date"=>date("Y-m-d H:i:s"),
 					"update_user"=>$_SESSION['bonobo']['email'],
 				);
-			$Save = $this->db->insert("tb_toko_bank",$Data);
-			if($Save){
-				$this->response->send(array("result"=>1,"message"=>"Bank telah disimpan","messageCode"=>4));
-			}else{
-				$this->response->send(array("result"=>0,"message"=>"Tidak dapat menyimpan data bank","messageCode"=>5));
-			}
+				
+				$respon=$this->model_toko->get_rekeningsama22($this->response->post("txtNo"));
+				if($respon > 0){
+					$this->response->send(array("result"=>0,"message"=>"Tidak dapat menyimpan data bank","messageCode"=>5));
+				}else{
+					$Save = $this->db->insert("tb_toko_bank",$Data);
+					if($Save){
+						$this->response->send(array("result"=>1,"message"=>"Bank telah disimpan","messageCode"=>4));
+					}else{
+						$this->response->send(array("result"=>0,"message"=>"Tidak dapat menyimpan data bank","messageCode"=>5));
+					}
+				}
 		}else{
 			$Data = array(
 					"toko_id"=>$_SESSION["bonobo"]["id"],
@@ -927,7 +933,7 @@ class Toko extends CI_Controller {
 			}
 		}
 			
-		echo"</select><script>$('.select-standar').material_select();</script>";
+		echo"</select><script>$('.select-standar').chosen();</script>";
 	}
 	
 	public function step8ComboboxBankadd(){
@@ -939,7 +945,7 @@ class Toko extends CI_Controller {
 				echo"<option value='".$Bank->id."'>".$Bank->name."</option>";
 		}
 			
-		echo"</select><script>$('.select-standar').material_select();</script>";
+		echo"</select><script>$('.select-standar').chosen();</script>";
 	}
 
 	function step6(){

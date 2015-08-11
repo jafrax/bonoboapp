@@ -8,6 +8,9 @@ class Notif extends CI_Controller {
     }
     
 	public function index(){
+        set_time_limit(10000);
+        header("Connection: close", true);
+        
         if(isset($_SESSION['bonobo'])){
             $notif = $this->db->where('toko_id',$_SESSION['bonobo']['id'])->where('flag_read',0)->get('tb_toko_message')->num_rows();            
             $notif2 = $this->db->where('toko_id',$_SESSION['bonobo']['id'])->where('status',0)->get('tb_invoice')->num_rows(); 
@@ -16,7 +19,10 @@ class Notif extends CI_Controller {
         }else{
             $this->response->send(array("result"=>0,"message"=>'No Login',"message2"=>'No Login'),false);
         }
-		
+        flush();
+        ob_flush();
+
+        session_write_close();
 	}
 /*
     public function nota()

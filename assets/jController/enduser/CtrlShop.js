@@ -724,6 +724,7 @@ function CtrlShopStep8(){
 		$.ajax({
 			type: 'POST',
 			data: $("#formStep6Add").serialize(),
+			async:false,
 			url: base_url+'toko/doStep8Save/',
 			success: function(result) {
 				var response = JSON.parse(result);
