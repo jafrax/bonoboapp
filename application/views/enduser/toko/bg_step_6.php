@@ -111,7 +111,7 @@ echo"
 			</div>
 		</div>
 		<div class='modal-footer'>
-			<a href='javascript:void(0);' id='btnSave' class='modal-action waves-effect waves-green btn-flat '>Simpan</a>
+			<button type='button' id='btnSave' class='modal-action waves-effect waves-green btn-flat '>Simpan</button>
 			<a href='javascript:void(0);' class='modal-action modal-close waves-effect waves-red btn-flat '>Batal</a>
 		</div>
 	</div>
