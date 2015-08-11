@@ -201,8 +201,8 @@ class Model_toko extends CI_Model {
 	}
 	
 	public function reset_akun($data){
-		$this->db->where('email',$data['email']);
-		$this->db->where('token',$data['token']);
+		$this->db->like('token',$data['token'],'none');
+		$this->db->like('email',$data['email'],'none');
 		return $this->db->get('tb_toko');
 	}
 	
