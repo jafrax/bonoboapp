@@ -46,7 +46,7 @@ echo"
 								</div>								
 								<div class='input-field col s12 m6 l4 nolpad right'>
 									<i class='mdi-action-search prefix'></i>
-									<input id='keyword' type='text' class='validate' value='"; if (isset($_SESSION['keyword'])) {echo $_SESSION['keyword'];unset($_SESSION['keyword']);} echo"'>
+									<input id='keyword' type='text' class='validate' value='"; if (isset($_SESSION['keyword'])) {echo $_SESSION['keyword'];} echo"'>
 									<label for='keyword'>Cari produk</label >
 								</div>
 							</li>
@@ -77,8 +77,17 @@ echo"
 							</li>
 
 							<div id='satu' class='ready_stock'>";
+							if ($produk->num_rows() == 0) {
+									if (isset($_SESSION['keyword'])) {
+										echo "Produk \"".$_SESSION['keyword']."\" tidak ditemukan";
+										unset($_SESSION['keyword']);
+									}else{
+										echo "Produk ready stock kosong";
+									}
+								}
 							$i=0;
 							foreach ($produk->result() as $row) {
+
 								$i++;
 								$image = $this->model_produk->get_one_image($row->id)->row();
 								echo"

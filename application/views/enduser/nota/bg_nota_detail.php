@@ -2,7 +2,7 @@
 echo "
 				<div class='col s12 m12 l12'>
 					<div class='formain'>
-						<div class='row formbody'>
+						<div class='row '>
 							<div class='col s12 m6'>
 								<div class='input-field col s12 m8 '>
 									";
@@ -105,7 +105,7 @@ echo "
 							</div>
 						</div>
 
-						<div class='row formbody'>
+						<div class='row '>
 							<div class='linehead'></div>
 							<div class='col s12 m6 left'>
 								<h4 class='light'>No. Transaksi : ".$nota->invoice_no."</h4>";
@@ -261,7 +261,7 @@ echo "
 						echo"
 						</div>
 
-						<div class='row formbody'>
+						<div class='row '>
 							<div id='pengiriman' class='modal modal-fixed-footer'>
 								<div class='modal-content'>
 									<form id='form-pengiriman'>

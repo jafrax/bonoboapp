@@ -114,11 +114,11 @@ $(document).ready(function() {
           deskripsi               : {maxlength:250},
           stok                    : {required: true,maxlength:50},
           harga_pembelian         : {digits: true,maxlength:50},
-          harga_level_1           : {digits: true,maxlength:50},
-          harga_level_2           : {digits: true,maxlength:50},
-          harga_level_3           : {digits: true,maxlength:50},
-          harga_level_4           : {digits: true,maxlength:50},
-          harga_level_5           : {digits: true,maxlength:50},          
+          harga_level_1           : {digits: false,maxlength:50},
+          harga_level_2           : {digits: false,maxlength:50},
+          harga_level_3           : {digits: false,maxlength:50},
+          harga_level_4           : {digits: false,maxlength:50},
+          harga_level_5           : {digits: false,maxlength:50},          
       },
       messages: {
           pic_1: {

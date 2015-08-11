@@ -5,7 +5,7 @@ echo"
 						<div class='formhead'>
 							<h2 class='titmain'><b>NOTA PEMBELIAN</b></h2>
 						</div>
-						<div class='row formbody'>
+						<div class='row '>
 							<div class='col s12 listline'>
 								<div class='input-field col s12 m12 l7 nolpad'>
 									<!-- <a class='waves-effect orange-text left '><i class='mdi-action-star-rate col s6 m1 small'></i></a> -->
@@ -65,6 +65,13 @@ echo"
 						</div>
 
 						<div class='row formbody' id='ajax-div'>";
+						if ($nota->num_rows() == 0) {
+							if (isset($_SESSION['keyword'])) {
+								echo "<center>Produk \"".$_SESSION['keyword']."\" tidak ditemukan</center>";
+							}else{
+								echo "<center>Nota kosong</center>";
+							}
+						}
 						$i = 0;
 						foreach ($nota->result() as $row) {
 							$i++;

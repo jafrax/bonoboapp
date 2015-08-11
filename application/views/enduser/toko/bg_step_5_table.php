@@ -19,13 +19,13 @@ foreach($Rates as $Rate){
 				</div>
 			</td>
 			<td>
-				<div class='input-field table'>
-					".$Rate->price."
+				<div class='input-field table'>Rp. ".number_format($Rate->price, 2 , ',' , '.')." 
+					
 				</div>
 			</td>
 			<td>
 				<div class='input-field table'>
-					<a href='#divFormRate' onclick=ctrlShopStep7.initPopupRateAdd(".$Rate->id."); class='modal-trigger'>Edit</a>
+					<a href='#divFormRate' onclick=ctrlShopStep7.initPopupRateAdd(".$Rate->id."); class='modal-trigger waves-effect waves-light'>Edit</a>
 					<a href='javascript:void(0);' onclick=ctrlShopStep7.doRateDelete(".$Rate->id.");>Hapus</a>
 				</div>
 			</td>
@@ -39,9 +39,9 @@ $(document).ready(function() {
 	$('input.price').priceFormat({	    
 	    limit: 18,
     	centsLimit: 2,
-		centsSeparator: ',',
-    	thousandsSeparator: '.',
-    	prefix: 'Rp. ',
+		centsSeparator: '.',
+    	thousandsSeparator: '',
+    	prefix: '',
 	});
 	/*NUMBER FORMAT*/
 });

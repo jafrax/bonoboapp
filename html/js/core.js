@@ -71,7 +71,13 @@ $(document).ready(function() {
 	});
 	/*NUMBER FORMAT*/
 	
-
+	$("input.rupiah").priceFormat({	    
+	    limit: 18,
+    	centsLimit: 2,
+		centsSeparator: ".",
+    	thousandsSeparator: "",
+    	prefix: "",
+	});
 });
 
 

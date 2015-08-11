@@ -54,7 +54,7 @@ echo "
 		echo"</select></div>
 		<div class='form-group'>
 			<label for=''>Harga per Kg</label>
-			<input type='text' class='form-control price' id='hargapkg' name='hargapkg' value='$price' >
+			<input type='text' class='form-control rupiah' id='hargapkg' name='hargapkg' value='$price' >
 			<label id='edit_num$idedit' class='error-required' style='display:none'>cannot be empty</label>
 		</div>
 	</div><!-- /.box-body -->					

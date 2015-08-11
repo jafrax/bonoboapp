@@ -1,6 +1,12 @@
 <?php
 $uri3 = $this->uri->segment(3);
-
+if ($produk->num_rows() == 0) {
+	if (isset($_SESSION['keyword'])) {
+		echo "Produk \"".$_SESSION['keyword']."\" tidak ditemukan";
+	}else{
+		echo "Produk ready stock kosong";
+	}
+}
 							$i=0;
 							foreach ($produk->result() as $row) {
 								$i++;

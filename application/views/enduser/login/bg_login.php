@@ -73,7 +73,7 @@ echo "
 							<label id='notifPassword' class='error' style='display:none;'><i class='fa fa-warning'></i> Harus diisi !</label>
 						</div>
 						<div class='input-field col s12'>
-							<a href='#reset_password' id='forgetpass' class='modal-trigger left' >Lupa password ?</a>
+							<a href='#reset_password' id='forgetpass forgetpassemail' class='modal-trigger left' onclick='javascript:forgetpassemail()'>Lupa password ?</a>
 							<button id='btnSave' type='button' class='waves-effect waves-light btn deep-orange darken-1 right' onkeyup=ctrlSignin.onEnter(event); tabindex='3'>Masuk</button>
 						</div>
 					</div>
@@ -104,7 +104,7 @@ echo "
 			</div>
 			<label id='notifForgotPassword'  style='display:none;'></label>
 			<div class='input-field col s12'>
-				<label id='notifForgotPasswordd'  style='display:none;'></label>
+				
 				".$capcha."
 			</div>
 			

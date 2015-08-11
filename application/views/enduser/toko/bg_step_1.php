@@ -90,14 +90,14 @@ if(sizeOf($Attributes) <= 0){
 		<input type='hidden' id='intAttributeCount' name='intAttributeCount' value='1'>
 		<div class='row valign-wrapper counter attr-1'>
 			<div class='col s12 m3'>
-				Nama kontak
+				<!--Nama kontak--!>
 			</div>
 			<div class='col s12 m5'>
 				<input name='txtAttributeId1' type='hidden' value=''>
 				<input name='txtAttributeName1' placeholder='BBM/whatsapp/Line' type='text' class='validate'>
 			</div>
-			<div class='col s12 m3'>
-				Pin/ID/Nomor
+			<div class='col s12 m1'>
+				<!--Pin/ID/Nomor--!> =
 			</div>
 			<div class='col s12 m5'>
 				<input name='txtAttributeValue1' placeholder=' AD9876/bonoboLine' type='text' class='validate'>
@@ -112,14 +112,14 @@ if(sizeOf($Attributes) <= 0){
 		echo"
 			<div class='row valign-wrapper counter attr-".$no."'>
 				<div class='col s12 m3'>
-					Nama kontak
+					<!--Nama kontak--!>
 				</div>
 				<div class='col s12 m5'>
 					<input name='txtAttributeId".$no."' id='txtAttributeId".$no."' type='hidden' value='".$Attribute->id."'>
 					<input name='txtAttributeName".$no."' placeholder='BBM/whatsapp/Line' type='text' class='validate' value='".$Attribute->name."'>
 				</div>
-				<div class='col s12 m3'>
-					Pin/ID/Nomor
+				<div class='col s12 m1'>
+					<!--Pin/ID/Nomor--!> =
 				</div>
 				<div class='col s12 m5'>
 					<input name='txtAttributeValue".$no."' placeholder=' AD9876/bonoboLine' type='text' class='validate' value='".$Attribute->value."'>

@@ -296,10 +296,10 @@ function CtrlSignin(){
 			success: function(result) {
 				var response = JSON.parse(result);
 				if(response.result == 1){
-					txtForgotEmail.value = "";
 					notifForgotPassword.html("<div style='color:blue;'>"+response.message+"</div>");
 					notifForgotPassword.slideDown();
-					notifForgotPassword.delay(5000).slideUp('slow').remove();
+					notifForgotPassword.delay(5000).slideUp('slow');
+					txtForgotEmail.value = "";
 					grecaptcha.reset();
 				}else{					
 					notifForgotPassword.html("<i class='fa fa-warning'></i> "+response.message+"</div>");
@@ -356,4 +356,10 @@ function r_password(selection,url) {
  $(document).ready(function() {
  $('#repas').delay(5000).slideUp('slow');
  })
+ 
+ function forgetpassemail(){
+	 var email = $('#email').val();
+	 $('#txtForgotEmail').val(email);
+	 
+ }
 
