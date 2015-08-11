@@ -40,6 +40,7 @@ class Produk extends CI_Controller {
 		}
 
 		$data['produk'] 	= $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],1,$uri,$limit_pro,$offset_pro);
+		$data['total'] 		= $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],1,$uri)->num_rows();
 		$data['kategori']	= $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
 
 		if ($this->input->post('ajax')) {
@@ -355,7 +356,7 @@ class Produk extends CI_Controller {
 
 			echo "<label>Kategori Barang <span class='text-red'>*</span></label>
 					<label class='error error-chosen' for='select-kategori'></label>
-					<select name='kategori' id='select-kategori' class='chosen-select' required>
+					<select name='kategori' id='select-kategori' class='chosen-standar' required>
 					<option value='' disabled selected>Pilih Kategori Barang</option>";
 			
 			foreach ($kategori->result() as $row_ktgri) {
@@ -404,6 +405,7 @@ class Produk extends CI_Controller {
 
 	public function delete_product(){
 		$id 	= $this->input->post('id');
+		$uri 	= $this->input->post('uri');
 		$url   	= 'assets/pic/product/';
 		$image 	= $this->model_produk->get_one_image($id);
 		foreach ($image->result() as $row) {
@@ -414,8 +416,15 @@ class Produk extends CI_Controller {
 
 		$delete = $this->db->where('id',$id)->delete('tb_product');
 		if ($delete) {
-			echo "1";	
-		}		
+			if ($uri == 'index') {
+				$total = $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],1,1)->num_rows();
+			}else{
+				$total = $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],0,1)->num_rows();
+			}			
+			echo "$total";	
+		}else{
+			echo "0";
+		}
 	}
 
 	public function draft_product(){
@@ -484,6 +493,7 @@ class Produk extends CI_Controller {
 		}
 
 		$data['produk'] 	= $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],0,$uri,$limit_pre,$offset_pre);
+		$data['total'] 		= $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],0,$uri)->num_rows();
 		$data['kategori']	= $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
 
 		if ($this->input->post('ajax')) {

@@ -9,6 +9,12 @@ if ($produk->num_rows() == 0) {
 }
 							$a=0;
 							foreach ($produk->result() as $row) {
+								$enddate=date('d M Y', strtotime($row->end_date));
+								if (date('Y-m-d') > $row->end_date) {
+									$kadal = "block";
+								}else{
+									$kadal = "none";
+								}
 								$a++;
 								$image = $this->model_produk->get_one_image($row->id)->row();
 								echo "
@@ -40,7 +46,7 @@ if ($produk->num_rows() == 0) {
 											<div class='col s12'>".$row->kategori."</div>
 											<div class='col s12'><b>Tanggal Berakhir</b></div>
 											<div class='input-field col s12'>
-												<span class='date-".$row->id."'>".$row->end_date."</span>
+												<span class='date-".$row->id."'>".$enddate."</span>
 												<span class='label red right kadal-".$row->id."' style='display:$kadal'>Kadaluarsa</span>
 											</div>";
 											if ($row->active == 0) {

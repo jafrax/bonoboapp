@@ -34,10 +34,12 @@ $(window).scroll(function () {
                         $('ul.tabs').tabs();
                         Materialize.updateTextFields();
                         $('#total_produk').val(total_produk+5);
+                        $('.modal-trigger').leanModal();
                     }else{
                         $('#preloader').slideUp();
                         scrolling_rs   = false;
                         $('#habis').slideDown();
+                        $('.modal-trigger').leanModal();
                     }
                 }
             });
@@ -74,10 +76,36 @@ $(window).scroll(function () {
                         $('ul.tabs').tabs();
                         Materialize.updateTextFields();
                         $('#total_produk').val(total_produk+5);
+                        $('.modal-trigger').leanModal();
+                        /*DATE PICKER*/
+                        $('.datepicker').pickadate({
+                          selectMonths: true, // Creates a dropdown to control month    
+                          monthsFull: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+                          monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Desc'],
+                          selectYears: 15, // Creates a dropdown of 15 years to control year
+                          today: 'Hari ini',
+                          clear: 'Hapus',
+                          close: 'Tutup',
+                          formatSubmit: 'yyyy-mm-dd'
+                        });
+                        /*END DATE PICKER*/
                     }else{
                         $('#preloader').slideUp();
                         scrolling_po   = false;
                         $('#habis').slideDown();
+                        $('.modal-trigger').leanModal();
+                        /*DATE PICKER*/
+                        $('.datepicker').pickadate({
+                          selectMonths: true, // Creates a dropdown to control month    
+                          monthsFull: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+                          monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Desc'],
+                          selectYears: 15, // Creates a dropdown of 15 years to control year
+                          today: 'Hari ini',
+                          clear: 'Hapus',
+                          close: 'Tutup',
+                          formatSubmit: 'yyyy-mm-dd'
+                        });
+                        /*END DATE PICKER*/
                     }
                 }
             });
@@ -113,6 +141,7 @@ $(document).ready(function() {
           min_order               : {digits: true,maxlength:11},
           deskripsi               : {maxlength:250},
           stok                    : {required: true,maxlength:50},
+          stok_varian_1           : {required: true,maxlength:10},
           harga_pembelian         : {digits: true,maxlength:50},
           harga_level_1           : {digits: false,maxlength:50},
           harga_level_2           : {digits: false,maxlength:50},
@@ -438,17 +467,23 @@ function change_stock2(id){
   }
 }
 
-function delete_produk(id){
+function delete_produk(id,uri){
   $.ajax({
     type: 'POST',
-    data: 'id='+id,
+    data: 'id='+id+'&uri='+uri,
     url: base_url+'produk/delete_product',
     success: function(msg) {
       if (msg == 0) {
         $('.produk-'+id).fadeIn();
       }else{
         $('.produk-'+id).fadeOut().remove();
-      }      
+        
+      }
+      if (uri == 'index') {
+        $('#totalan').html('<b>READY STOCK</b> <span>( '+msg+' Produk )</span>');
+      }else{
+        $('#totalan').html('<b>PRE ORDER</b> <span>( '+msg+' Produk )</span>');
+      };
     }
   }); 
 }
@@ -541,10 +576,10 @@ function tambah_kategori(){
           url: base_url+'produk/add_kategori',
           success: function(msg) {
             Materialize.toast('Kategori telah ditambahkan', 4000);
-            $('#tempat-kategori').html(msg);
-            $('#select-kategori').chosen();
+            $('#tempat-kategori').html(msg);            
             $('#add_kategori').closeModal();
             $('#nama_kategori').val('');
+            $('.chosen-standar').material_select();
           }
       });
   }else{
@@ -565,8 +600,7 @@ function tambah_kategori_atur(){
           async: false,
           success: function(msg) {
             Materialize.toast('Kategori telah ditambahkan', 4000);
-            $('#tempat-kategori').html(msg);
-            $('#select-kategori').chosen();
+            $('#tempat-kategori').html(msg);            
             $('#nama_kategori').val('');
             $('#tambah_kategori').closeModal();
             $('.modal-trigger').leanModal();

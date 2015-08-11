@@ -1,5 +1,6 @@
 <?php
 $uri3 = $this->uri->segment(3);
+$uri2 = $this->uri->segment(2);
 
 echo"
 			<div class='col s12 m12 l3'>
@@ -15,7 +16,7 @@ echo"
 						<div class='input-field col right'>
 								<button class='waves-effect waves-light btn deep-orange darken-1 right' onclick='location.href=\"".base_url()."produk/add_pre_order\"'><i class='mdi-content-add-circle-outline left'></i>TAMBAH PRODUK</button>
 							</div>
-							<h2 class='titmain'><b>PRE ORDER</b> <span>( ".$produk->num_rows()." Produk )</span></h2>
+							<h2 class='titmain' id='totalan'><b>PRE ORDER</b> <span>( ".$total." Produk )</span></h2>
 							<p>Halaman ini menampilkan barang-barang pre order yang ada di toko anda !</p>
 
 						</div>
@@ -139,7 +140,7 @@ echo"
 												</form>
 												<div class='modal-footer'>
 													<a href='#!' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
-													<button type='button' onclick=javascript:delete_produk(".$row->id.") class='btn-flat modal-action modal-close waves-effect '>YA</button>
+													<button type='button' onclick=javascript:delete_produk(".$row->id.",\"$uri2\") class='btn-flat modal-action modal-close waves-effect '>YA</button>
 												</div>
 											</div>
 										</div>
@@ -156,6 +157,11 @@ echo"
 								$a++;
 								$image = $this->model_produk->get_one_image($row->id)->row();
 								$enddate=date('d M Y', strtotime($row->end_date));
+								if (date('Y-m-d') > $row->end_date) {
+									$kadal = "block";
+								}else{
+									$kadal = "none";
+								}
 								echo "
 								<div class='card col s12 m4 l3 nolpad produk-".$row->id."' >
 									<p class='checkiniabs'>

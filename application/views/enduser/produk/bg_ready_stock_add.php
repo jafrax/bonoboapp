@@ -57,11 +57,11 @@ echo "
 							<div class='col s12'>
 								<div class='input-field col s12'>
 									<input name='tipe' type='hidden' value='1' class='validate'>
-									<input id='nama_barang' name='nama' type='text' placeholder='Ex : Baju Bonobo' class='validate' length='50' required>
+									<input id='nama_barang' name='nama' type='text' placeholder='Ex : Baju Bonobo' class='validate' maxlength='50' length='50' required>
 									<label for='nama_barang'>Nama Barang <span class='text-red'>*</span></label>
 								</div>
 								<div class='input-field col s12'>
-									<input id='nomor_sku' type='text' name='sku' placeholder='Ex : AD001' class='validate' length='20'>
+									<input id='nomor_sku' type='text' name='sku' placeholder='Ex : AD001' maxlength='20' class='validate' length='20'>
 									<label for='nomor_sku'>Kode Barang</label>
 								</div>
 								<div class='col s12 m6' id='tempat-kategori'>
@@ -181,8 +181,8 @@ echo "
 											<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
 										</div>
 										<div class='input-field col s11 m5 pakai-stok'>
-											<input id='varian' name='stok_varian_1' type='number' placeholder='Jumlah stok' class='validate numbersOnly'>
-											<label for='varian'>Stok <span></span></label>											
+											<input id='varian' name='stok_varian_1' type='number' maxlength='10' placeholder='Jumlah stok' class='validate numbersOnly'>
+											<label for='varian'>Stok <span class='text-red'>*</span><span></span></label>											
 										</div>
 										<div class='input-field col s1 m1' >
 											<a onclick=javascript:deleteVarian('li_varian_1'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>

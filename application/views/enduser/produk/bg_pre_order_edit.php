@@ -56,11 +56,11 @@ echo "
 						<div class='row formbody'>
 							<div class='col s12'>
 								<div class='input-field col s12'>
-									<input id='nama_barang' name='nama' type='text' placeholder='Ex : Baju Bonobo' class='validate' length='50' value='".$produk->name."' required>
+									<input id='nama_barang' name='nama' type='text' placeholder='Ex : Baju Bonobo' maxlength='50' class='validate' length='50' value='".$produk->name."' required>
 									<label for='nama_barang'>Nama Barang <span class='text-red'>*</span></label>									
 								</div>
 								<div class='input-field col s12'>
-									<input id='nomor_sku' type='text' name='sku' placeholder='Ex : AD001' class='validate' length='20' value='".$produk->sku_no."'>
+									<input id='nomor_sku' type='text' name='sku' placeholder='Ex : AD001' maxlength='20' class='validate' length='20' value='".$produk->sku_no."'>
 									<label for='nomor_sku'>Kode Barang</label>
 								</div>";
 								$old_date 			= $produk->end_date;
@@ -68,7 +68,7 @@ echo "
 								$date 				= date('Y/m/d', $old_date_timestamp);
 								echo"
 								<div class='input-field col s12'>
-									<input  id='tgl_pre_order' data-value='$date' name='tgl_pre_order' type='text' placeholder='Tanggal selesai PRE ORDER' class='datepicker validate'>
+									<input  id='tgl_pre_order' data-value='$date' name='tgl_pre_order'  type='text' placeholder='Tanggal selesai PRE ORDER' class='datepicker validate'>
 									<label for='tgl_pre_order'>Tanggal selesai PRE ORDER <span class='text-red'>*</span></label>
 									<label class='error' for='tgl_pre_order'></label>
 								</div>

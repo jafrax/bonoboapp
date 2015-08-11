@@ -1,5 +1,6 @@
 <?php
 $uri3 = $this->uri->segment(3);
+$uri2 = $this->uri->segment(2);
 if ($produk->num_rows() == 0) {
 	if (isset($_SESSION['keyword'])) {
 		echo "Produk \"".$_SESSION['keyword']."\" tidak ditemukan";
@@ -88,7 +89,7 @@ if ($produk->num_rows() == 0) {
 												</form>
 												<div class='modal-footer'>
 													<a href='#!' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
-													<button type='button' onclick=javascript:delete_produk(".$row->id.") class='btn-flat modal-action modal-close waves-effect '>YA</button>
+													<button type='button' onclick=javascript:delete_produk(".$row->id.",\"$uri2\") class='btn-flat modal-action modal-close waves-effect '>YA</button>
 												</div>
 											</div>
 										</div>

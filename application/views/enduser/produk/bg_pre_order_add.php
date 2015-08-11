@@ -56,11 +56,11 @@ echo "
 						<div class='row formbody'>
 							<div class='col s12'>
 								<div class='input-field col s12'>
-									<input id='nama_barang' name='nama' type='text' placeholder='Ex : Baju Bonobo' class='validate' length='50' required>
+									<input id='nama_barang' name='nama' type='text' placeholder='Ex : Baju Bonobo' maxlength='50' class='validate' length='50' required>
 									<label for='nama_barang'>Nama Barang <span class='text-red'>*</span></label>
 								</div>
 								<div class='input-field col s12'>
-									<input id='nomor_sku' type='text' name='sku' placeholder='Ex : AD001' class='validate' length='20'>
+									<input id='nomor_sku' type='text' name='sku' placeholder='Ex : AD001' maxlength='20' class='validate' length='20'>
 									<label for='nomor_sku'>Kode Barang</label>
 								</div>
 								<div class='input-field col s12'>
