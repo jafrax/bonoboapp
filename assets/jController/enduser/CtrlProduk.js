@@ -576,10 +576,12 @@ function tambah_kategori(){
           url: base_url+'produk/add_kategori',
           success: function(msg) {
             Materialize.toast('Kategori telah ditambahkan', 4000);
-            $('#tempat-kategori').html(msg);            
+
+            $('#tempat-kategori').html(msg);
+            $('#select-kategori').material_select();
+
             $('#add_kategori').closeModal();
-            $('#nama_kategori').val('');
-            $('.chosen-standar').material_select();
+            $('#nama_kategori').val('');            
           }
       });
   }else{

@@ -356,7 +356,7 @@ class Produk extends CI_Controller {
 
 			echo "<label>Kategori Barang <span class='text-red'>*</span></label>
 					<label class='error error-chosen' for='select-kategori'></label>
-					<select name='kategori' id='select-kategori' class='chosen-standar' required>
+					<select name='kategori' id='select-kategori' class='select-standar' required>
 					<option value='' disabled selected>Pilih Kategori Barang</option>";
 			
 			foreach ($kategori->result() as $row_ktgri) {
