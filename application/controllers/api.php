@@ -72,9 +72,8 @@ class Api extends CI_Controller {
 		*	------------------------------------------------------------------------------
 		*/
 		$QShop = $this->db
-			->select("tk.*, ml.id as location_id, ml.kecamatan as location_kecamatan, ml.city as location_city, ml.province as location_province, ml.postal_code as location_postal, mc.id as category_id, mc.name as category_name")
+			->select("tk.*, ml.id as location_id, ml.kecamatan as location_kecamatan, ml.city as location_city, ml.province as location_province, ml.postal_code as location_postal")
 			->join("ms_location ml","ml.id = tk.location_id","left")
-			->join("ms_category mc","mc.id = tk.category_id","left")
 			->where("tk.id",$id)
 			->get("tb_toko tk")
 			->row();
@@ -258,10 +257,6 @@ class Api extends CI_Controller {
 					"city"=>$QShop->location_city,
 					"province"=>$QShop->location_province,
 					"postal"=>$QShop->location_postal,
-				),
-				"category"=>array(
-					"id"=>$QShop->category_id,
-					"name"=>$QShop->category_name,
 				),
 				"shop_banks"=>$ShopBanks,
 				"shop_couriers"=>$ShopCouriers,
