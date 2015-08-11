@@ -128,6 +128,22 @@ class Message extends CI_Controller {
 		
 		$this->load->view("enduser/message/bg_message_detail",$data);
 	}
+
+	public function showContactDetail(){
+		if($this->response->post("id") == ""){
+			echo "Tidak ada pesan yang dipilih";
+			return;
+		}
+		$data["keyword"] = "";
+		
+		if($this->response->post("keyword") != ""){
+			$data["keyword"] = $this->response->post("keyword");
+		}
+		
+		$data["Messages"] = $this->model_toko_message->get_by_shop_grouping($_SESSION["bonobo"]["id"], $data["keyword"]);
+		
+		$this->load->view("enduser/message/bg_message_contact",$data);
+	}
 	
 	public function doDelete(){
 		if($this->response->post("id") == ""){

@@ -45,7 +45,7 @@
 								</th>
 								<th>No</th>
 								<th>Nama kurir</th>
-								<th>Logo</th>
+								<!--<th>Logo</th>-->
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -68,7 +68,7 @@
 									</td>
 									<td>$i</td>
 									<td id='nama-".$row->id."'>".$row->name."</td>
-									<td><img class='logobank' src='$image' /></td>
+									<!--<td><img class='logobank' src='$image' /></td>-->
 									<td>
 										<button class='btn btn-primary btn-sm' onClick=javascript:kurir_modal('".$row->id."') >Edit</button>
 										<a href='".base_url('admin/kurir_detail/index/'.$id_link.'')."' class='btn btn-info btn-sm'>Detail</a>
@@ -93,7 +93,7 @@
 								</th>
 								<th>No</th>
 								<th>Nama kurir</th>
-								<th>Logo</th>
+								<!--<th>Logo</th>-->
 								<th>Action</th>
 						</tfoot>
 					</table>
@@ -121,7 +121,7 @@
                             <input type='text' class='form-control' id='namaedit' name='namaedit' placeholder='Enter nama kurir' >
                             <input type='hidden' name='idedit' id='idedit'/>
                             <input type='hidden' name='image' id='image'/>
-                        </div>
+                        </div><!--
 						<div class='form-group'>
                             <label for='exampleInputEmail1'>Logo</label>
                             <button type='button' class='btn btn-info btn-xs' onClick=javascript:klik('fileimageedit')>Broswe</button>
@@ -129,7 +129,7 @@
                                 <img id='fileimageedit-add' class='logobankbig' src='".base_url()."html/admin/img/credit/dummy_logo.png' />                                
                                 <input type='file' id='fileimageedit' name='fileimageedit' style='display:none;' OnChange=javascript:picture_upload(this.id)>
                             </div>
-                        </div>
+                        </div>-->
 						
                     </div><!-- /.box-body -->
                         
@@ -156,7 +156,7 @@
                         <div class='form-group'>
                             <label for='namaadd'>Nama kurir</label>
                             <input type='text' class='form-control' id='namaadd' name='namaadd' placeholder='Enter nama kurir' >
-                        </div>
+                        </div><!--
 						<div class='form-group'>
                             <label for='exampleInputEmail1'>Logo</label>
                             <button type='button' class='btn btn-info btn-xs' onClick=javascript:klik('fileimage')>Broswe</button>
@@ -164,7 +164,7 @@
                                 <img class='logobankbig' id='fileimage-add' src='".base_url()."html/admin/img/credit/dummy_logo.png' />
                                 <input type='file' id='fileimage' name='fileimage' style='display:none;' OnChange=javascript:picture_upload(this.id)>
                             </div>
-                        </div>
+                        </div>-->
                     </div><!-- /.box-body -->
                         
                     <div class='box-footer'>

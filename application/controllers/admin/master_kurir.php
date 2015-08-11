@@ -100,7 +100,9 @@ class master_kurir extends CI_Controller {
 
                 $name    	= $this->db->escape_str($this->input->post('namaedit'));
                 $idedit     = $this->db->escape_str($this->input->post('idedit'));
+                /*
                 $image     	= $this->db->escape_str($this->input->post('image'));
+                
                 
                 $url    = 'assets/pic/kurir/';
                 if(isset($_FILES['fileimageedit']['name'])){
@@ -122,7 +124,12 @@ class master_kurir extends CI_Controller {
 						'name'          => $name,						
 						'update_user'   => $_SESSION['bonobo_admin']->email
 		            );
-				}
+				}*/
+
+				$data_edit  = array(
+						'name'          => $name,						
+						'update_user'   => $_SESSION['bonobo_admin']->email
+		            );
                 
                 $insert = $this->db->where("id",$idedit)->update('ms_courier',$data_edit);
                 if($insert){
@@ -139,9 +146,10 @@ class master_kurir extends CI_Controller {
 		$this->form_validation->set_rules('namaadd', '', 'required');
 		$msg    = "error";
 		$notif  = "";
-		$url    = 'assets/pic/kurir/';
+		//$url    = 'assets/pic/kurir/';
 		if ($this->form_validation->run() == TRUE){
 			$name    	= $this->db->escape_str($this->input->post('namaadd'));
+			/*
 			if(isset($_FILES['fileimage']['name'])){
 				$picture = $this->template->upload_picture($url,'fileimage');
 				if($picture != 'error'){					
@@ -164,7 +172,13 @@ class master_kurir extends CI_Controller {
 					'create_date'	=> date("Y-m-d H:i:s"),
 					'create_user'   => $_SESSION['bonobo_admin']->email
 	            );
-			}
+			}*/
+
+			$data_add  = array(
+				'name'          => $name,						
+				'create_date'	=> date("Y-m-d H:i:s"),
+				'create_user'   => $_SESSION['bonobo_admin']->email
+            );
 
             $insert = $this->db->insert('ms_courier',$data_add);
             if($insert){
