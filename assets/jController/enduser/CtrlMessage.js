@@ -2,6 +2,7 @@ function CtrlMessage(){
 	this.init = init;
 	this.popupDelete = popupDelete;
 	this.showMessageDetail = showMessageDetail;
+	this.showContactDetail = showContactDetail;
 
 	var messageContent;
 	var messageDeleteID, messageDeleteName;
@@ -15,6 +16,7 @@ function CtrlMessage(){
 	
 	function initComponent(){
 		messageContent = $("#messageContent");
+		contact = $("#contact-pesan");
 		messageDeleteID = $hs("messageDeleteID");
 		messageDeleteName = $hs("messageDeleteName");
 		btnMessageReads = $hs("btnMessageReads");
@@ -69,6 +71,17 @@ function CtrlMessage(){
 			url: base_url+'message/showMessageDetail',
 			success: function(result) {
 				messageContent.html(result);
+			}
+		});
+	}
+
+	function showContactDetail(e){
+		$.ajax({
+			type: 'POST',
+			data: "id="+e,
+			url: base_url+'message/showContactDetail',
+			success: function(result) {
+				contact.html(result);
 			}
 		});
 	}
@@ -165,6 +178,7 @@ function CtrlMessageDetail(){
 				var response = JSON.parse(result);
 				if(response.result == 1){
 					ctrlMessage.showMessageDetail(member);
+					ctrlMessage.showContactDetail(member);
 				}else{
 					$hs_notif("#notifMessage",response.message);
 				}

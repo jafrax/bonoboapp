@@ -49,6 +49,8 @@ $.ajax({
                 if (data.image != '') {
                     $("#image").val(data.image);
                     $("#fileimageedit-add").attr("src", base_url+"assets/pic/bank/resize/"+data.image);
+                }else{
+                    $("#fileimageedit-add").attr("src", base_url+"html/admin/img/credit/dummy_logo.png");
                 };
 			});
 		}

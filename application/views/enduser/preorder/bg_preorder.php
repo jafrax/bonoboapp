@@ -23,8 +23,11 @@ echo "
 												<p class=' blue-grey-text lighten-3 right'>$ago</p>
 												<p><a href=''><b class='userangoota'>".$row->name."</b></a></p>				
 												<span class='red-text' id='counter-".$row->id."'>$count Belum Selesai</span>										
-												<p>
-												<a onclick=javascript:all_done(".$row->id.") id='btn-selesai-".$row->id."' class='btn-flat waves-effect waves-light teal white-text right'>Selesai Semua</a> 
+												<p>";
+												if ($count > 0) {
+													echo "<a onclick=javascript:all_done(".$row->id.") id='btn-selesai-".$row->id."' class='btn-flat waves-effect waves-light teal white-text right'>Selesai Semua</a> ";
+												}												
+												echo"
 												<a href='".base_url()."preorder/detail/".base64_encode($row->id)."/".base64_encode($row->name)."' class='btn-flat waves-effect waves-light deep-orange white-text right'>Lihat Pesanan</a></p>
 											</div>
 										</li>";

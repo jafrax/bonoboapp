@@ -46,6 +46,10 @@ echo "
                                         <div class='nolpadright col-xs-12'>
                                             <label>Durasi</label>
                                         </div>
+                                        
+                                        <div class='padbottom col-xs-12 col-md-3'>
+                                            <input type='text' class='form-control numbersOnlyLicense' maxlength='2' id='duration'  name='duration'>
+                                        </div>
                                         <div class='padbottom col-xs-12 col-md-3'>
                                             <select class='form-control' id='duration_type' name='duration_type' onchange=javascript:change_duration()>
                                                 <option value=''>Pilih Tipe</option>
@@ -54,10 +58,6 @@ echo "
                                                 <option value='y'>Tahun</option>
                                             </select>
                                         </div>
-                                        <div class='padbottom col-xs-12 col-md-3'>
-                                            <input type='text' class='form-control numbersOnlyLicense' maxlength='2' id='duration'  name='duration'>
-                                        </div>
-                                        
                                     </div>
                                     <div class='row form-group'>                                        
                                         <div class='padbottom col-xs-12 col-md-6'>
