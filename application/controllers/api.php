@@ -321,7 +321,7 @@ class Api extends CI_Controller {
 		*	------------------------------------------------------------------------------
 		*/
 						
-		$ProductShop = $this->getShopById($QProduct->toko_id);
+		$ProductShop = $this->getShopById($QProduct->toko_id,$user);
 		
 		/*
 		*	------------------------------------------------------------------------------
@@ -1144,6 +1144,7 @@ class Api extends CI_Controller {
 			*/
 			$Favorites = array();
 			$QFavorites = $this->db
+					->select("tf.product_id")
 					->join("tb_product tp","tf.product_id = tp.id")
 					->where("tp.active",1)
 					->where("tf.member_id",$QUser->id)
@@ -1152,28 +1153,29 @@ class Api extends CI_Controller {
 			
 			foreach($QFavorites as $QFavorite){
 				$Favorite = $this->getProductById($QFavorite->product_id,$QUser->id);
-				if(!empty($Favorite)){
+				if($Favorite != null){
 					array_push($Favorites,$Favorite);
 				}
 			}
 			
 			/*
 			*	------------------------------------------------------------------------------
-			*	get data member product favorite
+			*	get data member product
 			*	------------------------------------------------------------------------------
 			*/
 			$Products = array();
 			$QProducts = $this->db
+					->select("tp.id")
 					->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
 					->where("tp.active",1)
-					->where("ttcp.toko_id IN (SELECT ttm.toko_id FROM tb_toko_member ttm WHERE ttm.member_id = ".$QUser->id.")",null,false)
+					->where("ttcp.toko_id IN (SELECT ttm.toko_id FROM tb_toko_member ttm WHERE ttm.member_id = ".$QUser->id.")")
 					->limit(10,0)
 					->get("tb_product tp")
 					->result();
 			
 			foreach($QProducts as $QProduct){
 				$Product = $this->getProductById($QProduct->id,$QUser->id);
-				if(!empty($Product)){
+				if($Product != null){
 					array_push($Products,$Product);
 				}
 			}
@@ -1191,8 +1193,8 @@ class Api extends CI_Controller {
 			
 			$Shops = array();
 			foreach($QShopMembers as $QShopMember){
-				$Shop = $this->getShopById($QShopMember->toko_id);
-				if(!empty($Shop)){
+				$Shop = $this->getShopById($QShopMember->toko_id,$QUser->id);
+				if($Shop != null){
 					array_push($Shops,$Shop);
 				}
 			}
@@ -1680,7 +1682,6 @@ class Api extends CI_Controller {
 	
 	public function getShopProducts(){
 		try {
-		
 			/*
 			*	------------------------------------------------------------------------------
 			*	Validation POST data
@@ -1718,22 +1719,13 @@ class Api extends CI_Controller {
 			*	------------------------------------------------------------------------------
 			*/
 			$QProduct = $this->db;
-			$QProduct = $QProduct->select("tp.*,tkcp.id as category_id, tkcp.name as category_name, tkcp.toko_id as toko_id");
+			$QProduct = $QProduct->select("tp.id");
 			$QProduct = $QProduct->join("tb_toko_category_product tkcp","tkcp.id = tp.toko_category_product_id");
-			$QProduct = $QProduct->where("tk.id",$QShop->id);
+			$QProduct = $QProduct->where("tkcp.toko_id", $QShop->id);
+			$QProduct = $QProduct->where("tp.active", 1);
 			
 			if($this->response->post("keyword") != "" && $this->response->postDecode("keyword") != ""){
 				$QProduct = $QProduct->where("tp.name LIKE ","%".$this->response->postDecode("keyword")."%");
-			}
-			
-			if($this->response->post("stock_type") != "" && $this->response->postDecode("stock_type") != ""){
-				$QProduct = $QProduct->where("tp.stock_type",$this->response->postDecode("stock_type"));
-			}
-			
-			if($this->response->post("page") != "" && $this->response->postDecode("page") != ""){
-				$QProduct = $QProduct->limit(10,$this->response->postDecode("page"));
-			}else{
-				$QProduct = $QProduct->limit(10,0);
 			}
 			
 			$QProduct = $QProduct->get("tb_product tp");
@@ -1741,78 +1733,20 @@ class Api extends CI_Controller {
 			
 			if(sizeOf($QProducts) > 0){
 				$Products = array();
-				foreach($QProducts as $QProduct){
-					/*
-					*	------------------------------------------------------------------------------
-					*	Query mengambil data produk image 
-					*	------------------------------------------------------------------------------
-					*/
-					$QProductImages = $this->db
-									->where("product_id", $QProduct->id)
-									->get("tb_product_image")
-									->result();
-									
-					$ProductImages = array();
-					foreach($QProductImages as $QProductImage){
-						$ProductImage = array(
-									"id"=>$QProductImage->id,
-									"image_url"=>base_url("image.php?q=100&fe=".base64_encode(base_url("assets/pic/product/".$QProductImage->file))),
-								);
-										
-						array_push($ProductImages,$ProductImage);
-					}
-					
-					/*
-					*	------------------------------------------------------------------------------
-					*	Query mengambil data produk varian 
-					*	------------------------------------------------------------------------------
-					*/
-					$ProductVarians = $this->db
-									->where("product_id", $QProduct->id)
-									->get("tb_product_varian")
-									->result();
-					
 				
-					/*
-					*	------------------------------------------------------------------------------
-					*	Membuat object produk
-					*	------------------------------------------------------------------------------
-					*/
-					$Product = array(
-							"id"=>$QProduct->id,
-							"name"=>$QProduct->name,
-							"description"=>$QProduct->description,
-							"sku_no"=>$QProduct->sku_no,
-							"weight"=>$QProduct->weight,
-							"unit"=>$QProduct->unit,
-							"min_order"=>$QProduct->min_order,
-							"stock_type"=>$QProduct->stock_type,
-							"stock_type_detail"=>$QProduct->stock_type_detail,
-							"active"=>$QProduct->active,
-							"price_base"=>$QProduct->price_base,
-							"price_1"=>$QProduct->price_1,
-							"price_2"=>$QProduct->price_2,
-							"price_3"=>$QProduct->price_3,
-							"price_4"=>$QProduct->price_4,
-							"price_5"=>$QProduct->price_5,
-							"images"=>$ProductImages,
-							"varians"=>$ProductVarians,
-						);
-							
+				foreach($QProducts as $QProduct){
+					$Product = $this->getProductById($QProduct->id, $QUser->id);
 					array_push($Products,$Product);
 				}
 			
-				$this->response->send(array("result"=>1,"total"=>sizeOf($QProducts),"size"=>sizeOf($QProducts),"products"=>$Products), true);
+				$this->response->send(array("result"=>1,"products"=>$Products), true);
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Tidak ada produk yang ditemukan","messageCode"=>4), true);
 			}
-		
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
 	}
-	
-	
 	
 	public function doShopFollow(){
 		try {
@@ -1999,7 +1933,7 @@ class Api extends CI_Controller {
 			if(sizeOf($QProducts) > 0){
 				$Products = array();
 				foreach($QProducts as $QProduct){
-					$Product = $this->getProductById($QProduct->id);
+					$Product = $this->getProductById($QProduct->id,$QUser->id);
 							
 					array_push($Products,$Product);
 				}
@@ -2048,7 +1982,7 @@ class Api extends CI_Controller {
 			*	------------------------------------------------------------------------------
 			*/
 			
-			$Product = $this->getProductById($this->response->postDecode("product"));
+			$Product = $this->getProductById($this->response->postDecode("product"),$QUser->id);
 			if($Product != null){
 				$this->response->send(array("result"=>1,"product"=>$Product), true);
 			}else{
@@ -3105,7 +3039,7 @@ class Api extends CI_Controller {
 										"id"=>$QProductVarian->id,
 										"name"=>$QProductVarian->name,
 										"stock_qty"=>$QProductVarian->stock_qty,
-										"product"=>$this->getProductById($QProductVarian->product_id),
+										"product"=>$this->getProductById($QProductVarian->product_id,$QUser->id),
 									);
 						
 						$CartVarian = array(
@@ -3936,7 +3870,7 @@ class Api extends CI_Controller {
 									"product_name"=>$QInvoiceProduct->product_name,
 									"product_image"=>"",
 									"product_description"=>$QInvoiceProduct->product_description,
-									"product"=>$this->getProductById($QInvoiceProduct->product_id),
+									"product"=>$this->getProductById($QInvoiceProduct->product_id,$QUser->id),
 									"invoice_varians"=>$InvoiceVarians,
 								);
 								
