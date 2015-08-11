@@ -74,3 +74,14 @@ $(function(){
 		$(this).parents('table:eq(0)').find(':checkbox').prop('checked', this.checked);
 	});
 });
+$(document).ready(function() {
+		/*NUMBER FORMAT*/
+	$("input.rupiah").priceFormat({	    
+	    limit: 18,
+    	centsLimit: 2,
+		centsSeparator: ",",
+    	thousandsSeparator: ".",
+    	prefix: "Rp. ",
+	});
+	/*NUMBER FORMAT*/
+});

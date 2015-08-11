@@ -579,11 +579,13 @@ function CtrlShopStep7(){
 	}
 	
 	function initPopupRateAdd(e){
+		
 		$.ajax({
 			type: 'POST',
 			data: "id="+e,
 			url: base_url+'toko/step7Form/',
 			success: function(result) {
+				$('.modal-trigger').leanModal();
 				divFormRateContent.html(result);
 				
 				divCity = $("#divCity");

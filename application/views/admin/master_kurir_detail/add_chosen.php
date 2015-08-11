@@ -59,7 +59,7 @@ echo"
 </div>
 <div class='form-group'>
 	<label for=''>Harga per Kg</label>
-	<input type='text' class='form-control price' id='hargapkg' name='hargapkg'>
+	<input type='text' class='form-control rupiah' id='hargapkg' name='hargapkg'>
 </div>
 ";
 
