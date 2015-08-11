@@ -94,9 +94,9 @@ $(document).ready(function() {
 	$('input.price').priceFormat({	    
 	    limit: 18,
     	centsLimit: 2,
-		centsSeparator: ',',
-    	thousandsSeparator: '.',
-    	prefix: 'Rp. ',
+		centsSeparator: '.',
+    	thousandsSeparator: '',
+    	prefix: '',
 	});
 	/*NUMBER FORMAT*/
 });
