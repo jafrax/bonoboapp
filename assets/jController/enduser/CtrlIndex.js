@@ -356,4 +356,10 @@ function r_password(selection,url) {
  $(document).ready(function() {
  $('#repas').delay(5000).slideUp('slow');
  })
+ 
+ function forgetpassemail(){
+	 var email = $('#email').val();
+	 $('#txtForgotEmail').val(email);
+	 
+ }
 
