@@ -72,9 +72,8 @@ class Api extends CI_Controller {
 		*	------------------------------------------------------------------------------
 		*/
 		$QShop = $this->db
-			->select("tk.*, ml.id as location_id, ml.kecamatan as location_kecamatan, ml.city as location_city, ml.province as location_province, ml.postal_code as location_postal, mc.id as category_id, mc.name as category_name")
+			->select("tk.*, ml.id as location_id, ml.kecamatan as location_kecamatan, ml.city as location_city, ml.province as location_province, ml.postal_code as location_postal")
 			->join("ms_location ml","ml.id = tk.location_id","left")
-			->join("ms_category mc","mc.id = tk.category_id","left")
 			->where("tk.id",$id)
 			->get("tb_toko tk")
 			->row();
@@ -209,6 +208,33 @@ class Api extends CI_Controller {
 			
 			/*
 			*	---------------------------------------------------------------------------------------------
+			*	Menghitung data products
+			*	---------------------------------------------------------------------------------------------	
+			*/
+			$QShopProducts = $this->db
+							->select("tp.id")
+							->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
+							->where("ttcp.toko_id",$QShop->id)
+							->get("tb_product tp")
+							->result();
+							
+			$CountProducts = sizeOf($QShopProducts);
+			
+			/*
+			*	---------------------------------------------------------------------------------------------
+			*	Menghitung data members
+			*	---------------------------------------------------------------------------------------------	
+			*/
+			$QShopMembers = $this->db
+							->select("id")
+							->where("toko_id",$QShop->id)
+							->get("tb_toko_member")
+							->result();
+							
+			$CountMembers = sizeOf($QShopMembers);
+			
+			/*
+			*	---------------------------------------------------------------------------------------------
 			*	Membuat data toko
 			*	---------------------------------------------------------------------------------------------	
 			*/
@@ -221,6 +247,8 @@ class Api extends CI_Controller {
 				"tag_name"=>$QShop->tag_name,
 				"keyword"=>$QShop->keyword,
 				"image_url"=>$ShopImageUrl,
+				"count_products"=>$CountProducts,
+				"count_users"=>$CountMembers,
 				"join"=>$join,
 				"price_level"=>$price_level,
 				"location"=>array(
@@ -229,10 +257,6 @@ class Api extends CI_Controller {
 					"city"=>$QShop->location_city,
 					"province"=>$QShop->location_province,
 					"postal"=>$QShop->location_postal,
-				),
-				"category"=>array(
-					"id"=>$QShop->category_id,
-					"name"=>$QShop->category_name,
 				),
 				"shop_banks"=>$ShopBanks,
 				"shop_couriers"=>$ShopCouriers,
@@ -243,7 +267,7 @@ class Api extends CI_Controller {
 		}
 	}
 	
-	private function getProductById($id,$user = null){
+	private function getProductById($id, $user=null){
 		/*
 		*	------------------------------------------------------------------------------
 		*	Query mencari data shop

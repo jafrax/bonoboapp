@@ -82,16 +82,16 @@ $(document).ready(function() {
 
 
 /*LOOPING NOTIFICATION MESSAGE*/
-/*
+
 if($('.notifindong').length > 0){
 	//alert('a');
 	requestMessage();
-	$(window).load(function(){
+	//$(window).load(function(){
 		//alert('b');
-	  setInterval(requestMessage, 10000);
-	});
+	 // setInterval(requestMessage, 10000);
+	//});
 }
-*/	
+
 
 
 function requestMessage () {
@@ -117,6 +117,9 @@ function requestMessage () {
 					$('.notifinnota').html(response.message2);
 					$('.notifinnota').fadeIn();
 				}
+				$(function(){
+                    setTimeout('requestMessage()',10000);
+                })
 			}else{
 				window.location = base_url+"index/logout";	
 			}
