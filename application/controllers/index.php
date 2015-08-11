@@ -480,6 +480,7 @@ class Index extends CI_Controller {
 					if($insert){
 						$msg    = "success";
 						$notif  = "Berhasil";
+						$_SESSION['bonobo']['notifikasi']='Password telah di perbaharui';
 					}
 				}else{
 					$msg    = "zero";
