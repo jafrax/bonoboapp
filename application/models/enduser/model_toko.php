@@ -184,13 +184,19 @@ class Model_toko extends CI_Model {
 	// diabuat oleh adi 04-08-2015
 	public function get_rekeningsama($data){
 		$this->db->where('acc_no',$data['rekeningmu']);
-		$this->db->where('toko_id',$_SESSION['bonobo']['id']);
+		//$this->db->where('toko_id',$_SESSION['bonobo']['id']);
 		return $this->db->get('tb_toko_bank')->num_rows();
 	}
 	// diabuat oleh adi 04-08-2015
 	public function get_rekeningsama2($data){
 		$this->db->where('acc_no',$data['rekeningmu']);
-		$this->db->where('toko_id',$_SESSION['bonobo']['id']);
+		//$this->db->where('toko_id',$_SESSION['bonobo']['id']);
+		return $this->db->get('tb_toko_bank')->num_rows();
+	}
+	// diabuat oleh adi 11-08-2015
+	public function get_rekeningsama22($rekeningmu){
+		$this->db->where('acc_no',$rekeningmu);
+		//$this->db->where('toko_id',$_SESSION['bonobo']['id']);
 		return $this->db->get('tb_toko_bank')->num_rows();
 	}
 	

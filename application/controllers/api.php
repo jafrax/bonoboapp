@@ -8,7 +8,7 @@
 . 1. Create 12 Juni 2015 by Heri Siswanto, Create controller
 */
 
-set_time_limit (99999999999);
+set_time_limit (10000);
 
 class Api extends CI_Controller {
 
@@ -1247,7 +1247,7 @@ class Api extends CI_Controller {
 						->result();
 						
 			foreach($QShops as $QShop){
-				$Shop = $this->getShopById($QShop->toko_id);
+				$Shop = $this->getShopById($QShop->toko_id,$QUser->id);
 				array_push($Shops,$Shop);
 			}
 			
@@ -1451,7 +1451,61 @@ class Api extends CI_Controller {
 			if(sizeOf($QShops) > 0){
 				$Shops = array();
 				foreach($QShops as $QShop){
-					$Shop = $this->getShopById($QShop->id);
+					$Shop = $this->getShopById($QShop->id, $QUser->id);
+					
+					if($Shop != null){
+						array_push($Shops,$Shop);
+					}
+				}
+				
+				$this->response->send(array("result"=>1,"shops"=>$Shops), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada toko yang ditemukan","messageCode"=>3), true);
+			}
+		
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function getShops(){
+		try {
+		
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+						
+			/*
+			*	------------------------------------------------------------------------------
+			*	Query data-data toko
+			*	------------------------------------------------------------------------------
+			*/
+			$QShops = $this->db
+					->select("ttm.toko_id")
+					->where("ttm.member_id",$QUser->id)
+					->get("tb_toko_member ttm")
+					->result();
+			
+			if(sizeOf($QShops) > 0){
+				$Shops = array();
+				foreach($QShops as $QShop){
+					$Shop = $this->getShopById($QShop->toko_id, $QUser->id);
 					
 					array_push($Shops,$Shop);
 				}
@@ -1796,6 +1850,7 @@ class Api extends CI_Controller {
 					$Save = $this->db->insert("tb_toko_member",$FollowData);
 					
 					if($Save){
+					/*
 						$QJoin = $this->db
 								->where("toko_id",$QShop->id)
 								->where("member_id",$QUser->id)
@@ -1803,18 +1858,19 @@ class Api extends CI_Controller {
 								->row();
 						
 						if(empty($QJoin)){
+					*/
 							$JoinData = array(
 								"toko_id"=>$QShop->id,
 								"member_id"=>$QUser->id,
 								"status"=>1,
 								"create_date"=>date("Y-m-d H:i:s"),
 								"create_user"=>$QUser->email,
-							"update_date"=>date("Y-m-d H:i:s"),
+								"update_date"=>date("Y-m-d H:i:s"),
 								"update_user"=>$QUser->email,
 							);
 								
 							$Save = $this->db->insert("tb_join_in",$JoinData);
-						}
+						//}
 					
 						$this->response->send(array("result"=>1,"message"=>"Anda telah tergabung dengan toko ini","messageCode"=>5), true);
 					}else{
