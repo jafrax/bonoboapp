@@ -542,7 +542,7 @@ function tambah_kategori(){
           success: function(msg) {
             Materialize.toast('Kategori telah ditambahkan', 4000);
             $('#tempat-kategori').html(msg);
-            $('#select-kategori').chosen();
+            $('#select-kategori').material_select();
             $('#add_kategori').closeModal();
             $('#nama_kategori').val('');
           }

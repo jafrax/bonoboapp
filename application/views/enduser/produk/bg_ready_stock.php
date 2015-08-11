@@ -30,7 +30,7 @@ echo"
 										</select>
 									</div>
 									<div class='col s12 m8 l6'>
-										<select class='chosen-select lectfilter' onchange=javascript:filter_kategori() id='filter-kategori'>											
+										<select class='select-standar lectfilter bajindul' onchange=javascript:filter_kategori() id='filter-kategori'>											
 											<option value=''>Semua Kategori</option>";
 											foreach ($kategori->result() as $row_kt) {
 												$select = '';
