@@ -12,7 +12,7 @@ set_time_limit (10000);
 
 class Api extends CI_Controller {
 
-	var $quality = 60;
+	var $quality = 25;
 	
 	function __construct(){
         parent::__construct();
