@@ -36,7 +36,7 @@ echo "
 		<label for='nama_kategori'>Nama kategori <span class='text-red'>*</span></label>
 		<label class='error error-chosen' for='nama_kategori'></label>	
 	<div class='modal-footer'>
-		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>TUTUP</a>
+		<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-red btn-flat'>TUTUP</a>
 		<button type='button' onclick=javascript:tambah_kategori() id='tambah-kategori' class='waves-effect waves-red btn-flat'>TAMBAH</a>
 	</div>
 	</form>

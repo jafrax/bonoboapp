@@ -9,8 +9,8 @@ echo "
 		<p>Apakah anda yakin ingin menghapus <b>'nama produk'</b> ?</p>
 	</form>
 	<div class='modal-footer'>
-		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
-		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
+		<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
+		<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
 	</div>
 </div>
 <div id='delete_varian' class='modal confirmation'>
@@ -21,8 +21,8 @@ echo "
 		<p>Apakah anda yakin ingin menghapus varian ini ?</p>
 	</form>
 	<div class='modal-footer'>		
-		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
-		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
+		<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
+		<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
 	</div>
 </div>
 
@@ -36,7 +36,7 @@ echo "
 		<label for='nama_kategori'>Nama kategori <span class='text-red'>*</span></label>	
 		<label class='error error-chosen' for='nama_kategori'></label>
 	<div class='modal-footer'>
-		<a href='#!'  class=' modal-action modal-close waves-effect waves-red btn-flat'>TUTUP</a>
+		<a href='javascript:void(0)'  class=' modal-action modal-close waves-effect waves-red btn-flat'>TUTUP</a>
 		<button type='button' id='tambah-kategori' onclick=javascript:tambah_kategori() class='waves-effect waves-red btn-flat'>TAMBAH</a>
 	</div>
 	</form>

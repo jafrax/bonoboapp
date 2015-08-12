@@ -14,19 +14,19 @@ echo"
 			<div class='col l4 offset-l2 s12'>
 				<h5 class='white-text'>Links</h5>
 				<ul>
-					<li><a class='grey-text text-lighten-3' href='#!'>Link 1</a></li>
-					<li><a class='grey-text text-lighten-3' href='#!'>Link 2</a></li>
-					<li><a class='grey-text text-lighten-3' href='#!'>Link 3</a></li>
-					<li><a class='grey-text text-lighten-3' href='#!'>Link 4</a></li>
+					<li><a class='grey-text text-lighten-3' href='javascript:void(0)'>Link 1</a></li>
+					<li><a class='grey-text text-lighten-3' href='javascript:void(0)'>Link 2</a></li>
+					<li><a class='grey-text text-lighten-3' href='javascript:void(0)'>Link 3</a></li>
+					<li><a class='grey-text text-lighten-3' href='javascript:void(0)'>Link 4</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
 	<div class='footer-copyright grey darken-4'>
 		<div class='container'>© 2015 Bonobo, Inc. All rights reserved.
-			<a class='grey-text text-lighten-4 right' href='#!'>Tentang Kami</a>
-			<a class='grey-text text-lighten-4 right' href='#!'>Kebijakan privasi</a>
-			<a class='grey-text text-lighten-4 right' href='#!'>Syarat dan ketentuan</a>
+			<a class='grey-text text-lighten-4 right' href='javascript:void(0)'>Tentang Kami</a>
+			<a class='grey-text text-lighten-4 right' href='javascript:void(0)'>Kebijakan privasi</a>
+			<a class='grey-text text-lighten-4 right' href='javascript:void(0)'>Syarat dan ketentuan</a>
 		</div>
 	</div>
 </footer>

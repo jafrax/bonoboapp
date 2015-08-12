@@ -299,6 +299,18 @@ function click_picture(file) {
    $('#'+file).click();
 }
 
+function click_picture_edit(file) {
+  $('input[name="'+file+'"]').each(function () {
+      $(this).rules("add", {
+          accept: 'image/*',filesize: 1000000,
+          messages: {
+              filesize: message_alert("Ukuran file terlalu besar, maksimal 1 MB"),  
+          },
+      });
+  });
+   $('#'+file).click();
+}
+
 function picture_upload(id){
    var URL     = window.URL || window.webkitURL;
    var input   = document.querySelector('#'+id);
@@ -511,9 +523,16 @@ function go(){
   var total_produk  = $('#total_produk').val();
   var option        = $('#option-go').val();
   var url           = '';
+  for (var i = 1 ; i <= total_produk; i++) {
+    if ($('#cek-1-'+i).is(":checked")) {
+      a++;
+    }   
+    if (i == total_produk) {if (a == 0) {Materialize.toast('Tidak ada produk yang dipilih', 2000);return;}}; 
+  }
 
-  if (option == 1) {
-    url = base_url+'produk/delete_product';
+  if (option == 1) {    
+    $('#delete_produk_go').openModal();
+    return;
   } else if (option == 2) {
     url = base_url+'produk/draft_product';
   } else if (option == 3) {
@@ -538,6 +557,32 @@ function go(){
       } else if (option == 4) {
         $('.produk-'+id).fadeOut().remove();
       } else if (option == 5) {
+        $('.produk-'+id).fadeOut().remove();
+      }
+      $.ajax({
+        type: 'POST',
+        data: 'id='+id,
+        async: false,
+        url: url,
+        success: function(msg) {
+          
+        }
+      });
+    }   if (i == total_produk) {if (a > 0) {location.reload();}else{Materialize.toast('Tidak ada produk yang dipilih', 4000);}}; 
+  }
+}
+
+function delete_produk_go () {
+  var total_produk  = $('#total_produk').val();
+  var option        = $('#option-go').val();
+  var a             = 0;
+  var url           = base_url+'produk/delete_product';
+
+  for (var i = 1 ; i <= total_produk; i++) {
+    if ($('#cek-1-'+i).is(":checked")) {
+      var id = $('#cek-'+i).val();
+      a++;
+      if (option == 1) {
         $('.produk-'+id).fadeOut().remove();
       }
       $.ajax({
@@ -578,10 +623,11 @@ function tambah_kategori(){
             Materialize.toast('Kategori telah ditambahkan', 4000);
 
             $('#tempat-kategori').html(msg);
-            $('#select-kategori').material_select();
+            
 
             $('#add_kategori').closeModal();
-            $('#nama_kategori').val('');            
+            $('#nama_kategori').val('');    
+            $('#select-kategori').material_select();        
           }
       });
   }else{

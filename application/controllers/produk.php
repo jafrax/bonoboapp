@@ -803,7 +803,14 @@ class Produk extends CI_Controller {
 
 	private function print_kategori(){
 		$kategori = $this->model_produk->get_kategori($_SESSION['bonobo']['id'],10,0);
-
+		if ($kategori->num_rows() == 0) {
+			if (isset($_SESSION['search_kategori'])) {
+				echo "Kategori \"".$_SESSION['search_kategori']."\" tidak ditemukan";
+				//unset($_SESSION['search_kategori']);
+			}else{
+				echo "Kategori kosong";
+			}
+		}
 			foreach ($kategori->result() as $row) {
 				$count = $this->model_produk->count_product_by_category($row->id);
 				echo"									
