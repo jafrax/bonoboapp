@@ -196,7 +196,7 @@ footer.page-footer{ margin-top: 0px; }
 #duser{
     left: none;
     right: 1px;
-    width: 200px;
+    width: 200px!important;
 }
 
 .prefix-gan{
