@@ -36,7 +36,7 @@ echo "
 		<label for='nama_kategori'>Nama kategori <span class='text-red'>*</span></label>
 		<label class='error error-chosen' for='nama_kategori'></label>	
 	<div class='modal-footer'>
-		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>TUTUP</a>
+		<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-red btn-flat'>TUTUP</a>
 		<button type='button' onclick=javascript:tambah_kategori() id='tambah-kategori' class='waves-effect waves-red btn-flat'>TAMBAH</a>
 	</div>
 	</form>
@@ -175,13 +175,13 @@ echo "
 									<li class='varsto' id='li_varian_1'>
 										<div class='input-field col s12 m5'>
 											<input id='varian' name='nama_varian_1' type='text' maxlength='30' placeholder='Ex : Merah' class='validate' >
-											<label for='varian'>Varian <span></span></label>
+											<label for='varian'>Varian <span class='text-red'>*</span><span></span></label>
 										</div>
 										<div class='input-field col s11 m5 tersedia' style='display:none'>
 											<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
 										</div>
 										<div class='input-field col s11 m5 pakai-stok'>
-											<input id='varian' name='stok_varian_1' type='number' maxlength='10' placeholder='Jumlah stok' class='validate numbersOnly'>
+											<input id='varian' name='stok_varian_1' type='text' maxlength='10' placeholder='Jumlah stok' class='validate numbersOnly'>
 											<label for='varian'>Stok <span class='text-red'>*</span><span></span></label>											
 										</div>
 										<div class='input-field col s1 m1' >

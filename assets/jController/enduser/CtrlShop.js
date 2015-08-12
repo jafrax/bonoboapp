@@ -923,7 +923,7 @@ function CtrlShopStep5(){
                         });
                     };
                 }
-                setInterval(level2_autocek, 3000);
+                //setInterval(level2_autocek, 3000);
                 function level2_autocek(){
                     $.ajax({
                             type: 'POST',
@@ -940,7 +940,7 @@ function CtrlShopStep5(){
                         }
                     });
                 }
-                setInterval(level3_autocek, 3000);
+                //setInterval(level3_autocek, 3000);
                 function level3_autocek(){
                     $.ajax({
                         type: 'POST',
@@ -957,7 +957,7 @@ function CtrlShopStep5(){
                         }
                     });
                 }
-                setInterval(level4_autocek, 3000);
+                //setInterval(level4_autocek, 3000);
                 function level4_autocek(){
                    $.ajax({
 						type: 'POST',
@@ -974,7 +974,7 @@ function CtrlShopStep5(){
                         }
                     });
                 }
-                setInterval(level5_autocek, 3000);
+                //setInterval(level5_autocek, 3000);
                 function level5_autocek(){
                     $.ajax({
                     type: 'POST',

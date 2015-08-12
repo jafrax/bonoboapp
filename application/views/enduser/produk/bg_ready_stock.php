@@ -2,6 +2,18 @@
 $uri3 = $this->uri->segment(3);
 $uri2 = $this->uri->segment(2);
 echo"
+<div id='delete_produk_go' class='modal confirmation'>
+	<div class='modal-header red'>
+		<i class='mdi-navigation-close left'></i> Hapus produk
+	</div>
+	<form class='modal-content'>
+		<p>Apakah Anda yakin ingin menghapus produk Anda ?</p>
+	</form>
+	<div class='modal-footer'>
+		<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
+		<button type='button' onclick=javascript:delete_produk_go() class='btn-flat modal-action modal-close waves-effect '>YA</button>
+	</div>
+</div>
 			<div class='col s12 m12 l3'>
 					<ul class='menucontent'>
 						<li><a class='active' href='".base_url()."produk/index/1'>READY STOCK</a></li>
@@ -112,8 +124,13 @@ echo"
 											$stok =  $this->model_produk->get_varian_produk($row->id);
 											foreach ($stok->result() as $row_stok) {
 												echo"
-												<p class='input-field col s12 m12 l7 nolpad'>
-													<input onkeyup=javascript:change_stock(".$row_stok->id.") type='text' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate numbersOnly stok-".$row_stok->id."'>";
+												<p class='input-field col s12 m12 l7 nolpad'>";
+													if ($row->unit !='') {
+														echo "<i class='prefix prefix-gan'>".$row->unit."</i>";
+													}
+													
+													echo"
+													<input onkeyup=javascript:change_stock(".$row_stok->id.") type='text' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate numbersOnly s6 stok-".$row_stok->id."'>";
 													if ($row_stok->name != 'null') {
 														echo "<label for='stok'>".$row_stok->name."</label>";
 													}
@@ -166,7 +183,7 @@ echo"
 													<p>Apakah anda yakin ingin menghapus <b>'".$row->name."'</b> ?</p>
 												</form>
 												<div class='modal-footer'>
-													<a href='#!' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
+													<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
 													<button type='button' onclick=javascript:delete_produk(".$row->id.",\"$uri2\") class='btn-flat modal-action modal-close waves-effect '>YA</button>
 												</div>
 											</div>

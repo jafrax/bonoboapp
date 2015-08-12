@@ -222,7 +222,7 @@ echo"
 														<p>Apakah anda yakin ingin menghapus nota dari <b>'".$row->member_name."'</b> ?</p>
 													</form>
 													<div class='modal-footer'>
-														<a href='#!' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
+														<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
 														<button type='button' onclick=javascript:delete_nota(".$row->id.") class='btn-flat modal-action modal-close waves-effect '>YA</button>
 													</div>
 												</div>

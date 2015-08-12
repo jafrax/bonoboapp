@@ -142,6 +142,7 @@ $(document).ready(function() {
           deskripsi               : {maxlength:250},
           stok                    : {required: true,maxlength:50},
           stok_varian_1           : {required: true,maxlength:10},
+          nama_varian_1           : {required: true,maxlength:10},
           harga_pembelian         : {digits: true,maxlength:50},
           harga_level_1           : {digits: false,maxlength:50},
           harga_level_2           : {digits: false,maxlength:50},
@@ -299,6 +300,18 @@ function click_picture(file) {
    $('#'+file).click();
 }
 
+function click_picture_edit(file) {
+  $('input[name="'+file+'"]').each(function () {
+      $(this).rules("add", {
+          accept: 'image/*',filesize: 1000000,
+          messages: {
+              filesize: message_alert("Ukuran file terlalu besar, maksimal 1 MB"),  
+          },
+      });
+  });
+   $('#'+file).click();
+}
+
 function picture_upload(id){
    var URL     = window.URL || window.webkitURL;
    var input   = document.querySelector('#'+id);
@@ -376,7 +389,7 @@ function boxVarian(id) {
                         +"<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>"
                       +"</div>"
                       +"<div class='input-field col s11 m5 pakai-stok'  style='display:none'>"
-                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='number' placeholder='Jumlah stok' class='validate'>"
+                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='text' placeholder='Jumlah stok' class='validate'>"
                         +"<label for='varian'>Stok <span></span></label>"
                       +"</div>"
                       +"<div class='input-field col s1 m1' >"
@@ -392,7 +405,7 @@ function boxVarian(id) {
                         +"<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>"
                       +"</div>"
                       +"<div class='input-field col s11 m5 pakai-stok'>"
-                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='number' placeholder='Jumlah stok' class='validate'>"
+                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='text' placeholder='Jumlah stok' class='validate'>"
                         +"<label for='varian'>Stok <span></span></label>"
                       +"</div>"
                       +"<div class='input-field col s1 m1' >"
@@ -511,9 +524,16 @@ function go(){
   var total_produk  = $('#total_produk').val();
   var option        = $('#option-go').val();
   var url           = '';
+  for (var i = 1 ; i <= total_produk; i++) {
+    if ($('#cek-1-'+i).is(":checked")) {
+      a++;
+    }   
+    if (i == total_produk) {if (a == 0) {Materialize.toast('Tidak ada produk yang dipilih', 2000);return;}}; 
+  }
 
-  if (option == 1) {
-    url = base_url+'produk/delete_product';
+  if (option == 1) {    
+    $('#delete_produk_go').openModal();
+    return;
   } else if (option == 2) {
     url = base_url+'produk/draft_product';
   } else if (option == 3) {
@@ -553,6 +573,32 @@ function go(){
   }
 }
 
+function delete_produk_go () {
+  var total_produk  = $('#total_produk').val();
+  var option        = $('#option-go').val();
+  var a             = 0;
+  var url           = base_url+'produk/delete_product';
+
+  for (var i = 1 ; i <= total_produk; i++) {
+    if ($('#cek-1-'+i).is(":checked")) {
+      var id = $('#cek-'+i).val();
+      a++;
+      if (option == 1) {
+        $('.produk-'+id).fadeOut().remove();
+      }
+      $.ajax({
+        type: 'POST',
+        data: 'id='+id,
+        async: false,
+        url: url,
+        success: function(msg) {
+          
+        }
+      });
+    }   
+  }
+}
+
 
 function change_active(){
   var active_type = $('#active_type').val();
@@ -578,10 +624,11 @@ function tambah_kategori(){
             Materialize.toast('Kategori telah ditambahkan', 4000);
 
             $('#tempat-kategori').html(msg);
-            $('#select-kategori').material_select();
+            
 
             $('#add_kategori').closeModal();
-            $('#nama_kategori').val('');            
+            $('#nama_kategori').val('');    
+            $('#select-kategori').material_select();        
           }
       });
   }else{

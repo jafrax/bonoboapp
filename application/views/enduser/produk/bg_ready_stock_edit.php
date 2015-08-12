@@ -36,7 +36,7 @@ echo "
 		<label for='nama_kategori'>Nama kategori <span class='text-red'>*</span></label>
 		<label class='error error-chosen' for='nama_kategori'></label>	
 	<div class='modal-footer'>
-		<a href='#!' class=' modal-action modal-close waves-effect waves-red btn-flat'>TUTUP</a>
+		<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-red btn-flat'>TUTUP</a>
 		<button type='button' onclick=javascript:tambah_kategori() id='tambah-kategori' class='waves-effect waves-red btn-flat'>TAMBAH</a>
 	</div>
 	</form>
@@ -94,7 +94,7 @@ echo "
 													<div class='card' >
 														<a class='delimg' onclick=javascript:remove_picture('pic_edit_".$item->id."')><i class='mdi-navigation-close right'></i></a>
 														<div class='card-image img-product waves-effect waves-block waves-light'>
-															<img id='img_pic_edit_".$item->id."' onclick=javascript:click_picture('pic_edit_".$item->id."') class='responsive-img img-product' src='".base_url()."assets/pic/product/resize/".$item->file."'>
+															<img id='img_pic_edit_".$item->id."' onclick=javascript:click_picture_edit('pic_edit_".$item->id."') class='responsive-img img-product' src='".base_url()."assets/pic/product/resize/".$item->file."'>
 															<input type='file' class='pic_edit_product' name='pic_edit_".$item->id."' id='pic_edit_".$item->id."' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
 														</div>
 														<label for='pic_edit_".$item->id."' class='error error-image' generated='true'></label>										
