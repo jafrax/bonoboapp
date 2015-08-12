@@ -19,16 +19,8 @@ class Anggota extends CI_Controller {
 	function __construct(){
         parent::__construct();
 		
-		$this->load->model("enduser/model_toko");
-		$this->load->model("enduser/model_toko_member");
-		$this->load->model("enduser/model_toko_blacklist");
-		$this->load->model("enduser/model_joinin");
 		$this->load->model("enduser/model_member");
-		$this->load->model("enduser/model_member_attribute");
-		$this->load->model("enduser/model_member_location");
-		
 		if(empty($_SESSION['bonobo']) || empty($_SESSION['bonobo']['id'])){
-
 			redirect('index/');
 			return;
 		}
@@ -36,12 +28,12 @@ class Anggota extends CI_Controller {
     }
 	
 	private function countNewMember(){
-		$count = sizeOf($this->model_joinin->get_news($_SESSION['bonobo']['id'])->result());
+		$count = sizeOf($this->model_member->get_join_news($_SESSION['bonobo']['id'])->result());
 		return $count;
 	}
 	//07-08-2015 create this function
 	private function jumlahbacklist(){
-		$count = sizeOf($this->model_toko_blacklist->get_member_by_shop($_SESSION['bonobo']['id'])->result());
+		$count = sizeOf($this->model_member->get_bl_member_by_shop($_SESSION['bonobo']['id'])->result());
 		return $count;
 	}
 	
@@ -50,14 +42,14 @@ class Anggota extends CI_Controller {
 	}
 	
 	public function joinin(){
-		$data["shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+		$data["shop"] = $this->model_member->get_toko_by_id($_SESSION['bonobo']['id'])->row();
 		$data["countNewMember"] = $this->countNewMember();
 		
 		$uri = 3;
 		$url='anggota/joinin/';
 		$limit=$this->limit;
 		$page = $this->uri->segment(3);
-		$objects = $this->model_joinin->get_by_shop($_SESSION['bonobo']['id']);
+		$objects = $this->model_member->get_join_by_shop($_SESSION['bonobo']['id']);
 		
 		if(!$page){
 			$offset = $this->offset;
@@ -66,13 +58,13 @@ class Anggota extends CI_Controller {
 		}
 		
 		$data['pagination'] = $this->template->paging1($objects,$uri,$url,$limit);
-		$data["joinins"] = $this->model_joinin->get_limit_by_shop($_SESSION['bonobo']['id'],$this->limit,$offset)->result();
+		$data["joinins"] = $this->model_member->get_join_limit_by_shop($_SESSION['bonobo']['id'],$this->limit,$offset)->result();
 		
 		$this->template->bonobo("anggota/bg_joinin",$data);
 	}
 	
 	public function invite(){
-		$data["shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+		$data["shop"] = $this->model_member->get_toko_by_id($_SESSION['bonobo']['id'])->row();
 		$data["countNewMember"] = $this->countNewMember();
 		$data["notif"] = "";
 		$data["email"] = $this->response->post("email");
@@ -138,28 +130,28 @@ class Anggota extends CI_Controller {
 	
 	public function members(){
 		$data["keyword"] = "";
-		$data["shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+		$data["shop"] = $this->model_member->get_toko_by_id($_SESSION['bonobo']['id'])->row();
 		$data["countNewMember"] = $this->countNewMember();
 		
 		if($this->response->post("keyword") != ""){
 			$data["keyword"] = $this->response->post("keyword");
 		}
 		
-		$data["Members"] = $this->model_toko_member->get_member_by_shop($data["shop"]->id, $data["keyword"])->result();
+		$data["Members"] = $this->model_member->get_toko_member_by_shop($data["shop"]->id, $data["keyword"])->result();
 		
 		$this->template->bonobo("anggota/bg_members",$data);
 	}
 	
 	public function blacklist(){
 		$data["keyword"] = "";
-		$data["shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();
+		$data["shop"] = $this->model_member->get_toko_by_id($_SESSION['bonobo']['id'])->row();
 		$data["countNewMember"] = $this->countNewMember();
 		
 		if($this->response->post("keyword") != ""){
 			$data["keyword"] = $this->response->post("keyword");
 		}
 		
-		$data["Members"] = $this->model_toko_blacklist->get_member_by_shop($data["shop"]->id, $data["keyword"])->result();
+		$data["Members"] = $this->model_member->get_bl_member_by_shop($data["shop"]->id, $data["keyword"])->result();
 		$data["jumlahbacklist"] = $this->jumlahbacklist();
 		$this->template->bonobo("anggota/bg_blacklist",$data);
 	}
@@ -189,7 +181,7 @@ class Anggota extends CI_Controller {
 			return;
 		}
 		
-		$QJoinin = $this->model_joinin->get_by_id($this->response->post("id"))->row();
+		$QJoinin = $this->model_member->get_join_by_id($this->response->post("id"))->row();
 		if(!empty($QJoinin)){
 			$Delete = $this->db->where("id",$QJoinin->id)->delete("tb_join_in");
 			if($Delete){
@@ -208,7 +200,7 @@ class Anggota extends CI_Controller {
 			return;
 		}
 		
-		$QJoinins = $this->model_joinin->get_by_shop($this->response->post("shop_id"))->result();
+		$QJoinins = $this->model_member->get_join_by_shop($this->response->post("shop_id"))->result();
 		if(sizeOf($QJoinins) > 0){
 			$Delete = $this->db->where("toko_id",$this->response->post("shop_id"))->delete("tb_join_in");
 			if($Delete){
@@ -232,7 +224,7 @@ class Anggota extends CI_Controller {
 			return;
 		}
 		
-		$QJoinin = $this->model_joinin->get_by_id($this->response->post("id"))->row();
+		$QJoinin = $this->model_member->get_join_by_id($this->response->post("id"))->row();
 		if(!empty($QJoinin)){
 			$Data = array("status"=>1);
 			$Save = $this->db->where("id",$QJoinin->id)->update("tb_join_in",$Data);
@@ -264,7 +256,7 @@ class Anggota extends CI_Controller {
 			return;
 		}
 		
-		$QJoinin = $this->model_joinin->get_by_id($this->response->post("id"))->row();
+		$QJoinin = $this->model_member->get_join_by_id($this->response->post("id"))->row();
 		if(!empty($QJoinin)){
 			$Data = array("status"=>2);
 			$Save = $this->db->where("id",$QJoinin->id)->update("tb_join_in",$Data);

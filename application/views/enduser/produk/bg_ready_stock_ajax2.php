@@ -1,4 +1,5 @@
 <?php
+$uri4 = $this->uri->segment(4);
 $uri3 = $this->uri->segment(3);
 if ($produk->num_rows() == 0) {
 	if (isset($_SESSION['keyword'])) {
@@ -8,6 +9,9 @@ if ($produk->num_rows() == 0) {
 	}
 }
 							$a=0;
+							if ($uri4 != '') {
+								$a= $uri4;
+							}
 							foreach ($produk->result() as $row) {
 								$a++;
 								$image = $this->model_produk->get_one_image($row->id)->row();

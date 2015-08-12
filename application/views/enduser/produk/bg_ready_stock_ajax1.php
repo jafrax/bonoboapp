@@ -1,4 +1,5 @@
 <?php
+$uri4 = $this->uri->segment(4);
 $uri3 = $this->uri->segment(3);
 $uri2 = $this->uri->segment(2);
 if ($produk->num_rows() == 0) {
@@ -9,6 +10,9 @@ if ($produk->num_rows() == 0) {
 	}
 }
 							$i=0;
+							if ($uri4 != '') {
+								$i= $uri4;
+							}							
 							foreach ($produk->result() as $row) {
 								$i++;
 								$image = $this->model_produk->get_one_image($row->id)->row();
