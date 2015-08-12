@@ -198,3 +198,18 @@ footer.page-footer{ margin-top: 0px; }
     right: 1px;
     width: 200px;
 }
+
+.prefix-gan{
+	background: #03a9f4 none repeat scroll 0 0;
+    border-radius: 4px;
+    color: #fff !important;
+    font-size: 0.9rem !important;
+    margin: 15px 15px 0 0;
+    padding: 5px 10px;
+    width: auto!important;
+}
+
+.input-field .prefix ~ input, .input-field .prefix ~ textarea {
+    margin-left: 4rem;
+    width: calc(100% - 4rem);
+}

@@ -142,6 +142,7 @@ $(document).ready(function() {
           deskripsi               : {maxlength:250},
           stok                    : {required: true,maxlength:50},
           stok_varian_1           : {required: true,maxlength:10},
+          nama_varian_1           : {required: true,maxlength:10},
           harga_pembelian         : {digits: true,maxlength:50},
           harga_level_1           : {digits: false,maxlength:50},
           harga_level_2           : {digits: false,maxlength:50},
@@ -388,7 +389,7 @@ function boxVarian(id) {
                         +"<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>"
                       +"</div>"
                       +"<div class='input-field col s11 m5 pakai-stok'  style='display:none'>"
-                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='number' placeholder='Jumlah stok' class='validate'>"
+                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='text' placeholder='Jumlah stok' class='validate'>"
                         +"<label for='varian'>Stok <span></span></label>"
                       +"</div>"
                       +"<div class='input-field col s1 m1' >"
@@ -404,7 +405,7 @@ function boxVarian(id) {
                         +"<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>"
                       +"</div>"
                       +"<div class='input-field col s11 m5 pakai-stok'>"
-                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='number' placeholder='Jumlah stok' class='validate'>"
+                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='text' placeholder='Jumlah stok' class='validate'>"
                         +"<label for='varian'>Stok <span></span></label>"
                       +"</div>"
                       +"<div class='input-field col s1 m1' >"
@@ -594,7 +595,7 @@ function delete_produk_go () {
           
         }
       });
-    }   if (i == total_produk) {if (a > 0) {location.reload();}else{Materialize.toast('Tidak ada produk yang dipilih', 4000);}}; 
+    }   
   }
 }
 
