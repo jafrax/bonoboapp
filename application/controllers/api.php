@@ -80,191 +80,198 @@ class Api extends CI_Controller {
 			
 		if(empty($QShop)){
 			return null;
-		}else{
-			$join = 0;
-			$price_level = 1;
-			
-			/*
-			*	---------------------------------------------------------------------------------------------
-			*	Membuat data toko
-			*	---------------------------------------------------------------------------------------------	
-			*/
-			if(@getimagesize(base_url("assets/pic/shop/".$QShop->image))){
-				$ShopImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/shop/".$QShop->image)));
-			}else{
-				$ShopImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
-			}
-			
-			if(!empty($user)){
-				$ShopMember = $this->db->where("toko_id",$id)->where("member_id",$user)->get("tb_toko_member")->row();
-				
-				if(!empty($ShopMember)){
-					$join = 1;
-					$price_level = $ShopMember->price_level >= 1 ? $ShopMember->price_level : 1;
-				}
-			}
-			
-			/*
-			*	---------------------------------------------------------------------------------------------
-			*	Mengambil data shop banks
-			*	---------------------------------------------------------------------------------------------	
-			*/
-			$ShopBanks = array();
-			$QShopBanks = $this->db
-						->where("toko_id",$QShop->id)
-						->get("tb_toko_bank")
-						->result();
-			
-			foreach($QShopBanks as $QShopBank){
-				$QBank = $this->db->where("id",$QShopBank->bank_id)->get("ms_bank")->row();
-				
-				if(!empty($QBank)){
-					if(@getimagesize(base_url("assets/pic/bank/".$QBank->image))){
-						$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
-					}else{
-						$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
-					}
-					
-					$Bank = array(
-						"id"=>$QBank->id,
-						"name"=>$QBank->name,
-						"image_url"=>$BankImageUrl,
-					);
-				}else{
-					$Bank = array();
-				}
-				
-				$ShopBank = array(
-					"id"=>$QShopBank->id,
-					"acc_name"=>$QShopBank->acc_name,
-					"acc_no"=>$QShopBank->acc_no,
-					"bank"=>$Bank,
-				);
-					
-				array_push($ShopBanks,$ShopBank);
-			}
-			
-			/*
-			*	---------------------------------------------------------------------------------------------
-			*	Mengambil data shop couriers
-			*	---------------------------------------------------------------------------------------------	
-			*/
-			
-			$ShopCouriers = array();
-			$QShopCouriers = $this->db
-								->where("toko_id",$QShop->id)
-								->get("tb_toko_courier")
-								->result();
-								
-			foreach($QShopCouriers as $QShopCourier){
-				$QCourier = $this->db
-								->where("id",$QShopCourier->courier_id)
-								->get("ms_courier")
-								->row();
-				$Courier = array();
-				if(!empty($QCourier)){
-					if(@getimagesize(base_url("assets/pic/kurir/".$QCourier->image))){
-						$CourierImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/kurir/".$QCourier->image)));
-					}else{
-						$CourierImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
-					}
-					
-					$Courier = array(
-							"id"=>$QCourier->id,
-							"name"=>$QCourier->name,
-							"image_url"=>$CourierImageUrl,
-						);
-				}
-				
-				$ShopCourier = array(
-						"id"=>$QShopCourier->id,
-						"courier"=>$Courier,
-					);
-					
-				array_push($ShopCouriers,$ShopCourier);
-			}
-			
-			/*
-			*	---------------------------------------------------------------------------------------------
-			*	Mengambil data shop courier customs
-			*	---------------------------------------------------------------------------------------------	
-			*/
-			
-			$ShopCourierCustoms = array();
-			$QShopCourierCustoms = $this->db
-								->where("toko_id",$QShop->id)
-								->get("tb_courier_custom")
-								->result();
-								
-			foreach($QShopCourierCustoms as $QShopCourierCustom){
-				$ShopCourierCustom = array(
-						"id"=>$QShopCourierCustom->id,
-						"name"=>$QShopCourierCustom->name,
-						"status"=>$QShopCourierCustom->status,
-					);
-					
-				array_push($ShopCourierCustoms,$ShopCourierCustom);
-			}
-			
-			/*
-			*	---------------------------------------------------------------------------------------------
-			*	Menghitung data products
-			*	---------------------------------------------------------------------------------------------	
-			*/
-			$QShopProducts = $this->db
-							->select("tp.id")
-							->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
-							->where("ttcp.toko_id",$QShop->id)
-							->get("tb_product tp")
-							->result();
-							
-			$CountProducts = sizeOf($QShopProducts);
-			
-			/*
-			*	---------------------------------------------------------------------------------------------
-			*	Menghitung data members
-			*	---------------------------------------------------------------------------------------------	
-			*/
-			$QShopMembers = $this->db
-							->select("id")
-							->where("toko_id",$QShop->id)
-							->get("tb_toko_member")
-							->result();
-							
-			$CountMembers = sizeOf($QShopMembers);
-			
-			/*
-			*	---------------------------------------------------------------------------------------------
-			*	Membuat data toko
-			*	---------------------------------------------------------------------------------------------	
-			*/
-			
-			$Shop = array(
-				"id"=>$QShop->id,
-				"name"=>$QShop->name,
-				"description"=>$QShop->description,
-				"phone"=>$QShop->phone,
-				"tag_name"=>$QShop->tag_name,
-				"keyword"=>$QShop->keyword,
-				"image_url"=>$ShopImageUrl,
-				"count_products"=>$CountProducts,
-				"count_users"=>$CountMembers,
-				"join"=>$join,
-				"price_level"=>$price_level,
-				"location"=>array(
-					"id"=>$QShop->location_id,
-					"kecamatan"=>$QShop->location_kecamatan,
-					"city"=>$QShop->location_city,
-					"province"=>$QShop->location_province,
-					"postal"=>$QShop->location_postal,
-				),
-				"shop_banks"=>$ShopBanks,
-				"shop_couriers"=>$ShopCouriers,
-				"shop_courier_customs"=>$ShopCourierCustoms,
-			);
-			
-			return $Shop;
 		}
+		
+		$join = 0;
+		$invite = 0;
+		$price_level = 1;
+		
+		/*
+		*	---------------------------------------------------------------------------------------------
+		*	Membuat data toko
+		*	---------------------------------------------------------------------------------------------	
+		*/
+		if(@getimagesize(base_url("assets/pic/shop/".$QShop->image))){
+			$ShopImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/shop/".$QShop->image)));
+		}else{
+			$ShopImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+		}
+		
+		if(!empty($user)){
+			$ShopMember = $this->db->where("toko_id",$id)->where("member_id",$user)->get("tb_toko_member")->row();
+			$ShopInvite = $this->db->where("toko_id",$id)->where("member_id",$user)->get("tb_invite")->row();
+			
+			if(!empty($ShopMember)){
+				$join = 1;
+				$price_level = $ShopMember->price_level >= 1 ? $ShopMember->price_level : 1;
+			}
+			
+			if(!empty($ShopInvite)){
+				$invite = 1;
+			}
+		}
+		
+		/*
+		*	---------------------------------------------------------------------------------------------
+		*	Mengambil data shop banks
+		*	---------------------------------------------------------------------------------------------	
+		*/
+		$ShopBanks = array();
+		$QShopBanks = $this->db
+					->where("toko_id",$QShop->id)
+					->get("tb_toko_bank")
+					->result();
+		
+		foreach($QShopBanks as $QShopBank){
+			$QBank = $this->db->where("id",$QShopBank->bank_id)->get("ms_bank")->row();
+			
+			if(!empty($QBank)){
+				if(@getimagesize(base_url("assets/pic/bank/".$QBank->image))){
+					$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
+				}else{
+					$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+				}
+				
+				$Bank = array(
+					"id"=>$QBank->id,
+					"name"=>$QBank->name,
+					"image_url"=>$BankImageUrl,
+				);
+			}else{
+				$Bank = array();
+			}
+			
+			$ShopBank = array(
+				"id"=>$QShopBank->id,
+				"acc_name"=>$QShopBank->acc_name,
+				"acc_no"=>$QShopBank->acc_no,
+				"bank"=>$Bank,
+			);
+				
+			array_push($ShopBanks,$ShopBank);
+		}
+		
+		/*
+		*	---------------------------------------------------------------------------------------------
+		*	Mengambil data shop couriers
+		*	---------------------------------------------------------------------------------------------	
+		*/
+		
+		$ShopCouriers = array();
+		$QShopCouriers = $this->db
+							->where("toko_id",$QShop->id)
+							->get("tb_toko_courier")
+							->result();
+							
+		foreach($QShopCouriers as $QShopCourier){
+			$QCourier = $this->db
+							->where("id",$QShopCourier->courier_id)
+							->get("ms_courier")
+							->row();
+			$Courier = array();
+			if(!empty($QCourier)){
+				if(@getimagesize(base_url("assets/pic/kurir/".$QCourier->image))){
+					$CourierImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/kurir/".$QCourier->image)));
+				}else{
+					$CourierImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+				}
+				
+				$Courier = array(
+						"id"=>$QCourier->id,
+						"name"=>$QCourier->name,
+						"image_url"=>$CourierImageUrl,
+					);
+			}
+			
+			$ShopCourier = array(
+					"id"=>$QShopCourier->id,
+					"courier"=>$Courier,
+				);
+				
+			array_push($ShopCouriers,$ShopCourier);
+		}
+		
+		/*
+		*	---------------------------------------------------------------------------------------------
+		*	Mengambil data shop courier customs
+		*	---------------------------------------------------------------------------------------------	
+		*/
+		
+		$ShopCourierCustoms = array();
+		$QShopCourierCustoms = $this->db
+							->where("toko_id",$QShop->id)
+							->get("tb_courier_custom")
+							->result();
+							
+		foreach($QShopCourierCustoms as $QShopCourierCustom){
+			$ShopCourierCustom = array(
+					"id"=>$QShopCourierCustom->id,
+					"name"=>$QShopCourierCustom->name,
+					"status"=>$QShopCourierCustom->status,
+				);
+				
+			array_push($ShopCourierCustoms,$ShopCourierCustom);
+		}
+		
+		/*
+		*	---------------------------------------------------------------------------------------------
+		*	Menghitung data products
+		*	---------------------------------------------------------------------------------------------	
+		*/
+		$QShopProducts = $this->db
+						->select("tp.id")
+						->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
+						->where("ttcp.toko_id",$QShop->id)
+						->get("tb_product tp")
+						->result();
+						
+		$CountProducts = sizeOf($QShopProducts);
+		
+		/*
+		*	---------------------------------------------------------------------------------------------
+		*	Menghitung data members
+		*	---------------------------------------------------------------------------------------------	
+		*/
+		$QShopMembers = $this->db
+						->select("id")
+						->where("toko_id",$QShop->id)
+						->get("tb_toko_member")
+						->result();
+						
+		$CountMembers = sizeOf($QShopMembers);
+		
+		/*
+		*	---------------------------------------------------------------------------------------------
+		*	Membuat data toko
+		*	---------------------------------------------------------------------------------------------	
+		*/
+		
+		$Shop = array(
+			"id"=>$QShop->id,
+			"name"=>$QShop->name,
+			"description"=>$QShop->description,
+			"phone"=>$QShop->phone,
+			"tag_name"=>$QShop->tag_name,
+			"keyword"=>$QShop->keyword,
+			"image_url"=>$ShopImageUrl,
+			"count_products"=>$CountProducts,
+			"count_users"=>$CountMembers,
+			"join"=>$join,
+			"invite"=>$invite,
+			"price_level"=>$price_level,
+			"location"=>array(
+				"id"=>$QShop->location_id,
+				"kecamatan"=>$QShop->location_kecamatan,
+				"city"=>$QShop->location_city,
+				"province"=>$QShop->location_province,
+				"postal"=>$QShop->location_postal,
+			),
+			"shop_banks"=>$ShopBanks,
+			"shop_couriers"=>$ShopCouriers,
+			"shop_courier_customs"=>$ShopCourierCustoms,
+		);
+		
+		return $Shop;
 	}
 	
 	private function getProductById($id, $user=null){
@@ -1191,14 +1198,32 @@ class Api extends CI_Controller {
 					->get("tb_toko_member ttm")
 					->result();
 			
-			$Shops = array();
+			$ShopMembers = array();
 			foreach($QShopMembers as $QShopMember){
-				$Shop = $this->getShopById($QShopMember->toko_id,$QUser->id);
-				if($Shop != null){
-					array_push($Shops,$Shop);
+				$ShopMember = $this->getShopById($QShopMember->toko_id,$QUser->id);
+				if($ShopMember != null){
+					array_push($ShopMembers,$ShopMember);
 				}
 			}
 			
+			/*
+			*	------------------------------------------------------------------------------
+			*	get data member shop invites
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$QShopInvites = $this->db
+					->where("ti.member_id",$QUser->id)
+					->get("tb_invite ti")
+					->result();
+			
+			$ShopInvites = array();
+			foreach($QShopInvites as $QShopInvite){
+				$ShopInvite = $this->getShopById($QShopInvite->toko_id,$QUser->id);
+				if($ShopInvite != null){
+					array_push($ShopInvites,$ShopInvite);
+				}
+			}
 			
 			/*
 			*	------------------------------------------------------------------------------
@@ -1228,7 +1253,8 @@ class Api extends CI_Controller {
 					"locations"=>$Locations, 
 					"favorites"=>$Favorites,
 					"products"=>$Products,
-					"shops"=>$Shops,
+					"shop_members"=>$ShopMembers,
+					"shop_invites"=>$ShopInvites,
 					"carts"=>$Carts,
 					"invoices"=>$Invoices,
 				);
@@ -1867,9 +1893,9 @@ class Api extends CI_Controller {
 				$Delete = $this->db->where("id",$QFollow->id)->delete("tb_toko_member");
 				
 				if($Delete){
-					$this->response->send(array("result"=>1,"message"=>"Produk sudah tidak menjadi favorite anda","messageCode"=>9), true);
+					$this->response->send(array("result"=>1,"message"=>"Anda sudah keluar dari keanggotaan toko ini","messageCode"=>9), true);
 				}else{
-					$this->response->send(array("result"=>0,"message"=>"Produk tidak dapat di un-favorite","messageCode"=>10), true);
+					$this->response->send(array("result"=>0,"message"=>"Anda tidak dapat keluar dari keanggotaan toko ini","messageCode"=>10), true);
 				}
 			}
 		
@@ -4461,5 +4487,136 @@ class Api extends CI_Controller {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
 	}
+	
+	public function doShopInviteApprove(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			if($this->response->post("shop") == "" || $this->response->postDecode("shop") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada toko yang dipilih","messageCode"=>3), true);
+				return;
+			}
+			
+			$QShop = $this->db->where("id",$this->response->postDecode("shop"))->get("tb_toko")->row();
+			if(empty($QShop)){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data toko yang ditemukan","messageCode"=>4), true);
+				return;
+			}
+						
+			$Delete = $this->db
+						->where("member_id",$QUser->id)
+						->where("toko_id",$QShop->id)
+						->delete("tb_invite");
+			
+			if($Delete){
+				$Data1 = array(
+							"toko_id"=>$QShop->id,
+							"member_id"=>$QUser->id,
+							"status"=>3,
+							"create_date"=>date("Y-m-d H:i:s"),
+							"create_user"=>$QUser->email,
+							"update_date"=>date("Y-m-d H:i:s"),
+							"update_user"=>$QUser->email,
+						);
+				
+				$Data2 = array(
+							"toko_id"=>$QShop->id,
+							"member_id"=>$QUser->id,
+							"price_level"=>1,
+							"create_date"=>date("Y-m-d H:i:s"),
+							"create_user"=>$QUser->email,
+							"update_date"=>date("Y-m-d H:i:s"),
+							"update_user"=>$QUser->email,
+						);
+						
+				$Save1 = $this->db->insert("tb_join_in",$Data1);
+				$Save2 = $this->db->insert("tb_toko_member",$Data2);
+				
+				$this->response->send(array("result"=>1,"message"=>"Anda telah menerima undangan dari \"".$QShop->name."\"","messageCode"=>4), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Undangan gagal ditolak","messageCode"=>4), true);
+			}
+			
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	} 
+	
+	public function doShopInviteReject(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			if($this->response->post("shop") == "" || $this->response->postDecode("shop") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada toko yang dipilih","messageCode"=>3), true);
+				return;
+			}
+			
+			$QShop = $this->db->where("id",$this->response->postDecode("shop"))->get("tb_toko")->row();
+			if(empty($QShop)){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data toko yang ditemukan","messageCode"=>4), true);
+				return;
+			}
+			
+			$Delete = $this->db
+						->where("member_id",$QUser->id)
+						->where("toko_id",$QShop->id)
+						->delete("tb_invite");
+			
+			if($Delete){
+				$Data = array(
+							"toko_id"=>$QShop->id,
+							"member_id"=>$QUser->id,
+							"status"=>4,
+							"create_date"=>date("Y-m-d H:i:s"),
+							"create_user"=>$QUser->email,
+							"update_date"=>date("Y-m-d H:i:s"),
+							"update_user"=>$QUser->email,
+						);
+				
+				$Save = $this->db->insert("tb_join_in",$Data);
+				$this->response->send(array("result"=>1,"message"=>"Anda telah menolak Undangan dari \"".$QShop->name."\"","messageCode"=>4), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Undangan gagal ditolak","messageCode"=>4), true);
+			}
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	} 
 }
 
