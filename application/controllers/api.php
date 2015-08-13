@@ -12,7 +12,7 @@ set_time_limit (10000);
 
 class Api extends CI_Controller {
 
-	var $quality = 60;
+	var $quality = 25;
 	
 	function __construct(){
         parent::__construct();
@@ -1338,7 +1338,7 @@ class Api extends CI_Controller {
 			*	------------------------------------------------------------------------------
 			*/
 			$QProduct = $this->db;
-			$QProduct = $QProduct->select("tp.*,tkcp.id as category_id, tkcp.name as category_name, tkcp.toko_id as toko_id");
+			$QProduct = $QProduct->select("tp.id");
 			$QProduct = $QProduct->join("tb_toko_category_product tkcp","tkcp.id = tp.toko_category_product_id");
 			$QProduct = $QProduct->where("tp.active",1);
 			$QProduct = $QProduct->where("tkcp.toko_id in (SELECT toko_id FROM tb_toko_member WHERE member_id = ".$QUser->id.")",null,false);
@@ -1366,7 +1366,7 @@ class Api extends CI_Controller {
 				$Products = array();
 				
 				foreach($QProducts as $QProduct){
-					$Product = $this->getProductById($QProduct->id);
+					$Product = $this->getProductById($QProduct->id,$QUser->id);
 					array_push($Products,$Product);
 				}
 				

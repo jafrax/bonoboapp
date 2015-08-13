@@ -120,7 +120,7 @@ label{ font-size: 14px; color: #565a5c; }
 .input-field .card { margin:5px; box-shadow:none; }
 .card { margin:5px; }
 .card .card-title { font-size: 14px; }
-.card-image img{ height:100px; }
+.card-image img{ height:150px; }
 .notacard { box-shadow:none; border: 1px solid #ddd; }
 .notacard .collapsible{ box-shadow:none; }
 .tool a{ border: 1px solid #ddd;  background: #fff; }
@@ -183,6 +183,11 @@ label{ font-size: 14px; color: #565a5c; }
 .collapsible-body .dl-horizontal { padding:25px!important; }
 
 .bajindul { z-index:1000 !important; }
+
+.tabs li a.active > i{ color:#EE6E73!important; }
+
+#dua .card{ box-shadow:none!important; border:1px solid #ccc; }
+.card-reveal{ font-size:12px!important;}
 
 @media (min-width: 500px) {
 	.dl-horizontal dt { float: left; width: 50%; overflow: hidden; clear: left; text-align: right; text-overflow: ellipsis; white-space: nowrap; }
