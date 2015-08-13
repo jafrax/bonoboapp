@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+
 /*
 * CONTROLLER API BONOBO
 * This Api system for tranfers data using external apps, support for android, ios, windows mobile
@@ -8,6 +9,8 @@
 . 1. Create 12 Juni 2015 by Heri Siswanto, Create controller
 */
 
+//header('content-type: application/json; charset=utf-8');
+ob_start('ob_gzhandler');
 set_time_limit (10000);
 
 class Api extends CI_Controller {
