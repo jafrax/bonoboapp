@@ -9,7 +9,7 @@
 . 1. Create 12 Juni 2015 by Heri Siswanto, Create controller
 */
 
-//header('content-type: application/json; charset=utf-8');
+header('content-type: application/json; charset=utf-8');
 ob_start('ob_gzhandler');
 set_time_limit (10000);
 

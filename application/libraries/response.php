@@ -2,7 +2,8 @@
 class response {
 	public function send($response, $encript=FALSE){
 		if($encript){
-			echo base64_encode(json_encode($response,JSON_UNESCAPED_UNICODE));
+			//echo base64_encode(json_encode($response,JSON_UNESCAPED_UNICODE));
+			echo json_encode($response,JSON_UNESCAPED_UNICODE);
 		}else{
 			echo json_encode($response,JSON_UNESCAPED_UNICODE);
 		}
