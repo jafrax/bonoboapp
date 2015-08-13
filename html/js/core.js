@@ -118,7 +118,7 @@ function requestMessage () {
 					$('.notifinnota').fadeIn();
 				}
 				$(function(){
-                    setTimeout('requestMessage()',10000);
+                    //setTimeout('requestMessage()',25000);
                 })
 			}else{
 				window.location = base_url+"index/logout";	

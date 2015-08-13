@@ -364,17 +364,19 @@
 	}
 	
 	function limitc($text, $limit=18){
+		/*
 		if (strlen($text) <= $limit) {
 			return $text;
 		} else {
+			$cetak = substr($text,$limit,1);
+			if($cetak !=" "){}
+			while($cetak !=" "){
+				$i=1;
+				$limit=$limit+$i;
 				$cetak = substr($text,$limit,1);
-				if($cetak !=" "){}
-				while($cetak !=" "){
-					$i=1;
-					$limit=$limit+$i;
-					$cetak = substr($text,$limit,1);
-				}
 			}
+		}
+		*/
 		$cetak = substr($text,0,$limit);
 		return $cetak;
 	}
