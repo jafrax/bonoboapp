@@ -218,6 +218,27 @@ class Api extends CI_Controller {
 		
 		/*
 		*	---------------------------------------------------------------------------------------------
+		*	Mengambil data shop category
+		*	---------------------------------------------------------------------------------------------	
+		*/
+		
+		$ShopCategories = array();
+		$QShopCategories = $this->db
+							->where("toko_id",$QShop->id)
+							->get("tb_toko_category_product")
+							->result();
+							
+		foreach($QShopCategories as $QShopCategory){
+			$ShopCategory = array(
+					"id"=>$QShopCategory->id,
+					"name"=>$QShopCategory->name,
+				);
+				
+			array_push($ShopCategories,$ShopCategory);
+		}
+		
+		/*
+		*	---------------------------------------------------------------------------------------------
 		*	Menghitung data products
 		*	---------------------------------------------------------------------------------------------	
 		*/
@@ -272,6 +293,7 @@ class Api extends CI_Controller {
 			"shop_banks"=>$ShopBanks,
 			"shop_couriers"=>$ShopCouriers,
 			"shop_courier_customs"=>$ShopCourierCustoms,
+			"shop_categories"=>$ShopCategories,
 		);
 		
 		return $Shop;
@@ -335,6 +357,17 @@ class Api extends CI_Controller {
 		
 		/*
 		*	------------------------------------------------------------------------------
+		*	Query mengambil data produk toko category
+		*	------------------------------------------------------------------------------
+		*/
+						
+		$ShopCategory = array(
+						"id"=>$QProduct->category_id,
+						"name"=>$QProduct->category_name,
+					);
+		
+		/*
+		*	------------------------------------------------------------------------------
 		*	Query check data produk favorite
 		*	------------------------------------------------------------------------------
 		*/
@@ -373,6 +406,7 @@ class Api extends CI_Controller {
 				"price_4"=>$QProduct->price_4,
 				"price_5"=>$QProduct->price_5,
 				"favorite"=>$isFavorite,
+				"shop_category"=>$ShopCategory,
 				"images"=>$ProductImages,
 				"varians"=>$ProductVarians,
 				"shop"=>$ProductShop,
