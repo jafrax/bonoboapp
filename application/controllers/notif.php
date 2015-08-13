@@ -8,7 +8,7 @@ class Notif extends CI_Controller {
     }
     
 	public function index(){
-        set_time_limit(10000);
+        //set_time_limit(10000);
         header("Connection: close", true);
         
         if(isset($_SESSION['bonobo'])){
@@ -19,10 +19,10 @@ class Notif extends CI_Controller {
         }else{
             $this->response->send(array("result"=>0,"message"=>'No Login',"message2"=>'No Login'),false);
         }
-        flush();
-        ob_flush();
+        //flush();
 
-        session_write_close();
+
+       // session_write_close();
 	}
 /*
     public function nota()

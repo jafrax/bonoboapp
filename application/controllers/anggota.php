@@ -19,7 +19,14 @@ class Anggota extends CI_Controller {
 	function __construct(){
         parent::__construct();
 		
+		$this->load->model("enduser/model_toko");
+		$this->load->model("enduser/model_toko_member");
+		$this->load->model("enduser/model_toko_blacklist");
+		$this->load->model("enduser/model_joinin");
 		$this->load->model("enduser/model_member");
+		$this->load->model("enduser/model_member_attribute");
+		$this->load->model("enduser/model_member_location");
+		
 		if(empty($_SESSION['bonobo']) || empty($_SESSION['bonobo']['id'])){
 			redirect('index/');
 			return;
@@ -137,7 +144,7 @@ class Anggota extends CI_Controller {
 			$data["keyword"] = $this->response->post("keyword");
 		}
 		
-		$data["Members"] = $this->model_member->get_toko_member_by_shop($data["shop"]->id, $data["keyword"])->result();
+		$data["Members"] = $this->model_member->get_tm_member_by_shop($data["shop"]->id, $data["keyword"])->result();
 		
 		$this->template->bonobo("anggota/bg_members",$data);
 	}
