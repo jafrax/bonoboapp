@@ -11,7 +11,7 @@
 
 header('content-type: application/json; charset=utf-8');
 ob_start('ob_gzhandler');
-set_time_limit (10000);
+//set_time_limit (10000);
 
 class Api extends CI_Controller {
 
@@ -468,7 +468,7 @@ class Api extends CI_Controller {
 									"id"=>$QProductVarian->id,
 									"name"=>$QProductVarian->name,
 									"stock_qty"=>$QProductVarian->stock_qty,
-									"product"=>$this->getProductById($QProductVarian->product_id),
+									"product"=>$this->getProductById($QProductVarian->product_id,$user),
 								);
 					
 					$CartVarian = array(
@@ -503,7 +503,7 @@ class Api extends CI_Controller {
 			$Cart = array(
 					"id"=>$QCart->id,
 					"price_total"=>$QCart->price_total,
-					"shop"=>$this->getShopById($QCart->toko_id),
+					"shop"=>$this->getShopById($QCart->toko_id,$user),
 					"cart_products"=>$CartProducts,
 				);
 			
@@ -600,7 +600,7 @@ class Api extends CI_Controller {
 				*/
 				$product = array();
 				if(!empty($QInvoiceProduct->product_id)){
-					$product = $this->getProductById($QInvoiceProduct->product_id);
+					$product = $this->getProductById($QInvoiceProduct->product_id,$user);
 				}
 				
 				/*
@@ -631,7 +631,7 @@ class Api extends CI_Controller {
 								"id"=>$QVarian->id,
 								"name"=>$QVarian->name,
 								"stock_qty"=>$QVarian->stock_qty,
-								"product"=>$this->getProductById($QVarian->product_id),
+								"product"=>$this->getProductById($QVarian->product_id,$user),
 							);
 					}
 					
@@ -699,7 +699,7 @@ class Api extends CI_Controller {
 					"location_to_postal"=>$QInvoice->location_to_postal,
 					"create_date"=>$QInvoice->create_date,
 					"update_date"=>$QInvoice->update_date,
-					"shop"=>$this->getShopById($QInvoice->toko_id),
+					"shop"=>$this->getShopById($QInvoice->toko_id,$user),
 					"courier"=>$Courier,
 					"courier_custom"=>$CourierCustom,
 					"courier_type"=>$QInvoice->courier_type,
@@ -3137,7 +3137,7 @@ class Api extends CI_Controller {
 				$Cart = array(
 						"id"=>$QCart->id,
 						"price_total"=>$QCart->price_total,
-						"shop"=>$this->getShopById($QCart->toko_id),
+						"shop"=>$this->getShopById($QCart->toko_id,$QUser->id),
 						"cart_products"=>$CartProducts,
 					);
 				
@@ -4022,7 +4022,7 @@ class Api extends CI_Controller {
 							"location_to_city"=>$QInvoice->location_to_city,
 							"location_to_kecamatan"=>$QInvoice->location_to_kecamatan,
 							"location_to_postal"=>$QInvoice->location_to_postal,
-							"shop"=>$this->getShopById($QCart->toko_id),
+							"shop"=>$this->getShopById($QCart->toko_id,$QUser->id),
 							"invoice_products"=>$InvoiceProducts,
 							"courier"=>$Courier,
 							"courier_custome"=>$CourierCustom,
@@ -4195,7 +4195,7 @@ class Api extends CI_Controller {
 			*/
 			$Messages = array();
 			foreach($QMessages as $QMessage){
-				$Shop = $this->getShopById($QMessage->toko_id);
+				$Shop = $this->getShopById($QMessage->toko_id,$QUser->id);
 			
 				$Message = array(
 						"id"=>$QMessage->id,
@@ -4368,7 +4368,7 @@ class Api extends CI_Controller {
 								->get("tb_member_message")
 								->row();
 					
-					$Shop = $this->getShopById($QUserMessage->toko_id);
+					$Shop = $this->getShopById($QUserMessage->toko_id,$QUser->id);
 					
 					$Messages = array(
 								"id"=>$QUserMessage->id,
