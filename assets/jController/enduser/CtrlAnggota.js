@@ -55,8 +55,8 @@ function CtrlAnggotaJoinin(){
 	function doDelete(e){
 		var valid = true;
 		
-		if(e == ""){
-			$hs_notif("#notifJoinin","Data yang dipilih tidak valid");
+		if(e == ""){			
+			Materialize.toast('Data yang dipilih tidak valid', 4000);
 			valid = false;
 		}
 		
@@ -81,7 +81,7 @@ function CtrlAnggotaJoinin(){
 		var valid = true;
 		
 		if(e == ""){
-			$hs_notif("#notifJoinin","Data toko yang dipilih tidak valid");
+			Materialize.toast('Data yang dipilih tidak valid', 4000);			
 			valid = false;
 		}
 		
@@ -95,7 +95,7 @@ function CtrlAnggotaJoinin(){
 					if(response.result == 1){
 						top.location.href = base_url+"anggota";
 					}else{
-						$hs_notif("#notifJoinin",response.message);
+						Materialize.toast(response.message, 4000);						
 					}
 				}
 			});
@@ -107,17 +107,17 @@ function CtrlAnggotaJoinin(){
 		var divButton = $("#divButton"+formJoininLevel.id.value);
 		
 		if(formJoininLevel.id.value == ""){
-			$hs_notif("#notifJoinin","Data yang dipilih tidak valid");
+			Materialize.toast('Data yang dipilih tidak valid', 4000);
 			valid = false;
 		}
 		
 		if(formJoininLevel.level.value == ""){
-			$hs_notif("#notifJoinin","Level harus dipilih !");
+			Materialize.toast('Level harus dipilih !', 4000);			
 			valid = false;
 		}
 		
 		if(divButton == null){
-			$hs_notif("#notifJoinin","Komponen tidak ditemukan");
+			Materialize.toast('Komponen tidak ditemukan', 4000);			
 			valid = false;
 		}
 		
@@ -135,7 +135,7 @@ function CtrlAnggotaJoinin(){
 						formJoininLevel.id.value = "";
 						
 					}else{
-						$hs_notif("#notifJoinin",response.message);
+						Materialize.toast(response.message, 4000);						
 					}
 				}
 			});
@@ -148,12 +148,12 @@ function CtrlAnggotaJoinin(){
 		var edi=e;
 		
 		if(e == ""){
-			$hs_notif("#notifJoinin","Data yang dipilih tidak valid");
+			Materialize.toast('Data yang dipilih tidak valid', 4000);			
 			valid = false;
 		}
 		
 		if(divButton == null){
-			$hs_notif("#notifJoinin","Komponen tidak ditemukan");
+			Materialize.toast('Komponen tidak ditemukan', 4000);			
 			valid = false;
 		}
 		
@@ -170,7 +170,7 @@ function CtrlAnggotaJoinin(){
 						$(".pesan"+e).css("color", "red").html('<b>ditolak</b>');
 						
 					}else{
-						$hs_notif("#notifJoinin",response.message);
+						Materialize.toast(response.message, 4000);						
 					}
 				}
 			});
@@ -322,7 +322,7 @@ function CtrlAnggotaMembers(){
 				if(response.result == 1){
 					top.location.href = base_url+"anggota/members/";
 				}else{
-					$hs_notif("#notifMember",response.message);
+					Materialize.toast(response.message, 4000);					
 				}
 			}
 		});
@@ -409,7 +409,7 @@ function CtrlAnggotaBlacklist(){
 				if(response.result == 1){
 					top.location.href = base_url+"anggota/blacklist/";
 				}else{
-					$hs_notif("#notifBlacklist",response.message);
+					Materialize.toast(response.message, 4000);
 				}
 			}
 		});

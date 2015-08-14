@@ -93,7 +93,7 @@ echo"
 					}
 					echo "
 				</td>";
-				$date_time=date('d F Y',strtotime($row->expired_on));
+				$date_time=date('d M Y',strtotime($row->expired_on));
 				echo"<td><a href='#' id='tanggalmu".$row->id."' onClick=javascript:tanggal_modal('".$row->id."')> ".$date_time." </a> </td>
 				</tr>";
 			}

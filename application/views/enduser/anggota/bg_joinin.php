@@ -74,8 +74,8 @@ echo"
 			<input name='id' type='hidden' value=''>
 			<p>
 				<div class='input-field col s12'>
-					<select name='level' class='chosen-select' id='levelbos'>
-						<option value='' disabled selected>Choose your option</option>
+					<select name='level' class='select-standar' id='levelbos'>
+						
 						";
 						if($shop->level_1_active == 1){
 							echo "<option value='1'>".$shop->level_1_name."</option>";
@@ -95,6 +95,7 @@ echo"
 					echo "</select>
 				</div>
 			</p>
+			<h1><br></h1>
 		</form>
 		<div class='modal-footer'>
 			<a href='javascript:void(0);' id='aJoinLevelNo' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>

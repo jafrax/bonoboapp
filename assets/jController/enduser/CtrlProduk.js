@@ -5,7 +5,7 @@
 /*
 * MAIN SCROOL AJAX
 */
-var offset_rs=5;
+var offset_rs=10;
 var scrolling_rs=true;
 
 $(window).scroll(function () {      
@@ -29,11 +29,11 @@ $(window).scroll(function () {
                         $('#satu').append(atob(response.satu));
                         $('#dua').append(atob(response.dua));
                         $('#preloader').slideUp();
-                        offset_rs      = offset_rs+5;
+                        offset_rs      = offset_rs+10;
                         scrolling_rs   = true;
                         $('ul.tabs').tabs();
                         Materialize.updateTextFields();
-                        $('#total_produk').val(total_produk+5);
+                        $('#total_produk').val(total_produk+10);
                         $('.modal-trigger').leanModal();
                     }else{
                         $('#preloader').slideUp();
@@ -47,7 +47,7 @@ $(window).scroll(function () {
         }
     });
 
-var offset_po=5;
+var offset_po=10;
 var scrolling_po=true;
 
 $(window).scroll(function () {      
@@ -71,11 +71,11 @@ $(window).scroll(function () {
                         $('#satu').append(atob(response.satu));
                         $('#dua').append(atob(response.dua));
                         $('#preloader').slideUp();
-                        offset_po      = offset_po+5;
+                        offset_po      = offset_po+10
                         scrolling_po   = true;
                         $('ul.tabs').tabs();
                         Materialize.updateTextFields();
-                        $('#total_produk').val(total_produk+5);
+                        $('#total_produk').val(total_produk+10);
                         $('.modal-trigger').leanModal();
                         /*DATE PICKER*/
                         $('.datepicker').pickadate({
@@ -523,7 +523,7 @@ function ngeklik(a,b){
 function go(){
   var total_produk  = $('#total_produk').val();
   var option        = $('#option-go').val();
-  var url           = '';
+  var a = 0;
   for (var i = 1 ; i <= total_produk; i++) {
     if ($('#cek-1-'+i).is(":checked")) {
       a++;
@@ -532,8 +532,32 @@ function go(){
   }
 
   if (option == 1) {    
-    $('#delete_produk_go').openModal();
-    return;
+    $('#tipe-go').html('menghapus');
+    $('#head-go').html('Hapus');
+  } else if (option == 2) {
+    $('#tipe-go').html('memindah Draft');
+    $('#head-go').html('Draft');
+  } else if (option == 3) {
+    $('#tipe-go').html('memindah Publish');
+    $('#head-go').html('Publish');
+  } else if (option == 4) {
+    $('#tipe-go').html('memindah Ready Stock');
+    $('#head-go').html('Ready Stock');
+  } else if (option == 5) {
+    $('#tipe-go').html('memindah Pre Order');
+    $('#head-go').html('Pre Order');
+  }
+
+  $('#produk_go').openModal();
+}
+
+function delete_produk_go () {
+  var total_produk  = $('#total_produk').val();
+  var option        = $('#option-go').val();  
+  var url           = '';
+
+  if (option == 1) {    
+    url = base_url+'produk/delete_product';
   } else if (option == 2) {
     url = base_url+'produk/draft_product';
   } else if (option == 3) {
@@ -542,7 +566,7 @@ function go(){
     url = base_url+'produk/ready_product';
   } else if (option == 5) {
     url = base_url+'produk/pre_order_product';
-  }   
+  }  
 
   var a = 0;
   for (var i = 1 ; i <= total_produk; i++) {
@@ -569,33 +593,7 @@ function go(){
           
         }
       });
-    }   if (i == total_produk) {if (a > 0) {location.reload();}else{Materialize.toast('Tidak ada produk yang dipilih', 4000);}}; 
-  }
-}
-
-function delete_produk_go () {
-  var total_produk  = $('#total_produk').val();
-  var option        = $('#option-go').val();
-  var a             = 0;
-  var url           = base_url+'produk/delete_product';
-
-  for (var i = 1 ; i <= total_produk; i++) {
-    if ($('#cek-1-'+i).is(":checked")) {
-      var id = $('#cek-'+i).val();
-      a++;
-      if (option == 1) {
-        $('.produk-'+id).fadeOut().remove();
-      }
-      $.ajax({
-        type: 'POST',
-        data: 'id='+id,
-        async: false,
-        url: url,
-        success: function(msg) {
-          
-        }
-      });
-    }   
+    }   if (i == total_produk) {if (a > 0 && option != 1) {location.reload();}else{Materialize.toast('Tidak ada produk yang dipilih', 4000);}}; 
   }
 }
 
@@ -622,10 +620,7 @@ function tambah_kategori(){
           url: base_url+'produk/add_kategori',
           success: function(msg) {
             Materialize.toast('Kategori telah ditambahkan', 4000);
-
             $('#tempat-kategori').html(msg);
-            
-
             $('#add_kategori').closeModal();
             $('#nama_kategori').val('');    
             $('#select-kategori').material_select();        
@@ -642,6 +637,7 @@ function tambah_kategori_atur(){
   var id    = $('#id-toko').val();  
 
   if ($('#form_add_kategori').valid() == true) {
+    $('#tambah_kategori').closeModal();
     $.ajax({
           type: 'POST',
           data: 'nama='+nama+'&id='+id,
@@ -650,8 +646,7 @@ function tambah_kategori_atur(){
           success: function(msg) {
             Materialize.toast('Kategori telah ditambahkan', 4000);
             $('#tempat-kategori').html(msg);            
-            $('#nama_kategori').val('');
-            $('#tambah_kategori').closeModal();
+            $('#nama_kategori').val('');            
             $('.modal-trigger').leanModal();
             $('.add-kateg').attr('disabled', false);
             offset_kat      = 10;
@@ -675,7 +670,7 @@ function delete_kategori(id){
             $('#kategori-'+id).fadeOut().remove();
             $('.modal-trigger').leanModal();            
           }else{
-            Materialize.toast('Gagal menghapus kategori', 4000);   
+            Materialize.toast('Gagal '+msg, 4000);   
             $('.modal-trigger').leanModal();         
           };          
         }
@@ -795,7 +790,7 @@ $(window).scroll(function () {
                     if (msg){
                         $('#tempat-kategori').append(msg);
                         $('#preloader').slideUp();
-                        offset_kat      = offset_kat+5;
+                        offset_kat      = offset_kat+10;
                         scrolling_kat   = true;
                         $('#habis').slideUp();
                         $('.modal-trigger').leanModal();

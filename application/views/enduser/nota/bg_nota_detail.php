@@ -111,7 +111,7 @@ echo "
 								<h4 class='light'>No. Transaksi : ".$nota->invoice_no."</h4>";
 			            		$old_date = $nota->create_date;
 								$old_date_timestamp = strtotime($old_date);
-								$date = date('d F Y', $old_date_timestamp);
+								$date = date('d M Y', $old_date_timestamp);
 
 								$ago 		= $this->template->xTimeAgoDesc($old_date,date('Y-m-d H:i:s'));
 			            		echo"

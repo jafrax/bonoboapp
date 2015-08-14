@@ -112,7 +112,7 @@ echo"
 							            	<div class='col s12 m12'>";
 							            		$old_date 	= $row->create_date;
 												$old_date_timestamp = strtotime($old_date);
-												$date 		= date('d F Y, H.i', $old_date_timestamp);
+												$date 		= date('d M Y, H.i', $old_date_timestamp);
 												
 												$ago 		= $this->template->xTimeAgoDesc($old_date,date('Y-m-d H:i:s'));
 							            		echo"
@@ -187,7 +187,11 @@ echo"
 																<option value='' disabled >Pilih Rekening Tujuan</option>";
 																if ($row->member_confirm == 1) {
 																	$rekening_tujuan = $this->model_nota->get_rek_tujuan($row->id);
-																	$selected = $rekening_tujuan->row()->toko_bank_id;
+																	if ($rekening_tujuan->num_rows() > 0) {
+																		$selected = $rekening_tujuan->row()->toko_bank_id;
+																	}else{
+																		$selected = '';
+																	}
 																}
 																foreach ($rekening->result() as $row_rk) {
 																	$select = '';
@@ -232,7 +236,7 @@ echo"
 						          	<div class='row '>
 							            
 							            <ul class='collapsible ' data-collapsible='accordion'>";
-							            if ($row->member_confirm == 1) {
+							            if ($row->member_confirm == 1 && $rekening_tujuan->num_rows() > 0) {
 							            	$rekening1 = $rekening_tujuan->row();
 							            echo"
 								            <li class=''>
@@ -249,6 +253,21 @@ echo"
 								                			".$rekening1->to_bank."<br>
 								                			".$rekening1->to_acc_no."<br>
 								                			".$rekening1->to_acc_name."</p>
+								                	</div>
+								                </div>
+								            </li>";
+								        }else{
+								        	echo"
+								            <li class=''>
+								                <div class='collapsible-header truncate'><p class='red-text'><i class='mdi-content-flag'></i> Pembeli telah melakukan konfirmasi. <span class='blue-text'>Klik disini</span> untuk detail</p></div>
+								                <div class='collapsible-body' style='display: none;'>
+								                	<div class='col s12 m6'>									       		
+								                		<p><b>Bank Asal :</b><br>
+								                			
+								                	</div>
+								                	<div class='col s12 m6'>
+								                		<p><b>Bank Tujuan :</b><br>
+								                			
 								                	</div>
 								                </div>
 								            </li>";

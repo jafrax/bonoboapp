@@ -57,7 +57,7 @@ echo"
 							<label id='notifName' class='error' style='display:none;'><i class='fa fa-warning'></i> Harus diisi !</label>
 						</div>
 						<div class='input-field col s12'>
-							<input id='email' name='email' type='text' class='validate' maxlength='30' tabindex='2'>
+							<input id='email' name='email' type='text' class='validate emailLow' maxlength='30' tabindex='2'>
 							<label for='email'>Email</label>
 							<label id='notifEmail' class='error' style='display:none;'><i class='fa fa-warning'></i> Harus diisi !</label>
 						</div>

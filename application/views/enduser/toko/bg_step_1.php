@@ -26,7 +26,7 @@ echo"
 					<label id='notifName' class='error' style='display:none;'></label>
 				</div>
 				<div class='input-field col s12 m8'>
-					<input id='txtTagname' name='txtTagname' type='text' placeholder=' ptbonobo' class='validate'  value='".$Shop->tag_name."'>
+					<input id='txtTagname' name='txtTagname' maxlength='5'  type='text' placeholder=' ptbonobo' class='validate emailLow'  value='".$Shop->tag_name."'>
 					<label for='txtTagname'>Toko Id *</label>
 					<label id='notifTagname' class='error' style='display:none;'></label>
 				</div>
@@ -76,7 +76,7 @@ echo"
 			<div class='row formbody'>
 				<div class='linehead'>Kontak dan Alamat</div>
 				<div class='input-field col s12 m8'>
-					<input id='txtPhone' name='txtPhone' placeholder=' 0271987654' type='text' class='validate numbersOnly' maxlength='12' value='".$Shop->phone."'>
+					<input id='txtPhone' name='txtPhone' placeholder=' 0271987654' type='text' class='validate numbersOnly' maxlength='15' value='".$Shop->phone."'>
 					<label for='txtPhone'>Telephone</label>
 				</div>
 				<div class='input-field col s12 m8'>								

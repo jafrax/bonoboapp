@@ -4,7 +4,7 @@ echo "
 					<div class='formain'>
 						<div class='row formbody'>
 							<div class='col s12 m12'>
-								<ul class='row formbody' id='ajax-div'>";
+								<ul class='row formbody preorder' id='ajax-div'>";
 								if ($produk->num_rows() > 0) {
 									foreach ($produk->result() as $row) {
 										$count = $this->model_preorder->get_belum_selesai($row->id)->num_rows();

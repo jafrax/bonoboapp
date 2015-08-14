@@ -179,14 +179,18 @@ class master_kurir extends CI_Controller {
 				'create_date'	=> date("Y-m-d H:i:s"),
 				'create_user'   => $_SESSION['bonobo_admin']->email
             );
+			$count = $this->db->where('name',$name)->get('ms_courier')->num_rows();
 
-            $insert = $this->db->insert('ms_courier',$data_add);
-            if($insert){
-                $msg    = "success";
-                $notif  = "Berhasil";
-                redirect('admin/master_kurir/');
-            }
-            
+			if ($count == 0) {
+	            $insert = $this->db->insert('ms_courier',$data_add);
+	            if($insert){
+	                $msg    = "success";
+	                $notif  = "Berhasil";
+	                redirect('admin/master_kurir/');
+	            }
+            }else{
+            	redirect('admin/master_kurir/');
+            }            
 		}else{
 
 		}

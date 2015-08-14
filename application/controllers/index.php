@@ -412,7 +412,7 @@ class Index extends CI_Controller {
 						Terima Kasih, Bonobo.com
 					";
 					
-				$this->template->send_email($QShop->email,'no-reply@bonobo.com', $message);
+				$this->template->send_email($QShop->email,'[BONOBO] Lupa Password', $message);
 				// end email send
 				$this->response->send(array("result"=>1,"message"=>"Silahkan lihat pesan kami di email anda!","messageCode"=>1));
 			}else{

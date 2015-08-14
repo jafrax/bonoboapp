@@ -822,7 +822,7 @@ class Toko extends CI_Controller {
 						for ($a=1;$a <= 5;$a++){						
 							if ($i != $a && $this->response->post("chkLevel".$a) == 1){
 								if ($this->response->post("txtLevel".$i) == $this->response->post("txtLevel".$a)){
-									$this->response->send(array("result"=>0,"message"=>"Data ".$this->response->post("txtLevel".$i)." tidak boleh digunakan","messageCode"=>0));
+									$this->response->send(array("result"=>0,"message"=>"Gagal menyimpan. Nama level ".$this->response->post("txtLevel".$i)." sama dengan level ".$a ,"messageCode"=>0));
 									//echo json_encode("Data ".$this->response->post("txtLevel".$i)." tidak boleh sama");
 									return;
 								}

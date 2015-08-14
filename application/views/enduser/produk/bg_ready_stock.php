@@ -2,12 +2,12 @@
 $uri3 = $this->uri->segment(3);
 $uri2 = $this->uri->segment(2);
 echo"
-<div id='delete_produk_go' class='modal confirmation'>
+<div id='produk_go' class='modal confirmation'>
 	<div class='modal-header red'>
-		<i class='mdi-navigation-close left'></i> Hapus produk
+		<i class='mdi-navigation-close left'></i> <span id='head-go'>Hapus</span> produk
 	</div>
 	<form class='modal-content'>
-		<p>Apakah Anda yakin ingin menghapus produk Anda ?</p>
+		<p>Apakah Anda yakin ingin <span id='tipe-go'>menghapus</span> produk Anda ?</p>
 	</form>
 	<div class='modal-footer'>
 		<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>

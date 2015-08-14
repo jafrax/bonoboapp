@@ -39,7 +39,7 @@ echo "
 						          	<div class='row '>		
 						          		<div class='col s6 m6 l3'><img class='responsive-img logo' src='".base_url()."html/images/comp/logo_shadow.png' /></div>
 						            	<div class='col s6 m6 l9'>
-							              	<p class='blue-grey-text lighten-3 right'>".date('d F Y')."</p>
+							              	<p class='blue-grey-text lighten-3 right'>".date('d M Y')."</p>
 							              	<br>
 							            </div>
 						          	</div>
@@ -48,7 +48,7 @@ echo "
 							            <h6>No. Nota: ".$nota->invoice_no."</h6>";
 					            		$old_date 			= $nota->create_date;
 										$old_date_timestamp = strtotime($old_date);
-										$date 				= date('d F Y', $old_date_timestamp);
+										$date 				= date('d M Y', $old_date_timestamp);
 										
 					            		echo"
 							            <h6>Tanggal pembelian : $date</h6>

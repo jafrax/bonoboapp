@@ -21,7 +21,7 @@ class Produk extends CI_Controller {
 		$this->load->model("enduser/model_produk");		
     }
 
-    var $limit_pro 	= 5;
+    var $limit_pro 	= 10;
 	var $offset_pro = 0;
 	
 	public function index(){
@@ -66,7 +66,7 @@ class Produk extends CI_Controller {
 				$nama 			= $this->template->clearInput($this->input->post('nama'));
 				$sku 			= $this->template->clearInput($this->input->post('sku'));
 				$kategori 		= $this->template->clearInput($this->input->post('kategori'));
-				$berat 			= $this->input->post('berat');
+				$berat 			= round($this->input->post('berat'),2);
 				$satuan 		= $this->template->clearInput($this->input->post('satuan'));
 				$min_order 		= $this->template->clearInput($this->input->post('min_order'));
 				$deskripsi 		= $this->template->clearInput($this->input->post('deskripsi'));
@@ -96,11 +96,11 @@ class Produk extends CI_Controller {
 					'description'				=> $deskripsi,
 					'stock_type'				=> $tipe,
 					'price_base'				=> $harga_pembelian,
-					'price_1'					=> $harga_level_1,
-					'price_2'					=> $harga_level_2,
-					'price_3'					=> $harga_level_3,
-					'price_4'					=> $harga_level_4,
-					'price_5'					=> $harga_level_5,
+					'price_1'					=> str_replace('.','',$harga_level_1),
+					'price_2'					=> str_replace('.','',$harga_level_2),
+					'price_3'					=> str_replace('.','',$harga_level_3),
+					'price_4'					=> str_replace('.','',$harga_level_4),
+					'price_5'					=> str_replace('.','',$harga_level_5),
 					'create_user'				=> $_SESSION['bonobo']['email'],
 					'create_date'				=> date('Y-m-d H:i:s'),
 					'update_user'				=> $_SESSION['bonobo']['email']
@@ -109,7 +109,7 @@ class Produk extends CI_Controller {
 				$insert = $this->db->insert('tb_product',$data);
 				
 				if ($insert) {
-					$id = $this->db->where('name',$nama)->where('sku_no',$sku)->where('create_user',$_SESSION['bonobo']['email'])->where('toko_category_product_id',$kategori)->where('price_1',$harga_level_1)->order_by('create_date','DESC')->get('tb_product')->row()->id;
+					$id = $this->db->where('name',$nama)->where('create_user',$_SESSION['bonobo']['email'])->where('toko_category_product_id',$kategori)->where('price_1',str_replace('.','',$harga_level_1))->order_by('create_date','DESC')->get('tb_product')->row()->id;
 
 					$pic=1;
 					$url    = 'assets/pic/product/';
@@ -187,7 +187,7 @@ class Produk extends CI_Controller {
 				$nama 			= $this->template->clearInput($this->input->post('nama'));
 				$sku 			= $this->template->clearInput($this->input->post('sku'));
 				$kategori 		= $this->template->clearInput($this->input->post('kategori'));
-				$berat 			= $this->input->post('berat');
+				$berat 			= round($this->input->post('berat'),2);
 				$satuan 		= $this->template->clearInput($this->input->post('satuan'));
 				$min_order 		= $this->template->clearInput($this->input->post('min_order'));
 				$deskripsi 		= $this->template->clearInput($this->input->post('deskripsi'));
@@ -216,11 +216,11 @@ class Produk extends CI_Controller {
 					'min_order'					=> $min_order,
 					'description'				=> $deskripsi,					
 					'price_base'				=> $harga_pembelian,
-					'price_1'					=> $harga_level_1,
-					'price_2'					=> $harga_level_2,
-					'price_3'					=> $harga_level_3,
-					'price_4'					=> $harga_level_4,
-					'price_5'					=> $harga_level_5,
+					'price_1'					=> str_replace('.','',$harga_level_1),
+					'price_2'					=> str_replace('.','',$harga_level_2),
+					'price_3'					=> str_replace('.','',$harga_level_3),
+					'price_4'					=> str_replace('.','',$harga_level_4),
+					'price_5'					=> str_replace('.','',$harga_level_5),
 					'update_user'				=> $_SESSION['bonobo']['email']
 					);
 
@@ -475,7 +475,7 @@ class Produk extends CI_Controller {
 *
 * Create 30 Juni 2015 by Dinar Wahyu Wibowo
 */
-	var $limit_pre 	= 5;
+	var $limit_pre 	= 10;
 	var $offset_pre = 0;
 	public function pre_order(){
 		$uri =  $this->uri->segment(3);
@@ -520,7 +520,7 @@ class Produk extends CI_Controller {
 				$sku 			= $this->template->clearInput($this->input->post('sku'));
 				$tgl_pre_order	= $this->template->clearInput($this->input->post('tgl_pre_order_submit'));
 				$kategori 		= $this->template->clearInput($this->input->post('kategori'));
-				$berat 			= $this->template->clearInput($this->input->post('berat'));
+				$berat 			= $this->template->clearInput(round($this->input->post('berat'),2));
 				$satuan 		= $this->template->clearInput($this->input->post('satuan'));
 				$min_order 		= $this->template->clearInput($this->input->post('min_order'));
 				$deskripsi 		= $this->template->clearInput($this->input->post('deskripsi'));				
@@ -550,11 +550,11 @@ class Produk extends CI_Controller {
 					'min_order'					=> $min_order,
 					'description'				=> $deskripsi,					
 					'price_base'				=> $harga_pembelian,
-					'price_1'					=> $harga_level_1,
-					'price_2'					=> $harga_level_2,
-					'price_3'					=> $harga_level_3,
-					'price_4'					=> $harga_level_4,
-					'price_5'					=> $harga_level_5,
+					'price_1'					=> str_replace('.','',$harga_level_1),
+					'price_2'					=> str_replace('.','',$harga_level_2),
+					'price_3'					=> str_replace('.','',$harga_level_3),
+					'price_4'					=> str_replace('.','',$harga_level_4),
+					'price_5'					=> str_replace('.','',$harga_level_5),
 					'create_user'				=> $_SESSION['bonobo']['email'],
 					'create_date'				=> date('Y-m-d H:i:s'),
 					'update_user'				=> $_SESSION['bonobo']['email']
@@ -621,7 +621,7 @@ class Produk extends CI_Controller {
 				$sku 			= $this->template->clearInput($this->input->post('sku'));
 				$tgl_pre_order	= $this->template->clearInput($this->input->post('tgl_pre_order_submit'));
 				$kategori 		= $this->template->clearInput($this->input->post('kategori'));
-				$berat 			= $this->template->clearInput($this->input->post('berat'));
+				$berat 			= $this->template->clearInput(round($this->input->post('berat'),2));
 				$satuan 		= $this->template->clearInput($this->input->post('satuan'));
 				$min_order 		= $this->template->clearInput($this->input->post('min_order'));
 				$deskripsi 		= $this->template->clearInput($this->input->post('deskripsi'));				
@@ -646,11 +646,11 @@ class Produk extends CI_Controller {
 					'min_order'					=> $min_order,
 					'description'				=> $deskripsi,					
 					'price_base'				=> $harga_pembelian,
-					'price_1'					=> $harga_level_1,
-					'price_2'					=> $harga_level_2,
-					'price_3'					=> $harga_level_3,
-					'price_4'					=> $harga_level_4,
-					'price_5'					=> $harga_level_5,					
+					'price_1'					=> str_replace('.','',$harga_level_1),
+					'price_2'					=> str_replace('.','',$harga_level_2),
+					'price_3'					=> str_replace('.','',$harga_level_3),
+					'price_4'					=> str_replace('.','',$harga_level_4),
+					'price_5'					=> str_replace('.','',$harga_level_5),					
 					'update_user'				=> $_SESSION['bonobo']['email']
 					);
 
@@ -858,6 +858,11 @@ class Produk extends CI_Controller {
 
 	public function delete_kategori(){
 		$id = $this->input->post('id');
+		$produk = $this->model_produk->count_product_by_category($id);
+		if ($produk > 0) {
+			echo "Kategori masih memiliki produk";
+			return;
+		}
 		$delete = $this->db->where('id',$id)->delete('tb_toko_category_product');
 		if ($delete) {
 			echo "1";

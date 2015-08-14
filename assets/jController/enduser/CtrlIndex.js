@@ -355,6 +355,12 @@ function r_password(selection,url) {
 
  $(document).ready(function() {
  $('#repas').delay(5000).slideUp('slow');
+
+	/*EMAIL ONLY*/
+	jQuery('.emailLow').keyup(function () { 
+	    this.value = this.value.toLowerCase().replace(/ /g, '');
+	});
+	/*EMAIL ONLY*/
  })
  
  function forgetpassemail(){

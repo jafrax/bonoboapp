@@ -15,7 +15,7 @@ echo "
 					
 					$old_date 	= $_SESSION['bonobo']['expired_on'];
 					$old_date_timestamp = strtotime($old_date);
-					$date 		= date('d F Y', $old_date_timestamp);
+					$date 		= date('d M Y', $old_date_timestamp);
 
 					//JADUL
 					/*echo "$years years, $months months, $days days\n";			

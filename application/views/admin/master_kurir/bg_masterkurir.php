@@ -168,7 +168,7 @@
                     </div><!-- /.box-body -->
                         
                     <div class='box-footer'>
-                        <button type='submit' class='btn btn-primary form-kurir-edit-btn' >Submit</button>
+                        <button type='submit' class='btn btn-primary form-kurir-edit-btn'  >Submit</button>
                         <button type='button' class='btn btn-primary' data-dismiss='modal' >Cancel</button>
                     </div>
                 </form>

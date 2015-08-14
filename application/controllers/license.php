@@ -50,7 +50,7 @@ class License extends CI_Controller {
 				$msg    = "success";
 				$old_date 	= $end_date;
 				$old_date_timestamp = strtotime($old_date);
-				$date 		= date('d F Y', $old_date_timestamp);
+				$date 		= date('d M Y', $old_date_timestamp);
                 $msg    = array("msg"=>$msg,"end_date"=>$date);
 	            $data   = array_merge($msg,$active_code->result());
 	            echo json_encode($data);

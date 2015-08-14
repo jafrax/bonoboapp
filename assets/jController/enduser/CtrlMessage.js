@@ -96,7 +96,7 @@ function CtrlMessage(){
 				if(response.result == 1){
 					top.location.href = base_url+"message";
 				}else{
-					$hs_notif("#notifMessage",response.message);
+					Materialize.toast(response.message, 4000);
 				}
 			}
 		});
@@ -112,7 +112,7 @@ function CtrlMessage(){
 				if(response.result == 1){
 					top.location.href = base_url+"message";
 				}else{
-					$hs_notif("#notifMessage",response.message);
+					Materialize.toast(response.message, 4000);
 				}
 			}
 		});
@@ -133,7 +133,7 @@ function CtrlMessage(){
 				if(response.result == 1){
 					top.location.href = base_url+"message";
 				}else{
-					$hs_notif("#notifMessage",response.message);
+					Materialize.toast(response.message, 4000);
 				}
 			}
 		});
@@ -166,7 +166,7 @@ function CtrlMessageDetail(){
 	
 	function doSend(){
 		if(formMessageDetail.txtMessage.value == ""){
-			$hs_notif("#notifMessage","Anda belum menulis pesan");
+			Materialize.toast("Anda belum menulis pesan", 4000);			
 			return;
 		}
 		
@@ -180,7 +180,7 @@ function CtrlMessageDetail(){
 					ctrlMessage.showMessageDetail(member);
 					ctrlMessage.showContactDetail(member);
 				}else{
-					$hs_notif("#notifMessage",response.message);
+					Materialize.toast(response.message, 4000);
 				}
 			}
 		});
@@ -232,7 +232,7 @@ function CtrlMessageNew(){
 		var checked = "0";
 		
 		if(txtMessage.value == ""){
-			$hs_notif("#notifMessage","Belum ada pesan yang anda tulis");
+			Materialize.toast("Belum ada pesan yang anda tulis", 4000);			
 			return;
 		}
 		
@@ -249,7 +249,7 @@ function CtrlMessageNew(){
 				if(response.result == 1){
 					top.location.href = base_url+"message";
 				}else{
-					$hs_notif("#notifMessage",response.message);
+					Materialize.toast(response.message, 4000);
 				}
 			}
 		});

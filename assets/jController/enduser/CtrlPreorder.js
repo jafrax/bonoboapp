@@ -8,7 +8,7 @@ var offset_rs=6;
 var scrolling_rs=true;
 
 $(window).scroll(function () {      
-        if ($(window).scrollTop() == ( $(document).height() - $(window).height()) && scrolling_rs==true) {
+        if ($(window).scrollTop() == ( $(document).height() - $(window).height()) && scrolling_rs==true && $('#ajax-div').hasClass('preorder')) {
             $('#preloader').slideDown();
             
             scrolling_rs      = false;

@@ -104,7 +104,7 @@ function CtrlShopStep1(){
 					if(response.result == 1){
 						divKontak.slideUp("slow").remove();
 					}else{
-						$hs_notif("#notifStep5",response.message);
+						Materialize.toast(response.message, 4000);;
 					}
 				}
 			});
@@ -125,7 +125,7 @@ function CtrlShopStep1(){
 				txtTagname: {
 					required: true,
 					minlength:3,
-					maxlength:15,
+					maxlength:5,
 					noSpace:true,
 				},
 				txtDescription:{
@@ -188,9 +188,9 @@ function CtrlShopStep1(){
 					if(response.result == 1){
 						top.location.href = base_url+"toko/step2";
 					}else if(response.result == 5){
-						Materialize.toast('Silahkan pilih file format gambar .bmp, .jpg, .png', 4000);
+						Materialize.toast('Silahkan pilih file format gambar .jpg, .png', 4000);
 					}else{
-						//$hs_notif("#notifStep1",response.message);
+						Materialize.toast(response.message, 4000);
 					}
 				}
 			});
@@ -298,13 +298,13 @@ function CtrlShopStep1(){
 		var img = $('#txtShopLogoFile').val();
 
 		switch(img.substring(img.lastIndexOf('.') + 1).toLowerCase()){
-			case 'bmp': case 'jpg': case 'png':
+			case 'jpg': case 'png':
 				imgShopLogo.src = URL.createObjectURL(txtShopLogoFile.files[0]);  
 				break;
 			default:
 				$('#txtShopLogoFile').val('');
 				// error message here
-				Materialize.toast('Silahkan pilih file format gambar .bmp, .jpg, .png', 4000);
+				Materialize.toast('Silahkan pilih file format gambar .jpg / .png', 4000);
 				break;
 		}
 			
@@ -529,7 +529,7 @@ function CtrlShopStep7(){
 				if(response.result == 1){
 					initCustomeCourierTable(txtCustomCourierId.value);
 				}else{
-					$hs_notif("#notifStep5Rate",response.message);
+					Materialize.toast(response.message, 4000);
 				}
 			}
 		});
@@ -545,7 +545,7 @@ function CtrlShopStep7(){
 				if(response.result == 1){
 					initCustomeCourierTable(txtCustomCourierId.value);
 				}else{
-					$hs_notif("#notifStep5Rate",response.message);
+					Materialize.toast(response.message, 4000);
 				}
 			}
 		});
@@ -1037,7 +1037,7 @@ function deletestep1(e,a){
 							$('#aAttributeAdd').show();
 						}
 					}else{
-						$hs_notif("#notifStep5",response.message);
+						Materialize.toast(response.message, 4000);
 					}
 				}
 			});
