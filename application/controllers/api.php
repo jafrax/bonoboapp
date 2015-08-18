@@ -15,7 +15,7 @@ ob_start('ob_gzhandler');
 
 class Api extends CI_Controller {
 
-	var $quality = 25;
+	var $quality = 50;
 	
 	function __construct(){
         parent::__construct();
@@ -341,7 +341,7 @@ class Api extends CI_Controller {
 						
 		$ProductImages = array();
 		foreach($QProductImages as $QProductImage){
-			if(@getimagesize(base_url("assets/pic/courier/".$QCourier->image))){
+			if(@getimagesize(base_url("assets/pic/product/".$QProductImage->file))){
 				$ProductImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/product/resize/".$QProductImage->file)));
 				$ProductImageHigh = base_url("image.php?q=100&fe=".base64_encode(base_url("assets/pic/product/".$QProductImage->file)));
 			}else{
