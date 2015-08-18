@@ -183,7 +183,7 @@ class Api extends CI_Controller {
 			if(!empty($QCourier)){
 				if(@getimagesize(base_url("assets/pic/kurir/".$QCourier->image))){
 					$CourierImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/kurir/resize/".$QCourier->image)));
-					$CourierImageHigh = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/kurir/".$QCourier->image)));
+					$CourierImageHigh = base_url("image.php?q=100&fe=".base64_encode(base_url("assets/pic/kurir/".$QCourier->image)));
 				}else{
 					$CourierImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
 					$CourierImageHigh = $CourierImageTumb;
@@ -1161,9 +1161,11 @@ class Api extends CI_Controller {
 			$Banks = array();
 			foreach($QBanks as $QBank){
 				if(@getimagesize(base_url("assets/pic/bank/".$QBank->image))){
-					$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
+					$BankImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/bank/resize/".$QBank->image)));
+					$BankImageHigh = base_url("image.php?q=100&fe=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
 				}else{
-					$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+					$BankImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+					$BankImageHigh = $BankImageTumb;
 				}
 			
 				$Bank = array(
@@ -1171,7 +1173,8 @@ class Api extends CI_Controller {
 						"acc_name"=>$QBank->acc_name,
 						"acc_no"=>$QBank->acc_no,
 						"bank_name"=>$QBank->bank_name,
-						"image_url"=>$BankImageUrl,
+						"image_tumb"=>$BankImageTumb,
+						"image_high"=>$BankImageHigh,
 					);
 					
 				array_push($Banks,$Bank);
@@ -1737,6 +1740,14 @@ class Api extends CI_Controller {
 			*	Query data lengkap toko
 			*	------------------------------------------------------------------------------
 			*/
+			if(@getimagesize(base_url("assets/pic/shop/".$QShop->image))){
+				$ShopImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/shop/resize/".$QShop->image)));
+				$ShopImageHigh = base_url("image.php?q=100&fe=".base64_encode(base_url("assets/pic/shop/".$QShop->image)));
+			}else{
+				$ShopImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+				$ShopImageHigh = $ShopImageTumb;
+			}
+		
 			$Shop = array(
 				"id"=>$QShop->id,
 				"name"=>$QShop->name,
@@ -1758,7 +1769,8 @@ class Api extends CI_Controller {
 				"status"=>$QShop->status,
 				"countFollower"=>sizeOf($ShopFollowers),
 				"countProduct"=>sizeOf($ShopProducts),
-				"image_url"=>base_url("image.php?q=100&fe=".base64_encode($QShop->image)),
+				"image_tumb"=>$ShopImageTumb,
+				"image_high"=>$ShopImageHigh,
 				"banks"=>$ShopBanks,
 				"attributes"=>$ShopAttributes,
 			);
@@ -2610,15 +2622,18 @@ class Api extends CI_Controller {
 					$Bank = array();
 					if(!empty($QBank)){
 						if(@getimagesize(base_url("assets/pic/bank/".$QBank->image))){
-							$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
+							$BankImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/bank/resize/".$QBank->image)));
+							$BankImageHigh = base_url("image.php?q=100&fe=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
 						}else{
-							$BankImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+							$BankImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+							$BankImageHigh = $BankImageTumb;
 						}
 				
 						$Bank = array(
 								"id"=>$QBank->id,
 								"name"=>$QBank->name,
-								"image_url"=>$BankImageUrl,
+								"image_tumb"=>$BankImageTumb,
+								"image_high"=>$BankImageHigh,
 							);
 					}
 					
@@ -3985,15 +4000,18 @@ class Api extends CI_Controller {
 									
 						if(!empty($QCourier)){
 							if(@getimagesize(base_url("assets/pic/courier/".$QCourier->image))){
-								$CourierImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/courier/".$QCourier->image)));
+								$CourierImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/courier/resize/".$QCourier->image)));
+								$CourierImageHigh = base_url("image.php?q=100&fe=".base64_encode(base_url("assets/pic/courier/".$QCourier->image)));
 							}else{
-								$CourierImageUrl = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+								$CourierImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+								$CourierImageHigh= $CourierImageTumb;
 							}
 						
 							$Courier = array(
 									"id"=>$QCourier->id,
 									"name"=>$QCourier->name,
-									"image_url"=>$CourierImageUrl,
+									"image_tumb"=>$CourierImageTumb,
+									"image_high"=>$CourierImageHigh,
 								);
 						}
 					}
