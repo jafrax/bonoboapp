@@ -7,7 +7,7 @@ if(!empty($Shop->image) && file_exists("./assets/pic/shop/".$Shop->image)){
 }
 
 if($Shop->flag_information == 0){
-	$Button = "<button id='btnNext' class='btn waves-effect waves-light' type='button'>Selanjutnya<i class='mdi-navigation-chevron-right right'></i></button>";
+	$Button = "<button id='btnNext' class='btn waves-effect waves-light' type='button'>Lanjut<i class='mdi-navigation-chevron-right right'></i></button>";
 }else{
 	$Button = "<button id='btnSave' class='btn waves-effect waves-light' type='button'>Simpan<i class='mdi-navigation-chevron-right right'></i></button>";
 }
@@ -19,15 +19,15 @@ echo"
 				<h2 class='titmain'><b>INFORMASI TOKO</b></h2>
 			</div>
 			<div class='row formbody '>
-				<div class='linehead'>Informasi Umum</div>
+				<div class='linehead'>INFORMASI UMUM</div>
 				<div class='input-field col s12 m8'>
-					<input id='txtName' name='txtName' type='text' placeholder=' PT Bonobo Indonesia' class='validate' value='".$Shop->name."' autofocus>
-					<label for='txtName'>Nama toko *</label>
+					<input id='txtName' name='txtName' type='text' maxlength='50' length='50' placeholder=' PT Bonobo Indonesia' class='validate' value='".$Shop->name."' autofocus>
+					<label for='txtName'>Nama TOKO *</label>
 					<label id='notifName' class='error' style='display:none;'></label>
 				</div>
 				<div class='input-field col s12 m8'>
-					<input id='txtTagname' name='txtTagname' maxlength='5'  type='text' placeholder=' ptbonobo' class='validate emailLow'  value='".$Shop->tag_name."'>
-					<label for='txtTagname'>Toko Id *</label>
+					<input id='txtTagname' name='txtTagname' maxlength='10' length='10' type='text' placeholder=' ptbonobo' class='validate upperCase'  value='".$Shop->tag_name."'>
+					<label for='txtTagname'>PIN TOKO *</label>
 					<label id='notifTagname' class='error' style='display:none;'></label>
 				</div>
 				<div class='col s12 m8' style='display:none;'>
@@ -48,16 +48,16 @@ echo"
 						</select>
 					</div>
 				</div>
-				<div class='input-field col s12 m8'>
+				<div class='input-field col s12 m8' style='display:none'>
 					<input id='txtKeyword' name='txtKeyword' type='text' class='validate' value='".$Shop->keyword."'>
 					<label for='txtKeyword'>Kata kunci pencarian</label>
 				</div>
 				<div class='input-field col s12 m8'>
-					<textarea id='txtDescription' name='txtDescription' placeholder=' Bonobo adalah platform Bisnis Online yang aman' class='materialize-textarea' >".$Shop->description."</textarea>
-					<label for='txtDescription'>Deskripsi toko</label>
+					<textarea id='txtDescription' name='txtDescription' maxlength='250' length='250' placeholder='Masukkan Keterangan Lengkap tentang Toko anda' class='materialize-textarea' >".$Shop->description."</textarea>
+					<label for='txtDescription'>Deskripsi TOKO</label>
 				</div>
 				<div class='input-field col s12 m8'>
-					<label class='left'>Logo Toko</label><br>
+					<label class='left'>Logo TOKO</label><br>
 					
 					<div class='card div-circle-logo col s6 m4 l2 nolpad'>
 						<a id='aShopLogoDelete' class='delimg'><i class='mdi-navigation-close right'></i></a>
@@ -70,13 +70,13 @@ echo"
 				</div>
 				<div class='input-field col s12 m8'>
 					<i class='grey-text'><b>Ukuran Maks</b> : 1 MB.</i><br>
-					<i class='grey-text'><b>Format</b> : .bmp, .jpg, .png.</i>
+					<i class='grey-text'><b>Format</b> : .jpg, .png.</i>
 				</div>
 			</div>
 			<div class='row formbody'>
-				<div class='linehead'>Kontak dan Alamat</div>
+				<div class='linehead'>KONTAK DAN ALAMAT</div>
 				<div class='input-field col s12 m8'>
-					<input id='txtPhone' name='txtPhone' placeholder=' 0271987654' type='text' class='validate numbersOnly' maxlength='15' value='".$Shop->phone."'>
+					<input id='txtPhone' name='txtPhone' placeholder='081xxxxxxx' type='text' class='validate numbersOnly' maxlength='15' length='15' value='".$Shop->phone."'>
 					<label for='txtPhone'>Telephone</label>
 				</div>
 				<div class='input-field col s12 m8'>								
@@ -116,13 +116,13 @@ if(sizeOf($Attributes) <= 0){
 				</div>
 				<div class='col s12 m5'>
 					<input name='txtAttributeId".$no."' id='txtAttributeId".$no."' type='hidden' value='".$Attribute->id."'>
-					<input name='txtAttributeName".$no."' placeholder='BBM/whatsapp/Line' type='text' class='validate' value='".$Attribute->name."'>
+					<input name='txtAttributeName".$no."' placeholder='BBM / Whatsapp' type='text' class='validate' value='".$Attribute->name."'>
 				</div>
 				<div class='col s12 m1'>
 					<!--Pin/ID/Nomor--!> =
 				</div>
 				<div class='col s12 m5'>
-					<input name='txtAttributeValue".$no."' placeholder=' AD9876/bonoboLine' type='text' class='validate' value='".$Attribute->value."'>
+					<input name='txtAttributeValue".$no."' placeholder='081xxxxxxx' type='text' class='validate' value='".$Attribute->value."'>
 				</div>
 				<div class='col s12 m5'>
 					<a class='btn-floating btn-xs waves-effect waves-light red right' onclick=javascript:deletestep1(".$no.",".$Attribute->id.")>
@@ -137,7 +137,7 @@ if(sizeOf($Attributes) <= 0){
 
 echo"
 					</div>
-					<div class='row valign-wrapper counter'>
+					<div class='row valign-wrapper '>
 						<div class='col s2 m2'>
 							
 						</div>";
@@ -149,8 +149,8 @@ echo"
 							";
 						}else{
 							echo "
-								<div class='col s10 m6' style='display:none'>
-									<a href='javascript:void(0);' id='aAttributeAdd'>[+] Tambah kontak</a>
+								<div class='col s10 m6' >
+									<a style='display:none' href='javascript:void(0);' id='aAttributeAdd'>[+] Tambah kontak</a>
 								</div>
 							";
 						}
@@ -182,7 +182,7 @@ echo"
 					</div>
 				</div>
 				<div class=' col s12 m8'>
-					<label>Kota</label>
+					<label>Kota <img width='16px' id='loader-kota' style='display:none' src='".base_url()."html/images/comp/loading.GIF' /></label>
 					<label id='notifCity' class='error error-chosen' style='display:none;'></label>
 					<div id='panggon-city' class='input-field'>";
 					echo "	<select  class='chosen-select cmbCity' name='cmbCity' id='city' onchange=javascript:set_kecamatan()>
@@ -206,7 +206,7 @@ echo"
 					</div>
 				</div>
 				<div class=' col s12 m8'>
-					<label>Kecamatan</label>
+					<label>Kecamatan <img id='loader-kec' style='display:none' width='16px' src='".base_url()."html/images/comp/loading.GIF' /></label>
 					<label id='notifKecamatan' class='error error-chosen' style='display:none;'></label>
 					<div id='panggon-kecamatan' class='input-field'>";
 						echo "<select  class='chosen-select cmbKecamatan' name='cmbKecamatan' id='kecamatan'  >
@@ -231,12 +231,12 @@ echo"
 				</div>
 				<div class='ui-widget input-field col s12 m8'>
 					<label for='tags' class=''>Kodepos</label>		
-					<input  id='postal-code' name='txtPostal' type='text' class='validate pos' value='".$Shop->postal."' autocoplate='off'>
+					<input  id='postal-code' name='txtPostal' maxlength='5' length='5' type='text' class='validate pos' value='".$Shop->postal."' autocoplate='off'>
 					
 				</div>
 				<div class='input-field col s12 m8'>
-					<textarea id='txtAddress' name='txtAddress' placeholder=' Jl. Raya Bonobo no.1' class='materialize-textarea' >".$Shop->address."</textarea>
-					<label for='txtAddress'>Alamat toko</label>
+					<textarea id='txtAddress' name='txtAddress' maxlength='150' length='150' placeholder='Masukkan Alamat Lengkap' class='materialize-textarea' >".$Shop->address."</textarea>
+					<label for='txtAddress'>Alamat TOKO</label>
 				</div>
 				<div class='input-field col s12 m8'>
 					".$Button."

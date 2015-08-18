@@ -10,7 +10,7 @@ echo"
 				</div>
 				<div id='divProvince' class='input-field col s12 m8'>
 					<p>
-						<select name='cmbProvince' onChange=ctrlShopStep7.loadComboboxCity(); class='chzn-select'>
+						<select name='cmbProvince' id='cmbProvince' onChange=ctrlShopStep7.loadComboboxCity(); class='chzn-select'>
 ";
 
 	if(!empty($Rate)){
@@ -25,14 +25,15 @@ echo"
 	
 echo"
 						</select>
+						<label class='error error-chosen' for='cmbProvince'></label>
 					</p>
 				</div>
 				<div class='input-field col s12 m4'>							
-					Kota								
+					Kota  <img width='16px' id='loader-kota' style='display:none' src='".base_url()."html/images/comp/loading.GIF' />
 				</div>
 				<div id='divCity' class='input-field col s12 m8'>
 					<p>
-						<select name='cmbCity' onChange=ctrlShopStep7.loadComboboxKecamatan(); class='chzn-select'>
+						<select name='cmbCity' id='cmbCity' onChange=ctrlShopStep7.loadComboboxKecamatan(); class='chzn-select'>
 ";
 
 	if(!empty($Rate)){
@@ -47,14 +48,15 @@ echo"
 	
 echo"
 						</select>
+						<label class='error error-chosen' for='cmbCity'></label>
 					</p>
 				</div>
 				<div class='input-field col s12 m4'>							
-					Kecamatan								
+					Kecamatan  <img width='16px' id='loader-kec' style='display:none' src='".base_url()."html/images/comp/loading.GIF' />
 				</div>
 				<div id='divKecamatan' class='input-field col s12 m8'>
 					<p>
-						<select name='cmbKecamatan' class='chzn-select'>
+						<select name='cmbKecamatan' id='cmbKecamatan' class='chzn-select'>
 ";
 
 	if(!empty($Rate)){
@@ -68,11 +70,12 @@ echo"
 	}
 	
 echo"
-						</select>									
+						</select>
+						<label class='error error-chosen' for='cmbKecamatan'></label>
 					</p>
 				</div>
 				<div class='input-field col s12 m4'>							
-					Ongkos Kirim								
+					Ongkos Kirim per Kg
 				</div>
 				<div class='input-field col s12 m8'>
 					<p>
@@ -92,11 +95,11 @@ echo"<script>
 $(document).ready(function() {
 		/*NUMBER FORMAT*/
 	$('input.price').priceFormat({	    
-	    limit: 18,
-    	centsLimit: 2,
-		centsSeparator: '.',
-    	thousandsSeparator: '',
-    	prefix: '',
+	    limit: 12,
+    	centsLimit: 0,
+		centsSeparator: '',
+    	thousandsSeparator: '.',
+    	prefix: 'Rp. ',
 	});
 	/*NUMBER FORMAT*/
 });

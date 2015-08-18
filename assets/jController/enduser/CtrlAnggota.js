@@ -208,18 +208,12 @@ function CtrlAnggotaInvite(){
 				email: {
 					required: true,
 					email: true,
-				},
-				message: {
-					required: true,
 				}
 			},
 			messages: {
 				email:{
 					required: Messagebox_alert("Field ini dibutuhkan"),
 					email: Messagebox_alert("Email tidak valid"),
-				},
-				message:{
-					required: Messagebox_alert("Field ini dibutuhkan"),
 				}
 			}
 		});
@@ -240,8 +234,9 @@ function CtrlAnggotaInvite(){
                     $('#formInvite')[0].reset();
 					Materialize.toast(response.notif, 4000);
                     $("label.error").hide();
+                    $('#email').focus();
                 }else{
-                    
+                    Materialize.toast(response.notif, 4000);
                 }
             },
             error : function(){

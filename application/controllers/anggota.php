@@ -13,7 +13,7 @@ set_time_limit (99999999999);
 
 class Anggota extends CI_Controller {
 	
-	var $limit = 15;
+	var $limit = 20;
 	var $offset = 0;
 	
 	function __construct(){
@@ -80,10 +80,7 @@ class Anggota extends CI_Controller {
 		if($_POST && !empty($data["shop"])){
 			$valid = true;
 			
-			if($data["message"] == ""){
-				$data["notif"] = "<label class='text-red'>Message harus diisi !</label>";
-				$valid = false;
-			}
+			
 			
 			if($data["email"] == ""){
 				$data["notif"] = "<label class='text-red'>Email harus diisi !</label>";

@@ -47,7 +47,7 @@ echo"
 		<div class='containermain'>
 			<div class='row col-signup'>
 				<h4 class='titlin'>BONOBO IS A SECURE BUSSINESS PLATFORM</h4>
-				<p class='note'>Bonobo merupakan tempat berjualan online dimana setiap toko yang tergabung didalamnya bersaing secara sehat dan bersahabat.</p>
+				<p class='note'><!--Bonobo merupakan tempat berjualan online dimana setiap toko yang tergabung didalamnya bersaing secara sehat dan bersahabat.--><br></p>
 				<form id='formSignup' class='signin z-depth-2'>
 					<div class='row'>
 						<div id='lblNotif' class='notif-error'></div>
@@ -67,7 +67,7 @@ echo"
 							<label id='notifPassword' class='error' style='display:none;'><i class='fa fa-warning'></i> Harus diisi !</label>
 						</div>
 						<div class='input-field col s12'>
-							<input id='rePassword' name='rePassword' type='password' class='validate' maxlength='30' tabindex='4'>
+							<input id='rePassword' name='rePassword' type='password' class='validate' maxlength='30' tabindex='4' onkeyup=ctrlSignup.onEnter(event);>
 							<label for='rePassword'>Ketik ulang password</label>
 							<label id='notifRepassword' class='error' style='display:none;'><i class='fa fa-warning'></i> Sandi tidak sesuai !</label>
 						</div>

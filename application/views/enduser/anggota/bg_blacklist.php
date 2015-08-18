@@ -14,9 +14,9 @@ echo"
 	<div class='col s12 m12 l9'>
 		<div class='formain'>
 			<div class='formhead'>
-			<div
+			<div>
 				<h2 class='titmain'><b>DAFTAR BLACKLIST</b> <span>( ".$jumlahbacklist." Anggota )</span> </h2>
-				<p>Pembeli yang berada dalam blacklist tidak bisa masuk kembali dalam toko anda.</p>
+				<p>Anggota yang terdaftar di blacklist tidak dapat bergabung kembalik ke TOKO anda.</p>
 			</div>
 			</div>
 			<div id='notifBlacklist' align='center' style='display:none;'></div>

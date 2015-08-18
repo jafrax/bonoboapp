@@ -13,7 +13,11 @@ $(document).ready(function() {
 	/*END MENU SLIDE*/
 
 	/*MODAL*/
-	$('.modal-trigger').leanModal();
+	$('.modal-trigger').leanModal(
+		{
+      ready: function() { $("input:text:visible:first").focus(); Materialize.updateTextFields();}, // Callback for Modal open
+      complete: function() { Materialize.updateTextFields(); } // Callback for Modal close
+    });
 	/*END MODAL*/
 
 	/*TAB*/
@@ -48,7 +52,7 @@ $(document).ready(function() {
       '.chosen-select'           : {},
       '.chosen-select-deselect'  : {allow_single_deselect:true},
       '.chosen-select-no-single' : {disable_search_threshold:5},
-      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+      '.chosen-select-no-results': {no_results_text:'Oops, data tidak ada!'},
       '.chosen-select-width'     : {width:"95%"}
     }
     for (var selector in config) {
@@ -65,6 +69,12 @@ $(document).ready(function() {
 	/*EMAIL ONLY*/
 	jQuery('.emailLow').keyup(function () { 
 	    this.value = this.value.toLowerCase().replace(/ /g, '');
+	});
+	/*EMAIL ONLY*/
+
+	/*EMAIL ONLY*/
+	jQuery('.upperCase').keyup(function () { 
+	    this.value = this.value.toUpperCase().replace(/[^\w\s]/gi, '');
 	});
 	/*EMAIL ONLY*/
 

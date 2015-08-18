@@ -15,13 +15,12 @@ echo"
 		<div class='formain'>
 			<div class='formhead'>
 				<h2 class='titmain'><b>DAFTAR ANGGOTA</b> <span>( ".sizeOf($Members)." Anggota )</span></h2>
-				<p>Halaman ini menampilkan pembeli yang telah menjadi anggota !</p>
 			</div>
 			<div id='notifMember' align='center' style='display:none;'></div>
 			<ul class='row formbody'>
 				<form method='POST' action='".base_url("anggota/members/")."'>
 				<li class='col s12 listanggodaf'>
-					<div class='input-field col s12 m8 right'>
+					<div class='input-field col s12 m6 right'>
 						<i class='mdi-action-search prefix'></i>
 						<input id='keyword' name='keyword' type='text' class='validate' value='".$keyword."'>
 						<label for='keyword'>Cari anggota</label>
@@ -30,7 +29,7 @@ echo"
 				</form>
 ";
 if(sizeOf($Members) <= 0){
-	echo"Data tidak ditemukan";
+	echo"Anda tidak mempunyai anggota";
 }else{
 	foreach($Members as $Member){
 		$hasil_nama=$this->template->limitc($Member->name);

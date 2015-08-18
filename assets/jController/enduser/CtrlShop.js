@@ -69,11 +69,11 @@ function CtrlShopStep1(){
 			var sequence = parseInt(intAttributeCount.value)+1;
 			var div = document.createElement("div");
 			
-			div.innerHTML = "<div class='col s12 m3' id='kontak"+sequence+"'><!--Nama kontak--!></div><div class='col s12 m5'><input  name='txtAttributeId"+sequence+"' type='hidden' value=''><input id='txtAttributeId"+sequence+"' name='txtAttributeName"+sequence+"' placeholder='BBM/whatsapp/Line' type='text' class='validate'></div><div class='col s12 m1'><!--Pin/ID/Nomor--!>=</div><div class='col s12 m5'><input name='txtAttributeValue"+sequence+"' type='text' placeholder='Ex : AD9876/bonoboLine' class='validate'></div><div class='col s12 m2'><a class='btn-floating btn-xs waves-effect waves-light red right' onclick=javascript:deletestep1("+sequence+",0)><i class='mdi-navigation-close'></i></a></div>";
+			div.innerHTML = "<div class='col s12 m3' id='kontak"+sequence+"'><!--Nama kontak--!></div><div class='col s12 m5'><input  name='txtAttributeId"+sequence+"' type='hidden' value=''><input id='txtAttributeId"+sequence+"' name='txtAttributeName"+sequence+"' placeholder='BBM / Whatsapp' type='text' class='validate'></div><div class='col s12 m1'><!--Pin/ID/Nomor--!>=</div><div class='col s12 m5'><input name='txtAttributeValue"+sequence+"' type='text' placeholder='081xxxxxxx' class='validate'></div><div class='col s12 m5'><a class='btn-floating btn-xs waves-effect waves-light red right' onclick=javascript:deletestep1("+sequence+",0)><i class='mdi-navigation-close'></i></a></div>";
 			div.setAttribute("class","row valign-wrapper counter attr-"+sequence);
 			divAttributes.append(div);
 			intAttributeCount.value = sequence;
-			if ($('.counter').length > 3 ) {
+			if ($('.counter').length > 2 ) {
 				//alert($('.counter').length);
 				$('#aAttributeAdd').hide();
 				return;
@@ -127,6 +127,8 @@ function CtrlShopStep1(){
 					minlength:3,
 					maxlength:5,
 					noSpace:true,
+					remote: base_url+"toko/rules_pin"
+
 				},
 				txtDescription:{
 					maxlength:250,
@@ -149,14 +151,15 @@ function CtrlShopStep1(){
 			},
 			messages: {
 				txtName:{
-					required: message_alert("Harus diisi !"),
+					required: message_alert("Harus diisi"),
 					minlength: message_alert("Masukkan minimal 5 karakter"),
 					maxlength: message_alert("Masukkan maksimal 50 karakter"),
 				},
 				txtTagname:{
-					required: message_alert("Harus diisi !"),
+					required: message_alert("Harus diisi"),
 					minlength: message_alert("Masukkan minimal 3 karakter"),
 					maxlength: message_alert("Masukkan maksimal 15 karakter"),
+					remote: message_alert('PIN TOKO sudah ada'),
 				},
 				txtPhone:{
 					maxlength: message_alert("Masukkan maksimal 15 karakter"),
@@ -444,7 +447,7 @@ function CtrlShopStep7(){
 		sequence = sequence+2;
 
 		
-		div.innerHTML = "<div id='divCourier"+sequence+"' class='input-field col s12 m12 counter'><div class='input-field col s12 m12 l6'><input type='hidden' id='txtCourierId"+sequence+"' name='txtCourierId1'><input type='text' id='txtCourierName"+sequence+"' name='txtCourierName1' maxlength='20' minlength='5'><label for='txtCourierName"+sequence+"'>Nama Jasa Pengiriman</label></div><div class='input-field col s12 m12 l6'><button type='button' class='waves-effect waves-light btn  ' onclick=ctrlShopStep7.doCourierSave("+sequence+");><i class='material-icons left'>library_add</i> Simpan</button> <button class='waves-effect waves-light btn red' type='button' onclick=ctrlShopStep7.doCourierDelete("+sequence+");><i class='mdi-action-delete left'></i>Hapus</button> <button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail"+sequence+"'  onclick=ctrlShopStep7.showDetail("+sequence+"); style='display:none;'><i class='material-icons left'>list</i>Detail</button> </div></div>";
+		div.innerHTML = "<div id='divCourier"+sequence+"' class='input-field col s12 m12 counter'><div class='input-field col s12 m12 l6'><input type='hidden' id='txtCourierId"+sequence+"' name='txtCourierId1'><input type='text' id='txtCourierName"+sequence+"' name='txtCourierName1' maxlength='20' minlength='5'><label for='txtCourierName"+sequence+"'>Nama Kurir</label></div><div class='input-field col s12 m12 l6'><button type='button' class='waves-effect waves-light btn  ' onclick=ctrlShopStep7.doCourierSave("+sequence+");><i class='material-icons left'>library_add</i> Simpan</button> <button class='waves-effect waves-light btn red' type='button' onclick=ctrlShopStep7.doCourierDelete("+sequence+");><i class='mdi-action-delete left'></i>Hapus</button> <button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail"+sequence+"'  onclick=ctrlShopStep7.showDetail("+sequence+"); style='display:none;'><i class='material-icons left'>list</i>Detail</button> </div></div>";
 		
 		divCustomCourier.append(div);
 		txtCustomeCourierCount.value = sequence;
@@ -460,11 +463,13 @@ function CtrlShopStep7(){
 		divDetail.slideDown("slow");
 		var id = $('#txtCourierId'+e).val();
 		initCustomeCourierDetail(id);
+		$('.modal-trigger').leanModal();
 	}
 	
 	function hideDetail(){
 		divShipment.slideDown("slow");
 		divDetail.slideUp("slow");
+		$('.modal-trigger').leanModal();
 	}
 	
 	function doCourierSave(e){
@@ -478,6 +483,7 @@ function CtrlShopStep7(){
 			url: base_url+'toko/doStep7CourierSave/',
 			success: function(result) {
 				var response = JSON.parse(result);
+				$('.modal-trigger').leanModal();
 				if(response.result == 1){
 					aCourierDetail.slideDown("slow");
 					txtCourierId.value = response.id;
@@ -506,6 +512,7 @@ function CtrlShopStep7(){
 				url: base_url+'toko/doStep7CourierDelete/',
 				success: function(result) {
 					var response = JSON.parse(result);
+					$('.modal-trigger').leanModal();
 					if(response.result == 1){
 						divCourier.slideUp("slow").remove();
 						if ($('.counter').length < 3  ) {			
@@ -520,19 +527,23 @@ function CtrlShopStep7(){
 	}
 	
 	function doRateSave(){
-		$.ajax({
-			type: 'POST',
-			data: $('#formStep5Rate').serialize()+"&customCourier="+txtCustomCourierId.value,
-			url: base_url+'toko/doStep7RateSave/',
-			success: function(result) {
-				var response = JSON.parse(result);
-				if(response.result == 1){
-					initCustomeCourierTable(txtCustomCourierId.value);
-				}else{
-					Materialize.toast(response.message, 4000);
+		if ($('#formStep5Rate').valid()) {
+			$.ajax({
+				type: 'POST',
+				data: $('#formStep5Rate').serialize()+"&customCourier="+txtCustomCourierId.value,
+				url: base_url+'toko/doStep7RateSave/',
+				success: function(result) {
+					var response = JSON.parse(result);
+					$('.modal-trigger').leanModal();
+					$('#divFormRate').closeModal();
+					if(response.result == 1){
+						initCustomeCourierTable(txtCustomCourierId.value);
+					}else{
+						Materialize.toast(response.message, 4000);
+					}
 				}
-			}
-		});
+			});
+		};		
 	}
 	
 	function doRateDelete(e){
@@ -542,6 +553,7 @@ function CtrlShopStep7(){
 			url: base_url+'toko/doStep7RateDelete/',
 			success: function(result) {
 				var response = JSON.parse(result);
+				$('.modal-trigger').leanModal();
 				if(response.result == 1){
 					initCustomeCourierTable(txtCustomCourierId.value);
 				}else{
@@ -558,10 +570,12 @@ function CtrlShopStep7(){
 			url: base_url+'toko/step7Detail/',
 			success: function(result) {
 				var response = JSON.parse(result);
+				$('.modal-trigger').leanModal();
 				if(response.result == 1){
 					txtCustomCourierId.value = response.id;
 					lblCustomCourierName.innerHTML = response.name;
 					initCustomeCourierTable(e);
+
 				}
 			}
 		});
@@ -572,8 +586,10 @@ function CtrlShopStep7(){
 			type: 'POST',
 			data: "courier="+e,
 			url: base_url+'toko/step7Table/',
-			success: function(result) {
+			success: function(result) {				
 				divCustomeCourierTable.html(result);
+				$('.modal-trigger').leanModal();
+
 			}
 		});
 	}
@@ -592,17 +608,36 @@ function CtrlShopStep7(){
 				divKecamatan = $("#divKecamatan");
 				
 				initComboBox();
+				$('#formStep5Rate').validate({
+					ignore: ":hidden:not(select)",
+					rules:{
+						txtRatePrice: {
+							required: true,
+							maxlength:12,
+						},
+						cmbProvince: {
+							required: true,
+						},
+						cmbCity: {
+							required: true,
+						},
+						cmbKecamatan: {
+							required: true,
+						},
+					}
+				});
 			}
 		});
 	}
 	
 	function loadComboboxCity(){
+		$('#loader-kota').show();
 		$.ajax({
 			type: 'POST',
 			data: "province="+$hs('formStep5Rate').cmbProvince.value,
 			url: base_url+'toko/step7ComboboxCity/',
 			success: function(result) {
-		
+				$('#loader-kota').hide();
 				divCity.html(result);
 				
 				loadComboboxKecamatan();
@@ -611,12 +646,14 @@ function CtrlShopStep7(){
 	}
 	
 	function loadComboboxKecamatan(){
+		$('#loader-kota').show();
 	var cmbProvince= $('').val();
 		$.ajax({
 			type: 'POST',
 			data: "province="+$hs('formStep5Rate').cmbProvince.value+"&city="+$hs('formStep5Rate').cmbCity.value,
 			url: base_url+'toko/step7ComboboxKecamatan/',
 			success: function(result) {
+				$('#loader-kota').hide();
 				divKecamatan.html(result);
 			}
 		});
@@ -678,6 +715,7 @@ function CtrlShopStep8(){
 			success: function(result) {
 				$('.modal-header').html('<i class="mdi-maps-local-atm left"></i>Akun Baru');
 				$("#divCmbBank").html(result);
+				
 			}
 		});
 	}
@@ -813,6 +851,7 @@ function CtrlShopStep5(){
                     $('[name="chkLevel2"]').val(1);
                     $('#chkLevel2').val(1);
                     $('[name="txtLevel22"]').prop('disabled', false);
+                    $('[name="txtLevel22"]').focus();
                 } else {
                     $('[name="chkLevel2"]').val(0);
                     $('#chkLevel2').val(0);
@@ -823,6 +862,7 @@ function CtrlShopStep5(){
                 if (this.checked) {
                     $('[name="chkLevel3"]').val(1);
                     $('[name="txtLevel33"]').prop('disabled', false);
+                    $('[name="txtLevel33"]').focus();
                 } else {
                     $('[name="chkLevel3"]').val(0);
                     $('[name="txtLevel33"]').prop('disabled', true);
@@ -832,6 +872,7 @@ function CtrlShopStep5(){
                 if (this.checked) {
                     $('[name="chkLevel4"]').val(1);
                     $('[name="txtLevel44"]').prop('disabled', false);
+                    $('[name="txtLevel44"]').focus();
                 } else {
                     $('[name="chkLevel4"]').val(0);
                     $('[name="txtLevel44"]').prop('disabled', true);
@@ -841,6 +882,7 @@ function CtrlShopStep5(){
                 if (this.checked) {
                     $('[name="chkLevel5"]').val(1);
                     $('[name="txtLevel55"]').prop('disabled', false);
+                    $('[name="txtLevel55"]').focus();
                 } else {
                     $('[name="chkLevel5"]').val(0);
                     $('[name="txtLevel55"]').prop('disabled', true);
@@ -1021,7 +1063,7 @@ function deletestep1(e,a){
 		
 		if(a == 0){
 			divKontak.slideUp("slow").remove();
-			if ($('.counter').length <= 3  ) {			
+			if ($('.counter').length < 3  ) {			
 				$('#aAttributeAdd').show();
 			}
 		}else{
@@ -1033,7 +1075,7 @@ function deletestep1(e,a){
 					var response = JSON.parse(result);
 					if(response.result == 1){
 						divKontak.slideUp("slow").remove();
-						if ($('.counter').length <= 3  ) {			
+						if ($('.counter').length < 3  ) {			
 							$('#aAttributeAdd').show();
 						}
 					}else{
@@ -1067,6 +1109,7 @@ function set_location(){
 }
 function set_city(){
     var province = $('#province').val();
+    $('#loader-kota').show();
     $.ajax({
 			type: 'POST',
 			data: 'province='+province,
@@ -1076,20 +1119,23 @@ function set_city(){
 				$('#city').chosen();
 				$('#panggon-kecamatan').html("<select name='kecamatan' id='kecamatan' class='chosen-select'><option value='' disabled selected>Pilih Kecamatan</option></select>");
 				$('#kecamatan').chosen();
+				$('#loader-kota').hide();
 			}
 			});
 }
 function set_kecamatan(){
     var kota = $('#cmbCity').val();
+    $('#loader-kec').show();
     $.ajax({
-			type: 'POST',
-			data: 'kota='+kota,
-			url: base_url+'toko/comboboxKecamatan', 
-			success: function(kec) {
-				$('#panggon-kecamatan').html(kec);
-				$('#tkecamatan').chosen();
-			}
-			});
+		type: 'POST',
+		data: 'kota='+kota,
+		url: base_url+'toko/comboboxKecamatan', 
+		success: function(kec) {
+			$('#panggon-kecamatan').html(kec);
+			$('#tkecamatan').chosen();
+			$('#loader-kec').hide();
+		}
+	});
 }
 
 $(document).ready(function() {
@@ -1189,3 +1235,10 @@ function c_password(selection,url) {
     }
 }
 
+function pilihngebank () {
+	var pilihan = $('[name="cmbBank"]').val();
+
+	if (pilihan == 0) {
+		$('#bank-lain').fadeIn();
+	};
+}

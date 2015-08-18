@@ -72,13 +72,13 @@ class License extends CI_Controller {
                 'update_user'   => $_SESSION['bonobo_admin']->email
                 );
 
-            $request = $this->db->where('email',$toko)->where('validity','2')->get('tb_activation_code');
+            //$request = $this->db->where('email',$toko)->where('validity','2')->get('tb_activation_code');
 
-            if ($request->num_rows() > 0) {
-                $insert = $this->db->where('id',$request->row()->id)->update('tb_activation_code',$data_edit);
-            }else{
+            //if ($request->num_rows() > 0) {
+               // $insert = $this->db->where('id',$request->row()->id)->update('tb_activation_code',$data_edit);
+            //}else{
                 $insert = $this->db->insert('tb_activation_code',$data);
-            }
+            //}
             
             if ($insert) {
                 echo "<div class='callout callout-info'>

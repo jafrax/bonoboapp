@@ -12,14 +12,14 @@
 			<li class='col s12 m6 l3 langkah ".($this->uri->segment(2) == "step2" ? "active" : "")."'>
 				<a href='".base_url("toko/step2")."'>
 					<div class='card-panel '>
-						<span class='white-text'>2. ATUR PRIVASI</span><i class='mdi-hardware-keyboard-arrow-right right'></i>
+						<span class='white-text'>2. PRIVASI</span><i class='mdi-hardware-keyboard-arrow-right right'></i>
 					</div>
 				</a>
 			</li>
 			<li class='col s12 m6 l3 langkah ".($this->uri->segment(2) == "step3" ? "active" : "")."'>
 				<a href='".base_url("toko/step3")."'>
 					<div class='card-panel '>
-						<span class='white-text'>3. ATUR PENGURANGAN STOK</span><i class='mdi-hardware-keyboard-arrow-right right'></i>
+						<span class='white-text'>3. STOK</span><i class='mdi-hardware-keyboard-arrow-right right'></i>
 					</div>
 				</a>
 			</li>
@@ -33,7 +33,7 @@
 			<li class='col s12 m6 l3 langkah ".($this->uri->segment(2) == "step5" ? "active" : "")."'>
 				<a href='".base_url("toko/step5")."'>
 					<div class='card-panel '>
-						<span class='white-text'>5. ATUR LEVEL HARGA</span><i class='mdi-hardware-keyboard-arrow-right right'></i>
+						<span class='white-text'>5. LEVEL HARGA</span><i class='mdi-hardware-keyboard-arrow-right right'></i>
 					</div>
 				</a>
 			</li>

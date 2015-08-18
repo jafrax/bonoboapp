@@ -25,8 +25,8 @@ foreach($Rates as $Rate){
 			</td>
 			<td>
 				<div class='input-field table'>
-					<a href='#divFormRate' onclick=ctrlShopStep7.initPopupRateAdd(".$Rate->id."); class='modal-trigger waves-effect waves-light'>Edit</a>
-					<a href='javascript:void(0);' onclick=ctrlShopStep7.doRateDelete(".$Rate->id.");>Hapus</a>
+					<a href='#divFormRate' onclick=ctrlShopStep7.initPopupRateAdd(".$Rate->id."); class='modal-trigger col waves-effect waves-light'>Edit</a>
+					<a href='javascript:void(0);' onclick=ctrlShopStep7.doRateDelete(".$Rate->id."); class='modal-trigger col waves-effect waves-light'>Hapus</a>
 				</div>
 			</td>
 		</tr>
@@ -37,11 +37,11 @@ echo"<script>
 $(document).ready(function() {
 		/*NUMBER FORMAT*/
 	$('input.price').priceFormat({	    
-	    limit: 18,
-    	centsLimit: 2,
-		centsSeparator: '.',
-    	thousandsSeparator: '',
-    	prefix: '',
+	    limit: 12,
+    	centsLimit: 0,
+		centsSeparator: '',
+    	thousandsSeparator: '.',
+    	prefix: 'Rp. ',
 	});
 	/*NUMBER FORMAT*/
 });

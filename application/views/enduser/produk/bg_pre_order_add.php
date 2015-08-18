@@ -84,7 +84,7 @@ echo "
 								</div>
 								<div class='input-field col s12 m8'>
 									<i class='grey-text'><b>Ukuran Maks</b> : 1 MB.</i><br>
-									<i class='grey-text'><b>Format</b> : .bmp, .jpg, .png.</i>
+									<i class='grey-text'><b>Format</b> : .jpg, .png.</i>
 								</div>
 								<div class='input-field col s12'>
 									<div class='picture-area'>

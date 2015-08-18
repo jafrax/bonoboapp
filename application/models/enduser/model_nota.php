@@ -59,9 +59,8 @@ class Model_nota extends CI_Model
 	}
 
 	function get_rekening(){
-		return $this->db->select('t.id id,m.name name')
+		return $this->db->select('t.id id,t.bank_name name')
 						->where('t.toko_id',$_SESSION['bonobo']['id'])
-						->join('ms_bank m','m.id=t.bank_id')
 						->get('tb_toko_bank t');
 	}
 	function get_toko(){

@@ -10,7 +10,7 @@ echo"
 	<div class='col s12 m12 l12'>
 		<form class='formain' method='POST' action='".base_url("toko/step2/")."'>
 			<div class='formhead'>
-				<h2 class='titmain'><b>ATUR PRIVASI</b></h2>
+				<h2 class='titmain'><b>PRIVASI</b></h2>
 				<p>Anda dapat mengatur siapa saja yang dapat masuk ke jaringan toko Anda</p>
 			</div>
 			<div class='row formbody'>

@@ -50,6 +50,7 @@ class Toko extends CI_Controller {
 		
 		$this->template->bonobo_step("enduser/toko/bg_step_1",$data);
 	}
+
 	public function dostep1deletekontak(){
 		if($this->response->post("id") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada data yang dipilih","messageCode"=>1));
@@ -62,6 +63,17 @@ class Toko extends CI_Controller {
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Tidak dapat dihapus","messageCode"=>1));
 		}
+	}
+
+	public function rules_pin(){
+		$username = $_REQUEST['txtTagname'];
+	    $cek=$this->db->where('tag_name',$username)->get('tb_toko');
+	    if($cek->num_rows()>0){
+			$valid = "false";
+	    }else{
+			$valid = "true";
+	    }
+	    echo $valid;
 	}
 	
 	public function comboboxprov(){
@@ -551,14 +563,16 @@ class Toko extends CI_Controller {
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada kecamatan yang dipilih","messageCode"=>4));
 			return;
 		}
-				
+		
+		$price = str_replace(".", "", str_replace('Rp. ', '', $this->response->post("txtRatePrice"))) ;
+		//echo $price;
 		if($this->response->post("txtRateId") == ""){
 			$Data = array(
 					"courier_custom_id"=>$this->response->post("customCourier"),
 					"location_to_province"=>$this->response->post("cmbProvince"),
 					"location_to_city"=>$this->response->post("cmbCity"),
 					"location_to_kecamatan"=>$this->response->post("cmbKecamatan"),
-					"price"=>$this->response->post("txtRatePrice"),
+					"price"=> $price,
 					"create_date"=>date("Y-m-d H:i:s"),
 					"create_user"=>$_SESSION['bonobo']['email'],
 					"update_date"=>date("Y-m-d H:i:s"),
@@ -577,7 +591,7 @@ class Toko extends CI_Controller {
 					"location_to_province"=>$this->response->post("cmbProvince"),
 					"location_to_city"=>$this->response->post("cmbCity"),
 					"location_to_kecamatan"=>$this->response->post("cmbKecamatan"),
-					"price"=>$this->response->post("txtRatePrice"),
+					"price"=>$price,
 					"update_user"=>$_SESSION['bonobo']['email'],
 				);
 			
@@ -619,10 +633,7 @@ class Toko extends CI_Controller {
 	}
 
 	public function doStep8Save(){
-		if($this->response->post("cmbBank") == ""){
-			$this->response->send(array("result"=>0,"message"=>"Tidak ada bank yang dipilih","messageCode"=>1));
-			return;
-		}
+
 		
 		if($this->response->post("txtName") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Nama pemilik rekening masih kosong","messageCode"=>2));
@@ -634,11 +645,16 @@ class Toko extends CI_Controller {
 			return;
 		}
 		$step=$_SESSION['bonobo']['step'];
+
+		$bank = $this->response->post("cmbBank");
+		if ($bank == 0) {
+			$bank = 'Bank '.$this->response->post("txtBank");
+		}
 		
 		if($this->response->post("txtId") == ""){
 			$Data = array(
 					"toko_id"=>$_SESSION["bonobo"]["id"],
-					"bank_id"=>$this->response->post("cmbBank"),
+					"bank_name"=>$bank,
 					"acc_name"=>$this->response->post("txtName"),
 					"acc_no"=>$this->response->post("txtNo"),
 					"create_date"=>date("Y-m-d H:i:s"),
@@ -938,14 +954,23 @@ class Toko extends CI_Controller {
 	
 	public function step8ComboboxBankadd(){
 		$Banks = $this->model_bank->get()->result();
-		
+		/*
 		echo"<select id='cmbBank' name='cmbBank' class='select-standar'><option value='' disabled selected>Pilih Bank</option>";
 		
 		foreach($Banks as $Bank){
 				echo"<option value='".$Bank->id."'>".$Bank->name."</option>";
 		}
 			
-		echo"</select><script>$('.select-standar').chosen();</script>";
+		echo"</select><script>$('.select-standar').chosen();</script>";*/
+		echo "<select name='cmbBank' class='browser-default' onchange=javascript:pilihngebank()>
+				<option value='Bank BCA' >BCA</option>
+				<option value='Bank Mandiri' >Mandiri</option>
+				<option value='Bank BNI' >BNI</option>
+				<option value='Bank BCA' >BCA</option>
+				<option value='Bank BRI' >BRI</option>
+				<option value='Bank BTN' >BTN</option>
+				<option value='0' >Bank Lainnya</option>
+			</select>";
 	}
 
 	function step6(){

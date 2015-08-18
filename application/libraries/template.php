@@ -349,18 +349,22 @@
     }    
 
     function cek_license(){
-    	$date1 = date("Y-m-d");
-		$date2 = $_SESSION['bonobo']['expired_on'];
+    	if (isset($_SESSION['bonobo'])) {    		
+	    	$date1 = date("Y-m-d");
+			$date2 = $_SESSION['bonobo']['expired_on'];
 
-		$diff = abs(strtotime($date2) - strtotime($date1));
+			$diff = abs(strtotime($date2) - strtotime($date1));
 
-		$years = floor($diff / (365*60*60*24));
-		$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-		$days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+			$years = floor($diff / (365*60*60*24));
+			$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+			$days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
 
-		if (date('Y-m-d') > $_SESSION['bonobo']['expired_on'] || $_SESSION['bonobo']['expired_on'] == "0000-00-00") {
-			redirect('license');
-		}
+			if (date('Y-m-d') > $_SESSION['bonobo']['expired_on'] || $_SESSION['bonobo']['expired_on'] == "0000-00-00") {
+				redirect('license');
+			}
+    	}else{
+    		redirect('index/logout');
+    	}
 	}
 	
 	function limitc($text, $limit=18){

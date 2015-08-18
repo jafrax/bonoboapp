@@ -361,11 +361,12 @@ function r_password(selection,url) {
 	    this.value = this.value.toLowerCase().replace(/ /g, '');
 	});
 	/*EMAIL ONLY*/
+	
  })
  
  function forgetpassemail(){
 	 var email = $('#email').val();
-	 $('#txtForgotEmail').val(email);
+	 $('#txtForgotEmail').val(email);	 
 	 
  }
 

@@ -72,6 +72,8 @@ class Index extends CI_Controller {
 					"level_1_active"=>1,
 					"status"=> 2,
 					"step"=>1,
+					"stock_adjust"=>1,
+					"dm_pick_up_store"=>1,
 					"create_date"=>date("Y-m-d H:i:s"),
 					"create_user"=>$email,
 					"update_date"=>date("Y-m-d H:i:s"),
@@ -81,16 +83,18 @@ class Index extends CI_Controller {
 				
 				$Save = $this->db->insert('tb_toko',$param);
 				if($Save){
-					/*
-					$message ="Hi ".$name.", Thank you for registering on bonobo <br>
-						To verified your account, you can access this link below :<br><br>
-						<a href='".base_url("index/signup_verification/".$email."/".$verify)."'>".base_url("index/signup_verification/".$email."/".$verify)."</a><br><br>
-						And then use your email or username to login. <br><br>
-						Thanks, Bonobo.com
+					
+					$message ="
+					Hi ".$name.",
+					Email anda telah berhasil didaftarkan di http://bonoboapp.com/. Anda bisa melakukan login melalui URL: http://bonoboapp.com/index/signin dengan menggunakan email dan password yang sudah Anda buat. <br>
+					Jika Anda merasa tidak mendaftarkan email Anda ke Bonobo App, maka segera ganti password Bonobo Anda, dengan mengeklik tautan \"Lupa Password\" yang ada di http://bonoboapp.com/index/signin <br>
+					Jika Anda merasa tidak memiliki kepentingan didalam Bonobo Apps, mohon kirimkan email ke cs@bonoboapp.com <br><br> 
+					Terima Kasih,<br>
+					Tim Bonobo
 					";
 					
 					$send_email = $this->template->send_email($email,'no-reply@bonobo.com', $message);
-					*/
+					
 					$this->signup_login($email,$password);
 					
 					$this->response->send(array("result"=>1,"message"=>"Pendaftaran berhasil.","messageCode"=>1));
@@ -348,6 +352,7 @@ class Index extends CI_Controller {
 						"facebook"=>1,
 						"status"=>2,
 						"step"=>1,
+						"stock_adjust"=>1,
 						"create_date"=>date("Y-m-d H:i:s"),
 						"create_user"=>$email,
 						"update_date"=>date("Y-m-d H:i:s"),

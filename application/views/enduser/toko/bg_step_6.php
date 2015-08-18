@@ -1,9 +1,9 @@
 <?php
 
 if($Shop->flag_information == 0){
-	$Button = "<a href='".base_url("toko/step7")."' class='btn waves-effect waves-light red'><i class='mdi-navigation-chevron-left left'></i> Kembali</a><a href='".base_url("toko/complete_step")."' class='btn waves-effect waves-light'>Simpan<i class='mdi-navigation-chevron-right right'></i></a>";
+	$Button = "<a href='".base_url("toko/step7")."' class='btn waves-effect waves-light red'><i class='mdi-navigation-chevron-left left'></i> Kembali</a><a href='".base_url("produk/index/1")."' class='btn waves-effect waves-light'>Simpan<i class='mdi-navigation-chevron-right right'></i></a>";
 }else{
-	$Button = "<button class='btn waves-effect waves-light'>Simpan<i class='mdi-navigation-chevron-right right'></i></button>";
+	$Button = "<a href='".base_url("produk/index/1")."' class='btn waves-effect waves-light'>Simpan<i class='mdi-navigation-chevron-right right'></i></a>";
 }
 
 echo"
@@ -23,20 +23,12 @@ echo"
 ";
 
 foreach($ShopBanks as $ShopBank){
-	$BankImage = base_url("assets/image/img_default_photo.jpg");
-	
-	if(!empty($ShopBank->bank_image) && file_exists("./assets/pic/bank/".$ShopBank->bank_image)){
-		$BankImage = base_url("assets/pic/bank/resize/".$ShopBank->bank_image);
-	}
 		
 	echo"
 				<div class='col s12 m8 l4'>
 					<div class='card-panel grey lighten-5 z-depth-1 boderrander'>
-						<div class='row '>
-							<div class='col s12 m6 l4'>
-								<img src='".$BankImage."' alt='' class='circle responsive-img'>
-							</div>
-							<div class='col s12 m6 l8'>
+						<div class='row '>							
+							<div class='col s12 m6 l12'>
 								<blockquote>
 									<h5>".$ShopBank->bank_name."</h5>
 									<h6> a.n ".$ShopBank->acc_name."</h6>
@@ -85,17 +77,18 @@ echo"
 							</div>
 							<div id='divCmbBank' class='input-field col s12 m12'>																
 								<select name='cmbBank' class='select-standar'>
-									<option value='' disabled selected>Pilih Bank</option>
-									";
-										
-										foreach($Banks as $Bank){
-											echo"	
-												<option value='".$Bank->id."'>".$Bank->name."</option>
-											";
-										}
-	
-								echo"
+									<option value='' disabled selected>Bank BCA</option>
+									<option value='' disabled selected>Bank Mandiri</option>
+									<option value='' disabled selected>Bank BNI</option>
+									<option value='' disabled selected>Bank BCA</option>
+									<option value='' disabled selected>Bank BRI</option>
+									<option value='' disabled selected>Bank BTN</option>
+									<option value='' disabled selected>Bank Lainnya</option>
 								</select>																
+							</div>
+							<div class='input-field col s12 m12' id='bank-lain' style='display:none'>
+								<span for='txtName'>Nama Bank</span>
+								<input id='txtName' name='txtBank' type='text' class='validate'>
 							</div>
 							<div class='input-field col s12 m12'>
 								<span for='txtName'>Nama Pemilik Rekening</span>

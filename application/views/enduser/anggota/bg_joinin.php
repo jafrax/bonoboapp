@@ -15,12 +15,12 @@ echo"
 		<div class='formain'>
 			<div class='formhead'>
 				<h2 class='titmain'><b>ANGGOTA BARU</b></h2>
-				<p>Pantau kedatangan anggota baru di toko anda !</p>";
+				<p>Pantau permintaan anggota di TOKO anda !</p>";/*
 				if(sizeOf($joinins) <= 0){
 					echo "<span></span>";
 				}else{
 					echo "<a href='javascript:void(0);' onclick=ctrlAnggotaJoinin.doDeletes('".$shop->id."') class='modal-trigger right'><b>Hapus semua</b></a><br>";
-				}
+				}*/
 				echo "
 			</div>
 			<label id='notifJoinin'></label>
@@ -35,21 +35,21 @@ if(sizeOf($joinins) <= 0){
 		
 		if($joinin->status == 1){
 			$Status = "<b class='text-green'>diterima</b> menjadi Anggota toko Anda";
-			$Buttons = "<a class='waves-effect btn-flat right' onclick=ctrlAnggotaJoinin.doDelete(".$joinin->id.")><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>";
+			$Buttons = ""; //"<a class='waves-effect btn-flat right' onclick=ctrlAnggotaJoinin.doDelete(".$joinin->id.")><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>";
 		}elseif($joinin->status == 2){
 			$Status = "<b class='text-red'>ditolak</b>  menjadi Anggota toko Anda";
-			$Buttons = "<a class='waves-effect btn-flat right' onclick=ctrlAnggotaJoinin.doDelete(".$joinin->id.")><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>";
+			$Buttons = ""; //"<a class='waves-effect btn-flat right' onclick=ctrlAnggotaJoinin.doDelete(".$joinin->id.")><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>";
 		}elseif($joinin->status == 3){
 			$Status = "<b class='text-green'>menerima</b>  undangan Anda untuk menjadi Anggota";
-			$Buttons = "<a class='waves-effect btn-flat right' onclick=ctrlAnggotaJoinin.doDelete(".$joinin->id.")><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>";
+			$Buttons = ""; //"<a class='waves-effect btn-flat right' onclick=ctrlAnggotaJoinin.doDelete(".$joinin->id.")><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>";
 		}elseif($joinin->status == 4){
 			$Status = "<b class='text-red'>menolak</b> undangan Anda untuk menjadi Anggota";
-			$Buttons = "<a class='waves-effect btn-flat right' onclick=ctrlAnggotaJoinin.doDelete(".$joinin->id.")><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>";
+			$Buttons = ""; //"<a class='waves-effect btn-flat right' onclick=ctrlAnggotaJoinin.doDelete(".$joinin->id.")><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>";
 		}
 		
 		echo"
 					<li class='col s12 listanggonew'>
-						<div class='col s12 m8'><p><a href='#popupBlacklist' onclick=ctrlAnggotaJoinin.popupDetail3(".$joinin->id.");><b>".$joinin->member_name."</b></a> ".$Status."</p>
+						<div class='col s12 m8'><p><a href='javascript:void(0)' onclick=ctrlAnggotaJoinin.popupDetail3(".$joinin->id.");><b>".$joinin->member_name."</b></a> ".$Status."</p>
 							<time>".$this->hs_datetime->getDate4String($joinin->create_date)." WIB</time>
 						</div>
 						<div class='col s12 m4' id='divButton".$joinin->id."'>

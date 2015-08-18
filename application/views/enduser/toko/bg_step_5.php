@@ -54,10 +54,10 @@ echo"
 	<div class='input-field col s12 m8'><p></p></div>
 	<div class='input-field col s12 m8'>
 		<input type='checkbox' class='filled-in' id='chkStoreDelivery' name='chkStoreDelivery' ".($Shop->dm_store_delivery == 1 ? "checked" : "")."/>
-		<label for='chkStoreDelivery'>Jasa pengiriman Toko</label>
+		<label for='chkStoreDelivery'>Kurir Toko</label>
 	</div>	
 	<div class='input-field col s12 m12'>
-		<p>Anda bisa memasukkan jasa pengiriman lain jika memilikinya.
+		<p>Anda dapat mengatur jasa pengiriman sendiri sebagai Kurir Toko.
 			
 			<div id='divCustomCourier' style='margin-left:30px;width:100%'>
 				<label id='notifStep5'></label>
@@ -71,7 +71,7 @@ echo"
 					<div class='input-field col s12 m12 l6'>
 						<input type='hidden' id='txtCourierId".$no."' name='txtCourierId".$no."'>
 						<input type='text' id='txtCourierName".$no."' name='txtCourierName".$no."' maxlength='20'>
-						<label for='txtCourierName".$no."'>Nama Jasa Pengiriman</label>
+						<label for='txtCourierName".$no."'>Nama Kurir</label>
 					</div>
 					<div class='input-field col s12 m12 l6'>
 						<button type='button' class='waves-effect waves-light btn ' href='javascript:void(0);' onclick=ctrlShopStep7.doCourierSave(".$no.");><i class='material-icons left'>library_add</i>Simpan</button> 
@@ -87,7 +87,7 @@ echo"
 					<div class='input-field col s12 m12 l6'>
 						<input type='hidden' id='txtCourierId".$no."' name='txtCourierId".$no."'  value='".$CustomeCourier->id."'>
 						<input type='text' id='txtCourierName".$no."' name='txtCourierName".$no."' value='".$CustomeCourier->name."' maxlength='20'>
-						<label for='txtCourierName".$no."'>Nama Jasa Pengiriman</label>
+						<label for='txtCourierName".$no."'>Nama Kurir</label>
 					</div>
 					<div class='input-field col s12 m12 l6'>
 						<button type='button' class='waves-effect waves-light btn ' href='javascript:void(0);' onclick=ctrlShopStep7.doCourierSave(".$no.");><i class='material-icons left'>library_add</i>Simpan</button> 
@@ -128,12 +128,12 @@ echo"
 				<h2 class='titmain'><b>ATUR JASA PENGIRIMAN TOKO</b></h2>
 			</div>
 			<div class='row formbody'>
-				<div class='input-field col s12 m4'>
-					<input type='hidden' id='txtCustomCourierId' value=''>
-					<b><label id='lblCustomCourierName'></label></b>
+				<div class='input-field col s12 m6'>
+					<a href='#divFormRate' id='aCustomeCourierRate' class='modal-trigger waves-effect waves-light btn deep-orange darken-1 left'>TAMBAH BARU</a>					
 				</div>
-				<div class='input-field col s12 m12'>
-					<a href='#divFormRate' id='aCustomeCourierRate' class='modal-trigger waves-effect waves-light btn deep-orange darken-1 right'>TAMBAH BARU</a>
+				<div class='input-field col s12 m6'>
+					<h4 class='right'><span id='lblCustomCourierName' ></span></h4>
+					<input type='hidden' id='txtCustomCourierId'  value=''>
 				</div>	
 				<div class='input-field col s12 m12'>
 					<label id='notifStep5Rate'></label>
@@ -167,7 +167,7 @@ echo"
 		<div id='divFormRateContent'>
 		</div>
 		<div class='modal-footer'>
-			<button id='btnFormRateSave' class='btn modal-close waves-effect waves-light' type='submit' name='action'>Simpan
+			<button id='btnFormRateSave' class='btn waves-effect waves-light' type='submit' name='action'>Simpan
 				<i class='mdi-content-save left'></i>
 			</button>
 			<button class='modal-action modal-close btn waves-effect waves-light red' type='submit' name='action'>

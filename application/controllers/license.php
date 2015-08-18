@@ -109,13 +109,13 @@ class License extends CI_Controller {
 
 				$request = $this->db->where('toko_id',$id)->where('validity',2)->get('tb_activation_code')->num_rows();
 				if ($request == 0) {
-					$insert = $this->db->set('toko_id',$id)								
+					/*$insert = $this->db->set('toko_id',$id)								
 									->set('validity',2)
 									->set('email',$_SESSION['bonobo']['email'])
 									->set('create_user',$_SESSION['bonobo']['email'])
 									->set('create_date',date('Y-m-d'))
-									->insert('tb_activation_code');
-					if ($insert) {
+									->insert('tb_activation_code');*/
+					//if ($insert) {
 						$message1 ="Hallo ".$nama.", terima kasih telah mengajukan permohonan Kode Aktivasi kepada Kami<br>Berikut adalah data Anda <br>
 								Nama : ".$nama."<br>
 								No. Telp : ".$telp."<br>
@@ -132,7 +132,7 @@ class License extends CI_Controller {
 						$this->template->send_email($_SESSION['bonobo']['email'],'Permintaan kode aktivasi code', $message1);
 						$this->template->send_email($this->config->item('email_admin'),'Permintaan kode aktivasi code', $message2);
 						$this->response->send(array("result"=>1,"message"=>"Permintaan telah dikirim","messageCode"=>1));
-					}
+					//}
 				}else{
 					$this->response->send(array("result"=>1,"message"=>"Anda sudah pernah mengajukan Permintaan","messageCode"=>1));
 				}
