@@ -1358,7 +1358,7 @@ class Api extends CI_Controller {
 					);
 					
 				$Data = array("status"=>1);
-				$Save = $this->where("id",$QInvite->id)->update("tb_invite",$Data);
+				$Save = $this->db->where("id",$QInvite->id)->update("tb_invite",$Data);
 				
 				array_push($Invites,$Invite);
 			}
