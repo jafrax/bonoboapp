@@ -1339,21 +1339,31 @@ class Api extends CI_Controller {
 			
 			/*
 			*	------------------------------------------------------------------------------
-			*	Mengambil data toko joined
+			*	Mengambil data toko invited
 			*	------------------------------------------------------------------------------
 			*/
-			$Shops = array();
-			$QShops = $this->db
+			$Invites = array();
+			$QInvites = $this->db
 						->where("member_id",$QUser->id)
-						->get("tb_toko_member")
+						->where("status",0)
+						->get("tb_invite")
 						->result();
 						
-			foreach($QShops as $QShop){
-				$Shop = $this->getShopById($QShop->toko_id,$QUser->id);
-				array_push($Shops,$Shop);
+			foreach($QInvites as $QInvite){
+				$Invite = array(
+						"id"=>$QInvite->id,
+						"email"=>$QInvite->email
+						"message"=>$QInvite->message,
+						"shop"=>$this->getShopById($QInvite->toko_id,$QUser->id),
+					);
+					
+				$Data = array("status"=>1);
+				$Save = $this->where("id",$QInvite->id)->update("tb_invite",$Data);
+				
+				array_push($Invites,$Invite);
 			}
 			
-			$this->response->send(array("result"=>1,"shops"=>$Shops), true);
+			$this->response->send(array("result"=>1,"invites"=>$QInvites), true);
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
