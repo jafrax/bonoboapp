@@ -9,9 +9,9 @@
 . 1. Create 12 Juni 2015 by Heri Siswanto, Create controller
 */
 
-header('content-type: application/json; charset=utf-8');
-ob_start('ob_gzhandler');
-//set_time_limit (10000);
+//header('content-type: application/json; charset=utf-8');
+//ob_start('ob_gzhandler');
+set_time_limit (10000);
 
 class Api extends CI_Controller {
 
@@ -1201,6 +1201,8 @@ class Api extends CI_Controller {
 					->join("tb_product tp","tf.product_id = tp.id")
 					->where("tp.active",1)
 					->where("tf.member_id",$QUser->id)
+					->order_by("tf.product_id","DESC")
+					->group_by("tf.product_id")
 					->get("tb_favorite tf")
 					->result();
 			
@@ -1221,8 +1223,10 @@ class Api extends CI_Controller {
 					->select("tp.id")
 					->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
 					->where("tp.active",1)
-					->where("ttcp.toko_id IN (SELECT ttm.toko_id FROM tb_toko_member ttm WHERE ttm.member_id = ".$QUser->id.")")
+					->where("ttcp.toko_id IN (SELECT ttm.toko_id FROM tb_toko_member ttm WHERE ttm.member_id = ".$QUser->id." group by ttm.toko_id)")
 					->limit(10,0)
+					->order_by("tp.id","DESC")
+					->group_by("tp.id")
 					->get("tb_product tp")
 					->result();
 			
