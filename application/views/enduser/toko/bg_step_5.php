@@ -31,7 +31,7 @@ echo"
 					<p>Silahkan pilih jasa ekspedisi berikut. Ongkos kirim sesuai kebijakan Perusahaan Ekspedisi yang bersangkutan.
 						<div class='input-field col s2 m2'><p></p></div>
 ";
-
+$k=0;
 foreach($Couriers as $Courier){
 	$QCourier = $this->model_toko_courier->get_by_shop_courier($_SESSION["bonobo"]["id"],$Courier->id)->row();
 	
@@ -43,13 +43,15 @@ foreach($Couriers as $Courier){
 	
 	echo"
 		<div class='input-field col s5 m2'>
-			<input type='checkbox' id='chkCourier".$Courier->id."'  name='chkCourier".$Courier->id."' ".$checked."/>
+			<input type='checkbox' class='kurir-resmi-$k' onclick=javascript:kliken_kurir() id='chkCourier".$Courier->id."'  name='chkCourier".$Courier->id."' ".$checked."/>
 			<label for='chkCourier".$Courier->id."'>".$Courier->name."</label>
 		</div>
+		
 	";
+	$k++;
 }
 
-echo"	
+echo"	<input type='hidden' value='".count($Couriers)."' id='total_courier'>
 		</p>
 	</div>
 	<div class='input-field col s12 m8'><p></p></div>

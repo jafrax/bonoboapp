@@ -69,7 +69,7 @@ echo"
 			<li style='display:$nav' "; if ($uri == 'nota') echo"class='active'"; echo"><a "; if ($uri == 'nota') echo"class='active'"; echo" href='".base_url("nota")."'>Nota<span style='' class='notifinnota badge red'>0</span></a></li>
 			<!-- <li "; if ($uri == 'message') echo"class='active'"; echo"><a "; if ($uri == 'message') echo"class='active'"; echo" href='".base_url("message")."'>Pesan</a></li> -->
 			<li style='display:$nav' "; if ($uri == 'preorder') echo"class='active'"; echo"><a "; if ($uri == 'preorder') echo"class='active'"; echo" href='".base_url("preorder")."'>Pemesanan Pre Order</a></li>
-			<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='".base_url("index/change_password")."'>Change password</a></li>
+			<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='".base_url("toko/change_password")."'>Change password</a></li>
 			<li><a href='".base_url("license")."'>Perpanjang Masa Aktif</a></li>
 			<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='".base_url("index/logout")."'>Logout</a></li>
 		</ul>

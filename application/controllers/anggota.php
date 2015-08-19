@@ -74,16 +74,22 @@ class Anggota extends CI_Controller {
 		$data["shop"] = $this->model_member->get_toko_by_id($_SESSION['bonobo']['id'])->row();
 		$data["countNewMember"] = $this->countNewMember();
 		$data["notif"] = "";
+
+		$this->form_validation->set_rules('email', '', 'valid_email|required|max_length[50]');
+
 		$data["email"] = $this->response->post("email");
 		$data["message"] = $this->response->post("message");
 		
 		if($_POST && !empty($data["shop"])){
 			$valid = true;
 			
-			
+			if ($this->form_validation->run() == FALSE) {
+				$data["notif"] = "Email tidak valid";
+				$valid = false;
+			}
 			
 			if($data["email"] == ""){
-				$data["notif"] = "<label class='text-red'>Email harus diisi !</label>";
+				$data["notif"] = "Email harus diisi";
 				$valid = false;
 			}
 			
@@ -97,7 +103,7 @@ class Anggota extends CI_Controller {
 						"update_date"=>date("Y-m-d H:i:s"),
 						"update_user"=>$_SESSION['bonobo']['email'],
 					);
-				if($data["email"]!=$_SESSION['bonobo']['email']){
+				
 					$Save = $this->db->insert("tb_invite",$Data);
 					if($Save){
 						$message ="Hi ".$data["email"].",<br><br>
@@ -120,12 +126,11 @@ class Anggota extends CI_Controller {
 						echo json_encode(array("msg"=>'error',"notif"=>$data["notif"] ));
 						return false;
 					}
-				}else{
-						$data["notif"] = "Undangan anda tidak dapat dikirim !";
-						echo json_encode(array("msg"=>'error',"notif"=>$data["notif"] ));
-						return false;
-				}
 				
+				
+			}else{
+				echo json_encode(array("msg"=>'error',"notif"=>$data["notif"] ));
+				return false;
 			}
 		}
 		

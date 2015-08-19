@@ -626,7 +626,7 @@ class Toko extends CI_Controller {
 		
 		$ShopBank = $this->model_toko_bank->get_by_id($this->response->post("id"))->row();
 		if(!empty($ShopBank)){
-			$this->response->send(array("result"=>1,"id"=>$ShopBank->id,"acc_name"=>$ShopBank->acc_name,"acc_no"=>$ShopBank->acc_no,"bank_id"=>$ShopBank->bank_id,"bank_name"=>$ShopBank->bank_name,"messageCode"=>1));
+			$this->response->send(array("result"=>1,"id"=>$ShopBank->id,"acc_name"=>$ShopBank->acc_name,"acc_no"=>$ShopBank->acc_no,"bank_name"=>$ShopBank->bank_name,"messageCode"=>1));
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada data yang ditemukan","messageCode"=>1));
 		}
@@ -677,7 +677,7 @@ class Toko extends CI_Controller {
 		}else{
 			$Data = array(
 					"toko_id"=>$_SESSION["bonobo"]["id"],
-					"bank_id"=>$this->response->post("cmbBank"),
+					"bank_name"=>$this->response->post("cmbBank"),
 					"acc_name"=>$this->response->post("txtName"),
 					"acc_no"=>$this->response->post("txtNo"),
 					"update_user"=>$_SESSION['bonobo']['email'],
@@ -933,7 +933,7 @@ class Toko extends CI_Controller {
 	public function step8ComboboxBank(){
 		$Banks = $this->model_bank->get()->result();
 		$ShopBank = $this->model_toko_bank->get_by_id($this->response->post("id"))->row();
-		
+		/*
 		echo"<select id='cmbBank' name='cmbBank' class='select-standar'><option value='' disabled selected>Pilih Bank</option>";
 		
 		foreach($Banks as $Bank){
@@ -949,7 +949,9 @@ class Toko extends CI_Controller {
 			}
 		}
 			
-		echo"</select><script>$('.select-standar').chosen();</script>";
+		echo"</select><script>$('.select-standar').chosen();</script>";*/
+
+		echo "<input type='text' name='cmbBank' value='".$ShopBank->bank_name."' >" ;
 	}
 	
 	public function step8ComboboxBankadd(){

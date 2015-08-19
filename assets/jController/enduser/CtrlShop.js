@@ -624,7 +624,7 @@ function CtrlShopStep7(){
 					rules:{
 						txtRatePrice: {
 							required: true,
-							maxlength:12,
+							maxlength:15,
 						},
 						cmbProvince: {
 							required: true,
@@ -915,6 +915,7 @@ function CtrlShopStep5(){
                 var txtLevel55 = $('[name="txtLevel55"]').val();
 				$('[name="txtLevel5"]').val(txtLevel55);
                 });
+            /*
             chkLevel2.onclick = function on_change(){
                 var cek_data = $('[id="chkLevel2"]').val();
                     $.ajax({
@@ -931,7 +932,7 @@ function CtrlShopStep5(){
                     });
             };
             chkLevel3.onclick = function on_change(){
-            var cek_data = $('[id="chkLevel3"]').val();
+            	var cek_data = $('[id="chkLevel3"]').val();
                 $.ajax({
                     type: 'POST',
                     data: 'level='+cek_data,
@@ -946,7 +947,7 @@ function CtrlShopStep5(){
                 });
             };
             chkLevel4.onclick = function on_change(){
-            var cek_data = $('[id="chkLevel4"]').val();
+            	var cek_data = $('[id="chkLevel4"]').val();
                 $.ajax({
                     type: 'POST',
                     data: 'level='+cek_data,
@@ -961,21 +962,21 @@ function CtrlShopStep5(){
                 });
             };
             chkLevel5.onclick = function on_change(){
-            var cek_data = $('[id="chkLevel5"]').val();
+            	var cek_data = $('[id="chkLevel5"]').val();
                 $.ajax({
-                        type: 'POST',
-                        data: 'level='+cek_data,
-                        url: base_url+'toko/update_level5/',
-                        success: function(result) {
-                                if (result == '1') {
-                                    $('[id="labelLevel5"]').prop('hidden', false);
-                                }else{
-                                    $('[id="labelLevel5"]').prop('hidden', true);
-                                }
-                            }
-                        });
-                    };
-                }
+                    type: 'POST',
+                    data: 'level='+cek_data,
+                    url: base_url+'toko/update_level5/',
+                    success: function(result) {
+                        if (result == '1') {
+                            $('[id="labelLevel5"]').prop('hidden', false);
+                        }else{
+                            $('[id="labelLevel5"]').prop('hidden', true);
+                        }
+                    }
+                });
+            };*/
+        }
                 //setInterval(level2_autocek, 3000);
                 function level2_autocek(){
                     $.ajax({
@@ -1254,4 +1255,21 @@ function pilihngebank () {
 	}else{
 		$('#bank-lain').fadeOut();
 	};
+}
+
+function kliken_kurir () {
+	var kurir = $('#total_courier').val();
+	var cek   = false;
+
+	for (var i = kurir - 1; i >= 0; i--) {
+		if ($('.kurir-resmi-'+i).is(":checked")) {
+			cek = true;
+		};
+	};
+
+	if (cek == true) {
+      $('#chkExpedition').prop('checked',true);
+   	}else{
+      $('#chkExpedition').prop('checked',false);
+   	};
 }

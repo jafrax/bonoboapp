@@ -71,11 +71,11 @@ echo"
 				<form id='formStep6Add'>
 					<input type='hidden' name='txtId' value=''>
 					<div class='row formbody'>
-						<div class='col m12'>
-							<div class='input-field col s12 m12'>							
-								Nama Bank								
+						<div class='col m12' id='iki-edit'>
+							<div class='input-field col s12 m12'>
+								Nama Bank
 							</div>
-							<div id='divCmbBank' class='input-field col s12 m12'>																
+							<div id='divCmbBank' class='input-field col s12 m12'>
 								<select name='cmbBank' class='select-standar'>
 									<option value='' disabled selected>Bank BCA</option>
 									<option value='' disabled selected>Bank Mandiri</option>
@@ -84,11 +84,11 @@ echo"
 									<option value='' disabled selected>Bank BRI</option>
 									<option value='' disabled selected>Bank BTN</option>
 									<option value='' disabled selected>Bank Lainnya</option>
-								</select>																
+								</select>
 							</div>
 							<div class='input-field col s12 m12' id='bank-lain' style='display:none'>
-								<span for='txtName'>Nama Bank</span>
-								<input id='txtName' value='Bank ' name='txtBank' type='text' class='validate'>
+								<span for='txtBank'>Nama Bank</span>
+								<input id='txtBank' value='Bank ' name='txtBank' type='text' class='validate'>
 							</div>
 							<div class='input-field col s12 m12'>
 								<span for='txtName'>Nama Pemilik Rekening</span>
@@ -97,7 +97,7 @@ echo"
 							<div class='input-field col s12 m12'>
 								<span for='txtNo'>Nomor Rekening</span>
 								<input id='txtNo' name='txtNo' type='text' class='validate numbersOnly' maxlength='20'>
-							</div>															
+							</div>
 						</div>
 					</div>
 				</form>

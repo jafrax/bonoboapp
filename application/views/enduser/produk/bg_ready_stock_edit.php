@@ -144,7 +144,7 @@ echo "
 								
 							</div>
 							<div class='row formbody'>
-								<div class='linehead'>Stok Barang</div>
+								<div class='linehead'>STOK BARANG</div>
 								<div class=' col s12 m6'>
 								<label>Tipe Stok <span class='text-red'>*</span></label>
 								<label class='error error-chosen' for='stok'></label>
@@ -245,13 +245,13 @@ echo "
 								</ul>
 							</div>
 							<div class='row formbody'>
-								<div class='linehead'>Harga Barang</div>
+								<div class='linehead'>HARGA BARANG</div>
 								<div class='input-field col s12 m6'>
 									<input id='harga_pembelian' maxlength='9' name='harga_pembelian' placeholder='0' type='text' class='validate numbersOnly' value='".$produk->harga_pembelian."'>
 									<label for='harga_pembelian'>Harga Beli</label>
 								</div>
 								<div class='input-field col s12 m12 varsto'>
-									<span for='harga_jual'>Harga Jual <span class='text-red'>*</span></span>
+									<span for='harga_jual' style='font-weight:bold;'>Harga Jual </span>
 								</div>";
 								$a1 = 'block';
 								if ($level_harga->level_2_active == 1) {$a2 = 'block';}else{$a2 = 'none';}
@@ -262,7 +262,7 @@ echo "
 
 								<ul class='col s12 m12'>
 									<li class='varsto' style='display:$a1'>
-										<p><br></p>
+										
 										<div class='input-field col s12 m6'>
 											<input id='varian' maxlength='9' name='harga_level_1' type='text' placeholder='0' class='validate ribuan' required value='".$produk->harga_1."'>
 											<label for='varian'>Harga "; if ($level_harga->level_1_name != '') {echo $level_harga->level_1_name;}else{echo "level 1";} echo" <span class='text-red'>*</span></label>

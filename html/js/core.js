@@ -144,7 +144,7 @@ function requestMessage () {
 					$('.notifinnota').fadeIn();
 				}
 				$(function(){
-                    //setTimeout('requestMessage()',25000);
+                    //setTimeout('requestMessage()',10000);
                 })
 			}else{
 				window.location = base_url+"index/logout";	

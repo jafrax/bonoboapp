@@ -22,7 +22,7 @@ echo"
 			</div>
 			<form id='formInvite' class='row formbody'>
 				<div class='input-field col s12 m8'>
-					<input id='email' name='email' type='text' class='validate' value='".$email."' >
+					<input id='email' name='email' type='text' class='validate' value='".$email."' placeholder='ex:email@mail.com'>
 					<label for='email'>Email tujuan</label>
 				</div>
 				<div class='input-field col s12 m8'>

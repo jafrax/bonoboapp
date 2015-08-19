@@ -237,8 +237,8 @@ function CtrlAnggotaInvite(){
 			},
 			messages: {
 				email:{
-					required: Messagebox_alert("Field ini dibutuhkan"),
-					email: Messagebox_alert("Email tidak valid"),
+					required: message_alert("Field ini dibutuhkan"),
+					email: message_alert("Email tidak valid"),
 				}
 			}
 		});
@@ -442,4 +442,5 @@ function CtrlAnggotaBlacklist(){
 
 $(document).ready(function() {
 	$('#notifinvite').delay(5000).slideUp('slow');
+	$('#email').focus();
 })

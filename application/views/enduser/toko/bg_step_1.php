@@ -94,13 +94,16 @@ if(sizeOf($Attributes) <= 0){
 			</div>
 			<div class='col s12 m5'>
 				<input name='txtAttributeId1' type='hidden' value=''>
-				<input name='txtAttributeName1' placeholder='BBM/whatsapp/Line' type='text' class='validate'>
+				<input name='txtAttributeName1' placeholder='BBM / Whatsapp' type='text' class='validate'>
 			</div>
 			<div class='col s12 m1'>
 				<!--Pin/ID/Nomor--!> =
 			</div>
 			<div class='col s12 m5'>
-				<input name='txtAttributeValue1' placeholder=' AD9876/bonoboLine' type='text' class='validate'>
+				<input name='txtAttributeValue1' placeholder='081xxxxxxx' type='text' class='validate'>
+			</div>
+			<div class='col s12 m5'>
+				<br>
 			</div>
 		</div>
 	";
