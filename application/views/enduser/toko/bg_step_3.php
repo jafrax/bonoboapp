@@ -15,6 +15,17 @@ echo"
 			</div>
 			<div class='row formbody'>
 				<div class='input-field col s12 m8'>
+					<input id='rdgStock2' name='rdgStock' type='radio' class='with-gap' value='1' ".($Shop->stock_adjust == 1 ? "checked" : "").">
+					<label for='rdgStock2'>Saat toko menyatakan status pesanan 'Lunas' </label>
+				</div>	
+				<div class='input-field col s12 m8'>
+					<p>Stok berkurang ketika TOKO menyatakan Nota “LUNAS”.<br>
+						Catatan:<br>
+						- Stok berkurang setelah pembeli melakukan pembayaran.<br>
+						- Anda mungkin perlu melakukan refund jika ada dua atau lebih pembeli yang yang telah membayar pesanannya tetapi stok tidak mencukupi.<br>
+					</p>
+				</div>
+				<div class='input-field col s12 m8'>
 					<input id='rdgStock1' name='rdgStock' type='radio' class='with-gap' value='0' ".($Shop->stock_adjust == 0 ? "checked" : "").">
 					<label for='rdgStock1'>Saat pembeli menyelesaikan transaksi dari keranjang belanja</label>
 				</div>
@@ -23,17 +34,6 @@ echo"
 						Catatan:<br>
 						- Stok berkurang sekalipun pembeli belum melakukan pembayaran.<br>
 						- Stok akan bertambah secara otomatis ketika Anda membatalkan atau menghapus Nota<br>
-					</p>
-				</div>
-				<div class='input-field col s12 m8'>
-					<input id='rdgStock2' name='rdgStock' type='radio' class='with-gap' value='1' ".($Shop->stock_adjust == 1 ? "checked" : "").">
-					<label for='rdgStock2'>Saat toko menyatakan status pesanan 'Lunas' </label>
-				</div>	
-				<div class='input-field col s12 m8'>
-					<p>i.	Stok berkurang ketika TOKO menyatakan Nota “LUNAS”.<br>
-						Catatan:<br>
-						- Stok berkurang setelah pembeli melakukan pembayaran.<br>
-						- Anda mungkin perlu melakukan refund jika ada dua atau lebih pembeli yang yang telah membayar pesanannya tetapi stok tidak mencukupi.<br>
 					</p>
 				</div>
 				<div class='input-field col s12 m8'>

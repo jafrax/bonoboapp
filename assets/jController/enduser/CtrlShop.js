@@ -69,15 +69,18 @@ function CtrlShopStep1(){
 			var sequence = parseInt(intAttributeCount.value)+1;
 			var div = document.createElement("div");
 			
-			div.innerHTML = "<div class='col s12 m3' id='kontak"+sequence+"'><!--Nama kontak--!></div><div class='col s12 m5'><input  name='txtAttributeId"+sequence+"' type='hidden' value=''><input id='txtAttributeId"+sequence+"' name='txtAttributeName"+sequence+"' placeholder='BBM / Whatsapp' type='text' class='validate'></div><div class='col s12 m1'><!--Pin/ID/Nomor--!>=</div><div class='col s12 m5'><input name='txtAttributeValue"+sequence+"' type='text' placeholder='081xxxxxxx' class='validate'></div><div class='col s12 m5'><a class='btn-floating btn-xs waves-effect waves-light red right' onclick=javascript:deletestep1("+sequence+",0)><i class='mdi-navigation-close'></i></a></div>";
+			div.innerHTML = "<div class='col s12 m3' id='kontak"+sequence+"'><!--Nama kontak--!></div><div class='col s12 m5'><input  name='txtAttributeId"+sequence+"' type='hidden' value=''><input id='txtAttributeId"+sequence+"' maxlength='15' length='15' name='txtAttributeName"+sequence+"' placeholder='BBM / Whatsapp' type='text' class='validate'></div><div class='col s12 m1'><!--Pin/ID/Nomor--!>=</div><div class='col s12 m5'><input name='txtAttributeValue"+sequence+"' type='text' maxlength='15' length='15' placeholder='081xxxxxxx' class='validate'></div><div class='col s12 m5'><a class='btn-floating btn-xs waves-effect waves-light red right' onclick=javascript:deletestep1("+sequence+",0)><i class='mdi-navigation-close'></i></a></div>";
 			div.setAttribute("class","row valign-wrapper counter attr-"+sequence);
 			divAttributes.append(div);
+			$('#txtAttributeId'+sequence).characterCounter();
+			$('[name="txtAttributeValue'+sequence+'"]').characterCounter();
 			intAttributeCount.value = sequence;
 			if ($('.counter').length > 2 ) {
 				//alert($('.counter').length);
 				$('#aAttributeAdd').hide();
 				return;
 			}
+
 		};
 		
 
@@ -116,6 +119,13 @@ function CtrlShopStep1(){
 		}, "<i class='fa fa-warning'></i> Jangan gunakan spasi !");
 
 		formStep1JQuery.validate({
+			onfocusout: false,
+		    invalidHandler: function(form, validator) {
+		        var errors = validator.numberOfInvalids();
+		        if (errors) {                    
+		            validator.errorList[0].element.focus();
+		        }
+		    },
 			rules:{
 				txtName: {
 					required: true,
@@ -125,7 +135,7 @@ function CtrlShopStep1(){
 				txtTagname: {
 					required: true,
 					minlength:3,
-					maxlength:5,
+					maxlength:15,
 					noSpace:true,
 					remote: base_url+"toko/rules_pin"
 
@@ -236,6 +246,7 @@ function CtrlShopStep1(){
 	//	}
 		
 		if(!formStep1JQuery.valid()){
+
 			return false;
 		}else{
 			var formData = new FormData($hs("formStep1"));
@@ -1238,7 +1249,9 @@ function c_password(selection,url) {
 function pilihngebank () {
 	var pilihan = $('[name="cmbBank"]').val();
 
-	if (pilihan == 0) {
+	if (pilihan == 'lainnya') {
 		$('#bank-lain').fadeIn();
+	}else{
+		$('#bank-lain').fadeOut();
 	};
 }

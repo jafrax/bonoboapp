@@ -48,8 +48,32 @@ function CtrlAnggotaJoinin(){
 	}
 	
 	function accept(e){
-		$("#levelbos").val('').trigger('chosen:updated');;
-		formJoininLevel.id.value = e;
+		$("#levelbos").val('').trigger('chosen:updated');
+		
+		if ($('#levelbos option').size() > 1) {
+			formJoininLevel.id.value = e;
+			$('#setting_harga').openModal();
+		}else{
+			var divButton = $("#divButton"+e);
+			$.ajax({
+				type: 'POST',
+				data: "id="+e+"&level=1",
+				url: base_url+'anggota/doJoininAccept',
+				success: function(result) {
+					var response = JSON.parse(result);
+					if(response.result == 1){
+						divButton.html("");
+						//divButton.html("<a class='waves-effect btn-flat right' onclick=ctrlAnggotaJoinin.doDelete("+formJoininLevel.id.value+")><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>");
+						$("#textku"+e).html('menjadi Anggota toko Anda');
+						$(".pesan"+e).css("color", "#43a047!important").html('<b>diterima</b>');
+						e = "";
+						
+					}else{
+						Materialize.toast(response.message, 4000);						
+					}
+				}
+			});
+		};		
 	}
 	
 	function doDelete(e){
@@ -129,7 +153,8 @@ function CtrlAnggotaJoinin(){
 				success: function(result) {
 					var response = JSON.parse(result);
 					if(response.result == 1){
-						divButton.html("<a class='waves-effect btn-flat right' onclick=ctrlAnggotaJoinin.doDelete("+formJoininLevel.id.value+")><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>");
+						divButton.html("");
+						//divButton.html("<a class='waves-effect btn-flat right' onclick=ctrlAnggotaJoinin.doDelete("+formJoininLevel.id.value+")><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>");
 						$("#textku"+formJoininLevel.id.value).html('menjadi Anggota toko Anda');
 						$(".pesan"+formJoininLevel.id.value).css("color", "#43a047!important").html('<b>diterima</b>');
 						formJoininLevel.id.value = "";
@@ -414,6 +439,7 @@ function CtrlAnggotaBlacklist(){
 		blacklistDeleteID.value = "";
 	}
 }
+
 $(document).ready(function() {
 	$('#notifinvite').delay(5000).slideUp('slow');
 })

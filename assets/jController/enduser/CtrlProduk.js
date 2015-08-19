@@ -251,10 +251,8 @@ $(document).ready(function() {
       ready: function() { $("#nama_kategori").focus(); Materialize.updateTextFields();}, // Callback for Modal open
       complete: function() { Materialize.updateTextFields(); } // Callback for Modal close
     }
-  );
-      
+  ); 
 });
-
 
 var tot_picture = 1;
 function add_picture() {
@@ -320,7 +318,8 @@ function picture_upload(id){
 
     switch(img.substring(img.lastIndexOf('.') + 1).toLowerCase()){
         case 'jpg': case 'png':
-            preview.src = URL.createObjectURL(input.files[0]);  
+            preview.src = URL.createObjectURL(input.files[0]);
+            $('#rem_'+id).show();
             break;
         default:
             $(input).val('');
@@ -343,7 +342,8 @@ function remove_picture(id) {
     if (hitung < 3) {$('#add-poto').show();};*/
   var loc = base_url+"html/images/comp/product_large.png";
   $('#'+id).val('');
-  $('#img_'+id).attr("src",loc);  
+  $('#img_'+id).attr("src",loc);
+  $('#rem_'+id).hide();
 }
 
 function change_stok() {

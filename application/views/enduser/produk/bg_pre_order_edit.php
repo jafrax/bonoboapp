@@ -99,9 +99,9 @@ echo "
 	                                    if(count($pic->result())>0){
 	                                        foreach($pic->result() as $item){
 	                                           echo "
-		                                           	<div class='col s6 m4 l3' id='div_pic_edit_".$item->id."'>
+		                                           	<div class='col s6 m4 l2' id='div_pic_edit_".$item->id."'>
 														<div class='card' >
-															<a class='delimg' onclick=javascript:remove_picture('pic_edit_".$item->id."')><i class='mdi-navigation-close right'></i></a>
+															<a class='delimg' id='rem_pic_edit_".$item->id."' onclick=javascript:remove_picture('pic_edit_".$item->id."')><i class='mdi-navigation-close right'></i></a>
 															<div class='card-image img-product waves-effect waves-block waves-light'>
 																<img id='img_pic_edit_".$item->id."' onclick=javascript:click_picture_edit('pic_edit_".$item->id."') class='responsive-img img-product' src='".base_url()."assets/pic/product/resize/".$item->file."'>
 																<input type='file' class='pic_edit_product' name='pic_edit_".$item->id."' id='pic_edit_".$item->id."' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
@@ -118,7 +118,7 @@ echo "
 	                                        echo "
 	                                            <div class='col s6 m4 l2' id='div_pic_".$i."'>
 													<div class='card' >
-														<a class='delimg' onclick=javascript:remove_picture('pic_".$i."')><i class='mdi-navigation-close right'></i></a>
+														<a class='delimg' id='rem_pic_".$i."' style='display:none' onclick=javascript:remove_picture('pic_".$i."')><i class='mdi-navigation-close right'></i></a>
 														<div class='card-image img-product waves-effect waves-block waves-light'>
 															<img id='img_pic_".$i."' onclick=javascript:click_picture('pic_".$i."') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
 															<input type='file' class='pic_product' name='pic_".$i."' id='pic_".$i."' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>

@@ -7,7 +7,7 @@ echo"
 				<form method='POST' action='".base_url("message/")."'>
 				<div class='input-field col s6 m4'>
 					<i class='mdi-action-search prefix'></i>
-					<input id='messageSearch' name='keyword' type='text' class='validate' placeholder='Cari Pesan' value='".$keyword."'>
+					<input id='messageSearch' name='keyword' type='text' class='validate' placeholder='Cari Pengirim' value='".$keyword."'>
 					<label for='messageSearch'></label>
 				</div>
 				</form>
@@ -21,7 +21,9 @@ echo"
 			<div class='row formbody'>
 				<div class='col s12 m4'>
 					<ul class='row formbody'>
-						<li class='col s12 listanggodaf'>
+						<li class='col s12 listanggodaf'>";
+						if ($Messages->num_rows() > 0) {
+							echo "
 							<div class='input-field col s12 m12'>
 								<button id='btnMessageReads' class='btn waves-effect waves-light col s12 m12' type='cancel' name='action'>
 									Tandai semua 'Sudah dibaca'
@@ -31,7 +33,10 @@ echo"
 								<a href='#popupDeletes' class='modal-trigger btn waves-effect waves-light deep-orange darken-1 col s12 m12'>
 									Hapus semua
 								</a>
-							</div>
+							</div>";
+						}
+							
+							echo"
 						</li>
 						<div id='contact-pesan'>
 
@@ -72,7 +77,12 @@ echo"
 						</div>
 					</ul>
 				</div>
-				<div class='col s12 m8' id='messageContent'></div>
+				<div class='col s12 m8' id='messageContent'>";
+						if ($Messages->num_rows() == 0) {
+							echo "<center>Anda tidak memiliki pesan</center>";
+						}
+				echo"
+				</div>
 			</div>
 		</div>
 	</div>

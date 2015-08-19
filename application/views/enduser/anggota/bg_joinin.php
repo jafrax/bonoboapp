@@ -31,7 +31,7 @@ if(sizeOf($joinins) <= 0){
 }else{
 	foreach($joinins as $joinin){
 		$Status = "<span id='pesan' class='pesan".$joinin->id."'></span> <span id='textku".$joinin->id."'>Ingin bergabung di toko anda</span>";
-		$Buttons = "<a href='#setting_harga' onclick=ctrlAnggotaJoinin.accept(".$joinin->id.") class='modal-trigger'><button class='waves-effect waves-light btn right'>Terima</button></a><button  onclick=ctrlAnggotaJoinin.doReject(".$joinin->id.") class='waves-effect waves-light btn red lighten-1 right'>Tolak</button>";
+		$Buttons = "<a href='javascript:void(0)' onclick=ctrlAnggotaJoinin.accept(".$joinin->id.") ><button class='waves-effect waves-light btn right'>Terima</button></a><button  onclick=ctrlAnggotaJoinin.doReject(".$joinin->id.") class='waves-effect waves-light btn red lighten-1 right'>Tolak</button>";
 		
 		if($joinin->status == 1){
 			$Status = "<b class='text-green'>diterima</b> menjadi Anggota toko Anda";
@@ -74,8 +74,7 @@ echo"
 			<input name='id' type='hidden' value=''>
 			<p>
 				<div class='input-field col s12'>
-					<select name='level' class='select-standar' id='levelbos'>
-						
+					<select name='level' class='select-standar' id='levelbos'>						
 						";
 						if($shop->level_1_active == 1){
 							echo "<option value='1'>".$shop->level_1_name."</option>";

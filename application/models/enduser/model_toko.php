@@ -184,6 +184,7 @@ class Model_toko extends CI_Model {
 	// diabuat oleh adi 04-08-2015
 	public function get_rekeningsama($data){
 		$this->db->where('acc_no',$data['rekeningmu']);
+		$this->db->where('bank_name',$data['bank_name']);
 		//$this->db->where('toko_id',$_SESSION['bonobo']['id']);
 		return $this->db->get('tb_toko_bank')->num_rows();
 	}
