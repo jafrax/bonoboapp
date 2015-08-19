@@ -23,8 +23,9 @@ echo"
 					<p>Pembeli akan datang ke alamat Toko Anda untuk mengambil pesanannya.</p>
 				</div>
 				<div class='input-field col s12 m8'>
-					<input type='checkbox' class='filled-in' id='chkExpedition' name='chkExpedition' ".($Shop->dm_expedition == 1 ? "checked" : "")."/>
+					<input type='checkbox' class='filled-in' id='chkExpedition' name='chkExpedition' ".($Shop->dm_expedition == 1 && count($Couriers) > 0 ? "checked" : "")." ".(count($Couriers) == 0 ? "disabled" : "")."/>
 					<label for='chkExpedition'>Jasa ekspedisi</label>
+					".(count($Couriers) == 0 ? "" : "<input type='hidden' name='chkExpedition' value='0' >")."
 				</div>	
 				<div class='input-field col s12 m8'>
 					<p>Silahkan pilih jasa ekspedisi berikut. Ongkos kirim sesuai kebijakan Perusahaan Ekspedisi yang bersangkutan.
@@ -62,7 +63,6 @@ echo"
 			<div id='divCustomCourier' style='margin-left:30px;width:100%'>
 				<label id='notifStep5'></label>
 ";
-
 	$no = 1;
 	if(sizeOf($CustomeCouriers) <= 0){
 		echo"

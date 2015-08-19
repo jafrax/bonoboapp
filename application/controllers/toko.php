@@ -67,7 +67,7 @@ class Toko extends CI_Controller {
 
 	public function rules_pin(){
 		$username = $_REQUEST['txtTagname'];
-	    $cek=$this->db->where('tag_name',$username)->get('tb_toko');
+	    $cek=$this->db->where('tag_name',$username)->where('email !=',$_SESSION['bonobo']['email'])->get('tb_toko');
 	    if($cek->num_rows()>0){
 			$valid = "false";
 	    }else{
@@ -647,8 +647,8 @@ class Toko extends CI_Controller {
 		$step=$_SESSION['bonobo']['step'];
 
 		$bank = $this->response->post("cmbBank");
-		if ($bank == 0) {
-			$bank = 'Bank '.$this->response->post("txtBank");
+		if ($bank == 'lainnya') {
+			$bank = $this->response->post("txtBank");
 		}
 		
 		if($this->response->post("txtId") == ""){
@@ -963,13 +963,13 @@ class Toko extends CI_Controller {
 			
 		echo"</select><script>$('.select-standar').chosen();</script>";*/
 		echo "<select name='cmbBank' class='browser-default' onchange=javascript:pilihngebank()>
-				<option value='Bank BCA' >BCA</option>
-				<option value='Bank Mandiri' >Mandiri</option>
-				<option value='Bank BNI' >BNI</option>
-				<option value='Bank BCA' >BCA</option>
-				<option value='Bank BRI' >BRI</option>
-				<option value='Bank BTN' >BTN</option>
-				<option value='0' >Bank Lainnya</option>
+				<option value='Bank BCA' >Bank BCA</option>
+				<option value='Bank Mandiri' >Bank Mandiri</option>
+				<option value='Bank BNI' >Bank BNI</option>
+				<option value='Bank BCA' >Bank BCA</option>
+				<option value='Bank BRI' >Bank BRI</option>
+				<option value='Bank BTN' >Bank BTN</option>
+				<option value='lainnya' >Bank Lainnya</option>
 			</select>";
 	}
 
@@ -1018,6 +1018,7 @@ class Toko extends CI_Controller {
 	}
 	// diabuat oleh adi 04-08-2015
 	function nomer_rekening(){
+		$data['rekeningmu'] 	= $_REQUEST['txtNo'];
 		$data['rekeningmu'] 	= $_REQUEST['txtNo'];
 		$respon=$this->model_toko->get_rekeningsama($data);
 		if($respon > 0){

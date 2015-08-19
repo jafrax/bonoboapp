@@ -90,7 +90,7 @@ echo "
 									<div class='picture-area'>
 										<div class='col s6 m4 l2' id='div_pic_1'>
 											<div class='card' >
-												<a class='delimg' onclick=javascript:remove_picture('pic_1')><i class='mdi-navigation-close right'></i></a>
+												<a class='delimg' id='rem_pic_1' style='display:none' onclick=javascript:remove_picture('pic_1')><i class='mdi-navigation-close right'></i></a>
 												<div class='card-image img-product waves-effect waves-block waves-light'>
 													<img id='img_pic_1' onclick=javascript:click_picture('pic_1') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
 													<input type='file' class='pic_product' name='pic_1' id='pic_1' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
@@ -100,7 +100,7 @@ echo "
 										</div>
 										<div class='col s6 m4 l2' id='div_pic_2'>
 											<div class='card' >
-												<a class='delimg' onclick=javascript:remove_picture('pic_2')><i class='mdi-navigation-close right'></i></a>
+												<a class='delimg' id='rem_pic_2' style='display:none' onclick=javascript:remove_picture('pic_2')><i class='mdi-navigation-close right'></i></a>
 												<div class='card-image img-product waves-effect waves-block waves-light'>
 													<img id='img_pic_2' onclick=javascript:click_picture('pic_2') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
 													<input type='file' class='pic_product' name='pic_2' id='pic_2' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
@@ -110,7 +110,7 @@ echo "
 										</div>
 										<div class='col s6 m4 l2' id='div_pic_3'>
 											<div class='card' >
-												<a class='delimg' onclick=javascript:remove_picture('pic_3')><i class='mdi-navigation-close right'></i></a>
+												<a class='delimg' id='rem_pic_3' style='display:none' onclick=javascript:remove_picture('pic_3')><i class='mdi-navigation-close right'></i></a>
 												<div class='card-image img-product waves-effect waves-block waves-light'>
 													<img id='img_pic_3' onclick=javascript:click_picture('pic_3') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
 													<input type='file' class='pic_product' name='pic_3' id='pic_3' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
@@ -120,7 +120,7 @@ echo "
 										</div>
 										<div class='col s6 m4 l2' id='div_pic_4'>
 											<div class='card' >
-												<a class='delimg' onclick=javascript:remove_picture('pic_4')><i class='mdi-navigation-close right'></i></a>
+												<a class='delimg' id='rem_pic_4' style='display:none' onclick=javascript:remove_picture('pic_4')><i class='mdi-navigation-close right'></i></a>
 												<div class='card-image img-product waves-effect waves-block waves-light'>
 													<img id='img_pic_4' onclick=javascript:click_picture('pic_4') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
 													<input type='file' class='pic_product' name='pic_4' id='pic_4' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
@@ -130,7 +130,7 @@ echo "
 										</div>
 										<div class='col s6 m4 l2' id='div_pic_5'>
 											<div class='card' >
-												<a class='delimg' onclick=javascript:remove_picture('pic_5')><i class='mdi-navigation-close right'></i></a>
+												<a class='delimg' id='rem_pic_5' style='display:none' onclick=javascript:remove_picture('pic_5')><i class='mdi-navigation-close right'></i></a>
 												<div class='card-image img-product waves-effect waves-block waves-light'>
 													<img id='img_pic_5' onclick=javascript:click_picture('pic_5') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
 													<input type='file' class='pic_product' name='pic_5' id='pic_5' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>

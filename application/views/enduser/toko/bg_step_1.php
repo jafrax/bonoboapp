@@ -26,7 +26,7 @@ echo"
 					<label id='notifName' class='error' style='display:none;'></label>
 				</div>
 				<div class='input-field col s12 m8'>
-					<input id='txtTagname' name='txtTagname' maxlength='10' length='10' type='text' placeholder=' ptbonobo' class='validate upperCase'  value='".$Shop->tag_name."'>
+					<input id='txtTagname' name='txtTagname' maxlength='15' length='15' type='text' placeholder=' ptbonobo' class='validate upperCase'  value='".$Shop->tag_name."'>
 					<label for='txtTagname'>PIN TOKO *</label>
 					<label id='notifTagname' class='error' style='display:none;'></label>
 				</div>
@@ -116,13 +116,13 @@ if(sizeOf($Attributes) <= 0){
 				</div>
 				<div class='col s12 m5'>
 					<input name='txtAttributeId".$no."' id='txtAttributeId".$no."' type='hidden' value='".$Attribute->id."'>
-					<input name='txtAttributeName".$no."' placeholder='BBM / Whatsapp' type='text' class='validate' value='".$Attribute->name."'>
+					<input name='txtAttributeName".$no."' maxlength='15' length='15' placeholder='BBM / Whatsapp' type='text' class='validate' value='".$Attribute->name."'>
 				</div>
 				<div class='col s12 m1'>
 					<!--Pin/ID/Nomor--!> =
 				</div>
 				<div class='col s12 m5'>
-					<input name='txtAttributeValue".$no."' placeholder='081xxxxxxx' type='text' class='validate' value='".$Attribute->value."'>
+					<input name='txtAttributeValue".$no."' maxlength='15' length='15' placeholder='081xxxxxxx' type='text' class='validate' value='".$Attribute->value."'>
 				</div>
 				<div class='col s12 m5'>
 					<a class='btn-floating btn-xs waves-effect waves-light red right' onclick=javascript:deletestep1(".$no.",".$Attribute->id.")>

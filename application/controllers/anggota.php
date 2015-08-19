@@ -17,7 +17,7 @@ class Anggota extends CI_Controller {
 	var $offset = 0;
 	
 	function __construct(){
-        parent::__construct();
+    	parent::__construct();
 		
 		$this->load->model("enduser/model_toko");
 		$this->load->model("enduser/model_toko_member");

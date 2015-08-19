@@ -102,6 +102,8 @@ $(document).ready(function() {
     	thousandsSeparator: ".",
     	prefix: "",
 	});
+		
+	Materialize.updateTextFields();
 });
 
 

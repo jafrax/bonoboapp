@@ -88,7 +88,7 @@ echo"
 							</div>
 							<div class='input-field col s12 m12' id='bank-lain' style='display:none'>
 								<span for='txtName'>Nama Bank</span>
-								<input id='txtName' name='txtBank' type='text' class='validate'>
+								<input id='txtName' value='Bank ' name='txtBank' type='text' class='validate'>
 							</div>
 							<div class='input-field col s12 m12'>
 								<span for='txtName'>Nama Pemilik Rekening</span>
