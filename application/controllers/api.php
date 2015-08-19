@@ -1315,7 +1315,7 @@ class Api extends CI_Controller {
 		}
 	}
 	
-	public function doRunService(){
+	public function service(){
 		try {
 			/*
 			*	------------------------------------------------------------------------------
@@ -1352,7 +1352,7 @@ class Api extends CI_Controller {
 			foreach($QInvites as $QInvite){
 				$Invite = array(
 						"id"=>$QInvite->id,
-						"email"=>$QInvite->email
+						"email"=>$QInvite->email,
 						"message"=>$QInvite->message,
 						"shop"=>$this->getShopById($QInvite->toko_id,$QUser->id),
 					);
