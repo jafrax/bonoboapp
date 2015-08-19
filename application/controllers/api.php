@@ -131,32 +131,11 @@ class Api extends CI_Controller {
 					->result();
 		
 		foreach($QShopBanks as $QShopBank){
-			$QBank = $this->db->where("id",$QShopBank->bank_id)->get("ms_bank")->row();
-			
-			if(!empty($QBank)){
-				if(@getimagesize(base_url("assets/pic/bank/".$QBank->image))){
-					$BankImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/bank/resize/".$QBank->image)));
-					$BankImageHigh = base_url("image.php?q=100&fe=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
-				}else{
-					$BankImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
-					$BankImageHigh = $BankImageTumb;
-				}
-				
-				$Bank = array(
-					"id"=>$QBank->id,
-					"name"=>$QBank->name,
-					"image_tumb"=>$BankImageTumb,
-					"image_high"=>$BankImageHigh,
-				);
-			}else{
-				$Bank = array();
-			}
-			
 			$ShopBank = array(
 				"id"=>$QShopBank->id,
 				"acc_name"=>$QShopBank->acc_name,
 				"acc_no"=>$QShopBank->acc_no,
-				"bank"=>$Bank,
+				"bank_name"=>$QShopBank->bank_name,
 			);
 				
 			array_push($ShopBanks,$ShopBank);
@@ -1680,8 +1659,7 @@ class Api extends CI_Controller {
 			*/
 			
 			$QShopBanks = $this->db
-						->select("ttb.id,ttb.acc_name,ttb.acc_no,mb.id as bank_id, mb.name as bank_name")
-						->join("ms_bank mb","mb.id = ttb.bank_id")
+						->select("ttb.id,ttb.acc_name,ttb.acc_no,ttb.bank_name as bank_name")
 						->where("ttb.toko_id",$QShop->id)
 						->get("tb_toko_bank ttb")
 						->result();
@@ -1692,10 +1670,7 @@ class Api extends CI_Controller {
 						"id"=>$QShopBank->id,
 						"acc_name"=>$QShopBank->acc_name,
 						"acc_no"=>$QShopBank->acc_no,
-						"bank"=>array(
-								"id"=>$QShopBank->bank_id,
-								"name"=>$QShopBank->bank_name,
-							),
+						"bank_name"=>$QShopBank->bank_name,
 					);
 				
 				array_push($ShopBanks,$ShopBank);
