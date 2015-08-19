@@ -9,9 +9,9 @@
 . 1. Create 12 Juni 2015 by Heri Siswanto, Create controller
 */
 
-header('content-type: application/json; charset=utf-8');
-ob_start('ob_gzhandler');
-//set_time_limit (10000);
+//header('content-type: application/json; charset=utf-8');
+//ob_start('ob_gzhandler');
+set_time_limit (10000);
 
 class Api extends CI_Controller {
 
@@ -1201,6 +1201,8 @@ class Api extends CI_Controller {
 					->join("tb_product tp","tf.product_id = tp.id")
 					->where("tp.active",1)
 					->where("tf.member_id",$QUser->id)
+					->order_by("tf.product_id","DESC")
+					->group_by("tf.product_id")
 					->get("tb_favorite tf")
 					->result();
 			
@@ -1221,8 +1223,10 @@ class Api extends CI_Controller {
 					->select("tp.id")
 					->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
 					->where("tp.active",1)
-					->where("ttcp.toko_id IN (SELECT ttm.toko_id FROM tb_toko_member ttm WHERE ttm.member_id = ".$QUser->id.")")
+					->where("ttcp.toko_id IN (SELECT ttm.toko_id FROM tb_toko_member ttm WHERE ttm.member_id = ".$QUser->id." group by ttm.toko_id)")
 					->limit(10,0)
+					->order_by("tp.id","DESC")
+					->group_by("tp.id")
 					->get("tb_product tp")
 					->result();
 			
@@ -1311,7 +1315,7 @@ class Api extends CI_Controller {
 		}
 	}
 	
-	public function doRunService(){
+	public function service(){
 		try {
 			/*
 			*	------------------------------------------------------------------------------
@@ -1335,21 +1339,31 @@ class Api extends CI_Controller {
 			
 			/*
 			*	------------------------------------------------------------------------------
-			*	Mengambil data toko joined
+			*	Mengambil data toko invited
 			*	------------------------------------------------------------------------------
 			*/
-			$Shops = array();
-			$QShops = $this->db
+			$Invites = array();
+			$QInvites = $this->db
 						->where("member_id",$QUser->id)
-						->get("tb_toko_member")
+						->where("status",0)
+						->get("tb_invite")
 						->result();
 						
-			foreach($QShops as $QShop){
-				$Shop = $this->getShopById($QShop->toko_id,$QUser->id);
-				array_push($Shops,$Shop);
+			foreach($QInvites as $QInvite){
+				$Invite = array(
+						"id"=>$QInvite->id,
+						"email"=>$QInvite->email,
+						"message"=>$QInvite->message,
+						"shop"=>$this->getShopById($QInvite->toko_id,$QUser->id),
+					);
+					
+				$Data = array("status"=>1);
+				$Save = $this->db->where("id",$QInvite->id)->update("tb_invite",$Data);
+				
+				array_push($Invites,$Invite);
 			}
 			
-			$this->response->send(array("result"=>1,"shops"=>$Shops), true);
+			$this->response->send(array("result"=>1,"invites"=>$QInvites), true);
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
