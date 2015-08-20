@@ -175,7 +175,7 @@ echo "
 									<li class='varsto' id='li_varian_1'>
 										<div class='input-field col s12 m5'>
 											<input id='varian' name='nama_varian_1' type='text' maxlength='30' placeholder='Ex : Merah' class='validate' >
-											<label for='varian'>Varian <span class='text-red'>*</span><span></span></label>
+											<label for='varian'>Varian <span class='text-red'>*</span></label>
 										</div>
 										<div class='input-field col s11 m5 tersedia' style='display:none'>
 											<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
@@ -191,7 +191,7 @@ echo "
 								</ul>
 								<ul class='col s12 m12 cek-stok' style='display:none'>								
 									<li class='input-field col s12 m12'>
-										<a class='btn-flat left' onclick=javascript:addVarian()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
+										<a class='btn-flat left' id='add-varian' onclick=javascript:addVarian()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
 									</li>
 								</ul>
 								<ul class='col s12 m12 uncek-stok' >

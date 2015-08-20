@@ -372,18 +372,24 @@ var tot_varian= 1;
 function addVarian() {  
   tot_varian = tot_varian+1;
   var hitung = $('#tempat-varian .varsto').length;
+  if (hitung == 4){
+      $('#add-varian').hide();
+    }
     if (hitung < 5) {
       $('#tempat-varian').append(boxVarian(tot_varian));
       $('#tot_varian').val(tot_varian);
+      Materialize.updateTextFields();
     }
+
+
 }
 
 function boxVarian(id) {
   var stok      = $('#stok').val();
   if (stok == 1) {
-      var varian = "<li class='varsto' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 nolmar'>"
-                      +"<span for='varian'>Varian</span>"
+      var varian = "<li class='varsto' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 nolmar'>"                      
                       +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' maxlength='30' placeholder='Ex : Merah' class='validate'>"
+                      +"<label for='varian'>Varian</label>"
                     +"</div>"
                     +"<div class='input-field col s11 m5 tersedia'>"
                         +"<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>"
@@ -397,9 +403,9 @@ function boxVarian(id) {
                     +"</div>"
                     +"</li>";
    }else if (stok == 0) {
-      var varian = "<li class='varsto' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 nolmar'>"
-                      +"<span for='varian'>Varian</span>"
+      var varian = "<li class='varsto' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 nolmar'>"                      
                       +"<input id='varian' name='nama_varian_"+tot_varian+"' maxlength='30' type='text' placeholder='Ex : Merah' class='validate'>"
+                      +"<label for='varian'>Varian</label>"
                     +"</div>"
                     +"<div class='input-field col s11 m5 tersedia' style='display:none'>"
                         +"<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>"
@@ -421,7 +427,10 @@ function deleteVarian(varian) {
   var jmlh = $('#tempat-varian li').length;
   
   if (jmlh == 0) {$('#tot_varian').val(tot_varian);$('#tempat-varian').append(boxVarian(jmlh));};
-  
+  var hitung = $('#tempat-varian .varsto').length;
+    if (hitung < 5) {      
+      $('#add-varian').show();
+    }
 }
 
 

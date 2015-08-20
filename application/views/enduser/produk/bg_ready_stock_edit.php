@@ -224,12 +224,16 @@ echo "
 										}
 									}
 									
+									$addVar = 'block';
+									if ($varian_null->num_rows() > 5) {
+										$addVar = 'none';
+									}
 									
 									echo"
 								</ul>
 								<ul class='col s12 m12 cek-stok' style='display:$cek_stok'>								
 									<li class='input-field col s12 m12 nolmar'>
-										<a class='btn-flat left' onclick=javascript:addVarian()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
+										<a class='btn-flat left' id='add-varian' style='display:$addVar' onclick=javascript:addVarian()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
 									</li>
 								</ul>
 								<ul class='col s12 m12 uncek-stok' style='display:$uncek_stok'>
