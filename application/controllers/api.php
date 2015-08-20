@@ -1339,13 +1339,43 @@ class Api extends CI_Controller {
 			
 			/*
 			*	------------------------------------------------------------------------------
+			*	Mengambil data message
+			*	------------------------------------------------------------------------------
+			*/
+			$Messages = array();
+			$QMessages = $this->db
+							->select("tmm.id,tmm.toko_name,tmm.toko_id,tm.message as message,tmm.flag_from as isfrom")
+							->join("tb_message tm","tm.id = tmm.message_id")
+							->where("tmm.member_id",$QUser->id)
+							->where("tmm.flag_read",0)
+							->where("tmm.flag_api",0)
+							->get("tb_member_message tmm")
+							->result();
+			
+			foreach($QMessages as $QMessage){
+				$Message = array(
+						"id"=>$QMessage->id,
+						"shop_name"=>$QMessage->toko_name,
+						"message"=>$QMessage->message,
+						"isfrom"=>$QMessage->isfrom,
+						"shop"=>$this->getShopById($QMessage->toko_id,$QUser->id),
+					);
+				
+				$Data = array("flag_api"=>1);
+				//$Save = $this->db->where("id",$QMessage->id)->update("tb_member_message",$Data);
+				
+				array_push($Messages,$Message);
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
 			*	Mengambil data toko invited
 			*	------------------------------------------------------------------------------
 			*/
 			$Invites = array();
 			$QInvites = $this->db
 						->where("member_id",$QUser->id)
-						->where("status",0)
+						->where("flag_api",0)
 						->get("tb_invite")
 						->result();
 						
@@ -1363,7 +1393,7 @@ class Api extends CI_Controller {
 				array_push($Invites,$Invite);
 			}
 			
-			$this->response->send(array("result"=>1,"invites"=>$QInvites), true);
+			$this->response->send(array("result"=>1,"messages"=>$Messages,"invites"=>$QInvites), true);
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
