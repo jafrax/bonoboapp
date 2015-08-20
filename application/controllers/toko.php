@@ -251,8 +251,7 @@ class Toko extends CI_Controller {
 							->delete("tb_toko_courier");
 					}
 				}
-			}
-			
+			}			
 			redirect("toko/step8");
 		}
 	}

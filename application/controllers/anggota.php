@@ -94,6 +94,20 @@ class Anggota extends CI_Controller {
 			}
 			
 			if($valid){
+				$member = $this->db->where('email',$data["email"])->get('tb_member');
+
+				if ($member->num_rows() > 0) {
+					$Data = array(
+						"toko_id"=>$_SESSION['bonobo']['id'],
+						"member_id"=>$member->row()->id,
+						"email"=>$data["email"],
+						"message"=>$data["message"],
+						"create_date"=>date("Y-m-d H:i:s"),
+						"create_user"=>$_SESSION['bonobo']['email'],
+						"update_date"=>date("Y-m-d H:i:s"),
+						"update_user"=>$_SESSION['bonobo']['email'],
+					);
+				}else{
 				$Data = array(
 						"toko_id"=>$_SESSION['bonobo']['id'],
 						"email"=>$data["email"],
@@ -103,7 +117,7 @@ class Anggota extends CI_Controller {
 						"update_date"=>date("Y-m-d H:i:s"),
 						"update_user"=>$_SESSION['bonobo']['email'],
 					);
-				
+				}
 					$Save = $this->db->insert("tb_invite",$Data);
 					if($Save){
 						$message ="Hi ".$data["email"].",<br><br>

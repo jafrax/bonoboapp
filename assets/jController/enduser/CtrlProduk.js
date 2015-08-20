@@ -143,7 +143,7 @@ $(document).ready(function() {
           stok                    : {required: true,maxlength:50},
           stok_varian_1           : {required: true,maxlength:10},
           nama_varian_1           : {required: true,maxlength:10},
-          harga_pembelian         : {digits: true,maxlength:50},
+          harga_pembelian         : {digits: false,maxlength:50},
           harga_level_1           : {digits: false,maxlength:50},
           harga_level_2           : {digits: false,maxlength:50},
           harga_level_3           : {digits: false,maxlength:50},
@@ -188,12 +188,12 @@ $(document).ready(function() {
           min_order               : {digits: true,maxlength:11},
           deskripsi               : {maxlength:250},
           stok                    : {required: true,maxlength:50},
-          harga_pembelian         : {digits: true,maxlength:50},
-          harga_level_1           : {digits: true,maxlength:50},
-          harga_level_2           : {digits: true,maxlength:50},
-          harga_level_3           : {digits: true,maxlength:50},
-          harga_level_4           : {digits: true,maxlength:50},
-          harga_level_5           : {digits: true,maxlength:50},          
+          harga_pembelian         : {digits: false,maxlength:50},
+          harga_level_1           : {digits: false,maxlength:50},
+          harga_level_2           : {digits: false,maxlength:50},
+          harga_level_3           : {digits: false,maxlength:50},
+          harga_level_4           : {digits: false,maxlength:50},
+          harga_level_5           : {digits: false,maxlength:50},          
       },
       messages: {
           pic_1: {
@@ -372,41 +372,50 @@ var tot_varian= 1;
 function addVarian() {  
   tot_varian = tot_varian+1;
   var hitung = $('#tempat-varian .varsto').length;
+  if (hitung == 4){
+      $('#add-varian').hide();
+    }
     if (hitung < 5) {
       $('#tempat-varian').append(boxVarian(tot_varian));
       $('#tot_varian').val(tot_varian);
+      Materialize.updateTextFields();
+      jQuery('.numbersOnly').keyup(function () { 
+          this.value = this.value.replace(/[^0-9\.]/g,'');
+      });
     }
+
+
 }
 
 function boxVarian(id) {
   var stok      = $('#stok').val();
   if (stok == 1) {
-      var varian = "<li class='varsto' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 nolmar'>"
-                      +"<span for='varian'>Varian</span>"
+      var varian = "<li class='varsto nolmar' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 '>"                      
                       +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' maxlength='30' placeholder='Ex : Merah' class='validate'>"
+                      +"<label for='varian'>Varian</label>"
                     +"</div>"
                     +"<div class='input-field col s11 m5 tersedia'>"
-                        +"<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>"
+                        +"<label >Stok : <span class='text-green'>selalu tersedia</span></label>"
                       +"</div>"
                       +"<div class='input-field col s11 m5 pakai-stok'  style='display:none'>"
-                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='text' placeholder='Jumlah stok' class='validate'>"
-                        +"<label for='varian'>Stok <span></span></label>"
+                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='number' maxlength='10' placeholder='Jumlah stok' class='validate numbersOnly'>"
+                        +"<label for='varian'>Stok </label>"
                       +"</div>"
                       +"<div class='input-field col s1 m1' >"
                       +"<a onclick=javascript:deleteVarian('li_varian_"+tot_varian+"'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
                     +"</div>"
                     +"</li>";
    }else if (stok == 0) {
-      var varian = "<li class='varsto' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 nolmar'>"
-                      +"<span for='varian'>Varian</span>"
+      var varian = "<li class='varsto nolmar' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 '>"                      
                       +"<input id='varian' name='nama_varian_"+tot_varian+"' maxlength='30' type='text' placeholder='Ex : Merah' class='validate'>"
+                      +"<label for='varian'>Varian</label>"
                     +"</div>"
                     +"<div class='input-field col s11 m5 tersedia' style='display:none'>"
-                        +"<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>"
+                        +"<label >Stok : <span class='text-green'>selalu tersedia</span></label>"
                       +"</div>"
                       +"<div class='input-field col s11 m5 pakai-stok'>"
-                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='text' placeholder='Jumlah stok' class='validate'>"
-                        +"<label for='varian'>Stok <span></span></label>"
+                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='number' maxlength='10' placeholder='Jumlah stok' class='validate numbersOnly'>"
+                        +"<label for='varian'>Stok </label>"
                       +"</div>"
                       +"<div class='input-field col s1 m1' >"
                       +"<a onclick=javascript:deleteVarian('li_varian_"+tot_varian+"'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
@@ -421,7 +430,10 @@ function deleteVarian(varian) {
   var jmlh = $('#tempat-varian li').length;
   
   if (jmlh == 0) {$('#tot_varian').val(tot_varian);$('#tempat-varian').append(boxVarian(jmlh));};
-  
+  var hitung = $('#tempat-varian .varsto').length;
+    if (hitung < 5) {      
+      $('#add-varian').show();
+    }
 }
 
 
@@ -636,24 +648,25 @@ function tambah_kategori_atur(){
   var nama  = $('#nama_kategori').val();
   var id    = $('#id-toko').val();  
 
-  if ($('#form_add_kategori').valid() == true) {
+  if ($('#form_add_kategori').valid() == true) {    
     $('#tambah_kategori').closeModal();
     $.ajax({
-          type: 'POST',
-          data: 'nama='+nama+'&id='+id,
-          url: base_url+'produk/add_kategori2',
-          async: false,
-          success: function(msg) {
-            Materialize.toast('Kategori telah ditambahkan', 4000);
-            $('#tempat-kategori').html(msg);            
-            $('#nama_kategori').val('');            
-            $('.modal-trigger').leanModal();
-            $('.add-kateg').attr('disabled', false);
-            offset_kat      = 10;
-            scrolling_kat   = true;
-            $('#habis').slideUp();
-          }
-      });
+      type: 'POST',
+      data: 'nama='+nama+'&id='+id,
+      url: base_url+'produk/add_kategori2',
+      async: false,
+      success: function(msg) {
+        Materialize.toast('Kategori telah ditambahkan', 4000);
+        $('#tempat-kategori').html(msg);            
+        $('#nama_kategori').val('');            
+        $('.modal-trigger').leanModal();
+        $('.add-kateg').attr('disabled', false);
+        offset_kat      = 10;
+        scrolling_kat   = true;
+        $('#habis').slideUp();
+        
+      }
+    });
   }else{
     $('.add-kateg').attr('disabled', false);
   };
@@ -738,11 +751,11 @@ function change_date(id){
     url: base_url+'produk/change_date',
     success: function(msg) {
       if (msg == 'sukses') {        
-        $('.draft-'+id).fadeOut();
+       // $('.draft-'+id).fadeOut();
         $('.kadal-'+id).fadeOut();
         $('.date-'+id).html(date);
       }else{
-        $('.draft-'+id).fadeIn();
+        //$('.draft-'+id).fadeIn();
         $('.kadal-'+id).fadeIn();
         $('.date-'+id).html(date);       
       };
@@ -774,7 +787,7 @@ var offset_kat=10;
 var scrolling_kat=true;
 
 $(window).scroll(function () {      
-        if ($(window).scrollTop() == ( $(document).height() - $(window).height())  && scrolling_kat==true && $('#tempat-kategori').length > 0) {
+        if ($(window).scrollTop() == ( $(document).height() - $(window).height())  && scrolling_kat==true && $('.hanya-atur').length > 0) {
             $('#preloader').slideDown();
             
             scrolling_kat       = false;            

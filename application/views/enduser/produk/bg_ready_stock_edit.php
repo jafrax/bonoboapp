@@ -186,17 +186,17 @@ echo "
 								<ul class='col s12 m12 cek-stok' id='tempat-varian' style='display:$cek_stok'>";
 									if ($varian_null->num_rows() == 0) {
 										foreach ($varian->result() as $row_var) {
-											echo"<li class='varsto' id='li_edit_varian_".$row_var->id."'>
-													<div class='input-field col s12 m5 nolmar'>
+											echo"<li class='varsto nolmar' id='li_edit_varian_".$row_var->id."'>
+													<div class='input-field col s12 m5 '>
 														<input id='varian' name='nama_edit_varian_".$row_var->id."' maxlength='30' value='".$row_var->name."' type='text' placeholder='Ex : Merah' class='validate'>
-														<label for='varian'>Varian <span></span></label>
+														<label for='varian'>Varian </label>
 													</div>
 													<div class='input-field col s11 m5 tersedia' style='display:$tersedia'>
-														<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
+														<label >Stok : <span class='text-green'>selalu tersedia</span></label>
 													</div>
 													<div class='input-field col s11 m5 pakai-stok' style='display:$guna_stok'>
-														<input id='varian' name='stok_edit_varian_".$row_var->id."' value='".$row_var->stock_qty."' type='number' placeholder='Jumlah stok' class='validate numbersOnly'>
-														<label for='varian'>Stok <span></span></label>											
+														<input id='varian' name='stok_edit_varian_".$row_var->id."' value='".$row_var->stock_qty."' type='number' maxlength='10' placeholder='Jumlah stok' class='validate numbersOnly'>
+														<label for='varian'>Stok </label>											
 													</div>
 													<div class='input-field col s1 m1' >
 														<a onclick=javascript:deleteVarian('li_edit_varian_".$row_var->id."'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
@@ -205,17 +205,17 @@ echo "
 										}
 									}else{
 										foreach ($varian->result() as $row_var) {
-									echo"<li class='varsto' id='li_varian_1'>
-											<div class='input-field col s12 m5 nolmar'>
+									echo"<li class='varsto nolmar' id='li_varian_1'>
+											<div class='input-field col s12 m5 '>
 												<input id='varian' name='nama_varian_1' type='text' maxlength='30' placeholder='Misal: Pcs' class='validate'>
-												<label for='varian'>Varian <span></span></label>
+												<label for='varian'>Varian </label>
 											</div>
 											<div class='input-field col s11 m5 tersedia' style='display:$tersedia'>
-												<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
+												<label >Stok : <span class='text-green'>selalu tersedia</span></label>
 											</div>
 											<div class='input-field col s11 m5 pakai-stok' style='display:$guna_stok'>
-												<input id='varian' name='stok_varian_1' type='number' placeholder='Jumlah stok'  class='validate numbersOnly'>
-												<label for='varian'>Stok <span></span></label>											
+												<input id='varian' name='stok_varian_1' type='number' placeholder='Jumlah stok' maxlength='10' class='validate numbersOnly'>
+												<label for='varian'>Stok </label>											
 											</div>
 											<div class='input-field col s1 m1' >
 												<a onclick=javascript:deleteVarian('li_varian_1'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
@@ -224,12 +224,16 @@ echo "
 										}
 									}
 									
+									$addVar = 'block';
+									if ($varian_null->num_rows() > 5) {
+										$addVar = 'none';
+									}
 									
 									echo"
 								</ul>
 								<ul class='col s12 m12 cek-stok' style='display:$cek_stok'>								
 									<li class='input-field col s12 m12 nolmar'>
-										<a class='btn-flat left' onclick=javascript:addVarian()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
+										<a class='btn-flat left' id='add-varian' style='display:$addVar' onclick=javascript:addVarian()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
 									</li>
 								</ul>
 								<ul class='col s12 m12 uncek-stok' style='display:$uncek_stok'>

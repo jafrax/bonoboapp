@@ -22,21 +22,21 @@ echo"
 				<div class='col s12 m4'>
 					<ul class='row formbody'>
 						<li class='col s12 listanggodaf'>";
+						$jedul = 'none';
 						if ($Messages->num_rows() > 0) {
+							$jedul = 'block';
+						}
 							echo "
 							<div class='input-field col s12 m12'>
-								<button id='btnMessageReads' class='btn waves-effect waves-light col s12 m12' type='cancel' name='action'>
+								<button id='btnMessageReads' style='display:$jedul' class='btn waves-effect waves-light col s12 m12' type='cancel' name='action'>
 									Tandai semua 'Sudah dibaca'
 								</button>
 							</div>
 							<div class='input-field col s12 m12'>
-								<a href='#popupDeletes' class='modal-trigger btn waves-effect waves-light deep-orange darken-1 col s12 m12'>
+								<a href='#popupDeletes' style='display:$jedul' class='modal-trigger btn waves-effect waves-light deep-orange darken-1 col s12 m12'>
 									Hapus semua
 								</a>
-							</div>";
-						}
-							
-							echo"
+							</div>							
 						</li>
 						<div id='contact-pesan'>
 

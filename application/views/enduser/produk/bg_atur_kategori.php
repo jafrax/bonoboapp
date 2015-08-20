@@ -40,7 +40,7 @@ echo"
 									<label for='keyword-kategori'>Cari kategori</label>
 								</div>
 							</li>
-							<div id='tempat-kategori'>
+							<div id='tempat-kategori' class='hanya-atur'>
 							";
 							if ($kategori->num_rows() == 0) {
 								if (isset($_SESSION['search_kategori'])) {

@@ -733,10 +733,10 @@ class Produk extends CI_Controller {
 		$new_date 			= date('Y-m-d', $old_date_timestamp);
 
 		if (date('Y-m-d') > $new_date) {
-			$edit = $this->db->where('id',$id)->set('end_date',$new_date)->set('active','0')->update('tb_product');
+			$edit = $this->db->where('id',$id)->set('end_date',$new_date)->update('tb_product');
 			echo "kadaluarsa";
 		}else{
-			$edit = $this->db->where('id',$id)->set('end_date',$new_date)->set('active','1')->update('tb_product');
+			$edit = $this->db->where('id',$id)->set('end_date',$new_date)->update('tb_product');
 			echo "sukses";
 		}		
 	}
