@@ -458,7 +458,7 @@ function CtrlShopStep7(){
 		sequence = sequence+2;
 
 		
-		div.innerHTML = "<div id='divCourier"+sequence+"' class='input-field col s12 m12 counter'><div class='input-field col s12 m12 l6'><input type='hidden' id='txtCourierId"+sequence+"' name='txtCourierId1'><input type='text' id='txtCourierName"+sequence+"' name='txtCourierName1' maxlength='20' minlength='5'><label for='txtCourierName"+sequence+"'>Nama Kurir</label></div><div class='input-field col s12 m12 l6'><button type='button' class='waves-effect waves-light btn  ' onclick=ctrlShopStep7.doCourierSave("+sequence+");><i class='material-icons left'>library_add</i> Simpan</button> <button class='waves-effect waves-light btn red' type='button' onclick=ctrlShopStep7.doCourierDelete("+sequence+");><i class='mdi-action-delete left'></i>Hapus</button> <button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail"+sequence+"'  onclick=ctrlShopStep7.showDetail("+sequence+"); style='display:none;'><i class='material-icons left'>list</i>Detail</button> </div></div>";
+		div.innerHTML = "<div id='divCourier"+sequence+"' class='input-field col s12 m12 counter'><div class='input-field col s12 m12 l6'><input type='hidden' id='txtCourierId"+sequence+"' name='txtCourierId1'><input class='hitung' type='text' id='txtCourierName"+sequence+"' name='txtCourierName1' maxlength='20' minlength='5'><label for='txtCourierName"+sequence+"'>Nama Kurir</label></div><div class='input-field col s12 m12 l6'><button type='button' class='waves-effect waves-light btn  ' onclick=ctrlShopStep7.doCourierSave("+sequence+");><i class='material-icons left'>library_add</i> Simpan</button> <button class='waves-effect waves-light btn red' type='button' onclick=ctrlShopStep7.doCourierDelete("+sequence+");><i class='mdi-action-delete left'></i>Hapus</button> <button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail"+sequence+"'  onclick=ctrlShopStep7.showDetail("+sequence+"); style='display:none;'><i class='material-icons left'>list</i>Detail</button> </div></div>";
 		
 		divCustomCourier.append(div);
 		txtCustomeCourierCount.value = sequence;
@@ -1224,6 +1224,39 @@ $(document).ready(function () {
     	thousandsSeparator: '',
     	prefix: '',
 	});
+
+	$("#formstep7").submit(function( event ) {
+		var kurir = $('#total_courier').val();
+		var cust  = $('.hitung').length;
+		var cek   = false;
+		var hit   = false;
+	  	if ( $( "#chkExpedition" ).is(":checked")) {
+	  		for (var i = kurir - 1; i >= 0; i--) {
+				if ($('.kurir-resmi-'+i).is(":checked")) {
+					cek = true;
+				};
+			};
+
+			if (cek == true) {
+				for (var i = cust; i > 0; i--) {
+					if ($('#txtCourierName'+i).val() == ''){
+						hit = true;
+					}
+				};
+
+				if (hit == true) {
+					Materialize.toast("Silahkan isi nama kurir Toko Anda", 4000);
+		  			event.preventDefault();
+				}else{
+					return;
+				};
+			}else{
+				Materialize.toast("Silahkan pilih salah satu jenis ekspedisi", 4000);
+		  		event.preventDefault();
+			};
+	  	}
+	  
+	});
 })
 function c_password(selection,url) {
     if ($("#"+selection).valid()) {
@@ -1273,3 +1306,5 @@ function kliken_kurir () {
       $('#chkExpedition').prop('checked',false);
    	};
 }
+
+

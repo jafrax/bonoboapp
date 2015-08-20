@@ -8,7 +8,7 @@ if($Shop->flag_information == 0){
 
 echo"
 	<div id='divShipment' class='col s12 m12 l12'>
-		<form class='formain' method='POST' action='".base_url("toko/step7/")."'>
+		<form class='formain' id='formstep7' method='POST' action='".base_url("toko/step7/")."'>
 			<input type='hidden' name='submit' value='submited'/>
 			<div class='formhead'>
 				<h2 class='titmain'><b>PENGIRIMAN</b></h2>
@@ -25,7 +25,6 @@ echo"
 				<div class='input-field col s12 m8'>
 					<input type='checkbox' class='filled-in' id='chkExpedition' name='chkExpedition' ".($Shop->dm_expedition == 1 && count($Couriers) > 0 ? "checked" : "")." ".(count($Couriers) == 0 ? "disabled" : "")."/>
 					<label for='chkExpedition'>Jasa ekspedisi</label>
-					".(count($Couriers) == 0 ? "" : "<input type='hidden' name='chkExpedition' value='0' >")."
 				</div>	
 				<div class='input-field col s12 m8'>
 					<p>Silahkan pilih jasa ekspedisi berikut. Ongkos kirim sesuai kebijakan Perusahaan Ekspedisi yang bersangkutan.
@@ -72,7 +71,7 @@ echo"	<input type='hidden' value='".count($Couriers)."' id='total_courier'>
 				<div id='divCourier".$no."' class='input-field col s12 m12 counter'>
 					<div class='input-field col s12 m12 l6'>
 						<input type='hidden' id='txtCourierId".$no."' name='txtCourierId".$no."'>
-						<input type='text' id='txtCourierName".$no."' name='txtCourierName".$no."' maxlength='20'>
+						<input class='hitung' type='text' id='txtCourierName".$no."' name='txtCourierName".$no."' maxlength='20'>
 						<label for='txtCourierName".$no."'>Nama Kurir</label>
 					</div>
 					<div class='input-field col s12 m12 l6'>
@@ -88,7 +87,7 @@ echo"	<input type='hidden' value='".count($Couriers)."' id='total_courier'>
 				<div id='divCourier".$no."' class='input-field col s12 m12 counter'>
 					<div class='input-field col s12 m12 l6'>
 						<input type='hidden' id='txtCourierId".$no."' name='txtCourierId".$no."'  value='".$CustomeCourier->id."'>
-						<input type='text' id='txtCourierName".$no."' name='txtCourierName".$no."' value='".$CustomeCourier->name."' maxlength='20'>
+						<input class='hitung' type='text' id='txtCourierName".$no."' name='txtCourierName".$no."' value='".$CustomeCourier->name."' maxlength='20'>
 						<label for='txtCourierName".$no."'>Nama Kurir</label>
 					</div>
 					<div class='input-field col s12 m12 l6'>
