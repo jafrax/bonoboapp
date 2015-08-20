@@ -2,7 +2,7 @@
 
 echo"
 	<h4>".$Member->name."</h4>
-	<div class='content-pesan'>
+	<div class='content-pesan' style='max-height: 300px; overflow: auto;'>
 		<!--
 			<div class='datetime'><p>30 September 2015</p></div>
 			<div class='row'><div class='pesanku'><img src='images/comp/male.png'><br>Keterangan Gambar</div></div>

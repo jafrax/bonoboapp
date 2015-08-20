@@ -27,6 +27,7 @@ echo "
 											</button>
 										</div>
 									</li>
+									
 									";
 
 									foreach($Messages->result() as $Message){
@@ -70,11 +71,11 @@ echo "
 								</div>
 
 								<div class='content-balasan'>
-									<form class='col s12' method='post' action=''>
+									<form class='col s12' method='post' action='' id='pesannyanota'>
 									    <div class='row'>
 									        <div class='input-field col s12'>
-									          	<textarea id='textarea1' class='materialize-textarea' name='message'></textarea>
-									          	<label for='textarea1'>Isi Pesan</label>
+									          	<textarea id='message' class='materialize-textarea' name='message'></textarea>
+									          	<label for='message'>Isi Pesan</label>
 									          	<input type='hidden' name='email' value='$uri'>
 									        </div>
 									        <div class='input-field col s12'>

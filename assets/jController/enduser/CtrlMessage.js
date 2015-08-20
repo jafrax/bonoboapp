@@ -256,3 +256,14 @@ function CtrlMessageNew(){
 	}
 }
 
+$(document).ready(function() {
+    $.validator.setDefaults({
+        ignore: []
+    });
+    
+    $('#pesannyanota').validate({
+        rules:{
+            message     : {required: true},
+        },
+    });
+})
