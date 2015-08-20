@@ -379,6 +379,9 @@ function addVarian() {
       $('#tempat-varian').append(boxVarian(tot_varian));
       $('#tot_varian').val(tot_varian);
       Materialize.updateTextFields();
+      jQuery('.numbersOnly').keyup(function () { 
+          this.value = this.value.replace(/[^0-9\.]/g,'');
+      });
     }
 
 
@@ -387,32 +390,32 @@ function addVarian() {
 function boxVarian(id) {
   var stok      = $('#stok').val();
   if (stok == 1) {
-      var varian = "<li class='varsto' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 nolmar'>"                      
+      var varian = "<li class='varsto nolmar' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 '>"                      
                       +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' maxlength='30' placeholder='Ex : Merah' class='validate'>"
                       +"<label for='varian'>Varian</label>"
                     +"</div>"
                     +"<div class='input-field col s11 m5 tersedia'>"
-                        +"<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>"
+                        +"<label >Stok : <span class='text-green'>selalu tersedia</span></label>"
                       +"</div>"
                       +"<div class='input-field col s11 m5 pakai-stok'  style='display:none'>"
-                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='text' placeholder='Jumlah stok' class='validate'>"
-                        +"<label for='varian'>Stok <span></span></label>"
+                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='number' maxlength='10' placeholder='Jumlah stok' class='validate numbersOnly'>"
+                        +"<label for='varian'>Stok </label>"
                       +"</div>"
                       +"<div class='input-field col s1 m1' >"
                       +"<a onclick=javascript:deleteVarian('li_varian_"+tot_varian+"'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
                     +"</div>"
                     +"</li>";
    }else if (stok == 0) {
-      var varian = "<li class='varsto' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 nolmar'>"                      
+      var varian = "<li class='varsto nolmar' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 '>"                      
                       +"<input id='varian' name='nama_varian_"+tot_varian+"' maxlength='30' type='text' placeholder='Ex : Merah' class='validate'>"
                       +"<label for='varian'>Varian</label>"
                     +"</div>"
                     +"<div class='input-field col s11 m5 tersedia' style='display:none'>"
-                        +"<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>"
+                        +"<label >Stok : <span class='text-green'>selalu tersedia</span></label>"
                       +"</div>"
                       +"<div class='input-field col s11 m5 pakai-stok'>"
-                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='text' placeholder='Jumlah stok' class='validate'>"
-                        +"<label for='varian'>Stok <span></span></label>"
+                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='number' maxlength='10' placeholder='Jumlah stok' class='validate numbersOnly'>"
+                        +"<label for='varian'>Stok </label>"
                       +"</div>"
                       +"<div class='input-field col s1 m1' >"
                       +"<a onclick=javascript:deleteVarian('li_varian_"+tot_varian+"'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
@@ -747,11 +750,11 @@ function change_date(id){
     url: base_url+'produk/change_date',
     success: function(msg) {
       if (msg == 'sukses') {        
-        $('.draft-'+id).fadeOut();
+       // $('.draft-'+id).fadeOut();
         $('.kadal-'+id).fadeOut();
         $('.date-'+id).html(date);
       }else{
-        $('.draft-'+id).fadeIn();
+        //$('.draft-'+id).fadeIn();
         $('.kadal-'+id).fadeIn();
         $('.date-'+id).html(date);       
       };
