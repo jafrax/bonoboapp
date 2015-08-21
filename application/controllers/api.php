@@ -1483,7 +1483,7 @@ class Api extends CI_Controller {
 						"shop"=>$this->getShopById($QInvite->toko_id,$QUser->id),
 					);
 					
-				$Data = array("status"=>1);
+				$Data = array("flag_api"=>1);
 				$Save = $this->db->where("id",$QInvite->id)->update("tb_invite",$Data);
 				
 				array_push($Invites,$Invite);
@@ -4534,8 +4534,8 @@ class Api extends CI_Controller {
 								"id"=>$QUserMessage->id,
 								"shop_name"=>$QUserMessage->toko_name,
 								"message"=>$QMessage->message,
-								"flag_from"=>$QUserMessage->flag_from,
-								"flag_read"=>$QUserMessage->flag_read,
+								"isfrom"=>$QUserMessage->flag_from,
+								"isread"=>$QUserMessage->flag_read,
 								"shop"=>$Shop,
 							);
 					
