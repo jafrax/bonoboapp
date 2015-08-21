@@ -1192,33 +1192,6 @@ class Api extends CI_Controller {
 			
 			/*
 			*	------------------------------------------------------------------------------
-			*	Mengambil data member message
-			*	------------------------------------------------------------------------------
-			*/
-			$Messages = array();
-			$QMessages = $this->db
-							->select("tmm.id,tmm.toko_name,tmm.toko_id,tm.message as message,tmm.flag_read as isread,tmm.flag_from as isfrom")
-							->join("tb_message tm","tm.id = tmm.message_id")
-							->where("tmm.member_id",$QUser->id)
-							->where("tmm.flag_api",1)
-							->get("tb_member_message tmm")
-							->result();
-			
-			foreach($QMessages as $QMessage){
-				$Message = array(
-						"id"=>$QMessage->id,
-						"shop_name"=>$QMessage->toko_name,
-						"message"=>$QMessage->message,
-						"isread"=>$QMessage->isread,
-						"isfrom"=>$QMessage->isfrom,
-						"shop"=>$this->getShopById($QMessage->toko_id,$QUser->id),
-					);
-				
-				array_push($Messages,$Message);
-			}
-			
-			/*
-			*	------------------------------------------------------------------------------
 			*	get data member product favorite
 			*	------------------------------------------------------------------------------
 			*/
@@ -1328,7 +1301,6 @@ class Api extends CI_Controller {
 					"contacts"=>$Attributes, 
 					"banks"=>$Banks, 
 					"locations"=>$Locations,
-					"messages"=>$Messages,
 					"favorites"=>$Favorites,
 					"products"=>$Products,
 					"shop_members"=>$ShopMembers,
@@ -1400,6 +1372,72 @@ class Api extends CI_Controller {
 			$Object = array(
 					"result"=>1,
 					"products"=>$Products,
+				);
+			
+			$this->response->send($Object, true);
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function getUserMessages(){
+		try {
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>3), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Mengambil data member message
+			*	------------------------------------------------------------------------------
+			*/
+			$Messages = array();
+			$QMessages = $this->db
+							->select("tmm.id,tmm.toko_name,tmm.toko_id,tm.message as message,tmm.flag_read as isread,tmm.flag_from as isfrom")
+							->join("tb_message tm","tm.id = tmm.message_id")
+							->where("tmm.member_id",$QUser->id)
+							->where("tmm.flag_api",1)
+							->get("tb_member_message tmm")
+							->result();
+			
+			foreach($QMessages as $QMessage){
+				$Message = array(
+						"id"=>$QMessage->id,
+						"shop_name"=>$QMessage->toko_name,
+						"message"=>$QMessage->message,
+						"isread"=>$QMessage->isread,
+						"isfrom"=>$QMessage->isfrom,
+						"shop"=>$this->getShopById($QMessage->toko_id,$QUser->id),
+					);
+				
+				array_push($Messages,$Message);
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	create object user data to response
+			*	------------------------------------------------------------------------------
+			*/
+			$Object = array(
+					"result"=>1,
+					"messages"=>$Messages,
 				);
 			
 			$this->response->send($Object, true);
