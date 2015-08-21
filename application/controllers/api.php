@@ -1442,6 +1442,7 @@ class Api extends CI_Controller {
 							->where("tmm.member_id",$QUser->id)
 							->where("tmm.flag_read",0)
 							->where("tmm.flag_api",0)
+							->limit(1,0)
 							->get("tb_member_message tmm")
 							->result();
 			
@@ -1470,6 +1471,7 @@ class Api extends CI_Controller {
 			$QInvites = $this->db
 						->where("member_id",$QUser->id)
 						->where("flag_api",0)
+						->limit(1,0)
 						->get("tb_invite")
 						->result();
 						
