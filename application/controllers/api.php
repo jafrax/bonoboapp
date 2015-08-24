@@ -2094,6 +2094,7 @@ class Api extends CI_Controller {
 						$this->response->send(array("result"=>0,"message"=>"Anda tidak dapat bergabung dengan toko ini","messageCode"=>6), true);
 					}
 				}else{
+				/*
 					$QJoin = $this->db
 							->where("toko_id",$QShop->id)
 							->where("member_id",$QUser->id)
@@ -2101,6 +2102,7 @@ class Api extends CI_Controller {
 							->row();
 						
 					if(empty($QJoin)){
+					*/
 						$Join = array(
 							"toko_id"=>$QShop->id,
 							"member_id"=>$QUser->id,
@@ -2118,9 +2120,9 @@ class Api extends CI_Controller {
 						}else{
 							$this->response->send(array("result"=>0,"message"=>"Anda tidak dapat bergabung dengan toko ini","messageCode"=>8), true);
 						}
-					}else{
-						$this->response->send(array("result"=>1,"message"=>"Permintaan bergabung telah dikirim","messageCode"=>8), true);
-					}
+					//}else{
+						//$this->response->send(array("result"=>1,"message"=>"Permintaan bergabung telah dikirim","messageCode"=>8), true);
+					//}
 				}
 			}else{
 				$Delete = $this->db->where("id",$QFollow->id)->delete("tb_toko_member");
