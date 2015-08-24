@@ -112,6 +112,11 @@ class Api extends CI_Controller {
 			if(!empty($ShopMember)){
 				$join = 1;
 				$price_level = $ShopMember->price_level >= 1 ? $ShopMember->price_level : 1;
+			}else{
+				$JoinIn = $this->db->where("toko_id",$id)->where("member_id",$user)->where("status",0)->get("tb_join_in")->row();
+				if(!empty($JoinIn)){
+					$join = 2;
+				}
 			}
 			
 			if(!empty($ShopInvite)){
