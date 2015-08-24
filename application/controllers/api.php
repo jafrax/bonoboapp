@@ -1413,7 +1413,6 @@ class Api extends CI_Controller {
 							->select("tmm.id,tmm.toko_name,tmm.toko_id,tm.message as message,tmm.flag_read as isread,tmm.flag_from as isfrom")
 							->join("tb_message tm","tm.id = tmm.message_id")
 							->where("tmm.member_id",$QUser->id)
-							->where("tmm.flag_api",1)
 							->get("tb_member_message tmm")
 							->result();
 			
