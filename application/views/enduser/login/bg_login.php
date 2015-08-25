@@ -39,7 +39,7 @@ echo "
 </head>
 
 <body class='bgpic' style='background-image: url(".base_url("html/images/data/iphone.jpg").");'>
-	<section class='absolute bgop'>
+	<section class='absolute '>
 	<header class='head'>
 		<div class='row'>
 			<div class='col s6 m4 l2'><img class='responsive-img' src='".base_url("html/images/comp/logo_shadow.png")."' /></div>
