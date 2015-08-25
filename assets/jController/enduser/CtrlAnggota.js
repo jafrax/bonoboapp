@@ -323,7 +323,7 @@ function CtrlAnggotaMembers(){
 	function popupDelete(e,n){
 		memberDeleteID.value = e;
 		memberDeleteName.innerHTML = "'"+atob(n)+"'";
-		memberDeleteBlacklist.checked = true;
+		memberDeleteBlacklist.checked = false;
 	}
 	
 	function doDelete(){
