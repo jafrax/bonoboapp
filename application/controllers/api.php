@@ -142,7 +142,7 @@ class Api extends CI_Controller {
 				"acc_no"=>$QShopBank->acc_no,
 				"bank_name"=>$QShopBank->bank_name,
 			);
-				
+			
 			array_push($ShopBanks,$ShopBank);
 		}
 		
@@ -157,7 +157,7 @@ class Api extends CI_Controller {
 							->where("toko_id",$QShop->id)
 							->get("tb_toko_courier")
 							->result();
-							
+		
 		foreach($QShopCouriers as $QShopCourier){
 			$QCourier = $this->db
 							->where("id",$QShopCourier->courier_id)
@@ -222,7 +222,7 @@ class Api extends CI_Controller {
 							->where("toko_id",$QShop->id)
 							->get("tb_toko_category_product")
 							->result();
-							
+		
 		foreach($QShopCategories as $QShopCategory){
 			$ShopCategory = array(
 					"id"=>$QShopCategory->id,
@@ -1320,6 +1320,84 @@ class Api extends CI_Controller {
 		}
 	}
 	
+	public function getUserCarts(){
+		try {
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>3), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	create object user data to response
+			*	------------------------------------------------------------------------------
+			*/
+			$Object = array(
+					"result"=>1,
+					"carts"=>$this->getCartsByUser($QUser->id),
+				);
+			
+			$this->response->send($Object, true);
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function getUserInvoices(){
+		try {
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>3), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	create object user data to response
+			*	------------------------------------------------------------------------------
+			*/
+			$Object = array(
+					"result"=>1,
+					"invoices"=>$this->getInvoicesByUser($QUser->id),
+				);
+			
+			$this->response->send($Object, true);
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
 	public function getUserProducts(){
 		try {
 			
@@ -1418,6 +1496,8 @@ class Api extends CI_Controller {
 							->select("tmm.id,tmm.toko_name,tmm.toko_id,tm.message as message,tmm.flag_read as isread,tmm.flag_from as isfrom")
 							->join("tb_message tm","tm.id = tmm.message_id")
 							->where("tmm.member_id",$QUser->id)
+							->group_by("tmm.message_id")
+							->limit(20,0)
 							->get("tb_member_message tmm")
 							->result();
 			
@@ -1598,7 +1678,7 @@ class Api extends CI_Controller {
 					array_push($Products,$Product);
 				}
 				
-				$this->response->send(array("result"=>1,"total"=>sizeOf($QProducts),"size"=>sizeOf($QProducts),"products"=>$Products), true);
+				$this->response->send(array("result"=>1,"products"=>$Products), true);
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Tidak ada produk yang ditemukan","messageCode"=>4), true);
 			}
