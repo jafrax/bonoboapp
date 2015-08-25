@@ -233,7 +233,11 @@ echo"
 												$stok =  $this->model_produk->get_varian_produk($row->id);
 												foreach ($stok->result() as $row_stok) {
 													echo"
-													<p class='input-field col s12 m12 l12 nolpad'>
+													<p class='input-field col s12 m12 l12 nolpad'>";
+													if ($row->unit !='') {
+														echo "<i class='prefix prefix-gan'>".$row->unit."</i>";
+													}
+													echo"
 														<input onkeyup=javascript:change_stock2(".$row_stok->id.") type='text' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' maxlength='9' placeholder='Stok' class='validate numbersOnly stok-".$row_stok->id." stok-2-".$row_stok->id."'>";
 														if ($row_stok->name != 'null') {
 															echo "<span for='stok'>".$row_stok->name."</span>";
