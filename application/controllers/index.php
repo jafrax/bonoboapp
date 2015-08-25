@@ -85,15 +85,19 @@ class Index extends CI_Controller {
 				if($Save){
 					
 					$message ="
-					Hi ".$name.",
-					Email anda telah berhasil didaftarkan di http://bonoboapp.com/. Anda bisa melakukan login melalui URL: http://bonoboapp.com/index/signin dengan menggunakan email dan password yang sudah Anda buat. <br>
-					Jika Anda merasa tidak mendaftarkan email Anda ke Bonobo App, maka segera ganti password Bonobo Anda, dengan mengeklik tautan \"Lupa Password\" yang ada di http://bonoboapp.com/index/signin <br>
-					Jika Anda merasa tidak memiliki kepentingan didalam Bonobo Apps, mohon kirimkan email ke cs@bonoboapp.com <br><br> 
-					Terima Kasih,<br>
+					Hi ".$name.",<br><br>
+					Email anda telah berhasil didaftarkan di bonoboapp.com. Anda bisa melakukan login melalui URL: <a href='http://bonoboapp.com'>http://bonoboapp.com</a> dengan menggunakan email dan password yang sudah Anda buat.
+					<br><br>
+					Jika Anda merasa tidak mendaftarkan email Anda ke Bonobo App, maka segera ganti password Bonobo Anda, dengan mengeklik tautan \"Lupa Password\" yang ada di <a href='http://bonoboapp.com'>http://bonoboapp.com</a>
+					<br><br>
+					Jika Anda merasa tidak memiliki kepentingan didalam Bonobo Apps, mohon kirimkan email ke <a href='mailto:cs@bonoboapp.com'>cs@bonoboapp.com</a>
+					<br><br>
+					Terima Kasih,
+					<br>
 					Tim Bonobo
 					";
 					
-					$send_email = $this->template->send_email($email,'no-reply@bonobo.com', $message);
+					$send_email = $this->template->send_email($email,'Konfirmasi pendaftaran bonoboapp.com', $message);
 					
 					$this->signup_login($email,$password);
 					
@@ -412,9 +416,16 @@ class Index extends CI_Controller {
 			
 			$Save = $this->db->where("id",$QShop->id)->update("tb_toko",$Data);
 			if($Save){
-				$message ="Hi ".$QShop->name.", Silakan klik link (URL) berikut ini untuk mereset password. URL akan kadaluarsa dalam waktu 1 x 24 jam.<br>
-						".site_url("index/reset_password/".$data['email_user']."/".$token."")."
-						Terima Kasih, Bonobo.com
+				$message ="
+					Hi ".$QShop->name.",<br><br>
+
+					Silakan klik link (URL) berikut ini untuk mereset password. URL akan kadaluarsa dalam waktu
+					1 x 24 jam.<br><br>
+					".site_url("index/reset_password/".$data['email_user']."/".$token."")."
+					<br><br>
+					Terima Kasih,<br>
+
+					Tim Bonobo
 					";
 					
 				$this->template->send_email($QShop->email,'[BONOBO] Lupa Password', $message);
@@ -486,6 +497,15 @@ class Index extends CI_Controller {
 						$msg    = "success";
 						$notif  = "Berhasil";
 						$_SESSION['bonobo']['notifikasi']='Password telah di perbaharui';
+
+						$QShop  = $this->model_toko->get_by_email($_SESSION['bonobo']['email'])->row();
+
+						$_SESSION['bonobo']['id'] = $QShop->id;
+						$_SESSION['bonobo']['name'] = $QShop->name;						
+						$_SESSION['bonobo']['image'] = $QShop->image;				
+						$_SESSION['bonobo']['facebook'] = $QShop->facebook;
+						$_SESSION['bonobo']['step'] = $QShop->step;
+						$_SESSION['bonobo']['expired_on'] = $QShop->expired_on;
 					}
 				}else{
 					$msg    = "zero";

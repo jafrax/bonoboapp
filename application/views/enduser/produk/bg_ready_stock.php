@@ -10,8 +10,9 @@ echo"
 		<p>Apakah Anda yakin ingin <span id='tipe-go'>menghapus</span> produk Anda ?</p>
 	</form>
 	<div class='modal-footer'>
-		<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
+		
 		<button type='button' onclick=javascript:delete_produk_go() class='btn-flat modal-action modal-close waves-effect '>YA</button>
+		<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
 	</div>
 </div>
 			<div class='col s12 m12 l3'>
@@ -24,12 +25,12 @@ echo"
 				<div class='col s12 m12 l9'>
 					<div class='formain'>
 						<div class='formhead'>
-							<div class='input-field col right'>
-								<button class='waves-effect waves-light btn deep-orange darken-1 right' onclick='location.href=\"".base_url()."produk/add/1\"'><i class='mdi-content-add-circle-outline left'></i>TAMBAH PRODUK</button>
-							</div>
+							
 							<h2 class='titmain' id='totalan'><b>READY STOCK</b> <span>( ".$total." Produk )</span></h2>
 							<p>Halaman ini menampilkan barang-barang ready stok yang ada di toko anda !</p>
-
+							<div class='input-field col s12 right'>
+								<button class='waves-effect waves-light btn blue darken-1 right' onclick='location.href=\"".base_url()."produk/add/1\"'><i class='mdi-content-add-circle-outline left'></i>TAMBAH PRODUK</button>
+							</div>
 						</div>
 						<ul class='row formbody'>
 							<li class='col s12 listanggodaf'>
@@ -79,7 +80,7 @@ echo"
 										</select>
 									</div>
 									<div class='input-field col s12 m4 l3'>
-										<button class='waves-effect waves-light btn deep-orange darken-1 left' onclick=javascript:go()>GO</button>
+										<button class='waves-effect waves-light btn left' onclick=javascript:go()>GO</button>
 									</div>
 								</div>
 								<ul class='tabs navthum col s12 m12 l3 nolpad right'>
@@ -130,7 +131,7 @@ echo"
 													}
 													
 													echo"
-													<input onkeyup=javascript:change_stock(".$row_stok->id.") type='text' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate numbersOnly s6 stok-".$row_stok->id."'>";
+													<input onkeyup=javascript:change_stock(".$row_stok->id.") type='text' maxlength='9' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate numbersOnly s6 stok-".$row_stok->id."'>";
 													if ($row_stok->name != 'null') {
 														echo "<label for='stok'>".$row_stok->name."</label>";
 													}
@@ -233,7 +234,7 @@ echo"
 												foreach ($stok->result() as $row_stok) {
 													echo"
 													<p class='input-field col s12 m12 l12 nolpad'>
-														<input onkeyup=javascript:change_stock2(".$row_stok->id.") type='text' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate numbersOnly stok-".$row_stok->id." stok-2-".$row_stok->id."'>";
+														<input onkeyup=javascript:change_stock2(".$row_stok->id.") type='text' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' maxlength='9' placeholder='Stok' class='validate numbersOnly stok-".$row_stok->id." stok-2-".$row_stok->id."'>";
 														if ($row_stok->name != 'null') {
 															echo "<span for='stok'>".$row_stok->name."</span>";
 														}

@@ -563,7 +563,7 @@ class Produk extends CI_Controller {
 				$insert = $this->db->insert('tb_product',$data);
 				
 				if ($insert) {
-					$id = $this->db->where('name',$nama)->where('sku_no',$sku)->where('create_user',$_SESSION['bonobo']['email'])->where('toko_category_product_id',$kategori)->where('price_1',$harga_level_1)->order_by('create_date','DESC')->get('tb_product')->row()->id;
+					$id = $this->db->where('name',$nama)->where('create_user',$_SESSION['bonobo']['email'])->where('toko_category_product_id',$kategori)->where('price_1',str_replace('.','',$harga_level_1))->order_by('create_date','DESC')->get('tb_product')->row()->id;
 
 					$pic=1;
 					$url    = 'assets/pic/product/';
@@ -794,10 +794,16 @@ class Produk extends CI_Controller {
 			'update_user'	=> $_SESSION['bonobo']['email']
 			);
 
-		$insert	= $this->db->insert('tb_toko_category_product',$data);
+		$kategori = $this->db->where('toko_id',$id)->where('name',$nama)->get('tb_toko_category_product');
 
-		if ($insert) {
-			$this->print_kategori();
+		if ($kategori->num_rows() > 0) {
+			echo "0";
+		}else{
+			$insert	= $this->db->insert('tb_toko_category_product',$data);
+
+			if ($insert) {
+				$this->print_kategori();
+			}
 		}
 	}
 

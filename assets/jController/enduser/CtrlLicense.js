@@ -119,5 +119,8 @@ function minta_disini(id){
 		    	}
 		    }
 	    });
+    }else{
+    	$('#minta-button').fadeTo(1);
+		$('#minta-button').html("Pesan kode aktivasi");
     };	
 }

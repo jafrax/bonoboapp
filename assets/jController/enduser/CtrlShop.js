@@ -1306,5 +1306,3 @@ function kliken_kurir () {
       $('#chkExpedition').prop('checked',false);
    	};
 }
-
-

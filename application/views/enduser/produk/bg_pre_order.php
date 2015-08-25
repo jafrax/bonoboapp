@@ -11,8 +11,9 @@ echo"
 		<p>Apakah Anda yakin ingin <span id='tipe-go'>menghapus</span> produk Anda ?</p>
 	</form>
 	<div class='modal-footer'>
-		<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
+		
 		<button type='button' onclick=javascript:delete_produk_go() class='btn-flat modal-action modal-close waves-effect '>YA</button>
+		<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
 	</div>
 </div>
 
@@ -27,12 +28,12 @@ echo"
 				<div class='col s12 m12 l9'>
 					<div class='formain'>
 						<div class='formhead'>
-						<div class='input-field col right'>
-								<button class='waves-effect waves-light btn deep-orange darken-1 right' onclick='location.href=\"".base_url()."produk/add_pre_order\"'><i class='mdi-content-add-circle-outline left'></i>TAMBAH PRODUK</button>
-							</div>
-							<h2 class='titmain' id='totalan'><b>PRE ORDER</b> <span>( ".$total." Produk )</span></h2>
-							<p>Halaman ini menampilkan barang-barang pre order yang ada di toko anda !</p>
-
+						
+						<h2 class='titmain' id='totalan'><b>PRE ORDER</b> <span>( ".$total." Produk )</span></h2>
+						<p>Halaman ini menampilkan barang-barang pre order yang ada di toko anda !</p>
+						<div class='input-field col s12 right'>
+							<button class='waves-effect waves-light btn blue darken-1 right' onclick='location.href=\"".base_url()."produk/add_pre_order\"'><i class='mdi-content-add-circle-outline left'></i>TAMBAH PRODUK</button>
+						</div>
 						</div>
 						<ul class='row formbody'>
 							<li class='col s12 listanggodaf'>
@@ -82,7 +83,7 @@ echo"
 										</select>
 									</div>
 									<div class='input-field col s12 m4 l3'>
-										<button class='waves-effect waves-light btn deep-orange darken-1 left' onclick=javascript:go()>GO</button>
+										<button class='waves-effect waves-light btn left' onclick=javascript:go()>GO</button>
 									</div>
 								</div>
 								<ul class='tabs navthum col s12 m12 l3 nolpad right'>

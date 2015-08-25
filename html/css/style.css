@@ -210,7 +210,9 @@ footer.page-footer{ margin-top: 0px; }
     width: auto!important;
 }
 
-.input-field .prefix ~ input, .input-field .prefix ~ textarea {
+.input-field .prefix-gan ~ input {
     margin-left: 4rem;
     width: calc(100% - 4rem);
 }
+
+.modal {z-index: 10000;}

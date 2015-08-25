@@ -40,6 +40,7 @@ $(window).scroll(function () {
                         scrolling_rs   = false;
                         $('#habis').slideDown();
                         $('.modal-trigger').leanModal();
+                        Materialize.updateTextFields();
                     }
                 }
             });
@@ -106,6 +107,7 @@ $(window).scroll(function () {
                           formatSubmit: 'yyyy-mm-dd'
                         });
                         /*END DATE PICKER*/
+                        Materialize.updateTextFields();
                     }
                 }
             });
@@ -398,7 +400,7 @@ function boxVarian(id) {
                         +"<label >Stok : <span class='text-green'>selalu tersedia</span></label>"
                       +"</div>"
                       +"<div class='input-field col s11 m5 pakai-stok'  style='display:none'>"
-                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='number' maxlength='10' placeholder='Jumlah stok' class='validate numbersOnly'>"
+                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='text' maxlength='10' placeholder='Jumlah stok' class='validate numbersOnly'>"
                         +"<label for='varian'>Stok </label>"
                       +"</div>"
                       +"<div class='input-field col s1 m1' >"
@@ -414,7 +416,7 @@ function boxVarian(id) {
                         +"<label >Stok : <span class='text-green'>selalu tersedia</span></label>"
                       +"</div>"
                       +"<div class='input-field col s11 m5 pakai-stok'>"
-                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='number' maxlength='10' placeholder='Jumlah stok' class='validate numbersOnly'>"
+                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='text' maxlength='10' placeholder='Jumlah stok' class='validate numbersOnly'>"
                         +"<label for='varian'>Stok </label>"
                       +"</div>"
                       +"<div class='input-field col s1 m1' >"
@@ -656,14 +658,19 @@ function tambah_kategori_atur(){
       url: base_url+'produk/add_kategori2',
       async: false,
       success: function(msg) {
-        Materialize.toast('Kategori telah ditambahkan', 4000);
-        $('#tempat-kategori').html(msg);            
-        $('#nama_kategori').val('');            
-        $('.modal-trigger').leanModal();
-        $('.add-kateg').attr('disabled', false);
-        offset_kat      = 10;
-        scrolling_kat   = true;
-        $('#habis').slideUp();
+        if (msg != 0) {
+          Materialize.toast('Kategori telah ditambahkan', 4000);
+          $('#tempat-kategori').html(msg);            
+          $('#nama_kategori').val('');            
+          $('.modal-trigger').leanModal();
+          $('.add-kateg').attr('disabled', false);
+          offset_kat      = 10;
+          scrolling_kat   = true;
+          $('#habis').slideUp();
+        }else{
+          Materialize.toast('Gagal!. Nama kategori sudah tersedia', 4000);
+        };
+        
         
       }
     });
