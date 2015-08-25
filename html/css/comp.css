@@ -120,7 +120,7 @@ label{ font-size: 14px; color: #565a5c; }
 .input-field .card { margin:5px; box-shadow:none; }
 .card { margin:5px; }
 .card .card-title { font-size: 14px; }
-.card-image img{ height:150px; }
+/*.card-image img{ height:150px; }*/
 .notacard { box-shadow:none; border: 1px solid #ddd; }
 .notacard .collapsible{ box-shadow:none; }
 .tool a{ border: 1px solid #ddd;  background: #fff; }

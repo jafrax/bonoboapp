@@ -116,21 +116,21 @@ class License extends CI_Controller {
 									->set('create_date',date('Y-m-d'))
 									->insert('tb_activation_code');*/
 					//if ($insert) {
-						$message1 ="Hallo ".$nama.", terima kasih telah mengajukan permohonan Kode Aktivasi kepada Kami<br>Berikut adalah data Anda <br>
-								Nama : ".$nama."<br>
-								No. Telp : ".$telp."<br>
-								No. HP : ".$hp."<br><br>
-								Regards,<br> Bonobo.com
+						$message1 ="Hi ".$nama.",<br><br> Terima kasih telah mengajukan permohonan Kode Aktivasi.<br><br>
+								Kami akan segera menghubungi Anda untuk proses lebih lanjut.<br><br>
+								Terima kasih,<br>
+								Tim Bonobo
 							";
 						$message2 ="Berikut adalah data pengajuan Kode Aktivasi baru member Anda <br>
 								Nama : ".$nama."<br>
 								No. Telp : ".$telp."<br>
 								No. HP : ".$hp."<br><br>
-								Regards,<br> Bonobo.com
+								Terima kasih,<br>
+								Tim Bonobo
 							";
 							
-						$this->template->send_email($_SESSION['bonobo']['email'],'Permintaan kode aktivasi code', $message1);
-						$this->template->send_email($this->config->item('email_admin'),'Permintaan kode aktivasi code', $message2);
+						$this->template->send_email($_SESSION['bonobo']['email'],'Permintaan kode aktivasi ', $message1);
+						$this->template->send_email($this->config->item('email_admin'),'Permintaan kode aktivasi ', $message2);
 						$this->response->send(array("result"=>1,"message"=>"Permintaan telah dikirim","messageCode"=>1));
 					//}
 				}else{

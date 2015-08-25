@@ -246,7 +246,7 @@ $config['encryption_key'] = 'visione-system.com';
 */
 $config['sess_cookie_name']		= 'visione-system.com';
 $config['sess_expiration']		= 7200;
-$config['sess_expire_on_close']	= TRUE;
+$config['sess_expire_on_close']	= FALSE;
 $config['sess_encrypt_cookie']	= FALSE;
 $config['sess_use_database']	= FALSE;
 $config['sess_table_name']		= 'tb_sessions';

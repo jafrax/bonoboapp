@@ -12,8 +12,9 @@ echo"
 		<label class='error error-chosen' for='nama_kategori'></label>
 	</form>
 	<div class='modal-footer'>
-		<a onclick=javascript:tambah_kategori_atur() class=' waves-effect waves-red btn-flat add-kateg' >YA</a>
-		<a  class=' modal-action modal-close waves-effect waves-red btn-flat' onclick=javascript:reset_cat()>TIDAK</a>
+		<a onclick=javascript:tambah_kategori_atur() class='waves-effect lighten-2 btn-flat white-text add-kateg waves-light teal' >YA</a>
+		<span class='col'> </span>
+		<a  class='modal-action modal-close waves-effect red btn-flat white-text waves-light' onclick=javascript:reset_cat()>TIDAK</a>
 	</div>
 </div>
 <div class='col s12 m12 l3'>
@@ -25,16 +26,16 @@ echo"
 				</div>
 				<div class='col s12 m12 l9'>
 					<div class='formain'>
-						<div class='formhead'>							
-							<div class='input-field col s12 m4 right'>
-								<button href='#tambah_kategori' onclick=javascript:reset_cat() class='modal-trigger waves-effect waves-light btn deep-orange darken-1 right'><i class='mdi-content-add-circle-outline left'></i>TAMBAH KATEGORI</button>
-							</div>
+						<div class='formhead'>														
 							<h2 class='titmain'><b>ATUR KATEGORI</b></h2>
 							<p>Halaman ini untuk membuat dan menghapus kategori produk di toko anda !</p>
+							<div class='input-field col s12 m4 right'>
+								<button href='#tambah_kategori' onclick=javascript:reset_cat() class='modal-trigger waves-effect waves-light btn deep-orange darken-1 right s12'><i class='mdi-content-add-circle-outline left'></i>TAMBAH KATEGORI</button>
+							</div>
 						</div>
 						<ul class='row formbody'>
 							<li class='col s12 listanggodaf'>								
-								<div class='input-field col s10 m3 right'>
+								<div class='input-field col s12 m5 right'>
 									<i class='mdi-action-search prefix'></i>
 									<input id='keyword-kategori' onkeypress=javascript:cari_kategori(event) type='text' class='validate'>
 									<label for='keyword-kategori'>Cari kategori</label>

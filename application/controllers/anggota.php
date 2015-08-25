@@ -124,8 +124,13 @@ class Anggota extends CI_Controller {
 							Anda mendapat undangan untuk bergabung dengan Toko ".$data["shop"]->name.".<br><br>
 							<b>Pesan :</b><br>
 							<i>\"".$data["message"]."\"</i><br><br>
-							<a href='".base_url()."' style='background:#eaeaea;padding:7px;'>BERGABUNG</a><br><br>
-							Thanks, Bonobo.com
+							Bonobo merupakan aplikasi Private untuk Bisnis. Temukan berbagai kemudahan melihat dan memesan barang hanya di Bonobo.
+							<br><br>
+							Download aplikasinya sekarang di Google Play Store: <a href='play.google.com/store/apps/bonoboapp'><img src='".base_url()."assets/image/playstore.png'></a>
+							<br><br>
+							Terima Kasih,
+							<br>
+							Tim Bonobo
 						";
 						
 						$this->template->send_email($data["email"],'no-reply@bonobo.com', $message);

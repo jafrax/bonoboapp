@@ -35,9 +35,9 @@ echo "
 		<input id='nama_kategori' name='nama_kategori' type='text' class='validate' required>
 		<label for='nama_kategori'>Nama kategori <span class='text-red'>*</span></label>	
 		<label class='error error-chosen' for='nama_kategori'></label>
-	<div class='modal-footer'>
-		<a href='javascript:void(0)'  class=' modal-action modal-close waves-effect waves-red btn-flat'>TUTUP</a>
-		<button type='button' id='tambah-kategori' onclick=javascript:tambah_kategori() class='waves-effect waves-red btn-flat'>TAMBAH</a>
+	<div class='modal-footer'>		
+		<button type='button' id='tambah-kategori' onclick=javascript:tambah_kategori() class='waves-effect lighten-2 btn-flat white-text add-kateg waves-light teal'>TAMBAH</button>
+		<a href='javascript:void(0)'  class='modal-action modal-close waves-effect red btn-flat white-text waves-light'>TUTUP</a>
 	</div>
 	</form>
 </div>

@@ -35,9 +35,9 @@ echo "
 		<input id='nama_kategori' name='nama_kategori' type='text' class='validate'>
 		<label for='nama_kategori'>Nama kategori <span class='text-red'>*</span></label>
 		<label class='error error-chosen' for='nama_kategori'></label>	
-	<div class='modal-footer'>
-		<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-red btn-flat'>TUTUP</a>
-		<button type='button' onclick=javascript:tambah_kategori() id='tambah-kategori' class='waves-effect waves-red btn-flat'>TAMBAH</a>
+	<div class='modal-footer'>		
+		<button type='button' onclick=javascript:tambah_kategori() id='tambah-kategori' class='waves-effect lighten-2 btn-flat white-text add-kateg waves-light teal'>TAMBAH</button>
+		<a href='javascript:void(0)' class='modal-action modal-close waves-effect red btn-flat white-text waves-light'>TUTUP</a>
 	</div>
 	</form>
 </div>
@@ -195,7 +195,7 @@ echo "
 														<label >Stok : <span class='text-green'>selalu tersedia</span></label>
 													</div>
 													<div class='input-field col s11 m5 pakai-stok' style='display:$guna_stok'>
-														<input id='varian' name='stok_edit_varian_".$row_var->id."' value='".$row_var->stock_qty."' type='number' maxlength='10' placeholder='Jumlah stok' class='validate numbersOnly'>
+														<input id='varian' name='stok_edit_varian_".$row_var->id."' value='".$row_var->stock_qty."' type='text' maxlength='9' placeholder='Jumlah stok' class='validate numbersOnly'>
 														<label for='varian'>Stok </label>											
 													</div>
 													<div class='input-field col s1 m1' >
@@ -214,7 +214,7 @@ echo "
 												<label >Stok : <span class='text-green'>selalu tersedia</span></label>
 											</div>
 											<div class='input-field col s11 m5 pakai-stok' style='display:$guna_stok'>
-												<input id='varian' name='stok_varian_1' type='number' placeholder='Jumlah stok' maxlength='10' class='validate numbersOnly'>
+												<input id='varian' name='stok_varian_1' type='text' placeholder='Jumlah stok' maxlength='9' class='validate numbersOnly'>
 												<label for='varian'>Stok </label>											
 											</div>
 											<div class='input-field col s1 m1' >
@@ -242,7 +242,7 @@ echo "
 											<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
 										</div>
 										<div class='input-field col s12 m6 pakai-stok' style='display:$guna_stok'>
-											<input id='varian' name='stok_utama' type='text' placeholder='Jumlah stok' value='$stok_utama' class='validate numbersOnly'>
+											<input id='varian' name='stok_utama' type='text' placeholder='Jumlah stok' maxlength='9' value='$stok_utama' class='validate numbersOnly'>
 											<label for='varian'>Stok <span></span></label>
 										</div>
 									</li>
