@@ -1220,49 +1220,6 @@ class Api extends CI_Controller {
 			
 			/*
 			*	------------------------------------------------------------------------------
-			*	get data member product
-			*	------------------------------------------------------------------------------
-			*/
-			$Products = array();
-			$QProducts = $this->db
-					->select("tp.id")
-					->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
-					->where("tp.active",1)
-					->where("ttcp.toko_id IN (SELECT ttm.toko_id FROM tb_toko_member ttm WHERE ttm.member_id = ".$QUser->id." group by ttm.toko_id)")
-					->limit(10,0)
-					->order_by("tp.id","DESC")
-					->group_by("tp.id")
-					->get("tb_product tp")
-					->result();
-			
-			foreach($QProducts as $QProduct){
-				$Product = $this->getProductById($QProduct->id,$QUser->id);
-				if($Product != null){
-					array_push($Products,$Product);
-				}
-			}
-			
-			/*
-			*	------------------------------------------------------------------------------
-			*	get data member shops
-			*	------------------------------------------------------------------------------
-			*/
-			
-			$QShopMembers = $this->db
-					->where("ttm.member_id",$QUser->id)
-					->get("tb_toko_member ttm")
-					->result();
-			
-			$ShopMembers = array();
-			foreach($QShopMembers as $QShopMember){
-				$ShopMember = $this->getShopById($QShopMember->toko_id,$QUser->id);
-				if($ShopMember != null){
-					array_push($ShopMembers,$ShopMember);
-				}
-			}
-			
-			/*
-			*	------------------------------------------------------------------------------
 			*	get data member shop invites
 			*	------------------------------------------------------------------------------
 			*/
@@ -1280,21 +1237,7 @@ class Api extends CI_Controller {
 				}
 			}
 			
-			/*
-			*	------------------------------------------------------------------------------
-			*	get data member carts
-			*	------------------------------------------------------------------------------
-			*/
 			
-			$Carts = $this->getCartsByUser($QUser->id);
-			
-			/*
-			*	------------------------------------------------------------------------------
-			*	get data member invoice
-			*	------------------------------------------------------------------------------
-			*/
-			
-			$Invoices = $this->getInvoicesByUser($QUser->id);
 			
 			/*
 			*	------------------------------------------------------------------------------
@@ -1307,11 +1250,7 @@ class Api extends CI_Controller {
 					"banks"=>$Banks, 
 					"locations"=>$Locations,
 					"favorites"=>$Favorites,
-					"products"=>$Products,
-					"shop_members"=>$ShopMembers,
 					"shop_invites"=>$ShopInvites,
-					"carts"=>$Carts,
-					"invoices"=>$Invoices,
 				);
 			
 			$this->response->send($Object, true);
