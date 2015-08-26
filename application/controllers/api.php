@@ -11,7 +11,7 @@
 
 //header('content-type: application/json; charset=utf-8');
 //ob_start('ob_gzhandler');
-set_time_limit (10000);
+//set_time_limit (10000);
 
 class Api extends CI_Controller {
 
@@ -1435,8 +1435,8 @@ class Api extends CI_Controller {
 							->select("tmm.id,tmm.toko_name,tmm.toko_id,tm.message as message,tmm.flag_read as isread,tmm.flag_from as isfrom")
 							->join("tb_message tm","tm.id = tmm.message_id")
 							->where("tmm.member_id",$QUser->id)
-							->group_by("tmm.message_id")
-							->limit(20,0)
+							->group_by("tmm.toko_name")
+							->limit(10,0)
 							->get("tb_member_message tmm")
 							->result();
 			
@@ -1448,6 +1448,84 @@ class Api extends CI_Controller {
 						"isread"=>$QMessage->isread,
 						"isfrom"=>$QMessage->isfrom,
 						"shop"=>$this->getShopById($QMessage->toko_id,$QUser->id),
+					);
+				
+				array_push($Messages,$Message);
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	create object user data to response
+			*	------------------------------------------------------------------------------
+			*/
+			$Object = array(
+					"result"=>1,
+					"messages"=>$Messages,
+				);
+			
+			$this->response->send($Object, true);
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function getUserMessagesDetail(){
+		try {
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>3), true);
+				return;
+			}
+			
+			if($this->response->post("shop") == "" || $this->response->postDecode("shop") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada toko yang dipilih","messageCode"=>2), true);
+				return;
+			}
+			
+			$QShop = $this->db->where("id",$this->response->postDecode("shop"))->get("tb_toko")->row();
+			if(empty($QShop)){
+				$this->response->send(array("result"=>0,"message"=>"Toko tidak valid","messageCode"=>3), true);
+				return;
+			}
+			/*
+			*	------------------------------------------------------------------------------
+			*	Mengambil data member message
+			*	------------------------------------------------------------------------------
+			*/
+			$Messages = array();
+			$QMessages = $this->db
+							->select("tmm.id,tmm.toko_name,tmm.toko_id,tm.message as message,tmm.flag_read as isread,tmm.flag_from as isfrom")
+							->join("tb_message tm","tm.id = tmm.message_id")
+							->where("tmm.member_id",$QUser->id)
+							->where("tmm.toko_id",$QShop->id)
+							->limit(10,0)
+							->order_by("tmm.id","DESC")
+							->get("tb_member_message tmm")
+							->result();
+			
+			foreach($QMessages as $QMessage){
+				$Message = array(
+						"id"=>$QMessage->id,
+						"shop_name"=>$QMessage->toko_name,
+						"message"=>$QMessage->message,
+						"isread"=>$QMessage->isread,
+						"isfrom"=>$QMessage->isfrom,
+						"shop"=>$this->getShopById($QShop->id,$QUser->id),
 					);
 				
 				array_push($Messages,$Message);
