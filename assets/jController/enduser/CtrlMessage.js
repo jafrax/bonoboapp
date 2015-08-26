@@ -71,6 +71,36 @@ function CtrlMessage(){
 			url: base_url+'message/showMessageDetail',
 			success: function(result) {
 				messageContent.html(result);
+				$.ajax({
+					type:'POST',
+					url: base_url+"notif",
+					async: false,
+					success:function(result){
+						var response = JSON.parse(result);
+						if(response.result == 1){
+							if (response.message == 0){
+								$('.notifindong').html('');
+								$('.notifindong').hide();
+							}else{
+								$('.notifindong').html(response.message);
+								$('.notifindong').fadeIn();
+							}
+
+							if (response.message2 == 0){
+								$('.notifinnota').html('');
+								$('.notifinnota').hide();
+							}else{
+								$('.notifinnota').html(response.message2);
+								$('.notifinnota').fadeIn();
+							}
+							$(function(){
+			                    //setTimeout('requestMessage()',10000);
+			                })
+						}else{
+							window.location = base_url+"index/logout";	
+						}
+					}
+				});
 			}
 		});
 	}
