@@ -71,6 +71,7 @@ function CtrlMessage(){
 			url: base_url+'message/showMessageDetail',
 			success: function(result) {
 				messageContent.html(result);
+				ctrlMessage.showContactDetail(e);
 				$.ajax({
 					type:'POST',
 					url: base_url+"notif",
