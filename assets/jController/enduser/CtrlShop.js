@@ -1128,9 +1128,9 @@ function set_city(){
 			url: base_url+'toko/comboboxCity', 
 			success: function(city) {
 				$('#panggon-city').html(city);
-				$('#city').chosen();
+				$('#cmbCity').selectize();
 				$('#panggon-kecamatan').html("<select name='kecamatan' id='kecamatan' class='chosen-select'><option value='' disabled selected>Pilih Kecamatan</option></select>");
-				$('#kecamatan').chosen();
+				$('#tkecamatan').selectize();
 				$('#loader-kota').hide();
 			}
 			});
@@ -1144,7 +1144,7 @@ function set_kecamatan(){
 		url: base_url+'toko/comboboxKecamatan', 
 		success: function(kec) {
 			$('#panggon-kecamatan').html(kec);
-			$('#tkecamatan').chosen();
+			$('#tkecamatan').selectize();
 			$('#loader-kec').hide();
 		}
 	});

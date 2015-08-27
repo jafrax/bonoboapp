@@ -71,7 +71,7 @@ echo "
 								<div class='col s12 m6' id='tempat-kategori'>
 									<label>Kategori Barang <span class='text-red'>*</span></label>
 									<label class='error error-chosen' for='select-kategori'></label>
-									<select name='kategori' id='select-kategori' class='select-standar' required>
+									<select name='kategori' id='select-kategori' class='selectize' required>
 										<option value='' disabled selected>Pilih Kategori Barang</option>";
 										foreach ($kategori->result() as $row_ktgri) {
 											echo "<option value='".$row_ktgri->id."'>".$row_ktgri->name."</option>";

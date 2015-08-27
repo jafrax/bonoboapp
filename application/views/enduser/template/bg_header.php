@@ -26,6 +26,7 @@ echo"
 	<link type='text/css' rel='stylesheet' href='".base_url("html/css/materialize-tags.min.css")."'/>
 	<link type='text/css' rel='stylesheet' href='".base_url("html/css/jpushmenu.css")."' />
 	<link type='text/css' rel='stylesheet' href='".base_url("html/css/chosen.css")."' />
+	<link type='text/css' rel='stylesheet' href='".base_url("html/css/selectize.css")."' />
 	<link type='text/css' rel='stylesheet' href='".base_url("html/css/style.css")."' />
 	<link type='text/css' rel='stylesheet' href='".base_url("html/css/tablet.css")."' />
 	<link type='text/css' rel='stylesheet' href='".base_url("html/css/mobile.css")."' />
@@ -39,6 +40,7 @@ echo"
 	<script type='text/javascript' src='".base_url("html/js/materialize-tags.min.js")."'></script>
 	<script type='text/javascript' src='".base_url("html/js/jpushmenu.js")."'></script>
 	<script type='text/javascript' src='".base_url("html/js/chosen.jquery.js")."'></script>
+	<script type='text/javascript' src='".base_url("html/js/selectize.js")."'></script>
 	<script type='text/javascript' src='".base_url("assets/jLib/jQuery/jquery.validate.js")."'></script>
 	<script type='text/javascript' src='".base_url("assets/jLib/jQuery/additional-methods.js")."'></script>
 	<script type='text/javascript' src='".base_url("assets/jLib/jQuery/jquery.price_format.2.0.min.js")."'></script>

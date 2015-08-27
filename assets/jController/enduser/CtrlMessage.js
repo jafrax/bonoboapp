@@ -94,9 +94,6 @@ function CtrlMessage(){
 								$('.notifinnota').html(response.message2);
 								$('.notifinnota').fadeIn();
 							}
-							$(function(){
-			                    //setTimeout('requestMessage()',10000);
-			                })
 						}else{
 							window.location = base_url+"index/logout";	
 						}

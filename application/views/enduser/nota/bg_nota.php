@@ -319,7 +319,7 @@ echo"
 															<input type='hidden' value='".$row->id."' name='id_nota' />
 															<div class='input-field col s12 m6'>
 																<span>Jenis Pengiriman</span>
-																<select class='chosen-select' name='kurir'>
+																<select class='selectize' name='kurir'>
 																	<option value='' disabled selected>Pilih Jenis Pengiriman</option>";
 																	$toko_kurir = $this->model_nota->get_toko_kurir($row->toko_id);
 																	foreach ($toko_kurir->result() as $kurir_t) {

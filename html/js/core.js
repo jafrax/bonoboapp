@@ -153,4 +153,6 @@ function requestMessage () {
 	});	
 }
 
+
+$('.selectize').selectize();
 /*END LOOPING NOTIFICATION MESSAGE*/

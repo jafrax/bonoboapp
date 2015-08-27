@@ -123,6 +123,8 @@ class Message extends CI_Controller {
 			return;
 		}
 		
+		$this->db->where("toko_id",$_SESSION["bonobo"]["id"])->where("member_id",$this->response->post("id"))->set("flag_read",1)->update('tb_toko_message');
+
 		$data["Member"] = $this->model_member->get_by_id($this->response->post("id"))->row();
 		$data["Messages"] = $this->model_toko_message->get_by_shop_member($_SESSION["bonobo"]["id"],$this->response->post("id"))->result();
 		
