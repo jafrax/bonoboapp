@@ -97,6 +97,7 @@ echo"
 							              echo"
 							            </div>
 							            <div class='col s11 m4'>
+							            	<span class='grey-text '>INVOICE NO</span>
 							              	<h5 class='blue-text'><a href='".base_url()."nota/detail/".$row->invoice_no."' >".$row->invoice_no."</a></h5>
 							              	<h6 class='blue-text'>".$row->member_name."</h6>";
 							              	if ($row->stock_type == 1) {
@@ -236,26 +237,29 @@ echo"
 						          	<div class='row '>
 							            
 							            <ul class='collapsible ' data-collapsible='accordion'>";
-							            if ($row->member_confirm == 1 && $rekening_tujuan->num_rows() > 0) {
-							            	$rekening1 = $rekening_tujuan->row();
-							            echo"
-								            <li class=''>
-								                <div class='collapsible-header truncate'><p class='red-text'><i class='mdi-content-flag'></i> Pembeli telah melakukan konfirmasi. <span class='blue-text'>Klik disini</span> untuk detail</p></div>
-								                <div class='collapsible-body' style='display: none;'>
-								                	<div class='col s12 m6'>									       		
-								                		<p><b>Bank Asal :</b><br>
-								                			".$rekening1->from_bank."<br>
-								                			".$rekening1->from_acc_no."<br>
-								                			".$rekening1->from_acc_name."</p>
-								                	</div>
-								                	<div class='col s12 m6'>
-								                		<p><b>Bank Tujuan :</b><br>
-								                			".$rekening1->to_bank."<br>
-								                			".$rekening1->to_acc_no."<br>
-								                			".$rekening1->to_acc_name."</p>
-								                	</div>
-								                </div>
-								            </li>";
+							            if ($row->member_confirm == 1 && isset($rekening_tujuan)) {
+							            	if ($rekening_tujuan->num_rows() > 0) {
+							            		$rekening1 = $rekening_tujuan->row();
+								            	echo"
+									            <li class=''>
+									                <div class='collapsible-header truncate'><p class='red-text'><i class='mdi-content-flag'></i> Pembeli telah melakukan konfirmasi. <span class='blue-text'>Klik disini</span> untuk detail</p></div>
+									                <div class='collapsible-body' style='display: none;'>
+									                	<div class='col s12 m6'>									       		
+									                		<p><b>Bank Asal :</b><br>
+									                			".$rekening1->from_bank."<br>
+									                			".$rekening1->from_acc_no."<br>
+									                			".$rekening1->from_acc_name."</p>
+									                	</div>
+									                	<div class='col s12 m6'>
+									                		<p><b>Bank Tujuan :</b><br>
+									                			".$rekening1->to_bank."<br>
+									                			".$rekening1->to_acc_no."<br>
+									                			".$rekening1->to_acc_name."</p>
+									                	</div>
+									                </div>
+									            </li>";
+							            	}
+							            	
 								        }else{
 								        	echo"
 								            <li class=''>

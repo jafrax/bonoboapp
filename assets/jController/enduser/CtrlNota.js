@@ -28,6 +28,9 @@ $(window).scroll(function () {
                         offset      = offset+5;
                         scrolling   = true;
                         $('#total-nota').val(total_nota+5);
+                        $('.collapsible').collapsible({
+                          accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+                        });
                     }else{
                         $('#preloader').slideUp();
                         scrolling   = false;
