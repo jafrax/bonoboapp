@@ -279,6 +279,7 @@ function CtrlAnggotaMembers(){
 	this.init = init;
 	this.popupDetail = popupDetail;
 	this.popupDelete = popupDelete;
+	this.popupEdit = popupEdit;
 	
 	var popupMembers;
 	var memberDeleteID,memberDeleteName,memberDeleteBlacklist;
@@ -291,6 +292,7 @@ function CtrlAnggotaMembers(){
 	
 	function initComponent(){
 		popupMembers = $("#popupMembers");
+		memberEdit = $hs("memberEdit");
 		memberDeleteID = $hs("memberDeleteID");
 		memberDeleteName = $hs("memberDeleteName");
 		memberDeleteBlacklist = $hs("memberDeleteBlacklist");
@@ -325,6 +327,11 @@ function CtrlAnggotaMembers(){
 		memberDeleteID.value = e;
 		memberDeleteName.innerHTML = "'"+atob(n)+"'";
 		memberDeleteBlacklist.checked = false;
+	}
+
+	function popupEdit(e){
+		memberEdit.value = e;
+		$('#level-saiki').val($('#price_level_'+e).val());		
 	}
 	
 	function doDelete(){
@@ -445,3 +452,24 @@ $(document).ready(function() {
 	$('#notifinvite').delay(5000).slideUp('slow');
 	$('#email').focus();
 })
+
+function save_level () {
+	var id    = $('#memberEdit').val();
+	var level = $('#level-saiki').val();
+
+	$.ajax({
+		type: 'POST',
+		data: "id="+id+"&level="+level,
+		url: base_url+'anggota/edit_level',
+		async:false,
+		success: function(result) {
+			var response = JSON.parse(result);
+			if(response.result == 1){
+				$('#label_level_'+id).html('Level : '+response.message);
+				Materialize.toast(response.notif, 4000);
+			}else{
+				Materialize.toast(response.notif, 4000);
+			}
+		}
+	});
+}

@@ -42,6 +42,11 @@ $(window).scroll(function () {
                         $('.modal-trigger').leanModal();
                         Materialize.updateTextFields();
                     }
+                    /*NUMBER ONLY*/
+                    jQuery('.numbersOnly').keyup(function () { 
+                        this.value = this.value.replace(/[^0-9\.]/g,'');
+                    });
+                    /*NUMBER ONLY*/
                 }
             });
             return false;

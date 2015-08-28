@@ -39,7 +39,7 @@ if ($produk->num_rows() == 0) {
 											foreach ($stok->result() as $row_stok) {
 												echo"
 												<p class='input-field col s12 m12 l7 nolpad'>
-													<input onkeyup=javascript:change_stock(".$row_stok->id.") type='text' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate numbersOnly stok-".$row_stok->id."'>";
+													<input onkeyup=javascript:change_stock(".$row_stok->id.") type='text' maxlength='9' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate numbersOnly stok-".$row_stok->id."'>";
 													if ($row_stok->name != 'null') {
 														echo "<label for='stok'>".$row_stok->name."</label>";
 													}
@@ -91,9 +91,9 @@ if ($produk->num_rows() == 0) {
 												<form class='modal-content'>
 													<p>Apakah anda yakin ingin menghapus <b>'".$row->name."'</b> ?</p>
 												</form>
-												<div class='modal-footer'>
-													<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
+												<div class='modal-footer'>													
 													<button type='button' onclick=javascript:delete_produk(".$row->id.",\"$uri2\") class='btn-flat modal-action modal-close waves-effect '>YA</button>
+													<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
 												</div>
 											</div>
 										</div>

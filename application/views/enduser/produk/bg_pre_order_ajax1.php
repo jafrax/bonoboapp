@@ -64,9 +64,9 @@ if ($produk->num_rows() == 0) {
 												<form class='modal-content'>
 													<p>Apakah anda yakin ingin menghapus <b>'".$row->name."'</b> ?</p>
 												</form>
-												<div class='modal-footer'>
-													<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
+												<div class='modal-footer'>													
 													<button type='button' onclick=javascript:delete_produk(".$row->id.",\"$uri2\") class='btn-flat modal-action modal-close waves-effect '>YA</button>
+													<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
 												</div>
 											</div>
 										</div>

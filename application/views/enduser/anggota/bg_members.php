@@ -59,11 +59,11 @@ if(sizeOf($Members) <= 0){
 			<li class='col s12 m6 l4 listanggodaf'>
 				<div class='col s12 m5 l4'>
 					<img src='".$MemberImage."' class='responsive-img userimg'>
-				</div>
-				<div class='col s12 m7 l8'>
-				
+					<input type='hidden' id='price_level_".$Member->id."' value='".$ShopMember->price_level."'>
+				</div> 
+				<div class='col s12 m7 l8'>				
 					<p><a href='#popupMembers' onclick=ctrlAnggotaMembers.popupDetail(".$Member->id."); class='modal-trigger tooltipped' data-position='top' data-delay='50' data-tooltip='".$Member->name."'><b class='userangoota'>".$hasil_nama."</b></a></p>
-					<p><a href='#setting_harga' class='modal-trigger' ><b>Level : ".$Level."</b></a></p>
+					<p><a href='#setting_harga' onclick=ctrlAnggotaMembers.popupEdit(".$Member->id."); class='modal-trigger' ><b id='label_level_".$Member->id."'>Level : ".$Level."</b></a></p>
 					<a href='#popupDelete' onclick=ctrlAnggotaMembers.popupDelete(".$Member->id.",'".base64_encode($Member->name)."'); class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
 				</div>
 			</li>
@@ -101,11 +101,10 @@ echo"
 			<i class='mdi-action-spellcheck left'></i> Setting harga
 		</div>
 		<form id='formMemberLevel' class='modal-content'>
-			<input name='id' type='hidden' value=''>
+			<input name='id' id='memberEdit' type='hidden' value=''>
 			<p>
 				<div class='input-field col s12'>
-					<select name='level' class='chzn-select'>
-						<option value='' disabled selected>Choose your option</option>
+					<select name='level' id='level-saiki' class='browser-default'>						
 					";
 						if($shop->level_1_active == 1){
 							echo "<option value='1'>".$shop->level_1_name."</option>";
@@ -128,7 +127,7 @@ echo"
 		</form>
 		<div class='modal-footer' style='padding-top:20px;'>
 			<a href='javascript:void(0);' id='aMemberLevelNo' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
-			<a href='javascript:void(0);' id='aMemberLevelYes' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
+			<a href='javascript:void(0);' onclick=javascript:save_level() class='modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
 		</div>
 	</div>
 	
