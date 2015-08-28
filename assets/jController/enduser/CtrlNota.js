@@ -256,7 +256,9 @@ function change_sort(){
                 $('#ajax-div').html(msg);
                 $('#ajax-div').fadeTo('slow',1);
             }else{
-                Materialize.toast('Data sorting kosong!', 4000);$('#ajax-div').fadeTo('slow',1);
+                $('#ajax-div').html("<center>Nota tidak ditemukan</center>");
+                $('#ajax-div').fadeTo('slow',1);
+                Materialize.toast('Nota tidak ditemukan!', 4000);$('#ajax-div').fadeTo('slow',1);
             };
         } 
     });
@@ -274,7 +276,9 @@ function change_bayar(){
                 $('#ajax-div').html(msg);
                 $('#ajax-div').fadeTo('slow',1);
             }else{
-                Materialize.toast('Data filter bayar kosong!', 4000);$('#ajax-div').fadeTo('slow',1);
+                $('#ajax-div').html("<center>Nota tidak ditemukan</center>");
+                $('#ajax-div').fadeTo('slow',1);
+                Materialize.toast('Nota tidak ditemukan!', 4000);$('#ajax-div').fadeTo('slow',1);
             };
         }
     });
@@ -292,7 +296,9 @@ function change_stock(){
                 $('#ajax-div').html(msg);
                 $('#ajax-div').fadeTo('slow',1);
             }else{
-                Materialize.toast('Data filter stok kosong!', 4000);$('#ajax-div').fadeTo('slow',1);
+                $('#ajax-div').html("<center>Nota tidak ditemukan</center>");
+                $('#ajax-div').fadeTo('slow',1);
+                Materialize.toast('Nota tidak ditemukan!', 4000);$('#ajax-div').fadeTo('slow',1);
             };              
         } 
     });
@@ -311,7 +317,9 @@ function change_flagger(){
                     $('#ajax-div').html(msg);
                     $('#ajax-div').fadeTo('slow',1);
                 }else{
-                    Materialize.toast('Data filter flag konfirmasi kosong!', 4000);$('#ajax-div').fadeTo('slow',1);
+                    $('#ajax-div').html("<center>Nota tidak ditemukan</center>");
+                    $('#ajax-div').fadeTo('slow',1);
+                    Materialize.toast('DNota tidak ditemukan!', 4000);$('#ajax-div').fadeTo('slow',1);
                 };
             } 
         });
@@ -326,7 +334,9 @@ function change_flagger(){
                     $('#ajax-div').html(msg);
                     $('#ajax-div').fadeTo('slow',1);
                 }else{
-                    Materialize.toast('Data filter flag konfirmasi kosong!', 4000);$('#ajax-div').fadeTo('slow',1);
+                    $('#ajax-div').html("<center>Nota tidak ditemukan</center>");
+                    $('#ajax-div').fadeTo('slow',1);
+                    Materialize.toast('Nota tidak ditemukan!', 4000);$('#ajax-div').fadeTo('slow',1);
                 };
             } 
         });
@@ -379,6 +389,7 @@ function delete_nota2(id){
                     $('#ajax-div').html(msg);
                     $('#ajax-div').fadeTo('slow',1);
                 }else{
+                    $('#ajax-div').html("<center>Nota tidak ditemukan</center>");
                     $('#ajax-div').fadeTo('slow',1);
                     Materialize.toast('Nota tidak ditemukan!', 4000);
                 };              

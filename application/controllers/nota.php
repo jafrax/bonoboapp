@@ -9,7 +9,7 @@
 */
 
 class Nota extends CI_Controller {
-	var $limit = 10;
+	var $limit = 5;
 	var $offset = 0;
 	function __construct(){
         parent::__construct();
@@ -22,14 +22,7 @@ class Nota extends CI_Controller {
 		$this->load->model("enduser/model_nota");		
     }
 	
-	public function index(){
-		unset($_SESSION['sort']);
-		unset($_SESSION['tipe_bayar']);
-		unset($_SESSION['tipe_stok']);
-		unset($_SESSION['flagger']);
-		unset($_SESSION['search']);
-		unset($_SESSION['keyword']);
-		
+	public function index(){		
 		//$data['nota']		= $this->model_nota->get_nota();
 		$data['rekening']	= $this->model_nota->get_rekening();
 		$data['toko']		= $this->model_nota->get_toko()->row();	
@@ -37,6 +30,12 @@ class Nota extends CI_Controller {
 		$page 	= $this->uri->segment(3);        
         $limit 	= $this->limit;
         if(!$page){
+        	unset($_SESSION['sort']);
+        	unset($_SESSION['tipe_bayar']);
+			unset($_SESSION['tipe_stok']);
+			unset($_SESSION['flagger']);
+			unset($_SESSION['search']);
+			unset($_SESSION['keyword']);
         	$offset = $this->offset;
         }else{
             $offset = $page;
@@ -288,7 +287,7 @@ class Nota extends CI_Controller {
 	}
 
 	public function ajax_load(){
-		$data['nota']		= $this->model_nota->get_nota();
+		$data['nota']		= $this->model_nota->get_nota($this->limit,$this->offset);
 		$data['rekening']	= $this->model_nota->get_rekening();
 		$data['toko']		= $this->model_nota->get_toko()->row();
 
@@ -336,7 +335,7 @@ class Nota extends CI_Controller {
 	}
 
 	public function set_flag(){
-		$_SESSION['flagger'] = true;
+		$_SESSION['flagger'] = 1;
 		$this->ajax_load();
 	}
 

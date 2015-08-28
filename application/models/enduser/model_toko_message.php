@@ -36,12 +36,13 @@ class Model_toko_message extends CI_Model {
 						->get("tb_toko_message ttm");
 	}
 	
-	public function get_by_shop_member($shop,$member){
-		return $this->db->select("ttm.*, tm.message as message")
+	public function get_by_shop_member($shop,$member,$limit=1000000,$offset=0){
+		return $this->db->select("ttm.*, tm.message as message, tm.product_id as product_id")
 						->join("tb_message tm","ttm.message_id = tm.id")
 						->where("ttm.toko_id",$shop)
 						->where("ttm.member_id",$member)
-						->order_by("ttm.id","ASC")
+						->order_by("tm.id","DESC")
+						->limit($limit,$offset)
 						->get("tb_toko_message ttm");
 	}
 	
@@ -62,6 +63,12 @@ class Model_toko_message extends CI_Model {
 						->limit(1,0)
 						->order_by("ttm.id","DESC")
 						->get("tb_toko_message ttm");
+	}
+
+	public function get_product_image($value=''){
+		return $this->db->join("tb_product_image pi","pi.product_id = p.id")
+						->where("p.id",$value)						
+						->get("tb_product p");
 	}
 	
 }

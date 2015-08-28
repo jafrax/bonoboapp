@@ -681,12 +681,18 @@ class Toko extends CI_Controller {
 					"acc_no"=>$this->response->post("txtNo"),
 					"update_user"=>$_SESSION['bonobo']['email'],
 				);
-			$Save = $this->db->where("id",$this->response->post("txtId"))->update("tb_toko_bank",$Data);
-			if($Save){
-				$this->response->send(array("result"=>1,"message"=>"Bank telah disimpan","messageCode"=>6));
-			}else{
-				$this->response->send(array("result"=>0,"message"=>"Tidak dapat menyimpan data bank","messageCode"=>7));
-			}
+			
+				$respon=$this->model_toko->get_rekeningsama22($this->response->post("txtNo"));
+				if($respon > 0){
+					$this->response->send(array("result"=>0,"message"=>"Tidak dapat menyimpan data bank","messageCode"=>5));
+				}else{
+					$Save = $this->db->where("id",$this->response->post("txtId"))->update("tb_toko_bank",$Data);
+					if($Save){
+						$this->response->send(array("result"=>1,"message"=>"Bank telah disimpan","messageCode"=>6));
+					}else{
+						$this->response->send(array("result"=>0,"message"=>"Tidak dapat menyimpan data bank","messageCode"=>7));
+					}
+				}
 		}
 	}
 	

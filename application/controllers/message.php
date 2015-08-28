@@ -12,6 +12,8 @@ set_time_limit (99999999999);
 
 class Message extends CI_Controller {
 
+	var $limit = 10;
+	var $offset = 0;
 	function __construct(){
         parent::__construct();
 		
@@ -126,9 +128,19 @@ class Message extends CI_Controller {
 		$this->db->where("toko_id",$_SESSION["bonobo"]["id"])->where("member_id",$this->response->post("id"))->set("flag_read",1)->update('tb_toko_message');
 
 		$data["Member"] = $this->model_member->get_by_id($this->response->post("id"))->row();
-		$data["Messages"] = $this->model_toko_message->get_by_shop_member($_SESSION["bonobo"]["id"],$this->response->post("id"))->result();
+		$data["Messages"] = $this->model_toko_message->get_by_shop_member($_SESSION["bonobo"]["id"],$this->response->post("id"),$this->limit,$this->offset)->result();
 		
 		$this->load->view("enduser/message/bg_message_detail",$data);
+	}
+
+	public function ajax_message()
+	{	
+		$uri3   = $this->uri->segment(3);
+		$member = $this->response->post('member');
+		$data["Member"] = $this->model_member->get_by_id($member)->row();
+		$data["Messages"] = $this->model_toko_message->get_by_shop_member($_SESSION["bonobo"]["id"],$member,$this->limit,$uri3)->result();
+		
+		$this->load->view("enduser/message/bg_message_detail_ajax",$data);
 	}
 
 	public function showContactDetail(){

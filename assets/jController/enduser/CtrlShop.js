@@ -701,7 +701,7 @@ function CtrlShopStep8(){
 					maxlength : message_alert ("Masukkan maksimal 20 karakter "),
 				},
 			},
-    });
+    	});
 	}
 	
 	function initEventlistener(){
@@ -756,6 +756,7 @@ function CtrlShopStep8(){
 					formStep8Add.txtId.value = response.id;
 					formStep8Add.txtName.value = response.acc_name;
 					formStep8Add.txtNo.value = response.acc_no;
+					initValidation();
 				}else{
 					//formClear();
 					$('#formStep6Add').reset();
