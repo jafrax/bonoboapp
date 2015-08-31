@@ -169,7 +169,7 @@ function CtrlShopStep1(){
 					required: message_alert("Harus diisi"),
 					minlength: message_alert("Masukkan minimal 3 karakter"),
 					maxlength: message_alert("Masukkan maksimal 15 karakter"),
-					remote: message_alert('PIN TOKO sudah ada'),
+					remote: message_alert('PIN TOKO tidak tersedia'),
 				},
 				txtPhone:{
 					maxlength: message_alert("Masukkan maksimal 15 karakter"),
@@ -617,7 +617,7 @@ function CtrlShopStep7(){
 				
 				divCity = $("#divCity");
 				divKecamatan = $("#divKecamatan");
-				
+				$('.selectize').selectize();
 				initComboBox();
 				$('#formStep5Rate').validate({
 					ignore: ":hidden:not(select)",
@@ -652,6 +652,7 @@ function CtrlShopStep7(){
 				divCity.html(result);
 				
 				loadComboboxKecamatan();
+				$('#cmbCity').selectize();
 			}
 		});
 	}
@@ -666,6 +667,7 @@ function CtrlShopStep7(){
 			success: function(result) {
 				$('#loader-kota').hide();
 				divKecamatan.html(result);
+				$('#cmbKecamatan').selectize();
 			}
 		});
 	}

@@ -200,7 +200,8 @@ class Index extends CI_Controller {
 					$this->response->send(array("result"=>0,"message"=>$this->template->notif("account_not_verified"),"messageCode"=>1));
 				}elseif($QShop->status == 1){
 					$this->response->send(array("result"=>0,"message"=>$this->template->notif("account_not_activated"),"messageCode"=>2));
-				}else*/if($QShop->status == 3){
+				}else*/
+				if($QShop->status == 3){
 					$this->response->send(array("result"=>0,"message"=>$this->template->notif("account_suspended"),"messageCode"=>3));
 				}else{
 					$_SESSION['bonobo']['id'] = $QShop->id;

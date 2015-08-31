@@ -914,7 +914,7 @@ class Toko extends CI_Controller {
 	public function step7ComboboxCity(){
 		$Cities = $this->model_location->get_cities_by_provincee($this->response->post("province"))->result();
 		
-		echo"<p><select name='cmbCity' onChange=ctrlShopStep7.loadComboboxKecamatan(); class='selectize'><option value='' disabled selected>Pilih Kota</option>";
+		echo"<p><select name='cmbCity' id='cmbCity' onChange=ctrlShopStep7.loadComboboxKecamatan(); class='selectize'><option value='' disabled selected>Pilih Kota</option>";
 
 		foreach($Cities as $City){
 			echo"<option value='".$City->city."'>".$City->city."</option>";
@@ -926,7 +926,7 @@ class Toko extends CI_Controller {
 	public function step7ComboboxKecamatan(){
 		$Kecamatans = $this->model_location->get_kecamatans_by_city_provincee($this->response->post("city"),$this->response->post("province"))->result();
 		
-		echo"<p><select name='cmbKecamatan' class='selectize'><option value='' disabled selected>Pilih Kecamatan</option>";
+		echo"<p><select name='cmbKecamatan' id='cmbKecamatan' class='selectize'><option value='' disabled selected>Pilih Kecamatan</option>";
 
 		foreach($Kecamatans as $Kecamatan){
 			echo"<option value='".$Kecamatan->kecamatan."'>".$Kecamatan->kecamatan."</option>";

@@ -76,10 +76,6 @@ function CtrlMessage(){
 				$('.modal-trigger').leanModal();
 				$(".content-pesan").animate({ scrollTop: $(".content-pesan")[0].scrollHeight }, "slow");
 				
-
-
-
-
 				$.ajax({
 					type:'POST',
 					url: base_url+"notif",
@@ -307,6 +303,10 @@ $(document).ready(function() {
     	$(".content-pesan").animate({ scrollTop: $(".content-pesan")[0].scrollHeight }, "slow");
     	scrolling = true;
     };
-  	
+
+  	if ($("#contact-scroll").length > 0) {
+    	$("#contact-scroll").animate({ scrollTop: 0 }, "slow");
+    	scroll = true;
+    };
 
 })

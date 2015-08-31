@@ -153,8 +153,13 @@ class Message extends CI_Controller {
 		if($this->response->post("keyword") != ""){
 			$data["keyword"] = $this->response->post("keyword");
 		}
-		
-		$data["Messages"] = $this->model_toko_message->get_by_shop_grouping($_SESSION["bonobo"]["id"], $data["keyword"]);
+		$uri3   = $this->uri->segment(3);
+		if (!$uri3) {
+			$offset = $this->offset;
+		}else{
+			$offset = $uri3;
+		}
+		$data["Messages"] = $this->model_toko_message->get_by_shop_grouping($_SESSION["bonobo"]["id"], $data["keyword"],5,$offset);
 		
 		$this->load->view("enduser/message/bg_message_contact",$data);
 	}
