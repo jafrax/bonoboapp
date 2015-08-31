@@ -112,6 +112,7 @@ $(document).ready(function() {
 if($('.notifindong').length > 0){
 	//alert('a');
 	requestMessage();
+
 	$(window).load(function(){
 		//alert('b');
 	  setInterval(requestMessage, 10000);
@@ -123,8 +124,7 @@ if($('.notifindong').length > 0){
 function requestMessage () {
 	$.ajax({
 		type:'POST',
-		url: base_url+"notif",
-		async: false,
+		url: base_url+"notif",		
 		success:function(result){
 			var response = JSON.parse(result);
 			if(response.result == 1){

@@ -348,23 +348,26 @@ class Produk extends CI_Controller {
 			'create_date'	=> date('Y-m-d H:i:s'),
 			'update_user'	=> $_SESSION['bonobo']['email']
 			);
+		$kategori = $this->db->where('toko_id',$id)->where('name',$nama)->get('tb_toko_category_product');
 
-		$insert	= $this->db->insert('tb_toko_category_product',$data);
+		if ($kategori->num_rows() == 0) {
+			$insert	= $this->db->insert('tb_toko_category_product',$data);
+			if ($insert) {
+				$kategori = $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
 
-		if ($insert) {
-			$kategori = $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
+				echo "<label>Kategori Barang <span class='text-red'>*</span></label>
+						<label class='error error-chosen' for='select-kategori'></label>
+						<select name='kategori' id='select-kategori' class='select-standar' required>
+						<option value='' disabled selected>Pilih Kategori Barang</option>";
 
-			echo "<label>Kategori Barang <span class='text-red'>*</span></label>
-					<label class='error error-chosen' for='select-kategori'></label>
-					<select name='kategori' id='select-kategori' class='select-standar' required>
-					<option value='' disabled selected>Pilih Kategori Barang</option>";
-			
-			foreach ($kategori->result() as $row_ktgri) {
-				echo "<option value='".$row_ktgri->id."'>".$row_ktgri->name."</option>";
+				foreach ($kategori->result() as $row_ktgri) {
+					echo "<option value='".$row_ktgri->id."'>".$row_ktgri->name."</option>";
+				}
+
+				echo "</select>";
 			}
-
-			echo "</select>
-			";
+		}else{
+			echo "0";
 		}
 	}
 

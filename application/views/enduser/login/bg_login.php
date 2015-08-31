@@ -103,8 +103,7 @@ echo "
 				
 			</div>
 			<label id='notifForgotPassword'  style='display:none;'></label>
-			<div class='input-field col s12'>
-				
+			<div class='input-field col s12'>				
 				".$capcha."
 			</div>
 			

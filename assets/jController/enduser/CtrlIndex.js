@@ -123,6 +123,7 @@ function CtrlSignup(){
 		if(!formSignupJQuery.valid()){
 			return;
 		}else{
+			$('#btnSave').html("Loading...<img id='loader-kec' style='display:none' width='16px' src='"+base_url+"html/images/comp/loading2.GIF' />");
 			$.ajax({
 				type: 'POST',
 				data: formSignupJQuery.serialize(),
@@ -135,10 +136,12 @@ function CtrlSignup(){
 						lblNotif.delay(5000).slideUp('slow');
 						document.getElementById("formSignup").reset();
 						window.location.replace(base_url);
+						$('#btnSave').html("DAFTAR");
 					}else{
 						lblNotif.html(response.message);
 						lblNotif.slideDown();
 						lblNotif.delay(5000).slideUp('slow');
+						$('#btnSave').html("DAFTAR");
 						//document.getElementById("formSignup").reset();
 					}
 				}
@@ -252,6 +255,7 @@ function CtrlSignin(){
 		if(!formSigninJQuery.valid()){
 			return;
 		}else{
+			$('#btnSave').html("Loading...<img id='loader-kec' style='display:none' width='16px' src='"+base_url+"html/images/comp/loading2.GIF' />");
 			$.ajax({
 				type: 'POST',
 				data: formSigninJQuery.serialize(),
@@ -259,13 +263,16 @@ function CtrlSignin(){
 				success: function(result) {
 					var response = JSON.parse(result);
 					if(response.result == 1){
+						$('#btnSave').html("Masuk");
 						top.location.href = base_url+'index';
 					}else if(response.result == 2){
 						top.location.href = base_url+'license';
+						$('#btnSave').html("Masuk");
 					}else{
 						lblNotif.html(response.message);
 						lblNotif.slideDown();
 						lblNotif.delay(5000).slideUp('slow');
+						$('#btnSave').html("Masuk");
 					}
 				}
 			});

@@ -144,7 +144,7 @@ echo "
 											<img src='".$images."' class='responsive-img col s4 m4 left'>
 											<div class='col s8 m8'>
 												<p class='blue-text'>".$row_p->product_name."</p>
-												<p >Rp. ".$row_p->price_product."</p>";
+												<p >Rp. ".number_format($row_p->price_product, 2 , ',' , '.')."</p>";
 
 												$varian = $this->model_nota->get_varian_product($row_p->id);
 												if ($varian->num_rows() > 0) {

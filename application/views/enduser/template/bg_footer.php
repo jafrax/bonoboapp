@@ -4,7 +4,8 @@ echo"
 		</div>
 	</div>
 </content>
-<footer class='page-footer grey darken-3'>
+
+<footer class='page-footer grey darken-3'><!--
 	<div class='container'>
 		<div class='row'>
 			<div class='col l6 s12'>
@@ -21,7 +22,7 @@ echo"
 				</ul>
 			</div>
 		</div>
-	</div>
+	</div>-->
 	<div class='footer-copyright grey darken-4'>
 		<div class='container'>© 2015 Bonobo, Inc. All rights reserved.
 			<a class='grey-text text-lighten-4 right' href='javascript:void(0)'>Tentang Kami</a>

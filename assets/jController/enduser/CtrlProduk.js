@@ -150,12 +150,12 @@ $(document).ready(function() {
           stok                    : {required: true,maxlength:50},
           stok_varian_1           : {required: true,maxlength:10},
           nama_varian_1           : {required: true,maxlength:10},
-          harga_pembelian         : {digits: false,maxlength:50},
-          harga_level_1           : {digits: false,maxlength:50},
-          harga_level_2           : {digits: false,maxlength:50},
-          harga_level_3           : {digits: false,maxlength:50},
-          harga_level_4           : {digits: false,maxlength:50},
-          harga_level_5           : {digits: false,maxlength:50},          
+          harga_pembelian         : {digits: false,maxlength:11},
+          harga_level_1           : {required: true,digits: false,maxlength:11},
+          harga_level_2           : {digits: false,maxlength:11},
+          harga_level_3           : {digits: false,maxlength:11},
+          harga_level_4           : {digits: false,maxlength:11},
+          harga_level_5           : {digits: false,maxlength:11},          
       },
       messages: {
           pic_1: {
@@ -172,6 +172,24 @@ $(document).ready(function() {
               },
           pic_5: {
                 filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
+              },
+          harga_pembelian: {
+                maxlength: message_alert('Maksimal harga 999.999.999'),
+              },
+          harga_level_1: {
+                maxlength: message_alert('Maksimal harga 999.999.999'),
+              },
+          harga_level_2: {
+                maxlength: message_alert('Maksimal harga 999.999.999'),
+              },
+          harga_level_3: {
+                maxlength: message_alert('Maksimal harga 999.999.999'),
+              },
+          harga_level_4: {
+                maxlength: message_alert('Maksimal harga 999.999.999'),
+              },
+          harga_level_5: {
+                maxlength: message_alert('Maksimal harga 999.999.999'),
               },
       }
   }); 
@@ -195,12 +213,12 @@ $(document).ready(function() {
           min_order               : {digits: true,maxlength:11},
           deskripsi               : {maxlength:250},
           stok                    : {required: true,maxlength:50},
-          harga_pembelian         : {digits: false,maxlength:50},
-          harga_level_1           : {digits: false,maxlength:50},
-          harga_level_2           : {digits: false,maxlength:50},
-          harga_level_3           : {digits: false,maxlength:50},
-          harga_level_4           : {digits: false,maxlength:50},
-          harga_level_5           : {digits: false,maxlength:50},          
+          harga_pembelian         : {digits: false,maxlength:11},
+          harga_level_1           : {required: true,digits: false,maxlength:11},
+          harga_level_2           : {digits: false,maxlength:11},
+          harga_level_3           : {digits: false,maxlength:11},
+          harga_level_4           : {digits: false,maxlength:11},
+          harga_level_5           : {digits: false,maxlength:11},          
       },
       messages: {
           pic_1: {
@@ -217,6 +235,24 @@ $(document).ready(function() {
               },
           pic_5: {
                 filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
+              },
+          harga_pembelian: {
+                maxlength: message_alert('Maksimal harga 999.999.999'),
+              },
+          harga_level_1: {
+                maxlength: message_alert('Maksimal harga 999.999.999'),
+              },
+          harga_level_2: {
+                maxlength: message_alert('Maksimal harga 999.999.999'),
+              },
+          harga_level_3: {
+                maxlength: message_alert('Maksimal harga 999.999.999'),
+              },
+          harga_level_4: {
+                maxlength: message_alert('Maksimal harga 999.999.999'),
+              },
+          harga_level_5: {
+                maxlength: message_alert('Maksimal harga 999.999.999'),
               },
       }
   });  
@@ -251,6 +287,12 @@ $(document).ready(function() {
           location.reload();
         } 
       });
+    }
+  });
+
+  $('#nama_kategori').keypress(function(e) {
+    if (e.which == 13) {
+      tambah_kategori();
     }
   });
 
@@ -638,11 +680,15 @@ function tambah_kategori(){
           data: 'nama='+nama+'&id='+id,
           url: base_url+'produk/add_kategori',
           success: function(msg) {
-            Materialize.toast('Kategori telah ditambahkan', 4000);
-            $('#tempat-kategori').html(msg);
-            $('#add_kategori').closeModal();
-            $('#nama_kategori').val('');    
-            $('#select-kategori').selectize();        
+            if (msg!=0) {
+              Materialize.toast('Kategori telah ditambahkan', 4000);
+              $('#tempat-kategori').html(msg);
+              $('#add_kategori').closeModal();
+              $('#nama_kategori').val('');    
+              $('#select-kategori').selectize(); 
+            }else{
+              //Materialize.toast('Kategori telah ditambahkan', 4000);
+            };
           }
       });
   }else{

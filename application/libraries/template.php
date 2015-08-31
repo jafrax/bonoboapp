@@ -135,7 +135,7 @@
 		if($from != null){
             $ci->email->from($from,$nama);
         }else{
-            $ci->email->from('no-reply@bonobo.com','no-reply@bonobo.com');
+            $ci->email->from('no-reply@bonoboapp.com','no-reply@bonoboapp.com');
         }
         
 		$ci->email->to($to);

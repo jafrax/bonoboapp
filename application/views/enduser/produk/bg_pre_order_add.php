@@ -166,8 +166,8 @@ echo "
 							<div class='row formbody'>
 								<div class='linehead'>HARGA BARANG</div>
 								<div class='input-field col s12 m6'>
-									<input id='harga_pembelian' maxlength='9' name='harga_pembelian' placeholder='0' type='text' class='validate numbersOnly'>
-									<label for='harga_pembelian'>Harga Beli</label>
+									<input id='harga_pembelian' maxlength='11' name='harga_pembelian' placeholder='0' type='text' class='validate ribuan'>
+									<label for='harga_pembelianmbelian'>Harga Beli</label>
 								</div>
 								<div class='input-field col s12 m12 varsto'>
 									<span for='harga_jual' style='font-weight:bold;'>Harga Jual </span>
@@ -183,32 +183,32 @@ echo "
 									<li class='varsto' style='display:$a1'>
 										
 										<div class='input-field col s12 m6'>
-											<input id='varian' maxlength='9' name='harga_level_1' type='text' placeholder='0' class='validate ribuan' required>
-											<label for='varian'>Harga "; if ($level_harga->level_1_name != '') {echo $level_harga->level_1_name;}else{echo "level 1";} echo" <span class='text-red'>*</span></label>
+											<input id='harga_level_1' maxlength='11' name='harga_level_1' type='text' placeholder='0' class='validate ribuan' required>
+											<label for='harga_level_1'>Harga "; if ($level_harga->level_1_name != '') {echo $level_harga->level_1_name;}else{echo "level 1";} echo" <span class='text-red'>*</span></label>
 										</div>
 									</li>
 									<li class='varsto' style='display:$a2'>
 										<div class='input-field col s12 m6'>
-											<input id='varian' maxlength='9' name='harga_level_2' type='text' placeholder='0' class='validate ribuan' >
-											<label for='varian'>Harga "; if ($level_harga->level_2_name != '') {echo $level_harga->level_2_name;}else{echo "level 2";} echo"</label>
+											<input id='harga_level_2' maxlength='11' name='harga_level_2' type='text' placeholder='0' class='validate ribuan' >
+											<label for='harga_level_2'>Harga "; if ($level_harga->level_2_name != '') {echo $level_harga->level_2_name;}else{echo "level 2";} echo"</label>
 										</div>
 									</li>
 									<li class='varsto' style='display:$a3'>
 										<div class='input-field col s12 m6'>
-											<input id='varian' maxlength='9' name='harga_level_3' type='text' placeholder='0' class='validate ribuan' >
-											<label for='varian'>Harga "; if ($level_harga->level_3_name != '') {echo $level_harga->level_3_name;}else{echo "level 3";} echo"</label>
+											<input id='harga_level_3' maxlength='11' name='harga_level_3' type='text' placeholder='0' class='validate ribuan' >
+											<label for='harga_level_3'>Harga "; if ($level_harga->level_3_name != '') {echo $level_harga->level_3_name;}else{echo "level 3";} echo"</label>
 										</div>
 									</li>
 									<li class='varsto' style='display:$a4'>
 										<div class='input-field col s12 m6'>
-											<input id='varian' maxlength='9' name='harga_level_4' type='text' placeholder='0' class='validate ribuan' >
-											<label for='varian'>Harga "; if ($level_harga->level_4_name != '') {echo $level_harga->level_4_name;}else{echo "level 4";} echo"</label>
+											<input id='harga_level_4' maxlength='11' name='harga_level_4' type='text' placeholder='0' class='validate ribuan' >
+											<label for='harga_level_4'>Harga "; if ($level_harga->level_4_name != '') {echo $level_harga->level_4_name;}else{echo "level 4";} echo"</label>
 										</div>
 									</li>
 									<li class='varsto' style='display:$a5'>
 										<div class='input-field col s12 m6'>
-											<input id='varian' maxlength='9' name='harga_level_5' type='text' placeholder='0' class='validate ribuan' >
-											<label for='varian'>Harga "; if ($level_harga->level_5_name != '') {echo $level_harga->level_5_name;}else{echo "level 5";} echo"</label>
+											<input id='harga_level_5' maxlength='11' name='harga_level_5' type='text' placeholder='0' class='validate ribuan' >
+											<label for='harga_level_5'>Harga "; if ($level_harga->level_5_name != '') {echo $level_harga->level_5_name;}else{echo "level 5";} echo"</label>
 										</div>
 									</li>
 								</ul>
