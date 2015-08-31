@@ -348,5 +348,30 @@ class Anggota extends CI_Controller {
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada data yang ditemukan","messageCode"=>4));
 		}
 	}
+
+	public function edit_level()
+	{
+		$id  	= $this->response->post('id');
+		$level 	= $this->response->post('level');
+
+		$update = $this->db->where('member_id',$id)->where('toko_id',$_SESSION['bonobo']['id'])->set('price_level',$level)->update('tb_toko_member');
+		if ($update) {
+			$shop = $this->model_member->get_toko_by_id($_SESSION['bonobo']['id'])->row();
+			if($level == 1){
+				$nama_level = $shop->level_1_name;
+			}elseif($level == 2){
+				$nama_level = $shop->level_2_name;
+			}elseif($level == 3){
+				$nama_level = $shop->level_3_name;
+			}elseif($level == 4){
+				$nama_level = $shop->level_4_name;
+			}elseif($level == 5){
+				$nama_level = $shop->level_5_name;
+			}
+			$this->response->send(array("result"=>1,"message"=>$nama_level,"notif"=>"Level anggota berhasil diubah"));
+		}else{
+			$this->response->send(array("result"=>0,"notif"=>"gagal mengganti level","messageCode"=>4));
+		}
+	}
 }
 

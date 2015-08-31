@@ -112,10 +112,10 @@ $(document).ready(function() {
 if($('.notifindong').length > 0){
 	//alert('a');
 	requestMessage();
-	//$(window).load(function(){
+	$(window).load(function(){
 		//alert('b');
-	 // setInterval(requestMessage, 10000);
-	//});
+	  setInterval(requestMessage, 10000);
+	});
 }
 
 
@@ -153,4 +153,6 @@ function requestMessage () {
 	});	
 }
 
+
+$('.selectize').selectize();
 /*END LOOPING NOTIFICATION MESSAGE*/

@@ -39,7 +39,7 @@ echo"
 							<li class='col s12 listanggodaf'>
 								<div class='input-field col s12 m6 l6 nolpad'>
 									<div class=' col s12 m8 l6'>
-										<select class='select-standar lectfilter' onchange=javascript:change_active_pre() id='active_type'>
+										<select class='selectize ' onchange=javascript:change_active_pre() id='active_type'>
 											<option value='' disabled >Pilih filter</option>
 											<option value='1' "; if ($uri3 == '' || $uri3 == '1'){ echo "selected";} echo">Published</option>
 											<option value='0' "; if ($uri3 != '' && $uri3 == '0'){ echo "selected";} echo">Draft</option>											
@@ -153,9 +153,9 @@ echo"
 												<form class='modal-content'>
 													<p>Apakah anda yakin ingin menghapus <b>'".$row->name."'</b> ?</p>
 												</form>
-												<div class='modal-footer'>
-													<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
+												<div class='modal-footer'>													
 													<button type='button' onclick=javascript:delete_produk(".$row->id.",\"$uri2\") class='btn-flat modal-action modal-close waves-effect '>YA</button>
+													<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
 												</div>
 											</div>
 										</div>

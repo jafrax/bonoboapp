@@ -21,10 +21,16 @@ class Model_nota extends CI_Model
 			$this->db->where('member_confirm',1);
 		}
 		if (isset($_SESSION['search'])) {
-			$this->db->like($_SESSION['search'],$_SESSION['keyword']);
+			if ($_SESSION['search'] == 'semua') {
+				$this->db->where("(member_name like '%".$_SESSION['keyword']."%' OR invoice_no like '%".$_SESSION['keyword']."%' OR price_total like '%".$_SESSION['keyword']."%') AND id != ",0,true);
+			}else{
+				$this->db->like($_SESSION['search'],$_SESSION['keyword']);				
+			}
 		}
 		if (isset($_SESSION['sort'])) {
 			$this->db->order_by('create_date',$_SESSION['sort']);
+		}else{
+			$this->db->order_by('create_date','DESC');
 		}
 			
 		return $this->db->get('tb_invoice');

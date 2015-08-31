@@ -72,6 +72,14 @@ function CtrlMessage(){
 			success: function(result) {
 				messageContent.html(result);
 				ctrlMessage.showContactDetail(e);
+				scrolling   = true;
+				$('.modal-trigger').leanModal();
+				$(".content-pesan").animate({ scrollTop: $(".content-pesan")[0].scrollHeight }, "slow");
+				
+
+
+
+
 				$.ajax({
 					type:'POST',
 					url: base_url+"notif",
@@ -94,9 +102,6 @@ function CtrlMessage(){
 								$('.notifinnota').html(response.message2);
 								$('.notifinnota').fadeIn();
 							}
-							$(function(){
-			                    //setTimeout('requestMessage()',10000);
-			                })
 						}else{
 							window.location = base_url+"index/logout";	
 						}
@@ -113,6 +118,7 @@ function CtrlMessage(){
 			url: base_url+'message/showContactDetail',
 			success: function(result) {
 				contact.html(result);
+				$('.modal-trigger').leanModal();
 			}
 		});
 	}
@@ -297,4 +303,10 @@ $(document).ready(function() {
             message     : {required: true},
         },
     });
+    if ($(".content-pesan").length > 0) {
+    	$(".content-pesan").animate({ scrollTop: $(".content-pesan")[0].scrollHeight }, "slow");
+    	scrolling = true;
+    };
+  	
+
 })

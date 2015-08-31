@@ -42,6 +42,11 @@ $(window).scroll(function () {
                         $('.modal-trigger').leanModal();
                         Materialize.updateTextFields();
                     }
+                    /*NUMBER ONLY*/
+                    jQuery('.numbersOnly').keyup(function () { 
+                        this.value = this.value.replace(/[^0-9\.]/g,'');
+                    });
+                    /*NUMBER ONLY*/
                 }
             });
             return false;
@@ -637,7 +642,7 @@ function tambah_kategori(){
             $('#tempat-kategori').html(msg);
             $('#add_kategori').closeModal();
             $('#nama_kategori').val('');    
-            $('#select-kategori').material_select();        
+            $('#select-kategori').selectize();        
           }
       });
   }else{
@@ -651,12 +656,11 @@ function tambah_kategori_atur(){
   var id    = $('#id-toko').val();  
 
   if ($('#form_add_kategori').valid() == true) {    
-    $('#tambah_kategori').closeModal();
+    
     $.ajax({
       type: 'POST',
       data: 'nama='+nama+'&id='+id,
       url: base_url+'produk/add_kategori2',
-      async: false,
       success: function(msg) {
         if (msg != 0) {
           Materialize.toast('Kategori telah ditambahkan', 4000);
@@ -667,11 +671,10 @@ function tambah_kategori_atur(){
           offset_kat      = 10;
           scrolling_kat   = true;
           $('#habis').slideUp();
+          $('#tambah_kategori').closeModal();
         }else{
-          Materialize.toast('Gagal!. Nama kategori sudah tersedia', 4000);
+          //Materialize.toast('Gagal!. Nama kategori sudah tersedia', 4000);
         };
-        
-        
       }
     });
   }else{
@@ -717,14 +720,17 @@ function edit_kategori(id){
         data: 'nama='+nama+'&id='+id,
         url: base_url+'produk/edit_kategori',
         success: function(msg) {
-          Materialize.toast('Kategori telah disunting', 4000);
-          $('#tempat-kategori').html(msg);
-          $('#edit_kategori_'+id).closeModal();
-          $('.modal-trigger').leanModal();
-          offset_kat      = 10;
-          scrolling_kat   = true; 
-          $('#habis').slideUp();
-          
+          if (msg != 0) {
+            Materialize.toast('Kategori telah disunting', 4000);
+            $('#tempat-kategori').html(msg);
+            $('#edit_kategori_'+id).closeModal();
+            $('.modal-trigger').leanModal();
+            offset_kat      = 10;
+            scrolling_kat   = true; 
+            $('#habis').slideUp();
+          }else{
+            //Materialize.toast('Gagal!. Nama kategori sudah tersedia', 4000);
+          };
         }
     });
   };  

@@ -880,9 +880,16 @@ class Produk extends CI_Controller {
 	public function edit_kategori(){
 		$id = $this->input->post('id');
 		$nama = $this->input->post('nama');
-		$edit = $this->db->where('id',$id)->set('name',$nama)->update('tb_toko_category_product');
-		if ($edit) {
-			$this->print_kategori();
+
+		$kategori = $this->db->where('toko_id',$_SESSION['bonobo']['id'])->where('name',$nama)->get('tb_toko_category_product');
+
+		if ($kategori->num_rows() > 0) {
+			echo "0";
+		}else{
+			$edit = $this->db->where('id',$id)->set('name',$nama)->update('tb_toko_category_product');
+			if ($edit) {
+				$this->print_kategori();
+			}
 		}
 	}
 

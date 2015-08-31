@@ -40,6 +40,7 @@ echo"
 								</div>
 								<div class='input-field col s4 m4 l2 nolpad'>
 									<select class='select-standar' id='search_by'>										
+										<option value='semua'>Semua</option>
 										<option value='member_name'>Nama Pembeli</option>
 										<option value='invoice_no'>No Nota</option>
 										<option value='price_total'>Jumlah Tagihan</option>
@@ -96,16 +97,16 @@ echo"
 							            }
 							              echo"
 							            </div>
-							            <div class='col s11 m4'>
-							              	<h5 class='blue-text'><a href='".base_url()."nota/detail/".$row->invoice_no."' >".$row->invoice_no."</a></h5>
+							            <div class='col s11 m4'>							            	
+							            	<h5>Rp. ".number_format($row->price_total, 0 , ',' , '.')."</h5>
 							              	<h6 class='blue-text'>".$row->member_name."</h6>";
 							              	if ($row->stock_type == 1) {
 							              		echo "<span class='labelbudge green lighten-2'>READY STOK</span>";
 							              	}else{
 							              		echo "<span class='labelbudge pink lighten-2'>PRE ORDER</span>";
-							              	}							              	
+							              	}
 							              	echo "
-							              	<h5>Rp. ".number_format($row->price_total, 2 , ',' , '.')."</h5>
+							              	<h6 class='blue-text'><span class='grey-text '>INVOICE NO</span> <a href='".base_url()."nota/detail/".$row->invoice_no."' >".$row->invoice_no."</a></h6>  	
 							            </div>
 							            
 							            <div class='col s12 m5'>
@@ -132,11 +133,13 @@ echo"
 											</div>
 											<div class='col s12 m7' id='lokasi-btn-".$row->id."'>";
 											if ($row->status != 2) {
-												echo "<button id='btn-batal-".$row->id."' data-target='batal_nota_".$row->id."' class='btn modal-trigger waves-effect red white-text waves-light right' type='button' name='action' >Batal</button>";
 												if ($row->status != 1) {
 													echo"
 												<button id='btn-bayar-".$row->id."' data-target='bayar-".$row->id."' class='btn modal-trigger waves-effect orange darken-1 white-text waves-light right' type='button' name='action'>Bayar</button>";
 												}
+
+												echo "<button id='btn-batal-".$row->id."' data-target='batal_nota_".$row->id."' class='btn modal-trigger waves-effect red white-text waves-light right' type='button' name='action' >Batal</button>";
+												
 											echo"
 												
 								            </div>
@@ -234,43 +237,44 @@ echo"
 							            </div>
 						          	</div>
 						          	<div class='row '>
-							            
 							            <ul class='collapsible ' data-collapsible='accordion'>";
-							            if ($row->member_confirm == 1 && $rekening_tujuan->num_rows() > 0) {
-							            	$rekening1 = $rekening_tujuan->row();
-							            echo"
-								            <li class=''>
-								                <div class='collapsible-header truncate'><p class='red-text'><i class='mdi-content-flag'></i> Pembeli telah melakukan konfirmasi. <span class='blue-text'>Klik disini</span> untuk detail</p></div>
-								                <div class='collapsible-body' style='display: none;'>
-								                	<div class='col s12 m6'>									       		
-								                		<p><b>Bank Asal :</b><br>
-								                			".$rekening1->from_bank."<br>
-								                			".$rekening1->from_acc_no."<br>
-								                			".$rekening1->from_acc_name."</p>
-								                	</div>
-								                	<div class='col s12 m6'>
-								                		<p><b>Bank Tujuan :</b><br>
-								                			".$rekening1->to_bank."<br>
-								                			".$rekening1->to_acc_no."<br>
-								                			".$rekening1->to_acc_name."</p>
-								                	</div>
-								                </div>
-								            </li>";
-								        }else{
-								        	echo"
-								            <li class=''>
-								                <div class='collapsible-header truncate'><p class='red-text'><i class='mdi-content-flag'></i> Pembeli telah melakukan konfirmasi. <span class='blue-text'>Klik disini</span> untuk detail</p></div>
-								                <div class='collapsible-body' style='display: none;'>
-								                	<div class='col s12 m6'>									       		
-								                		<p><b>Bank Asal :</b><br>
-								                			
-								                	</div>
-								                	<div class='col s12 m6'>
-								                		<p><b>Bank Tujuan :</b><br>
-								                			
-								                	</div>
-								                </div>
-								            </li>";
+							            if ($row->member_confirm == 1 ) {
+							            	$rekening_tujuan = $this->model_nota->get_rek_tujuan($row->id);
+							            	if ($rekening_tujuan->num_rows() > 0) {
+							            		$rekening1 = $rekening_tujuan->row();
+								            	echo"
+									            <li class=''>
+									                <div class='collapsible-header truncate'><p class='red-text'><i class='mdi-content-flag'></i> Pembeli telah melakukan konfirmasi. <span class='blue-text'>Klik disini</span> untuk detail</p></div>
+									                <div class='collapsible-body' style='display: none;'>
+									                	<div class='col s12 m6'>									       		
+									                		<p><b>Bank Asal :</b><br>
+									                			".$rekening1->from_bank."<br>
+									                			".$rekening1->from_acc_no."<br>
+									                			".$rekening1->from_acc_name."</p>
+									                	</div>
+									                	<div class='col s12 m6'>
+									                		<p><b>Bank Tujuan :</b><br>
+									                			".$rekening1->to_bank."<br>
+									                			".$rekening1->to_acc_no."<br>
+									                			".$rekening1->to_acc_name."</p>
+									                	</div>
+									                </div>
+									            </li>";
+							            	}else{
+							            		echo"
+									            <li class=''>
+									                <div class='collapsible-header truncate'><p class='red-text'><i class='mdi-content-flag'></i> Pembeli telah melakukan konfirmasi. <span class='blue-text'>Klik disini</span> untuk detail</p></div>
+									                <div class='collapsible-body' style='display: none;'>
+									                	<div class='col s12 m6'>									       		
+									                		<p><b>Bank Asal :</b><br>
+									                	</div>
+									                	<div class='col s12 m6'>
+									                		<p><b>Bank Tujuan :</b><br>
+									                	</div>
+									                </div>
+									            </li>";
+							            	}
+							            	
 								        }
 								            echo"
 								            <li class=''>
@@ -319,7 +323,7 @@ echo"
 															<input type='hidden' value='".$row->id."' name='id_nota' />
 															<div class='input-field col s12 m6'>
 																<span>Jenis Pengiriman</span>
-																<select class='chosen-select' name='kurir'>
+																<select class='selectize' name='kurir'>
 																	<option value='' disabled selected>Pilih Jenis Pengiriman</option>";
 																	$toko_kurir = $this->model_nota->get_toko_kurir($row->toko_id);
 																	foreach ($toko_kurir->result() as $kurir_t) {
