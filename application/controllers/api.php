@@ -2155,6 +2155,7 @@ class Api extends CI_Controller {
 					$FollowData = array(
 						"toko_id"=>$QShop->id,
 						"member_id"=>$QUser->id,
+						"price_level"=>1,
 						"create_date"=>date("Y-m-d H:i:s"),
 						"create_user"=>$QUser->email,
 						"update_date"=>date("Y-m-d H:i:s"),
