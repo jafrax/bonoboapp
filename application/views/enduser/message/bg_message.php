@@ -20,7 +20,7 @@ echo"
 			<div id='notifMessage' align='center' style='display:none;'></div>
 			<div class='row formbody'>
 				<div class='col s12 m4'>
-					<ul class='row formbody'>
+					<ul class='row '>
 						<li class='col s12 listanggodaf'>";
 						$jedul = 'none';
 						if ($Messages->num_rows() > 0) {
@@ -38,6 +38,8 @@ echo"
 								</a>
 							</div>							
 						</li>
+					</ul>
+					<ul class='row' id='contact-scroll' style='max-height: 500px; overflow: auto;' onscroll=javascript:scrollContact()>
 						<div id='contact-pesan'>
 
 						";
@@ -75,6 +77,8 @@ echo"
 
 						echo"
 						</div>
+						<div id='loader-contact' style='text-align:center;display:none'><img src='".base_url()."html/images/comp/loading.GIF' width='40px'></div>
+						<div id='habis-contact' style='display:none;font-size:12px;text-align:center;margin:20px' class='blue-text'><p >Contact sudah ditempilkan semua</p></div>
 					</ul>
 				</div>
 				<div class='col s12 m8' id='messageContent'>";
@@ -117,6 +121,7 @@ echo"
 	<script>
 		var ctrlMessage = new CtrlMessage();
 		ctrlMessage.init();
+		
 	</script>
 ";
 
