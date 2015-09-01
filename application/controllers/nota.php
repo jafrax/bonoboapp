@@ -256,10 +256,30 @@ class Nota extends CI_Controller {
 			);
 
 		$update = $this->db->where('id',$id)->update('tb_invoice',$data);
-		if ($update) {			
+		if ($update) {
+
+			$row = $this->db->where('id',$id)->get('tb_invoice')->row();
 			echo "
-    		<b>Pengiriman : </b> ".$kurir."<br>
-        	<b>Resi : </b> ".$resi."<br>       
+			<dt><b>Pengiriman : </b></dt>
+    		<dd>".$kurir."</dd>
+        	<dt><b>Resi : </b></dt>
+        	<dd>".$resi."</dd>
+        	<dt><b>Biaya Pengiriman : </b></dt>
+        	<dd>".$row->price_shipment."</dd>
+        	<dt><b>Nama Penerima : </b></dt>
+        	<dd>".$row->recipient_name."</dd>
+        	<dt><b>No. Telp. Penerima : </b></dt>
+        	<dd>".$row->recipient_phone."</dd>
+        	<dt><b>Provinsi Penerima : </b></dt>
+        	<dd>".$row->location_to_province."</dd>
+        	<dt><b>Kabupaten/Kota Penerima : </b></dt>
+        	<dd>".$row->location_to_city."</dd>
+        	<dt><b>Kecamatan Penerima : </b></dt>
+        	<dd>".$row->location_to_kecamatan."</dd>
+        	<dt><b>Kode Pos Penerima : </b></dt>
+        	<dd>".$row->location_to_postal."</dd>
+        	<dt><b>Alamat Penerima : </b></dt>
+        	<dd>".$row->recipient_address."</dd>      
         	";
 		}else{
 			echo "0";
@@ -283,7 +303,8 @@ class Nota extends CI_Controller {
 		$data['toko']		= $this->model_nota->get_toko()->row();
 		$data['produk']		= $this->model_nota->get_nota_product($invoice);
 
-		$this->load->view('enduser/nota/bg_print',$data);
+		$content = $this->load->view('enduser/nota/bg_print',$data,true);
+		$this->template->print2pdf('Invoce Bonobo ',$content);
 	}
 
 	public function ajax_load(){

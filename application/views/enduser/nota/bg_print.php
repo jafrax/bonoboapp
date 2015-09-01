@@ -19,7 +19,7 @@ echo "
 <link type='text/css' rel='stylesheet' href='".base_url()."html/css/comp.css' />
 
 </head>
-<body class='cbp-spmenu-push cbp-spmenu-push-toleft' onload=window.print().delay(1000);window.close()>
+<body class='cbp-spmenu-push cbp-spmenu-push-toleft'>
 
 <content>
 	<div class='contentmain'>

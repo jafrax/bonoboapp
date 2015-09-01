@@ -150,9 +150,9 @@
 													<form class='modal-content'>
 														<p>Apakah anda yakin ingin menghapus nota dari <b>'".$row->member_name."'</b> ?</p>
 													</form>
-													<div class='modal-footer'>
-														<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
+													<div class='modal-footer'>														
 														<button type='button' onclick=javascript:delete_nota(".$row->id.") class='btn-flat modal-action modal-close waves-effect '>YA</button>
+														<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
 													</div>
 												</div>
 											</p>											
@@ -248,7 +248,8 @@
 															<div class='input-field col s12 m6'>
 																<span>Jenis Pengiriman</span>
 																<select class='chosen-select' name='kurir'>
-																	<option value='' disabled selected>Pilih Jenis Pengiriman</option>";
+																	<option value='' disabled selected>Pilih Jenis Pengiriman</option>
+																	<option value='Ambil di toko'>Ambil di toko</option>";
 																	$toko_kurir = $this->model_nota->get_toko_kurir($row->toko_id);
 																	foreach ($toko_kurir->result() as $kurir_t) {
 																		$select = '';

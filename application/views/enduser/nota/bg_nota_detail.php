@@ -3,7 +3,11 @@ echo "
 				<div class='col s12 m12 l12'>
 					<div class='formain'>
 						<div class='row '>
-							<div class='col s12 m6'>
+							<h6><a href='".base_url()."nota' class='btn-flat waves-red s12 blue-text'>
+							    <i class='mdi-navigation-arrow-back '></i> Kembali
+							</a></h6>
+
+							<div class='col s12 m6'>							
 								<div class='input-field col s12 m8 '>
 									";
 									if ($nota->status != 2) {
@@ -269,7 +273,8 @@ echo "
 										<div class='input-field col s12 m6'>
 											<label>Jenis Pengiriman</label>
 											<select class='selectize' name='kurir'>
-												<option value='' disabled selected>Pilih Jenis Pengiriman</option>";
+												<option value='' disabled selected>Pilih Jenis Pengiriman</option>
+												<option value='Ambil di toko'>Ambil di toko</option>";
 												$toko_kurir = $this->model_nota->get_toko_kurir($nota->toko_id);
 												foreach ($toko_kurir->result() as $kurir_t) {
 													$select = '';
