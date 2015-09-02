@@ -25,11 +25,13 @@ echo"
 					<label for='txtName'>Nama TOKO *</label>
 					<label id='notifName' class='error' style='display:none;'></label>
 				</div>
-				<div class='input-field col s12 m8'>
+							
+				 <div class='input-field col s12 m8'>
 					<input id='txtTagname' name='txtTagname' maxlength='15' length='15' type='text' placeholder=' ptbonobo' class='validate upperCase'  value='".$Shop->tag_name."'>
 					<label for='txtTagname'>PIN TOKO *</label>
 					<label id='notifTagname' class='error' style='display:none;'></label>
 				</div>
+							
 				<div class='col s12 m8' style='display:none;'>
 					<label>Pilih kategori *</label>
 					<label id='notifCategory' class='error error-chosen' style='display:none;'></label>

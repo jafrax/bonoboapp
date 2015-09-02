@@ -68,6 +68,7 @@ class Toko extends CI_Controller {
 	public function rules_pin(){
 		$username = $_REQUEST['txtTagname'];
 	    $cek=$this->db->where('tag_name',$username)->where('email !=',$_SESSION['bonobo']['email'])->get('tb_toko');
+
 	    if($cek->num_rows()>0){
 			$valid = "false";
 	    }else{
@@ -95,7 +96,7 @@ class Toko extends CI_Controller {
 	public function step2(){
 		$step=$_SESSION['bonobo']['step'];
 			if($step != 0){
-				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',2)->update('tb_toko');
+			$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',2)->update('tb_toko');
 			}
 		if(!$_POST){
 			$data["Shop"] = $this->model_toko->get_by_id($_SESSION['bonobo']['id'])->row();

@@ -1,7 +1,5 @@
 // Created by : dinarwahyu13@gmail.com
 
-
-
 /*
 * MAIN SCROOL AJAX
 */

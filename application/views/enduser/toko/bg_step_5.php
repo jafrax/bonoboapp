@@ -160,10 +160,10 @@ echo"
 			</div>
 		</form>
 	</div>
-
+		
 	<div id='divFormRate' class='modal modal-fixed-footer'>
-		<div class='modal-header red'>
-			<i class='material-icons left'>library_add</i> Tambah pengiriman
+		<div class='modal-header blue ' id='header-rate'>
+				Tambah pengiriman
 		</div>
 		<div id='divFormRateContent'>
 		</div>
@@ -176,6 +176,7 @@ echo"
 			</button>
 		</div>
 	</div>
+			
 ";
 
 echo"

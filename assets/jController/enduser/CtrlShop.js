@@ -606,7 +606,11 @@ function CtrlShopStep7(){
 	}
 	
 	function initPopupRateAdd(e){
-		
+		if (e == 'empty'){
+			$('#header-rate').html('Tambah pengiriman');
+		}else{
+			$('#header-rate').html('Edit pengiriman');
+		}
 		$.ajax({
 			type: 'POST',
 			data: "id="+e,

@@ -38,7 +38,9 @@ class Model_toko extends CI_Model {
 						->join("ms_category mc","tt.category_id = mc.id","LEFT")
 						->where("tt.id",$id)
 						->get("tb_toko tt");
-	}
+			}
+			
+			
 	public function get_by_verf($email,$uri_veri){
 		return	$this->db->select('tt.*')
 						 ->where('tt.email',$email)

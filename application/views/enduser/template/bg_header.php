@@ -139,14 +139,14 @@ echo"
 						<a "; if ($uri == 'toko') echo"class='active'"; echo" href='".base_url("toko/")."'>Toko</a>
 						<ul class='subnemuutama grey darken-1'>
 							";
-						echo "<li><a href='".base_url("toko/")."'>Informasi Toko</a></li>
-								<li><a href='".base_url("toko/step2")."'>Atur Privasi</a></li>
-								<li><a href='".base_url("toko/step3")."'>Atur Pengurangan Stok</a></li>
-								<li><a href='".base_url("toko/step4")."'>Metode Transaksi</a></li>
-								<li><a href='".base_url("toko/step5")."'>Atur Level Harga</a></li>
-								<li><a href='".base_url("toko/step6")."'>Metode Konfirmasi</a></li>
-								<li><a href='".base_url("toko/step7")."'>Pengiriman</a></li>
-								<li><a href='".base_url("toko/step8")."'>Bank</a></li>";
+						echo "<li><a href='".base_url("toko/")."'>1. INFORMASI TOKO</a></li>
+								<li><a href='".base_url("toko/step2")."'>2. PRIVASI</a></li>
+								<li><a href='".base_url("toko/step3")."'>3. STOK</a></li>
+								<li><a href='".base_url("toko/step4")."'>4. METODE TRANSAKSI</a></li>
+								<li><a href='".base_url("toko/step5")."'>5. LEVEL HARGA</a></li>
+								<li><a href='".base_url("toko/step6")."'>6. METODE KONFIRMASI</a></li>
+								<li><a href='".base_url("toko/step7")."'>7. PENGIRIMAN</a></li>
+								<li><a href='".base_url("toko/step8")."'>8. BANK</a></li>";
 							
 							echo "							
 						</ul>
