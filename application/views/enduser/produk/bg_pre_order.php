@@ -17,7 +17,6 @@ echo"
 	</div>
 </div>
 
-
 			<div class='col s12 m12 l3'>
 					<ul class='menucontent'>
 						<li><a href='".base_url()."produk/index/1'>READY STOCK</a></li>
@@ -44,10 +43,10 @@ echo"
 											<option value='1' "; if ($uri3 == '' || $uri3 == '1'){ echo "selected";} echo">Published</option>
 											<option value='0' "; if ($uri3 != '' && $uri3 == '0'){ echo "selected";} echo">Draft</option>											
 										</select>
-
 									</div>
-									<div class=' col s12 m8 l6'>
-										<select class='select-standar lectfilter bajindul' onchange=javascript:filter_kategori() id='filter-kategori'>											
+													
+								<div class='col s12 m8 l6'>
+										<select class='selectize  bajindul' onchange=javascript:filter_kategori() id='filter-kategori'>											
 											<option value=''>Semua Kategori</option>";
 											foreach ($kategori->result() as $row_kt) {
 												$select = '';
@@ -59,6 +58,9 @@ echo"
 											echo"
 										</select>
 									</div>
+													
+													
+													
 								</div>
 								<div class='input-field col s12 m6 l4 nolpad right'>
 									<i class='mdi-action-search prefix'></i>

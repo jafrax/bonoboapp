@@ -42,10 +42,9 @@ foreach($Couriers as $Courier){
 	
 	echo"
 		<div class='input-field col s5 m2'>
-			<input type='checkbox' class='kurir-resmi-$k' onclick=javascript:kliken_kurir() id='chkCourier".$Courier->id."'  name='chkCourier".$Courier->id."' ".$checked."/>
+			<input type='checkbox' class='kurir-resmi-$k' onclick=javascript:kliken_kurir()  id='chkCourier".$Courier->id."'  name='chkCourier".$Courier->id."' ".$checked."/>
 			<label for='chkCourier".$Courier->id."'>".$Courier->name."</label>
-		</div>
-		
+		</div>		
 	";
 	$k++;
 }

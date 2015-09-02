@@ -1245,7 +1245,7 @@ $(document).ready(function () {
 					cek = true;
 				};
 			};
-
+			
 			if (cek == true) {
 				for (var i = cust; i > 0; i--) {
 					if ($('#txtCourierName'+i).val() == ''){

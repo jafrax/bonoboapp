@@ -36,7 +36,7 @@ class Preorder extends CI_Controller {
             $offset = $page;
         }
 
-        $data['produk'] 		= $this->model_preorder->get_product_preorder($limit,$offset);
+        $data['produk'] = $this->model_preorder->get_product_preorder($limit,$offset);
         
 		if ($this->input->post('ajax')) {
 			if ($data['produk']->num_rows() > 0){
