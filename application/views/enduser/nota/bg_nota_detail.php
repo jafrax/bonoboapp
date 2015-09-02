@@ -8,8 +8,7 @@ echo "
 							</a></h6>
 
 							<div class='col s12 m6'>							
-								<div class='input-field col s12 m8 '>
-									";
+								<div class='input-field col s12 m8 '>";
 									if ($nota->status != 2) {
 										echo "<button id='btn-batal-".$nota->id."' data-target='batal_nota_".$nota->id."' class=' modal-trigger btn-flat waves-effect red darken-1 white-text waves-light' type='button' name='action'>Batal</button>";
 										if ($nota->status != 1) {
@@ -92,7 +91,7 @@ echo "
 							</div>
 							<div class='toolb col s12 m6'>
 								<a href='#delete_nota_".$nota->id."' class='modal-trigger red-text right' href='#'><i class='mdi-action-delete small'></i></a>
-								<a href='".base_url()."message/kirim/".base64_encode($nota->member_email)."/".base64_encode($nota->member_name)."' class=' red-text right '><i class='mdi-content-mail small'></i></a>
+								<!--<a href='".base_url()."message/kirim/".base64_encode($nota->member_email)."/".base64_encode($nota->member_name)."' class=' red-text right '><i class='mdi-content-mail small'></i></a>-->
 								<a href='".base_url()."nota/cetak/".$nota->invoice_no."' onclick='window.open(\"".base_url()."nota/cetak/".$nota->invoice_no."\", \"newwindow\", \"width=800, height=600\"); return false;' class=' red-text right '><i class='mdi-action-print col s1 small'></i></a>
 							</div>
 							<div id='delete_nota_".$nota->id."' class='modal confirmation'>
@@ -191,7 +190,7 @@ echo "
 									<p>Rp ".number_format($nota->price_item, 0 , ',' , '.')."</p>
 									<p>Rp ".number_format($nota->price_shipment, 0 , ',' , '.')."</p>";
 									if ($toko->invoice_confirm == 0) {
-										echo "<p>".$nota->invoice_seq_payment."</p>";
+										echo "<p>Rp ".number_format($nota->invoice_seq_payment, 0 , ',' , '.')."</p>";
 									}
 									echo"
 								</div>

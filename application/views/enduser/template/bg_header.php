@@ -88,7 +88,7 @@ echo"
 			<li style='display:$nav' "; if ($uri == 'anggota') echo"class='active'"; echo"><a "; if ($uri == 'anggota') echo"class='active'"; echo" href='".base_url("anggota")."'>Anggota</a></li>
 			<li style='display:$nav' "; if ($uri == 'produk') echo"class='active'"; echo"><a "; if ($uri == 'produk') echo"class='active'"; echo" href='".base_url("produk")."'>Produk</a></li>
 			<li style='display:$nav' "; if ($uri == 'nota') echo"class='active'"; echo"><a "; if ($uri == 'nota') echo"class='active'"; echo" href='".base_url("nota")."'>Nota<span style='' class='notifinnota badge red'>0</span></a></li>
-			<!-- <li "; if ($uri == 'message') echo"class='active'"; echo"><a "; if ($uri == 'message') echo"class='active'"; echo" href='".base_url("message")."'>Pesan</a></li> -->
+			<li "; if ($uri == 'message') echo"class='active'"; echo"><a "; if ($uri == 'message') echo"class='active'"; echo" href='".base_url("message")."'>Message <span style='display:none' class='notifindong badge red'>0</span></a></li>
 			<li style='display:$nav' "; if ($uri == 'preorder') echo"class='active'"; echo"><a "; if ($uri == 'preorder') echo"class='active'"; echo" href='".base_url("preorder")."'>Pemesanan Pre Order</a></li>
 			<li "; if ($uri == '') echo"class='active'"; echo"><a "; if ($uri == '') echo"class='active'"; echo" href='".base_url("toko/change_password")."'>Change password</a></li>
 			<li><a href='".base_url("license")."'>Perpanjang Masa Aktif</a></li>
@@ -108,7 +108,6 @@ echo"
 					</a>
 				</div>
 				<div class='col s5 m8 l10'>
-					
 					<div class='usermain right'>";
 						if ($_SESSION['bonobo']['image']) {
 							echo "<img class='responsive-img userdum' src='".base_url()."assets/pic/shop/resize/".$_SESSION['bonobo']['image']."' />";
@@ -124,11 +123,11 @@ echo"
 							<li><a href='".base_url("license")."'>Perpanjang Masa Aktif</a></li>
 							<li><a href='".base_url("index/logout")."'>Logout</a></li>
 						</ul>						
-					</div>
+					</div><!--
 					<div class='notification right' style='display:$nav'>
 						<a class='message' href='".base_url("message")."'><i class='material-icons '>message</i></a>
-						<span style='display:none' class='notifindong'>0</span>
-					</div>
+						
+					</div>-->
 				</div>
 			</div>
 		</div>
@@ -153,9 +152,9 @@ echo"
 					</li>
 					<li "; if ($uri == 'anggota') echo"class='active'"; echo"><a "; if ($uri == 'anggota') echo"class='active'"; echo" href='".base_url("anggota")."'>Anggota</a></li>
 					<li "; if ($uri == 'produk') echo"class='active'"; echo"><a "; if ($uri == 'produk') echo"class='active'"; echo" href='".base_url("produk")."'>Produk</a></li>
-					<li "; if ($uri == 'nota') echo"class='active'"; echo"><a "; if ($uri == 'nota') echo"class='active'"; echo" href='".base_url("nota")."'>Nota <span style='display:none' class='notifinnota badge red'>0</span></a></li>
-					<!-- <li "; if ($uri == 'message') echo"class='active'"; echo"><a "; if ($uri == 'message') echo"class='active'"; echo" href='".base_url("message")."'>Pesan</a></li>-->
+					<li "; if ($uri == 'nota') echo"class='active'"; echo"><a "; if ($uri == 'nota') echo"class='active'"; echo" href='".base_url("nota")."'>Nota <span style='display:none' class='notifinnota badge red'>0</span></a></li>					
 					<li "; if ($uri == 'preorder') echo"class='active'"; echo"><a "; if ($uri == 'preorder') echo"class='active'"; echo" href='".base_url("preorder")."'>Pemesanan Pre Order</a></li>
+					<li "; if ($uri == 'message') echo"class='active'"; echo"><a "; if ($uri == 'message') echo"class='active'"; echo" href='".base_url("message")."'>Message <span style='display:none' class='notifindong badge red'>0</span></a></li>
 				</ul>
 			</div>
 		</nav>

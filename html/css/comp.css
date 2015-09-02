@@ -175,7 +175,7 @@ label{ font-size: 14px; color: #565a5c; }
 .pesanmu img{width: 300px;}
 
 .content-balasan { background: #f5f5f5; overflow: hidden;padding: 20px 0px; border-radius: 2px;}
-.content-balasan textarea{height: 100px; }
+.content-balasan textarea{height: 50px; }
 
 .vote{ line-height: 15px; }
 .labelbudge{ padding:5px; border-radius:2px; color:#fff; }

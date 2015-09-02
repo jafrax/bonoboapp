@@ -4,14 +4,12 @@ echo"
 	<div class='col s12 m12 l12'>
 		<div class='formain'>
 			<div class='formhead'>
-				<form method='POST' action='".base_url("message/")."'>
-				<div class='input-field col s6 m4'>
-					<i class='mdi-action-search prefix'></i>
-					<input id='messageSearch' name='keyword' type='text' class='validate' placeholder='Cari Pengirim' value='".$keyword."'>
-					<label for='messageSearch'></label>
+				
+				<div class='input-field col s12 m4'>
+					<h2 class='titmain' id='totalan'><b>MESSAGE</b></h2>
 				</div>
-				</form>
-				<div class='col s6 m8'>
+				
+				<div class='col s12 m8'>
 					<button id='aMessageNew' class='btn deep-orange darken-1 waves-effect waves-light right pesan' type='button' name='action'>
 						<i class='mdi-content-add-circle-outline left'></i> New Message
 					</button>
@@ -37,6 +35,14 @@ echo"
 									Hapus semua
 								</a>
 							</div>							
+						</li>
+					</ul>
+					<ul class='row '>
+						<li class='col s12 listanggodaf'>
+						<form method='POST' action='".base_url("message/")."'>							
+							<input id='messageSearch' name='keyword' type='text' class='validate' placeholder='Cari pesan' value='".$keyword."'>
+							<label for='messageSearch'></label>
+						</form>
 						</li>
 					</ul>
 					<ul class='row' id='contact-scroll' style='max-height: 500px; overflow: auto;' onscroll=javascript:scrollContact()>
