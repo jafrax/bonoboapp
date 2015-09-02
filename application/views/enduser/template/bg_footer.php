@@ -26,8 +26,8 @@ echo"
 	<div class='footer-copyright grey darken-4'>
 		<div class='container'>© 2015 Bonobo, Inc. All rights reserved.
 			<a class='grey-text text-lighten-4 right' href='javascript:void(0)'>Tentang Kami</a>
-			<a class='grey-text text-lighten-4 right' href='javascript:void(0)'>Kebijakan privasi</a>
-			<a class='grey-text text-lighten-4 right' href='javascript:void(0)'>Syarat dan ketentuan</a>
+			<a class='grey-text text-lighten-4 right' href='".base_url('index/pp')."'>Kebijakan privasi</a>
+			<a class='grey-text text-lighten-4 right' href='".base_url('index/tos')."'>Syarat dan ketentuan</a>
 		</div>
 	</div>
 </footer>

@@ -1179,6 +1179,8 @@ $(document).ready(function() {
             },
         },
     });
+
+    
 })
 $(document).ready(function () {
     $("#postal-code").keyup(function () {
@@ -1308,4 +1310,20 @@ function kliken_kurir () {
    	}else{
       $('#chkExpedition').prop('checked',false);
    	};
+}
+function cek_pin () {	
+	$.ajax({
+        type: "POST",
+        url: base_url+'toko/rules_pin',
+		data:"txtTagname="+$('#txtTagname').val(),            
+        success: function (response) {
+			if (response == 'true') {					
+				$('#notifTagname').hide();
+				$('#notifTagnameS').slideDown();
+			}else{
+				$('#notifTagnameS').hide();
+				$('#notifTagname').slideDown();
+			};
+        }
+    });    
 }
