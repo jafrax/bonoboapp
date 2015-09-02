@@ -124,8 +124,7 @@ function selesaikan(){
         data: 'id='+id,
         async: false,
         url: base_url+'preorder/selesai_semua',
-        success: function(msg) {
-          
+        success: function(msg) {          
 		  	//$('#btn-batal-'+id).fadeOut();
     		$('#tombol-'+id).fadeOut();
     		//$('#lokasi-btn-'+id).html('<br>');
@@ -138,6 +137,23 @@ function selesaikan(){
     } if (i == total_nota) {$('.cek_nota').prop('checked',false);$('#pilih-semua').prop('checked',false);}; 
   } 
 }
+
+function selesai(id){
+    $.ajax({
+        type: 'POST',
+        data: 'id='+id,
+        async: false,
+        url: base_url+'preorder/selesai_satu',
+        success: function(msg) {          
+            //$('#btn-batal-'+id).fadeOut();
+            $('#tombol-'+id).fadeOut();
+            //$('#lokasi-btn-'+id).html('<br>');
+            $('#selesai-'+id).html('Selesai');              
+            $('#selesai-'+id).removeClass('red-text');
+            $('#selesai-'+id).addClass('green-text');      
+        }
+    });
+} 
 
 function all_done(id){
     $('#btn-selesai-'+id).fadeTo('slow',0.4);

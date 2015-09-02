@@ -75,7 +75,7 @@ function CtrlMessage(){
 				scrolling   = true;
 				$('.modal-trigger').leanModal();
 				$(".content-pesan").animate({ scrollTop: $(".content-pesan")[0].scrollHeight }, "slow");
-				
+				Materialize.updateTextFields();
 				$.ajax({
 					type:'POST',
 					url: base_url+"notif",
@@ -98,8 +98,6 @@ function CtrlMessage(){
 								$('.notifinnota').html(response.message2);
 								$('.notifinnota').fadeIn();
 							}
-						}else{
-							window.location = base_url+"index/logout";	
 						}
 					}
 				});

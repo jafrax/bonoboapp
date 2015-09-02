@@ -219,7 +219,7 @@ echo"
 
 											<p class='tool col s12 m5'>
 												<a href='#delete_nota_".$row->id."' class='modal-trigger red-text right '><i class='mdi-action-delete col s1 small'></i></a>
-												<a href='".base_url()."message/kirim/".base64_encode($row->member_email)."/".base64_encode($row->member_name)."' class=' red-text right '><i class='mdi-content-mail col s1 small'></i></a>
+												<!--<a href='".base_url()."message/kirim/".base64_encode($row->member_email)."/".base64_encode($row->member_name)."' class=' red-text right '><i class='mdi-content-mail col s1 small'></i></a>-->
 												<a href='".base_url()."nota/cetak/".$row->invoice_no."' onclick='window.open(\"".base_url()."nota/cetak/".$row->invoice_no."\", \"newwindow\", \"width=800, height=600\"); return false;' class=' red-text right '><i class='mdi-action-print col s1 small'></i></a>
 												<div id='delete_nota_".$row->id."' class='modal confirmation'>
 													<div class='modal-header red'>
@@ -228,9 +228,9 @@ echo"
 													<form class='modal-content'>
 														<p>Apakah anda yakin ingin menghapus nota dari <b>'".$row->member_name."'</b> ?</p>
 													</form>
-													<div class='modal-footer'>
-														<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
+													<div class='modal-footer'>														
 														<button type='button' onclick=javascript:delete_nota(".$row->id.") class='btn-flat modal-action modal-close waves-effect '>YA</button>
+														<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
 													</div>
 												</div>
 											</p>											
@@ -324,7 +324,8 @@ echo"
 															<div class='input-field col s12 m6'>
 																<span>Jenis Pengiriman</span>
 																<select class='selectize' name='kurir'>
-																	<option value='' disabled selected>Pilih Jenis Pengiriman</option>";
+																	<option value='' disabled selected>Pilih Jenis Pengiriman</option>
+																	<option value='Ambil di toko'>Ambil di toko</option>";
 																	$toko_kurir = $this->model_nota->get_toko_kurir($row->toko_id);
 																	foreach ($toko_kurir->result() as $kurir_t) {
 																		$select = '';

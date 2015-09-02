@@ -3,9 +3,12 @@ echo "
 				<div class='col s12 m12 l12'>
 					<div class='formain'>
 						<div class='row '>
-							<div class='col s12 m6'>
-								<div class='input-field col s12 m8 '>
-									";
+							<h6><a href='".base_url()."nota' class='btn-flat waves-red s12 blue-text'>
+							    <i class='mdi-navigation-arrow-back '></i> Kembali
+							</a></h6>
+
+							<div class='col s12 m6'>							
+								<div class='input-field col s12 m8 '>";
 									if ($nota->status != 2) {
 										echo "<button id='btn-batal-".$nota->id."' data-target='batal_nota_".$nota->id."' class=' modal-trigger btn-flat waves-effect red darken-1 white-text waves-light' type='button' name='action'>Batal</button>";
 										if ($nota->status != 1) {
@@ -88,7 +91,7 @@ echo "
 							</div>
 							<div class='toolb col s12 m6'>
 								<a href='#delete_nota_".$nota->id."' class='modal-trigger red-text right' href='#'><i class='mdi-action-delete small'></i></a>
-								<a href='".base_url()."message/kirim/".base64_encode($nota->member_email)."/".base64_encode($nota->member_name)."' class=' red-text right '><i class='mdi-content-mail small'></i></a>
+								<!--<a href='".base_url()."message/kirim/".base64_encode($nota->member_email)."/".base64_encode($nota->member_name)."' class=' red-text right '><i class='mdi-content-mail small'></i></a>-->
 								<a href='".base_url()."nota/cetak/".$nota->invoice_no."' onclick='window.open(\"".base_url()."nota/cetak/".$nota->invoice_no."\", \"newwindow\", \"width=800, height=600\"); return false;' class=' red-text right '><i class='mdi-action-print col s1 small'></i></a>
 							</div>
 							<div id='delete_nota_".$nota->id."' class='modal confirmation'>
@@ -144,19 +147,27 @@ echo "
 											<img src='".$images."' class='responsive-img col s4 m4 left'>
 											<div class='col s8 m8'>
 												<p class='blue-text'>".$row_p->product_name."</p>
-												<p >Rp. ".number_format($row_p->price_product, 2 , ',' , '.')."</p>";
+												<p><span class='blue-text'>@</span> Rp. ".number_format($row_p->price_unit, 0 , ',' , '.')."</p>
+												<p><dl class='dl-horizontal col s12 ' >
+	
+							                	
+												";
 
 												$varian = $this->model_nota->get_varian_product($row_p->id);
 												if ($varian->num_rows() > 0) {
 													foreach ($varian->result() as $row_v) {
 														if ($row_v->varian_name == 'null') {
-															echo "<p >Jumlah : ".$row_v->quantity."</p>";
+															echo "	<dt style='text-align:left'><b>Jumlah : </b></dt>
+							                						<dd>".$row_v->quantity."</dd>";
 														}else{
-															echo "<p >Varian : ".$row_v->varian_name." , Jumlah : ".$row_v->quantity."</p>";
+															echo "	<dt style='text-align:left'><b>".$row_v->varian_name."</b><span class='grey-text'> x ".$row_v->quantity."</span></dt>
+							                						<dd>= Rp. ".number_format($row_v->price_varian, 0 , ',' , '.')."</dd>";															
 														}
 													}
 												}
 											echo "
+												</dl></p>	
+												<h5> Rp. ".number_format($row_p->price_product, 0 , ',' , '.')."</h5>
 											</div>
 										</div>";
 								}
@@ -176,10 +187,10 @@ echo "
 																		
 								</div>
 								<div class='col s6 m6 right-align'>
-									<p>Rp ".number_format($nota->price_item, 2 , ',' , '.')."</p>
-									<p>Rp ".number_format($nota->price_shipment, 2 , ',' , '.')."</p>";
+									<p>Rp ".number_format($nota->price_item, 0 , ',' , '.')."</p>
+									<p>Rp ".number_format($nota->price_shipment, 0 , ',' , '.')."</p>";
 									if ($toko->invoice_confirm == 0) {
-										echo "<p>".$nota->invoice_seq_payment."</p>";
+										echo "<p>Rp ".number_format($nota->invoice_seq_payment, 0 , ',' , '.')."</p>";
 									}
 									echo"
 								</div>
@@ -188,7 +199,7 @@ echo "
 									<b>Total nota :</b>								
 								</div>
 								<div class='col s6 m6 right-align'>
-									<b>Rp ".number_format($nota->price_total, 2 , ',' , '.')."</b>								
+									<b>Rp ".number_format($nota->price_total, 0 , ',' , '.')."</b>								
 								</div>
 
 							</div>
@@ -269,7 +280,8 @@ echo "
 										<div class='input-field col s12 m6'>
 											<label>Jenis Pengiriman</label>
 											<select class='selectize' name='kurir'>
-												<option value='' disabled selected>Pilih Jenis Pengiriman</option>";
+												<option value='' disabled selected>Pilih Jenis Pengiriman</option>
+												<option value='Ambil di toko'>Ambil di toko</option>";
 												$toko_kurir = $this->model_nota->get_toko_kurir($nota->toko_id);
 												foreach ($toko_kurir->result() as $kurir_t) {
 													$select = '';

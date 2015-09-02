@@ -114,7 +114,7 @@ echo "
 								              	if ($row->status_pre_order == 0) {
 								              		echo "
 													<h5 class='col red-text right' id='selesai-".$row->id."'>Belum Selesai</h5><br><br><br>
-													<button class='btn-flat waves-effect red white-text waves-light right' id='tombol-".$row->id."' type='button' name='action'>Selesai</button>
+													<button onclick=javascript:selesai(".$row->id."); class='btn-flat waves-effect red white-text waves-light right' id='tombol-".$row->id."' type='button' name='action'>Selesai</button>
 													";
 												}else{
 													echo "

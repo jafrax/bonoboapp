@@ -25,11 +25,13 @@ echo"
 					<label for='txtName'>Nama TOKO *</label>
 					<label id='notifName' class='error' style='display:none;'></label>
 				</div>
-							
-				 <div class='input-field col s12 m8'>
-					<input id='txtTagname' name='txtTagname' maxlength='15' length='15' type='text' placeholder=' ptbonobo' class='validate upperCase'  value='".$Shop->tag_name."'>
+
+				<div class='input-field col s12 m8'>
+					<input id='txtTagname' name='txtTagname' maxlength='15' length='15' type='text' placeholder=' PTBONOBO' class='validate upperCase'  value='".$Shop->tag_name."'>
 					<label for='txtTagname'>PIN TOKO *</label>
-					<label id='notifTagname' class='error' style='display:none;'></label>
+					  <a class='waves-effect waves-teal btn-flat' onclick=javascript:cek_pin()>Cek Ketersediaan PIN</a>
+					<span id='notifTagname' class='red-text' style='display:none;'>PIN TOKO tidak tersedia</span>
+					<span id='notifTagnameS' class='green-text' style='display:none;'>PIN TOKO tidak tersedia</span>
 				</div>
 							
 				<div class='col s12 m8' style='display:none;'>

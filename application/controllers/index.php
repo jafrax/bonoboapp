@@ -516,9 +516,17 @@ class Index extends CI_Controller {
             
 				}
 			echo json_encode(array("msg"=>$msg,"notif"=>$notif));
-			
-		
-			
+				
+	}
+
+	public function tos($value='')
+	{
+		$this->load->view('enduser/bg_tos');
+	}
+
+	public function pp($value='')
+	{
+		$this->load->view('enduser/bg_pp');
 	}
 	
 	
