@@ -23,7 +23,7 @@ echo"
 					<p>Pembeli akan datang ke alamat Toko Anda untuk mengambil pesanannya.</p>
 				</div>
 				<div class='input-field col s12 m8'>
-					<input type='checkbox' class='filled-in' id='chkExpedition' name='chkExpedition' ".($Shop->dm_expedition == 1 && count($Couriers) > 0 ? "checked" : "")." ".(count($Couriers) == 0 ? "disabled" : "")."/>
+					<input type='checkbox' class='filled-in' onclick=javascript:kliken_exp() id='chkExpedition' name='chkExpedition' ".($Shop->dm_expedition == 1 && count($Couriers) > 0 ? "checked" : "")." ".(count($Couriers) == 0 ? "disabled" : "")."/>
 					<label for='chkExpedition'>Jasa ekspedisi</label>
 				</div>	
 				<div class='input-field col s12 m8'>
@@ -42,7 +42,7 @@ foreach($Couriers as $Courier){
 	
 	echo"
 		<div class='input-field col s5 m2'>
-			<input type='checkbox' class='kurir-resmi-$k' onclick=javascript:kliken_kurir()  id='chkCourier".$Courier->id."'  name='chkCourier".$Courier->id."' ".$checked."/>
+			<input type='checkbox'  class='kurir-resmi-$k' onclick=javascript:kliken_kurir()  id='chkCourier".$Courier->id."'  name='chkCourier".$Courier->id."' ".$checked."/>
 			<label for='chkCourier".$Courier->id."'>".$Courier->name."</label>
 		</div>		
 	";

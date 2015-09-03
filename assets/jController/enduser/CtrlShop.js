@@ -1299,6 +1299,24 @@ function pilihngebank () {
 	};
 }
 
+function kliken_exp () {
+	var kurir = $('#total_courier').val();
+	var cek   = false;
+	if ( $( "#chkExpedition" ).is(":checked")) {
+
+		for (var i = kurir - 1; i >= 0; i--) {
+				 $('.kurir-resmi-'+i).prop('checked',true);
+		};
+	}else{
+		for (var i = kurir - 1; i >= 0; i--) {
+			 $('.kurir-resmi-'+i).prop('checked',false);
+	};
+	
+	};
+	
+	
+}
+
 function kliken_kurir () {
 	var kurir = $('#total_courier').val();
 	var cek   = false;
