@@ -195,7 +195,8 @@ class Anggota extends CI_Controller {
 		
 		$this->load->view("enduser/anggota/bg_members_detailb",$data);
 	}
-	// diabuat oleh adi 07-08-2015
+
+	//member detail anggota baru
 	public function members_detail_ab(){
 		$data["Member"] = $this->model_member->get_by_id($this->response->post("id"))->row();
 		

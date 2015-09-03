@@ -31,7 +31,8 @@ if(sizeOf($joinins) <= 0){
 }else{
 	foreach($joinins as $joinin){
 		$Status = "<span id='pesan' class='pesan".$joinin->id."'></span> <span id='textku".$joinin->id."'>Ingin bergabung di toko anda</span>";
-		$Buttons = "<a href='javascript:void(0)' onclick=ctrlAnggotaJoinin.accept(".$joinin->id.") ><button class='waves-effect waves-light btn right'>Terima</button></a><button  onclick=ctrlAnggotaJoinin.doReject(".$joinin->id.") class='waves-effect waves-light btn red lighten-1 right'>Tolak</button>";
+		$Buttons = "<a href='javascript:void(0)' onclick=ctrlAnggotaJoinin.accept(".$joinin->id.") ><button class='waves-effect waves-light btn right'>Terima</button></a>
+				<button  onclick=ctrlAnggotaJoinin.doReject(".$joinin->id.") class='waves-effect waves-light btn red lighten-1 right'>Tolak</button>";
 		
 		if($joinin->status == 1){
 			$Status = "<b class='text-green'>diterima</b> menjadi Anggota toko Anda";
@@ -49,7 +50,7 @@ if(sizeOf($joinins) <= 0){
 		
 		echo"
 					<li class='col s12 listanggonew'>
-						<div class='col s12 m8'><p><a href='javascript:void(0)' onclick=ctrlAnggotaJoinin.popupDetail3(".$joinin->id.");><b>".$joinin->member_name."</b></a> ".$Status."</p>
+						<div class='col s12 m8'><p><a href='javascript:void(0)' onclick=ctrlAnggotaJoinin.popupDetail3(".$joinin->member_id.");> <b>".$joinin->member_name."</b></a> ".$Status."</p>
 							<time>".$this->hs_datetime->getDate4String($joinin->create_date)." WIB</time>
 						</div>
 						<div class='col s12 m4' id='divButton".$joinin->id."'>
@@ -97,8 +98,9 @@ echo"
 			<h1><br></h1>
 		</form>
 		<div class='modal-footer'>
-			<a href='javascript:void(0);' id='aJoinLevelNo' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
+			
 			<a href='javascript:void(0);' id='aJoinLevelYes' class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
+			<a href='javascript:void(0);' id='aJoinLevelNo' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
 		</div>
 	</div>
 	<div id='popupBlacklist' class='modal modal-fixed-footer'></div>

@@ -6,8 +6,7 @@ function CtrlAnggotaJoinin(){
 	this.doAccept = doAccept;
 	this.doReject = doReject;
 	this.popupDetail3 = popupDetail3;
-
-	
+		
 	var formJoininLevel;
 	var aJoinLevelYes,aJoinLevelNo;
 	var popupBlacklist;
@@ -35,6 +34,7 @@ function CtrlAnggotaJoinin(){
 		};
 	}
 	
+
 	function popupDetail3(e){
 		$.ajax({
 			type: 'POST',
@@ -46,7 +46,7 @@ function CtrlAnggotaJoinin(){
 			}
 		});
 	}
-	
+
 	function accept(e){
 		$("#levelbos").val('').trigger('chosen:updated');
 		
@@ -136,8 +136,14 @@ function CtrlAnggotaJoinin(){
 		}
 		
 		if(formJoininLevel.level.value == ""){
-			Materialize.toast('Level harus dipilih !', 4000);			
-			valid = false;
+			//jika kosong di isi level 1
+			formJoininLevel.level.value = 1;
+				//cek lagi jika sudah di isi
+				if(formJoininLevel.level.value == ""){
+				Materialize.toast('Level harus dipilih !', 4000);			
+				valid = false;
+				
+				}
 		}
 		
 		if(divButton == null){

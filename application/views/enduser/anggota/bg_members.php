@@ -126,8 +126,8 @@ echo"
 			</p>
 		</form>
 		<div class='modal-footer' style='padding-top:20px;'>
-			<a href='javascript:void(0);' id='aMemberLevelNo' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
 			<a href='javascript:void(0);' onclick=javascript:save_level() class='modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
+			<a href='javascript:void(0);' id='aMemberLevelNo' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
 		</div>
 	</div>
 	
