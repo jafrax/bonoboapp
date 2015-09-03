@@ -5,73 +5,66 @@ echo "
 <head>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'/>
 <title>Bonobo</title>
-
-<link rel='icon' href='".base_url()."html/images/comp/icon.ico' type='image/gif' sizes='16x7'>
-
-<link type='text/css' rel='stylesheet' href='".base_url()."html/css/materialize.min.css'  media='screen,projection'/>
-<link type='text/css' rel='stylesheet' href='".base_url()."html/css/font-awesome.min.css' />
-<link type='text/css' rel='stylesheet' href='".base_url()."html/css/jpushmenu.css' />
-<link type='text/css' rel='stylesheet' href='".base_url()."html/css/chosen.css' />
-
-<link type='text/css' rel='stylesheet' href='".base_url()."html/css/style.css' />
-<link type='text/css' rel='stylesheet' href='".base_url()."html/css/tablet.css' />
-<link type='text/css' rel='stylesheet' href='".base_url()."html/css/mobile.css' />
-<link type='text/css' rel='stylesheet' href='".base_url()."html/css/comp.css' />
-
 </head>
 <body class='cbp-spmenu-push cbp-spmenu-push-toleft'>
+";
+?>
 
-<content>
-	<div class='contentmain'>
-		<div class='containermain'>
-			<div class='row contentsebenarya'>
-				<div class='col s12 m12 l12'>
-					<div class='formain'>
-						<div class='formhead'>
-							<h2 class='titmain'><b>CETAK NOTA</b></h2>
-						</div>
-
-
-						<div class='row formbody'>
-							<!-- nota -->
-							<div class=' s12 m12'>								
-      							<div class='notacard card-panel grey lighten-5 z-depth-1'>
-						          	<div class='row '>		
-						          		<div class='col s6 m6 l3'><img class='responsive-img logo' src='".base_url()."html/images/comp/logo_shadow.png' /></div>
-						            	<div class='col s6 m6 l9'>
-							              	<p class='blue-grey-text lighten-3 right'>".date('d M Y')."</p>
-							              	<br>
-							            </div>
-						          	</div>
-						          	<div class='row center'>
-							            <h5><b>Nota Pemesanan</b></h5>
-							            <h6>No. Nota: ".$nota->invoice_no."</h6>";
-					            		$old_date 			= $nota->create_date;
+<table border=1 cellspacing=10>
+<tr>
+ <td  align="center" colspan="8" ><h2 class='titmain'><b> CETAK NOTA </b></h2> </td>		
+</tr>
+<tr>
+ <td  align="center" colspan="8" ><h3 class='titmain'><b> No Nota : <?php echo ".$nota->invoice_no."; ?> </b></h3> </td>		
+</tr>
+<tr>
+ <td  align="center" colspan="8" ><h4 class='titmain'><b> Tanggal Pembelian : <?php  $old_date 			= $nota->create_date;
 										$old_date_timestamp = strtotime($old_date);
-										$date 				= date('d M Y', $old_date_timestamp);
-										
-					            		echo"
-							            <h6>Tanggal pembelian : $date</h6>
-						          	</div>
-						          	<div class='row '>
-						          		<div class='col s12 m6 l6'>
-						          			<h6><b>".$toko->name."</b></h6>
-						          			<p>".$toko->address."</p>
-						          			<p>".$toko->phone."</p>
-						          		</div>
-						          		<div class='col s12 m6 l6 right-align'>
-						          			<h6><b>Nama pemesan : ".$nota->member_name."</b></h6>";
-								            if ($nota->status == 0 ) {
-								            	echo "<h5 class='red-text'>Belum Lunas</h5>";
+										$date 				= date('d M Y', $old_date_timestamp);echo $date; ?> </b></h4> </td>		
+</tr>
+
+<tr>
+<td colspan="8"  ></td>
+</tr>
+<tr>
+<td colspan="8"  ></td>
+</tr>
+<tr>
+<td colspan="8"  ></td>
+</tr>
+
+<tr>
+<td align="center" colspan="2"><h4 class='titmain'><b> <?php  echo "$toko->name" ;?>  </b></h4></td>
+<td align="center" colspan="2"></td>
+<td align="center" colspan="2"></td>
+<td align="center" colspan="2"><h4 class='titmain'><b> <?php echo "Nama Pemesan : " ?>  </b></h4></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><h4 class='titmain'><b> <?php  echo "$toko->address" ;?>  </b></h4></td>
+<td align="center" colspan="2"></td>
+<td align="center" colspan="2"></td>
+<td align="center" colspan="2"><h4 class='titmain'><b> <?php echo  "$nota->member_name"; ?>  </b></h4></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><h4 class='titmain'><b> <?php  echo "$toko->phone" ;?>  </b></h4></td>
+<td align="center" colspan="2"></td>
+<td align="center" colspan="2"></td>
+<td align="center" colspan="2" ><h4  class='titmain'><b> <?php  if ($nota->status == 0 ) {
+								            	$status="Belum Lunas";
 								            }elseif ($nota->status == 1) {								            	
-								            	echo "<h5 class='green-text'>Lunas</h5>";
+								            	$status="Lunas";
 								            }elseif ($nota->status == 2) {
-								            	echo "<h5 class='grey-text'>Batal</h5>";
-								            }									
-											echo"						          			
-						          		</div>
-						          	</div>
-						          	<div class='row '>";
+								            	$status="Batal";
+								            }	echo $status; ?>  </b></h4></td>
+</tr>
+
+
+
+<tr>
+<td></td>
+<td align="left" colspan="6">  
+<?php echo " 
+<div class='row '>";
 											foreach ($produk->result() as $row_p) {
 												$image = $this->model_nota->get_nota_product_image($row_p->id)->row();
 												$images = base_url()."html/images/comp/product.png";
@@ -102,46 +95,57 @@ echo "
 											}
 			  							echo "
 						          	</div>
-						          	<div class='row '>
-										<dl class='dl-horizontal col s12 m10 l5 fontbig'>
-											<dt>Total Nota :</dt>
-											<dd><p class='green-text'>RP. ".number_format($nota->price_item, 2 , ',' , '.')."</p></dd>
-											<dt>Biaya Kirim :</dt>
-											<dd><p class='green-text'>RP. ".number_format($nota->price_shipment, 2 , ',' , '.')."</p></dd>
-											";
-												if ($toko->invoice_confirm == 0) {
-													echo "<dt>Kode Unik :</dt>
-											<dd><p class='green-text'>".$nota->invoice_seq_payment."</p></dd>";
-												}
-												echo"
-											<hr>
-											<dt>Total Transaksi :</dt>
-											<dd><p class='green-text'>RP. ".number_format($nota->price_total, 2 , ',' , '.')."</p></dd>
-										</dl>
-						          	</div>
-						          	<div class='row footernota'>
-						          		<h6>Notes :</h6>
-						          		<p>".$nota->notes."</p>
-						          	</div>
-						        </div>
-							</div>	
-
-							<!-- nota -->
-				
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</content>
-
-<script type='text/javascript' src='".base_url()."html/js/jquery-2.1.4.min.js'></script>
-<script type='text/javascript' src='".base_url()."html/js/materialize.min.js'></script>
-<script type='text/javascript' src='".base_url()."html/js/jpushmenu.js'></script>
-<script type='text/javascript' src='".base_url()."html/js/chosen.jquery.js'></script>
+		"?>
+</td>
+<td></td>
+</tr>
 
 
+<tr>
+<td colspan="2"><h4 class='titmain' ><b>Total Nota : </b></h4></td>
+<td align="right"><?php  echo number_format($nota->price_item) ;?></td>
+<td colspan="5"></td>
+
+</tr>
+
+<tr>
+<td colspan="2" ><h4 class='titmain'><b>Biaya Kirim :  </b></h4></td>
+<td align="right" ><?php  echo number_format($nota->price_shipment);?></td>
+<td colspan="5"></td>	
+</tr>
+<?php 
+if ($toko->invoice_confirm == 0) {
+?>													
+<tr>
+<td colspan="2"><h4 class='titmain'><b> Kode Unik :   </b></h4></td>
+<td align="right"><?php echo "$nota->invoice_seq_payment";?></td>
+<td colspan="5"></td>	
+</tr>
+<?php 
+} ?>
+<tr>
+<td colspan="3"><hr align="left"> </td>
+</tr>
+<tr>
+<td colspan="2"><h4 class='titmain'><b> Total Transaksi :  </b></h4></td>
+<td align="right" ><?php echo number_format($nota->price_total); ?></td>
+<td colspan="5"></td>	
+</tr>
+<tr>
+<td colspan="8"  ></td>
+</tr>
+	
+	<tr>
+	<td >NOTES </td>
+	<td colspan="7"> </td>
+	</tr>
+	<tr>
+	<td colspan="8"> <?php echo $nota->notes; ?> </td>
+	</tr>
+
+</table>
+<?php
+echo "
 </body>
 </html>";
 ?>
