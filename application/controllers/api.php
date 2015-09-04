@@ -3660,7 +3660,7 @@ class Api extends CI_Controller {
 						$Quantity = floatval($this->response->postDecode("cart_varian_quantity_".$i));
 						$CartVarian = $this->db->where("id",$this->response->postDecode("cart_varian_".$i))->get("tb_cart_varian")->row();
 						$ProductVarian = $this->db->where("id",$CartVarian->product_varian_id)->get("tb_product_varian")->row();
-						$Product = $this->db->where("id",$ProductVarian->product_id)->row();
+						$Product = $this->db->where("id",$ProductVarian->product_id)->get("tb_product")->row();
 						
 						if(!empty($CartVarian) && !empty($ProductVarian) && !empty($Product)){
 							if($Product->stock_type == 1 && $Product->stock_type_detail == 0){
@@ -4250,7 +4250,7 @@ class Api extends CI_Controller {
 											*	------------------------------------------------------------------------------
 											*/
 											
-											if($QShop->stock_adjust == 1 && !empty($ProductVarian)){
+											if($QShop->stock_adjust == 0 && !empty($ProductVarian)){
 												$NewStockQty = $ProductVarian->stock_qty - $QInvoiceVarian->quantity;
 												
 												$Data = array(
