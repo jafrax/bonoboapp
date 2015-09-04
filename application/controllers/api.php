@@ -3501,6 +3501,16 @@ class Api extends CI_Controller {
 				return;
 			}
 			
+			$QShop = $this->db
+					->where("id",$QCart->toko_id)
+					->get("tb_toko")
+					->row();
+					
+			if(empty($QShop)){
+				$this->response->send(array("result"=>0,"message"=>"Toko tidak valid","messageCode"=>2), true);
+				return;
+			}
+			
 			if($this->response->post("courier_type") == "" || $this->response->postDecode("courier_type") == ""){
 				$this->response->send(array("result"=>0,"message"=>"Tipe pengiriman belum dipilih","messageCode"=>3), true);
 				return;
@@ -3563,8 +3573,6 @@ class Api extends CI_Controller {
 			}else{
 				$QCourier = null;
 			}
-			
-			
 			
 			/*
 			*	------------------------------------------------------------------------------
@@ -3644,28 +3652,44 @@ class Api extends CI_Controller {
 			*	------------------------------------------------------------------------------
 			*/
 			
+			$isValidQuantity = true;
+			$isValidMessage = "Stok tidak mencukupi untuk pembelian ini";
 			if($this->response->post("cart_varians") != "" && $this->response->postDecode("cart_varians") != "" && $this->response->postDecode("cart_varians") > 0){
 				for ($i = 0; $i <$this->response->postDecode("cart_varians"); $i++) {
 					if($this->response->post("cart_varian_".$i) != "" && $this->response->postDecode("cart_varian_".$i) != "" && $this->response->post("cart_varian_quantity_".$i) != "" && $this->response->postDecode("cart_varian_quantity_".$i) != ""){
+						$Quantity = floatval($this->response->postDecode("cart_varian_quantity_".$i));
+						$CartVarian = $this->db->where("id",$this->response->postDecode("cart_varian_".$i))->get("tb_cart_varian")->row();
+						$ProductVarian = $this->db->where("id",$CartVarian->product_varian_id)->get("tb_product_varian")->row();
+						$Product = $this->db->where("id",$ProductVarian->product_id)->row();
+						
+						if(!empty($CartVarian) && !empty($ProductVarian) && !empty($Product)){
+							if($Product->stock_type == 1 && $Product->stock_type_detail == 0){
+								if($ProductVarian->stock_qty < $Quantity){
+									$isValidQuantity = false;
+									return;
+								}
+							}
+						}else{
+							$isValidQuantity = false;
+							$isValidMessage = "Data cart tidak valid lagi.";
+							return;
+						}
+						
 						$Data = array(
-									"quantity"=>$this->response->postDecode("cart_varian_quantity_".$i),
+									"quantity"=>$Quantity,
 								);
-								
+						
 						$Save = $this->db->where("id",$this->response->postDecode("cart_varian_".$i))->update("tb_cart_varian",$Data);
 					}
 				}
 			}
 			
-			/*
-			*	------------------------------------------------------------------------------
-			*	Get Shop of cart
-			*	------------------------------------------------------------------------------
-			*/
+			if(!$isValidQuantity){
+				$this->response->send(array("result"=>0,"message"=>"Stok tidak mencukupi untuk pembelian ini.","messageCode"=>3), true);
+				return;
+			}
 			
-			$QShop = $this->db
-					->where("id",$QCart->toko_id)
-					->get("tb_toko")
-					->row();
+			
 			
 			/*
 			*	------------------------------------------------------------------------------
@@ -4184,6 +4208,7 @@ class Api extends CI_Controller {
 									->result();
 										
 								foreach($QCartVarians as $QCartVarian){
+									$ProductVarian = $this->db->where("id",$QCartVarian->product_varian_id)->get("tb_product_varian")->row();
 									$Data = array(
 											"invoice_product_id"=>$QInvoiceProduct->id,
 											"product_varian_id"=>$QCartVarian->product_varian_id,
@@ -4216,7 +4241,24 @@ class Api extends CI_Controller {
 													"varian_name"=>$QInvoiceVarian->varian_name,
 													"product_varian"=>array(),
 												);
+												
 											array_push($InvoiceVarians,$InvoiceVarian);
+											
+											/*
+											*	------------------------------------------------------------------------------
+											*	Ubah stock quantity produk varian jika setingan shop stock_adjust == 1
+											*	------------------------------------------------------------------------------
+											*/
+											
+											if($QShop->stock_adjust == 1 && !empty($ProductVarian)){
+												$NewStockQty = $ProductVarian->stock_qty - $QInvoiceVarian->quantity;
+												
+												$Data = array(
+														"stock_qty"=>$NewStockQty,
+													);
+													
+												$Save = $this->db->where("id",$ProductVarian->id)->update("tb_product_varian",$Data);
+											}
 										}
 									}
 								}
