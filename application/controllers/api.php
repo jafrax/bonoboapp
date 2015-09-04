@@ -15,7 +15,7 @@
 
 class Api extends CI_Controller {
 
-	var $quality = 50;
+	var $quality = 90;
 	
 	function __construct(){
         parent::__construct();
