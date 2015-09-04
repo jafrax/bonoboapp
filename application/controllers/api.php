@@ -278,6 +278,7 @@ class Api extends CI_Controller {
 			"count_users"=>$CountMembers,
 			"join"=>$join,
 			"invite"=>$invite,
+			"invoice_confirm"=>$QShop->invoice_confirm,
 			"price_level"=>$price_level,
 			"location"=>array(
 				"id"=>$QShop->location_id,
@@ -3348,17 +3349,33 @@ class Api extends CI_Controller {
 						$QVarian = $this->db->where("id",$this->response->postDecode("varian".$i))->get("tb_product_varian")->row();
 						
 						if(!empty($QVarian) && $this->response->post("varian".$i."_qty") != "" && $this->response->postDecode("varian".$i."_qty") != ""){
-							$Data = array(
-									"cart_product_id"=>$QCartProduct->id,
-									"product_varian_id"=>$QVarian->id,
-									"quantity"=>$this->response->postDecode("varian".$i."_qty"),
-									"create_date"=>$date,
-									"create_user"=>$QUser->email,
-									"update_date"=>$date,
-									"update_user"=>$QUser->email,
-								);
+							$QCartVarian = $this->db
+										->where("cart_product_id",$QCartProduct->id)
+										->where("product_varian_id",$QVarian->id)
+										->get("tb_cart_varian")
+										->row();
 							
-							$Save = $this->db->insert("tb_cart_varian",$Data);
+							if(empty($QCartVarian)){
+								$Data = array(
+										"cart_product_id"=>$QCartProduct->id,
+										"product_varian_id"=>$QVarian->id,
+										"quantity"=>$this->response->postDecode("varian".$i."_qty"),
+										"create_date"=>$date,
+										"create_user"=>$QUser->email,
+										"update_date"=>$date,
+										"update_user"=>$QUser->email,
+									);
+								
+								$Save = $this->db->insert("tb_cart_varian",$Data);
+							}else{
+								$Data = array(
+										"quantity"=>$this->response->postDecode("varian".$i."_qty"),
+										"update_date"=>$date,
+										"update_user"=>$QUser->email,
+									);
+								
+								$Save = $this->db->where("id",$QCartVarian->id)->update("tb_cart_varian",$Data);
+							}
 						}
 					}
 				}
