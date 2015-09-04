@@ -17,8 +17,11 @@ $obj_pdf->SetFont('helvetica', '', 9);
 $obj_pdf->setFontSubsetting(false);
 $obj_pdf->AddPage();
 ob_start();
+    
     // we can have any view part here like HTML, PHP etc
     $content = $content;
+    //$content = ob_get_contents();
+    
 ob_end_clean();
 $obj_pdf->writeHTML($content, true, false, true, false, '');
 $obj_pdf->Output('Invoice Bonobo.pdf', 'I');

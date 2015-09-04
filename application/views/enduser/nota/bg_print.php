@@ -10,46 +10,39 @@ echo "
 ";
 ?>
 
-<table border=1 cellspacing=10>
+<table width="372" border=1 cellspacing="0" >
 <tr>
- <td  align="center" colspan="8" ><h2 class='titmain'><b> CETAK NOTA </b></h2> </td>		
+ <td  align="center" colspan="10" ><h2 class='titmain'><b> CETAK NOTA </b></h2> </td>		
 </tr>
 <tr>
- <td  align="center" colspan="8" ><h3 class='titmain'><b> No Nota : <?php echo ".$nota->invoice_no."; ?> </b></h3> </td>		
+ <td  align="center" colspan="10" ><h3 class='titmain'><b> No Nota : <?php echo $nota->invoice_no; ?> </b></h3> </td>		
 </tr>
 <tr>
- <td  align="center" colspan="8" ><h4 class='titmain'><b> Tanggal Pembelian : <?php  $old_date 			= $nota->create_date;
-										$old_date_timestamp = strtotime($old_date);
+ <td  align="center" colspan="10" ><h4 class='titmain'><b> Tanggal Pembelian : <?php  $old_date = $nota->create_date; $old_date_timestamp = strtotime($old_date);
 										$date 				= date('d M Y', $old_date_timestamp);echo $date; ?> </b></h4> </td>		
 </tr>
 
 <tr>
-<td colspan="8"  ></td>
+<td colspan="10"  ></td>
 </tr>
 <tr>
-<td colspan="8"  ></td>
-</tr>
-<tr>
-<td colspan="8"  ></td>
+<td colspan="10"  ></td>
 </tr>
 
 <tr>
-<td align="center" colspan="2"><h4 class='titmain'><b> <?php  echo "$toko->name" ;?>  </b></h4></td>
+<td align="center" colspan="3"><h4 class='titmain'><b> <?php  echo "$toko->name" ;?>  </b></h4></td>
 <td align="center" colspan="2"></td>
-<td align="center" colspan="2"></td>
-<td align="center" colspan="2"><h4 class='titmain'><b> <?php echo "Nama Pemesan : " ?>  </b></h4></td>
+<td align="center" colspan="5"><h4 class='titmain'><b> <?php echo "Nama Pemesan : " ?>  </b></h4></td>
 </tr>
 <tr>
-<td align="center" colspan="2"><h4 class='titmain'><b> <?php  echo "$toko->address" ;?>  </b></h4></td>
+<td align="center" colspan="3"><h4 class='titmain'><b> <?php  echo "$toko->address" ;?>  </b></h4></td>
 <td align="center" colspan="2"></td>
-<td align="center" colspan="2"></td>
-<td align="center" colspan="2"><h4 class='titmain'><b> <?php echo  "$nota->member_name"; ?>  </b></h4></td>
+<td align="center" colspan="5"><h4 class='titmain'><b> <?php echo  "$nota->member_name"; ?>  </b></h4></td>
 </tr>
 <tr>
-<td align="center" colspan="2"><h4 class='titmain'><b> <?php  echo "$toko->phone" ;?>  </b></h4></td>
+<td align="center" colspan="3"><h4 class='titmain'><b> <?php  echo "$toko->phone" ;?>  </b></h4></td>
 <td align="center" colspan="2"></td>
-<td align="center" colspan="2"></td>
-<td align="center" colspan="2" ><h4  class='titmain'><b> <?php  if ($nota->status == 0 ) {
+<td align="center" colspan="5" ><h4  class='titmain'><b> <?php  if ($nota->status == 0 ) {
 								            	$status="Belum Lunas";
 								            }elseif ($nota->status == 1) {								            	
 								            	$status="Lunas";
@@ -59,59 +52,96 @@ echo "
 </tr>
 
 
-
 <tr>
-<td></td>
-<td align="left" colspan="6">  
-<?php echo " 
-<div class='row '>";
-											foreach ($produk->result() as $row_p) {
-												$image = $this->model_nota->get_nota_product_image($row_p->id)->row();
-												$images = base_url()."html/images/comp/product.png";
-												if (count($image) > 0 ) {
-													if (file_exists(base_url()."/assets/pic/product/".$image->product_image)) {
-														$images = base_url()."assets/pic/product/resize/".$image->product_image;
-													}										
-												}
-												echo "<div class='nota-product col s12 m6'>
-														<img src='".$images."' class='responsive-img col s4 m4 left'>
-														<div class='col s8 m8'>
-															<p class='blue-text'>".$row_p->product_name."</p>
-															<p >Rp. ".$row_p->price_product."</p>";
-
-															$varian = $this->model_nota->get_varian_product($row_p->id);
-															if ($varian->num_rows() > 0) {
-																foreach ($varian->result() as $row_v) {
-																	if ($row_v->varian_name == 'null') {
-																		echo "<p >Jumlah : ".$row_v->quantity."</p>";
-																	}else{
-																		echo "<p >Varian : ".$row_v->varian_name." , Jumlah : ".$row_v->quantity."</p>";
-																	}
-																}
-															}
-														echo "
-														</div>
-													</div>";
-											}
-			  							echo "
-						          	</div>
-		"?>
-</td>
-<td></td>
+<td colspan="10"  ></td>
+</tr>
+<tr>
+<td colspan="10"  ></td>
 </tr>
 
 
+<?php 
+foreach ($produk->result() as $row_p) {
+$image = $this->model_nota->get_nota_product_image($row_p->id)->row();
+//$images = base_url()."html/images/comp/product.png";
+if (count($image) > 0 ) {
+if (file_exists(base_url()."/assets/pic/product/".$image->product_image)) {
+	$images = base_url()."assets/pic/product/resize/".$image->product_image;
+	}										
+} 
+?>
+
+
+
+<tr>
+  <td colspan="2">&nbsp;</td>
+  <td colspan="7"><h4 class='titmain'><b> <?php echo $row_p->product_name; ?></b></h4>  </td>
+  <td width="71" rowspan="5">
+    <?php 
+$varian = $this->model_nota->get_varian_product($row_p->id);
+$total=0;
+if ($varian->num_rows() > 0) {
+foreach ($varian->result() as $row_v) {
+	$total=$total + $row_v->quantity;
+	if ($row_v->varian_name <> 'null') {
+	?>
+  <table  border="0">
+    <tr>
+      <td><?  echo $row_v->varian_name; echo " = "; echo $row_v->quantity; ?></td>
+      </tr>
+  </table>
+  <?   }
+	}
+}
+?>
+    
+    
+  </td>
+  </tr>
+
+<tr>
+  <td colspan="2">&nbsp;</td>
+<td colspan="7"><?php echo "Harga Satuan @".$row_p->price_product; ?></td>
+</tr>
+
+<tr>
+  <td colspan="2">&nbsp;</td>
+<td colspan="7"><?php echo "Total = ".$total; ?></td>
+</tr>
+
+<tr>
+  <td colspan="2">&nbsp;</td>
+<td colspan="7"><?php $hargatotal= $total * $row_p->price_product; echo "Harga Total = Rp".$hargatotal;   ?></td>
+</tr>
+
+<tr>
+  <td colspan="2">&nbsp;</td>
+<td colspan="2"></td>
+<td width="10">&nbsp;</td>
+<td colspan="4"></td>
+</tr>
+
+<tr>
+<td colspan="10" align="center"><hr align="center"> </td>
+</tr>
+
+
+<?php } ?>
+<tr>
+<td colspan="10"  ></td>
+</tr>
+
 <tr>
 <td colspan="2"><h4 class='titmain' ><b>Total Nota : </b></h4></td>
-<td align="right"><?php  echo number_format($nota->price_item) ;?></td>
-<td colspan="5"></td>
+<td width="49" align="right"><?php  echo number_format($nota->price_item) ;?></td>
+<td colspan="7"></td>
 
 </tr>
 
 <tr>
 <td colspan="2" ><h4 class='titmain'><b>Biaya Kirim :  </b></h4></td>
 <td align="right" ><?php  echo number_format($nota->price_shipment);?></td>
-<td colspan="5"></td>	
+<td colspan="7"></td>	
 </tr>
 <?php 
 if ($toko->invoice_confirm == 0) {
@@ -119,7 +149,7 @@ if ($toko->invoice_confirm == 0) {
 <tr>
 <td colspan="2"><h4 class='titmain'><b> Kode Unik :   </b></h4></td>
 <td align="right"><?php echo "$nota->invoice_seq_payment";?></td>
-<td colspan="5"></td>	
+<td colspan="7"></td>	
 </tr>
 <?php 
 } ?>
@@ -129,18 +159,18 @@ if ($toko->invoice_confirm == 0) {
 <tr>
 <td colspan="2"><h4 class='titmain'><b> Total Transaksi :  </b></h4></td>
 <td align="right" ><?php echo number_format($nota->price_total); ?></td>
-<td colspan="5"></td>	
+<td colspan="7"></td>	
 </tr>
 <tr>
-<td colspan="8"  ></td>
+<td colspan="10"  ></td>
 </tr>
 	
 	<tr>
-	<td >NOTES </td>
-	<td colspan="7"> </td>
+	<td width="113" >NOTES </td>
+	<td colspan="9"> </td>
 	</tr>
 	<tr>
-	<td colspan="8"> <?php echo $nota->notes; ?> </td>
+	<td colspan="10" > <?php echo $nota->notes; ?> </td>
 	</tr>
 
 </table>

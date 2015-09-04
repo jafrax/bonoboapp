@@ -104,4 +104,6 @@ class Model_nota extends CI_Model
 	{
 		return $this->db->where('invoice_product_id',$id)->get('tb_invoice_varian');
 	}
+	
+	
 }
