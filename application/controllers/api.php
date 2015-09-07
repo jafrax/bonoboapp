@@ -11,7 +11,7 @@
 
 //header('content-type: application/json; charset=utf-8');
 //ob_start('ob_gzhandler');
-//set_time_limit (10000);
+set_time_limit (60000);
 
 class Api extends CI_Controller {
 
@@ -1683,7 +1683,7 @@ class Api extends CI_Controller {
 				$QProduct = $QProduct->where("tp.id > ",$this->response->postDecode("currentId"));
 			}
 			
-			$QProduct = $QProduct->limit(10,0);
+			//$QProduct = $QProduct->limit(10,0);
 			$QProduct = $QProduct->order_by("tp.id","Desc");
 			$QProduct = $QProduct->get("tb_product tp");
 			$QProducts = $QProduct->result();
