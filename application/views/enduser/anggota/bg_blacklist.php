@@ -30,6 +30,7 @@ echo"
 					</div>
 				</li>
 				</form>
+				<div id='ajax-div' >
 ";
 
 if(sizeOf($Members) <= 0){
@@ -56,8 +57,13 @@ if(sizeOf($Members) <= 0){
 	}
 }
 echo"
-				
+				</div>
 			</ul>
+			<center>
+					<img id='preloader' src='".base_url()."html/images/comp/loading.GIF' style='display:none' /><br>
+					<label id='habis' class='green-text' style='display:none'>Semua anggota telah ditampilkan</label>
+					<h3><br></h3>
+				</center>
 		</div>
 	</div>
 	
@@ -81,6 +87,43 @@ echo"
 		var ctrlAnggotaBlacklist = new CtrlAnggotaBlacklist();
 		ctrlAnggotaBlacklist.init();
 	</script>
+<script>
+var offset=16;
+var scrolling=true;
+
+$(window).scroll(function () {      
+        if ($(window).scrollTop() == ( $(document).height() - $(window).height()) && scrolling==true) {
+            $('#preloader').slideDown();
+            
+            scrolling       = false;            
+            var url         = base_url+'anggota/ajax_blacklist/'+offset;
+            
+            window.scrollTo(0, ($(window).scrollTop()-50) );
+
+            $.ajax({
+                type: 'POST',
+                data: 'ajax=1&scroll=1',
+                url: url,
+                success: function(msg) {
+                    if (msg){
+                        $('#ajax-div').append(msg);
+                        $('#preloader').slideUp();
+                        offset      = offset+16;
+                        scrolling   = true;
+
+                        $('.modal-trigger').leanModal();
+
+                    }else{
+                        $('#preloader').slideUp();
+                        scrolling   = false;
+                        $('#habis').slideDown();
+                    }
+                }
+            });
+            return false;
+        }
+    });
+</script>
 ";
 
 ?>

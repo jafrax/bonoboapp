@@ -48,11 +48,14 @@ if ($produk->num_rows() == 0) {
 												$stok =  $this->model_produk->get_varian_produk($row->id);
 												foreach ($stok->result() as $row_stok) {
 													echo"
-													<p class='input-field col s12 m12 l12 nolpad'>
-														<input onkeyup=javascript:change_stock2(".$row_stok->id.") type='text' maxlength='9' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate numbersOnly stok-".$row_stok->id." stok-2-".$row_stok->id."'>";
-														if ($row_stok->name != 'null') {
-															echo "<span for='stok'>".$row_stok->name."</span>";
-														}
+													<p class='input-field col s12 m12 l12 nolpad'>";
+													if ($row->unit !='') {
+														echo "<i class='prefix prefix-gan'>".$row->unit."</i>";
+													}
+													if ($row_stok->name != 'null') {
+														echo "<span for='stok'>".$row_stok->name."</span>";
+													}
+														echo"<input onkeyup=javascript:change_stock2(".$row_stok->id.") type='text' maxlength='9' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate numbersOnly stok-".$row_stok->id." stok-2-".$row_stok->id."'>";
 														
 														if ($row_stok->stock_qty == 0) {
 															echo"<span class='label red right habis-".$row_stok->id."'>Stok habis</span>";

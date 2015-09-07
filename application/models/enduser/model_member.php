@@ -75,10 +75,11 @@ class Model_member extends CI_Model {
 					->get("tb_toko_blacklist ttb");
 	}
 	
-	public function get_bl_member_by_shop($shop,$keyword=""){
+	public function get_bl_member_by_shop($shop,$keyword="",$limit=1000000,$offset=0){
 		return $this->db->select("tm.*")
 						->where("tm.id IN (SELECT ttb.member_id FROM tb_toko_blacklist ttb WHERE ttb.toko_id = ".$shop.")",null)
 						->like("tm.name",$keyword)
+						->limit($limit,$offset)
 						->get("tb_member tm");
 	}
 	
@@ -97,10 +98,11 @@ class Model_member extends CI_Model {
 					->get("tb_toko_member ttm");
 	}
 	
-	public function get_tm_member_by_shop($shop,$keyword=""){
+	public function get_tm_member_by_shop($shop,$keyword="",$limit=1000000,$offset=0){
 		return $this->db->select("tm.*")
 						->where("tm.id IN (SELECT ttm.member_id FROM tb_toko_member ttm WHERE ttm.toko_id = ".$shop.")",null)
 						->like("tm.name",$keyword)
+						->limit($limit,$offset)
 						->get("tb_member tm");
 	}
 	

@@ -65,16 +65,18 @@ foreach ($produk->result() as $row_p) {
 $image = $this->model_nota->get_nota_product_image($row_p->id)->row();
 //$images = base_url()."html/images/comp/product.png";
 if (count($image) > 0 ) {
-if (file_exists(base_url()."/assets/pic/product/".$image->product_image)) {
-	$images = base_url()."assets/pic/product/resize/".$image->product_image;
-	}										
+if (file_exists(base_url()."assets/pic/product/".$image->product_image)) {
+		$images = base_url()."assets/pic/product/resize/".$image->product_image;
+	}else{
+		$images = base_url()."html/images/comp/product.png";
+	}
 } 
 ?>
 
 
 
 <tr>
-  <td colspan="2">&nbsp;</td>
+  <td colspan="2"><img src="<?php echo $images; ?>" width="50" height="50" ></td>
   <td colspan="7"><h4 class='titmain'><b> <?php echo $row_p->product_name; ?></b></h4>  </td>
   <td width="71" rowspan="5">
     <?php 

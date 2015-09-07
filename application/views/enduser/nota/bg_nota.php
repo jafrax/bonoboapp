@@ -140,8 +140,7 @@ echo"
 
 												echo "<button id='btn-batal-".$row->id."' data-target='batal_nota_".$row->id."' class='btn modal-trigger waves-effect red white-text waves-light right' type='button' name='action' >Batal</button>";
 												
-											echo"
-												
+											echo"												
 								            </div>
 								            <div id='batal_nota_".$row->id."' class='modal confirmation'>
 												<div class='modal-header red'>

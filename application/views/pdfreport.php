@@ -15,6 +15,8 @@ $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 $obj_pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 $obj_pdf->SetFont('helvetica', '', 9);
 $obj_pdf->setFontSubsetting(false);
+// set image scale factor
+$obj_pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 $obj_pdf->AddPage();
 ob_start();
     

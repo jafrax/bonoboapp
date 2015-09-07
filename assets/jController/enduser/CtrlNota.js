@@ -28,6 +28,7 @@ $(window).scroll(function () {
                         offset      = offset+5;
                         scrolling   = true;
                         $('#total-nota').val(total_nota+5);
+                        $('.modal-trigger').leanModal();
                         $('.collapsible').collapsible({
                           accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
                         });
@@ -105,6 +106,7 @@ function batal_nota(id){
                 $('#lunas-'+id).html('Batal');
                 $('#lunas-'+id).addClass('grey-text');
                 $('#lunas-'+id).addClass('red-text');
+                $('.modal-trigger').leanModal();
             };
         } 
     });
@@ -140,6 +142,7 @@ function go(){
     		$('#lunas-'+id).html('Batal');        		
     		$('#lunas-'+id).addClass('grey-text');
     		$('#lunas-'+id).addClass('red-text');
+            $('.modal-trigger').leanModal();
 		  }
 
         }
@@ -255,10 +258,12 @@ function change_sort(){
             if (msg != 0) {
                 $('#ajax-div').html(msg);
                 $('#ajax-div').fadeTo('slow',1);
+                $('.modal-trigger').leanModal();
             }else{
                 $('#ajax-div').html("<center>Nota tidak ditemukan</center>");
                 $('#ajax-div').fadeTo('slow',1);
                 Materialize.toast('Nota tidak ditemukan!', 4000);$('#ajax-div').fadeTo('slow',1);
+                $('.modal-trigger').leanModal();
             };
         } 
     });
@@ -275,10 +280,12 @@ function change_bayar(){
             if (msg != 0) {
                 $('#ajax-div').html(msg);
                 $('#ajax-div').fadeTo('slow',1);
+                $('.modal-trigger').leanModal();
             }else{
                 $('#ajax-div').html("<center>Nota tidak ditemukan</center>");
                 $('#ajax-div').fadeTo('slow',1);
                 Materialize.toast('Nota tidak ditemukan!', 4000);$('#ajax-div').fadeTo('slow',1);
+                $('.modal-trigger').leanModal();
             };
         }
     });
@@ -295,10 +302,12 @@ function change_stock(){
             if (msg != 0) {
                 $('#ajax-div').html(msg);
                 $('#ajax-div').fadeTo('slow',1);
+                $('.modal-trigger').leanModal();
             }else{
                 $('#ajax-div').html("<center>Nota tidak ditemukan</center>");
                 $('#ajax-div').fadeTo('slow',1);
                 Materialize.toast('Nota tidak ditemukan!', 4000);$('#ajax-div').fadeTo('slow',1);
+                $('.modal-trigger').leanModal();
             };              
         } 
     });
@@ -316,10 +325,12 @@ function change_flagger(){
                 if (msg != 0) {
                     $('#ajax-div').html(msg);
                     $('#ajax-div').fadeTo('slow',1);
+                    $('.modal-trigger').leanModal();
                 }else{
                     $('#ajax-div').html("<center>Nota tidak ditemukan</center>");
                     $('#ajax-div').fadeTo('slow',1);
                     Materialize.toast('DNota tidak ditemukan!', 4000);$('#ajax-div').fadeTo('slow',1);
+                    $('.modal-trigger').leanModal();
                 };
             } 
         });
@@ -333,10 +344,12 @@ function change_flagger(){
                 if (msg != 0) {
                     $('#ajax-div').html(msg);
                     $('#ajax-div').fadeTo('slow',1);
+                    $('.modal-trigger').leanModal();
                 }else{
                     $('#ajax-div').html("<center>Nota tidak ditemukan</center>");
                     $('#ajax-div').fadeTo('slow',1);
                     Materialize.toast('Nota tidak ditemukan!', 4000);$('#ajax-div').fadeTo('slow',1);
+                    $('.modal-trigger').leanModal();
                 };
             } 
         });
@@ -388,10 +401,12 @@ function delete_nota2(id){
                 if (msg != 0) {
                     $('#ajax-div').html(msg);
                     $('#ajax-div').fadeTo('slow',1);
+                    $('.modal-trigger').leanModal();
                 }else{
                     $('#ajax-div').html("<center>Nota tidak ditemukan</center>");
                     $('#ajax-div').fadeTo('slow',1);
                     Materialize.toast('Nota tidak ditemukan!', 4000);
+                    $('.modal-trigger').leanModal();
                 };              
             }
         });

@@ -237,11 +237,11 @@ echo"
 													if ($row->unit !='') {
 														echo "<i class='prefix prefix-gan'>".$row->unit."</i>";
 													}
-													echo"
-														<input onkeyup=javascript:change_stock2(".$row_stok->id.") type='text' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' maxlength='9' placeholder='Stok' class='validate numbersOnly stok-".$row_stok->id." stok-2-".$row_stok->id."'>";
-														if ($row_stok->name != 'null') {
-															echo "<span for='stok'>".$row_stok->name."</span>";
-														}
+													if ($row_stok->name != 'null') {
+														echo "<span for='stok'>".$row_stok->name."</span>";
+													}
+													echo"<input onkeyup=javascript:change_stock2(".$row_stok->id.") type='text' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' maxlength='9' placeholder='Stok' class='validate numbersOnly stok-".$row_stok->id." stok-2-".$row_stok->id."'>";
+														
 														
 														if ($row_stok->stock_qty == 0) {
 															echo"<span class='label red right habis-".$row_stok->id."'>Stok habis</span>";

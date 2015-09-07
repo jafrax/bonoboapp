@@ -78,19 +78,19 @@ echo"
 					<select name='level' class='select-standar' id='levelbos'>						
 						";
 						if($shop->level_1_active == 1){
-							echo "<option value='1'>".$shop->level_1_name."</option>";
+							echo "<option value='1'>".($shop->level_1_name == '' ? "Harga Member Umum" : $shop->level_1_name)."</option>";
 						}
 						if($shop->level_2_active == 1){
-							echo "<option value='2'>".$shop->level_2_name."</option>";	
+							echo "<option value='2'>".($shop->level_2_name == '' ? "Harga Member Langganan" : $shop->level_2_name)."</option>";	
 						}
 						if($shop->level_3_active == 1){
-							echo "<option value='3'>".$shop->level_3_name."</option>";
+							echo "<option value='3'>".($shop->level_3_name == '' ? "Harga Khusus-1" : $shop->level_3_name)."</option>";
 						}
 						if($shop->level_4_active == 1){
-							echo "<option value='4'>".$shop->level_4_name."</option>";
+							echo "<option value='4'>".($shop->level_4_name == '' ? "Harga Khusus-2" : $shop->level_4_name)."</option>";
 						}
 						if($shop->level_5_active == 1){
-							echo "<option value='5'>".$shop->level_5_name."</option>";
+							echo "<option value='5'>".($shop->level_5_name == '' ? "Harga Khusus-3" : $shop->level_5_name)."</option>";
 						}
 					echo "</select>
 				</div>

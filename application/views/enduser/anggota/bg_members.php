@@ -27,6 +27,7 @@ echo"
 					</div>
 				</li>
 				</form>
+				<div id='ajax-div' >
 ";
 if(sizeOf($Members) <= 0){
 	echo"Anda tidak mempunyai anggota";
@@ -71,8 +72,14 @@ if(sizeOf($Members) <= 0){
 	}
 }
 echo"
+				</div>
 				
 			</ul>
+			<center>
+					<img id='preloader' src='".base_url()."html/images/comp/loading.GIF' style='display:none' /><br>
+					<label id='habis' class='green-text' style='display:none'>Semua anggota telah ditampilkan</label>
+					<h3><br></h3>
+				</center>
 		</div>
 	</div>
 	
@@ -107,19 +114,19 @@ echo"
 					<select name='level' id='level-saiki' class='browser-default'>						
 					";
 						if($shop->level_1_active == 1){
-							echo "<option value='1'>".$shop->level_1_name."</option>";
+							echo "<option value='1'>".($shop->level_1_name == '' ? "Harga Member Umum" : $shop->level_1_name)."</option>";
 						}
 						if($shop->level_2_active == 1){
-							echo "<option value='2'>".$shop->level_2_name."</option>";	
+							echo "<option value='2'>".($shop->level_2_name == '' ? "Harga Member Langganan" : $shop->level_2_name)."</option>";	
 						}
 						if($shop->level_3_active == 1){
-							echo "<option value='3'>".$shop->level_3_name."</option>";
+							echo "<option value='3'>".($shop->level_3_name == '' ? "Harga Khusus-1" : $shop->level_3_name)."</option>";
 						}
 						if($shop->level_4_active == 1){
-							echo "<option value='4'>".$shop->level_4_name."</option>";
+							echo "<option value='4'>".($shop->level_4_name == '' ? "Harga Khusus-2" : $shop->level_4_name)."</option>";
 						}
 						if($shop->level_5_active == 1){
-							echo "<option value='5'>".$shop->level_5_name."</option>";
+							echo "<option value='5'>".($shop->level_5_name == '' ? "Harga Khusus-3" : $shop->level_5_name)."</option>";
 						}
 					echo "</select>
 				</div>
@@ -135,6 +142,43 @@ echo"
 		var ctrlAnggotaMembers = new CtrlAnggotaMembers();
 		ctrlAnggotaMembers.init();
 	</script>
+<script>
+var offset=16;
+var scrolling=true;
+
+$(window).scroll(function () {      
+        if ($(window).scrollTop() == ( $(document).height() - $(window).height()) && scrolling==true) {
+            $('#preloader').slideDown();
+            
+            scrolling       = false;            
+            var url         = base_url+'anggota/ajax_members/'+offset;
+            
+            window.scrollTo(0, ($(window).scrollTop()-50) );
+
+            $.ajax({
+                type: 'POST',
+                data: 'ajax=1&scroll=1',
+                url: url,
+                success: function(msg) {
+                    if (msg){
+                        $('#ajax-div').append(msg);
+                        $('#preloader').slideUp();
+                        offset      = offset+16;
+                        scrolling   = true;
+
+                        $('.modal-trigger').leanModal();
+
+                    }else{
+                        $('#preloader').slideUp();
+                        scrolling   = false;
+                        $('#habis').slideDown();
+                    }
+                }
+            });
+            return false;
+        }
+    });
+</script>
 ";
 
 ?>

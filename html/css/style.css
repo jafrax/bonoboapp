@@ -39,6 +39,7 @@ header,section,content,footer{ width:100%; }
 .containermain{ width:90%; margin:0 auto; }
 @media (min-width: 1280px) {
 	.containermain{ width:1210px; margin:0 auto; }
+    #dua .l3{width: 23.9%!important}
 }
 
 
