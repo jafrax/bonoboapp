@@ -163,6 +163,7 @@ class Api extends CI_Controller {
 							->where("id",$QShopCourier->courier_id)
 							->get("ms_courier")
 							->row();
+							
 			$Courier = array();
 			if(!empty($QCourier)){
 				if(@getimagesize(base_url("assets/pic/kurir/".$QCourier->image))){
@@ -241,6 +242,7 @@ class Api extends CI_Controller {
 						->select("tp.id")
 						->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
 						->where("ttcp.toko_id",$QShop->id)
+						->where("tp.active",1)
 						->get("tb_product tp")
 						->result();
 						
