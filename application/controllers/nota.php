@@ -41,7 +41,7 @@ class Nota extends CI_Controller {
             $offset = $page;
         }
         
-        $data['nota'] 		= $this->model_nota->get_nota($limit,$offset);
+        $data['nota'] = $this->model_nota->get_nota($limit,$offset);
         
 		if ($this->input->post('ajax')) {
 			if ($data['nota']->num_rows() > 0){
@@ -304,7 +304,7 @@ class Nota extends CI_Controller {
 		$data['produk']		= $this->model_nota->get_nota_product($invoice);
 
 		$content = $this->load->view('enduser/nota/bg_print',$data,true);
-		$this->template->print2pdf('Invoce Bonobo ',$content);
+		$this->template->print2pdf('Invoce Bonobo',$content);
 	}
 
 	public function ajax_load(){

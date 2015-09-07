@@ -133,15 +133,15 @@ class Anggota extends CI_Controller {
 							Tim Bonobo
 						";
 						
-						$this->template->send_email($data["email"],'no-reply@bonobo.com', $message);
+						$this->template->send_email($data["email"],'Undangan Bergabung di Bonobo', $message);
 					
-						$data["notif"] = "Undangan anda telah dikirim ke email : ".$data["email"]."";
+						$data["notif"] = "Undangan anda telah dikirim";
 						//$data["email"] = "";
 						//$data["message"] = "";
 						echo json_encode(array("msg"=>'success',"notif"=>$data["notif"] ));
 						return false;
 					}else{
-						$data["notif"] = "Undangan anda tidak dapat dikirim !";
+						$data["notif"] = "Undangan anda tidak dapat dikirim ";
 						echo json_encode(array("msg"=>'error',"notif"=>$data["notif"] ));
 						return false;
 					}
@@ -169,6 +169,33 @@ class Anggota extends CI_Controller {
 		
 		$this->template->bonobo("anggota/bg_members",$data);
 	}
+
+	public function ajax_members(){
+		$data["keyword"] = "";
+		$data["shop"] = $this->model_member->get_toko_by_id($_SESSION['bonobo']['id'])->row();
+		$data["countNewMember"] = $this->countNewMember();
+
+		$page 	= $this->uri->segment(3);        
+        $limit 	= 16;
+
+        if(!$page){
+        	$offset = 0;
+        }else{
+            $offset = $page;
+        }
+		
+		if($this->response->post("keyword") != ""){
+			$data["keyword"] = $this->response->post("keyword");
+		}
+		
+		$data["Members"] = $this->model_member->get_tm_member_by_shop($data["shop"]->id, $data["keyword"],$limit,$offset)->result();
+		
+		if ($this->input->post('ajax')) {
+			if (count($data['Members']) > 0){
+                $this->load->view('enduser/anggota/bg_members_ajax', $data);
+            }
+        }
+	}
 	
 	public function blacklist(){
 		$data["keyword"] = "";
@@ -182,6 +209,33 @@ class Anggota extends CI_Controller {
 		$data["Members"] = $this->model_member->get_bl_member_by_shop($data["shop"]->id, $data["keyword"])->result();
 		$data["jumlahbacklist"] = $this->jumlahbacklist();
 		$this->template->bonobo("anggota/bg_blacklist",$data);
+	}
+
+	public function ajax_blacklist(){
+		$data["keyword"] = "";
+		$data["shop"] = $this->model_member->get_toko_by_id($_SESSION['bonobo']['id'])->row();
+		$data["countNewMember"] = $this->countNewMember();
+		
+		$page 	= $this->uri->segment(3);        
+        $limit 	= 16;
+
+        if(!$page){
+        	$offset = 0;
+        }else{
+            $offset = $page;
+        }
+		if($this->response->post("keyword") != ""){
+			$data["keyword"] = $this->response->post("keyword");
+		}
+		
+		$data["Members"] = $this->model_member->get_bl_member_by_shop($data["shop"]->id, $data["keyword"],$limit,$offset)->result();
+		$data["jumlahbacklist"] = $this->jumlahbacklist();
+
+		if ($this->input->post('ajax')) {
+			if (count($data['Members']) > 0){
+                $this->load->view('enduser/anggota/bg_blacklist_ajax', $data);
+            }
+        }		
 	}
 	
 	public function members_detail(){

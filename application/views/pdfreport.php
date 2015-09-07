@@ -15,10 +15,15 @@ $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 $obj_pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 $obj_pdf->SetFont('helvetica', '', 9);
 $obj_pdf->setFontSubsetting(false);
+// set image scale factor
+$obj_pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 $obj_pdf->AddPage();
 ob_start();
+    
     // we can have any view part here like HTML, PHP etc
     $content = $content;
+    //$content = ob_get_contents();
+    
 ob_end_clean();
 $obj_pdf->writeHTML($content, true, false, true, false, '');
 $obj_pdf->Output('Invoice Bonobo.pdf', 'I');

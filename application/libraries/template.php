@@ -376,6 +376,7 @@
 	{
 		$ci =& get_instance();
 		$ci->load->helper('pdf_helper');
+		
 		$data['title']  	= $title;
 		$data['content']	= $content;
 	    $ci->load->view('pdfreport', $data);
