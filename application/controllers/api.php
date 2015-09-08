@@ -1522,15 +1522,25 @@ class Api extends CI_Controller {
 							->result();
 			
 			foreach($QMessages as $QMessage){
-				$Message = array(
-						"id"=>$QMessage->id,
-						"shop_name"=>$QMessage->toko_name,
-						"message"=>$QMessage->message,
-						"isread"=>$QMessage->isread,
-						"isfrom"=>$QMessage->isfrom,
-						"shop"=>$this->getShopById($QShop->id,$QUser->id),
-					);
+				if(@getimagesize(base_url("assets/pic/product/".$QMessage->image))){
+					$ImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/product/resize/".$QMessage->image)));
+					$ImageHigh = base_url("image.php?q=100&fe=".base64_encode(base_url("assets/pic/product/".$QMessage->image)));
+				}else{
+					$ImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+					$ImageHigh = $ProductImageTumb;
+				}
 				
+				$Messages = array(
+							"id"=>$QUserMessage->id,
+							"shop_name"=>$QUserMessage->toko_name,
+							"message"=>$QMessage->message,
+							"title"=>$QMessage->title,
+							"image_tumb"=>$ImageTumb,
+							"image_high"=>$ImageHigh,
+							"isread"=>$QMessage->isread,
+							"isfrom"=>$QMessage->isfrom,
+							"shop"=>$this->getShopById($QShop->id,$QUser->id),
+						);
 				array_push($Messages,$Message);
 			}
 			
