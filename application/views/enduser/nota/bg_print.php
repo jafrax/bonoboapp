@@ -10,9 +10,19 @@ echo "
 ";
 ?>
 
-<table width="372" border=1 cellspacing="0" >
+<table width="100%" border=1 cellspacing="0" >
 <tr>
- <td  align="center" colspan="10" ><h2 class='titmain'><b> CETAK NOTA </b></h2> </td>		
+ <td  align="left" colspan="10" ><img src="<?php echo base_url()."assets/pic/shop/".$_SESSION['bonobo']['image']; ?>" width="50" height="50" /></td>		
+</tr>
+<tr>
+ <td  align="left" colspan="10" ><?php echo $_SESSION['bonobo']['name']; ?></td>		
+</tr>
+
+<tr>
+<td colspan="10" align="center"><hr align="center"> </td>
+</tr>
+<tr>
+ <td  align="right" colspan="10" ><h2 class='titmain'><b>INVOICE</b></h2> </td>		
 </tr>
 <tr>
  <td  align="center" colspan="10" ><h3 class='titmain'><b> No Nota : <?php echo $nota->invoice_no; ?> </b></h3> </td>		
@@ -76,9 +86,9 @@ if (file_exists(base_url()."assets/pic/product/".$image->product_image)) {
 
 
 <tr>
-  <td colspan="2"><img src="<?php echo $images; ?>" width="50" height="50" ></td>
+  <td colspan="2" rowspan="5"><img src="<?php echo $images; ?>" width="50" height="50" ></td>
   <td colspan="7"><h4 class='titmain'><b> <?php echo $row_p->product_name; ?></b></h4>  </td>
-  <td width="71" rowspan="5">
+  <td width="128" rowspan="5">
     <?php 
 $varian = $this->model_nota->get_varian_product($row_p->id);
 $total=0;
@@ -102,23 +112,19 @@ foreach ($varian->result() as $row_v) {
   </tr>
 
 <tr>
-  <td colspan="2">&nbsp;</td>
-<td colspan="7"><?php echo "Harga Satuan @".$row_p->price_product; ?></td>
+  <td colspan="7"><?php echo "Harga Satuan @Rp".number_format($row_p->price_product); ?></td>
 </tr>
 
 <tr>
-  <td colspan="2">&nbsp;</td>
-<td colspan="7"><?php echo "Total = ".$total; ?></td>
+  <td colspan="7"><?php echo "Total = ".$total; ?></td>
 </tr>
 
 <tr>
-  <td colspan="2">&nbsp;</td>
-<td colspan="7"><?php $hargatotal= $total * $row_p->price_product; echo "Harga Total = Rp".$hargatotal;   ?></td>
+  <td colspan="7"><?php $hargatotal= $total * $row_p->price_product; echo "Harga Total = Rp".number_format($hargatotal);   ?></td>
 </tr>
 
 <tr>
-  <td colspan="2">&nbsp;</td>
-<td colspan="2"></td>
+  <td colspan="2"></td>
 <td width="10">&nbsp;</td>
 <td colspan="4"></td>
 </tr>
@@ -135,9 +141,8 @@ foreach ($varian->result() as $row_v) {
 
 <tr>
 <td colspan="2"><h4 class='titmain' ><b>Total Nota : </b></h4></td>
-<td width="49" align="right"><?php  echo number_format($nota->price_item) ;?></td>
+<td width="87" align="right"><?php  echo number_format($nota->price_item) ;?></td>
 <td colspan="7"></td>
-
 </tr>
 
 <tr>
