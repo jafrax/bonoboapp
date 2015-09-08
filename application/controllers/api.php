@@ -4670,6 +4670,25 @@ class Api extends CI_Controller {
 				return;
 			}
 			
+			$image = "";
+			if($this->response->post("product") != "" || $this->response->postDecode("product") != ""){
+				$QProduct = $this->db
+							->where("id",$this->response->postDecode("product"))
+							->get("tb_product")
+							->row();
+				
+				if(!empty($QProduct)){
+					$QProductImage = $this->db
+									->where("product_id",$QProduct->id)
+									->get("tb_product_image")
+									->row();
+									
+					if(!empty($QProductImage)){
+						$image = $QProductImage->file;
+					}
+				}
+			}
+			
 			/*
 			*	------------------------------------------------------------------------------
 			*	Menyimpan data message parent
@@ -4678,6 +4697,7 @@ class Api extends CI_Controller {
 			
 			$Data = array(
 					"message"=>$this->response->postDecode("message"),
+					"image"=>$image,
 					"create_date"=>date("Y-m-d H:i:s"),
 					"create_user"=>$QUser->email,
 					"update_date"=>date("Y-m-d H:i:s"),
@@ -4688,6 +4708,9 @@ class Api extends CI_Controller {
 			if($Save){
 				$QMessage = $this->db
 							->where("message",$this->response->postDecode("message"))
+							->where("image",$image)
+							->where("create_user",$QUser->email)
+							->where("update_user",$QUser->email)
 							->get("tb_message")
 							->row();
 				
@@ -4733,10 +4756,20 @@ class Api extends CI_Controller {
 					
 					$Shop = $this->getShopById($QUserMessage->toko_id,$QUser->id);
 					
+					if(@getimagesize(base_url("assets/pic/product/".$QMessage->image))){
+						$ImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/product/resize/".$QMessage->image)));
+						$ImageHigh = base_url("image.php?q=100&fe=".base64_encode(base_url("assets/pic/product/".$QMessage->image)));
+					}else{
+						$ImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+						$ImageHigh = $ProductImageTumb;
+					}
+					
 					$Messages = array(
 								"id"=>$QUserMessage->id,
 								"shop_name"=>$QUserMessage->toko_name,
 								"message"=>$QMessage->message,
+								"image_tumb"=>$ImageTumb,
+								"image_high"=>$ImageHigh,
 								"isfrom"=>$QUserMessage->flag_from,
 								"isread"=>$QUserMessage->flag_read,
 								"shop"=>$Shop,
