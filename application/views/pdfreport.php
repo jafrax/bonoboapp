@@ -3,6 +3,8 @@
 tcpdf();
 $obj_pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 $obj_pdf->SetCreator(PDF_CREATOR);
+$obj_pdf->SetPrintHeader(false);
+$obj_pdf->SetPrintFooter(false);
 
 $obj_pdf->SetTitle($title);
 $obj_pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, $title, PDF_HEADER_STRING);
