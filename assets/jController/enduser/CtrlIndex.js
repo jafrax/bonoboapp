@@ -35,6 +35,7 @@ function CtrlSignup(){
 		};
 	
 	}
+     
 
 	function initValidation(){
 		formSignupJQuery.validate({
@@ -59,7 +60,9 @@ function CtrlSignup(){
 					required: true,
 					minlength:5,
 					maxlength:50,
+					equalTo: "#password"	
 				},
+				
 			},
 			messages: {
 				name:{
@@ -82,6 +85,9 @@ function CtrlSignup(){
 					required: message_alert("Field ini dibutuhkan"),
 					minlength: message_alert("Masukkan minimal 5 karakter"),
 					maxlength: message_alert("Masukkan maksimal 50 karakter"),
+					equalTo: message_alert("Password tidak sama "),
+					
+					
 				},
 			}
 		});

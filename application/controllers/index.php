@@ -41,6 +41,18 @@ class Index extends CI_Controller {
 
 	}
 	
+	public function oldpassword_check($old_password){
+		$old_password_hash = md5($old_password);
+		$old_password_db_hash = $this->yourmodel->fetchPasswordHashFromDB();
+	
+		if($old_password_hash != $old_password_db_hash)
+		{
+			$this->form_validation->set_message('oldpassword_check', 'Old password not match');
+			return FALSE;
+		}
+		return TRUE;
+	}
+	
 	public function signup(){
 		if(!$_POST){
 			$this->load->view("enduser/login/bg_signup");
@@ -49,6 +61,7 @@ class Index extends CI_Controller {
 			$this->form_validation->set_rules('email', '', 'required|max_length[50]|valid_email|is_unique[tb_toko.email]');
 			$this->form_validation->set_rules('password', '', 'required|min_length[5]|max_length[50]');
 			$this->form_validation->set_rules('rePassword', '', 'required|matches[password]');
+			
 			
 			if ($this->form_validation->run() == TRUE){
 				$name    	= mysql_real_escape_string($this->input->post('name'));
@@ -106,8 +119,10 @@ class Index extends CI_Controller {
 					$this->response->send(array("result"=>0,"message"=>"Pendaftaran anda tidak berhasil, coba ulangi lagi","messageCode"=>1));
 				}
 			}else{
-				$this->response->send(array("result"=>0,"message"=>"Periksa kembali field anda","messageCode"=>1));//json error
-			}
+				}
+			
+				$this->response->send(array("result"=>0,"message"=>"Data tidak Sesuai ","messageCode"=>1));//json error
+			
 		}
 	}
 	
