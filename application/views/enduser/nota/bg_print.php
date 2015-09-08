@@ -88,7 +88,7 @@ if (file_exists(base_url()."assets/pic/product/".$image->product_image)) {
 <tr>
   <td colspan="2" rowspan="5"><img src="<?php echo $images; ?>" width="50" height="50" ></td>
   <td colspan="7"><h4 class='titmain'><b> <?php echo $row_p->product_name; ?></b></h4>  </td>
-  <td width="71" rowspan="5">
+  <td width="128" rowspan="5">
     <?php 
 $varian = $this->model_nota->get_varian_product($row_p->id);
 $total=0;
