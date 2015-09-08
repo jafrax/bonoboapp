@@ -4670,7 +4670,9 @@ class Api extends CI_Controller {
 				return;
 			}
 			
+			$title = "";
 			$image = "";
+			
 			if($this->response->post("product") != "" || $this->response->postDecode("product") != ""){
 				$QProduct = $this->db
 							->where("id",$this->response->postDecode("product"))
@@ -4685,6 +4687,7 @@ class Api extends CI_Controller {
 									
 					if(!empty($QProductImage)){
 						$image = $QProductImage->file;
+						$title = $QProduct->name;
 					}
 				}
 			}
@@ -4697,6 +4700,7 @@ class Api extends CI_Controller {
 			
 			$Data = array(
 					"message"=>$this->response->postDecode("message"),
+					"title"=>$title,
 					"image"=>$image,
 					"create_date"=>date("Y-m-d H:i:s"),
 					"create_user"=>$QUser->email,
@@ -4708,6 +4712,7 @@ class Api extends CI_Controller {
 			if($Save){
 				$QMessage = $this->db
 							->where("message",$this->response->postDecode("message"))
+							->where("title",$title)
 							->where("image",$image)
 							->where("create_user",$QUser->email)
 							->where("update_user",$QUser->email)
@@ -4768,6 +4773,7 @@ class Api extends CI_Controller {
 								"id"=>$QUserMessage->id,
 								"shop_name"=>$QUserMessage->toko_name,
 								"message"=>$QMessage->message,
+								"title"=>$QMessage->title,
 								"image_tumb"=>$ImageTumb,
 								"image_high"=>$ImageHigh,
 								"isfrom"=>$QUserMessage->flag_from,
