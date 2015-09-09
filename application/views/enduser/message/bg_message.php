@@ -1,5 +1,4 @@
 <?php
-
 echo"
 	<div class='col s12 m12 l12'>
 		<div class='formain'>
@@ -7,8 +6,7 @@ echo"
 				
 				<div class='input-field col s12 m4'>
 					<h2 class='titmain' id='totalan'><b>MESSAGE</b></h2>
-				</div>
-				
+				</div>				
 				<div class='col s12 m8'>
 					<button id='aMessageNew' class='btn deep-orange darken-1 waves-effect waves-light right pesan' type='button' name='action'>
 						<i class='mdi-content-add-circle-outline left'></i> New Message
@@ -73,7 +71,7 @@ echo"
 									<div class='col s9 m7 l8'>
 										<p class=' blue-grey-text lighten-3 right'>".$this->hs_datetime->getTime4String($MessageLast->create_date)."</p>
 										<p><a  href=''><b class='userangoota'>".$Message->qmember_name."</b></a></p>															
-										<p>".$this->template->limitChar($MessageLast->message,50)."</p>
+										<p>".$this->template->limitChar($MessageLast->message,50)." </p>
 										".$MessageStatus."
 										<a href='#popupDelete' onclick=ctrlMessage.popupDelete(".$Message->member_id.",'".urlencode($Message->member_name)."'); class='modal-trigger btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
 									</div>
@@ -84,7 +82,7 @@ echo"
 						echo"
 						</div>
 						<div id='loader-contact' style='text-align:center;display:none'><img src='".base_url()."html/images/comp/loading.GIF' width='40px'></div>
-						<div id='habis-contact' style='display:none;font-size:12px;text-align:center;margin:20px' class='blue-text'><p >Contact sudah ditempilkan semua</p></div>
+						<div id='habis-contact' style='display:none;font-size:12px;text-align:center;margin:20px' class='blue-text'><p >Contact sudah ditampilkan semua</p></div>
 					</ul>
 				</div>
 				<div class='col s12 m8' id='messageContent'>";

@@ -82,7 +82,7 @@ class Anggota extends CI_Controller {
 		
 		if($_POST && !empty($data["shop"])){
 			$valid = true;
-			
+
 			if ($this->form_validation->run() == FALSE) {
 				$data["notif"] = "Email tidak valid";
 				$valid = false;
@@ -93,6 +93,32 @@ class Anggota extends CI_Controller {
 				$valid = false;
 			}
 			
+			$cek1 = $this->db->where('email',$data["email"])->get('tb_invite'); //tb_invite
+			if($cek1->num_rows() > 0){
+				$data["notif"] = "Sudah pernah diundang";
+				$valid = false;
+			}
+				/*		$query = $this->db->query("SELECT id FROM tb_member LIMIT 1");
+						$row = $query->row_array();
+						
+								$cek3 = $this->db->where('member_id',$row->id)->where('status',0)->where('toko_id',$_SESSION['bonobo']['id'])->get('tb_join_in'); //tb_join_in
+								if($cek3->num_rows() > 0){
+									$data["notif"] = "Member minta konfirmasi";
+									$valid = false;
+								}
+										$cek4 = $this->db->where('member_id',$row->id)->where('toko_id',$_SESSION['bonobo']['id'])->get('tb_toko_blacklist'); //tb_blacklist
+										if($cek4->num_rows() > 0){
+											$data["notif"] = "Member sedang di blacklist";
+											$valid = false;
+										}		
+							
+												$cek2 = $this->db->where('member_id',$row->id)->where('toko_id',$_SESSION['bonobo']['id'])->get('tb_toko_member'); //tb_toko_member
+												if($cek2->num_rows() > 0){
+													$data["notif"] = "Sudah jadi anggota ";
+													$valid = false;
+												}
+				*/								
+		
 			if($valid){
 				$member = $this->db->where('email',$data["email"])->get('tb_member');
 
@@ -118,8 +144,13 @@ class Anggota extends CI_Controller {
 						"update_user"=>$_SESSION['bonobo']['email'],
 					);
 				}
+				
+				
+				
+				
+				
 					$Save = $this->db->insert("tb_invite",$Data);
-					
+				
 					if($Save){
 						$message ="Hi ".$data["email"].",<br><br>
 							Anda mendapat undangan untuk bergabung dengan Toko ".$data["shop"]->name.".<br><br>
@@ -147,12 +178,12 @@ class Anggota extends CI_Controller {
 						return false;
 					}
 				
-				
 			}else{
 				echo json_encode(array("msg"=>'error',"notif"=>$data["notif"] ));
 				return false;
 			}
 		}
+		
 		
 		$this->template->bonobo("anggota/bg_invite",$data);
 	}
@@ -377,7 +408,7 @@ class Anggota extends CI_Controller {
 			
 			$Delete = $this->db->where("toko_id",$_SESSION['bonobo']['id'])->where("member_id",$QMember->id)->delete("tb_toko_member");
 			
-			$del=$this->db->where("toko_id",$_SESSION['bonobo']['id'])->where("member_id",$QMember->id)->delete("tb_invite");
+			$del=$this->db->where("toko_id",$_SESSION['bonobo']['id'])->where("member_id",$QMember->id)->delete("tb_join_in");
 			
 			if($Delete){
 				
