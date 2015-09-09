@@ -28,7 +28,7 @@ echo"
 				</div>	
 				<div class='input-field col s12 m8'>
 					<p>Silahkan pilih jasa ekspedisi berikut. Ongkos kirim sesuai kebijakan Perusahaan Ekspedisi yang bersangkutan.
-						<div class='input-field col s2 m2'><p></p></div>
+						<!-- <div class='input-field col s2 m2'><p></p></div> -->
 ";
 $k=0;
 foreach($Couriers as $Courier){
@@ -41,7 +41,7 @@ foreach($Couriers as $Courier){
 	}
 	
 	echo"
-		<div class='input-field col s5 m2'>
+		<div class='input-field col s2 m3'>
 			<input type='checkbox'  class='kurir-resmi-$k' onclick=javascript:kliken_kurir()  id='chkCourier".$Courier->id."'  name='chkCourier".$Courier->id."' ".$checked."/>
 			<label for='chkCourier".$Courier->id."'>".$Courier->name."</label>
 		</div>		

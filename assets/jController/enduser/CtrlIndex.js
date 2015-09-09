@@ -378,6 +378,7 @@ function r_password(selection,url) {
  })
  
  function forgetpassemail(){
+	 $("#txtForgotEmail").focus();
 	 var email = $('#email').val();
 	 $('#txtForgotEmail').val(email);	 
 	 

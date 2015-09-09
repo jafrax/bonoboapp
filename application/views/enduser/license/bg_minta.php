@@ -64,7 +64,7 @@ echo "
 					<a href='".base_url()."license'>&larr; Kembali</a>
 					<form class='formain' id='form-minta'>
 						<div class='formhead'>
-							<h2 class='titmain'><b>MINTA LISENSI</b></h2>
+							<h2 class='titmain'><b>Kode Aktivasi</b></h2>
 						</div>
 						<div class='row formbody'>
 							<div class='nolautomar'>

@@ -7,7 +7,7 @@ if(!empty($Shop->image) && file_exists("./assets/pic/shop/".$Shop->image)){
 }
 
 if($Shop->flag_information == 0){
-	$Button = "<button id='btnNext' class='btn waves-effect waves-light' type='button'>Lanjut<i class='mdi-navigation-chevron-right right'></i></button>";
+	$Button = "<button id='btnNext' class='btn waves-effect waves-light'  type='button'>Lanjut<i class='mdi-navigation-chevron-right right'></i></button>";
 }else{
 	$Button = "<button id='btnSave' class='btn waves-effect waves-light' type='button'>Simpan<i class='mdi-navigation-chevron-right right'></i></button>";
 }

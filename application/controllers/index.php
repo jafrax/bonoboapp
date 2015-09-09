@@ -41,18 +41,7 @@ class Index extends CI_Controller {
 
 	}
 	
-	public function oldpassword_check($old_password){
-		$old_password_hash = md5($old_password);
-		$old_password_db_hash = $this->yourmodel->fetchPasswordHashFromDB();
-	
-		if($old_password_hash != $old_password_db_hash)
-		{
-			$this->form_validation->set_message('oldpassword_check', 'Old password not match');
-			return FALSE;
-		}
-		return TRUE;
-	}
-	
+		
 	public function signup(){
 		if(!$_POST){
 			$this->load->view("enduser/login/bg_signup");
@@ -244,7 +233,10 @@ class Index extends CI_Controller {
 					
 				}
 			}else{
-				$this->response->send(array("result"=>0,"message"=>$this->template->notif("email_password_failed"),"messageCode"=>3));
+				
+				$this->response->send(array("result"=>0,"message"=>"Kombinasi email dan password tidak sesuai","messageCode"=>1));//json error
+						
+				//$this->response->send(array("result"=>0,"message"=>$this->template->notif("email_password_failed"),"messageCode"=>3));
 			}   
         }
 	}
