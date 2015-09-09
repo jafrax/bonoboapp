@@ -1435,19 +1435,34 @@ class Api extends CI_Controller {
 			*/
 			$Messages = array();
 			$QMessages = $this->db
-							->select("tmm.id,tmm.toko_name,tmm.toko_id,tm.message as message,tmm.flag_read as isread,tmm.flag_from as isfrom")
+							->select("tmm.id,tmm.toko_name,tmm.toko_id,tm.message as message,tm.title,tm.image,tmm.flag_read as isread,tmm.flag_from as isfrom")
 							->join("tb_message tm","tm.id = tmm.message_id")
 							->where("tmm.member_id",$QUser->id)
 							->group_by("tmm.toko_name")
-							->limit(10,0)
 							->get("tb_member_message tmm")
 							->result();
 			
 			foreach($QMessages as $QMessage){
+				if($QMessage->image != ""){
+					if(@getimagesize(base_url("assets/pic/product/".$QMessage->image))){
+						$ImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/product/resize/".$QMessage->image)));
+						$ImageHigh = base_url("image.php?q=100&fe=".base64_encode(base_url("assets/pic/product/".$QMessage->image)));
+					}else{
+						$ImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+						$ImageHigh = $ImageTumb;
+					}
+				}else{
+					$ImageTumb = "";
+					$ImageHigh = "";
+				}
+				
 				$Message = array(
 						"id"=>$QMessage->id,
 						"shop_name"=>$QMessage->toko_name,
 						"message"=>$QMessage->message,
+						"title"=>$QMessage->title,
+						"image_tumb"=>$ImageTumb,
+						"image_high"=>$ImageHigh,
 						"isread"=>$QMessage->isread,
 						"isfrom"=>$QMessage->isfrom,
 						"shop"=>$this->getShopById($QMessage->toko_id,$QUser->id),
@@ -1512,7 +1527,7 @@ class Api extends CI_Controller {
 			*/
 			$Messages = array();
 			$QMessages = $this->db
-							->select("tmm.id,tmm.toko_name,tmm.toko_id,tm.message as message,tmm.flag_read as isread,tmm.flag_from as isfrom")
+							->select("tmm.id,tmm.toko_name,tmm.toko_id,tm.message as message,tm.title,tm.image,tmm.flag_read as isread,tmm.flag_from as isfrom")
 							->join("tb_message tm","tm.id = tmm.message_id")
 							->where("tmm.member_id",$QUser->id)
 							->where("tmm.toko_id",$QShop->id)
@@ -1522,15 +1537,30 @@ class Api extends CI_Controller {
 							->result();
 			
 			foreach($QMessages as $QMessage){
-				$Message = array(
-						"id"=>$QMessage->id,
-						"shop_name"=>$QMessage->toko_name,
-						"message"=>$QMessage->message,
-						"isread"=>$QMessage->isread,
-						"isfrom"=>$QMessage->isfrom,
-						"shop"=>$this->getShopById($QShop->id,$QUser->id),
-					);
+				if($QMessage->image != ""){
+					if(@getimagesize(base_url("assets/pic/product/".$QMessage->image))){
+						$ImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/product/resize/".$QMessage->image)));
+						$ImageHigh = base_url("image.php?q=100&fe=".base64_encode(base_url("assets/pic/product/".$QMessage->image)));
+					}else{
+						$ImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+						$ImageHigh = $ImageTumb;
+					}
+				}else{
+					$ImageTumb = "";
+					$ImageHigh = "";
+				}
 				
+				$Message = array(
+							"id"=>$QMessage->id,
+							"shop_name"=>$QMessage->toko_name,
+							"message"=>$QMessage->message,
+							"title"=>$QMessage->title,
+							"image_tumb"=>$ImageTumb,
+							"image_high"=>$ImageHigh,
+							"isread"=>$QMessage->isread,
+							"isfrom"=>$QMessage->isfrom,
+							"shop"=>$this->getShopById($QShop->id,$QUser->id),
+						);
 				array_push($Messages,$Message);
 			}
 			
@@ -2227,6 +2257,7 @@ class Api extends CI_Controller {
 				}
 			}else{
 				$Delete = $this->db->where("id",$QFollow->id)->delete("tb_toko_member");
+				$Delete = $this->db->where("member_id",$QUser->id)->delete("tb_join_in");
 				
 				if($Delete){
 					$this->response->send(array("result"=>1,"message"=>"Anda sudah keluar dari keanggotaan toko ini","messageCode"=>9), true);
@@ -3678,20 +3709,29 @@ class Api extends CI_Controller {
 					if($this->response->post("cart_varian_".$i) != "" && $this->response->postDecode("cart_varian_".$i) != "" && $this->response->post("cart_varian_quantity_".$i) != "" && $this->response->postDecode("cart_varian_quantity_".$i) != ""){
 						$Quantity = floatval($this->response->postDecode("cart_varian_quantity_".$i));
 						$CartVarian = $this->db->where("id",$this->response->postDecode("cart_varian_".$i))->get("tb_cart_varian")->row();
-						$ProductVarian = $this->db->where("id",$CartVarian->product_varian_id)->get("tb_product_varian")->row();
-						$Product = $this->db->where("id",$ProductVarian->product_id)->get("tb_product")->row();
 						
-						if(!empty($CartVarian) && !empty($ProductVarian) && !empty($Product)){
-							if($Product->stock_type == 1 && $Product->stock_type_detail == 0){
-								if($ProductVarian->stock_qty < $Quantity){
+						if(!empty($CartVarian)){
+							$ProductVarian = $this->db->where("id",$CartVarian->product_varian_id)->get("tb_product_varian")->row();
+							if(!empty($ProductVarian)){
+								$Product = $this->db->where("id",$ProductVarian->product_id)->get("tb_product")->row();
+								if(!empty($Product)){
+									if($Product->stock_type == 1 && $Product->stock_type_detail == 0){
+										if($ProductVarian->stock_qty < $Quantity){
+											$isValidQuantity = false;
+											return;
+										}
+									}
+								}else{
 									$isValidQuantity = false;
-									return;
+									$isValidMessage = "Data produk tidak valid.";
 								}
+							}else{
+								$isValidQuantity = false;
+								$isValidMessage = "Data produk varian tidak valid.";
 							}
 						}else{
 							$isValidQuantity = false;
-							$isValidMessage = "Data cart tidak valid lagi.";
-							return;
+							$isValidMessage = "Data cart varian tidak valid lagi.";
 						}
 						
 						$Data = array(
@@ -4670,6 +4710,28 @@ class Api extends CI_Controller {
 				return;
 			}
 			
+			$title = "";
+			$image = "";
+			
+			if($this->response->post("product") != "" || $this->response->postDecode("product") != ""){
+				$QProduct = $this->db
+							->where("id",$this->response->postDecode("product"))
+							->get("tb_product")
+							->row();
+				
+				if(!empty($QProduct)){
+					$QProductImage = $this->db
+									->where("product_id",$QProduct->id)
+									->get("tb_product_image")
+									->row();
+									
+					if(!empty($QProductImage)){
+						$image = $QProductImage->file;
+						$title = $QProduct->name;
+					}
+				}
+			}
+			
 			/*
 			*	------------------------------------------------------------------------------
 			*	Menyimpan data message parent
@@ -4678,6 +4740,8 @@ class Api extends CI_Controller {
 			
 			$Data = array(
 					"message"=>$this->response->postDecode("message"),
+					"title"=>$title,
+					"image"=>$image,
 					"create_date"=>date("Y-m-d H:i:s"),
 					"create_user"=>$QUser->email,
 					"update_date"=>date("Y-m-d H:i:s"),
@@ -4688,6 +4752,10 @@ class Api extends CI_Controller {
 			if($Save){
 				$QMessage = $this->db
 							->where("message",$this->response->postDecode("message"))
+							->where("title",$title)
+							->where("image",$image)
+							->where("create_user",$QUser->email)
+							->where("update_user",$QUser->email)
 							->get("tb_message")
 							->row();
 				
@@ -4733,10 +4801,26 @@ class Api extends CI_Controller {
 					
 					$Shop = $this->getShopById($QUserMessage->toko_id,$QUser->id);
 					
+					if($QMessage->image != ""){
+						if(@getimagesize(base_url("assets/pic/product/".$QMessage->image))){
+							$ImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/product/resize/".$QMessage->image)));
+							$ImageHigh = base_url("image.php?q=100&fe=".base64_encode(base_url("assets/pic/product/".$QMessage->image)));
+						}else{
+							$ImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+							$ImageHigh = $ImageTumb;
+						}
+					}else{
+						$ImageTumb = "";
+						$ImageHigh = "";
+					}
+					
 					$Messages = array(
 								"id"=>$QUserMessage->id,
 								"shop_name"=>$QUserMessage->toko_name,
 								"message"=>$QMessage->message,
+								"title"=>$QMessage->title,
+								"image_tumb"=>$ImageTumb,
+								"image_high"=>$ImageHigh,
 								"isfrom"=>$QUserMessage->flag_from,
 								"isread"=>$QUserMessage->flag_read,
 								"shop"=>$Shop,
