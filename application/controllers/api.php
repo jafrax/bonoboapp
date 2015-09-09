@@ -433,6 +433,8 @@ class Api extends CI_Controller {
 		
 		$QCarts = $this->db
 				->where("tc.member_id",$user)
+				->limit(10,0)
+				->order_by("id","DESC")
 				->get("tb_cart tc")
 				->result();
 		
@@ -531,6 +533,8 @@ class Api extends CI_Controller {
 		$Invoices = array();
 		$QInvoices = $this->db
 					->where("member_id",$user)
+					->limit(10,0)
+					->order_by("id","DESC")
 					->get("tb_invoice")
 					->result();
 
