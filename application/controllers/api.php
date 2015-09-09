@@ -431,12 +431,17 @@ class Api extends CI_Controller {
 		*/
 		$Carts = array();
 		
-		$QCarts = $this->db
-				->where("tc.member_id",$user)
-				->limit(10,0)
-				->order_by("id","DESC")
-				->get("tb_cart tc")
-				->result();
+		$QCarts = $this->db;
+		$QCarts = $QCarts->where("tc.member_id",$user);
+		
+		if($this->response->post("lastId") != "" || $this->response->postDecode("lastId") > 0){
+			$QCarts = $QCarts->where("tc.id < ",$this->response->postDecode("lastId"));
+		}
+		
+		$QCarts = $QCarts->limit(10,0);
+		$QCarts = $QCarts->order_by("id","DESC");
+		$QCarts = $QCarts->get("tb_cart tc");
+		$QCarts = $QCarts->result();
 		
 		foreach($QCarts as $QCart){
 			/*
@@ -531,12 +536,17 @@ class Api extends CI_Controller {
 		*/
 		
 		$Invoices = array();
-		$QInvoices = $this->db
-					->where("member_id",$user)
-					->limit(10,0)
-					->order_by("id","DESC")
-					->get("tb_invoice")
-					->result();
+		$QInvoices = $this->db;
+		$QInvoices = $QInvoices->where("member_id",$user);
+					
+		if($this->response->post("lastId") != "" || $this->response->postDecode("lastId") > 0){
+			$QInvoices = $QInvoices->where("id < ",$this->response->postDecode("lastId"));
+		}
+		
+		$QInvoices = $QInvoices->limit(10,0);
+		$QInvoices = $QInvoices->order_by("id","DESC");
+		$QInvoices = $QInvoices->get("tb_invoice");
+		$QInvoices = $QInvoices->result();
 
 		foreach($QInvoices as $QInvoice){
 			/*
@@ -1715,11 +1725,9 @@ class Api extends CI_Controller {
 			
 			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && $this->response->postDecode("lastId") > "0"){
 				$QProduct = $QProduct->where("tp.id < ",$this->response->postDecode("lastId"));
-			}else if($this->response->post("currentId") != "" && $this->response->postDecode("currentId") != ""){
-				$QProduct = $QProduct->where("tp.id > ",$this->response->postDecode("currentId"));
 			}
 			
-			//$QProduct = $QProduct->limit(10,0);
+			$QProduct = $QProduct->limit(10,0);
 			$QProduct = $QProduct->order_by("tp.id","Desc");
 			$QProduct = $QProduct->get("tb_product tp");
 			$QProducts = $QProduct->result();
