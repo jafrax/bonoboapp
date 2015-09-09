@@ -119,6 +119,7 @@ class Anggota extends CI_Controller {
 					);
 				}
 					$Save = $this->db->insert("tb_invite",$Data);
+					
 					if($Save){
 						$message ="Hi ".$data["email"].",<br><br>
 							Anda mendapat undangan untuk bergabung dengan Toko ".$data["shop"]->name.".<br><br>
@@ -375,7 +376,11 @@ class Anggota extends CI_Controller {
 			}
 			
 			$Delete = $this->db->where("toko_id",$_SESSION['bonobo']['id'])->where("member_id",$QMember->id)->delete("tb_toko_member");
+			
+			$del=$this->db->where("toko_id",$_SESSION['bonobo']['id'])->where("member_id",$QMember->id)->delete("tb_invite");
+			
 			if($Delete){
+				
 				$this->response->send(array("result"=>1,"message"=>"Member telah dihapus dari daftar keanggotaan","messageCode"=>4));
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Member tidak dapat di hapus","messageCode"=>4));

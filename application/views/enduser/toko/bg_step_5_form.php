@@ -55,7 +55,7 @@ echo"
 				</div>
 				<div id='divKecamatan' class='input-field col s4 m8'>
 					<p>
-						<select name='cmbKecamatan' id='cmbKecamatan' class='selectize'>
+						<select name='cmbKecamatan' id='cmbKecamatan' class='selectize'  >
 ";
 
 	if(!empty($Rate)){
