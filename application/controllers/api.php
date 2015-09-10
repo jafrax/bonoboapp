@@ -435,7 +435,7 @@ class Api extends CI_Controller {
 		$QCarts = $this->db;
 		$QCarts = $QCarts->where("tc.member_id",$user);
 		
-		if($this->response->post("lastId") != "" || $this->response->postDecode("lastId") > 0){
+		if($this->response->post("lastId") != "" && intval($this->response->postDecode("lastId")) > 0){
 			$QCarts = $QCarts->where("tc.id < ",$this->response->postDecode("lastId"));
 		}
 		
@@ -540,7 +540,7 @@ class Api extends CI_Controller {
 		$QInvoices = $this->db;
 		$QInvoices = $QInvoices->where("member_id",$user);
 					
-		if($this->response->post("lastId") != "" || $this->response->postDecode("lastId") > 0){
+		if($this->response->post("lastId") != "" && intval($this->response->postDecode("lastId")) > 0){
 			$QInvoices = $QInvoices->where("id < ",$this->response->postDecode("lastId"));
 		}
 		
