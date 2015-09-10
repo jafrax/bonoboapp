@@ -91,6 +91,7 @@ class Api extends CI_Controller {
 		
 		$join = 0;
 		$invite = 0;
+		$blacklist = 0;
 		$price_level = 1;
 		
 		/*
@@ -109,6 +110,7 @@ class Api extends CI_Controller {
 		if(!empty($user)){
 			$ShopMember = $this->db->where("toko_id",$id)->where("member_id",$user)->get("tb_toko_member")->row();
 			$ShopInvite = $this->db->where("toko_id",$id)->where("member_id",$user)->get("tb_invite")->row();
+			$ShopBlacklist = $this->db->where("toko_id",$id)->where("member_id",$user)->get("tb_toko_blacklist")->row();
 			
 			if(!empty($ShopMember)){
 				$join = 1;
@@ -122,6 +124,10 @@ class Api extends CI_Controller {
 			
 			if(!empty($ShopInvite)){
 				$invite = 1;
+			}
+			
+			if(!empty($ShopBlacklist)){
+				$blacklist = 1;
 			}
 		}
 		
@@ -281,6 +287,7 @@ class Api extends CI_Controller {
 			"count_users"=>$CountMembers,
 			"join"=>$join,
 			"invite"=>$invite,
+			"blacklist"=>$blacklist,
 			"invoice_confirm"=>$QShop->invoice_confirm,
 			"price_level"=>$price_level,
 			"location"=>array(
@@ -1883,10 +1890,14 @@ class Api extends CI_Controller {
 			if(sizeOf($QShops) > 0){
 				$Shops = array();
 				foreach($QShops as $QShop){
-					$Shop = $this->getShopById($QShop->id, $QUser->id);
-					
-					if($Shop != null){
-						array_push($Shops,$Shop);
+					$ShopBlacklist = $this->db->where("toko_id",$QShop->id)->where("member_id",$QUser->id)->get("tb_toko_blacklist")->row();
+				
+					if(empty($ShopBlacklist)){
+						$Shop = $this->getShopById($QShop->id, $QUser->id);
+						
+						if($Shop != null){
+							array_push($Shops,$Shop);
+						}
 					}
 				}
 				
