@@ -26,6 +26,7 @@ class Anggota extends CI_Controller {
 		$this->load->model("enduser/model_member");
 		$this->load->model("enduser/model_member_attribute");
 		$this->load->model("enduser/model_member_location");
+		$this->load->model("enduser/model_toko_anggota");
 		
 		if(empty($_SESSION['bonobo']) || empty($_SESSION['bonobo']['id'])){
 			redirect('index/');
@@ -81,7 +82,7 @@ class Anggota extends CI_Controller {
 		$data["message"] = $this->response->post("message");
 		
 		if($_POST && !empty($data["shop"])){
-			$valid = true;
+			$valid = false;
 
 			if ($this->form_validation->run() == FALSE) {
 				$data["notif"] = "Email tidak valid";
@@ -92,33 +93,37 @@ class Anggota extends CI_Controller {
 				$data["notif"] = "Email harus diisi";
 				$valid = false;
 			}
+						
+
+			$data["member"] = $this->model_toko_anggota->get_member_blacklist($_SESSION['bonobo']['id'],$data["email"])->row();
+			if(count($data['member']) > 0){
+				$data["notif"] = "Sedang di blacklist ";
+				$valid = false; //tb_toko_blacklist
+			}
 			
-			$cek1 = $this->db->where('email',$data["email"])->get('tb_invite'); //tb_invite
+			
+			$data["member"] = $this->model_toko_anggota->get_member_toko($_SESSION['bonobo']['id'],$data["email"])->row();
+			if(count($data['member']) > 0){
+				$data["notif"] = "Sudah jadi anggota  ";
+				$valid = false; //tb_toko_member
+			}
+				
+			
+			$data["member"] = $this->model_toko_anggota->get_member_join($_SESSION['bonobo']['id'],$data["email"])->row();
+			if(count($data['member']) > 0){
+				$data["notif"] = "Member minta konfirmasi ";
+				$valid = false; //tb_join_in
+			}
+			
+
+			$cek1 = $this->db->where('email',$data["email"])->get('tb_invite');
 			if($cek1->num_rows() > 0){
 				$data["notif"] = "Sudah pernah diundang";
-				$valid = false;
+				$valid = false; //tb_invite
 			}
-				/*		$query = $this->db->query("SELECT id FROM tb_member LIMIT 1");
-						$row = $query->row_array();
-						
-								$cek3 = $this->db->where('member_id',$row->id)->where('status',0)->where('toko_id',$_SESSION['bonobo']['id'])->get('tb_join_in'); //tb_join_in
-								if($cek3->num_rows() > 0){
-									$data["notif"] = "Member minta konfirmasi";
-									$valid = false;
-								}
-										$cek4 = $this->db->where('member_id',$row->id)->where('toko_id',$_SESSION['bonobo']['id'])->get('tb_toko_blacklist'); //tb_blacklist
-										if($cek4->num_rows() > 0){
-											$data["notif"] = "Member sedang di blacklist";
-											$valid = false;
-										}		
-							
-												$cek2 = $this->db->where('member_id',$row->id)->where('toko_id',$_SESSION['bonobo']['id'])->get('tb_toko_member'); //tb_toko_member
-												if($cek2->num_rows() > 0){
-													$data["notif"] = "Sudah jadi anggota ";
-													$valid = false;
-												}
-				*/								
-		
+			
+			
+			
 			if($valid){
 				$member = $this->db->where('email',$data["email"])->get('tb_member');
 
