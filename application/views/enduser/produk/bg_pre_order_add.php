@@ -1,6 +1,8 @@
 <?php
 $uri3 = $this->uri->segment(3);
 echo "
+		
+	
 <div id='delete_produk' class='modal confirmation'>
 	<div class='modal-header red'>
 		<i class='mdi-navigation-close left'></i> Hapus produk
@@ -169,12 +171,12 @@ echo "
 								<label>Tipe Stok <span class='text-red'>*</span></label>
 								<label class='error error-chosen' for='stok'></label>
 									<select name='stok' id='stok' required OnChange=javascript:change_stok() class='select-standar lectfilter'>										
-										<option value='1'>Stok selalu tersedia</option>
-										<!-- <option value='0' selected>Gunakan stok</option> -->
+										<option selected value='1'>Stok selalu tersedia</option>
+										<!--<option value='0' selected>Gunakan stok</option> -->
 									</select>									
 								</div>
 								<div class='input-field col s12 m12'>
-									<input type='checkbox' id='gunakan_varian' name='gunakan_varian' onclick=javascript:setVarian() />
+									<input type='checkbox' id='gunakan_varian' name='gunakan_varian' onclick=javascript:setVarianPr() />
 									<label for='gunakan_varian'>Gunakan varian</label>
 								</div>
 								<input type='hidden' name='total_varian' value='1' id='tot_varian' />
