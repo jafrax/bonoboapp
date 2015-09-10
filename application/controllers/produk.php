@@ -600,7 +600,7 @@ class Produk extends CI_Controller {
 							}
 						}
 					}
-
+					/*
 					$this->db->set('product_id',$id)
 								->set('name','null')
 								->set('stock_qty',0)
@@ -609,7 +609,41 @@ class Produk extends CI_Controller {
 								->set('update_user',$_SESSION['bonobo']['email'])
 								->insert('tb_product_varian');
 					
+					*/
+					
+					if ($gunakan_varian != 'on') {
+						$this->db->set('product_id',$id)
+						->set('name','null')
+						->set('stock_qty',$stok_utama)
+						->set('create_user',$_SESSION['bonobo']['email'])
+						->set('create_date',date('Y-m-d H:i:s'))
+						->set('update_user',$_SESSION['bonobo']['email'])
+						->insert('tb_product_varian');
+					}else{
+						$var=1;
+						for($i=1;$i<=$total_varian;$i++){
+							if(isset($_POST['nama_varian_'.$i])){
+								if ($_POST['nama_varian_'.$i] != '') {
+									$nama_varian = $this->template->clearInput($this->input->post('nama_varian_'.$i));
+									$stok_varian = $this->template->clearInput($this->input->post('stok_varian_'.$i));
+					
+									$this->db->set('product_id',$id)
+									->set('name',$nama_varian)
+									->set('stock_qty',$stok_varian)
+									->set('create_user',$_SESSION['bonobo']['email'])
+									->set('create_date',date('Y-m-d H:i:s'))
+									->set('update_user',$_SESSION['bonobo']['email'])
+									->insert('tb_product_varian');
+									//echo $nama_varian.'<br>';
+									$var++;
+								}
+							}
+						}
+					}
+					
 				}
+				
+				
 				redirect('produk/pre_order');
 			}
 		}

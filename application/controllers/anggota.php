@@ -82,7 +82,7 @@ class Anggota extends CI_Controller {
 		$data["message"] = $this->response->post("message");
 		
 		if($_POST && !empty($data["shop"])){
-			$valid = false;
+			$valid = true;
 
 			if ($this->form_validation->run() == FALSE) {
 				$data["notif"] = "Email tidak valid";
