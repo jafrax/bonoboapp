@@ -32,6 +32,7 @@ echo"
 										</select>									
 									</div>
 									
+		
 								</div>
 								<div class='input-field col s8 m8 l3 nolpad'>									
 									<i class='mdi-action-search prefix'></i>
@@ -144,7 +145,7 @@ echo"
 								            </div>
 								            <div id='batal_nota_".$row->id."' class='modal confirmation'>
 												<div class='modal-header red'>
-													<i class='mdi-navigation-close left'></i> Hapus produk
+													<i class='mdi-navigation-close left'></i> Batal produk
 												</div>
 												<form class='modal-content'>
 													<p>Apakah Anda yakin ingin membatalkan pesanan?</p>
@@ -152,8 +153,8 @@ echo"
       												<label for='batal-cek-".$row->id."'>Kembalikan stok?</label></p>
 												</form>
 												<div class='modal-footer'>
-													<a class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
 													<button type='button' onclick=javascript:batal_nota(".$row->id.") class='btn-flat modal-action modal-close waves-effect '>YA</button>
+													<a class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
 												</div>
 											</div>
 								            <div id='bayar-".$row->id."' class='modal  modal-fixed-footer'>

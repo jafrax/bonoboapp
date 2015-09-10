@@ -6,6 +6,7 @@ $obj_pdf->SetCreator(PDF_CREATOR);
 $obj_pdf->SetPrintHeader(false);
 $obj_pdf->SetPrintFooter(false);
 
+
 $obj_pdf->SetTitle($title);
 $obj_pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, $title, PDF_HEADER_STRING);
 $obj_pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));

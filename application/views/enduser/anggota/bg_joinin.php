@@ -10,7 +10,6 @@ echo"
 		</ul>
 	</div>
 	
-	
 	<div class='col s12 m12 l9'>
 		<div class='formain'>
 			<div class='formhead'>

@@ -45,6 +45,7 @@ class Model_member extends CI_Model {
 					->select('tji.*, tm.name as member_name')
 					->join("tb_member tm","tji.member_id = tm.id")
 					->where("tji.toko_id",$shop)
+					->where("tji.member_id  not in (select distinct b.member_id from tb_toko_blacklist b where  b.toko_id='$shop')")
 					->order_by("tji.id","DESC")
 					->get("tb_join_in tji");
 	}
@@ -54,6 +55,7 @@ class Model_member extends CI_Model {
 					->select('tji.*, tm.name as member_name')
 					->join("tb_member tm","tji.member_id = tm.id")
 					->where("tji.toko_id",$shop)
+					->where("tji.member_id  not in (select distinct b.member_id from tb_toko_blacklist b where  b.toko_id='$shop')")
 					->limit($limit,$offset)
 					->order_by("tji.id","DESC")
 					->get("tb_join_in tji");
@@ -128,6 +130,8 @@ class Model_member extends CI_Model {
 						->where("tt.id",$id)
 						->get("tb_toko tt");
 	}
+	
+	
 }
 
 ?>

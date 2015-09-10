@@ -2,7 +2,6 @@
 
 $fb_params = array('scope' => 'email,user_birthday,user_location,read_stream', 'redirect_uri' => base_url("index/signin_fb"));
 
-
 $pesan="";
 if (!empty(	$_SESSION['bonobo']['notifikasi'])){						
 	$pesan=	$_SESSION['bonobo']['notifikasi'];
@@ -110,13 +109,14 @@ echo"
 	</footer>
 	</section>
 
+	
 	<div id='reset_password' class='modal confirmation'>
 		<div class='modal-header deep-orange darken-1'>
 			<i class='mdi-av-not-interested left'></i> Reset password
 		</div>
-		<form class='modal-content' id='formReset'>
+			<form class='modal-content' id='formReset'>
 			<div class='input-field col s12'>
-				<input id='txtForgotEmail' name='txtForgotEmail' type='text' maxlength='50' class='validate' placeholder='ex : email@mail.com'>
+				<input id='txtForgotEmail' name='txtForgotEmail' type='text' maxlength='50' class='validate'  autofocus=''    placeholder='ex : email@mail.com'>
 				<label for='txtForgotEmail'>Masukkan Akun email anda</label>
 				
 			</div>

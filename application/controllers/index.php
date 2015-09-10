@@ -41,6 +41,7 @@ class Index extends CI_Controller {
 
 	}
 	
+		
 	public function signup(){
 		if(!$_POST){
 			$this->load->view("enduser/login/bg_signup");
@@ -49,6 +50,7 @@ class Index extends CI_Controller {
 			$this->form_validation->set_rules('email', '', 'required|max_length[50]|valid_email|is_unique[tb_toko.email]');
 			$this->form_validation->set_rules('password', '', 'required|min_length[5]|max_length[50]');
 			$this->form_validation->set_rules('rePassword', '', 'required|matches[password]');
+			
 			
 			if ($this->form_validation->run() == TRUE){
 				$name    	= mysql_real_escape_string($this->input->post('name'));
@@ -106,8 +108,10 @@ class Index extends CI_Controller {
 					$this->response->send(array("result"=>0,"message"=>"Pendaftaran anda tidak berhasil, coba ulangi lagi","messageCode"=>1));
 				}
 			}else{
-				$this->response->send(array("result"=>0,"message"=>"Periksa kembali field anda","messageCode"=>1));//json error
-			}
+				}
+			
+				$this->response->send(array("result"=>0,"message"=>"Data tidak Sesuai ","messageCode"=>1));//json error
+			
 		}
 	}
 	
@@ -229,7 +233,10 @@ class Index extends CI_Controller {
 					
 				}
 			}else{
-				$this->response->send(array("result"=>0,"message"=>$this->template->notif("email_password_failed"),"messageCode"=>3));
+				
+				$this->response->send(array("result"=>0,"message"=>"Kombinasi email dan password tidak sesuai","messageCode"=>1));//json error
+						
+				//$this->response->send(array("result"=>0,"message"=>$this->template->notif("email_password_failed"),"messageCode"=>3));
 			}   
         }
 	}

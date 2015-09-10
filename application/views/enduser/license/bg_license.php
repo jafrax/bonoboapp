@@ -35,7 +35,7 @@ echo "
 					echo"
 					<form class='formain' id='form-license'>
 						<div class='formhead'>
-							<h2 class='titmain'><b>VERIFIKASI</b></h2>
+							<h2 class='titmain'><b>Kode Aktivasi</b></h2>
 						</div>
 						<div class='row formbody'>
 							<div class='nolautomar'>
@@ -74,7 +74,7 @@ echo "
 							</div>
 							<div class='nolautomar'>
 								<p class='center upbottom'>Ingin tau lebih banyak tentang halaman ini ? <a href='".base_url()."license/faq/'>Pelajari lebih lanjut</a>
-								<br><br>Belum punya kode verifikasi ? <a href='".base_url()."license/minta_disini/'>Minta disini</a></p>
+								<br><br>Belum punya Kode Aktivasi ? <a href='".base_url()."license/minta_disini/'>Minta disini</a></p>
 							</div>
 						</div>
 					</form>

@@ -3,8 +3,7 @@
 echo"
 	<form id='formStep5Rate' class='modal-content'>
 		<input type='hidden' name='txtRateId' value='".(empty($Rate) ? "" : $Rate->id != null ? $Rate->id : "")."'>
-		<div class='row formbody'>
-			<div class='col m12'>
+				<div class='col m12'>
 				<div class='input-field col s12 m4'>							
 					Provinsi								
 				</div>
@@ -54,9 +53,9 @@ echo"
 				<div class='input-field col s12 m4'>							
 					Kecamatan  <img width='16px' id='loader-kec' style='display:none' src='".base_url()."html/images/comp/loading.GIF' />
 				</div>
-				<div id='divKecamatan' class='input-field col s12 m8'>
+				<div id='divKecamatan' class='input-field col s4 m8'>
 					<p>
-						<select name='cmbKecamatan' id='cmbKecamatan' class='selectize'>
+						<select name='cmbKecamatan' id='cmbKecamatan' class='selectize'  >
 ";
 
 	if(!empty($Rate)){
@@ -83,7 +82,6 @@ echo"
 					</p>
 				</div>
 			</div>
-		</div>
 	</form>
 	
 	<style>
