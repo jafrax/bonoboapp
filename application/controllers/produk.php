@@ -548,6 +548,10 @@ class Produk extends CI_Controller {
 				if ($tgl_pre_order == '') {
 					$tgl_pre_order = date('Y-m-d');
 				}
+				
+				if(empty($min_order) | $min_order == "0" | intval($min_order) <= 0){
+					$min_order = 1;
+				}
 
 				$data = array(
 					'stock_type'				=> 0,
@@ -646,6 +650,10 @@ class Produk extends CI_Controller {
 				$harga_level_4 	= $this->template->clearInput($this->input->post('harga_level_4'));
 				$harga_level_5 	= $this->template->clearInput($this->input->post('harga_level_5'));
 
+				if(empty($min_order) | $min_order == "0" | intval($min_order) <= 0){
+					$min_order = 1;
+				}
+				
 				$data = array(					
 					'toko_category_product_id'	=> $kategori,
 					'active'					=> $action,
