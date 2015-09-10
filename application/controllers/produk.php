@@ -84,6 +84,10 @@ class Produk extends CI_Controller {
 				$harga_level_4 	= $this->template->clearInput($this->input->post('harga_level_4'));
 				$harga_level_5 	= $this->template->clearInput($this->input->post('harga_level_5'));
 
+				if(empty($min_order) | $min_order == "0" | intval($min_order) <= 0){
+					$min_order = 1;
+				}
+				
 				$data = array(
 					'stock_type_detail'			=> $stok,
 					'toko_category_product_id'	=> $kategori,
@@ -205,6 +209,10 @@ class Produk extends CI_Controller {
 				$harga_level_4 	= $this->template->clearInput($this->input->post('harga_level_4'));
 				$harga_level_5 	= $this->template->clearInput($this->input->post('harga_level_5'));
 
+				if(empty($min_order) | $min_order == "0" | intval($min_order) <= 0){
+					$min_order = 1;
+				}
+				
 				$data = array(
 					'stock_type_detail'			=> $stok,
 					'toko_category_product_id'	=> $kategori,
