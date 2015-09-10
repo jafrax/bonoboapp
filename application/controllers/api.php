@@ -14,7 +14,8 @@
 set_time_limit (60000);
 
 class Api extends CI_Controller {
-
+	var $paging_limit = 10;
+	var $paging_offset = 0;
 	var $quality = 90;
 	
 	function __construct(){
@@ -434,11 +435,11 @@ class Api extends CI_Controller {
 		$QCarts = $this->db;
 		$QCarts = $QCarts->where("tc.member_id",$user);
 		
-		if($this->response->post("lastId") != "" || $this->response->postDecode("lastId") > 0){
+		if($this->response->post("lastId") != "" && intval($this->response->postDecode("lastId")) > 0){
 			$QCarts = $QCarts->where("tc.id < ",$this->response->postDecode("lastId"));
 		}
 		
-		$QCarts = $QCarts->limit(10,0);
+		$QCarts = $QCarts->limit($this->paging_limit,$this->paging_offset);
 		$QCarts = $QCarts->order_by("id","DESC");
 		$QCarts = $QCarts->get("tb_cart tc");
 		$QCarts = $QCarts->result();
@@ -539,11 +540,11 @@ class Api extends CI_Controller {
 		$QInvoices = $this->db;
 		$QInvoices = $QInvoices->where("member_id",$user);
 					
-		if($this->response->post("lastId") != "" || $this->response->postDecode("lastId") > 0){
+		if($this->response->post("lastId") != "" && intval($this->response->postDecode("lastId")) > 0){
 			$QInvoices = $QInvoices->where("id < ",$this->response->postDecode("lastId"));
 		}
 		
-		$QInvoices = $QInvoices->limit(10,0);
+		$QInvoices = $QInvoices->limit($this->paging_limit,$this->paging_offset);
 		$QInvoices = $QInvoices->order_by("id","DESC");
 		$QInvoices = $QInvoices->get("tb_invoice");
 		$QInvoices = $QInvoices->result();
@@ -1390,7 +1391,7 @@ class Api extends CI_Controller {
 					->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
 					->where("tp.active",1)
 					->where("ttcp.toko_id IN (SELECT ttm.toko_id FROM tb_toko_member ttm WHERE ttm.member_id = ".$QUser->id." group by ttm.toko_id)")
-					->limit(10,0)
+					->limit($this->paging_limit,$this->paging_offset)
 					->order_by("tp.id","DESC")
 					->group_by("tp.id")
 					->get("tb_product tp")
@@ -1545,7 +1546,7 @@ class Api extends CI_Controller {
 							->join("tb_message tm","tm.id = tmm.message_id")
 							->where("tmm.member_id",$QUser->id)
 							->where("tmm.toko_id",$QShop->id)
-							->limit(10,0)
+							->limit($this->paging_limit,$this->paging_offset)
 							->order_by("tmm.id","DESC")
 							->get("tb_member_message tmm")
 							->result();
@@ -1657,7 +1658,7 @@ class Api extends CI_Controller {
 			$QInvites = $this->db
 						->where("member_id",$QUser->id)
 						->where("flag_api",0)
-						->limit(1,0)
+						->limit(1,$this->paging_offset)
 						->get("tb_invite")
 						->result();
 						
@@ -1727,7 +1728,7 @@ class Api extends CI_Controller {
 				$QProduct = $QProduct->where("tp.id < ",$this->response->postDecode("lastId"));
 			}
 			
-			$QProduct = $QProduct->limit(10,0);
+			$QProduct = $QProduct->limit($this->paging_limit,$this->paging_offset);
 			$QProduct = $QProduct->order_by("tp.id","Desc");
 			$QProduct = $QProduct->get("tb_product tp");
 			$QProducts = $QProduct->result();
@@ -2327,9 +2328,9 @@ class Api extends CI_Controller {
 			}
 			
 			if($this->response->post("page") != "" && $this->response->postDecode("page") != ""){
-				$QProduct = $QProduct->limit(10,$this->response->postDecode("page"));
+				$QProduct = $QProduct->limit($this->paging_limit,$this->response->postDecode("page"));
 			}else{
-				$QProduct = $QProduct->limit(10,0);
+				$QProduct = $QProduct->limit($this->paging_limit,$this->paging_offset);
 			}
 			
 			$QProduct = $QProduct->get("tb_product tp");
@@ -4596,9 +4597,9 @@ class Api extends CI_Controller {
 			
 			
 			if($this->response->post("page") != "" && $this->response->postDecode("page") != ""){
-				$QMessages = $QMessages->limit(10,$this->response->postDecode("page"));
+				$QMessages = $QMessages->limit($this->paging_limit,$this->response->postDecode("page"));
 			}else{
-				$QMessages = $QMessages->limit(10,0);
+				$QMessages = $QMessages->limit($this->paging_limit,$this->paging_offset);
 			}
 			
 			$QMessages = $QMessages->get("tb_member_message tmm")->result();
