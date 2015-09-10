@@ -538,6 +538,8 @@ class Produk extends CI_Controller {
 				$harga_pembelian= $this->template->clearInput($this->input->post('harga_pembelian'));
 
 				$total_picture 	= $this->template->clearInput($this->input->post('total_picture'));				
+				$total_varian 	= $this->template->clearInput($this->input->post('total_varian'));
+				$gunakan_varian = $this->template->clearInput($this->input->post('gunakan_varian'));
 				$action 		= $this->template->clearInput($this->input->post('action'));
 				$harga_level_1 	= $this->template->clearInput($this->input->post('harga_level_1'));
 				$harga_level_2 	= $this->template->clearInput($this->input->post('harga_level_2'));

@@ -135,6 +135,7 @@ echo"
 									<div class='col s12 m8 l9'>
 										<p class='titleproduct'><a href='".base_url()."produk/edit_pre_order/".base64_encode($row->id)."'><b >".$row->name."</b></a></p>
 										</p>
+												
 										<p class='input-field col s12 m12 l6 nolpad'>
 											<input id='tanggal-".$row->id."' name='tanggal-".$row->id."' onchange=javascript:change_date(".$row->id.") type='text' data-value='".$date."'  placeholder='Tanggal Berakhir' class='validate datepicker '>
 											<span class='label red right kadal-".$row->id."' style='display:$kadal'>Kadaluarsa</span>
