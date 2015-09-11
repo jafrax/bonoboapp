@@ -616,7 +616,7 @@ class Produk extends CI_Controller {
 					if ($gunakan_varian != 'on') {
 						$this->db->set('product_id',$id)
 						->set('name','null')
-						->set('stock_qty',$stok_utama)
+						->set('stock_qty',1)
 						->set('create_user',$_SESSION['bonobo']['email'])
 						->set('create_date',date('Y-m-d H:i:s'))
 						->set('update_user',$_SESSION['bonobo']['email'])
