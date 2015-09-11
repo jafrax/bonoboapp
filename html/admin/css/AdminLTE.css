@@ -105,6 +105,7 @@ body > .header {
   left: 0;
   right: 0;
   z-index: 1030;
+  
 }
 /* Define 2 column template */
 .right-side,
@@ -485,7 +486,7 @@ body > .header .logo .icon {
   background: transparent;
   margin-top: 0px;
   margin-bottom: 0;
-  font-size: 12px;
+  font-size: 16px;
   padding: 7px 5px;
   position: absolute;
   top: 15px;
@@ -497,6 +498,7 @@ body > .header .logo .icon {
 .right-side > .content-header > .breadcrumb > li > a {
   color: #444;
   text-decoration: none;
+  font-size: 16px;
 }
 .right-side > .content-header > .breadcrumb > li > a > .fa,
 .right-side > .content-header > .breadcrumb > li > a > .glyphicon,
@@ -542,6 +544,7 @@ body > .header .logo .icon {
     width: 100%;
     float: none;
     position: relative!important;
+	
   }
   body > .header .navbar {
     margin: 0;
@@ -572,9 +575,12 @@ body > .header .logo .icon {
   margin: 0;
   padding: 0;
 }
-.sidebar .sidebar-menu > li {
+.sidebar .sidebar-menu > li.active {
   margin: 0;
   padding: 0;
+
+  
+  
 }
 .sidebar .sidebar-menu > li > a {
   padding: 12px 5px 12px 15px;
@@ -1063,6 +1069,7 @@ body > .header .logo .icon {
 -----------------------------------------------------------------
 */
 .form-control {
+  font-size:14px;
   -webkit-border-radius: 0px !important;
   -moz-border-radius: 0px !important;
   border-radius: 0px !important;
@@ -2499,6 +2506,7 @@ Component: timeline
 .skin-blue .logo {
   background-color: #414141;
   color: #f9f9f9;
+
 }
 .skin-blue .logo > a {
   color: #f9f9f9;
@@ -2538,8 +2546,8 @@ Component: timeline
 }
 .skin-blue .sidebar > .sidebar-menu > li > a:hover,
 .skin-blue .sidebar > .sidebar-menu > li.active > a {
-  color: #222;
-  background: #f9f9f9;
+  color:#F9F9F9;
+  background:#333333;
 }
 .skin-blue .sidebar > .sidebar-menu > li > .treeview-menu {
   margin: 0 1px;

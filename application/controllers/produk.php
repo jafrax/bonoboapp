@@ -110,7 +110,6 @@ class Produk extends CI_Controller {
 				
 				if ($insert) {
 					$id = $this->db->where('name',$nama)->where('create_user',$_SESSION['bonobo']['email'])->where('toko_category_product_id',$kategori)->where('price_1',str_replace('.','',$harga_level_1))->order_by('create_date','DESC')->get('tb_product')->row()->id;
-
 					$pic=1;
 					$url    = 'assets/pic/product/';
 					for($i=1;$i<=5;$i++){

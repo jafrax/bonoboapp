@@ -164,7 +164,7 @@ class Account extends CI_Controller {
     }
     
     function delete(){
-        if($_POST != null){
+
 			$delete = $this->input->post('delete');
 			$delete	= explode(",",$delete);
 			$del	= array('');
@@ -176,7 +176,7 @@ class Account extends CI_Controller {
 
             $this->db->where_in('id',$delete)->delete('tb_admin');
 		}
-    }
+
 	
 	
 	function rules_username(){
