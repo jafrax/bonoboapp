@@ -485,7 +485,7 @@ class Produk extends CI_Controller {
 *
 * Create 30 Juni 2015 by Dinar Wahyu Wibowo
 */
-	var $limit_pre 	= 10;
+	var $limit_pre 	= 100;
 	var $offset_pre = 0;
 	public function pre_order(){
 		$uri =  $this->uri->segment(3);
