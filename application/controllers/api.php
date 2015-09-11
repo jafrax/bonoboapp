@@ -1890,15 +1890,15 @@ class Api extends CI_Controller {
 			if(sizeOf($QShops) > 0){
 				$Shops = array();
 				foreach($QShops as $QShop){
-					$ShopBlacklist = $this->db->where("toko_id",$QShop->id)->where("member_id",$QUser->id)->get("tb_toko_blacklist")->row();
+					//$ShopBlacklist = $this->db->where("toko_id",$QShop->id)->where("member_id",$QUser->id)->get("tb_toko_blacklist")->row();
 				
-					if(empty($ShopBlacklist)){
+					//if(empty($ShopBlacklist)){
 						$Shop = $this->getShopById($QShop->id, $QUser->id);
 						
 						if($Shop != null){
 							array_push($Shops,$Shop);
 						}
-					}
+					//}
 				}
 				
 				$this->response->send(array("result"=>1,"shops"=>$Shops), true);
@@ -3952,7 +3952,7 @@ class Api extends CI_Controller {
 				
 				/*
 				*	------------------------------------------------------------------------------
-				*	Mengambil data cart varian
+				*	Menghitung total harga pembelian per product
 				*	------------------------------------------------------------------------------
 				*/
 				
@@ -3964,12 +3964,15 @@ class Api extends CI_Controller {
 					->result();
 						
 				foreach($QCartVarians as $QCartVarian){
-					$price_item = $price_item + ($QCartVarian->quantity * $product_price);
 					$price_product = $price_product + ($QCartVarian->quantity * $product_price);
 					
-					if(!empty($QProduct)){
+					/*
+					*	------------------------------------------------------------------------------
+					*	Menghitung berat pembelian per product
+					*	------------------------------------------------------------------------------
+					*/
+					if(!empty($QProduct) && !empty($QProduct->weight) && !empty($QCartVarian->quantity)){
 						$weightVarian = $QProduct->weight * $QCartVarian->quantity;
-						
 						$shipment_weight = $shipment_weight + $weightVarian;
 					}
 				}
@@ -3979,6 +3982,13 @@ class Api extends CI_Controller {
 					);
 					
 				$Save = $this->db->where("id",$QCartProduct->id)->update("tb_cart_product",$Data);
+				
+				/*
+				*	------------------------------------------------------------------------------
+				*	Menghitung total harga pembelian item
+				*	------------------------------------------------------------------------------
+				*/
+				$price_item = $price_item + $price_product;
 			}
 			
 			/*
@@ -4256,6 +4266,13 @@ class Api extends CI_Controller {
 					*	Simpan data invoice product dari cart product
 					*	------------------------------------------------------------------------------
 					*/
+					$QCartProducts = $this->db
+						->select("tcp.*, tp.id as product_id, tp.name as product_name, tp.description as product_description, tp.price_base")
+						->join("tb_product tp","tcp.product_id = tp.id")
+						->where("tcp.cart_id",$QCart->id)
+						->get("tb_cart_product tcp")
+						->result();
+						
 					foreach($QCartProducts as $QCartProduct){
 						$Data = array(
 								"invoice_id"=>$QInvoice->id,
