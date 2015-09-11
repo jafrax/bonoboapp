@@ -5,13 +5,15 @@ echo"
 	</div>
 </content>
 
-<footer class='page-footer grey darken-3'><!--
+<footer class='page-footer grey darken-3'>
+<!--		
 	<div class='container'>
 		<div class='row'>
 			<div class='col l6 s12'>
 				<h5 class='white-text'>Footer Content</h5>
 				<p class='grey-text text-lighten-4'>You can use rows and columns here to organize your footer content.</p>
 			</div>
+		
 			<div class='col l4 offset-l2 s12'>
 				<h5 class='white-text'>Links</h5>
 				<ul>
@@ -22,12 +24,32 @@ echo"
 				</ul>
 			</div>
 		</div>
-	</div>-->
-	<div class='footer-copyright grey darken-4'>
+	</div>
+-->		
+<!--
+		<div class='footer-copyright grey darken-4'>
 		<div class='container'>© 2015 Bonobo, Inc. All rights reserved.
 			<a class='grey-text text-lighten-4 right' href='javascript:void(0)'>Tentang Kami</a>
 			<a class='grey-text text-lighten-4 right' href='".base_url('index/pp')."'>Kebijakan privasi</a>
 			<a class='grey-text text-lighten-4 right' href='".base_url('index/tos')."'>Syarat dan ketentuan</a>
+			
+		</div>
+	</div>
+-->
+					
+					
+	<div class='container'>
+		<div class='row' >
+			<div class='col l6 s12'>
+				<h8 class='white-text'>© 2015 Bonobo, Inc. All rights reserved.</h8>
+		</div>
+		<div class='col l4 offset-l1 s12'>
+				<ul>
+					<li><a class='grey-text text-lighten-3' href='javascript:void(0)'>Tentang Kami</li>
+					<li><a class='grey-text text-lighten-3' href='".base_url('index/pp')."'>Kebijakan privasi</a></li>
+					<li><a class='grey-text text-lighten-3' href='".base_url('index/tos')."'>Syarat dan ketentuan</a></li>
+				</ul>
+			</div>		
 		</div>
 	</div>
 </footer>

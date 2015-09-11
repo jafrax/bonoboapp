@@ -166,14 +166,8 @@ echo "
 							</div>
 							
 							<div class='row formbody'>
-								<div class='linehead'>STOK BARANG</div>
-								<div class=' col s12 m6'>
-								<label>Tipe Stok <span class='text-red'>*</span></label>
-								<label class='error error-chosen' for='stok'></label>
-									<select name='stok' id='stok' required OnChange=javascript:change_stok() class='select-standar lectfilter'>										
-										<option selected value='1'>Stok selalu tersedia</option>
-										<!--<option value='0' selected>Gunakan stok</option> -->
-									</select>									
+								<div class='linehead'></div>
+								<div class=' col s12 m6' name='stok' id='stokPr' required OnChange=javascript:change_stokPr() >
 								</div>
 								<div class='input-field col s12 m12'>
 									<input type='checkbox' id='gunakan_varian' name='gunakan_varian' onclick=javascript:setVarianPr() />
@@ -186,13 +180,8 @@ echo "
 											<input id='varian' name='nama_varian_1' type='text' maxlength='30' placeholder='Ex : Merah' class='validate' >
 											<label for='varian'>Varian <span class='text-red'>*</span></label>
 										</div>
-										<div class='input-field col s11 m5 tersedia' style='display:none'>
-											<label >Stok : <span class='text-green'>selalu tersedia</span></label>
-										</div>
-										<div class='input-field col s11 m5 pakai-stok'>
-											<input id='varian' name='stok_varian_1' type='text' maxlength='9' placeholder='Jumlah stok' class='validate numbersOnly'>
-											<label for='varian'>Stok <span class='text-red'>*</span></label>											
-										</div>
+										
+										
 										<div class='input-field col s1 m1' >
 											<a onclick=javascript:deleteVarian('li_varian_1'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
 										</div>
@@ -200,24 +189,20 @@ echo "
 								</ul>
 								<ul class='col s12 m12 cek-stok' style='display:none'>								
 									<li class='input-field col s12 m12'>
-										<a class='btn-flat left' id='add-varian' onclick=javascript:addVarian()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
+										<a class='btn-flat left' id='add-varian' onclick=javascript:addVarianPr()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
 									</li>
 								</ul>
 								<ul class='col s12 m12 uncek-stok' >
 									<li class='varsto'>
-										<div class='input-field col s12 m6 tersedia' style='display:none'>
-											<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
-										</div>
-										<div class='input-field col s12 m6 pakai-stok' >
-											<input id='varian' name='stok_utama' type='text' placeholder='Jumlah stok' maxlength='9' class='validate numbersOnly'>
-											<label for='varian'>Stok <span></span></label>
-										</div>
+										
+										
 									</li>
 								</ul>
 							</div>
 																						
 															
-							<div class='row formbody'>
+							<div cl
+															ass='row formbody'>
 								<div class='linehead'>HARGA BARANG</div>
 								<div class='input-field col s12 m6'>
 									<input id='harga_pembelian' maxlength='11' name='harga_pembelian' placeholder='0' type='text' class='validate ribuan'>

@@ -157,10 +157,7 @@ echo "
 							
 							<div class='row formbody'>
 								<div class='linehead'></div>
-								<div class=' col s12 m6'>
-									<select name='stok' id='stok' required OnChange=javascript:change_stok() class='select-standar lectfilter'>										
-										<option value='1' "; if ($produk->tipe_stok == 1) echo "selected"; echo">Stok selalu tersedia</option>
-									</select>									
+								<div class=' col s12 m6' name='stokPr' id='stokPr' required OnChange=javascript:change_stokPr()>
 								</div>";
 								if ($produk->tipe_stok == 1) {
 									$tersedia = 'block';
@@ -204,23 +201,12 @@ echo "
 														<input id='varian' name='nama_edit_varian_".$row_var->id."' maxlength='30' value='".$row_var->name."' type='text' placeholder='Ex : Merah' class='validate'>
 														<label for='varian'>Varian </label>
 													</div>
-													<div class='input-field col s11 m5'>
+													<div class='input-field col s1 m1'>
 														<a onclick=javascript:deleteVarian('li_edit_varian_".$row_var->id."'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
-													</div>
+													</div> 
 												</li>";
 										}
-									}else{
-										foreach ($varian->result() as $row_var) {
-									echo"<li class='varsto nolmar' id='li_varian_1'>
-											<div class='input-field col s12 m5 '>
-												<input id='varian' name='nama_varian_1' type='text' maxlength='30' placeholder='Misal: Pcs' class='validate'>
-												<label for='varian'>Varian </label>
-											</div>
-											<div class='input-field col s11 m5 '>
-												<a onclick=javascript:deleteVarian('li_varian_1'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
-											</div>
-										</li>";
-										}
+									
 									}
 									
 									$addVar = 'block';
@@ -230,17 +216,13 @@ echo "
 									
 									echo"
 								</ul>
+								
 								<ul class='col s12 m12 cek-stok' style='display:$cek_stok'>								
 									<li class='input-field col s12 m12 nolmar'>
-										<a class='btn-flat left' id='add-varian' style='display:$addVar' onclick=javascript:addVarianPr()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
+										<a class='btn-flat left' id='add-varianPr' style='display:$addVar' onclick=javascript:addVarianPr()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
 									</li>
 								</ul>
-								<ul class='col s12 m12 uncek-stok' style='display:$uncek_stok'>
-									<li class='varsto'>
-										<div class='input-field col s11 m5 >
-										</div>
-										</li>
-								</ul>
+								
 							</div>				
 											
 											

@@ -114,7 +114,6 @@ class Produk extends CI_Controller {
 				
 				if ($insert) {
 					$id = $this->db->where('name',$nama)->where('create_user',$_SESSION['bonobo']['email'])->where('toko_category_product_id',$kategori)->where('price_1',str_replace('.','',$harga_level_1))->order_by('create_date','DESC')->get('tb_product')->row()->id;
-
 					$pic=1;
 					$url    = 'assets/pic/product/';
 					for($i=1;$i<=5;$i++){
@@ -486,7 +485,7 @@ class Produk extends CI_Controller {
 *
 * Create 30 Juni 2015 by Dinar Wahyu Wibowo
 */
-	var $limit_pre 	= 10;
+	var $limit_pre 	= 100;
 	var $offset_pre = 0;
 	public function pre_order(){
 		$uri =  $this->uri->segment(3);
@@ -616,7 +615,7 @@ class Produk extends CI_Controller {
 					if ($gunakan_varian != 'on') {
 						$this->db->set('product_id',$id)
 						->set('name','null')
-						->set('stock_qty',$stok_utama)
+						->set('stock_qty',1)
 						->set('create_user',$_SESSION['bonobo']['email'])
 						->set('create_date',date('Y-m-d H:i:s'))
 						->set('update_user',$_SESSION['bonobo']['email'])

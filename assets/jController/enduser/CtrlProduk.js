@@ -405,6 +405,20 @@ function change_stok() {
   }
 }
 
+
+function change_stokPr() {
+	  var stok = $('#stok').val();
+
+	  if (stok == 1) {
+	    $('.tersedia').show();
+	    $('.pakai-stok').hide();
+	  }else if (stok == 0) {
+	    $('.pakai-stok').show();
+	    $('.tersedia').hide();
+	  }
+	}
+
+
 function setVarian() {
    if ($('#gunakan_varian').is(":checked")) {
       $('.cek-stok').show();
@@ -417,7 +431,7 @@ function setVarian() {
 
 
 function setVarianPr() {
-	   if ($('#gunakan_varian').is(":checked")) {
+	  if ($('#gunakan_varian').is(":checked")) {
 	      $('.cek-stok').show();
 	      $('.uncek-stok').hide();
 	   }else{
@@ -450,10 +464,10 @@ function addVarianPr() {
 	  tot_varian = tot_varian+1;
 	  var hitung = $('#tempat-varian .varsto').length;
 	  if (hitung == 4){
-	      $('#add-varian').hide();
+	      $('#add-varianPr').hide();
 	    }
 	    if (hitung < 5) {
-	      $('#tempat-varian').append(boxVarian(tot_varian));
+	      $('#tempat-varian').append(boxVarianPr(tot_varian));
 	      $('#tot_varian').val(tot_varian);
 	      Materialize.updateTextFields();
 	      jQuery('.numbersOnly').keyup(function () { 
@@ -463,6 +477,31 @@ function addVarianPr() {
 
 
 	}
+
+function boxVarianPr(id) {
+  var stok      = $('#stokPr').val();
+  if (stok == 1) {
+      var varian = "<li class='varsto nolmar' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 '>"                      
+                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' maxlength='30' placeholder='Ex : Merah' class='validate'>"
+                      +"<label for='varian'>Varian</label>"
+                    +"</div>"
+                      +"<div class='input-field col s1 m1' >"
+                      +"<a onclick=javascript:deleteVarian('li_varian_"+tot_varian+"'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
+                    +"</div>"
+                    +"</li>";
+   }else if (stok == 0) {
+      var varian = "<li class='varsto nolmar' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 '>"                      
+                      +"<input id='varian' name='nama_varian_"+tot_varian+"' maxlength='30' type='text' placeholder='Ex : Merah' class='validate'>"
+                      +"<label for='varian'>Varian</label>"
+                    +"</div>"
+                      +"<div class='input-field col s1 m1' >"
+                      +"<a onclick=javascript:deleteVarian('li_varian_"+tot_varian+"'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
+                    +"</div>"
+                      +"</li>";
+   }
+   return varian;   
+}
+
 
 function boxVarian(id) {
   var stok      = $('#stok').val();
@@ -501,6 +540,7 @@ function boxVarian(id) {
    }
    return varian;   
 }
+
 
 function deleteVarian(varian) {
   $('#'+varian).remove();

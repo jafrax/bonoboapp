@@ -21,7 +21,7 @@ class Preorder extends CI_Controller {
 		$this->load->model("enduser/model_preorder");		
     }
 
-	var $limit = 6;
+	var $limit = 100;
 	var $offset = 0;
 	public function index(){
 		unset($_SESSION['search']);

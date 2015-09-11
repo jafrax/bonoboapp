@@ -3,12 +3,9 @@ $name = base64_decode($this->uri->segment(4));
 echo "
 				<div class='col s12 m12 l12'>
 					<div class='formain'>
-						<div class='formhead'>
-					        <a href='".base_url()."preorder' class='btn-flat waves-red'>
-							    <i class='mdi-navigation-arrow-back left'></i> Kembali
-							</a>
-						</div>
-
+						
+					        <a href='".base_url()."preorder' class='btn waves-effect waves-light blue'> <i class='mdi-navigation-arrow-back left'></i> Kembali</a>
+						
 						<div class='row '>
 							<div class='col s12 m6'>
 								<h4>$name</h4>
