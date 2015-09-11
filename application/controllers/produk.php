@@ -485,7 +485,7 @@ class Produk extends CI_Controller {
 *
 * Create 30 Juni 2015 by Dinar Wahyu Wibowo
 */
-	var $limit_pre 	= 100;
+	var $limit_pre 	= 10;
 	var $offset_pre = 0;
 	public function pre_order(){
 		$uri =  $this->uri->segment(3);
@@ -505,7 +505,8 @@ class Produk extends CI_Controller {
 		$data['produk'] 	= $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],0,$uri,$limit_pre,$offset_pre);
 		$data['total'] 		= $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],0,$uri)->num_rows();
 		$data['kategori']	= $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
-
+		
+		
 		if ($this->input->post('ajax')) {
 			if ($data['produk']->num_rows() > 0){
                 $satu = $this->load->view('enduser/produk/bg_pre_order_ajax1', $data,TRUE);
@@ -514,7 +515,7 @@ class Produk extends CI_Controller {
             }else{
             	echo json_encode(array('msg' => 'habis'));
             }
-        } else {
+        } else { 
             $this->template->bonobo('produk/bg_pre_order',$data);
         }
 		
@@ -778,6 +779,9 @@ class Produk extends CI_Controller {
 							$this->db->where('product_id',$id)->where('name !=','null')->delete('tb_product_varian');
 							$this->db->set('stock_qty',$stok_utama)->where('product_id',$id)->where('name','null')->update('tb_product_varian');
 						}else{
+							if($stok_utama=''){
+								$stok_utama=1;
+							}
 							$this->db->where('product_id',$id)->delete('tb_product_varian');
 							$this->db->set('product_id',$id)
 							->set('name','null')

@@ -207,7 +207,7 @@ echo "
 										foreach ($varian->result() as $row_var) {
 									echo"<li class='varsto nolmar' id='li_varian_1'>
 											<div class='input-field col s12 m5 '>
-												<input id='varian' name='nama_varian_1' type='text' maxlength='30' placeholder='Misal: Pcs' class='validate'>
+												<input id='varian' name='nama_varian_1' type='text' maxlength='30' placeholder='Misal: Merah' class='validate'>
 												<label for='varian'>Varian </label>
 											</div>
 											<div class='input-field col s11 m5 tersedia' style='display:$tersedia'>

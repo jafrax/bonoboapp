@@ -5,8 +5,11 @@ echo "
 						<div class='row formbody'>
 							<div class='col s12 m12'>
 								<ul class='row formbody preorder' id='ajax-div'>";
+								//echo "jumlah data =".$produk->num_rows();
+								
 								if ($produk->num_rows() > 0) {
-									foreach ($produk->result() as $row) {
+									
+									foreach ($produk->result() as $row) { //echo "awal =".$row->id ;
 										$count = $this->model_preorder->get_belum_selesai($row->id)->num_rows();
 										$ago 		= $this->template->xTimeAgoDesc($row->create_date,date('Y-m-d H:i:s'));
 										echo "

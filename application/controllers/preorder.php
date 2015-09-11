@@ -21,7 +21,7 @@ class Preorder extends CI_Controller {
 		$this->load->model("enduser/model_preorder");		
     }
 
-	var $limit = 100;
+	var $limit = 10;
 	var $offset = 0;
 	public function index(){
 		unset($_SESSION['search']);
@@ -35,7 +35,7 @@ class Preorder extends CI_Controller {
         }else{
             $offset = $page;
         }
-
+		
         $data['produk'] = $this->model_preorder->get_product_preorder($limit,$offset);
         
 		if ($this->input->post('ajax')) {
@@ -43,8 +43,10 @@ class Preorder extends CI_Controller {
                 $this->load->view('enduser/preorder/bg_preorder_ajax', $data);
             }
         } else {
-            $this->template->bonobo('preorder/bg_preorder', $data);
+            	$this->template->bonobo('preorder/bg_preorder', $data);
         }
+        
+      
 	}
 
 	public function detail($id){

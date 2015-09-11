@@ -174,9 +174,9 @@ function konfirmasi(id){
         url: base_url+'nota/konfirmasi',
         success: function(msg) {
         	if (msg == 1) {        		
-        		//$('#btn-batal-'+id).fadeOut();
+        		$('#btn-batal-'+id).fadeOut();
                 $('#btn-bayar-'+id).fadeOut();
-                //$('#lokasi-btn-'+id).html('<br>');
+                $('#lokasi-btn-'+id).html('<br>');
                 $('#lunas-'+id).html('Lunas');              
                 $('#lunas-'+id).removeClass('red-text');
                 $('#lunas-'+id).addClass('green-text');

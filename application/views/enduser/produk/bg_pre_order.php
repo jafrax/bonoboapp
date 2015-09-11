@@ -228,7 +228,7 @@ echo"
 										<span class='card-title grey-text text-darken-4'><i class='mdi-navigation-close right'></i></span>
 										<p>
 											<div class='col s12'><b>".$row->name."</b></div>
-											<div class='col s12'><b>SKU</b></div>
+											<div class='col s12'><b>Kode Barang</b></div>
 											<div class='col s12'>".$row->sku_no."</div>
 											<div class='col s12'><b>Kategori</b></div>
 											<div class='col s12'>".$row->kategori."</div>
