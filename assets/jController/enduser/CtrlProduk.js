@@ -415,6 +415,17 @@ function setVarian() {
    };
 }
 
+
+function setVarianPr() {
+	   if ($('#gunakan_varian').is(":checked")) {
+	      $('.cek-stok').show();
+	      $('.uncek-stok').hide();
+	   }else{
+	      $('.uncek-stok').show();
+	      $('.cek-stok').hide();
+	   };
+	}
+
 var tot_varian= 1;
 function addVarian() {  
   tot_varian = tot_varian+1;
@@ -433,6 +444,25 @@ function addVarian() {
 
 
 }
+
+
+function addVarianPr() {  
+	  tot_varian = tot_varian+1;
+	  var hitung = $('#tempat-varian .varsto').length;
+	  if (hitung == 4){
+	      $('#add-varian').hide();
+	    }
+	    if (hitung < 5) {
+	      $('#tempat-varian').append(boxVarian(tot_varian));
+	      $('#tot_varian').val(tot_varian);
+	      Materialize.updateTextFields();
+	      jQuery('.numbersOnly').keyup(function () { 
+	          this.value = this.value.replace(/[^0-9\.]/g,'');
+	      });
+	    }
+
+
+	}
 
 function boxVarian(id) {
   var stok      = $('#stok').val();

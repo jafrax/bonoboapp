@@ -152,7 +152,99 @@ echo "
 								</div>
 								
 							</div>
+											
+											
 							
+							<div class='row formbody'>
+								<div class='linehead'></div>
+								<div class=' col s12 m6'>
+									<select name='stok' id='stok' required OnChange=javascript:change_stok() class='select-standar lectfilter'>										
+										<option value='1' "; if ($produk->tipe_stok == 1) echo "selected"; echo">Stok selalu tersedia</option>
+									</select>									
+								</div>";
+								if ($produk->tipe_stok == 1) {
+									$tersedia = 'block';
+									$guna_stok= 'none';
+								};
+
+								if ($produk->tipe_stok == 0) {
+									$tersedia = 'none';
+									$guna_stok= 'block';
+								};
+
+								$varian_null = $this->model_produk->get_varian_produk_null($produk->id);
+								if ($varian_null->num_rows() > 0) {
+									$checked 	= '';
+									$cek_stok 	= 'none';
+									$uncek_stok	= 'block';
+									$stok_utama = $varian_null->row()->stock_qty;
+								}else{
+									$checked 	= 'checked';
+									$cek_stok 	= 'block';
+									$uncek_stok	= 'none';
+									$stok_utama = '';
+								}
+								
+								$varian = $this->model_produk->get_varian_produk($produk->id);
+								echo"
+										
+								
+								<div class='input-field col s12 m12'>
+									<input type='checkbox' id='gunakan_varian' name='gunakan_varian' onclick=javascript:setVarianPr() $checked/>
+									<label for='gunakan_varian'>Gunakan varian</label>
+								</div>
+								
+								
+								<input type='hidden' name='total_varian' value='1' id='tot_varian' />
+								<ul class='col s12 m12 cek-stok' id='tempat-varian' >";
+									if ($varian_null->num_rows() == 0) {
+										foreach ($varian->result() as $row_var) {
+											echo"<li class='varsto nolmar' id='li_edit_varian_".$row_var->id."'>
+													<div class='input-field col s12 m5 '>
+														<input id='varian' name='nama_edit_varian_".$row_var->id."' maxlength='30' value='".$row_var->name."' type='text' placeholder='Ex : Merah' class='validate'>
+														<label for='varian'>Varian </label>
+													</div>
+													<div class='input-field col s11 m5'>
+														<a onclick=javascript:deleteVarian('li_edit_varian_".$row_var->id."'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
+													</div>
+												</li>";
+										}
+									}else{
+										foreach ($varian->result() as $row_var) {
+									echo"<li class='varsto nolmar' id='li_varian_1'>
+											<div class='input-field col s12 m5 '>
+												<input id='varian' name='nama_varian_1' type='text' maxlength='30' placeholder='Misal: Pcs' class='validate'>
+												<label for='varian'>Varian </label>
+											</div>
+											<div class='input-field col s11 m5 '>
+												<a onclick=javascript:deleteVarian('li_varian_1'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
+											</div>
+										</li>";
+										}
+									}
+									
+									$addVar = 'block';
+									if ($varian_null->num_rows() > 5) {
+										$addVar = 'none';
+									}
+									
+									echo"
+								</ul>
+								<ul class='col s12 m12 cek-stok' style='display:$cek_stok'>								
+									<li class='input-field col s12 m12 nolmar'>
+										<a class='btn-flat left' id='add-varian' style='display:$addVar' onclick=javascript:addVarianPr()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
+									</li>
+								</ul>
+								<ul class='col s12 m12 uncek-stok' style='display:$uncek_stok'>
+									<li class='varsto'>
+										<div class='input-field col s11 m5 >
+										</div>
+										</li>
+								</ul>
+							</div>				
+											
+											
+											
 							<div class='row formbody'>
 								<div class='linehead'>HARGA BARANG</div>
 								<div class='input-field col s12 m6'>
