@@ -3851,7 +3851,7 @@ class Api extends CI_Controller {
 										->where("id",$QShop->location_id)
 										->get("ms_location")
 										->row();
-										
+
 						if(!empty($QShopLocation)){
 							$QCourierRate = $this->db
 									->where("courier_id",$QCourier->id)
@@ -3863,7 +3863,7 @@ class Api extends CI_Controller {
 									->where("location_to_kecamatan",$this->response->postDecode("kecamatan"))
 									->get("tb_courier_rate")
 									->row();
-						
+
 							if(!empty($QCourierRate)){
 								$shipment_rate = $QCourierRate->price;
 							}
@@ -3878,7 +3878,7 @@ class Api extends CI_Controller {
 								->where("location_to_kecamatan",$this->response->postDecode("kecamatan"))
 								->get("tb_courier_custom_rate")
 								->row();
-					
+
 						if(!empty($QCourierRate)){
 							$shipment_rate = $QCourierRate->price;
 						}
@@ -3887,7 +3887,7 @@ class Api extends CI_Controller {
 					$shipment_rate = 0;
 				}
 			}
-			
+
 			/*
 			*	------------------------------------------------------------------------------
 			*	Generate Invoice Price product
@@ -3928,23 +3928,33 @@ class Api extends CI_Controller {
 					if(!empty($QShopMember)){
 						switch($QShopMember->price_level){
 							case "1":
-								$product_price = $QProduct->price_1;
+								if($QProduct->price_1 > 0){
+									$product_price = $QProduct->price_1;
+								}
 							break;
 							
 							case "2":
-								$product_price = $QProduct->price_2;
+								if($QProduct->price_2 > 0){
+									$product_price = $QProduct->price_2;
+								}
 							break;
 							
 							case "3":
-								$product_price = $QProduct->price_3;
+								if($QProduct->price_3 > 0){
+									$product_price = $QProduct->price_3;
+								}
 							break;
 							
 							case "4":
-								$product_price = $QProduct->price_4;
+								if($QProduct->price_4 > 0){
+									$product_price = $QProduct->price_4;
+								}
 							break;
 							
 							case "5":
-								$product_price = $QProduct->price_5;
+								if($QProduct->price_5 > 0){
+									$product_price = $QProduct->price_5;
+								}
 							break;
 						}
 					}
