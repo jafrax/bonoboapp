@@ -28,6 +28,7 @@ class Model_produk extends CI_Model
 				$this->db->limit($limit,$offset);
 		return	$this->db->where('p.active',$active)->join('tb_toko_category_product c','c.id=p.toko_category_product_id')->order_by('p.id','DESC')->get('tb_product p');
 	}
+	
 
 	function get_one_produk($id){
 		$this->db->select('p.id id,p.name name,p.end_date end_date,p.stock_type stock_type,p.active active,c.name kategori,p.sku_no sku_no,p.toko_category_product_id kategori,p.weight berat,p.unit satuan,p.min_order min_order,p.description description,p.stock_type_detail tipe_stok,p.price_base harga_pembelian,p.price_1 harga_1,p.price_2 harga_2,p.price_3 harga_3,p.price_4 harga_4,p.price_5 harga_5')

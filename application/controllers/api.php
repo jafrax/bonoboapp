@@ -14,7 +14,8 @@
 set_time_limit (60000);
 
 class Api extends CI_Controller {
-
+	var $paging_limit = 10;
+	var $paging_offset = 0;
 	var $quality = 90;
 	
 	function __construct(){
@@ -90,6 +91,7 @@ class Api extends CI_Controller {
 		
 		$join = 0;
 		$invite = 0;
+		$blacklist = 0;
 		$price_level = 1;
 		
 		/*
@@ -108,6 +110,7 @@ class Api extends CI_Controller {
 		if(!empty($user)){
 			$ShopMember = $this->db->where("toko_id",$id)->where("member_id",$user)->get("tb_toko_member")->row();
 			$ShopInvite = $this->db->where("toko_id",$id)->where("member_id",$user)->get("tb_invite")->row();
+			$ShopBlacklist = $this->db->where("toko_id",$id)->where("member_id",$user)->get("tb_toko_blacklist")->row();
 			
 			if(!empty($ShopMember)){
 				$join = 1;
@@ -121,6 +124,10 @@ class Api extends CI_Controller {
 			
 			if(!empty($ShopInvite)){
 				$invite = 1;
+			}
+			
+			if(!empty($ShopBlacklist)){
+				$blacklist = 1;
 			}
 		}
 		
@@ -280,6 +287,7 @@ class Api extends CI_Controller {
 			"count_users"=>$CountMembers,
 			"join"=>$join,
 			"invite"=>$invite,
+			"blacklist"=>$blacklist,
 			"invoice_confirm"=>$QShop->invoice_confirm,
 			"price_level"=>$price_level,
 			"location"=>array(
@@ -431,10 +439,17 @@ class Api extends CI_Controller {
 		*/
 		$Carts = array();
 		
-		$QCarts = $this->db
-				->where("tc.member_id",$user)
-				->get("tb_cart tc")
-				->result();
+		$QCarts = $this->db;
+		$QCarts = $QCarts->where("tc.member_id",$user);
+		
+		if($this->response->post("lastId") != "" && intval($this->response->postDecode("lastId")) > 0){
+			$QCarts = $QCarts->where("tc.id < ",$this->response->postDecode("lastId"));
+		}
+		
+		$QCarts = $QCarts->limit($this->paging_limit,$this->paging_offset);
+		$QCarts = $QCarts->order_by("id","DESC");
+		$QCarts = $QCarts->get("tb_cart tc");
+		$QCarts = $QCarts->result();
 		
 		foreach($QCarts as $QCart){
 			/*
@@ -529,10 +544,17 @@ class Api extends CI_Controller {
 		*/
 		
 		$Invoices = array();
-		$QInvoices = $this->db
-					->where("member_id",$user)
-					->get("tb_invoice")
-					->result();
+		$QInvoices = $this->db;
+		$QInvoices = $QInvoices->where("member_id",$user);
+					
+		if($this->response->post("lastId") != "" && intval($this->response->postDecode("lastId")) > 0){
+			$QInvoices = $QInvoices->where("id < ",$this->response->postDecode("lastId"));
+		}
+		
+		$QInvoices = $QInvoices->limit($this->paging_limit,$this->paging_offset);
+		$QInvoices = $QInvoices->order_by("id","DESC");
+		$QInvoices = $QInvoices->get("tb_invoice");
+		$QInvoices = $QInvoices->result();
 
 		foreach($QInvoices as $QInvoice){
 			/*
@@ -924,6 +946,15 @@ class Api extends CI_Controller {
 						->row();
 				
 				if(!empty($QUser)){
+					/*
+					*	Check undangan dari toko untuk bergabung
+					*/
+					$QInvites = $this->db->where("email",$QUser->email)->get("tb_invite")->result();
+					foreach($QInvites as $QInvite){
+						$Data = array("member_id"=>$QUser->id);
+						$Save=$this->db->where("id",$QInvite->id)->update("tb_invite",$Data);
+					}
+					
 					$User = $this->getUserById($QUser->id);
 					$this->response->send(array("result"=>1,"user"=>$User), true);
 				}else{
@@ -1376,7 +1407,7 @@ class Api extends CI_Controller {
 					->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
 					->where("tp.active",1)
 					->where("ttcp.toko_id IN (SELECT ttm.toko_id FROM tb_toko_member ttm WHERE ttm.member_id = ".$QUser->id." group by ttm.toko_id)")
-					->limit(10,0)
+					->limit($this->paging_limit,$this->paging_offset)
 					->order_by("tp.id","DESC")
 					->group_by("tp.id")
 					->get("tb_product tp")
@@ -1531,7 +1562,7 @@ class Api extends CI_Controller {
 							->join("tb_message tm","tm.id = tmm.message_id")
 							->where("tmm.member_id",$QUser->id)
 							->where("tmm.toko_id",$QShop->id)
-							->limit(10,0)
+							->limit($this->paging_limit,$this->paging_offset)
 							->order_by("tmm.id","DESC")
 							->get("tb_member_message tmm")
 							->result();
@@ -1643,7 +1674,7 @@ class Api extends CI_Controller {
 			$QInvites = $this->db
 						->where("member_id",$QUser->id)
 						->where("flag_api",0)
-						->limit(1,0)
+						->limit(1,$this->paging_offset)
 						->get("tb_invite")
 						->result();
 						
@@ -1711,11 +1742,9 @@ class Api extends CI_Controller {
 			
 			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && $this->response->postDecode("lastId") > "0"){
 				$QProduct = $QProduct->where("tp.id < ",$this->response->postDecode("lastId"));
-			}else if($this->response->post("currentId") != "" && $this->response->postDecode("currentId") != ""){
-				$QProduct = $QProduct->where("tp.id > ",$this->response->postDecode("currentId"));
 			}
 			
-			//$QProduct = $QProduct->limit(10,0);
+			$QProduct = $QProduct->limit($this->paging_limit,$this->paging_offset);
 			$QProduct = $QProduct->order_by("tp.id","Desc");
 			$QProduct = $QProduct->get("tb_product tp");
 			$QProducts = $QProduct->result();
@@ -1861,10 +1890,14 @@ class Api extends CI_Controller {
 			if(sizeOf($QShops) > 0){
 				$Shops = array();
 				foreach($QShops as $QShop){
-					$Shop = $this->getShopById($QShop->id, $QUser->id);
-					
-					if($Shop != null){
-						array_push($Shops,$Shop);
+					$ShopBlacklist = $this->db->where("toko_id",$QShop->id)->where("member_id",$QUser->id)->get("tb_toko_blacklist")->row();
+				
+					if(empty($ShopBlacklist)){
+						$Shop = $this->getShopById($QShop->id, $QUser->id);
+						
+						if($Shop != null){
+							array_push($Shops,$Shop);
+						}
 					}
 				}
 				
@@ -2315,9 +2348,9 @@ class Api extends CI_Controller {
 			}
 			
 			if($this->response->post("page") != "" && $this->response->postDecode("page") != ""){
-				$QProduct = $QProduct->limit(10,$this->response->postDecode("page"));
+				$QProduct = $QProduct->limit($this->paging_limit,$this->response->postDecode("page"));
 			}else{
-				$QProduct = $QProduct->limit(10,0);
+				$QProduct = $QProduct->limit($this->paging_limit,$this->paging_offset);
 			}
 			
 			$QProduct = $QProduct->get("tb_product tp");
@@ -3708,37 +3741,45 @@ class Api extends CI_Controller {
 				for ($i = 0; $i <$this->response->postDecode("cart_varians"); $i++) {
 					if($this->response->post("cart_varian_".$i) != "" && $this->response->postDecode("cart_varian_".$i) != "" && $this->response->post("cart_varian_quantity_".$i) != "" && $this->response->postDecode("cart_varian_quantity_".$i) != ""){
 						$Quantity = floatval($this->response->postDecode("cart_varian_quantity_".$i));
-						$CartVarian = $this->db->where("id",$this->response->postDecode("cart_varian_".$i))->get("tb_cart_varian")->row();
 						
-						if(!empty($CartVarian)){
-							$ProductVarian = $this->db->where("id",$CartVarian->product_varian_id)->get("tb_product_varian")->row();
-							if(!empty($ProductVarian)){
-								$Product = $this->db->where("id",$ProductVarian->product_id)->get("tb_product")->row();
-								if(!empty($Product)){
-									if($Product->stock_type == 1 && $Product->stock_type_detail == 0){
-										if($ProductVarian->stock_qty < $Quantity){
-											$isValidQuantity = false;
-											return;
+						if(!empty($Quantity) && $Quantity > 0){
+							$CartVarian = $this->db->where("id",$this->response->postDecode("cart_varian_".$i))->get("tb_cart_varian")->row();
+							
+							if(!empty($CartVarian)){
+								$ProductVarian = $this->db->where("id",$CartVarian->product_varian_id)->get("tb_product_varian")->row();
+								if(!empty($ProductVarian)){
+									$Product = $this->db->where("id",$ProductVarian->product_id)->get("tb_product")->row();
+									if(!empty($Product)){
+										if($Product->stock_type == 1 && $Product->stock_type_detail == 0){
+											if($ProductVarian->stock_qty < $Quantity){
+												$isValidQuantity = false;
+												return;
+											}
 										}
+									}else{
+										$isValidQuantity = false;
+										$isValidMessage = "Data produk tidak valid.";
 									}
 								}else{
 									$isValidQuantity = false;
-									$isValidMessage = "Data produk tidak valid.";
+									$isValidMessage = "Data produk varian tidak valid.";
 								}
 							}else{
 								$isValidQuantity = false;
-								$isValidMessage = "Data produk varian tidak valid.";
+								$isValidMessage = "Data cart varian tidak valid lagi.";
 							}
+							
+							$Data = array(
+										"quantity"=>$Quantity,
+									);
+							
+							$Save = $this->db->where("id",$this->response->postDecode("cart_varian_".$i))->update("tb_cart_varian",$Data);
 						}else{
-							$isValidQuantity = false;
-							$isValidMessage = "Data cart varian tidak valid lagi.";
+							/*
+							*	Delete cart varian karena quantity tidak diisi (null/0)
+							*/
+							$Delete = $this->db->where("id",$this->response->postDecode("cart_varian_".$i))->delete("tb_cart_varian");
 						}
-						
-						$Data = array(
-									"quantity"=>$Quantity,
-								);
-						
-						$Save = $this->db->where("id",$this->response->postDecode("cart_varian_".$i))->update("tb_cart_varian",$Data);
 					}
 				}
 			}
@@ -4584,9 +4625,9 @@ class Api extends CI_Controller {
 			
 			
 			if($this->response->post("page") != "" && $this->response->postDecode("page") != ""){
-				$QMessages = $QMessages->limit(10,$this->response->postDecode("page"));
+				$QMessages = $QMessages->limit($this->paging_limit,$this->response->postDecode("page"));
 			}else{
-				$QMessages = $QMessages->limit(10,0);
+				$QMessages = $QMessages->limit($this->paging_limit,$this->paging_offset);
 			}
 			
 			$QMessages = $QMessages->get("tb_member_message tmm")->result();
