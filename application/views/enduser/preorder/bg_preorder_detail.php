@@ -4,7 +4,7 @@ echo "
 				<div class='col s12 m12 l12'>
 					<div class='formain'>
 						
-					        <a href='".base_url()."preorder' class='btn waves-effect waves-light blue'> <i class='mdi-navigation-arrow-back left'></i> Kembali</a>
+					        <a href='".base_url()."preorder' > <i class='mdi-navigation-arrow-back left'></i> Kembali</a>
 						
 						<div class='row '>
 							<div class='col s12 m6'>
