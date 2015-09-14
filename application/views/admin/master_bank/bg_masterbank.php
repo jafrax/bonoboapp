@@ -45,7 +45,7 @@
 								</th>
 								<th>No</th>
 								<th>Nama Bank</th>
-								<th>Logo</th>
+								<!--<th>Logo</th>-->
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -67,7 +67,7 @@
 									</td>
 									<td>$i</td>
 									<td id='nama-".$row->id."'>".$row->name."</td>
-									<td><img class='logobank' src='$image' /></td>
+									<!--<td><img class='logobank' src='$image' /></td>-->
 									<td>
 										<button class='btn btn-primary btn-sm' onClick=javascript:bank_modal('".$row->id."') >Edit</button>
 									</td>
@@ -91,7 +91,7 @@
 								</th>
 								<th>No</th>
 								<th>Nama Bank</th>
-								<th>Logo</th>
+								<!--<th>Logo</th>-->
 								<th>Action</th>
 						</tfoot>
 					</table>

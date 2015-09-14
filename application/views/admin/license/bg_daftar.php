@@ -28,7 +28,7 @@ echo "
                                             <option value='3' >Semua Status</option>
                                             <option value='1' "; if (isset($_SESSION['option'])) {if ($_SESSION['option'] == 1) echo "selected";} echo">Kode belum diinput</option>
                                             <!--<option value='2' "; if (isset($_SESSION['option'])) {if ($_SESSION['option'] == 2) echo "selected";} echo">Menunggu Kode</option>-->
-                                            <option value='0' "; if (isset($_SESSION['option'])) {if ($_SESSION['option'] == 0) echo "selected";} echo">Kode sudah digunakan</option>
+                                            <option value='0' "; if (isset($_SESSION['option'])) {if ($_SESSION['option'] == 0) echo "selected";} echo">Kode sudah dipakai</option>
                                         </select>
                                     </div>
                                 </div>
