@@ -3620,6 +3620,7 @@ class Api extends CI_Controller {
 				$Cart = array(
 						"id"=>$QCart->id,
 						"price_total"=>$QCart->price_total,
+						"stock_type"=>$QCart->stock_type,
 						"shop"=>$this->getShopById($QCart->toko_id,$QUser->id),
 						"cart_products"=>$CartProducts,
 					);
