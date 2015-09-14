@@ -132,7 +132,7 @@ label{ font-size: 14px; color: #565a5c; }
 .checkallbox{ margin:12px 0 0 0;}
 .checkallboxnota{ margin:12px 0 0 22px; width:30px; }
 .checkitem{ padding:0!important; margin:0!important; }
-.boderrander{ border: 1px solid #ddd; box-shadow: none!important; }
+.boderrander{ border: 1px solid #ddd; box-shadow: none!important; min-height:300px;}
 
 /*ALL ABOUT BG*/
 .bgpic{ background-position:center; background-repeat:no-repeat; background-size:cover; background-color: #313131; }

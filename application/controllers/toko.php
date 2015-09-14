@@ -957,7 +957,15 @@ class Toko extends CI_Controller {
 			
 		echo"</select><script>$('.select-standar').chosen();</script>";*/
 
-		echo "<input type='text' name='cmbBank' value='".$ShopBank->bank_name."' >" ;
+		echo "<select name='cmbBank' class='browser-default' onchange=javascript:pilihngebank()>
+				<option value='Bank BCA' >Bank BCA</option>
+				<option value='Bank Mandiri' >Bank Mandiri</option>
+				<option value='Bank BNI' >Bank BNI</option>
+				<option value='Bank BCA' >Bank BCA</option>
+				<option value='Bank BRI' >Bank BRI</option>
+				<option value='Bank BTN' >Bank BTN</option>
+				<option value='lainnya' >Bank Lainnya</option>
+			</select>";
 	}
 	
 	public function step8ComboboxBankadd(){
