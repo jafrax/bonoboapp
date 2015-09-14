@@ -5,7 +5,7 @@ echo"
 	</div>
 </content>
 
-<footer class='page-footer grey darken-3'>
+<footer class='page-footer grey darken-3 nolmar nolpad'>
 <!--		
 	<div class='container'>
 		<div class='row'>
@@ -38,20 +38,15 @@ echo"
 -->
 					
 					
-	<div class='container'>
-		<div class='row' >
-			<div class='col l6 s12'>
-				<h8 class='white-text'>© 2015 Bonobo, Inc. All rights reserved.</h8>
-		</div>
-		<div class='col l4 offset-l1 s12'>
-				<ul>
-					<li><a class='grey-text text-lighten-3' href='javascript:void(0)'>Tentang Kami</li>
-					<li><a class='grey-text text-lighten-3' href='".base_url('index/pp')."'>Kebijakan privasi</a></li>
-					<li><a class='grey-text text-lighten-3' href='".base_url('index/tos')."'>Syarat dan ketentuan</a></li>
-				</ul>
-			</div>		
-		</div>
+
+	<div class='footer-copyright grey darken-4'>
+		<div class='containermain'>© 2015 Bonobo, Inc. All rights reserved.
+			<a class='grey-text text-lighten-3' href='javascript:void(0)'>Tentang Kami</a>
+			<a class='grey-text text-lighten-3' href='".base_url('index/pp')."'>Kebijakan privasi</a>
+			<a class='grey-text text-lighten-3' href='".base_url('index/tos')."'>Syarat dan ketentuan</a>
+		</div>		
 	</div>
+
 </footer>
 
 <script type='text/javascript' src='".base_url("")."html/js/core.js'></script>

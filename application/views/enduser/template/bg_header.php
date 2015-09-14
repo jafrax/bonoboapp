@@ -136,7 +136,7 @@ echo"
 				<ul class='navmenu' >
 					<li  class='menuutama"; if ($uri == 'toko') echo" active"; echo"'>
 						<a "; if ($uri == 'toko') echo"class='active'"; echo" href='".base_url("toko/")."'>Toko</a>
-						<ul class='subnemuutama grey darken-1'>
+						<ul class='subnemuutama'>
 							";
 						echo "<li><a href='".base_url("toko/")."'>1. INFORMASI TOKO</a></li>
 								<li><a href='".base_url("toko/step2")."'>2. PRIVASI</a></li>

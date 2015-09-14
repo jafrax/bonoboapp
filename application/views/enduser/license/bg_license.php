@@ -60,7 +60,7 @@ echo "
 									<label for='kode4' class='error '></label>
 								</div>
 							</div>
-							<div class='nolautomar ' style='overflow:hidden; text-align:center; float:none'>
+							<div class='nolautomar captcha' style=' overflow:hidden; text-align:center; float:none; padding:15px 0; ' >
 								<label id='error-captcha'  style='display:none;color:red'></label>
 								".$captcha."								
 							</div>
