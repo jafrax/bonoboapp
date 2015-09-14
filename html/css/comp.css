@@ -147,7 +147,7 @@ label{ font-size: 14px; color: #565a5c; }
 .div-circle-logo{ margin-top: 10px!important; }
 .circle-logo{ border-radius: 50%;width: 100px;height: 100px;text-align: center; border: 1px solid #eee;}
 .img-product{ height:100px; }
-.prordercrop{ height:160px; border:1px solid #efefef; overflow: hidden; }
+.prordercrop{ /*height:160px; border:1px solid #efefef;*/ overflow: hidden; }
 .prordercrop img{ width: 100%; }
 
 /*ALL ABOUT DEFAULT COLOR TEXT*/
