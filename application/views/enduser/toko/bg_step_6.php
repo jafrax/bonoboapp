@@ -69,11 +69,11 @@ echo"
 			
 		</div>
 		<div class='modal-content'>								      
-			<div class='col s12 m12 l12'>
+			<div class='col s12 m12 l12 nolmar nolpad'>
 				<form id='formStep6Add'>
 					<input type='hidden' name='txtId' value=''>
-					<div class='row formbody'>
-						<div class='col m12' id='iki-edit'>
+					<div class='row formbody nolmar nolpad'>
+						<div class='col m12 nolmar nolpad' id='iki-edit'>
 							<div class='input-field col s12 m12'>
 								Nama Bank
 							</div>
