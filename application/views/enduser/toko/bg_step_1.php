@@ -1,6 +1,6 @@
 <?php
 
-$ShopImage = base_url("assets/image/img_default_photo.jpg");
+$ShopImage = base_url("assets/image/img_default_logo.jpg");
 		
 if(!empty($Shop->image) && file_exists("./assets/pic/shop/".$Shop->image)){
 	$ShopImage = base_url("assets/pic/shop/resize/".$Shop->image);
@@ -73,8 +73,8 @@ echo"
 					</div>
 				</div>
 				<div class='input-field col s12 m8'>
-					<i class='grey-text'><b>Ukuran Maks</b> : 1 MB.</i><br>
-					<i class='grey-text'><b>Format</b> : .jpg, .png.</i>
+					<text class='grey-text'><b>Ukuran Maks</b> : 1 MB.</text><br>
+					<text class='grey-text'><b>Format</b> : .jpg, .png.</itext>
 				</div>
 			</div>
 			<div class='row formbody'>

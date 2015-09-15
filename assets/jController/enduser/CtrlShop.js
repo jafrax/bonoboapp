@@ -326,7 +326,7 @@ function CtrlShopStep1(){
 	}
 	
 	function doImageDelete(){
-		imgShopLogo.src = base_url+"assets/image/img_default_photo.jpg";
+		imgShopLogo.src = base_url+"assets/image/img_default_logo.jpg";
 	}
 }
 function CtrlShopStep4(){
