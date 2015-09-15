@@ -59,8 +59,10 @@ echo"
 </div>
 <div class='form-group'>
 	<label for=''>Harga per Kg</label>
-	<input type='text' class='form-control rupiah' id='hargapkg' name='hargapkg'>
+	<input type='text' class='form-control ribuan'  id='hargapkg' name='hargapkg'>
 </div>
+<script type='text/javascript' src='".base_url("")."assets/jController/admin/CtrlMkurir.js'></script>
+
 ";
 
 ?>

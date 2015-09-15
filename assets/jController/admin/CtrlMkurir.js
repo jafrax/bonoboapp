@@ -20,6 +20,13 @@ $(document).ready(function() {
             }
         },
     });
+        $("input.ribuan").priceFormat({     
+        limit: 9,
+        centsLimit: 0,
+        centsSeparator: "",
+        thousandsSeparator: ".",
+        prefix: "",
+    });
 })
 
 function kurir_modal_add() {
