@@ -14,7 +14,7 @@ echo "
 <link type='text/css' rel='stylesheet' href='".base_url()."html/css/jpushmenu.css' />
 <link type='text/css' rel='stylesheet' href='".base_url()."html/css/chosen.css' />
 
-<link type='text/css' rel='stylesheet' href='".base_url()."html/css/style.css' />
+<link type='text/css' rel='stylesheet' href='".base_url()."html/css/style.css' />ketentuan
 <link type='text/css' rel='stylesheet' href='".base_url()."html/css/tablet.css' />
 <link type='text/css' rel='stylesheet' href='".base_url()."html/css/mobile.css' />
 <link type='text/css' rel='stylesheet' href='".base_url()."html/css/comp.css' />
@@ -62,14 +62,14 @@ echo "
 					<a href='".base_url()."'>&larr; Kembali</a>
 					<form class='formain'>
 						<div class='formhead'>
-							<h2 id='top' class='titmain'><b>Syarat & ketentuan</b></h2>
+							<h2 id='top' class='titmain'><b>Syarat & Ketentuan</b></h2>
 						</div>
 
 						<div class='row formbody'>
 							<p>								
-									<h2 class='light title-faq '>Selamat datang di www.bonobo.com.</h2>
-									<p class='light'>Syarat & ketentuan yang ditetapkan di bawah ini mengatur pemakaian jasa yang ditawarkan oleh PT. Bonobo terkait penggunaan situs www.bonobo.com. Pengguna disarankan membaca dengan seksama karena dapat berdampak kepada hak dan kewajiban Pengguna di bawah hukum.</p>
-									<p class='light'>Dengan mendaftar dan/atau menggunakan situs www.bonobo.com, maka pengguna dianggap telah membaca, mengerti, memahami dan menyutujui semua isi dalam Syarat & ketentuan. Syarat & ketentuan ini merupakan bentuk kesepakatan yang dituangkan dalam sebuah perjanjian yang sah antara Pengguna dengan PT.Bonobo. Jika pengguna tidak menyetujui salah satu, sebagian, atau seluruh isi Syarat & ketentuan, maka pengguna tidak diperkenankan menggunakan layanan di www.bonobo.com.</p>
+									<h2 class='light title-faq '>Selamat datang di www.bonobo.com.</h2><br>
+									<p>Syarat & ketentuan yang ditetapkan di bawah ini mengatur pemakaian jasa yang ditawarkan oleh PT. Bonobo terkait penggunaan situs www.bonobo.com. Pengguna disarankan membaca dengan seksama karena dapat berdampak kepada hak dan kewajiban Pengguna di bawah hukum.</p>
+									<p>Dengan mendaftar dan/atau menggunakan situs www.bonobo.com, maka pengguna dianggap telah membaca, mengerti, memahami dan menyutujui semua isi dalam Syarat & ketentuan. Syarat & ketentuan ini merupakan bentuk kesepakatan yang dituangkan dalam sebuah perjanjian yang sah antara Pengguna dengan PT. VisiONE System. Jika pengguna tidak menyetujui salah satu, sebagian, atau seluruh isi Syarat & ketentuan, maka pengguna tidak diperkenankan menggunakan layanan di www.bonobo.com.</p>
 									<p class='light'>
 									<ul>										
 										<li><a href='#definisi'>A. Definisi</a></li>
@@ -140,18 +140,24 @@ echo "
 									<li>Pengguna menjamin bahwa tidak melanggar hak kekayaan intelektual dalam mengunggah konten Pengguna kedalam situs Bonobo. Setiap Pengguna dengan ini bertanggung jawab secara pribadi atas pelanggaran hak kekayaan intelektual dalam mengunggah konten di Situs Bonobo.</li>
 									<li>Bonobo tidak bertanggung jawab atas konten atau produk yang dijual oleh Penjual. Permasalahan hukum yang akan timbul akibat penyalahgunaan Bonobo merupakan tanggung jawab Penjual secara utuh.</li>
 									 <a href='#top'>kembali ke atas</a></p>
-									 </ol>
+									 
 									________________________________________
 									<h3 id='gantirugi' class='light title-faq '>F. GANTI RUGI</h3>
-									<p class='light'>Pengguna akan melepaskan Bonobo dari tuntutan ganti rugi dan menjaga Bonobo (termasuk Induk Perusahaan, direktur, dan karyawan) dari setiap klaim atau tuntutan, termasuk biaya hukum yang wajar, yang dilakukan oleh pihak ketiga yang timbul dalam hal Anda melanggar Perjanjian ini, penggunaan Layanan Bonobo yang tidak semestinya dan/ atau pelanggaran Anda terhadap hukum atau hak-hak pihak ketiga.</p>
+									<p class='light'>
+									<li>Pengguna akan melepaskan Bonobo dari tuntutan ganti rugi dan menjaga Bonobo (termasuk Induk Perusahaan, direktur, dan karyawan) dari setiap klaim atau tuntutan, termasuk biaya hukum yang wajar, yang dilakukan oleh pihak ketiga yang timbul dalam hal Anda melanggar Perjanjian ini, penggunaan Layanan Bonobo yang tidak semestinya dan/ atau pelanggaran Anda terhadap hukum atau hak-hak pihak ketiga.</li>
 									 <a href='#top'>kembali ke atas</a></br>
+									 
 									________________________________________
 									<h3 id='hukum' class='light title-faq '>G. PILIHAN HUKUM</h3>
-									<p class='light'>Perjanjian ini akan diatur oleh dan ditafsirkan sesuai dengan hukum Republik Indonesia, tanpa memperhatikan pertentangan aturan hukum. Anda setuju bahwa tindakan hukum apapun atau sengketa yang mungkin timbul dari, berhubungan dengan, atau berada dalam cara apapun berhubungan dengan situs dan/atau Perjanjian ini akan diselesaikan secara eksklusif dalam yurisdiksi pengadilan Republik Indonesia.</p>
+									<p class='light'>									
+									<li>Perjanjian ini akan diatur oleh dan ditafsirkan sesuai dengan hukum Republik Indonesia, tanpa memperhatikan pertentangan aturan hukum. Anda setuju bahwa tindakan hukum apapun atau sengketa yang mungkin timbul dari, berhubungan dengan, atau berada dalam cara apapun berhubungan dengan situs dan/atau Perjanjian ini akan diselesaikan secara eksklusif dalam yurisdiksi pengadilan Republik Indonesia.</li>
 									 <a href='#top'>kembali ke atas</a></br>
 									________________________________________
 									<h3 id='update' class='light title-faq '>H. PEMBAHARUAN</h3>
-									<p class='light'>Syarat & ketentuan mungkin di ubah dan/atau diperbaharui dari waktu ke waktu tanpa pemberitahuan sebelumnya. Bonobo menyarankan agar anda membaca secara seksama dan memeriksa halaman Syarat & ketentuan ini dari waktu ke waktu untuk mengetahui perubahan apapun. Dengan tetap mengakses dan menggunakan layanan Bonobo, maka pengguna dianggap menyetujui perubahan-perubahan dalam Syarat & ketentuan.</p>
+									<p class='light'>									
+									<li>Syarat & ketentuan mungkin di ubah dan/atau diperbaharui dari waktu ke waktu tanpa pemberitahuan sebelumnya. Bonobo menyarankan agar anda membaca secara seksama dan memeriksa halaman Syarat & ketentuan ini dari waktu ke waktu untuk mengetahui perubahan apapun. Dengan tetap mengakses dan menggunakan layanan Bonobo, maka pengguna dianggap menyetujui perubahan-perubahan dalam Syarat & ketentuan.</li>
+									<a href='#top'>kembali ke atas</a></br>
+									</ol>
 							</p>
 						</div>
 					</form>
