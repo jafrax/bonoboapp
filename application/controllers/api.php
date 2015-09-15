@@ -3788,6 +3788,9 @@ class Api extends CI_Controller {
 	
 	public function doCartSaveValid(){
 		try{
+		
+			$this->response->send(array("result"=>0,"message"=>"Saat ini cart sedang dalam perbaikan, untuk sementara anda tidak dapat melakukan transaksi!","messageCode"=>1), true);
+			return;
 			/*
 			*	------------------------------------------------------------------------------
 			*	Validation POST data
