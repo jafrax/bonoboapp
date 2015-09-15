@@ -3391,7 +3391,7 @@ class Api extends CI_Controller {
 		}
 		
 		$QProduct = $this->db
-					->select("tp.*, tt.id as shop_id")
+					->select("tp.*, tt.id as shop_id, tt.name as shop_name")
 					->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
 					->join("tb_toko tt","tt.id = ttcp.toko_id")
 					->where("tp.id",$this->response->postDecode("product"))
@@ -3449,39 +3449,43 @@ class Api extends CI_Controller {
 			->get("tb_toko_member")
 			->row();
 						
-		if(!empty($QShopMember)){
-			switch($QShopMember->price_level){
-				case "1":
-					if($QProduct->price_1 > 0){
-						$product_price = $QProduct->price_1;
-					}
-				break;
-				
-				case "2":
-					if($QProduct->price_2 > 0){
-						$product_price = $QProduct->price_2;
-					}
-				break;
-				
-				case "3":
-					if($QProduct->price_3 > 0){
-						$product_price = $QProduct->price_3;
-					}
-				break;
-				
-				case "4":
-					if($QProduct->price_4 > 0){
-						$product_price = $QProduct->price_4;
-					}
-				break;
-				
-				case "5":
-					if($QProduct->price_5 > 0){
-						$product_price = $QProduct->price_5;
-					}
-				break;
-			}
+		if(empty($QShopMember)){
+			$this->response->send(array("result"=>0,"message"=>"Anda sudah tidak tergabung dengan toko \"".$QProduct->shop_name."\"","messageCode"=>11), true);
+			return false;
 		}
+		
+		switch($QShopMember->price_level){
+			case "1":
+				if($QProduct->price_1 > 0){
+					$product_price = $QProduct->price_1;
+				}
+			break;
+			
+			case "2":
+				if($QProduct->price_2 > 0){
+					$product_price = $QProduct->price_2;
+				}
+			break;
+			
+			case "3":
+				if($QProduct->price_3 > 0){
+					$product_price = $QProduct->price_3;
+				}
+			break;
+			
+			case "4":
+				if($QProduct->price_4 > 0){
+					$product_price = $QProduct->price_4;
+				}
+			break;
+			
+			case "5":
+				if($QProduct->price_5 > 0){
+					$product_price = $QProduct->price_5;
+				}
+			break;
+		}
+		
 		
 		if($product_price != floatval($this->response->postDecode("price"))){
 			$this->response->send(array("result"=>0,"message"=>"Harga sudah berubah","messageCode"=>11), true);
@@ -3782,8 +3786,11 @@ class Api extends CI_Controller {
 		}
 	}
 	
-	public function doCartCheck(){
+	public function doCartSaveValid(){
 		try{
+		
+			$this->response->send(array("result"=>0,"message"=>"Saat ini cart sedang dalam perbaikan, untuk sementara anda tidak dapat melakukan transaksi!","messageCode"=>1), true);
+			return;
 			/*
 			*	------------------------------------------------------------------------------
 			*	Validation POST data
@@ -3820,7 +3827,7 @@ class Api extends CI_Controller {
 				->row();
 				
 			if(empty($QCart)){
-				$this->response->send(array("result"=>0,"message"=>"Daftar belanja anda tidak valid","messageCode"=>4), true);
+				$this->response->send(array("result"=>0,"message"=>"Data belanja sudah tidak tersedia","messageCode"=>4), true);
 				return;
 			}
 			
@@ -3830,7 +3837,18 @@ class Api extends CI_Controller {
 					->row();
 					
 			if(empty($QShop)){
-				$this->response->send(array("result"=>0,"message"=>"Toko tidak valid","messageCode"=>5), true);
+				$this->response->send(array("result"=>0,"message"=>"Toko tidak ditemukan","messageCode"=>5), true);
+				return;
+			}
+			
+			$QShopMember = $this->db
+					->where("toko_id",$QShop->toko_id)
+					->where("member_id",$QUser->toko_id)
+					->get("tb_toko_member")
+					->row();
+					
+			if(empty($QShopMember)){
+				$this->response->send(array("result"=>0,"message"=>"Anda sudah tidak tergabung dengan toko \"".$QShop->name."\"","messageCode"=>5), true);
 				return;
 			}
 			

@@ -1034,7 +1034,7 @@ class Toko extends CI_Controller {
 	}
 	// diabuat oleh adi 04-08-2015
 	function nomer_rekening(){
-		$data['rekeningmu'] 	= $_REQUEST['txtNo'];
+		$data['bank_name'] 	= $_REQUEST['txtBank'];
 		$data['rekeningmu'] 	= $_REQUEST['txtNo'];
 		$respon=$this->model_toko->get_rekeningsama($data);
 		if($respon > 0){

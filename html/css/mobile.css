@@ -39,15 +39,16 @@
 	.usermain{ display:none; }
 	.navmenu li{ display:none; }
 	.navmenu li.active{ display:block; width:100%; background-color:#616161; }
-	.navmenu li.active a{ border:none; }
+	.navmenu li.active a{ border-bottom: 4px solid #ff6600; }
 	.navmob{ display:block; }
 	.navmob li .badge{ color:#fff; border-radius:2px; }
-	.menu-left .fa{ font-size:34px; margin: 5px 0 0 -25px; color:#818181; }
+	.menu-left .fa{ font-size:34px; margin: 12px 0 0 -25px; color:#818181; }
 	.padhead { padding:0; }
 
 	.mobleft{ overflow: hidden; }
-	.mobleft li{ width:100%; height:60px; }
+	.mobleft li{ width:100%; }
 	.mobleft li a{ height:50px; font-size:14px; line-height:35px; }
+	.mobleft li a:hover{ border-left:5px solid #ff6600;}
 
 	.usermob{ border-bottom: 1px solid #313131; }
 	.usermob .usermain{ display:block; margin:5px; }
@@ -57,6 +58,13 @@
 	.notacard{ padding:8px; }
 
 	.center-mobile {text-align: center;float: none;}	
+
+
+	/*COMPONENT*/
+	.input-field p{ padding-left: 0px!important; }
+	.input-field .menjorog{ padding-left: 0px!important; }
+	#divCustomCourier{ margin-left: 0px!important; }
+	#divCustomCourier div .input-field .btn{ width:100%; text-align: left; }
 
 }
 
