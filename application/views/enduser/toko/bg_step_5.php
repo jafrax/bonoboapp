@@ -29,6 +29,7 @@ echo"
 				<div class='input-field col s12 m8'>
 					<p>Silahkan pilih jasa ekspedisi berikut. Ongkos kirim sesuai kebijakan Perusahaan Ekspedisi yang bersangkutan.
 						<!-- <div class='input-field col s2 m2'><p></p></div> -->
+						<div class='menjorog'>
 ";
 $k=0;
 foreach($Couriers as $Courier){
@@ -49,8 +50,8 @@ foreach($Couriers as $Courier){
 	$k++;
 }
 
-echo"	<input type='hidden' value='".count($Couriers)."' id='total_courier'>
-		</p>
+echo"	</div>
+		<input type='hidden' value='".count($Couriers)."' id='total_courier'>
 	</div>
 	<div class='input-field col s12 m8'><p></p></div>
 	<div class='input-field col s12 m8'>

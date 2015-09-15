@@ -62,6 +62,7 @@
 
 	/*COMPONENT*/
 	.input-field p{ padding-left: 0px!important; }
+	.input-field .menjorog{ padding-left: 0px!important; }
 	#divCustomCourier{ margin-left: 0px!important; }
 	#divCustomCourier div .input-field .btn{ width:100%; text-align: left; }
 

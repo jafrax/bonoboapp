@@ -68,7 +68,7 @@ echo"
 	<content>
 		<div class='containermain'>
 			<div class='row col-signin'>
-				<h4 class='titlin'>Masuk ke bonobo</h4>
+				<h4 class='titlin light'>Masuk ke bonobo</h4>
 				<form id='formSignin' class='signin z-depth-2'>
 					<div class='row'>
 					";
