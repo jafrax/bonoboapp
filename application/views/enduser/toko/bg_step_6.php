@@ -16,8 +16,8 @@ echo"
 				<p>Masukkan data Bank Anda.</p>
 			</div>
 			<div class='row formbody'>
-				<div class='input-field col s12 m12'>
-					<button id='btnAddNew' data-target='popupFormAdd' class='btn waves-effect waves-light modal-trigger' type='button'>
+				<div class='input-field col s12 m12 linehead'>
+					<button id='btnAddNew' data-target='popupFormAdd' class='btn waves-effect waves-light modal-trigger right' type='button'>
 						<i class='mdi-content-add-circle-outline left'></i> Tambah baru
 					</button>
 					<label id='notifStep6'></label>
@@ -26,28 +26,22 @@ echo"
 
 foreach($ShopBanks as $ShopBank){
 		
-	echo"
-				<div class='col s12 m8 l4'>
-					<div class='card-panel grey lighten-5 z-depth-1 boderrander'>
-						<div class='row '>							
-							<div class='col s12 m6 l12'>
-								<blockquote>
-									<h5>".$ShopBank->bank_name."</h5>
-									<h6> a.n ".$ShopBank->acc_name."</h6>
-									<h6>".$ShopBank->acc_no."</h6>
-								</blockquote>
-								<div class='input-field col s12 m12'>
-									<button onclick=ctrlShopStep8.formEdit(".$ShopBank->id."); data-target='popupFormAdd' class='btn-flat waves-effect waves-light modal-trigger' type='button'>
-										<i class='mdi-editor-border-color'></i>
-									</button>
-									<button onclick=ctrlShopStep8.doDelete(".$ShopBank->id."); class='btn-flat waves-effect waves-light' type='button' name='action'>
-										<i class='mdi-action-delete'></i>
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
+	echo"					
+			<div class='col s12 m12 l12 linehead'>
+				<blockquote>
+					<h5 class='light'>".$ShopBank->bank_name."</h5>
+					<h6 class='' ><b> a.n ".$ShopBank->acc_name."</b></h6>
+					<h6 class='blue-text' >".$ShopBank->acc_no."</h6>
+				</blockquote>
+				<div class='right'>
+					<button onclick=ctrlShopStep8.formEdit(".$ShopBank->id."); data-target='popupFormAdd' class='btn-floating waves-effect waves-light modal-trigger blue' type='button'>
+						<i class='material-icons left'>launch</i>
+					</button>
+					<button onclick=ctrlShopStep8.doDelete(".$ShopBank->id."); class='btn-floating waves-effect waves-light red' type='button' name='action'>
+						<i class='mdi-navigation-close left'></i>
+					</button>
 				</div>
+			</div>
 				
 	";
 }
