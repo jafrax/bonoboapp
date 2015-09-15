@@ -1,7 +1,7 @@
 <?php
 
 if($Shop->flag_information == 0){
-	$Button = "<a href='".base_url("toko/step6")."' class='btn waves-effect waves-light red'><i class='mdi-navigation-chevron-left left'></i> Kembali</a><button type='submit' class='btn waves-effect waves-light'>Selanjutnya<i class='mdi-navigation-chevron-right right'></i></button>";
+	$Button = "<a href='".base_url("toko/step6")."' class='btn waves-effect waves-light red'><i class='mdi-navigation-chevron-left left'></i> Kembali</a><button type='submit' class='btn waves-effect waves-light'>Lanjut<i class='mdi-navigation-chevron-right right'></i></button>";
 }else{
 	$Button = "<button class='btn waves-effect waves-light'>Simpan<i class='mdi-navigation-chevron-right right'></i></button>";
 }
@@ -41,7 +41,7 @@ foreach($Couriers as $Courier){
 	}
 	
 	echo"
-		<div class='input-field col s2 m3'>
+		<div class='input-field col s12 m6 l3'>
 			<input type='checkbox'  class='kurir-resmi-$k' onclick=javascript:kliken_kurir()  id='chkCourier".$Courier->id."'  name='chkCourier".$Courier->id."' ".$checked."/>
 			<label for='chkCourier".$Courier->id."'>".$Courier->name."</label>
 		</div>		

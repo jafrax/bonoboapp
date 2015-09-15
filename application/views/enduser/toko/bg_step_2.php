@@ -2,7 +2,7 @@
 
 if($Shop->flag_information == 0){
 	$Button = "<a href='".base_url("toko/")."' class='btn waves-effect waves-light red' ><i class='mdi-navigation-chevron-left left '></i>Kembali</a>
-			<button class='btn waves-effect waves-light blue'>Selanjutnya <i class='mdi-navigation-chevron-right right '></i></button>";
+			<button class='btn waves-effect waves-light'>Lanjut <i class='mdi-navigation-chevron-right right '></i></button>";
 }else{
 	$Button = "<button class='btn waves-effect waves-light'>Simpan<i class='mdi-navigation-chevron-right right'></i></button>";
 }

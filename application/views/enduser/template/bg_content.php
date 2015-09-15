@@ -140,7 +140,7 @@ echo"
 								<label for='kodepos'>Kodepos</label>
 							</div>
 							<div class='input-field col s12 m8'>
-								<button class='btn waves-effect waves-light' type='button' name='action' onclick='location.href='atur_privasi.html''>Selanjutnya
+								<button class='btn waves-effect waves-light' type='button' name='action' onclick='location.href='atur_privasi.html''>Lanjut
 								    <i class='mdi-navigation-chevron-right right'></i>
 								</button>
 							</div>
