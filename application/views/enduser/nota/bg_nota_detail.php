@@ -36,8 +36,7 @@ echo "
 											<i class='mdi-action-label-outline left'></i> Pilih metode transaksi
 										</div>
 										<form class='modal-content' id='form-komfirmasi-".$nota->id."'>
-										<h6><br></h6>
-											<p>
+											
 												<label for='metode'>Pilih metode transaksi</label>
 												<select id='metode-".$nota->id."' class='select-standar' onchange=javascript:change_metode(".$nota->id.")>
 													";
@@ -49,11 +48,12 @@ echo "
 														echo "<option value='2' "; if ($nota->member_confirm == 1) {echo 'selected';$show_rek = 'block';} echo ">Transfer via bank</option>";
 														
 													}
+													
+													$date 		= date('d M Y');
+													
 												echo"
 												</select>
 												
-											</p>
-											<p class='modal-content'>
 												<p>No. Transaksi : <span class='blue-text'>".$nota->invoice_no."</span></p>
 												<p>Tanggal Konfirmasi : <span class='blue-text'>$date</span></p>
 												<p>Jumlah yang di bayar : <span class='blue-text'>Rp. ".number_format($nota->price_total, 2 , ',' , '.')."</span></p><br>
@@ -73,8 +73,6 @@ echo "
 														}
 														echo"
 													</select>
-													
-												</p>
 											</p>
 										</form>
 										<div class='modal-footer'>

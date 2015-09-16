@@ -84,7 +84,7 @@ echo "
 								</div>
 								<div class='input-field col s12 '>
 									<div class='picture-area'>
-										<div class='col s6 m4 l2' id='div_pic_1'>
+										<div class='col s6 m3 l2' id='div_pic_1'>
 											<div class='card' >
 												<a class='delimg' id='rem_pic_1' style='display:none' onclick=javascript:remove_picture('pic_1')><i class='mdi-navigation-close right'></i></a>
 												<div class='card-image img-product waves-effect waves-block waves-light'>
@@ -94,7 +94,7 @@ echo "
 												<label for='pic_1' class='error error-image' generated='true'></label>										
 											</div>										
 										</div>
-										<div class='col s6 m4 l2' id='div_pic_2'>
+										<div class='col s6 m3 l2' id='div_pic_2'>
 											<div class='card' >
 												<a class='delimg' id='rem_pic_2' style='display:none' onclick=javascript:remove_picture('pic_2')><i class='mdi-navigation-close right'></i></a>
 												<div class='card-image img-product waves-effect waves-block waves-light'>
@@ -104,7 +104,7 @@ echo "
 												<label for='pic_2' class='error error-image' generated='true'></label>										
 											</div>										
 										</div>
-										<div class='col s6 m4 l2' id='div_pic_3'>
+										<div class='col s6 m3 l2' id='div_pic_3'>
 											<div class='card' >
 												<a class='delimg' id='rem_pic_3' style='display:none' onclick=javascript:remove_picture('pic_3')><i class='mdi-navigation-close right'></i></a>
 												<div class='card-image img-product waves-effect waves-block waves-light'>
@@ -114,7 +114,7 @@ echo "
 												<label for='pic_3' class='error error-image' generated='true'></label>										
 											</div>										
 										</div>
-										<div class='col s6 m4 l2' id='div_pic_4'>
+										<div class='col s6 m3 l2' id='div_pic_4'>
 											<div class='card' >
 												<a class='delimg' id='rem_pic_4' style='display:none' onclick=javascript:remove_picture('pic_4')><i class='mdi-navigation-close right'></i></a>
 												<div class='card-image img-product waves-effect waves-block waves-light'>
@@ -124,7 +124,7 @@ echo "
 												<label for='pic_4' class='error error-image' generated='true'></label>										
 											</div>										
 										</div>
-										<div class='col s6 m4 l2' id='div_pic_5'>
+										<div class='col s6 m3 l2' id='div_pic_5'>
 											<div class='card' >
 												<a class='delimg' id='rem_pic_5' style='display:none' onclick=javascript:remove_picture('pic_5')><i class='mdi-navigation-close right'></i></a>
 												<div class='card-image img-product waves-effect waves-block waves-light'>

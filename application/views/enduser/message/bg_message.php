@@ -70,7 +70,7 @@ echo"
 									</div>
 									<div class='col s9 m7 l8'>
 										<p class=' blue-grey-text lighten-3 right'>".$this->hs_datetime->getTime4String($MessageLast->create_date)."</p>
-										<p><a  href=''><b class='userangoota'>".$Message->qmember_name."</b></a></p>															
+										<p><b class='userangoota'>".$Message->qmember_name."</b></p>															
 										<p>".$this->template->limitChar($MessageLast->message,50)." </p>
 										".$MessageStatus."
 										<a href='#popupDelete' onclick=ctrlMessage.popupDelete(".$Message->member_id.",'".urlencode($Message->member_name)."'); class='modal-trigger btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
