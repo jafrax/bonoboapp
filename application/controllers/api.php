@@ -3839,8 +3839,8 @@ class Api extends CI_Controller {
 			}
 			
 			$QShopMember = $this->db
-					->where("toko_id",$QShop->toko_id)
-					->where("member_id",$QUser->toko_id)
+					->where("toko_id",$QShop->id)
+					->where("member_id",$QUser->id)
 					->get("tb_toko_member")
 					->row();
 					
@@ -3952,17 +3952,20 @@ class Api extends CI_Controller {
 							}
 						break;
 					}
+					
 					if($QProduct->min_order != intval($this->response->postDecode("cart_product".$p."_min_order"))){
 						$this->response->send(array("result"=>0,"message"=>"Data barang telah diubah","messageCode"=>1), true);
 						$isProductValid = false;
 						continue;
 					}
 				}
-				
-				if($isProductValid){
-					return;
-				}
 			}
+			
+			if(!$isProductValid){
+				return;
+			}
+			
+			$this->response->send(array("result"=>1,"message"=>"Cart sudah valid","messageCode"=>1), true);
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
