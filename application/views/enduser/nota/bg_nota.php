@@ -1,15 +1,6 @@
 <?php
 
-echo"
-		
-</div>
-	<form class='modal-content'>
-		<p>Apakah Anda yakin ingin <span id='tipe-go'>menghapus</span> produk Anda ?</p>
-	</form>
-	<div class='modal-footer'>
-	
-		
-		<div class='col s12 m12 l12'>
+echo"	<div class='col s12 m12 l12'>
 					<div class='formain'>
 						<div class='formhead'>
 							<h2 class='titmain'><b>NOTA PEMBELIAN</b></h2>
@@ -172,9 +163,13 @@ echo"
 													<i class='mdi-action-label-outline left'></i> Pilih metode transaksi
 												</div>
 												<form class='modal-content' id='form-komfirmasi-".$row->id."'>
-													<p>
+													
 														<label for='metode'>Pilih metode transaksi</label>
-														<select id='metode-".$row->id."' class='select-standar' onchange=javascript:change_metode(".$row->id.")>
+														"; 
+														
+															echo
+															";
+															<select id='metode-".$row->id."' class='select-standar' onchange=javascript:change_metode(".$row->id.")>
 															";
 															if ($toko->pm_store_payment == 1) {
 																echo "<option value='1'>Bayar ditempat</option>";
@@ -182,18 +177,21 @@ echo"
 															}
 															if ($toko->pm_transfer == 1) {
 																echo "<option value='2' "; if ($row->member_confirm == 1) {echo 'selected';$show_rek = 'block';} echo ">Transfer via bank</option>";
-																
+																	
 															}
-														echo"
-														</select>
+																
+															echo "
+															</select>
+															";
+															
 														
-													</p>
-													<p class='modal-content'><br>
+														echo "
+														
+														
 														<p>No. Transaksi : <span class='blue-text'>".$row->invoice_no."</span></p>
 														<p>Tanggal Konfirmasi : <span class='blue-text'>$date</span></p>
 														<p>Jumlah yang di bayar : <span class='blue-text'>Rp. ".number_format($row->price_total, 2 , ',' , '.')."</span></p><br>
 														<p id='rekening-".$row->id."' style='display:$show_rek;'>
-
 															<label for='metode'>Pilih Rekening Tujuan</label>
 															<select id='rek-".$row->id."' class='select-standar'>
 																<option value='' disabled >Pilih Rekening Tujuan</option>";
@@ -213,7 +211,7 @@ echo"
 																echo"
 															</select>
 															
-														</p>
+														
 													</p>
 												</form>
 												<div class='modal-footer'>
@@ -227,8 +225,10 @@ echo"
 											</div>
 
 											<p class='tool col s12 m5'>
-												<a href='#delete_nota_".$row->id."' class='modal-trigger red-text right '><i class='mdi-action-delete col s1 small'></i></a>
-												<!--<a href='".base_url()."message/kirim/".base64_encode($row->member_email)."/".base64_encode($row->member_name)."' class=' red-text right '><i class='mdi-content-mail col s1 small'></i></a>-->
+												<!-- hapus nota -->
+													<a href='#delete_nota_".$row->id."' class='modal-trigger red-text right '><i class='mdi-action-delete col s1 small'></i></a>
+											
+															<!--<a href='".base_url()."message/kirim/".base64_encode($row->member_email)."/".base64_encode($row->member_name)."' class=' red-text right '><i class='mdi-content-mail col s1 small'></i></a>-->
 												<a href='".base_url()."nota/cetak/".$row->invoice_no."' onclick='window.open(\"".base_url()."nota/cetak/".$row->invoice_no."\", \"newwindow\", \"width=800, height=600\"); return false;' class=' red-text right '><i class='mdi-action-print col s1 small'></i></a>
 												<div id='delete_nota_".$row->id."' class='modal confirmation'>
 													<div class='modal-header red'>
