@@ -3434,6 +3434,10 @@ class Api extends CI_Controller {
 			return false;
 		}
 		
+		if($QProduct->stock_type == 0 && $this->hs_datetime->countDate(date("Y-m-d H:i:s"),$QProduct->end_date) <= 0){
+			$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia xxx","messageCode"=>10), true);
+			return false;
+		}
 		/*
 		*	------------------------------------------------------------------------------
 		*	Check perubahan harga produk
@@ -3863,10 +3867,10 @@ class Api extends CI_Controller {
 			$isProductValid = true;
 			for($p=1;$p<=$this->response->postDecode("cart_products");$p++){
 				if($this->response->post("cart_product".$p) != "" || $this->response->postDecode("cart_product".$p) != ""){
-					$QCartProduct = $this->db->where("id",$this->response->postDecode("cart_product_".$p))->get("tb_cart_product")->row();
+					$QCartProduct = $this->db->where("id",$this->response->postDecode("cart_product".$p))->get("tb_cart_product")->row();
 					
 					if(empty($QCartProduct)){
-						$this->response->send(array("result"=>0,"message"=>"Data cart barang tidak tersedia","messageCode"=>1), true);
+						$this->response->send(array("result"=>0,"message"=>"Data cart barang tidak ditemukan","messageCode"=>1), true);
 						$isProductValid = false;
 						continue;
 					}
