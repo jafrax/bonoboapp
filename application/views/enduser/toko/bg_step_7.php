@@ -41,7 +41,7 @@ echo"
                 </div>
                 <div class='input-field col s12 m11 nolmar'>
                     <h6 style='display:none;'>Level 2</h6>
-                    <input name='txtLevel22' type='text' class='validate' value='Harga Member Langganan' ".($Shop->level_2_active == 0 ? "disabled" : "")." placeholder='Harga Member Langganan' >
+                    <input name='txtLevel22' type='text' class='validate' value='".$Shop->level_2_name."' ".($Shop->level_2_active == 0 ? "disabled" : "")." placeholder='Harga Member Langganan' >
                     <input id='txtLevel2' name='txtLevel2' type='hidden' class='validate' value='".($Shop->level_2_name)."' placeholder='Harga Member Langganan' >
                     <span id='labelLevel2' for='chkLevel2' ".($status2 == 0 ? "hidden" : "").">Level Harga sedang digunakan</span>
                 </div>

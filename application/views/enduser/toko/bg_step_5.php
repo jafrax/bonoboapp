@@ -143,7 +143,7 @@ echo"
 					<table class='responsive-table'>
 						<thead>
 							<tr>
-								<th data-field='province'>Province</th>
+								<th data-field='province'>Provinsi</th>
 								<th data-field='kota'>Kota</th>
 								<th data-field='kecamatan'>Kecamatan</th>
 								<th data-field='price'>Ongkos kirim per KG</th>

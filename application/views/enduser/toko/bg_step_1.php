@@ -252,7 +252,7 @@ echo"
 			</div>
 		</form>
 	</div>
-	
+	<script type='text/javascript' src='".base_url("")."assets/jController/enduser/CtrlShop.js'></script>
 	<script>
 		var ctrlShopStep1 = new CtrlShopStep1();
 		ctrlShopStep1.init();
