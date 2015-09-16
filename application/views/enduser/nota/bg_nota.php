@@ -1,6 +1,22 @@
 <?php
 
-echo"	<div class='col s12 m12 l12'>
+echo"
+		
+<div id='produk_go' class='modal confirmation'>
+	<div class='modal-header red'>
+		<i class='mdi-navigation-close left'></i> <span id='head-go'>Hapus</span> Nota
+	</div>
+	<form class='modal-content'>
+		<p><span id='tipe-go'></span> nota Anda ?</p>
+	</form>
+	<div class='modal-footer'>
+		
+		<button type='button' onclick=javascript:go() class='btn-flat modal-action modal-close waves-effect '>YA</button>
+		<a href='' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
+	</div>
+</div>		
+		
+		<div class='col s12 m12 l12'>
 					<div class='formain'>
 						<div class='formhead'>
 							<h2 class='titmain'><b>NOTA PEMBELIAN</b></h2>
@@ -19,9 +35,9 @@ echo"	<div class='col s12 m12 l12'>
 									</div>
 									<div class='input-field col s12 m3 left'>
 										<select class='select-standar' id='tipe_bayar' onchange=javascript:change_bayar()>										
-											<option  value='1'>Belum Lunas</option>
+											<option selected='selected' value='1'>Belum Lunas</option>
 											<option value='2'>Lunas</option>
-											<option selected='selected' value='3'>Semua Status</option>
+											<option value='3'>Semua Status</option>
 										</select>									
 									</div>
 									<div class='input-field col s12 m3 left'>
@@ -55,13 +71,13 @@ echo"	<div class='col s12 m12 l12'>
 								</p>
 								<div class='input-field col s6 m3'>
 									<select class='select-standar' id='option-go'>
-										<option value=''>Pilih Tindakan</option>
+										<option value='2'>Pilih Tindakan</option>
 										<option value='0'>Batal</option>
 										<option value='1'>Hapus</option>										
 									</select>									
 								</div>
 								<div class='input-field col s12 m4'>
-									<button class='waves-effect waves-light btn deep-orange darken-1 left' onclick=javascript:go()>GO</button>
+									<button class='waves-effect waves-light btn deep-orange darken-1 left' onclick=javascript:go_konfirm()>GO</button>
 								</div>								
 							</div>
 						</div>
