@@ -75,9 +75,9 @@ echo"	</div>
 						<label for='txtCourierName".$no."'>Nama Kurir</label>
 					</div>
 					<div class='input-field col s12 m12 l6'>
-						<button type='button' class='waves-effect waves-light btn ' href='javascript:void(0);' onclick=ctrlShopStep7.doCourierSave(".$no.");><i class='material-icons left'>library_add</i>Simpan</button> 
-						<button type='button' class='waves-effect waves-light btn red' href='javascript:void(0);' onclick=ctrlShopStep7.doCourierDelete(".$no.");><i class='mdi-action-delete left'></i>Hapus</button> 
-						<button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail".$no."' href='javascript:void(0);' onclick=ctrlShopStep7.showDetail(".$no."); style='display:none;'><i class='material-icons left'>list</i>Detail</button> 
+						<button type='button' class='waves-effect waves-light btn-floating ' href='javascript:void(0);' onclick=ctrlShopStep7.doCourierSave(".$no.");><i class='material-icons left'>check</i>Simpan</button> 
+						<button type='button' class='waves-effect waves-light btn-floating red' href='javascript:void(0);' onclick=ctrlShopStep7.doCourierDelete(".$no.");><i class='mdi-navigation-close left'></i>Hapus</button> 
+						<button type='button' class='waves-effect waves-light btn-floating blue' id='aCourierDetail".$no."' href='javascript:void(0);' onclick=ctrlShopStep7.showDetail(".$no."); style='display:none;'><i class='material-icons left'>list</i>Detail</button> 
 					</div>
 				</div>
 		";
@@ -91,9 +91,9 @@ echo"	</div>
 						<label for='txtCourierName".$no."'>Nama Kurir</label>
 					</div>
 					<div class='input-field col s12 m12 l6'>
-						<button type='button' class='waves-effect waves-light btn ' href='javascript:void(0);' onclick=ctrlShopStep7.doCourierSave(".$no.");><i class='material-icons left'>library_add</i>Simpan</button> 
-						<button type='button' class='waves-effect waves-light btn red' href='javascript:void(0);' onclick=ctrlShopStep7.doCourierDelete(".$no.");><i class='mdi-action-delete left'></i>Hapus</button> 
-						<button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail1' href='javascript:void(0);' onclick=ctrlShopStep7.showDetail(".$no.");><i class='material-icons left'>list</i>Detail</button> 
+						<button type='button' class='waves-effect waves-light btn-floating ' href='javascript:void(0);' onclick=ctrlShopStep7.doCourierSave(".$no.");><i class='material-icons left'>check</i>Simpan</button> 
+						<button type='button' class='waves-effect waves-light btn-floating red' href='javascript:void(0);' onclick=ctrlShopStep7.doCourierDelete(".$no.");><i class='mdi-navigation-close left'></i>Hapus</button> 
+						<button type='button' class='waves-effect waves-light btn-floating blue' id='aCourierDetail1' href='javascript:void(0);' onclick=ctrlShopStep7.showDetail(".$no.");><i class='material-icons left'>list</i>Detail</button> 
 					</div>
 				</div>
 			";
@@ -133,7 +133,7 @@ echo"
 					<a href='#divFormRate' id='aCustomeCourierRate' class='modal-trigger waves-effect waves-light btn deep-orange darken-1 left'>TAMBAH BARU</a>					
 				</div>
 				<div class='input-field col s12 m6'>
-					<h4 class='right'><span id='lblCustomCourierName' ></span></h4>
+					<h4 class='right light'><span id='lblCustomCourierName' ></span></h4>
 					<input type='hidden' id='txtCustomCourierId'  value=''>
 				</div>	
 				<div class='input-field col s12 m12'>
