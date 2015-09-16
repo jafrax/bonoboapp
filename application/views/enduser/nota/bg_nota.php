@@ -1,6 +1,15 @@
 <?php
+
 echo"
-				<div class='col s12 m12 l12'>
+		
+</div>
+	<form class='modal-content'>
+		<p>Apakah Anda yakin ingin <span id='tipe-go'>menghapus</span> produk Anda ?</p>
+	</form>
+	<div class='modal-footer'>
+	
+		
+		<div class='col s12 m12 l12'>
 					<div class='formain'>
 						<div class='formhead'>
 							<h2 class='titmain'><b>NOTA PEMBELIAN</b></h2>

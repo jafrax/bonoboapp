@@ -85,7 +85,7 @@ input.valid[type="text"], input.valid[type="text"]:focus, input.valid[type="pass
 }
 .input-field label{ font-size: 14px; }
 .input-field p { color:#aaa; padding-left: 50px;}
-.input-field .menjorog{ padding-left: 50px;}
+.input-field .menjorog{ padding-left: 30px;}
 .input-field.table { padding:0 12px 0 0; }
 .error { position: absolute; top: 0.8rem; right: 0.75rem; text-align:right; color:#ef5350!important; }
 .input-field label.error { position: absolute; top: 0.8rem; right: 0.75rem; text-align:right; color:#ef5350!important; }
@@ -115,12 +115,12 @@ label{ font-size: 14px; color: #565a5c; }
 .label{ color:#fff; padding:4px 5px; border-radius:2px; position: absolute; right:0; top:15px; } 
 
 .checkiniabs{ position: absolute; z-index:998; top:2px; left:2px; }
-.delimg{ position: absolute; z-index:990; top:0px; right:2px; font-size:14px; cursor:pointer; color:#ef5350; }
+.delimg{ position: absolute; z-index:2; top:0px; right:2px; font-size:14px; cursor:pointer; color:#ef5350; }
 .delimg:hover{ font-size:25px; color:#e53935; }
 .input-field .card { margin:5px; box-shadow:none; }
 .card { margin:5px; }
 .card .card-title { font-size: 14px; }
-.card-image img{ height:200px; }*/
+/*.card-image img{ height:200px; }*/
 .notacard { box-shadow:none; border: 1px solid #ddd; }
 .notacard .collapsible{ box-shadow:none; }
 .tool a{ border: 1px solid #ddd;  background: #fff; }
