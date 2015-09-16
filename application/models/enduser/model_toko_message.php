@@ -38,7 +38,7 @@ class Model_toko_message extends CI_Model {
 	}
 	
 	public function get_by_shop_member($shop,$member,$limit=1000000,$offset=0){
-		return $this->db->select("ttm.*, tm.message as message, tm.product_id as product_id")
+		return $this->db->select("ttm.*, tm.message as message ")
 						->join("tb_message tm","ttm.message_id = tm.id")
 						->where("ttm.toko_id",$shop)
 						->where("ttm.member_id",$member)

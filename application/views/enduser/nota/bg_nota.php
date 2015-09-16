@@ -158,11 +158,11 @@ echo"	<div class='col s12 m12 l12'>
 												</div>
 											</div>
 								            <div id='bayar-".$row->id."' class='modal  modal-fixed-footer'>
-												
 												<div class='modal-header red'>
 													<i class='mdi-action-label-outline left'></i> Pilih metode transaksi
 												</div>
-												<form class='modal-content' id='form-komfirmasi-".$row->id."'>
+												
+								            		<form class='modal-content' id='form-komfirmasi-".$row->id."'>
 													
 														<label for='metode'>Pilih metode transaksi</label>
 														"; 
