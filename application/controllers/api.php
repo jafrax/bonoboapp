@@ -3488,7 +3488,7 @@ class Api extends CI_Controller {
 		
 		
 		if($product_price != intval($this->response->postDecode("price"))){
-			$this->response->send(array("result"=>0,"message"=>"Harga sudah berubah","messageCode"=>11), true);
+			$this->response->send(array("result"=>0,"message"=>"Harga sudah berubah (".$product_price."/".$this->response->postDecode("price").")","messageCode"=>11), true);
 			return false;
 		}
 		
@@ -3955,6 +3955,61 @@ class Api extends CI_Controller {
 					
 					if($QProduct->min_order != intval($this->response->postDecode("cart_product".$p."_min_order"))){
 						$this->response->send(array("result"=>0,"message"=>"Data barang telah diubah","messageCode"=>1), true);
+						$isProductValid = false;
+						continue;
+					}
+					
+					/*
+					*	------------------------------------------------------------------------------
+					*	Check data cart varians
+					*	------------------------------------------------------------------------------
+					*/
+					
+					if($this->response->post("cart_product".$p."_varians") == "" || $this->response->postDecode("cart_product".$p."_varians") == ""){
+						$this->response->send(array("result"=>0,"message"=>"Tidak ada data varian yang dikirim","messageCode"=>1), true);
+						$isProductValid = false;
+						continue;
+					}
+					
+					$buy_qty = 0;
+					for($v=1;$v<=$this->response->postDecode("cart_product".$p."_varians");$v++){
+						if($this->response->post("cart_product".$p."_varian".$v) != "" && $this->response->postDecode("cart_product".$p."_varian".$v) != "" && $this->response->post("cart_product".$p."_varian".$v."_quantity") != "" && $this->response->postDecode("cart_product".$p."_varian".$v."_quantity") != "" && $this->response->postDecode("cart_product".$p."_varian".$v."_quantity") != "0"){
+							$QCartVarian = $this->db
+									->where("id",$this->response->postDecode("cart_product".$p."_varian".$v))
+									->get("tb_cart_varian")
+									->row();
+							
+							if(empty($QCartVarian)){
+								$this->response->send(array("result"=>0,"message"=>"Varian sudah tidak tersedia","messageCode"=>1), true);
+								$isProductValid = false;
+								continue;
+							}
+							
+							$QVarian = $this->db
+									->where("id",$QCartVarian->varian_id)
+									->get("tb_product_varian")
+									->row();
+									
+							if(empty($QVarian)){
+								$this->response->send(array("result"=>0,"message"=>"Varian sudah tidak tersedia","messageCode"=>1), true);
+								$isProductValid = false;
+								continue;
+							}
+							
+							if($QProduct->stock_type == 1 && $QProduct->stock_type_detail == 0){
+								if($QVarian->stock_qty < intval($this->response->postDecode("cart_product".$p."_varian".$v."_quantity"))){
+									$this->response->send(array("result"=>0,"message"=>"Stok tidak mencukupi","messageCode"=>1), true);
+									$isProductValid = false;
+									continue;
+								}
+							}
+							
+							$buy_qty = $buy_qty + intval($this->response->postDecode("cart_product".$p."_varian".$v."_quantity"));
+						}
+					}
+					
+					if($QProduct->min_order > $buy_qty){
+						$this->response->send(array("result"=>0,"message"=>"Jumlah pembelian kurang dari minimal order","messageCode"=>1), true);
 						$isProductValid = false;
 						continue;
 					}
