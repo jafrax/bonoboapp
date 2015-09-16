@@ -191,7 +191,7 @@ label{ font-size: 14px; color: #565a5c; }
 
 .captcha .g-recaptcha div div { margin:0 auto!important; }
 
-.cropimg{ max-height:200px; }
+.cropimg{ height:250px; }
 
 /*.theme-background-color{ background-color: #ff6600!important; }*/
 

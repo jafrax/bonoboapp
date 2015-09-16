@@ -41,6 +41,9 @@ header,section,content,footer{ width:100%; }
 	.containermain{ width:1210px; margin:0 auto; }
     #dua .l3{width: 23.9%!important}
 }
+@media (min-width: 1024px) {
+    #dua .l3{width: 23.9%!important}
+}
 
 
 /*HEADER*/
