@@ -34,10 +34,15 @@ echo"
 							</div>
 						</div>
 						<ul class='row formbody'>
-							<li class='col s12 listanggodaf'>
-								<div class='input-field col s12 m6 l6 nolpad'>
+							<li class='col s12 listanggodaf'>					
+								<div class='input-field col s12 m6 l4 nolpad right'>
+									<i class='mdi-action-search prefix'></i>
+									<input id='keyword' type='text' class='validate' value='"; if (isset($_SESSION['keyword'])) {echo $_SESSION['keyword'];} echo"'>
+									<label for='keyword'>Cari produk</label >
+								</div>
+								<div class='input-field col s12 m6 l6 nolpad left'>
 									<div class='col s12 m8 l6'>
-										<select class='select-standar lectfilter' onchange=javascript:change_active() id='active_type'>
+										<select class='selectize' onchange=javascript:change_active() id='active_type'>
 											<option value='' disabled >Pilih filter</option>
 											<option value='1' "; if ($uri3 == '' || $uri3 == '1'){ echo "selected";} echo">Published</option>
 											<option value='0' "; if ($uri3 != '' && $uri3 == '0'){ echo "selected";} echo">Draft</option>											
@@ -57,12 +62,7 @@ echo"
 										</select>
 									</div>
 									
-								</div>								
-								<div class='input-field col s12 m6 l4 nolpad right'>
-									<i class='mdi-action-search prefix'></i>
-									<input id='keyword' type='text' class='validate' value='"; if (isset($_SESSION['keyword'])) {echo $_SESSION['keyword'];} echo"'>
-									<label for='keyword'>Cari produk</label >
-								</div>
+								</div>	
 							</li>
 							<li class='col s12 listanggodaf'>
 								<div class='col s12 m12 l9 nolpad'>

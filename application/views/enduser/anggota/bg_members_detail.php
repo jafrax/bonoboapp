@@ -1,7 +1,7 @@
 <?php
 
 if(!empty($Member)){
-	$MemberImage = base_url("assets/image/img_default_photo.jpg");
+	$MemberImage = base_url("assets/image/img_default_logo.jpg");
 		
 	if(!empty($Member->image) && file_exists("./assets/pic/user/".$Member->image)){
 		$MemberImage = base_url("assets/pic/user/resize/".$Member->image);

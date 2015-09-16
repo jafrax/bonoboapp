@@ -162,18 +162,14 @@ echo"
 	</div>
 		
 	<div id='divFormRate' class='modal modal-fixed-footer'>
-		<div class='modal-header blue ' id='header-rate'>
-				Tambah pengiriman
+		<div class='modal-header deep-orange' id='header-rate'>
+			<i class='material-icons left'>check</i> Tambah pengiriman
 		</div>
-		<div id='divFormRateContent'>
+		<div class='modal-content nolpad nolmar' id='divFormRateContent'>
 		</div>
 		<div class='modal-footer'>
-			<button id='btnFormRateSave' class='btn waves-effect waves-light' type='submit' name='action'>Simpan
-				<i class='mdi-content-save left'></i>
-			</button>
-			<button class='modal-action modal-close btn waves-effect waves-light red' type='submit' name='action'>
-				<i class='mdi-navigation-cancel left'></i> Batal
-			</button>
+			<button id='btnFormRateSave' class='btn-flat waves-effect waves-light' type='submit' name='action'>Simpan</button>
+			<button class='modal-action modal-close btn-flat waves-effect waves-light' type='submit' name='action'> Batal</button>
 		</div>
 	</div>
 			

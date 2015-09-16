@@ -21,6 +21,7 @@ echo"
 				<p>Ajak teman dan calon pelanggan anda untuk bergabung di toko anda !</p>
 			</div>
 			<form id='formInvite' class='row formbody'>
+				<br>
 				<div class='input-field col s12 m8'>
 					<input id='email' name='email' type='text' class='validate' value='".$email."' placeholder='ex:email@mail.com'>
 					<label for='email'>Email tujuan</label>

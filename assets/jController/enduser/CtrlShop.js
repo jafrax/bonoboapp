@@ -328,7 +328,7 @@ function CtrlShopStep1(){
 	}
 	
 	function doImageDelete(){
-		imgShopLogo.src = base_url+"assets/image/img_default_photo.jpg";
+		imgShopLogo.src = base_url+"assets/image/img_default_logo.jpg";
 	}
 }
 function CtrlShopStep4(){
@@ -609,9 +609,9 @@ function CtrlShopStep7(){
 	
 	function initPopupRateAdd(e){
 		if (e == 'empty'){
-			$('#header-rate').html('Tambah pengiriman');
+			$('#header-rate').html('<i class="material-icons left">check</i> Tambah pengiriman');
 		}else{
-			$('#header-rate').html('Edit pengiriman');
+			$('#header-rate').html('<i class="material-icons left">mode_edit</i> Edit pengiriman');
 		}
 		$.ajax({
 			type: 'POST',
