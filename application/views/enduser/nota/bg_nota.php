@@ -94,7 +94,7 @@ echo"	<div class='col s12 m12 l12'>
 							            if ($image->row()->image != '') {
 							            	echo "<img src='".base_url()."assets/pic/user/resize/".$image->row()->image."' alt='' class='circle responsive-img col'> ";
 							            }else{
-							            	echo "<img src='html/images/comp/male.png' alt='' class='circle responsive-img col'> ";
+							            	echo "<img src='html/images/comp/male.png' alt='' class=' responsive-img col'> ";
 							            }
 							              echo"
 							            </div>
