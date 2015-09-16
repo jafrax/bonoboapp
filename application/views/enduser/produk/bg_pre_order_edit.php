@@ -99,7 +99,7 @@ echo "
 	                                    if(count($pic->result())>0){
 	                                        foreach($pic->result() as $item){
 	                                           echo "
-		                                           	<div class='col s6 m4 l2' id='div_pic_edit_".$item->id."'>
+		                                           	<div class='col s6 m3 l2' id='div_pic_edit_".$item->id."'>
 														<div class='card' >
 															<a class='delimg' id='rem_pic_edit_".$item->id."' onclick=javascript:remove_picture('pic_edit_".$item->id."')><i class='mdi-navigation-close right'></i></a>
 															<div class='card-image img-product waves-effect waves-block waves-light'>
@@ -116,7 +116,7 @@ echo "
 	                                    $nol = 6-$i;
 	                                    for ($i=1; $i <= $nol ; $i++){
 	                                        echo "
-	                                            <div class='col s6 m4 l2' id='div_pic_".$i."'>
+	                                            <div class='col s6 m3 l2' id='div_pic_".$i."'>
 													<div class='card' >
 														<a class='delimg' id='rem_pic_".$i."' style='display:none' onclick=javascript:remove_picture('pic_".$i."')><i class='mdi-navigation-close right'></i></a>
 														<div class='card-image img-product waves-effect waves-block waves-light'>
