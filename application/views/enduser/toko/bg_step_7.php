@@ -97,13 +97,13 @@ echo"
                     <input id='txtLevel5' name='txtLevel5' type='hidden' class='validate' value='".($Shop->level_5_name)."' placeholder='Harga Khusus-3' >
                     <span id='labelLevel5' for='chkLevel5' ".($status5 == 0 ? "hidden" : "").">Level Harga sedang digunakan</span>
                 </div>
-             </div>
-                <div class='row '>
-                    <div class='input-field col s12 m8'>
-				</div>
-				<div class='input-field col s12 m8'>
-					".$Button."
-				</div>	
+
+                <div class='input-field col s12 m8'></div>
+                <div class='input-field col s12 m8'>
+				".$Button."
+                </div>	
+
+                <div class='input-field col s12 m8'></div>
                 </div>
             </form>
         </div>
