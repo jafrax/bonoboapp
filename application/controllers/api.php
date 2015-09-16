@@ -421,6 +421,7 @@ class Api extends CI_Controller {
 				"price_3"=>$QProduct->price_3,
 				"price_4"=>$QProduct->price_4,
 				"price_5"=>$QProduct->price_5,
+				"end_date"=>$QProduct->end_date,
 				"favorite"=>$isFavorite,
 				"shop_category"=>$ShopCategory,
 				"images"=>$ProductImages,
