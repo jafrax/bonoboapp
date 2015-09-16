@@ -326,7 +326,7 @@ function add_picture() {
 }
 
 function box_picture(id) {
-    var box = "<div class='col s6 m4 l2' id='div_pic_"+tot_picture+"'><div class='card' >"
+    var box = "<div class='col s6 m3 l2' id='div_pic_"+tot_picture+"'><div class='card' >"
                   +"<a class='delimg' onclick=javascript:remove_picture('pic_"+tot_picture+"')><i class='mdi-navigation-close right'></i></a>"
                   +"<div class='card-image img-product waves-effect waves-block waves-light'>"
                      +"<img id='img_pic_"+tot_picture+"' onclick=javascript:click_picture('pic_"+tot_picture+"') class='img-product responsive-img' src='"+base_url+"html/images/comp/product_large.png'>"
