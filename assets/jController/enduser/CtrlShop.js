@@ -328,7 +328,7 @@ function CtrlShopStep1(){
 	}
 	
 	function doImageDelete(){
-		imgShopLogo.src = base_url+"assets/image/img_default_logo.jpg";
+		imgShopLogo.src = base_url+"assets/image/img_default_photo.jpg";
 	}
 }
 function CtrlShopStep4(){
@@ -1138,7 +1138,7 @@ function set_city(){
 			success: function(city) {
 				$('#panggon-city').html(city);
 				$('#cmbCity').selectize();
-				$('#panggon-kecamatan').html("<select name='kecamatan' id='tkecamatan' class='chosen-select'><option value='' disabled selected>Pilih Kecamatan</option></select>");
+				$('#panggon-kecamatan').html("<select name='kecamatan' id='kecamatan' class='chosen-select'><option value='' disabled selected>Pilih Kecamatan</option></select>");
 				$('#tkecamatan').selectize();
 				$('#loader-kota').hide();
 			}
