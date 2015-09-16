@@ -167,7 +167,7 @@ class Kurir_detail extends CI_Controller {
 								'location_to_province'=>$tprovince,
 								'location_to_city'=>$tkota,
 								'location_to_kecamatan'=>$tkecamatan,
-								'price'=>$hargapkg,
+								'price'=> $hargapkg,
 								'create_date'	=> date("Y-m-d H:i:s"),
 								'create_user'   => $_SESSION['bonobo_admin']->email
             );

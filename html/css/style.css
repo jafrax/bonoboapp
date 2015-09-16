@@ -53,7 +53,7 @@ header,section,content,footer{ width:100%; }
 .padhead { padding:0 20px; margin:0; height: 45px; overflow: hidden; }
 .usermain{ line-height:45px; margin:7.5px 0 5px 0; }
 .usermain .userdum{ float:left; }
-.usermain text{ float:left; margin:0 5px; font-size:13px; color:#313131; }
+.usermain text{ float:left; margin:0 5px; font-size:13px; color:#313131; font-weight: bold; }
 
 .notification{ line-height: 0px; margin:2.25px 12px; padding:8px 0; }
 .notification .message{ color:#2196f3; }
@@ -74,9 +74,10 @@ header,section,content,footer{ width:100%; }
 .navmob{ display:none; }
 
 .menuutama .subnemuutama{ display:none; }
-.menuutama:hover > .subnemuutama{ background:#efefef; display:block; position: absolute; z-index:1000; width:225px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
+.menuutama:hover > .subnemuutama{ background:#fff; display:block; position: absolute; z-index:1000; width:225px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
 .menuutama:hover > .subnemuutama li{ width:100%; }
 .menuutama:hover > .subnemuutama li a{ color:#26a69a; font-size: 13px; }
+.menuutama:hover > .subnemuutama li a:hover{ border-left:8px solid transparent; font-weight: bold; }
 
 /*CONTENT*/
 .absolute{ position: relative; z-index:1; width:100%; height:100%; padding:0 0 130px 0; }
@@ -98,7 +99,7 @@ header,section,content,footer{ width:100%; }
 .menucontent li a.active{ color:#313131; font-weight:bold; }
 
 .menucontent .langkah{ padding:0px; }
-.menucontent .langkah .card-panel{ margin:0px; padding:0px 15px; line-height:50px; border-radius:0px; box-shadow:none; background-color: #edefed; }
+.menucontent .langkah .card-panel{ border-bottom:1px dotted #ccc; margin:0px; padding:0px 15px; line-height:50px; border-radius:0px; box-shadow:none; background-color: #edefed; }
 .menucontent .langkah.active .card-panel{ margin:0px; padding:0px 15px; line-height:50px; border-radius:0px;
 	-webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 	-moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
@@ -190,7 +191,7 @@ footer.page-footer{ margin-top: 0px; }
 .footer-copyright a{ margin:0 0 0 5px;}
 
 .select-wrapper .mdi-navigation-arrow-drop-down {
-    right: -17px;
+    right: -10px;
 }
 
 .footernota{ padding:80px 0 40px 0; }

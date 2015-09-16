@@ -24,7 +24,13 @@ $(document).ready(function() {
 	    };
 	});
 	/*NUMBER ONLY*/
-
+	$("input.ribuan").priceFormat({	    
+	    limit: 18,
+    	centsLimit: 0,
+		centsSeparator: "",
+    	thousandsSeparator: ".",
+    	prefix: "",
+	});
 	/*CHOSEN SELECT*/
 	var config = {
       '.chosen-select'           : {},

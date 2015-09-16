@@ -65,7 +65,7 @@ echo"
 	<content>
 		<div class='containermain'>
 			<div class='row col-signup'>
-				<h4 class='titlin'>BONOBO IS A SECURE BUSSINESS PLATFORM</h4>
+				<h4 class='titlin light'>BONOBO IS A SECURE BUSSINESS PLATFORM</h4>
 				<p class='note'><!--Bonobo merupakan tempat berjualan online dimana setiap toko yang tergabung didalamnya bersaing secara sehat dan bersahabat.--><br></p>
 				<form id='formSignup' class='signin z-depth-2'>
 					<div class='row'>

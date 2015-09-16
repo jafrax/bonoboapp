@@ -1,6 +1,6 @@
 <?php
  if($Shop->flag_information == 0){
-	$Button = "<a href='".base_url("toko/step4")."' class='btn waves-effect waves-light red'><i class='mdi-navigation-chevron-left left'></i> Kembali</a><button id='btnSave' class='btn waves-effect waves-light' type='button'>Selanjutnya<i class='mdi-navigation-chevron-right right'></i></button><span id='notifStep7' style='display:none;'></span>";
+	$Button = "<a href='".base_url("toko/step4")."' class='btn waves-effect waves-light red'><i class='mdi-navigation-chevron-left left'></i> Kembali</a><button id='btnSave' class='btn waves-effect waves-light' type='button'>Lanjut<i class='mdi-navigation-chevron-right right'></i></button><span id='notifStep7' style='display:none;'></span>";
 }else{
 	$Button = "<button id='btnSave' type='button' class='btn waves-effect waves-light'>Simpan<i class='mdi-navigation-chevron-right right'></i></button>";
 }

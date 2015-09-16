@@ -957,7 +957,15 @@ class Toko extends CI_Controller {
 			
 		echo"</select><script>$('.select-standar').chosen();</script>";*/
 
-		echo "<input type='text' name='cmbBank' value='".$ShopBank->bank_name."' >" ;
+		echo "<select name='cmbBank' class='browser-default' onchange=javascript:pilihngebank()>
+				<option value='Bank BCA' >Bank BCA</option>
+				<option value='Bank Mandiri' >Bank Mandiri</option>
+				<option value='Bank BNI' >Bank BNI</option>
+				<option value='Bank BCA' >Bank BCA</option>
+				<option value='Bank BRI' >Bank BRI</option>
+				<option value='Bank BTN' >Bank BTN</option>
+				<option value='lainnya' >Bank Lainnya</option>
+			</select>";
 	}
 	
 	public function step8ComboboxBankadd(){
@@ -1026,7 +1034,7 @@ class Toko extends CI_Controller {
 	}
 	// diabuat oleh adi 04-08-2015
 	function nomer_rekening(){
-		$data['rekeningmu'] 	= $_REQUEST['txtNo'];
+		$data['bank_name'] 	= $_REQUEST['txtBank'];
 		$data['rekeningmu'] 	= $_REQUEST['txtNo'];
 		$respon=$this->model_toko->get_rekeningsama($data);
 		if($respon > 0){

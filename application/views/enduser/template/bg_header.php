@@ -117,6 +117,7 @@ echo"
 						echo "
 						<a class='dropdown-button right' data-beloworigin='true' href='#' data-activates='duser' >
 							<text>".$_SESSION['bonobo']['name']."</text>
+							<i class='mdi-navigation-arrow-drop-down right'></i>
 						</a>
 						<ul id='duser' class='dropdown-content right' data-gutter='20' data-beloworigin='true' data-constrainwidth='false'>
 							<li><a href='".base_url("toko/change_password")."'>Change Password</a></li>

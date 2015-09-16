@@ -29,7 +29,7 @@ echo"
 				<div class='input-field col s12 m8'>
 					<input id='txtTagname' name='txtTagname' maxlength='15' length='15' type='text' placeholder=' PTBONOBO' class='validate upperCase'  value='".$Shop->tag_name."'>
 					<label for='txtTagname'>PIN TOKO *</label>
-					  <a class='waves-effect waves-teal btn-flat' onclick=javascript:cek_pin()>Cek Ketersediaan PIN</a>
+					  <a class='btn waves-effect waves-blue blue' onclick=javascript:cek_pin()>Cek Ketersediaan PIN</a>
 					<span id='notifTagname' class='red-text' style='display:none;'>PIN TOKO tidak tersedia</span>
 					<span id='notifTagnameS' class='green-text' style='display:none;'>PIN TOKO tidak tersedia</span>
 				</div>
@@ -93,22 +93,22 @@ if(sizeOf($Attributes) <= 0){
 	echo"
 		<input type='hidden' id='intAttributeCount' name='intAttributeCount' value='1'>
 		<div class='row valign-wrapper counter attr-1'>
-			<div class='col s12 m3'>
-				<!--Nama kontak--!>
-			</div>
+			<!--<div class='col s12 m3'>
+				Nama kontak
+			</div>--!>
 			<div class='col s12 m5'>
 				<input name='txtAttributeId1' type='hidden' value=''>
 				<input name='txtAttributeName1' maxlength='15' length='15' placeholder='BBM / Whatsapp' type='text' class='validate'>
 			</div>
-			<div class='col s12 m1'>
-				<!--Pin/ID/Nomor--!> =
-			</div>
+			<!--<div class='col s12 m1'>
+				Pin/ID/Nomor =
+			</div>--!>
 			<div class='col s12 m5'>
 				<input name='txtAttributeValue1' maxlength='15' length='15' placeholder='081xxxxxxx' type='text' class='validate'>
 			</div>
-			<div class='col s12 m5'>
+			<!--<div class='col s12 m5'>
 				<br>
-			</div>
+			</div>-->
 		</div>
 	";
 }else{
@@ -118,16 +118,16 @@ if(sizeOf($Attributes) <= 0){
 	foreach($Attributes as $Attribute){
 		echo"
 			<div class='row valign-wrapper counter attr-".$no."'>
-				<div class='col s12 m3'>
-					<!--Nama kontak--!>
-				</div>
+				<!--<div class='col s12 m3'>
+					Nama kontak
+				</div>--!>
 				<div class='col s12 m5'>
 					<input name='txtAttributeId".$no."' id='txtAttributeId".$no."' type='hidden' value='".$Attribute->id."'>
 					<input name='txtAttributeName".$no."' maxlength='15' length='15' placeholder='BBM / Whatsapp' type='text' class='validate' value='".$Attribute->name."'>
 				</div>
-				<div class='col s12 m1'>
-					<!--Pin/ID/Nomor--!> =
-				</div>
+				<!--<div class='col s12 m1'>
+					Pin/ID/Nomor=
+				</div>--!> 
 				<div class='col s12 m5'>
 					<input name='txtAttributeValue".$no."' maxlength='15' length='15' placeholder='081xxxxxxx' type='text' class='validate' value='".$Attribute->value."'>
 				</div>
@@ -145,18 +145,18 @@ if(sizeOf($Attributes) <= 0){
 echo"
 					</div>
 					<div class='row valign-wrapper '>
-						<div class='col s2 m2'>
+						<!--<div class='col s2 m2'>
 							
-						</div>";
+						</div>--!> ";
 						if (sizeOf($Attributes) < 3) {
 							echo "
-								<div class='col s10 m6'>
+								<div class='col s12 m6'>
 									<a href='javascript:void(0);' id='aAttributeAdd'>[+] Tambah kontak</a>
 								</div>
 							";
 						}else{
 							echo "
-								<div class='col s10 m6' >
+								<div class='col s12 m6' >
 									<a style='display:none' href='javascript:void(0);' id='aAttributeAdd'>[+] Tambah kontak</a>
 								</div>
 							";
