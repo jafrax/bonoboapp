@@ -196,7 +196,7 @@ echo "
 								</div>
 								<div class='line'></div>
 								<div class='col s6 m6 left-align'>
-									<b>Total nota :</b>								
+									<b>Total Transaksi :</b>								
 								</div>
 								<div class='col s6 m6 right-align'>
 									<b>Rp ".number_format($nota->price_total, 0 , ',' , '.')."</b>								

@@ -20,6 +20,7 @@ class Model_preorder extends CI_Model
 						->get('tb_product p');
 	}
 	
+	
 	function get_belum_selesai($id){
 		return $this->db->where('i.status_pre_order',0)
 						->where('p.id',$id)

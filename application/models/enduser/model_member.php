@@ -67,6 +67,7 @@ class Model_member extends CI_Model {
 					->join("tb_member tm","tji.member_id = tm.id")
 					->where("tji.status",0)
 					->where("tji.toko_id",$shop)
+					->where("tji.member_id  not in (select distinct b.member_id from tb_toko_blacklist b where  b.toko_id='$shop')")
 					->order_by("tji.id","DESC")
 					->get("tb_join_in tji");
 	}

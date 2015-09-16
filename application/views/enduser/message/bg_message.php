@@ -50,7 +50,7 @@ echo"
 
 						foreach($Messages->result() as $Message){
 							$MessageStatus = "";
-							$MemberImage = base_url("assets/image/img_default_photo.jpg");
+							$MemberImage = base_url("assets/image/img_default_logo.jpg");
 							
 							if(!empty($Message->qmember_image) && file_exists("./assets/pic/user/".$Message->qmember_image)){
 								$MemberImage = base_url("assets/pic/user/resize/".$Message->qmember_image);

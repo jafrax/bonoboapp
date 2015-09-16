@@ -2,13 +2,14 @@
 echo "
 				<div class='col s12 m12 l12'>
 					<div class='formain'>
+						<div class='formhead'>
+							<h2 class='titmain'><b>Pemesanan Pre Order</b></h2>
+						</div>
 						<div class='row formbody'>
 							<div class='col s12 m12'>
 								<ul class='row formbody preorder' id='ajax-div'>";
 								//echo "jumlah data =".$produk->num_rows();
-								
 								if ($produk->num_rows() > 0) {
-									
 									foreach ($produk->result() as $row) { //echo "awal =".$row->id ;
 										$count = $this->model_preorder->get_belum_selesai($row->id)->num_rows();
 										$ago 		= $this->template->xTimeAgoDesc($row->create_date,date('Y-m-d H:i:s'));
@@ -24,7 +25,7 @@ echo "
 											</div>
 											<div class='col s12 m7 l8'>
 												<p class=' blue-grey-text lighten-3 right'>$ago</p>
-												<p><a href=''><b class='userangoota'>".$row->name."</b></a></p>				
+												<p><b class='userangoota'>".$row->name."</b></p>				
 												<span class='red-text' id='counter-".$row->id."'>$count Belum Selesai</span>										
 												<p>";
 												if ($count > 0) {
