@@ -30,10 +30,13 @@ foreach(array_reverse($Messages) as $Message){
 
 	if($Message->flag_from == 0){
 		
-		echo"<div class='row'><div class='pesanku'>".$Message->message." <span class='white-text ' style='display:table;font-size:10px'>$jam</span></div></div>";
+		if($Message->title <> "" or $Message->image <> "" ){
+		echo "<div class='row'><div class='pesanku'><img src='".base_url()."assets/pic/product/resize/".$Message->image."' ><br>$Message->title <br><span class='deep-orange-text text-lighten-5' style='font-size:10px;text-align:right;'>$jam</span></div></div> ";
+		}
+		echo "<div class='row'><div class='pesanku'>".$Message->message." <span class='white-text ' style='display:table;font-size:10px'>$jam</span></div></div>";
 		
 	}else{
-		echo"<div class='row'><div class='pesanmu'>".$Message->message." <br><span class='deep-orange-text text-lighten-5' style='font-size:10px;text-align:right;'>$jam</span></div></div>";
+		echo "<div class='row'><div class='pesanmu'>".$Message->message." <br><span class='deep-orange-text text-lighten-5' style='font-size:10px;text-align:right;'>$jam</span></div></div>";
 	}
 }
 
