@@ -3865,7 +3865,7 @@ class Api extends CI_Controller {
 			*	------------------------------------------------------------------------------
 			*/
 			$isProductValid = true;
-			for($p=1;$p<=$this->response->postDecode("cart_products");$p++){
+			for($p=1;$p<=intval($this->response->postDecode("cart_products"));$p++){
 				if($this->response->post("cart_product".$p) != "" || $this->response->postDecode("cart_product".$p) != ""){
 					$QCartProduct = $this->db->where("id",$this->response->postDecode("cart_product".$p))->get("tb_cart_product")->row();
 					
@@ -3977,8 +3977,17 @@ class Api extends CI_Controller {
 					}
 					
 					$buy_qty = 0;
-					for($v=1;$v<=$this->response->postDecode("cart_product".$p."_varians");$v++){
-						if($this->response->post("cart_product".$p."_varian".$v) != "" && $this->response->postDecode("cart_product".$p."_varian".$v) != "" && $this->response->post("cart_product".$p."_varian".$v."_quantity") != "" && $this->response->postDecode("cart_product".$p."_varian".$v."_quantity") != "" && $this->response->postDecode("cart_product".$p."_varian".$v."_quantity") != "0"){
+					for($v=1;$v<=intval($this->response->postDecode("cart_product".$p."_varians"));$v++){
+						$this->response->send(array("result"=>0,"message"=>"Varian ".$this->response->postDecode("cart_product".$p."_varian".$v)." -> ".$this->response->postDecode("cart_product".$p."_varian".$v."_quantity"),"messageCode"=>1), true);
+						$isProductValid = false;
+						continue;
+						if(
+							$this->response->post("cart_product".$p."_varian".$v) != "" && 
+							$this->response->postDecode("cart_product".$p."_varian".$v) != "" && 
+							$this->response->post("cart_product".$p."_varian".$v."_quantity") != "" && 
+							$this->response->postDecode("cart_product".$p."_varian".$v."_quantity") != "" && 
+							$this->response->postDecode("cart_product".$p."_varian".$v."_quantity") != "0"){
+							
 							$QCartVarian = $this->db
 									->where("id",$this->response->postDecode("cart_product".$p."_varian".$v))
 									->get("tb_cart_varian")
