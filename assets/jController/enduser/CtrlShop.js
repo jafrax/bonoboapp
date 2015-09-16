@@ -39,7 +39,7 @@ function CtrlShopStep1(){
 		aAttributeAdd = $hs("aAttributeAdd");
 		txtPostal		=$hs('txtPostal');
 	}
-	
+
 	function initEventlistener(){
 		if(btnNext != null){
 			btnNext.onclick = function(){
@@ -113,6 +113,7 @@ function CtrlShopStep1(){
 					}
 				}
 			});
+
 		}
 	}
 	function initValidation(){
@@ -151,6 +152,9 @@ function CtrlShopStep1(){
 				txtAddress:{
 					maxlength:150,
 				},
+				imgShopLogo : {
+				 	accept:'image/*',filesize:1000000,
+				 },
 				//cmbProvince: {
 					//required: true,
 				//},
@@ -181,6 +185,9 @@ function CtrlShopStep1(){
 				},
 				txtAddress:{
 					maxlength: message_alert("Masukkan maksimal 150 karakter"),
+				},
+				imgShopLogo:{
+					filesize: message_alert("Ukuran terlalu besar , maksimum 1 mb !"),
 				},
 			}
 		});
@@ -1138,7 +1145,7 @@ function set_city(){
 			success: function(city) {
 				$('#panggon-city').html(city);
 				$('#cmbCity').selectize();
-				$('#panggon-kecamatan').html("<select name='kecamatan' id='kecamatan' class='chosen-select'><option value='' disabled selected>Pilih Kecamatan</option></select>");
+				$('#panggon-kecamatan').html("<select name='kecamatan' id='tkecamatan' class='chosen-select'><option value='' disabled selected>Pilih Kecamatan</option></select>");
 				$('#tkecamatan').selectize();
 				$('#loader-kota').hide();
 			}

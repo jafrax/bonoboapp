@@ -25,7 +25,7 @@ $(document).ready(function() {
         centsLimit: 0,
         centsSeparator: "",
         thousandsSeparator: ".",
-        prefix: "",
+        prefix: "Rp.",
     });
 })
 
