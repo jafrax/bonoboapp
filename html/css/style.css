@@ -37,6 +37,8 @@ p{ padding:0; margin:0; }
 header,section,content,footer{ width:100%; }
 
 .containermain{ width:90%; margin:0 auto; }
+.container_custom{ width:80%; margin:0 auto; }
+.container_custom p, .container_custom ul li, .container_custom ol li{ text-align: justify!important; }
 @media (min-width: 1280px) {
 	.containermain{ width:1210px; margin:0 auto; }
     #dua .l3{width: 23.9%!important}
@@ -158,7 +160,7 @@ header,section,content,footer{ width:100%; }
 .formbody .input-field textarea:focus{ border-bottom: 1px solid #565a5c!important; box-shadow: 0 1px 0 0 #565a5c!important; }
 
 .formbody li.listanggonew{ margin:0 0 8px 0; padding:5px 0; box-shadow: 0 1px 0 0 #efefef!important; }
-.formbody .btn{ margin:0 4px 0 0;}
+.formbody .btn{ margin:0 4px 8px 0;}
 
 .formbody li.listanggodaf{ margin:0 0 8px 0; padding:5px 0; box-shadow: 0 1px 0 0 #efefef!important; }
 .formbody li.listanggodaf .userangoota{ font-size:15px; color:#313131!important; }

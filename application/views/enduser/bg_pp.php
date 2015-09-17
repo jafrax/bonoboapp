@@ -57,15 +57,15 @@ echo "
 <content>
 	<div class='contentmain'>
 		<div class='containermain'>
-			<div class='row contentsebenarya'>
-				<div class='col s12 m12 l12'>
+			<div class='row contentsebenarya '>
+				<div class='col s12 m12 l12 '>
 					<a href='".base_url()."'>&larr; Kembali</a>
 					<form class='formain'>
-						<div class='formhead'>
-							<h2 id='top' class='titmain'><b>Kebijakan Privasi</b></h2>
+						<div class='formhead center'>
+							<h2 id='top' class='titmain'><b>KEBIJAKAN PRIVASI</b></h2>
 						</div>
 
-						<div class='row formbody'>
+						<div class='row formbody container_custom' >
 							<p>
 								<p>Adanya Kebijakan Privasi ini adalah komitmen nyata dari Bonobo untuk menghargai dan melindungi setiap informasi pribadi Pengguna situs www.Bonobo.com (situs Bonobo).</p>
 								<p>Kebijakan ini (beserta syarat-syarat penggunaan dari situs Bonobo sebagaimana tercantum dalam \"Syarat & Ketentuan\" dan dokumen lain yang tercantum di situs Bonobo) menetapkan dasar atas segala data pribadi yang Pengguna berikan kepada Bonobo atau yang Bonobo kumpulkan dari Pengguna, kemudian akan diproses oleh Bonobo mulai pada saat melakukan pendaftaran, mengakses dan menggunakan layanan Bonobo. Harap memperhatikan ketentuan di bawah ini secara seksama untuk memahami pandangan dan kebiasaan Bonobo berkenaan dengan data Bonobo memperlakukan informasi tersebut.</p>
@@ -136,14 +136,15 @@ echo "
 		</div>
 	</div>
 </content>
-<footer class='page-footer grey darken-3'>
+<footer class='page-footer grey darken-3 nolmar nolpad'>
 
 	<div class='footer-copyright grey darken-4'>
-		<div class='container'> 2015 Bonobo
-			<a class='grey-text text-lighten-4 right' href='javascript:void(0)'>Tentang Kami</a>
-			<a class='grey-text text-lighten-4 right' href='".base_url('index/pp')."'>Kebijakan privasi</a>
-			<a class='grey-text text-lighten-4 right' href='".base_url('index/tos')."'>Syarat dan ketentuan</a>
-		</div>
+		<div class='containermain'>
+			<a class='grey-text text-lighten-3' href='javascript:void(0)'>Tentang Kami</a>
+			<a class='grey-text text-lighten-3' href='".base_url('index/pp')."'>Kebijakan privasi</a>
+			<a class='grey-text text-lighten-3' href='".base_url('index/tos')."'>Syarat dan ketentuan</a>
+			<a href='http://www.bonoboapp.com' align='center'>© 2015 Bonobo, Inc. All rights reserved.</a>
+		</div>		
 	</div>
 </footer>
 

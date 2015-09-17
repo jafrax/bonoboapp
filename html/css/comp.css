@@ -89,11 +89,13 @@ input.valid[type="text"], input.valid[type="text"]:focus, input.valid[type="pass
 .input-field.table { padding:0 12px 0 0; }
 .error { position: absolute; top: 0.8rem; right: 0.75rem; text-align:right; color:#ef5350!important; }
 .input-field label.error { position: absolute; top: 0.8rem; right: 0.75rem; text-align:right; color:#ef5350!important; }
+.input-field label.error-image { font-size: 12px; }
 .error-chosen{ position: relative!important; top: 0; right:0; text-align:right; }
 .notif-error{ position: relative; padding:8px 0 10px 0; text-align:center; color:#ef5350!important;  }
 .error-image{ position: relative!important; color:#ef5350!important; top:-5px!important;}
 #recaptcha_response_field{ height:1rem!important; background: #fff; }
 .filled-in[type="checkbox"]:not(:checked) + label::after{ background-color: rgba(0,0,0,0.1)!important; border: 1px solid #26a69a!important;}
+[type="checkbox"].filled-in:not(:checked)+label:before{ border:none;}
 [type="checkbox"] + label::before{ background-color: rgba(0,0,0,0.1); border: 1px solid #26a69a; }
 [type="checkbox"]:checked + label::before{ background-color:transparent; }
 
@@ -150,7 +152,7 @@ label{ font-size: 14px; color: #565a5c; }
 .userimg{ border:1px solid #efefef;}
 .div-circle-logo{ margin-top: 10px!important; }
 .circle-logo{ border-radius: 50%;width: 100px;height: 100px;text-align: center; border: 1px solid #eee;}
-.img-product{ height:100px; }
+.img-product{ height:100px; border-radius:0px!important; }
 .prordercrop{ /*height:160px; border:1px solid #efefef;*/ overflow: hidden; }
 .prordercrop img{ width: 100%; }
 
@@ -168,6 +170,7 @@ label{ font-size: 14px; color: #565a5c; }
 .modal .modal-header{ height:45px; padding:0 5px; line-height:45px; color:#fff; font-size:18px; }
 .modal .modal-header i{ font-size:34px; }
 .modal .modal-content .select-dropdown{ z-index:1000; }
+.modal .modal-footer .btn{ margin: 0 0 0 5px; }
 
 .datetime {width: 100%;border-top: 1px solid #ccc;text-align: center;margin: 10px 0;}
 .datetime p{margin: -13px auto 0;background: #fff; padding: 0 10px;display: table; font-size: 16px;}
@@ -197,7 +200,7 @@ label{ font-size: 14px; color: #565a5c; }
 
 .small-text{ font-size:12px; }
 
-.cropimg{ height:225px; }
+.cropimg{ height:200px; }
 
 /*.theme-background-color{ background-color: #ff6600!important; }*/
 

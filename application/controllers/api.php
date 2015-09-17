@@ -3499,7 +3499,7 @@ class Api extends CI_Controller {
 		
 		
 		if($product_price != (float) $this->response->postDecode("price")){
-			$this->response->send(array("result"=>0,"message"=>"Harga sudah berubah (".$product_price."/".(float) $this->response->postDecode("price").") [13]","messageCode"=>13), true);
+			$this->response->send(array("result"=>0,"message"=>"Harga sudah berubah [13]","messageCode"=>13), true);
 			return false;
 		}
 		

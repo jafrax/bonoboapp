@@ -30,7 +30,7 @@ echo"
 							<h2 class='titmain'><b>ATUR KATEGORI</b></h2>
 							<p>Halaman ini untuk membuat dan menghapus kategori produk di toko anda !</p>
 							<div class='input-field col s12 m4 right'>
-								<button href='#tambah_kategori' onclick=javascript:reset_cat() class='modal-trigger waves-effect waves-light btn deep-orange darken-1 right s12'><i class='mdi-content-add-circle-outline left'></i>TAMBAH KATEGORI</button>
+								<button href='#tambah_kategori' onclick=javascript:reset_cat() class='modal-trigger waves-effect waves-light btn blue darken-1 right s12'><i class='mdi-content-add-circle-outline left'></i>TAMBAH KATEGORI</button>
 							</div>
 						</div>
 						<ul class='row formbody'>
