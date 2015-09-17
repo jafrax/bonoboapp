@@ -31,7 +31,7 @@ if ($produk->num_rows() == 0) {
 									echo"										
 									</div>
 									<div class='card-content'>
-										<div class='card-title activator grey-text text-darken-4'>".$row->name." <i class='mdi-navigation-more-vert right'></i></div>
+										<div class='card-title activator grey-text text-darken-4 small-text'><b>".$row->name."</b> <i class='mdi-navigation-more-vert right'></i></div>
 										<p><a class='small-text' href='".base_url()."produk/edit/".base64_encode($row->id)."'>Sunting Produk »</a></p>
 									</div>
 									<div class='card-reveal nolpad'>

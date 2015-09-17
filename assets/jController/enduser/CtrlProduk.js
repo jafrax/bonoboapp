@@ -157,19 +157,19 @@ $(document).ready(function() {
       },
       messages: {
           pic_1: {
-                filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
+                filesize: message_alert('Terlalu besar, maksimal 1 MB'),
               },
           pic_2: {
-                filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
+                filesize: message_alert('Terlalu besar, maksimal 1 MB'),
               },
           pic_3: {
-                filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
+                filesize: message_alert('Terlalu besar, maksimal 1 MB'),
               },
           pic_4: {
-                filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
+                filesize: message_alert('Terlalu besar, maksimal 1 MB'),
               },
           pic_5: {
-                filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
+                filesize: message_alert('Terlalu besar, maksimal 1 MB'),
               },
           harga_pembelian: {
                 maxlength: message_alert('Maksimal harga 999.999.999'),
@@ -220,19 +220,19 @@ $(document).ready(function() {
       },
       messages: {
           pic_1: {
-                filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
+                filesize: message_alert('Terlalu besar, maksimal 1 MB'),
               },
           pic_2: {
-                filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
+                filesize: message_alert('Terlalu besar, maksimal 1 MB'),
               },
           pic_3: {
-                filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
+                filesize: message_alert('Terlalu besar, maksimal 1 MB'),
               },
           pic_4: {
-                filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
+                filesize: message_alert('Terlalu besar, maksimal 1 MB'),
               },
           pic_5: {
-                filesize: message_alert('Ukuran file terlalu besar, maksimal 1 MB'),
+                filesize: message_alert('Terlalu besar, maksimal 1 MB'),
               },
           harga_pembelian: {
                 maxlength: message_alert('Maksimal harga 999.999.999'),
@@ -486,7 +486,7 @@ function boxVarianPr(id) {
                       +"<label for='varian'>Varian</label>"
                     +"</div>"
                       +"<div class='input-field col s1 m1' >"
-                      +"<a onclick=javascript:deleteVarian('li_varian_"+tot_varian+"'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
+                      +"<a onclick=javascript:deleteVarian('li_varian_"+tot_varian+"'); class='btn-floating waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
                     +"</div>"
                     +"</li>";
    }else if (stok == 0) {
@@ -495,7 +495,7 @@ function boxVarianPr(id) {
                       +"<label for='varian'>Varian</label>"
                     +"</div>"
                       +"<div class='input-field col s1 m1' >"
-                      +"<a onclick=javascript:deleteVarian('li_varian_"+tot_varian+"'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
+                      +"<a onclick=javascript:deleteVarian('li_varian_"+tot_varian+"'); class='btn-floating waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
                     +"</div>"
                       +"</li>";
    }
@@ -506,35 +506,35 @@ function boxVarianPr(id) {
 function boxVarian(id) {
   var stok      = $('#stok').val();
   if (stok == 1) {
-      var varian = "<li class='varsto nolmar' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 '>"                      
+      var varian = "<li class='varsto nolmar' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 '>" 
+                      +"<span for='varian'>Varian <span class='text-red'>*</span></span>"                     
                       +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' maxlength='30' placeholder='Ex : Merah' class='validate'>"
-                      +"<label for='varian'>Varian</label>"
                     +"</div>"
                     +"<div class='input-field col s11 m5 tersedia'>"
                         +"<label >Stok : <span class='text-green'>selalu tersedia</span></label>"
                       +"</div>"
                       +"<div class='input-field col s11 m5 pakai-stok'  style='display:none'>"
+                        +"<span for='varian'>Stok <span class='text-red'>*</span></span>"
                         +"<input id='varian' name='stok_varian_"+tot_varian+"' type='text' maxlength='10' placeholder='Jumlah stok' class='validate numbersOnly'>"
-                        +"<label for='varian'>Stok </label>"
                       +"</div>"
                       +"<div class='input-field col s1 m1' >"
-                      +"<a onclick=javascript:deleteVarian('li_varian_"+tot_varian+"'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
+                      +"<a onclick=javascript:deleteVarian('li_varian_"+tot_varian+"'); class='btn-floating waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
                     +"</div>"
                     +"</li>";
    }else if (stok == 0) {
       var varian = "<li class='varsto nolmar' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 '>"                      
+                      +"<span for='varian'>Varian <span class='text-red'>*</span></span>"
                       +"<input id='varian' name='nama_varian_"+tot_varian+"' maxlength='30' type='text' placeholder='Ex : Merah' class='validate'>"
-                      +"<label for='varian'>Varian</label>"
                     +"</div>"
                     +"<div class='input-field col s11 m5 tersedia' style='display:none'>"
                         +"<label >Stok : <span class='text-green'>selalu tersedia</span></label>"
                       +"</div>"
                       +"<div class='input-field col s11 m5 pakai-stok'>"
+                        +"<span for='varian'>Stok <span class='text-red'>*</span></span>"
                         +"<input id='varian' name='stok_varian_"+tot_varian+"' type='text' maxlength='10' placeholder='Jumlah stok' class='validate numbersOnly'>"
-                        +"<label for='varian'>Stok </label>"
                       +"</div>"
                       +"<div class='input-field col s1 m1' >"
-                      +"<a onclick=javascript:deleteVarian('li_varian_"+tot_varian+"'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
+                      +"<a onclick=javascript:deleteVarian('li_varian_"+tot_varian+"'); class='btn-floating waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
                     +"</div>"
                       +"</li>";
    }

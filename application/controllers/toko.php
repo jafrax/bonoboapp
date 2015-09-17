@@ -342,11 +342,16 @@ class Toko extends CI_Controller {
 			$username = $_REQUEST['txtTagname'];
 		$cek=$this->db->where('tag_name',$username)->get('tb_toko');
 		
+		$cek2=$this->db->where('tag_name',$username)->get('tb_toko');
+		
 		if($cek->num_rows()>0){
+			$valid = "true ";
+			
+		}elseif ($cek2->num_rows() > 0 ){
 			$valid = "false";
 			$this->response->send(array("result"=>0,"message"=>"PIN TOKO tidak tersedia","messageCode"=>1));
 		}else{
-			//$valid = "true";
+			$valid = "true";
 		//}
 		
 		/*if($this->response->post("txtName") == ""){

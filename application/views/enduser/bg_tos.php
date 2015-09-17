@@ -14,7 +14,7 @@ echo "
 <link type='text/css' rel='stylesheet' href='".base_url()."html/css/jpushmenu.css' />
 <link type='text/css' rel='stylesheet' href='".base_url()."html/css/chosen.css' />
 
-<link type='text/css' rel='stylesheet' href='".base_url()."html/css/style.css' />ketentuan
+<link type='text/css' rel='stylesheet' href='".base_url()."html/css/style.css' />
 <link type='text/css' rel='stylesheet' href='".base_url()."html/css/tablet.css' />
 <link type='text/css' rel='stylesheet' href='".base_url()."html/css/mobile.css' />
 <link type='text/css' rel='stylesheet' href='".base_url()."html/css/comp.css' />
@@ -61,11 +61,11 @@ echo "
 				<div class='col s12 m12 l12'>
 					<a href='".base_url()."'>&larr; Kembali</a>
 					<form class='formain'>
-						<div class='formhead'>
+						<div class='formhead center'>
 							<h2 id='top' class='titmain'><b>Syarat & Ketentuan</b></h2>
 						</div>
 
-						<div class='row formbody'>
+						<div class='row formbody container_custom'>
 							<p>								
 									<h2 class='light title-faq '>Selamat datang di www.bonobo.com.</h2><br>
 									<p>Syarat & ketentuan yang ditetapkan di bawah ini mengatur pemakaian jasa yang ditawarkan oleh PT. Bonobo terkait penggunaan situs www.bonobo.com. Pengguna disarankan membaca dengan seksama karena dapat berdampak kepada hak dan kewajiban Pengguna di bawah hukum.</p>
@@ -156,7 +156,7 @@ echo "
 									<h3 id='update' class='light title-faq '>H. PEMBAHARUAN</h3>
 									<p class='light'>									
 									<li>Syarat & ketentuan mungkin di ubah dan/atau diperbaharui dari waktu ke waktu tanpa pemberitahuan sebelumnya. Bonobo menyarankan agar anda membaca secara seksama dan memeriksa halaman Syarat & ketentuan ini dari waktu ke waktu untuk mengetahui perubahan apapun. Dengan tetap mengakses dan menggunakan layanan Bonobo, maka pengguna dianggap menyetujui perubahan-perubahan dalam Syarat & ketentuan.</li>
-									<a href='#top'>kembali ke atas</a></br>
+									<a href='#top'>kembali ke atas</a></br></br></br>
 									</ol>
 							</p>
 						</div>
@@ -167,15 +167,17 @@ echo "
 		</div>
 	</div>
 </content>
-<footer class='page-footer grey darken-3'>	
+<footer class='page-footer grey darken-3 nolmar nolpad'>	
 	<div class='footer-copyright grey darken-4'>
-		<div class='container'> 2015 Bonobo
-			<a class='grey-text text-lighten-4 right' href='javascript:void(0)'>Tentang Kami</a>
-			<a class='grey-text text-lighten-4 right' href='".base_url('index/pp')."'>Kebijakan privasi</a>
-			<a class='grey-text text-lighten-4 right' href='".base_url('index/tos')."'>Syarat dan ketentuan</a>
-		</div>
+		<div class='containermain'>
+			<a class='grey-text text-lighten-3' href='javascript:void(0)'>Tentang Kami</a>
+			<a class='grey-text text-lighten-3' href='".base_url('index/pp')."'>Kebijakan privasi</a>
+			<a class='grey-text text-lighten-3' href='".base_url('index/tos')."'>Syarat dan ketentuan</a>
+			<a href='http://www.bonoboapp.com' align='center'> © 2015 Bonobo, Inc. All rights reserved.</a>
+		</div>		
 	</div>
 </footer>
+
 
 <script type='text/javascript' src='".base_url()."html/js/jquery-2.1.4.min.js'></script>
 <script type='text/javascript' src='".base_url()."html/js/materialize.min.js'></script>

@@ -57,13 +57,13 @@ echo"
 					<label for='txtKeyword'>Kata kunci pencarian</label>
 				</div>
 				<div class='input-field col s12 m8'>
+					<span for='txtDescription'>Deskripsi TOKO</span>
 					<textarea id='txtDescription' name='txtDescription' maxlength='250' length='250' placeholder='Masukkan Keterangan Lengkap tentang Toko anda' class='materialize-textarea' >".$Shop->description."</textarea>
-					<label for='txtDescription'>Deskripsi TOKO</label>
 				</div>
 				<div class='input-field col s12 m8'>
-					<label class='left'>Logo TOKO</label><br>
+					<span class='left'>Logo TOKO</span><br>
 					
-					<div class='card div-circle-logo col s6 m4 l2 nolpad'>
+					<div class='card div-circle-logo col s6 m4 l3 nolpad'>
 						<a id='aShopLogoDelete' class='delimg'><i class='mdi-navigation-close right'></i></a>
 						<div class='card-image waves-effect waves-block waves-light'>
 							<img id='imgShopLogo' src='".$ShopImage."' class='responsive-img circle-logo' style='cursor:pointer; width:100%;height: auto;'>
@@ -72,7 +72,7 @@ echo"
 						</div>
 					</div>
 				</div>
-				<div class='input-field col s12 m8'>
+				<div class='input-field col s12 m8 nolmar'>
 					<text class='grey-text'><b>Ukuran Maks</b> : 1 MB.</text><br>
 					<text class='grey-text'><b>Format</b> : .jpg, .png.</itext>
 				</div>
