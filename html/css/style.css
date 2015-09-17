@@ -37,6 +37,8 @@ p{ padding:0; margin:0; }
 header,section,content,footer{ width:100%; }
 
 .containermain{ width:90%; margin:0 auto; }
+.container_custom{ width:80%; margin:0 auto; }
+.container_custom p, .container_custom ul li, .container_custom ol li{ text-align: justify!important; }
 @media (min-width: 1280px) {
 	.containermain{ width:1210px; margin:0 auto; }
     #dua .l3{width: 23.9%!important}
