@@ -187,6 +187,8 @@ class Index extends CI_Controller {
 		echo $valid;
 	}
 	
+
+	
 	public function signin(){
 		if(!$_POST){
 			$data['capcha']=$this->recaptcha->render();

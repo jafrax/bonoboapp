@@ -116,7 +116,7 @@ echo"
 		</div>
 			<form class='modal-content' id='formReset'>
 			<div class='input-field col s12'>
-				<input id='txtForgotEmail' name='txtForgotEmail' type='text' maxlength='50' class='validate'  autofocus=''    placeholder='ex : email@mail.com'>
+				<input id='txtForgotEmail' name='txtForgotEmail' type='text' maxlength='50' class='validate emailLow'    placeholder='ex : email@mail.com'>
 				<label for='txtForgotEmail'>Masukkan Akun email anda</label>
 				
 			</div>
