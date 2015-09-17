@@ -342,6 +342,8 @@ function CtrlShopStep1(){
 	function doImageUpload(){
 		var URL = window.URL || window.webkitURL;
 		var img = $('#txtShopLogoFile').val();
+		
+		
 
 		switch(img.substring(img.lastIndexOf('.') + 1).toLowerCase()){
 			case 'jpg': case 'png':

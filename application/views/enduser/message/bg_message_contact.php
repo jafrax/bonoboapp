@@ -34,24 +34,24 @@ echo "
 var offset_c=5;		
 		function scrollContact () {
 			
-		    if ($('#contact-scroll').scrollTop() == ($('#contact-scroll').get(0).scrollHeight - $('#contact-scroll').height()) && scroll==true) {
+		    if ($('#contact-scroll').scrollTop() == ($('#contact-scroll').get(0).scrollHeight - $('#contact-scroll').height()) && scroll == true) {
 		        $('#loader-contact').slideDown();
 		        
 		        scroll      = false;		        
 		        var id  	= $('#member').val();
-		        var url 	= base_url+'message/showContactDetail/'+offset_c;
+		        var url 	= base_url+'message/showContactDetail/'+id;
 
 		       // $('#contact-scroll').scrollTo(0, ($('#contact-scroll').get(0).scrollHeight - 50) );
 		        $.ajax({
 		            type: 'POST',
-		            data: 'ajax=1&id='+id,
+		            data: 'ajax=1&id='+ id,
 		            url: url,
 		            async: false,
 		            success: function(msg) {
 		                if (msg){
 		                    $('#contact-pesan').append(msg);
 		                    $('#loader-contact').slideUp();
-		                    offset_c = offset_c+5;		                    
+		                    offset_c = offset_c + 5;		                    
 		                    scroll   = true;		                    
 		                }else{
 		                    $('#loader-contact').slideUp();

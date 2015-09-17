@@ -27,17 +27,17 @@ echo "
 </div>
 
 <div id='add_kategori' class='modal confirmation'>	
-	<div class='modal-header red'>
+	<div class='modal-header teal'>
 		<i class='mdi-content-add-box left'></i> Tambah kategori
 	</div>	
 	<form class='modal-content' id='form_add_kategori'>
+		<span for='nama_kategori'>Nama kategori <span class='text-red'>*</span></label>
 		<input id='id-toko' name='nama' type='hidden' value='".$_SESSION['bonobo']['id']."' >
 		<input id='nama_kategori' name='nama_kategori' type='text' class='validate'>
-		<label for='nama_kategori'>Nama kategori <span class='text-red'>*</span></label>
 		<label class='error error-chosen' for='nama_kategori'></label>	
 	<div class='modal-footer'>
-		<button type='button' onclick=javascript:tambah_kategori() id='tambah-kategori' class='waves-effect lighten-2 btn-flat white-text add-kateg waves-light teal'>TAMBAH</button>
-		<a href='javascript:void(0)' class='modal-action modal-close waves-effect red btn-flat white-text waves-light'>TUTUP</a>
+		<button type='button' onclick=javascript:tambah_kategori() id='tambah-kategori' class='btn waves-effect lighten-2 btn-flat white-text add-kateg waves-light teal'>TAMBAH</button>
+		<a href='javascript:void(0)' class='btn modal-action modal-close waves-effect red btn-flat white-text waves-light'>TUTUP</a>
 	</div>
 	</form>
 </div>
@@ -54,6 +54,7 @@ echo "
 							<h2 class='titmain'><b>EDIT BARANG PRE ORDER</b></h2>
 						</div>
 						<div class='row formbody'>
+							<br>
 							<div class='col s12'>
 								<div class='input-field col s12'>
 									<input id='nama_barang' name='nama' type='text' placeholder='Ex : Baju Bonobo' maxlength='50' class='validate' length='50' value='".$produk->name."' required>
@@ -88,11 +89,9 @@ echo "
 								<div class='input-field col s12 m6'>
 									<a href='#add_kategori' onclick=javascript:reset_cat() class='btn-flat right modal-trigger'><b class='blue-text'><i class='mdi-content-add-box left'></i>BUAT KATEGORI BARU</b></a>
 								</div>
-								<div class='input-field col s12 m8'>
-									<i class='grey-text'><b>Ukuran Maks</b> : 1 MB.</i><br>
-									<i class='grey-text'><b>Format</b> : .jpg, .png.</i>
-								</div>
+
 								<div class='input-field col s12'>
+									<span>Image Produk</span>
 									<div class=' picture-area'>";
 	                                    $pic    = $this->model_produk->get_one_image($produk->id);
 	                                    $i      = 1;
@@ -133,6 +132,10 @@ echo "
 									<!--<a class='btn-flat left' onclick=javascript:add_picture()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH GAMBAR</b></a>-->
 								</div>
 								<input type='hidden' name='total_picture' id='total_picture' value='$nol'/>
+								<div class='input-field col s12 m8'>
+									<span class='grey-text'><b>Ukuran Maks</b> : 1 MB.</span><br>
+									<span class='grey-text'><b>Format</b> : .jpg, .png.</span>
+								</div>
 
 								<div class='input-field col s12'>
 									<input id='perkiraan_berat' placeholder='0.00' type='text' name='berat' class='validate' value='".$produk->berat."'>
@@ -156,7 +159,7 @@ echo "
 											
 							
 							<div class='row formbody'>
-								<div class='linehead'></div>
+								<div class='linehead'>VARIAN BARANG</div>
 								<div class=' col s12 m6' name='stokPr' id='stokPr' required OnChange=javascript:change_stokPr()>
 								</div>";
 								if ($produk->tipe_stok == 1) {
@@ -246,40 +249,40 @@ echo "
 								<ul class='col s12 m12'>
 									<li class='varsto' style='display:$a1'>
 										
-										<div class='input-field col s12 m6'>
+										<div class='input-field col s12 m6 nolpad nolmar'>
 											<input id='harga_level_1' maxlength='11' name='harga_level_1' type='text' placeholder='0' class='validate ribuan' required value='".$produk->harga_1."'>
 											<label for='harga_level_1'>Harga "; if ($level_harga->level_1_name != '') {echo $level_harga->level_1_name;}else{echo "level 1";} echo" <span class='text-red'>*</span></label>
 										</div>
 									</li>
 									<li class='varsto' style='display:$a2'>
-										<div class='input-field col s12 m6'>
+										<div class='input-field col s12 m6 nolpad nolmar'>
 											<input id='harga_level_2' maxlength='11' name='harga_level_2' type='text' placeholder='0' class='validate ribuan' value='".$produk->harga_2."'>
 											<label for='harga_level_2'>Harga "; if ($level_harga->level_2_name != '') {echo $level_harga->level_2_name;}else{echo "level 2";} echo"</label>
 										</div>
 									</li>
 									<li class='varsto' style='display:$a3'>
-										<div class='input-field col s12 m6'>
+										<div class='input-field col s12 m6 nolpad nolmar'>
 											<input id='harga_level_3' maxlength='11' name='harga_level_3' type='text' placeholder='0' class='validate ribuan' value='".$produk->harga_3."'>
 											<label for='harga_level_3'>Harga "; if ($level_harga->level_3_name != '') {echo $level_harga->level_3_name;}else{echo "level 3";} echo"</label>
 										</div>
 									</li>
 									<li class='varsto' style='display:$a4'>
-										<div class='input-field col s12 m6'>
+										<div class='input-field col s12 m6 nolpad nolmar'>
 											<input id='harga_level_4' maxlength='11' name='harga_level_4' type='text' placeholder='0' class='validate ribuan' value='".$produk->harga_4."'>
 											<label for='harga_level_4'>Harga "; if ($level_harga->level_4_name != '') {echo $level_harga->level_4_name;}else{echo "level 4";} echo"</label>
 										</div>
 									</li>
 									<li class='varsto' style='display:$a5'>
-										<div class='input-field col s12 m6'>
+										<div class='input-field col s12 m6 nolpad nolmar'>
 											<input id='harga_level_5' maxlength='11' name='harga_level_5' type='text' placeholder='0' class='validate ribuan' value='".$produk->harga_5."'>
 											<label for='harga_level_5'>Harga "; if ($level_harga->level_5_name != '') {echo $level_harga->level_5_name;}else{echo "level 5";} echo"</label>
 										</div>
 									</li>
 								</ul>
 								<div class='input-field col s12 m12 varsto'>
-									<button class='btn waves-effect waves-light right col s12 m3' type='submit' value='1' name='action'>Simpan<i class='mdi-content-send right'></i></button>																		
-									<button class='btn waves-effect waves-light yellow darken-3 right col s12 m3' value='0' type='submit' name='action'>Simpan Draft<i class='mdi-content-drafts right'></i></button>
-									<button class='btn waves-effect waves-light red right col s12 m3' type='button' name='action' onclick='location.href=\"".base_url()."produk/pre_order\"'>Batal<i class='mdi-content-clear right'></i></button>
+									<button class='btn waves-effect waves-light right col s12 m3' type='submit' value='1' name='action'>Simpan</button>																		
+									<button class='btn waves-effect waves-light deep-orange right col s12 m3' value='0' type='submit' name='action'>Simpan Draft</button>
+									<button class='btn waves-effect waves-light red right col s12 m3' type='button' name='action' onclick='location.href=\"".base_url()."produk/pre_order\"'>Batal</button>
 								</div>
 							</div>
 						</div>
