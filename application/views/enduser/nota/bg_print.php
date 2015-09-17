@@ -154,7 +154,7 @@ foreach ($varian->result() as $row_v) {
 if ($nota->invoice_seq_payment > 0) {
 ?>													
 <tr>
-<td colspan="2"><h4 class='titmain'><b> Kode Unik :   </b></h4></td>
+<td colspan="2"><h4 class='titmain'><b>Kode Unik :   </b></h4></td>
 <td align="right"><?php echo "$nota->invoice_seq_payment";?></td>
 <td colspan="7"></td>	
 </tr>
@@ -164,7 +164,7 @@ if ($nota->invoice_seq_payment > 0) {
 <td colspan="3"><hr align="left"></td>
 </tr>
 <tr>
-<td colspan="2"><h4 class='titmain'><b> Total Transaksi :  </b></h4></td>
+<td colspan="2"><h4 class='titmain'><b>Total Transaksi :  </b></h4></td>
 <td align="right" ><?php echo number_format($nota->price_total); ?></td>
 <td colspan="7"></td>	
 </tr>
