@@ -1168,7 +1168,7 @@ function set_city(){
 			success: function(city) {
 				$('#panggon-city').html(city);
 				$('#cmbCity').selectize();
-				$('#panggon-kecamatan').html("<select name='kecamatan' id='kecamatan' class='chosen-select'><option value='' disabled selected>Pilih Kecamatan</option></select>");
+				$('#panggon-kecamatan').html("<select name='kecamatan' id='tkecamatan' class='chosen-select'><option value='' disabled selected>Pilih Kecamatan</option></select>");
 				$('#tkecamatan').selectize();
 				$('#loader-kota').hide();
 			}
