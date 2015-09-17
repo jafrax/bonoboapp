@@ -31,7 +31,7 @@ echo"
 					<label for='txtTagname'>PIN TOKO *</label>
 					  <a class='btn waves-effect waves-blue blue' onclick=javascript:cek_pin()>Cek Ketersediaan PIN</a>
 					<span id='notifTagname' class='red-text' style='display:none;'>PIN TOKO tidak tersedia</span>
-					<span id='notifTagnameS' class='green-text' style='display:none;'>PIN TOKO tidak tersedia</span>
+					<span id='notifTagnameS' class='green-text' style='display:none;'>PIN TOKO tersedia</span>
 				</div>
 							
 				<div class='col s12 m8' style='display:none;'>

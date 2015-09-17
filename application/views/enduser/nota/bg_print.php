@@ -112,7 +112,7 @@ foreach ($varian->result() as $row_v) {
   </tr>
 
 <tr>
-  <td colspan="7"><?php echo "Harga Satuan @Rp".number_format($row_p->price_product); ?></td>
+  <td colspan="7"><?php $satuan= $row_p->price_product /$total ; echo "Harga Satuan @Rp".number_format($satuan); ?></td>
 </tr>
 
 <tr>
@@ -120,7 +120,7 @@ foreach ($varian->result() as $row_v) {
 </tr>
 
 <tr>
-  <td colspan="7"><?php $hargatotal= $total * $row_p->price_product; echo "Harga Total = Rp".number_format($hargatotal);   ?></td>
+  <td colspan="7"><?php $hargatotal= $row_p->price_product; echo "Harga Total = Rp".number_format($hargatotal);   ?></td>
 </tr>
 
 <tr>
