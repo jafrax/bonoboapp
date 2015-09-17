@@ -67,7 +67,7 @@ class Toko extends CI_Controller {
 
 	public function rules_pin(){
 		$username = $_REQUEST['txtTagname'];
-	    $cek=$this->db->where('tag_name',$username)->where('email !=',$_SESSION['bonobo']['email'])->get('tb_toko');
+	    $cek=$this->db->where('tag_name',$username)->get('tb_toko');
 
 	    if($cek->num_rows()>0){
 			$valid = "false";
@@ -406,14 +406,17 @@ class Toko extends CI_Controller {
 		}
 					
 			
-		$UploadPath    = 'assets/pic/shop/';
+			$UploadPath    = 'assets/pic/shop/';
 			$Upload = $this->template->upload_picture($UploadPath,"txtShopLogoFile");
-		if(!empty($_FILES['txtShopLogoFile']) && isset($_FILES['txtShopLogoFile']['name']) && !empty($_FILES['txtShopLogoFile']['name'])){
+			if(!empty($_FILES['txtShopLogoFile']) && isset($_FILES['txtShopLogoFile']['name']) && !empty($_FILES['txtShopLogoFile']['name'])){
 			$UploadPath    = 'assets/pic/shop/';
 			$Upload = $this->template->upload_picture($UploadPath,"txtShopLogoFile");
 			
 			if($Upload == 'error'){
 				$Unggah = "";
+
+				$this->response->send(array("result"=>0,"message"=>"Ukuran gambar maksimum 1 Mb ! ","messageCode"=>1));
+				return;
 			}else{
 				$Unggah=$Upload;
 				$_SESSION['bonobo']['image'] = $Unggah;
@@ -505,8 +508,8 @@ class Toko extends CI_Controller {
 					"create_user"=>$_SESSION['bonobo']['email'],
 					"update_date"=>$date,
 					"update_user"=>$_SESSION['bonobo']['email'],
-				);
-				
+				);	
+
 			$Save = $this->db->insert("tb_courier_custom",$Data);
 			if($Save){
 				$Courier = $this->db
