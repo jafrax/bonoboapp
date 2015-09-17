@@ -27,18 +27,18 @@ if ($produk->num_rows() == 0) {
 										<input type='checkbox' class='filled-in cek_produk' onclick=javascript:ngeklik('cek-1-$a','cek-2-$a') id='cek-2-$a'  />
 										<label for='cek-2-$a'></label>
 									</p>
-									<div class='card-image waves-effect waves-block waves-light'>
+									<div class='card-image waves-effect waves-block waves-light cropimg'>
 									";
 										if ($image) {
 											echo "<img src='".base_url()."assets/pic/product/resize/".$image->file."' class='activator'>";											
 										}else{
-											echo "<img src='".base_url()."html/images/comp/product.png' class='activator'>";
+											echo "<img src='".base_url()."html/images/comp/product_large.png' class='activator'>";
 										}
 									echo"										
 									</div>
 									<div class='card-content'>
-										<span class='card-title activator grey-text text-darken-4'>".$row->name." <i class='mdi-navigation-more-vert right'></i></span>
-										<p><a href='".base_url()."produk/edit_pre_order/".base64_encode($row->id)."'>Sunting Produk</a></p>
+										<div class='card-title activator grey-text text-darken-4'>".$row->name." <i class='mdi-navigation-more-vert right'></i></div>
+										<p><a class='small-text' href='".base_url()."produk/edit_pre_order/".base64_encode($row->id)."'>Sunting Produk »</a></p>
 									</div>
 									<div class='card-reveal nolpad'>
 										<span class='card-title grey-text text-darken-4'><i class='mdi-navigation-close right'></i></span>
