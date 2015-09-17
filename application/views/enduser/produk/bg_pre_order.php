@@ -216,13 +216,13 @@ echo"
 										if ($image) {
 											echo "<img src='".base_url()."assets/pic/product/resize/".$image->file."' class='activator'>";											
 										}else{
-											echo "<img src='".base_url()."html/images/comp/product.png' class='activator'>";
+											echo "<img src='".base_url()."html/images/comp/product_large.png' class='activator'>";
 										}
 									echo"										
 									</div>
 									<div class='card-content'>
-										<span class='card-title activator grey-text text-darken-4'>".$row->name." <i class='mdi-navigation-more-vert right'></i></span>
-										<p><a href='".base_url()."produk/edit_pre_order/".base64_encode($row->id)."'>Sunting Produk</a></p>
+										<div class='card-title activator grey-text text-darken-4'>".$row->name." <i class='mdi-navigation-more-vert right'></i></div>
+										<p><a class='small-text' href='".base_url()."produk/edit_pre_order/".base64_encode($row->id)."'>Sunting Produk »</a></p>
 									</div>
 									<div class='card-reveal nolpad'>
 										<span class='card-title grey-text text-darken-4'><i class='mdi-navigation-close right'></i></span>

@@ -93,6 +93,9 @@ input.valid[type="text"], input.valid[type="text"]:focus, input.valid[type="pass
 .notif-error{ position: relative; padding:8px 0 10px 0; text-align:center; color:#ef5350!important;  }
 .error-image{ position: relative!important; color:#ef5350!important; top:-5px!important;}
 #recaptcha_response_field{ height:1rem!important; background: #fff; }
+.filled-in[type="checkbox"]:not(:checked) + label::after{ background-color: rgba(0,0,0,0.1)!important; border: 1px solid #26a69a!important;}
+[type="checkbox"] + label::before{ background-color: rgba(0,0,0,0.1); border: 1px solid #26a69a; }
+[type="checkbox"]:checked + label::before{ background-color:transparent; }
 
 label{ font-size: 14px; color: #565a5c; }
 
@@ -119,7 +122,8 @@ label{ font-size: 14px; color: #565a5c; }
 .delimg:hover{ font-size:25px; color:#e53935; }
 .input-field .card { margin:5px; box-shadow:none; }
 .card { margin:5px; }
-.card .card-title { font-size: 14px; }
+.card .card-content{ padding: 8px; }
+.card .card-title { height: 40px; font-size: 14px; line-height: 14px!important; overflow: hidden; }
 /*.card-image img{ height:200px; }*/
 .notacard { box-shadow:none; border: 1px solid #ddd; }
 .notacard .collapsible{ box-shadow:none; }
@@ -191,7 +195,9 @@ label{ font-size: 14px; color: #565a5c; }
 
 .captcha .g-recaptcha div div { margin:0 auto!important; }
 
-.cropimg{ height:250px; }
+.small-text{ font-size:12px; }
+
+.cropimg{ height:225px; }
 
 /*.theme-background-color{ background-color: #ff6600!important; }*/
 
