@@ -155,6 +155,9 @@ function CtrlShopStep1(){
 				imgShopLogo : {
 				 	accept:'image/*',filesize:1000000,
 				 },
+				txtShopLogoFile : {
+					accept:'image/*',filesize:1000000,
+				},
 				//cmbProvince: {
 					//required: true,
 				//},
@@ -189,6 +192,9 @@ function CtrlShopStep1(){
 				imgShopLogo:{
 					filesize: message_alert("Ukuran terlalu besar , maksimum 1 mb !"),
 				},
+				txtShopLogoFile:{
+					filesize: message_alert("Ukuran terlalu besar , maksimum 1 mb !"),
+				},
 			}
 		});
 	}
@@ -196,6 +202,23 @@ function CtrlShopStep1(){
 	function doNext(){
 			var formData = new FormData($hs("formStep1"));
 		if(!formStep1JQuery.valid()){
+			var tot_picture = 1;
+			tot_picture = tot_picture+1;    
+    var hitung = $('.picture-area .card').length;
+    if (hitung < 5) {
+        $('#total_picture').val(tot_picture);
+        $('.picture-area').append(box_picture(tot_picture));
+        $('#add-poto').show();
+        //$('.label-area').append(box_alert(tot_picture));
+        $('input[name="pic_'+tot_picture+'"]').each(function () {
+            $(this).rules("add", {
+                accept: 'image/*',filesize: 1000000,
+                messages: {
+                    filesize: message_alert("Ukuran file terlalu besar, maksimal 1 MB"),  
+                },
+            });
+        });
+    }
 			return false;
 		}else{
 			$.ajax({
@@ -255,7 +278,7 @@ function CtrlShopStep1(){
 	//	}
 		
 		if(!formStep1JQuery.valid()){
-
+			
 			return false;
 		}else{
 			var formData = new FormData($hs("formStep1"));
@@ -335,7 +358,7 @@ function CtrlShopStep1(){
 	}
 	
 	function doImageDelete(){
-		imgShopLogo.src = base_url+"assets/image/img_default_logo.jpg";
+		imgShopLogo.src = base_url+"assets/image/img_default_photo.jpg";
 	}
 }
 function CtrlShopStep4(){
@@ -446,7 +469,7 @@ function CtrlShopStep7(){
 		};
 		
 		btnFormRateSave.onclick = function(){
-			doRateSave();
+			doRateSave("");
 		};
 		btnStep7Back.onclick = function(){
 			hideDetail();
@@ -467,7 +490,7 @@ function CtrlShopStep7(){
 		sequence = sequence+2;
 
 		
-		div.innerHTML = "<div id='divCourier"+sequence+"' class='input-field col s12 m12 counter'><div class='input-field col s12 m12 l6'><input type='hidden' id='txtCourierId"+sequence+"' name='txtCourierId1'><input class='hitung' type='text' id='txtCourierName"+sequence+"' name='txtCourierName1' maxlength='20' minlength='5'><label for='txtCourierName"+sequence+"'>Nama Kurir</label></div><div class='input-field col s12 m12 l6'><button type='button' class='waves-effect waves-light btn-floating  ' onclick=ctrlShopStep7.doCourierSave("+sequence+");><i class='material-icons left'>check</i> Simpan</button> <button class='waves-effect waves-light btn-floating red' type='button' onclick=ctrlShopStep7.doCourierDelete("+sequence+");><i class='mdi-navigation-close left'></i>Hapus</button> <button type='button' class='waves-effect waves-light btn-floating blue' id='aCourierDetail"+sequence+"'  onclick=ctrlShopStep7.showDetail("+sequence+"); style='display:none;'><i class='material-icons left'>list</i>Detail</button> </div></div>";
+		div.innerHTML = "<div id='divCourier"+sequence+"' class='input-field col s12 m12 counter'><div class='input-field col s12 m12 l6'><input type='hidden' id='txtCourierId"+sequence+"' name='txtCourierId1'><input class='hitung' type='text' id='txtCourierName"+sequence+"' name='txtCourierName1' maxlength='20' minlength='5'><label for='txtCourierName"+sequence+"'>Nama Kurir</label></div><div class='input-field col s12 m12 l6'><button type='button' class='waves-effect waves-light btn  ' onclick=ctrlShopStep7.doCourierSave("+sequence+");><i class='material-icons left'>library_add</i> Simpan</button> <button class='waves-effect waves-light btn red' type='button' onclick=ctrlShopStep7.doCourierDelete("+sequence+");><i class='mdi-action-delete left'></i>Hapus</button> <button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail"+sequence+"'  onclick=ctrlShopStep7.showDetail("+sequence+"); style='display:none;'><i class='material-icons left'>list</i>Detail</button> </div></div>";
 		
 		divCustomCourier.append(div);
 		txtCustomeCourierCount.value = sequence;
@@ -616,9 +639,9 @@ function CtrlShopStep7(){
 	
 	function initPopupRateAdd(e){
 		if (e == 'empty'){
-			$('#header-rate').html('<i class="material-icons left">check</i> Tambah pengiriman');
+			$('#header-rate').html('Tambah pengiriman');
 		}else{
-			$('#header-rate').html('<i class="material-icons left">mode_edit</i> Edit pengiriman');
+			$('#header-rate').html('Edit pengiriman');
 		}
 		$.ajax({
 			type: 'POST',
@@ -1145,7 +1168,7 @@ function set_city(){
 			success: function(city) {
 				$('#panggon-city').html(city);
 				$('#cmbCity').selectize();
-				$('#panggon-kecamatan').html("<select name='kecamatan' id='tkecamatan' class='chosen-select'><option value='' disabled selected>Pilih Kecamatan</option></select>");
+				$('#panggon-kecamatan').html("<select name='kecamatan' id='kecamatan' class='chosen-select'><option value='' disabled selected>Pilih Kecamatan</option></select>");
 				$('#tkecamatan').selectize();
 				$('#loader-kota').hide();
 			}

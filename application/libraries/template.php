@@ -195,7 +195,7 @@
 		
         $config['upload_path'] 		= $url; 
         $config['allowed_types'] 	= "gif|jpg|png|jpeg|bmp";
-        $config['max_size'] 		= 3000;
+        $config['max_size'] 		= 1000;
         $config['encrypt_name'] 	= TRUE;
         $ci->upload->initialize($config);
         
