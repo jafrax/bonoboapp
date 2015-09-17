@@ -173,7 +173,7 @@ echo "
 			<a class='grey-text text-lighten-3' href='javascript:void(0)'>Tentang Kami</a>
 			<a class='grey-text text-lighten-3' href='".base_url('index/pp')."'>Kebijakan privasi</a>
 			<a class='grey-text text-lighten-3' href='".base_url('index/tos')."'>Syarat dan ketentuan</a>
-			<a href='http://www.bonoboapp.com' align='center'> © 2015 Bonobo, Inc. All rights reserved.</a>
+			<a href='http://www.bonoboapp.com' align='center'>© 2015 Bonobo, Inc. All rights reserved.</a>
 		</div>		
 	</div>
 </footer>
