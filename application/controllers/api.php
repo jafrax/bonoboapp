@@ -285,6 +285,7 @@ class Api extends CI_Controller {
 			"image_high"=>$ShopImageHigh,
 			"count_products"=>$CountProducts,
 			"count_users"=>$CountMembers,
+			"private"=>$QShop->privacy,
 			"join"=>$join,
 			"invite"=>$invite,
 			"blacklist"=>$blacklist,
