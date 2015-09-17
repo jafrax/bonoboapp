@@ -151,7 +151,7 @@ foreach ($varian->result() as $row_v) {
 <td colspan="7"></td>	
 </tr>
 <?php 
-if ($toko->invoice_confirm == 0) {
+if ($nota->invoice_seq_payment > 0) {
 ?>													
 <tr>
 <td colspan="2"><h4 class='titmain'><b> Kode Unik :   </b></h4></td>
@@ -161,7 +161,7 @@ if ($toko->invoice_confirm == 0) {
 <?php 
 } ?>
 <tr>
-<td colspan="3"><hr align="left"> </td>
+<td colspan="3"><hr align="left"></td>
 </tr>
 <tr>
 <td colspan="2"><h4 class='titmain'><b> Total Transaksi :  </b></h4></td>
