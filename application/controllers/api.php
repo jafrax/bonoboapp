@@ -3871,7 +3871,7 @@ class Api extends CI_Controller {
 			*	------------------------------------------------------------------------------
 			*/
 			$isProductValid = true;
-			for($p=1;$p<= (float) $this->response->postDecode("cart_products");$p++){
+			for($p=0;$p<= ((float) $this->response->postDecode("cart_products")) - 1;$p++){
 				if($this->response->post("cart_product".$p) != "" || $this->response->postDecode("cart_product".$p) != ""){
 					$QCartProduct = $this->db->where("id",$this->response->postDecode("cart_product".$p))->get("tb_cart_product")->row();
 					
@@ -3983,7 +3983,7 @@ class Api extends CI_Controller {
 					}
 					
 					$buy_qty = 0;
-					for($v=1;$v<= (float) $this->response->postDecode("cart_product".$p."_varians");$v++){
+					for($v=0;$v<= ((float) $this->response->postDecode("cart_product".$p."_varians")) - 1;$v++){
 						//$this->response->send(array("result"=>0,"message"=>"Varian ".$this->response->postDecode("cart_product".$p."_varian".$v)." -> ".$this->response->postDecode("cart_product".$p."_varian".$v."_quantity"),"messageCode"=>1), true);
 						//$isProductValid = false;
 						//continue;
@@ -4007,7 +4007,7 @@ class Api extends CI_Controller {
 							}
 							
 							$QVarian = $this->db
-									->where("id",$QCartVarian->varian_id)
+									->where("id",$QCartVarian->product_varian_id)
 									->get("tb_product_varian")
 									->row();
 									
@@ -4030,7 +4030,7 @@ class Api extends CI_Controller {
 					}
 					
 					if($QProduct->min_order > $buy_qty){
-						$this->response->send(array("result"=>0,"message"=>"Jumlah pembelian kurang dari minimal order [21]","messageCode"=>21), true);
+						$this->response->send(array("result"=>0,"message"=>"Jumlah pembelian \"".$QProduct->name."\" [".$this->response->postDecode("cart_product".$p."_varians")." varians] kurang dari minimal order (Min/Buy : ".$QProduct->min_order."/".$buy_qty.") -> [21]","messageCode"=>21), true);
 						$isProductValid = false;
 						continue;
 					}
