@@ -29,17 +29,17 @@ echo "
 </div>
 
 <div id='add_kategori' class='modal confirmation'>	
-	<div class='modal-header red'>
+	<div class='modal-header teal'>
 		<i class='mdi-content-add-box left'></i> Tambah kategori
 	</div>	
 	<form role='form' class='modal-content' id='form_add_kategori'>
+		<span for='nama_kategori'>Nama kategori <span class='text-red'>*</span></span>
 		<input id='id-toko' name='nama' type='hidden' value='".$_SESSION['bonobo']['id']."' >
 		<input id='nama_kategori' name='nama_kategori' type='text' class='validate' required>
-		<label for='nama_kategori'>Nama kategori <span class='text-red'>*</span></label>	
-		<label class='error error-chosen' for='nama_kategori'></label>
+		<label class='error error-chosen' for='nama_kategori'></label>		
 	<div class='modal-footer'>		
-		<button type='button' id='tambah-kategori' onclick=javascript:tambah_kategori() class='waves-effect lighten-2 btn-flat white-text add-kateg waves-light teal'>TAMBAH</button>
-		<a href='javascript:void(0)'  class='modal-action modal-close waves-effect red btn-flat white-text waves-light'>TUTUP</a>
+		<button type='button' id='tambah-kategori' onclick=javascript:tambah_kategori() class='btn waves-effect lighten-2 btn-flat white-text add-kateg waves-light teal'>TAMBAH</button>
+		<a href='javascript:void(0)'  class='btn modal-action modal-close waves-effect red btn-flat white-text waves-light'>TUTUP</a>
 	</div>
 	</form>
 </div>
@@ -57,6 +57,7 @@ echo "
 						</div>
 						<div class='row formbody'>
 							<div class='col s12'>
+								<br>
 								<div class='input-field col s12'>
 									<input id='nama_barang' name='nama' type='text' placeholder='Ex : Baju Bonobo' maxlength='50' class='validate' length='50' required>
 									<label for='nama_barang'>Nama Barang <span class='text-red'>*</span></label>
@@ -84,11 +85,9 @@ echo "
 								<div class='input-field col s12 m6'>
 									<a href='#add_kategori' onclick=javascript:reset_cat() class='btn-flat right modal-trigger'><b class='blue-text'><i class='mdi-content-add-box left'></i>BUAT KATEGORI BARU</b></a>
 								</div>
-								<div class='input-field col s12 m8'>
-									<i class='grey-text'><b>Ukuran Maks</b> : 1 MB.</i><br>
-									<i class='grey-text'><b>Format</b> : .jpg, .png.</i>
-								</div>
+								
 								<div class='input-field col s12'>
+									<span>Image Produk</span>
 									<div class='picture-area'>
 										<div class='col s6 m3 l2' id='div_pic_1'>
 											<div class='card' >
@@ -97,8 +96,8 @@ echo "
 													<img id='img_pic_1' onclick=javascript:click_picture('pic_1') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
 													<input type='file' class='pic_product' name='pic_1' id='pic_1' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
 												</div>
-												<label for='pic_1' class='error error-image' generated='true'></label>										
-											</div>										
+																						
+											</div><label for='pic_1' class='error error-image' generated='true'></label>										
 										</div>
 										<div class='col s6 m3 l2' id='div_pic_2'>
 											<div class='card' >
@@ -107,8 +106,8 @@ echo "
 													<img id='img_pic_2' onclick=javascript:click_picture('pic_2') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
 													<input type='file' class='pic_product' name='pic_2' id='pic_2' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
 												</div>
-												<label for='pic_2' class='error error-image' generated='true'></label>										
-											</div>										
+																					
+											</div><label for='pic_2' class='error error-image' generated='true'></label>											
 										</div>
 										<div class='col s6 m3 l2' id='div_pic_3'>
 											<div class='card' >
@@ -117,8 +116,8 @@ echo "
 													<img id='img_pic_3' onclick=javascript:click_picture('pic_3') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
 													<input type='file' class='pic_product' name='pic_3' id='pic_3' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
 												</div>
-												<label for='pic_3' class='error error-image' generated='true'></label>										
-											</div>										
+																						
+											</div><label for='pic_3' class='error error-image' generated='true'></label>										
 										</div>
 										<div class='col s6 m3 l2' id='div_pic_4'>
 											<div class='card' >
@@ -127,8 +126,8 @@ echo "
 													<img id='img_pic_4' onclick=javascript:click_picture('pic_4') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
 													<input type='file' class='pic_product' name='pic_4' id='pic_4' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
 												</div>
-												<label for='pic_4' class='error error-image' generated='true'></label>										
-											</div>										
+																						
+											</div><label for='pic_4' class='error error-image' generated='true'></label>										
 										</div>
 										<div class='col s6 m3 l2' id='div_pic_5'>
 											<div class='card' >
@@ -137,14 +136,18 @@ echo "
 													<img id='img_pic_5' onclick=javascript:click_picture('pic_5') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
 													<input type='file' class='pic_product' name='pic_5' id='pic_5' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
 												</div>
-												<label for='pic_5' class='error error-image' generated='true'></label>										
-											</div>										
+																						
+											</div><label for='pic_5' class='error error-image' generated='true'></label>										
 										</div>
 
 									</div>
 									<!--<a id='add-poto' class='btn-flat left' onclick=javascript:add_picture()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH GAMBAR</b></a>-->
 								</div>
 								<input type='hidden' name='total_picture' id='total_picture' value='5'/>
+								<div class='input-field col s12 m8'>
+									<span class='grey-text'><b>Ukuran Maks</b> : 1 MB.</span><br>
+									<span class='grey-text'><b>Format</b> : .jpg, .png.</span>
+								</div>
 
 								<div class='input-field col s12'>
 									<input id='perkiraan_berat' placeholder='0.00' type='text' name='berat' class='validate' maxlength='9'>
@@ -166,7 +169,7 @@ echo "
 							</div>
 							
 							<div class='row formbody'>
-								<div class='linehead'></div>
+								<div class='linehead'>VARIAN BARANG</div>
 								<div class=' col s12 m6' name='stok' id='stokPr' required OnChange=javascript:change_stokPr() >
 								</div>
 								<div class='input-field col s12 m12'>
@@ -177,17 +180,17 @@ echo "
 								<ul class='col s12 m12 cek-stok' id='tempat-varian' style='display:none'>
 									<li class='varsto nolmar' id='li_varian_1'>
 										<div class='input-field col s12 m5'>
+											<span for='varian'>Varian <span class='text-red'>*</span></span>
 											<input id='varian' name='nama_varian_1' type='text' maxlength='30' placeholder='Ex : Merah' class='validate' >
-											<label for='varian'>Varian <span class='text-red'>*</span></label>
 										</div>
 										
 										
 										<div class='input-field col s1 m1' >
-											<a onclick=javascript:deleteVarian('li_varian_1'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
+											<a onclick=javascript:deleteVarian('li_varian_1'); class='btn-floating waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
 										</div>
 									</li>
 								</ul>
-								<ul class='col s12 m12 cek-stok' style='display:none'>								
+								<ul class='col s12 m12 cek-stok nolmar nolpad' style='display:none'>								
 									<li class='input-field col s12 m12'>
 										<a class='btn-flat left' id='add-varian' onclick=javascript:addVarianPr()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
 									</li>
@@ -221,40 +224,40 @@ echo "
 								<ul class='col s12 m12'>
 									<li class='varsto' style='display:$a1'>
 										
-										<div class='input-field col s12 m6'>
+										<div class='input-field col s12 m6 nolmar nolpad'>
 											<input id='harga_level_1' maxlength='11' name='harga_level_1' type='text' placeholder='0' class='validate ribuan' required>
 											<label for='harga_level_1'>Harga "; if ($level_harga->level_1_name != '') {echo $level_harga->level_1_name;}else{echo "level 1";} echo" <span class='text-red'>*</span></label>
 										</div>
 									</li>
 									<li class='varsto' style='display:$a2'>
-										<div class='input-field col s12 m6'>
+										<div class='input-field col s12 m6 nolmar nolpad'>
 											<input id='harga_level_2' maxlength='11' name='harga_level_2' type='text' placeholder='0' class='validate ribuan' >
 											<label for='harga_level_2'>Harga "; if ($level_harga->level_2_name != '') {echo $level_harga->level_2_name;}else{echo "level 2";} echo"</label>
 										</div>
 									</li>
 									<li class='varsto' style='display:$a3'>
-										<div class='input-field col s12 m6'>
+										<div class='input-field col s12 m6 nolmar nolpad'>
 											<input id='harga_level_3' maxlength='11' name='harga_level_3' type='text' placeholder='0' class='validate ribuan' >
 											<label for='harga_level_3'>Harga "; if ($level_harga->level_3_name != '') {echo $level_harga->level_3_name;}else{echo "level 3";} echo"</label>
 										</div>
 									</li>
 									<li class='varsto' style='display:$a4'>
-										<div class='input-field col s12 m6'>
+										<div class='input-field col s12 m6 nolmar nolpad'>
 											<input id='harga_level_4' maxlength='11' name='harga_level_4' type='text' placeholder='0' class='validate ribuan' >
 											<label for='harga_level_4'>Harga "; if ($level_harga->level_4_name != '') {echo $level_harga->level_4_name;}else{echo "level 4";} echo"</label>
 										</div>
 									</li>
 									<li class='varsto' style='display:$a5'>
-										<div class='input-field col s12 m6'>
+										<div class='input-field col s12 m6 nolmar nolpad'>
 											<input id='harga_level_5' maxlength='11' name='harga_level_5' type='text' placeholder='0' class='validate ribuan' >
 											<label for='harga_level_5'>Harga "; if ($level_harga->level_5_name != '') {echo $level_harga->level_5_name;}else{echo "level 5";} echo"</label>
 										</div>
 									</li>
 								</ul>
 								<div class='input-field col s12 m12 varsto'>
-									<button class='btn waves-effect waves-light right col s12 m3' type='submit' value='1' name='action'>Simpan<i class='mdi-content-send right'></i></button>																		
-									<button class='btn waves-effect waves-light yellow darken-3 right col s12 m3' value='0' type='submit' name='action'>Simpan Draft<i class='mdi-content-drafts right'></i></button>
-									<button class='btn waves-effect waves-light red right col s12 m3' type='button' name='action' onclick='location.href=\"".base_url()."produk/pre_order\"'>Batal<i class='mdi-content-clear right'></i></button>
+									<button class='btn waves-effect waves-light right col s12 m3' type='submit' value='1' name='action'>Simpan</button>																		
+									<button class='btn waves-effect waves-light deep-orange right col s12 m3' value='0' type='submit' name='action'>Simpan Draft</button>
+									<button class='btn waves-effect waves-light red right col s12 m3' type='button' name='action' onclick='location.href=\"".base_url()."produk/pre_order\"'>Batal</button>
 								</div>
 							</div>
 						</div>
