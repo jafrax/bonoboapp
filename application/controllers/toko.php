@@ -338,6 +338,16 @@ class Toko extends CI_Controller {
 	}
 	
 	public function doStep1Save(){
+		
+		$username = $_REQUEST['txtTagname'];
+		$cek=$this->db->where('tag_name',$username)->where('email !=',$_SESSION['bonobo']['email'])->get('tb_toko');
+		
+		if($cek->num_rows()>0){
+			$valid = "false";
+		}else{
+			//$valid = "true";
+		//}
+		
 		/*if($this->response->post("txtName") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Field nama masih kosong","messageCode"=>1));
 			return;
@@ -367,6 +377,9 @@ class Toko extends CI_Controller {
 			$this->response->send(array("result"=>0,"message"=>"Field kecamatan masih kosong","messageCode"=>1));
 			return;
 		}*/
+		
+		
+		
 		
 		$QCategory = $this->model_category->get_by_id($this->response->post("cmbCategory"))->row();
 		if(!empty($QCategory)){
@@ -476,7 +489,7 @@ class Toko extends CI_Controller {
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Informasi tidak dapat disimpan","messageCode"=>1));
 			}
-		
+		}	
 	}
 	
 	public function doStep7CourierSave(){
