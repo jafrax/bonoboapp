@@ -165,7 +165,7 @@ header,section,content,footer{ width:100%; }
 .formhead p{ padding:0 0 5px 0; }
 .formhead .pesan{ margin:15px 0 5px 0; }
 .titmain{ font-size:18px; color: #565a5c; margin:0; line-height:40px; }
-.titmain{ font-family: "trumpgoteasbol"; font-size:32px; font-weight: bold; }
+.titmain{ font-family: "trumpgoteasbol"; font-size:30px; font-weight: bold; }
 
 .formbody{ padding:15px 15px 0 15px; color:#565a5c!important; min-height: 500px;}
 .formbody .input-field label{ color:#565a5c; }
