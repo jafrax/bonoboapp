@@ -67,7 +67,7 @@ echo"
 						<a id='aShopLogoDelete' class='delimg'><i class='mdi-navigation-close right'></i></a>
 						<div class='card-image waves-effect waves-block waves-light'>
 							<img id='imgShopLogo' src='".$ShopImage."' class='responsive-img circle-logo' style='cursor:pointer; width:100%;height: auto;'>
-							<input id='txtShopLogoFile' name='txtShopLogoFile' type='file' style='display:none;height: auto;' data-type='image' class='txtShopLogoFile'>
+							<input id='txtShopLogoFile' name='txtShopLogoFile' type='file' style='display:none;height: auto;' data-type='image' autofocus class='txtShopLogoFile'>
 							<span id='untukgambar' style='color:red;'></span>
 						</div>
 					</div>

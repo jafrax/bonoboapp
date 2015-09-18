@@ -3,7 +3,7 @@ echo "
 				<div class='col s12 m12 l12'>
 					<div class='formain'>
 						<div class='formhead'>
-							<h2 class='titmain'><b>Pemesanan Pre Order</b></h2>
+							<h2 class='titmain'><b>PEMESANAN PRE ORDER</b></h2>
 						</div>
 						<div class='row formbody'>
 							<div class='col s12 m12'>
@@ -29,7 +29,7 @@ echo "
 												<span class='red-text' id='counter-".$row->id."'>$count Belum Selesai</span>										
 											</div>
 											<div class='col s12'>
-												<p>";
+												<p class='colink'>";
 												if ($count > 0) {
 													echo "<a onclick=javascript:all_done(".$row->id.") id='btn-selesai-".$row->id."' class='right'>Selesai Semua »</a> ";
 												}												
@@ -49,11 +49,11 @@ echo "
 									echo"
 									
 								</ul>
-								<center>
-										<h3><br></h3>
-										<img id='preloader' src='".base_url()."html/images/comp/loading.GIF' style='display:none' /><br>
-										<label id='habis' class='green-text' style='display:none'>Semua produk telah ditampilkan</label>							
-									</center>
+								<div class='col s12' align='center'>
+									<h3><br></h3>
+									<img id='preloader' src='".base_url()."html/images/comp/loading.GIF' style='display:none' /><br>
+									<label id='habis' class='green-text' style='display:none'>Semua produk telah ditampilkan</label>							
+								</div>
 							</div>							
 						</div>
 					</div>

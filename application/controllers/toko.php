@@ -67,13 +67,23 @@ class Toko extends CI_Controller {
 
 	public function rules_pin(){
 		$username = $_REQUEST['txtTagname'];
+		$valid = "true";		
 	    $cek=$this->db->where('tag_name',$username)->get('tb_toko');
 
 	    if($cek->num_rows()>0){
 			$valid = "false";
 	    }else{
+
+ 			$cek2=$this->db->where('tag_name',$username)->where('id',$_SESSION['bonobo']['id'])-> get('tb_toko');
+ 			
+ 			if($cek2->num_rows()>0){
+
+			$valid = "false";
+
+				}else{
+
 			$valid = "true";
-	    }
+	    } }
 	    echo $valid;
 	}
 	
@@ -339,19 +349,18 @@ class Toko extends CI_Controller {
 	
 	public function doStep1Save(){
 		
-			$username = $_REQUEST['txtTagname'];
+		/*$username = $_REQUEST['txtTagname'];
 		$cek=$this->db->where('tag_name',$username)->get('tb_toko');
 		
-		$cek2=$this->db->where('tag_name',$username)->get('tb_toko');
-		
 		if($cek->num_rows()>0){
-			$valid = "true ";
-			
-		}elseif ($cek2->num_rows() > 0 ){
 			$valid = "false";
 			$this->response->send(array("result"=>0,"message"=>"PIN TOKO tidak tersedia","messageCode"=>1));
 		}else{
-			$valid = "true";
+			$step=$_SESSION['bonobo']['step'];
+			if($step != 0){
+			$update = $this->db->where('tag_name',$_SESSION['bonobo']['id'])->set('step',2)->update('tb_toko');
+			}
+		}
 		//}
 		
 		/*if($this->response->post("txtName") == ""){
@@ -409,7 +418,7 @@ class Toko extends CI_Controller {
 			}else{
 				$Location = null;
 			}
-		}
+		
 					
 			
 			$UploadPath    = 'assets/pic/shop/';
@@ -422,7 +431,9 @@ class Toko extends CI_Controller {
 				$Unggah = "";
 
 				$this->response->send(array("result"=>0,"message"=>"Ukuran gambar maksimum 1 Mb ! ","messageCode"=>1));
+
 				return;
+				redirect("toko/");
 			}else{
 				$Unggah=$Upload;
 				$_SESSION['bonobo']['image'] = $Unggah;
@@ -897,7 +908,7 @@ class Toko extends CI_Controller {
                       
                 $Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
                 if($Save){                     
-                        $this->response->send(array("result"=>1,"message"=>"Dsdata telah disimpan","messageCode"=>0));                 
+                        $this->response->send(array("result"=>1,"message"=>"Data telah disimpan","messageCode"=>0));                 
                 }else{
                         $this->response->send(array("result"=>0,"message"=>"Data tidak dapat disimpan","messageCode"=>0));
                 }
@@ -921,7 +932,7 @@ class Toko extends CI_Controller {
 	public function comboboxKecamatan(){
 		//$Kecamatans = $this->model_location->get_kecamatans_by_city_province($this->response->post("city"),$this->response->post("province"),$this->response->post("zip_code"))->result();
 		$Kecamatans = $this->model_toko->get_kecamatan($this->input->post("kota"))->result();
-		echo"<select name='cmbKecamatan' id='tkecamatan' class='selectize cmbKecamatan'><option value='' disabled selected>Pilih Kecamatan</option>";
+		echo"<select name='cmbKecamatan' id='tkecamatan' onchange=javacript:set_location() class='selectize cmbKecamatan'><option value='' disabled selected>Pilih Kecamatan</option>";
 
 		foreach($Kecamatans as $Kecamatan){
 			echo"<option value='".$Kecamatan->kecamatan."' >".$Kecamatan->kecamatan."</option>";

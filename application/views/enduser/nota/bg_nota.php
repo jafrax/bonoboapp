@@ -122,7 +122,7 @@ echo"
 										$image = $this->model_nota->get_image($row->member_id);
 
 							            if ($image->row()->image != '') {
-							            	echo "<img src='".base_url()."assets/pic/user/resize/".$image->row()->image."' alt='' class='circle responsive-img col'> ";
+							            	echo "<img src='".base_url()."assets/pic/user/resize/".$image->row()->image."' alt='' class=' responsive-img col'> ";
 							            }else{
 							            	echo "<img src='html/images/comp/male.png' alt='' class=' responsive-img col'> ";
 							            }

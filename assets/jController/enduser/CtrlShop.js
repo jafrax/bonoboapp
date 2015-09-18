@@ -140,7 +140,7 @@ function CtrlShopStep1(){
 					minlength:3,
 					maxlength:15,
 					noSpace:true,
-					remote: base_url+"toko/rules_pin"
+					//remote: base_url+"toko/rules_pin"
 
 				},
 				txtDescription:{
@@ -178,7 +178,7 @@ function CtrlShopStep1(){
 					required: message_alert("Harus diisi"),
 					minlength: message_alert("Masukkan minimal 3 karakter"),
 					maxlength: message_alert("Masukkan maksimal 15 karakter"),
-					remote: message_alert('PIN TOKO tidak tersedia'),
+					//remote: message_alert('PIN TOKO tidak tersedia'),
 				},
 				txtPhone:{
 					maxlength: message_alert("Masukkan maksimal 15 karakter"),
@@ -201,7 +201,7 @@ function CtrlShopStep1(){
 	
 	function doNext(){
 			var formData = new FormData($hs("formStep1"));
-		if(!formStep1JQuery.valid()){
+			if(!formStep1JQuery.valid()){
 			var tot_picture = 1;
 			tot_picture = tot_picture+1;    
     var hitung = $('.picture-area .card').length;
@@ -492,7 +492,7 @@ function CtrlShopStep7(){
 		sequence = sequence+2;
 
 		
-		div.innerHTML = "<div id='divCourier"+sequence+"' class='input-field col s12 m12 counter'><div class='input-field col s12 m12 l6'><input type='hidden' id='txtCourierId"+sequence+"' name='txtCourierId1'><input class='hitung' type='text' id='txtCourierName"+sequence+"' name='txtCourierName1' maxlength='20' minlength='5'><label for='txtCourierName"+sequence+"'>Nama Kurir</label></div><div class='input-field col s12 m12 l6'><button type='button' class='waves-effect waves-light btn  ' onclick=ctrlShopStep7.doCourierSave("+sequence+");><i class='material-icons left'>library_add</i> Simpan</button> <button class='waves-effect waves-light btn red' type='button' onclick=ctrlShopStep7.doCourierDelete("+sequence+");><i class='mdi-action-delete left'></i>Hapus</button> <button type='button' class='waves-effect waves-light btn blue' id='aCourierDetail"+sequence+"'  onclick=ctrlShopStep7.showDetail("+sequence+"); style='display:none;'><i class='material-icons left'>list</i>Detail</button> </div></div>";
+		div.innerHTML = "<div id='divCourier"+sequence+"' class='input-field col s12 m12 counter'><div class='input-field col s12 m12 l6'><input type='hidden' id='txtCourierId"+sequence+"' name='txtCourierId1'><input class='hitung' type='text' id='txtCourierName"+sequence+"' name='txtCourierName1' maxlength='20' minlength='5'><label for='txtCourierName"+sequence+"'>Nama Kurir</label></div><div class='input-field col s12 m12 l6'><button type='button' class='waves-effect waves-light btn-floating' onclick=ctrlShopStep7.doCourierSave("+sequence+");><i class='material-icons left'>check</i> Simpan</button> <button class='waves-effect waves-light btn-floating red' type='button' onclick=ctrlShopStep7.doCourierDelete("+sequence+");><i class='mdi-navigation-close left'></i>Hapus</button> <button type='button' class='waves-effect waves-light btn-floating blue' id='aCourierDetail"+sequence+"'  onclick=ctrlShopStep7.showDetail("+sequence+"); style='display:none;'><i class='material-icons left'>list</i>Detail</button> </div></div>";
 		
 		divCustomCourier.append(div);
 		txtCustomeCourierCount.value = sequence;
