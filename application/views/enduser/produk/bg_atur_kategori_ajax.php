@@ -11,9 +11,9 @@ if ($kategori->num_rows() == 0) {
 		$count = $this->model_produk->count_product_by_category($row->id);
 		echo"									
 		<li class='col s12 listanggonew' id='kategori-".$row->id."'>
-			<div class='col s12 m7'><p><b>".$row->name."</b> <i> $count Produk</i></p>
+			<div class='col s12 m12 l6'><p><b>".$row->name."</b> <b class='green-text'> $count Produk</b></p>
 			</div>
-			<div class='col s12 m5'>
+			<div class='col s12 m12 l6'>
 				<a href='#delete_kategori_".$row->id."' class='modal-trigger btn-flat right'><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>
 				<a href='#edit_kategori_".$row->id."' onclick=javascript:set_rules(".$row->id.") class='modal-trigger btn-flat right'><b class='blue-text'><i class='mdi-editor-border-color left'></i>Edit</b></a>
 				<div id='delete_kategori_".$row->id."' class='modal confirmation'>
