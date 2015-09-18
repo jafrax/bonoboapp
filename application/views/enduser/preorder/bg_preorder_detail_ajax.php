@@ -17,9 +17,9 @@
 												$image = $this->model_preorder->get_image($row->member_id);
 
 									            if ($image->row()->image != '') {
-									            	echo "<img src='".base_url()."assets/pic/user/resize/".$image->row()->image."' alt='' class='circle responsive-img col'> ";
+									            	echo "<img src='".base_url()."assets/pic/user/resize/".$image->row()->image."' alt='' class=' responsive-img col'> ";
 									            }else{
-									            	echo "<img src='".base_url()."html/images/comp/male.png' alt='' class='circle responsive-img col'> ";
+									            	echo "<img src='".base_url()."html/images/comp/male.png' alt='' class=' responsive-img col'> ";
 									            }
 									              echo"								              	
 								            </div>

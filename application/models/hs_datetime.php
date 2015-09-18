@@ -404,11 +404,18 @@ class hs_datetime extends CI_Model {
 	*/
 	
 	public function countDate($beginDate=null,$endDate){
-		$timeDiff = abs($endDate - $beginDate);
-		$numberDays = $timeDiff/86400;  // 86400 seconds in one day
+		$begin = new DateTime( $beginDate );
+		$end = new DateTime( $endDate );
+		$end = $end->modify( '+1 day' ); 
+		$long = -1;
 
-		$numberDays = ceil($numberDays);
-		return $numberDays;
+		$interval = new DateInterval('P1D');
+		$daterange = new DatePeriod($begin, $interval ,$end);
+
+		foreach($daterange as $date){
+			$long++;
+		}
+		return $long;
 	}
 }
 ?>

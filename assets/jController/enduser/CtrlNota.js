@@ -1,5 +1,5 @@
 // Created by : dinarwahyu13@gmail.com
-
+//modif by : saifudin
 
 /*
 * MAIN SCROOL AJAX
@@ -118,30 +118,35 @@ function batal_nota(id){
 function go_konfirm(){
 	 var total_nota    = $('#total-nota').val();
 	  var option        = $('#option-go').val();
-	 /* var a = 0;
+	
+	  //console.log(total_nota);
+		 
+	   var a = 0;
 	  for (var i = 1 ; i <= total_nota; i++) {
-	    if ($('#cek-1-'+i).is(":checked")) {
+	    if ($('#cek-nota-'+i).is(":checked")) {
 	      a++;
 	    }   
-	    if (i == total_nota) {if (a == 0) {Materialize.toast('Tidak ada produk yang dipilih', 2000);return;}}; 
-	  } */
+	    if (i == total_nota) {if (a == 0) {
+	    	Materialize.toast('Tidak ada produk yang dipilih', 2000);return;
+	    	}else{
+	    		
+	    		  if (option == 1 ) {    
+	  			    $('#tipe-go').html('Apakah Anda yakin ingin menghapus');
+	  			    $('#head-go').html('Hapus');
+	  			    $('#produk_go').openModal();
+	  			  } else if (option == 0 ) {
+	  			    $('#tipe-go').html('Apakah Anda yakin ingin membatalkan');
+	  			    $('#head-go').html('Batal');
+	  			    $('#produk_go').openModal();
+	  			  }else if (option == 2){
+	  				  Materialize.toast('Tidak ada produk yang dipilih', 2000);
+	  			  }
+	    		
+	    	}
+	    }; 
+	  } 
 	  
-	  
-	  	
-	  if (option == 1 & total_nota > 0) {    
-	    $('#tipe-go').html('Apakah Anda yakin ingin menghapus',total_nota);
-	    $('#head-go').html('Hapus');
-	    $('#produk_go').openModal();
-	  } else if (option == 0 & total_nota > 0 ) {
-	    $('#tipe-go').html('Apakah Anda yakin ingin membatalkan');
-	    $('#head-go').html('Batal');
-	    $('#produk_go').openModal();
-	  }else if (option == 2){
-		  Materialize.toast('Tidak ada produk yang dipilih', 2000);
-	  }
-
-	  
-	}
+	 }
 
 function go(){
 
