@@ -287,12 +287,12 @@ echo"
 							}
 							echo "
 							</div>
-							<center class='col s12 m12 l12 '>
+							<div class='col s12' align='center'>
 								<h5><br></h5>
 								<input type='hidden' id='uri' value='$uri3'>
 								<img id='preloader' src='".base_url()."html/images/comp/loading.GIF' style='display:none' /><br>
 								<label id='habis' class='green-text' style='display:none'>Semua produk telah ditampilkan</label>							
-							</center>
+							</div>
 						</ul>
 					</div>
 				</div>

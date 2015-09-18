@@ -20,7 +20,7 @@
 												<span class='red-text' id='counter-".$row->id."'>$count Belum Selesai</span>										
 											</div>
 											<div class='col s12'>
-												<p>";
+												<p class='colink'>";
 												if ($count > 0) {
 													echo "<a onclick=javascript:all_done(".$row->id.") id='btn-selesai-".$row->id."' class='right'>Selesai Semua »</a> ";
 												}												

@@ -248,11 +248,11 @@ echo"
 							}
 							echo "
 							</div>
-							<center>
+							<div class='col s12' align='center'>
 								<h3><br></h3>
 								<img id='preloader' src='".base_url()."html/images/comp/loading.GIF' style='display:none' /><br>
 								<label id='habis' class='green-text' style='display:none'>Semua produk telah ditampilkan</label>							
-							</center>
+							</div>
 						</ul>
 					</div>
 				</div>
