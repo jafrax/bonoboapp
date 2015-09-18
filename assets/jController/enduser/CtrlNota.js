@@ -6,7 +6,7 @@
 */
 var offset=5;
 var scrolling=true;
-
+var idbarang=0;
 $(window).scroll(function () {      
         if ($(window).scrollTop() == ( $(document).height() - $(window).height()) && scrolling==true) {
             $('#preloader').slideDown();
@@ -87,7 +87,8 @@ function cek_all_nota(){
     $('.cek_nota').prop('checked',false);
   }
 }
-function batal_nota(id){
+function batal_nota(){
+	id=idbatal;
     $('#btn-batal-'+id).html('loading...');
     $('#btn-batal-'+id).fadeTo('slow',0.5);
     var cek = 0;
@@ -111,6 +112,44 @@ function batal_nota(id){
         } 
     });
 
+}
+
+
+function bayarnota(e){
+	 $('#bayarnota').openModal();
+	}
+
+
+function batalnota(e){
+	idbatal=0;
+	
+	$('#idbatal').append("<input type=checkbox class=filled-in id=batal-cek-"+e+" /><label  for=batal-cek-"+e+" />Kembalikan stok?</label>");
+	$('#proses').append("<button type=button onclick=javascript:batal_nota("+e+") class=btn-flat modal-action modal-close waves-effect >YA</button>");
+	$('#batalnota').openModal();
+	idbatal=e; 
+	 }
+
+function delitem(e){
+	 idbarang=0;
+	 $('#id').html(e);
+	 $('#head-del').html('Hapus');
+	 $('#delete_nota').openModal();
+	 idbarang=e;
+	}
+
+function delete_nota(){
+	id=idbarang;
+    $.ajax({
+        type: 'POST',
+        data: 'id='+id,
+        url: base_url+'nota/nota_delete',
+        success: function(msg) {
+            if (msg == 1) {             
+                $('#nota-'+id).fadeOut().remove();
+                Materialize.toast('Nota telah dihapus', 4000);
+            };              
+        } 
+    });
 }
 
 
@@ -393,19 +432,7 @@ function change_flagger(){
     };
 }
 
-function delete_nota(id){
-    $.ajax({
-        type: 'POST',
-        data: 'id='+id,
-        url: base_url+'nota/nota_delete',
-        success: function(msg) {
-            if (msg == 1) {             
-                $('#nota-'+id).fadeOut().remove();
-                Materialize.toast('Nota telah dihapus', 4000);
-            };              
-        } 
-    });
-}
+
 
 function delete_nota2(id){
     $.ajax({
@@ -421,6 +448,9 @@ function delete_nota2(id){
         } 
     });
 }
+
+
+
 
 
 (function() {   

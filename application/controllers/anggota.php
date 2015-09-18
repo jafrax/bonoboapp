@@ -412,8 +412,11 @@ class Anggota extends CI_Controller {
 			}
 			
 			$Delete = $this->db->where("toko_id",$_SESSION['bonobo']['id'])->where("member_id",$QMember->id)->delete("tb_toko_member");
+			//setelah member di hapus harus hapus historynya
+			$deljoin=$this->db->where("toko_id",$_SESSION['bonobo']['id'])->where("member_id",$QMember->id)->delete("tb_join_in");
+			$delchart=$this->db->where("toko_id",$_SESSION['bonobo']['id'])->where("member_id",$QMember->id)->delete("tb_cart");
+			$delfavorit=$this->db->where("member_id",$QMember->id)->delete("tb_favorite");
 			
-			$del=$this->db->where("toko_id",$_SESSION['bonobo']['id'])->where("member_id",$QMember->id)->delete("tb_join_in");
 			
 			if($Delete){
 				

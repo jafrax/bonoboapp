@@ -16,6 +16,20 @@ echo"
 	</div>
 </div>		
 		
+		
+												<!-- hapus -->
+												<div id='delete_nota' class='modal confirmation'>
+													<div class='modal-header red'>
+														<i class='mdi-navigation-close left'></i> <span id='head-del'> produk
+													</div>
+													<form class='modal-content'><p>Apakah anda yakin ingin menghapus nota ?</p>
+													</form>
+													<div class='modal-footer'>														
+														<button type='button' onclick=javascript:delete_nota() class='btn-flat modal-action modal-close waves-effect '>YA</button>
+														<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
+													</div>
+												</div>		
+		
 		<div class='col s12 m12 l12'>
 					<div class='formain'>
 						<div class='formhead'>
@@ -130,7 +144,7 @@ echo"
 							            	<div class='col s12 m12'>";
 							            		$old_date 	= $row->create_date;
 												$old_date_timestamp = strtotime($old_date);
-												$date 		= date('d M Y, H.i', $old_date_timestamp);
+												$date 		= date('d M Y');
 												
 												$ago 		= $this->template->xTimeAgoDesc($old_date,date('Y-m-d H:i:s'));
 							            		echo"
@@ -152,28 +166,28 @@ echo"
 											if ($row->status != 2) {
 												if ($row->status != 1) {
 													echo"
-												<button id='btn-bayar-".$row->id."' data-target='bayar-".$row->id."' class='btn modal-trigger waves-effect orange darken-1 white-text waves-light right' type='button' name='action'>Bayar</button>";
+												<button href='javascript:void(0);' onclick=bayarnota(".$row->id.");   class='btn modal-trigger waves-effect orange darken-1 white-text waves-light right' type='button' name='action'>Bayar</button>";
 												}
 
-												echo "<button id='btn-batal-".$row->id."' data-target='batal_nota_".$row->id."' class='btn modal-trigger waves-effect red white-text waves-light right' type='button' name='action' >Batal</button>";
+												echo "<button href='javascript:void(0);' onclick=batalnota(".$row->id."); class='btn modal-trigger waves-effect red white-text waves-light right' type='button' name='action' >Batal</button>";
 												
 											echo"												
 								            </div>
-								            <div id='batal_nota_".$row->id."' class='modal confirmation'>
+								            <div id='batalnota' class='modal confirmation'>
 												<div class='modal-header red'>
 													<i class='mdi-navigation-close left'></i> Batal produk
 												</div>
 												<form class='modal-content'>
 													<p>Apakah Anda yakin ingin membatalkan pesanan?</p>
-													<p><input type='checkbox' class='filled-in' id='batal-cek-".$row->id."'  />
-      												<label for='batal-cek-".$row->id."'>Kembalikan stok?</label></p>
+													<p id=idbatal></p>
+													
 												</form>
 												<div class='modal-footer'>
-													<button type='button' onclick=javascript:batal_nota(".$row->id.") class='btn-flat modal-action modal-close waves-effect '>YA</button>
+													<p id=proses >
 													<a class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
 												</div>
 											</div>
-								            <div id='bayar-".$row->id."' class='modal  modal-fixed-footer'>
+								            <div id='bayarnota' class='modal  modal-fixed-footer'>
 												<div class='modal-header red'>
 													<i class='mdi-action-label-outline left'></i> Pilih metode transaksi
 												</div>
@@ -242,22 +256,13 @@ echo"
 
 											<p class='tool col s12 m5'>
 												<!-- hapus nota -->
-													<a href='#delete_nota_".$row->id."' class='modal-trigger red-text right '><i class='mdi-action-delete col s1 small'></i></a>
+													<!-- <button type='button' class='waves-effect waves-light btn-floating red' href='javascript:void(0);' onclick=delitem.idrow(".$row->id.");><i class='mdi-navigation-close left'></i>Hapus</button> -->
+													
+												<a class='modal-trigger red-text right' onclick=delitem(".$row->id."); ><i class='mdi-action-delete col s1 small'></i></a>
 											
-															<!--<a href='".base_url()."message/kirim/".base64_encode($row->member_email)."/".base64_encode($row->member_name)."' class=' red-text right '><i class='mdi-content-mail col s1 small'></i></a>-->
+												<!--<a href='".base_url()."message/kirim/".base64_encode($row->member_email)."/".base64_encode($row->member_name)."' class=' red-text right '><i class='mdi-content-mail col s1 small'></i></a>-->
 												<a href='".base_url()."nota/cetak/".$row->invoice_no."' onclick='window.open(\"".base_url()."nota/cetak/".$row->invoice_no."\", \"newwindow\", \"width=800, height=600\"); return false;' class=' red-text right '><i class='mdi-action-print col s1 small'></i></a>
-												<div id='delete_nota_".$row->id."' class='modal confirmation'>
-													<div class='modal-header red'>
-														<i class='mdi-navigation-close left'></i> Hapus produk
-													</div>
-													<form class='modal-content'>
-														<p>Apakah anda yakin ingin menghapus nota dari <b>'".$row->member_name."'</b> ?</p>
-													</form>
-													<div class='modal-footer'>														
-														<button type='button' onclick=javascript:delete_nota(".$row->id.") class='btn-flat modal-action modal-close waves-effect '>YA</button>
-														<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
-													</div>
-												</div>
+												
 											</p>											
 							            </div>
 						          	</div>
