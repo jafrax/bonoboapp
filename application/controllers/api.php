@@ -2316,66 +2316,52 @@ class Api extends CI_Controller {
 					$Save = $this->db->insert("tb_toko_member",$FollowData);
 					
 					if($Save){
-					/*
-						$QJoin = $this->db
-								->where("toko_id",$QShop->id)
-								->where("member_id",$QUser->id)
-								->get("tb_join_in")
-								->row();
-						
-						if(empty($QJoin)){
-					*/
-							$JoinData = array(
-								"toko_id"=>$QShop->id,
-								"member_id"=>$QUser->id,
-								"status"=>1,
-								"create_date"=>date("Y-m-d H:i:s"),
-								"create_user"=>$QUser->email,
-								"update_date"=>date("Y-m-d H:i:s"),
-								"update_user"=>$QUser->email,
-							);
-								
-							$Save = $this->db->insert("tb_join_in",$JoinData);
-						//}
-					
-						$this->response->send(array("result"=>1,"message"=>"Anda telah tergabung dengan toko ini","messageCode"=>5), true);
-					}else{
-						$this->response->send(array("result"=>0,"message"=>"Anda tidak dapat bergabung dengan toko ini","messageCode"=>6), true);
-					}
-				}else{
-				/*
-					$QJoin = $this->db
-							->where("toko_id",$QShop->id)
-							->where("member_id",$QUser->id)
-							->get("tb_join_in")
-							->row();
-						
-					if(empty($QJoin)){
-					*/
-						$Join = array(
+						$JoinData = array(
 							"toko_id"=>$QShop->id,
 							"member_id"=>$QUser->id,
-							"status"=>0,
+							"status"=>1,
 							"create_date"=>date("Y-m-d H:i:s"),
 							"create_user"=>$QUser->email,
 							"update_date"=>date("Y-m-d H:i:s"),
 							"update_user"=>$QUser->email,
 						);
 							
-						$Save = $this->db->insert("tb_join_in",$Join);
+						$Save = $this->db->insert("tb_join_in",$JoinData);
+					
+						$this->response->send(array("result"=>1,"message"=>"Anda telah tergabung dengan toko ini","messageCode"=>5), true);
+					}else{
+						$this->response->send(array("result"=>0,"message"=>"Anda tidak dapat bergabung dengan toko ini","messageCode"=>6), true);
+					}
+				}else{
+					$Join = array(
+						"toko_id"=>$QShop->id,
+						"member_id"=>$QUser->id,
+						"status"=>0,
+						"create_date"=>date("Y-m-d H:i:s"),
+						"create_user"=>$QUser->email,
+						"update_date"=>date("Y-m-d H:i:s"),
+						"update_user"=>$QUser->email,
+					);
 						
-						if($Save){
-							$this->response->send(array("result"=>1,"message"=>"Permintaan bergabung anda telah dikirim","messageCode"=>7), true);
-						}else{
-							$this->response->send(array("result"=>0,"message"=>"Anda tidak dapat bergabung dengan toko ini","messageCode"=>8), true);
-						}
-					//}else{
-						//$this->response->send(array("result"=>1,"message"=>"Permintaan bergabung telah dikirim","messageCode"=>8), true);
-					//}
+					$Save = $this->db->insert("tb_join_in",$Join);
+					
+					if($Save){
+						$this->response->send(array("result"=>1,"message"=>"Permintaan bergabung anda telah dikirim","messageCode"=>7), true);
+					}else{
+						$this->response->send(array("result"=>0,"message"=>"Anda tidak dapat bergabung dengan toko ini","messageCode"=>8), true);
+					}
 				}
 			}else{
+				$Delete = $this->db->where("toko_id",$QShop->id)->where("member_id",$QUser->id)->delete("tb_join_in");
+				$Delete = $this->db->where("toko_id",$QShop->id)->where("member_id",$QUser->id)->delete("tb_cart");
+				$Delete = $this->db
+						->join("tb_product tp","tp.id = tf.product_id")
+						->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
+						->join("tb_toko tt","tt.id = ttcp.toko_id")
+						->where("tt.id",$QShop->id)
+						->where("tf.member_id",$QUser->id)
+						->delete("tb_favorite tf");
 				$Delete = $this->db->where("id",$QFollow->id)->delete("tb_toko_member");
-				$Delete = $this->db->where("member_id",$QUser->id)->delete("tb_join_in");
 				
 				if($Delete){
 					$this->response->send(array("result"=>1,"message"=>"Anda sudah keluar dari keanggotaan toko ini","messageCode"=>9), true);
