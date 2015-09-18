@@ -76,7 +76,7 @@ class Toko extends CI_Controller {
 
  			$cek2=$this->db->where('tag_name',$username)->where('id',$_SESSION['bonobo']['id'])-> get('tb_toko');
  			
- 			if($cek->num_rows()>0){
+ 			if($cek2->num_rows()>0){
 
 			$valid = "false";
 
