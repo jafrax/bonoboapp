@@ -25,6 +25,17 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face{
+    font-family: 'trumpgoteasbol';
+    src: url('../fonts/trumpgoteasbol/trumpgoteasbol.eot');
+    src: url('../fonts/trumpgoteasbol/trumpgoteasbol.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/trumpgoteasbol/trumpgoteasbol.woff') format('woff'),
+         url('../fonts/trumpgoteasbol/trumpgoteasbol.woff2') format('woff'),
+         url('../fonts/trumpgoteasbol/trumpgoteasbol.ttf') format('truetype'),
+         url('../fonts/trumpgoteasbol/trumpgoteasbol.svg#trumpgoteasbol') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 
 /*Style Tag Document*/
 html,* { margin:0; padding:0; -webkit-font-smoothing: antialiased; -webkit-text-stroke:0; }
@@ -72,7 +83,7 @@ header,section,content,footer{ width:100%; }
 
 .nav{ width:100%; height: 40px; border-bottom: 4px solid #ff6600; }
 .navmenu li{ height: 40px; }
-.navmenu li span.badge{ position: relative; margin:0 0 0 20px; padding:3px 6px; background-color: #26a69a;border-radius: 2px;color: #fff; font-size: 15px; font-weight: 300; right: 0px; }
+.navmenu li span.badge{ position: relative; margin:0 0 0 15px; padding:3px 8px; background-color: #26a69a;border-radius: 2px;color: #fff; font-size: 12px; font-weight: bold; right: 0px; top:-2px; }
 .navmenu li a{ height: 40px; line-height:40px; font-size:16px; color:#cacccd; }
 .navmenu li a.active{ border-bottom:4px solid #cacccd; color:#fff; }
 .navmenu.menucontent{ display:none; }
@@ -154,6 +165,7 @@ header,section,content,footer{ width:100%; }
 .formhead p{ padding:0 0 5px 0; }
 .formhead .pesan{ margin:15px 0 5px 0; }
 .titmain{ font-size:18px; color: #565a5c; margin:0; line-height:40px; }
+.titmain{ font-family: "trumpgoteasbol"; font-size:30px; font-weight: bold; }
 
 .formbody{ padding:15px 15px 0 15px; color:#565a5c!important; min-height: 500px;}
 .formbody .input-field label{ color:#565a5c; }
@@ -168,7 +180,7 @@ header,section,content,footer{ width:100%; }
 
 .formbody .listline{ margin:0 0 8px 0; padding:5px 0; box-shadow: 0 1px 0 0 #efefef!important; }
 
-.navthum{ width: 12%!important; float: right!important; }
+.navthum{ width: 50%!important; float: right!important; }
 .navthum li{ float:right; height: 40px; }
 .navthum li i{ font-size:42px; color:#ddd; }
 
@@ -186,6 +198,8 @@ header,section,content,footer{ width:100%; }
 
 .upbottom{ padding:45px 0 90px 0; }
 .title-faq{ font-size:24px; line-height:24px; margin: 8px 0 5px 0; }
+
+.colink a{ margin:0 0 0 5px; font-size: 13px; }
 
 /*FOOTER*/
 .footer{ position:fixed; bottom:0; left:0; }

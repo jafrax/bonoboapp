@@ -4,8 +4,8 @@ echo"
 	<h4>".$Member->name."</h4>
 	<div class='content-pesan' onscroll=javascript:scrollme() style='max-height: 300px; overflow: auto;'>		
 		<!-- <div class='row'><div class='pesanku'><img src='images/comp/male.png'><br>Keterangan Gambar</div></div> -->
-		<div id='loader-message' style='text-align:center;display:none'><img src='".base_url()."html/images/comp/loading.GIF' width='40px'></div>
-		<div id='habis' style='display:none;font-size:12px;text-align:center;margin:20px' class='blue-text'><p >Pesan sudah ditempilkan semua</p></div>
+		<div id='loader-message' style='text-align:center;display:none'><img src='".base_url()."html/images/comp/loading.GIF' ></div>
+		<div id='habis' style='display:none;font-size:12px;text-align:center;margin:20px' class='green-text'><p >Pesan sudah ditempilkan semua</p></div>
 		<div id='message-ajax'>
 ";
 $date = '0000-00-00';
