@@ -3981,20 +3981,10 @@ class Api extends CI_Controller {
 						$isProductValid = false;
 						continue;
 					}
-					
+					$message = "";
 					$buy_qty = 0;
 					for($v=0;$v<= ((float) $this->response->postDecode("cart_product".$p."_varians")) - 1;$v++){
-						//$this->response->send(array("result"=>0,"message"=>"Varian ".$this->response->postDecode("cart_product".$p."_varian".$v)." -> ".$this->response->postDecode("cart_product".$p."_varian".$v."_quantity"),"messageCode"=>1), true);
-						//$isProductValid = false;
-						//continue;
-						
-						if(
-							$this->response->post("cart_product".$p."_varian".$v) != "" && 
-							$this->response->postDecode("cart_product".$p."_varian".$v) != "" && 
-							$this->response->post("cart_product".$p."_varian".$v."_quantity") != "" && 
-							$this->response->postDecode("cart_product".$p."_varian".$v."_quantity") != "" && 
-							$this->response->postDecode("cart_product".$p."_varian".$v."_quantity") != "0"){
-							
+						if($this->response->post("cart_product".$p."_varian".$v) != "" && $this->response->postDecode("cart_product".$p."_varian".$v) != ""){
 							$QCartVarian = $this->db
 									->where("id",$this->response->postDecode("cart_product".$p."_varian".$v))
 									->get("tb_cart_varian")
@@ -4007,26 +3997,31 @@ class Api extends CI_Controller {
 							}
 							
 							$QVarian = $this->db
-									->where("id",$QCartVarian->product_varian_id)
-									->get("tb_product_varian")
-									->row();
-									
+								->where("id",$QCartVarian->product_varian_id)
+								->get("tb_product_varian")
+								->row();
+								
 							if(empty($QVarian)){
 								$this->response->send(array("result"=>0,"message"=>"Varian sudah tidak tersedia [19]","messageCode"=>19), true);
 								$isProductValid = false;
 								continue;
 							}
-							
-							if($QProduct->stock_type == 1 && $QProduct->stock_type_detail == 0){
-								if($QVarian->stock_qty < (float) $this->response->postDecode("cart_product".$p."_varian".$v."_quantity")){
-									$this->response->send(array("result"=>0,"message"=>"Stok tidak mencukupi [20]","messageCode"=>20), true);
-									$isProductValid = false;
-									continue;
+								
+							if($this->response->post("cart_product".$p."_varian".$v."_quantity") != "" && $this->response->postDecode("cart_product".$p."_varian".$v."_quantity") != ""){
+								if($this->response->postDecode("cart_product".$p."_varian".$v."_quantity") != "0"){
+									if($QProduct->stock_type == 1 && $QProduct->stock_type_detail == 0){
+										if($QVarian->stock_qty < intval($this->response->postDecode("cart_product".$p."_varian".$v."_quantity"))){
+											$this->response->send(array("result"=>0,"message"=>"Stok tidak mencukupi [20]","messageCode"=>20), true);
+											$isProductValid = false;
+											continue;
+										}
+									}
+									
+									$buy_qty = $buy_qty + intval($this->response->postDecode("cart_product".$p."_varian".$v."_quantity"));
 								}
 							}
-							
-							$buy_qty = $buy_qty + (float) $this->response->postDecode("cart_product".$p."_varian".$v."_quantity");
 						}
+						
 					}
 					
 					if($QProduct->min_order > $buy_qty){
