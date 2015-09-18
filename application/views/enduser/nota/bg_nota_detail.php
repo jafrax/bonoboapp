@@ -188,7 +188,7 @@ echo "
 									<p>Rp ".number_format($nota->price_item, 0 , ',' , '.')."</p>
 									<p>Rp ".number_format($nota->price_shipment, 0 , ',' , '.')."</p>";
 									if ($nota->invoice_seq_payment > 0) {
-										echo  number_format($nota->invoice_seq_payment, 0 , ',' , '.')."</p>";
+										echo  "Rp ".number_format($nota->invoice_seq_payment, 0 , ',' , '.')."</p>";
 									}
 									echo"
 								</div>
