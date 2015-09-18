@@ -1626,6 +1626,7 @@ class Api extends CI_Controller {
 		}
 	}
 	
+	
 	public function service(){
 		try {
 			/*
@@ -1742,9 +1743,10 @@ class Api extends CI_Controller {
 			*	------------------------------------------------------------------------------
 			*/
 			$QProduct = $this->db;
-			$QProduct = $QProduct->select("tp.id");
+			$QProduct = $QProduct->select("tp.id, tp.stock_type, tp.end_date");
 			$QProduct = $QProduct->join("tb_toko_category_product tkcp","tkcp.id = tp.toko_category_product_id");
 			$QProduct = $QProduct->where("tp.active",1);
+			$QProduct = $QProduct->where(" ((tp.stock_type = 0 AND end_date >= '".date("Y-m-d H:i:s")."') OR stock_type = 1) ",null,false);
 			$QProduct = $QProduct->where("tkcp.toko_id in (SELECT toko_id FROM tb_toko_member WHERE member_id = ".$QUser->id.")",null,false);
 			
 			if($this->response->post("keyword") != "" && $this->response->postDecode("keyword") != ""){
@@ -1765,14 +1767,13 @@ class Api extends CI_Controller {
 			$QProducts = $QProduct->result();
 			
 			if(sizeOf($QProducts) > 0){
+				$message= "";
 				$Products = array();
-				
 				foreach($QProducts as $QProduct){
-					$Product = $this->getProductById($QProduct->id,$QUser->id);
-					array_push($Products,$Product);
+						$Product = $this->getProductById($QProduct->id,$QUser->id);
+						array_push($Products,$Product);
 				}
-				
-				$this->response->send(array("result"=>1,"products"=>$Products), true);
+				$this->response->send(array("result"=>1,"message"=>$message,"products"=>$Products), true);
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Tidak ada produk yang ditemukan","messageCode"=>4), true);
 			}
@@ -1811,9 +1812,10 @@ class Api extends CI_Controller {
 			*	------------------------------------------------------------------------------
 			*/
 			$QProduct = $this->db;
-			$QProduct = $QProduct->select("tp.id");
+			$QProduct = $QProduct->select("tp.id, tp.stock_type, tp.end_date");
 			$QProduct = $QProduct->join("tb_toko_category_product tkcp","tkcp.id = tp.toko_category_product_id");
 			$QProduct = $QProduct->where("tp.active",1);
+			$QProduct = $QProduct->where(" ((tp.stock_type = 0 AND end_date >= '".date("Y-m-d H:i:s")."') OR stock_type = 1) ",null,false);
 			$QProduct = $QProduct->where("tkcp.toko_id in (SELECT toko_id FROM tb_toko_member WHERE member_id = ".$QUser->id.")",null,false);
 			$QProduct = $QProduct->where("tp.id in (SELECT product_id FROM tb_favorite WHERE member_id = ".$QUser->id.")",null,false);
 			
@@ -1838,8 +1840,16 @@ class Api extends CI_Controller {
 				$Products = array();
 				
 				foreach($QProducts as $QProduct){
-					$Product = $this->getProductById($QProduct->id,$QUser->id);
-					array_push($Products,$Product);
+					if($QProduct->stock_type == 0){
+						$long = $this->hs_datetime->countDate(date("Y-m-d H:i:s"),$QProduct->end_date);
+						if($long >= 0){
+							$Product = $this->getProductById($QProduct->id,$QUser->id);
+							array_push($Products,$Product);
+						}
+					}else{
+						$Product = $this->getProductById($QProduct->id,$QUser->id);
+						array_push($Products,$Product);
+					}
 				}
 				
 				$this->response->send(array("result"=>1,"products"=>$Products), true);
@@ -2358,9 +2368,10 @@ class Api extends CI_Controller {
 						->join("tb_product tp","tp.id = tf.product_id")
 						->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
 						->join("tb_toko tt","tt.id = ttcp.toko_id")
-						->where("tt.id",$QShop->id)
+						->where("tt.toko_id",$QShop->id)
 						->where("tf.member_id",$QUser->id)
 						->delete("tb_favorite tf");
+						
 				$Delete = $this->db->where("id",$QFollow->id)->delete("tb_toko_member");
 				
 				if($Delete){
