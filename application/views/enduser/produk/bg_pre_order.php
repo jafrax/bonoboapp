@@ -36,7 +36,12 @@ echo"
 						</div>
 						<ul class='row formbody'>
 							<li class='col s12 listanggodaf'>
-								<div class='input-field col s12 m6 l6 nolpad'>
+								<div class='input-field col s12 m6 l4 nolpad nolmar right'>
+									<i class='mdi-action-search prefix'></i>
+									<input placeholder='Cari' id='keyword' type='text' class='validate' value='"; if (isset($_SESSION['keyword'])) {echo $_SESSION['keyword'];} echo"'>
+									<!-- <label for='keyword'>Cari produk</label > -->
+								</div>
+								<div class='input-field col s12 m6 l6 nolpad nolmar'>
 									<div class=' col s12 m8 l6'>
 										<select class='selectize ' onchange=javascript:change_active_pre() id='active_type'>
 											<option value='' disabled >Pilih filter</option>
@@ -45,7 +50,7 @@ echo"
 										</select>
 									</div>
 													
-								<div class='col s12 m8 l6'>
+									<div class='col s12 m8 l6'>
 										<select class='selectize  bajindul' onchange=javascript:filter_kategori() id='filter-kategori'>											
 											<option value=''>Semua Kategori</option>";
 											foreach ($kategori->result() as $row_kt) {
@@ -58,23 +63,16 @@ echo"
 											echo"
 										</select>
 									</div>
-													
-													
-													
-								</div>
-								<div class='input-field col s12 m6 l4 nolpad right'>
-									<i class='mdi-action-search prefix'></i>
-									<input id='keyword' type='text' class='validate' value='"; if (isset($_SESSION['keyword'])) {echo $_SESSION['keyword'];} echo"'>
-									<label for='keyword'>Cari produk</label >
+			
 								</div>
 							</li>
 							<li class='col s12 listanggodaf'>
-								<div class='col s12 m12 l9 nolpad'>
+								<div class='col s12 m10 l10 nolpad'>
 									<p class='col s1 m1 l1'>
 										<input type='checkbox' class='filled-in' onclick=javascript:cek_all() id='cek_all' />
 										<label for='cek_all'></label>
 									</p>
-									<div class='input-field col s8 m4 l5'>
+									<div class='input-field col s7 m7 l5 nolmar'>
 										<select class='select-standar lectfilter' id='option-go'>
 											<option value='' disabled selected>Pilih tindakan</option>
 											<option value='1'>Hapus</option>"; 
@@ -84,14 +82,16 @@ echo"
 											<option value='4'>Pindah ke Ready Stok</option>
 										</select>
 									</div>
-									<div class='input-field col s12 m4 l3'>
+									<div class='input-field col s4 m4 l3 nolmar'>
 										<button class='waves-effect waves-light btn left' onclick=javascript:go()>GO</button>
 									</div>
 								</div>
-								<ul class='tabs navthum col s12 m12 l3 nolpad right'>
-									<li class='tab'><a class='active' href='#satu' ><i class='mdi-action-view-stream'></i></a></li>
-									<li class='tab'><a href='#dua'><i class='mdi-action-view-module'></i></a></li>
-								</ul>
+								<div class='col s12 m2 l2 nolpad right'>
+									<ul class='tabs navthum'>
+										<li class='tab'><a class='active' href='#satu' ><i class='mdi-action-view-stream'></i></a></li>
+										<li class='tab'><a href='#dua'><i class='mdi-action-view-module'></i></a></li>
+									</ul>
+								</div>
 							</li>
 
 							<div id='satu' class='pre_order'>";
