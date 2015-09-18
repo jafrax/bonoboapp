@@ -2368,7 +2368,7 @@ class Api extends CI_Controller {
 						->join("tb_product tp","tp.id = tf.product_id")
 						->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
 						->join("tb_toko tt","tt.id = ttcp.toko_id")
-						->where("tt.toko_id",$QShop->id)
+						->where("tt.id",$QShop->id)
 						->where("tf.member_id",$QUser->id)
 						->delete("tb_favorite tf");
 						
