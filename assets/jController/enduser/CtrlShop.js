@@ -140,7 +140,7 @@ function CtrlShopStep1(){
 					minlength:3,
 					maxlength:15,
 					noSpace:true,
-					remote: base_url+"toko/rules_pin"
+					//remote: base_url+"toko/rules_pin"
 
 				},
 				txtDescription:{
@@ -178,7 +178,7 @@ function CtrlShopStep1(){
 					required: message_alert("Harus diisi"),
 					minlength: message_alert("Masukkan minimal 3 karakter"),
 					maxlength: message_alert("Masukkan maksimal 15 karakter"),
-					remote: message_alert('PIN TOKO tidak tersedia'),
+					//remote: message_alert('PIN TOKO tidak tersedia'),
 				},
 				txtPhone:{
 					maxlength: message_alert("Masukkan maksimal 15 karakter"),
@@ -201,7 +201,7 @@ function CtrlShopStep1(){
 	
 	function doNext(){
 			var formData = new FormData($hs("formStep1"));
-		if(!formStep1JQuery.valid()){
+			if(!formStep1JQuery.valid()){
 			var tot_picture = 1;
 			tot_picture = tot_picture+1;    
     var hitung = $('.picture-area .card').length;
