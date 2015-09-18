@@ -4021,11 +4021,10 @@ class Api extends CI_Controller {
 								}
 							}
 						}
-						
 					}
 					
 					if($QProduct->min_order > $buy_qty){
-						$this->response->send(array("result"=>0,"message"=>"Jumlah pembelian \"".$QProduct->name."\" [".$this->response->postDecode("cart_product".$p."_varians")." varians] kurang dari minimal order (Min/Buy : ".$QProduct->min_order."/".$buy_qty.") -> [21]","messageCode"=>21), true);
+						$this->response->send(array("result"=>0,"message"=>"Jumlah pembelian \"".$QProduct->name."\" kurang dari minimal order [21]","messageCode"=>21), true);
 						$isProductValid = false;
 						continue;
 					}
