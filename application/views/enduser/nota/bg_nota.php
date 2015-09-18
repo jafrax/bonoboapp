@@ -1,7 +1,8 @@
 <?php
 
 echo"
-		
+
+		<!-- buat notif dari opsi GO -->
 <div id='produk_go' class='modal confirmation'>
 	<div class='modal-header red'>
 		<i class='mdi-navigation-close left'></i> <span id='head-go'>Hapus</span> Nota
@@ -10,7 +11,6 @@ echo"
 		<p><span id='tipe-go'></span> nota Anda ?</p>
 	</form>
 	<div class='modal-footer'>
-		
 		<button type='button' onclick=javascript:go() class='btn-flat modal-action modal-close waves-effect '>YA</button>
 		<a href='' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
 	</div>
@@ -428,6 +428,7 @@ echo"
 						</center>
 					</div>
 				</div>
+									
 				<script type='text/javascript' src='".base_url("")."assets/jController/enduser/CtrlNota.js'></script>
 ";
 ?>
