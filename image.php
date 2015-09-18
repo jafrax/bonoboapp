@@ -15,7 +15,7 @@ function LoadFile($file,$quality){
 
 	if(!$im){
 		$im  = imagecreatetruecolor(150, 30);
-		$bgc = imagecolorallocate($im, 255, 255, 255);
+		$bgc = imagecolorallocate($im, 0, 0, 0);
 		$tc  = imagecolorallocate($im, 0, 0, 0);
 
 		imagefilledrectangle($im, 0, 0, 150, 30, $bgc);
