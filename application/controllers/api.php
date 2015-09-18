@@ -1827,8 +1827,8 @@ class Api extends CI_Controller {
 				$QProduct = $QProduct->where("tp.stock_type",$this->response->postDecode("stock_type"));
 			}
 			
-			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && $this->response->postDecode("lastId") > "0"){
-				$QProduct = $QProduct->where("tp.id < ",$this->response->postDecode("lastId"));
+			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && intval($this->response->postDecode("lastId")) > 0){
+				$QProduct = $QProduct->where("tp.id < intval(",$this->response->postDecode("lastId")));
 			}
 			
 			$QProduct = $QProduct->limit($this->paging_limit,$this->paging_offset);
@@ -2235,6 +2235,10 @@ class Api extends CI_Controller {
 			
 			if($this->response->post("keyword") != "" && $this->response->postDecode("keyword") != ""){
 				$QProduct = $QProduct->where("tp.name LIKE ","%".$this->response->postDecode("keyword")."%");
+			}
+			
+			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && intval($this->response->postDecode("lastId")) > 0){
+				$QProduct = $QProduct->where("tp.id < ",$this->response->postDecode("lastId"));
 			}
 			
 			$QProduct = $QProduct->get("tb_product tp");
