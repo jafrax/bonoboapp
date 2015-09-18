@@ -561,7 +561,11 @@ class Api extends CI_Controller {
 		$Invoices = array();
 		$QInvoices = $this->db;
 		$QInvoices = $QInvoices->where("member_id",$user);
-					
+
+		if($this->response->post("status") != "" && $this->response->postDecode("status") != ""){
+			$QInvoices = $QInvoices->where("status",$this->response->postDecode("status"));
+		}		
+		
 		if($this->response->post("lastId") != "" && (float) $this->response->postDecode("lastId") > 0){
 			$QInvoices = $QInvoices->where("id < ",$this->response->postDecode("lastId"));
 		}
@@ -1828,7 +1832,7 @@ class Api extends CI_Controller {
 			}
 			
 			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && intval($this->response->postDecode("lastId")) > 0){
-				$QProduct = $QProduct->where("tp.id < intval(",$this->response->postDecode("lastId")));
+				$QProduct = $QProduct->where("tp.id < ",intval($this->response->postDecode("lastId")));
 			}
 			
 			$QProduct = $QProduct->limit($this->paging_limit,$this->paging_offset);
