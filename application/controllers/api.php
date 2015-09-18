@@ -2227,10 +2227,11 @@ class Api extends CI_Controller {
 			*	------------------------------------------------------------------------------
 			*/
 			$QProduct = $this->db;
-			$QProduct = $QProduct->select("tp.id");
+			$QProduct = $QProduct->select("tp.id, tp.stock_type, tp.end_date");
 			$QProduct = $QProduct->join("tb_toko_category_product tkcp","tkcp.id = tp.toko_category_product_id");
 			$QProduct = $QProduct->where("tkcp.toko_id", $QShop->id);
 			$QProduct = $QProduct->where("tp.active", 1);
+			$QProduct = $QProduct->where(" ((tp.stock_type = 0 AND end_date >= '".date("Y-m-d H:i:s")."') OR stock_type = 1) ",null,false);
 			
 			if($this->response->post("keyword") != "" && $this->response->postDecode("keyword") != ""){
 				$QProduct = $QProduct->where("tp.name LIKE ","%".$this->response->postDecode("keyword")."%");
