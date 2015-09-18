@@ -2364,14 +2364,15 @@ class Api extends CI_Controller {
 			}else{
 				$Delete = $this->db->where("toko_id",$QShop->id)->where("member_id",$QUser->id)->delete("tb_join_in");
 				$Delete = $this->db->where("toko_id",$QShop->id)->where("member_id",$QUser->id)->delete("tb_cart");
+				/*
 				$Delete = $this->db
 						->join("tb_product tp","tp.id = tf.product_id")
 						->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
 						->join("tb_toko tt","tt.id = ttcp.toko_id")
-						->where("tt.id",$QShop->id)
+						->where("ttcp.toko_id",$QShop->id)
 						->where("tf.member_id",$QUser->id)
 						->delete("tb_favorite tf");
-						
+				*/	
 				$Delete = $this->db->where("id",$QFollow->id)->delete("tb_toko_member");
 				
 				if($Delete){
