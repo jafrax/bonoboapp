@@ -3,18 +3,18 @@
 echo"
 <div id='tambah_kategori' class='modal confirmation'>
 	<div class='modal-header deep-orange'>
-		<i class='mdi-action-spellcheck left'></i> Tambah kategori
+		<i class='mdi-action-spellcheck left'></i> Tambah Kategori
 	</div>
 	<form class='modal-content' id='form_add_kategori'>
+		<span for='nama_kategori'>Nama kategori <span class='text-red'>*</span></span>
 		<input id='id-toko' name='nama' type='hidden' value='".$_SESSION['bonobo']['id']."' >
 		<input id='nama_kategori' maxlength='20' name='nama_kategori' type='text' class='validate'>
-		<label for='nama_kategori'>Nama kategori <span class='text-red'>*</span></label>
 		<label class='error error-chosen' for='nama_kategori'></label>
 	</form>
 	<div class='modal-footer'>
-		<a onclick=javascript:tambah_kategori_atur() class='waves-effect lighten-2 btn-flat white-text add-kateg waves-light teal' >YA</a>
+		<a onclick=javascript:tambah_kategori_atur() class='waves-effect waves-light btn teal darken-1' >YA</a>
 		<span class='col'> </span>
-		<a  class='modal-action modal-close waves-effect red btn-flat white-text waves-light' onclick=javascript:reset_cat()>TIDAK</a>
+		<a class='modal-action modal-close waves-effect waves-light btn red darken-1' onclick=javascript:reset_cat()>TIDAK</a>
 	</div>
 </div>
 <div class='col s12 m12 l3'>
@@ -55,39 +55,40 @@ echo"
 								$count = $this->model_produk->count_product_by_category($row->id);
 								echo"									
 								<li class='col s12 listanggonew' id='kategori-".$row->id."'>
-									<div class='col s12 m7'><p><b>".$row->name."</b> <i> $count Produk</i></p>
+									<div class='col s12 m12 l6'><p><b>".$row->name."</b> <b class='green-text'> $count Produk</b></p>
 									</div>
-									<div class='col s12 m5'>
+									<div class='col s12 m12 l6'>
 										<a href='#delete_kategori_".$row->id."' class='modal-trigger btn-flat right'><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>
 										<a href='#edit_kategori_".$row->id."' onclick=javascript:set_rules(".$row->id.") class='modal-trigger btn-flat right'><b class='blue-text'><i class='mdi-editor-border-color left'></i>Edit</b></a>
 										<div id='delete_kategori_".$row->id."' class='modal confirmation'>
 											<div class='modal-header red'>
-												<i class='mdi-navigation-close left'></i> Hapus produk
+												<i class='mdi-navigation-close left'></i> Hapus Kategori
 											</div>
 											<form class='modal-content'>
 												<p>Apakah anda yakin ingin menghapus <b>'".$row->name."'</b> ?</p>
 											</form>
 											<div class='modal-footer'>
-												<a onclick=javascript:delete_kategori('".$row->id."') class=' modal-action modal-close waves-effect waves-red btn-flat'>YA</a>
-												<a  class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
+												<a onclick=javascript:delete_kategori('".$row->id."') class=' modal-action modal-close btn-flat teal-text'>YA</a>
+												<a  class=' modal-action modal-close btn-flat red-text'>TIDAK</a>
 											</div>
 										</div>
 
 										<div id='edit_kategori_".$row->id."' class='modal confirmation'>
 											<div class='modal-header deep-orange'>
-												<i class='mdi-action-spellcheck left'></i> Edit kategori
+												<i class='mdi-action-spellcheck left'></i> Edit Kategori
 											</div>
 											<form class='modal-content' id='form_edit_kategori_".$row->id."'>
 												<p>
 													<div class='input-field col s12'>														
 														<input id='nama_".$row->id."' name='nama_kategori' maxlength='20' type='text' value='".$row->name."' class='validate' required>
-														<label for='nama_".$row->id."'>Kategori</label>														
+														<label for='nama_".$row->id."'>Kategori</label>	
+														<label class='error' for='nama_".$row->id."'></label>													
 													</div>
 											    </p>
 											</form>
 											<div class='modal-footer'>
-												<a href='javascript:void(0)' onclick=javascript:edit_kategori('".$row->id."') class=' modal-action waves-effect waves-red btn-flat'>YA</a>
-												<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
+												<a href='javascript:void(0)' onclick=javascript:edit_kategori('".$row->id."') class=' modal-action btn-flat teal-text'>YA</a>
+												<a href='javascript:void(0)' class=' modal-action modal-close btn-flat red-text'>TIDAK</a>
 											</div>
 										</div>
 									</div>

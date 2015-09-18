@@ -43,7 +43,7 @@ echo"
 								</div>
 								<div class='input-field col s12 m6 l6 nolpad nolmar'>
 									<div class=' col s12 m8 l6'>
-										<select class='selectize ' onchange=javascript:change_active_pre() id='active_type'>
+										<select class='selectize bajindul' onchange=javascript:change_active_pre() id='active_type'>
 											<option value='' disabled >Pilih filter</option>
 											<option value='1' "; if ($uri3 == '' || $uri3 == '1'){ echo "selected";} echo">Published</option>
 											<option value='0' "; if ($uri3 != '' && $uri3 == '0'){ echo "selected";} echo">Draft</option>											
@@ -51,7 +51,7 @@ echo"
 									</div>
 													
 									<div class='col s12 m8 l6'>
-										<select class='selectize  bajindul' onchange=javascript:filter_kategori() id='filter-kategori'>											
+										<select class='selectize bajindul' onchange=javascript:filter_kategori() id='filter-kategori'>											
 											<option value=''>Semua Kategori</option>";
 											foreach ($kategori->result() as $row_kt) {
 												$select = '';

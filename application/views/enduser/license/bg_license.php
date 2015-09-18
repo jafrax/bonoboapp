@@ -35,7 +35,7 @@ echo "
 					echo"
 					<form class='formain' id='form-license'>
 						<div class='formhead'>
-							<h2 class='titmain'><b>Kode Aktivasi</b></h2>
+							<h2 class='titmain'><b>KODE AKTIVASI</b></h2>
 						</div>
 						<div class='row formbody'>
 							<div class='nolautomar'>

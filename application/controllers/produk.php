@@ -954,9 +954,9 @@ class Produk extends CI_Controller {
 				$count = $this->model_produk->count_product_by_category($row->id);
 				echo"									
 				<li class='col s12 listanggonew' id='kategori-".$row->id."'>
-					<div class='col s12 m7'><p><b>".$row->name."</b> <i> $count Produk</i></p>
+					<div class='col s12 m12 l6'><p><b>".$row->name."</b> <b class='green-text'> $count Produk</b></p>
 					</div>
-					<div class='col s12 m5'>
+					<div class='col s12 m12 l6'>
 						<a href='#delete_kategori_".$row->id."' class='modal-trigger btn-flat right'><b class='text-red'><i class='mdi-av-not-interested left'></i>Hapus</b></a>
 						<a href='#edit_kategori_".$row->id."' onclick=javascript:set_rules(".$row->id.") class='modal-trigger btn-flat right'><b class='blue-text'><i class='mdi-editor-border-color left'></i>Edit</b></a>
 						<div id='delete_kategori_".$row->id."' class='modal confirmation'>
@@ -974,19 +974,20 @@ class Produk extends CI_Controller {
 
 						<div id='edit_kategori_".$row->id."' class='modal confirmation'>
 							<div class='modal-header deep-orange'>
-								<i class='mdi-action-spellcheck left'></i> Edit kategori
+								<i class='mdi-action-spellcheck left'></i> Edit Kategori
 							</div>
 							<form class='modal-content' id='form_edit_kategori_".$row->id."'>
 								<p>
 									<div class='input-field col s12'>														
 										<input id='nama_".$row->id."' name='nama_kategori' type='text' value='".$row->name."' class='validate'>
 										<label for='nama_".$row->id."'>Kategori</label>
+										<label class='error' for='nama_".$row->id."'></label>
 									</div>
 							    </p>
 							</form>
 							<div class='modal-footer'>
-								<a onclick=javascript:edit_kategori('".$row->id."') class=' modal-action waves-effect waves-red btn-flat'>YA</a>
-								<a  class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
+								<a onclick=javascript:edit_kategori('".$row->id."') class='waves-effect waves-light btn teal darken-1'>YA</a>
+								<a  class=' modal-action modal-close waves-effect waves-light btn red darken-1'>TIDAK</a>
 							</div>
 						</div>
 					</div>

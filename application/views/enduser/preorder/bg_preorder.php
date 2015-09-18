@@ -3,7 +3,7 @@ echo "
 				<div class='col s12 m12 l12'>
 					<div class='formain'>
 						<div class='formhead'>
-							<h2 class='titmain'><b>Pemesanan Pre Order</b></h2>
+							<h2 class='titmain'><b>PEMESANAN PRE ORDER</b></h2>
 						</div>
 						<div class='row formbody'>
 							<div class='col s12 m12'>
