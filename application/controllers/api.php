@@ -2254,6 +2254,8 @@ class Api extends CI_Controller {
 				$QProduct = $QProduct->where("tp.id < ",$this->response->postDecode("lastId"));
 			}
 			
+			$QProduct = $QProduct->limit($this->paging_limit,$this->paging_offset);
+			$QProduct = $QProduct->order_by("tp.id","Desc");
 			$QProduct = $QProduct->get("tb_product tp");
 			$QProducts = $QProduct->result();
 			
