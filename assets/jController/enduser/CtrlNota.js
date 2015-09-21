@@ -139,13 +139,7 @@ function bayarnota(e){
 
 
 function batalnota(e){
-	//var idbatal=0;
-	/*
-	var div = document.createElement('div');
-		div.innerHTML = "<input type=checkbox class=filled-in id=batal-cek-"+e+" /><label  for=batal-cek-"+e+" />Kembalikan stok?</label>";
-	$('#idbatal').append(div);
-	$('#proses').append("<button type=button onclick=javascript:batal_nota("+e+") class=btn-flat modal-action modal-close waves-effect >YA</button>");
-	*/
+	idbatal=0;
 	$('#batalnota').openModal();
 	idbatal =e ;
 	 }
@@ -233,6 +227,7 @@ function go(){
         success: function(msg) {
           if (option == 1) {
 		    $('#nota-'+id).fadeOut().remove();
+		    location.reload();
 		  } else {
 		  	$('#btn-batal-'+id).fadeOut();
     		$('#btn-bayar-'+id).fadeOut();
