@@ -281,6 +281,10 @@ class Api extends CI_Controller {
 			"phone"=>$QShop->phone,
 			"tag_name"=>$QShop->tag_name,
 			"keyword"=>$QShop->keyword,
+			"invoice_confirm"=>$QShop->invoice_confirm,
+			"dm_pick_up_store"=>$QShop->dm_pick_up_store,
+			"dm_expedition"=>$QShop->dm_expedition,
+			"dm_store_delivery"=>$QShop->dm_store_delivery,
 			"image_tumb"=>$ShopImageTumb,
 			"image_high"=>$ShopImageHigh,
 			"count_products"=>$CountProducts,
@@ -289,7 +293,6 @@ class Api extends CI_Controller {
 			"join"=>$join,
 			"invite"=>$invite,
 			"blacklist"=>$blacklist,
-			"invoice_confirm"=>$QShop->invoice_confirm,
 			"price_level"=>$price_level,
 			"location"=>array(
 				"id"=>$QShop->location_id,
