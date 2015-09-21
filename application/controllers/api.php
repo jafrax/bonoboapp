@@ -285,11 +285,21 @@ class Api extends CI_Controller {
 			"dm_pick_up_store"=>$QShop->dm_pick_up_store,
 			"dm_expedition"=>$QShop->dm_expedition,
 			"dm_store_delivery"=>$QShop->dm_store_delivery,
+			"private"=>$QShop->privacy,
+			"level_1_name"=>$QShop->level_1_name,
+			"level_2_name"=>$QShop->level_2_name,
+			"level_3_name"=>$QShop->level_3_name,
+			"level_4_name"=>$QShop->level_4_name,
+			"level_5_name"=>$QShop->level_5_name,
+			"level_1_active"=>$QShop->level_1_active,
+			"level_2_active"=>$QShop->level_2_active,
+			"level_3_active"=>$QShop->level_3_active,
+			"level_4_active"=>$QShop->level_4_active,
+			"level_5_active"=>$QShop->level_5_active,
 			"image_tumb"=>$ShopImageTumb,
 			"image_high"=>$ShopImageHigh,
 			"count_products"=>$CountProducts,
 			"count_users"=>$CountMembers,
-			"private"=>$QShop->privacy,
 			"join"=>$join,
 			"invite"=>$invite,
 			"blacklist"=>$blacklist,
@@ -1983,15 +1993,11 @@ class Api extends CI_Controller {
 			if(sizeOf($QShops) > 0){
 				$Shops = array();
 				foreach($QShops as $QShop){
-					//$ShopBlacklist = $this->db->where("toko_id",$QShop->id)->where("member_id",$QUser->id)->get("tb_toko_blacklist")->row();
-				
-					//if(empty($ShopBlacklist)){
-						$Shop = $this->getShopById($QShop->id, $QUser->id);
-						
-						if($Shop != null){
-							array_push($Shops,$Shop);
-						}
-					//}
+					$Shop = $this->getShopById($QShop->id, $QUser->id);
+					
+					if($Shop != null){
+						array_push($Shops,$Shop);
+					}
 				}
 				
 				$this->response->send(array("result"=>1,"shops"=>$Shops), true);
@@ -3546,33 +3552,43 @@ class Api extends CI_Controller {
 			return false;
 		}
 		
+		$QShop = $this->db
+				->where("id",$QProduct->shop_id)
+				->get("tb_toko")
+				->row();
+		
+		if(empty($QShop)){
+			$this->response->send(array("result"=>0,"message"=>"Produk dari toko \"".$QProduct->shop_name."\" sudah tidak valid","messageCode"=>13), true);
+			return false;
+		}
+		
 		switch($QShopMember->price_level){
 			case "1":
-				if($QProduct->price_1 > 0){
+				if($QProduct->price_1 > 0 && $QShop->level_1_active == 1){
 					$product_price = $QProduct->price_1;
 				}
 			break;
 			
 			case "2":
-				if($QProduct->price_2 > 0){
+				if($QProduct->price_2 > 0 && $QShop->level_2_active == 1){
 					$product_price = $QProduct->price_2;
 				}
 			break;
 			
 			case "3":
-				if($QProduct->price_3 > 0){
+				if($QProduct->price_3 > 0 && $QShop->level_3_active == 1){
 					$product_price = $QProduct->price_3;
 				}
 			break;
 			
 			case "4":
-				if($QProduct->price_4 > 0){
+				if($QProduct->price_4 > 0 && $QShop->level_4_active == 1){
 					$product_price = $QProduct->price_4;
 				}
 			break;
 			
 			case "5":
-				if($QProduct->price_5 > 0){
+				if($QProduct->price_5 > 0 && $QShop->level_5_active == 1){
 					$product_price = $QProduct->price_5;
 				}
 			break;
@@ -3580,12 +3596,12 @@ class Api extends CI_Controller {
 		
 		
 		if($product_price != (float) $this->response->postDecode("price")){
-			$this->response->send(array("result"=>0,"message"=>"Harga sudah berubah","messageCode"=>13), true);
+			$this->response->send(array("result"=>0,"message"=>"Harga sudah berubah","messageCode"=>14), true);
 			return false;
 		}
 		
 		if($QProduct->min_order != (float) $this->response->postDecode("min_order")){
-			$this->response->send(array("result"=>0,"message"=>"Data produk sudah berubah","messageCode"=>14), true);
+			$this->response->send(array("result"=>0,"message"=>"Data produk sudah berubah","messageCode"=>15), true);
 			return false;
 		}
 		
@@ -3602,7 +3618,7 @@ class Api extends CI_Controller {
 				$QVarian = $this->db->where("id",$this->response->postDecode("varian".$i))->get("tb_product_varian")->row();
 				
 				if(empty($QVarian)){
-					$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia","messageCode"=>15), true);
+					$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia","messageCode"=>16), true);
 					$isVarianValid = false;
 					continue;
 				}else{
@@ -3615,7 +3631,7 @@ class Api extends CI_Controller {
 					*/
 					if($QProduct->stock_type == 1 && $QProduct->stock_type_detail == 0){
 						if($QVarian->stock_qty < (float) $this->response->postDecode("varian".$i."_qty")){
-							$this->response->send(array("result"=>0,"message"=>"Stok barang tidak tersedia","messageCode"=>16), true);
+							$this->response->send(array("result"=>0,"message"=>"Stok barang tidak tersedia","messageCode"=>17), true);
 							$isVarianValid = false;
 							continue;
 						}
@@ -3631,7 +3647,7 @@ class Api extends CI_Controller {
 		}
 		
 		if($QProduct->min_order > $buy_qty){
-			$this->response->send(array("result"=>0,"message"=>"Jumlah pembelian kurang dari minimal order","messageCode"=>17), true);
+			$this->response->send(array("result"=>0,"message"=>"Jumlah pembelian kurang dari minimal order","messageCode"=>18), true);
 			return false;
 		}
 		
@@ -4047,31 +4063,31 @@ class Api extends CI_Controller {
 					
 					switch($QShopMember->price_level){
 						case "1":
-							if($QProduct->price_1 > 0){
+							if($QProduct->price_1 > 0 && $QShop->level_1_active == 1){
 								$product_price = $QProduct->price_1;
 							}
 						break;
 						
 						case "2":
-							if($QProduct->price_2 > 0){
+							if($QProduct->price_2 > 0 && $QShop->level_2_active == 1){
 								$product_price = $QProduct->price_2;
 							}
 						break;
 						
 						case "3":
-							if($QProduct->price_3 > 0){
+							if($QProduct->price_3 > 0 && $QShop->level_3_active == 1){
 								$product_price = $QProduct->price_3;
 							}
 						break;
 						
 						case "4":
-							if($QProduct->price_4 > 0){
+							if($QProduct->price_4 > 0 && $QShop->level_4_active == 1){
 								$product_price = $QProduct->price_4;
 							}
 						break;
 						
 						case "5":
-							if($QProduct->price_5 > 0){
+							if($QProduct->price_5 > 0 && $QShop->level_5_active == 1){
 								$product_price = $QProduct->price_5;
 							}
 						break;
@@ -4552,31 +4568,31 @@ class Api extends CI_Controller {
 					if(!empty($QShopMember)){
 						switch($QShopMember->price_level){
 							case "1":
-								if($QProduct->price_1 > 0){
+								if($QProduct->price_1 > 0 && $QShop->level_1_active == 1){
 									$product_price = $QProduct->price_1;
 								}
 							break;
 							
 							case "2":
-								if($QProduct->price_2 > 0){
+								if($QProduct->price_2 > 0 && $QShop->level_2_active == 1){
 									$product_price = $QProduct->price_2;
 								}
 							break;
 							
 							case "3":
-								if($QProduct->price_3 > 0){
+								if($QProduct->price_3 > 0 && $QShop->level_3_active == 1){
 									$product_price = $QProduct->price_3;
 								}
 							break;
 							
 							case "4":
-								if($QProduct->price_4 > 0){
+								if($QProduct->price_4 > 0 && $QShop->level_4_active == 1){
 									$product_price = $QProduct->price_4;
 								}
 							break;
 							
 							case "5":
-								if($QProduct->price_5 > 0){
+								if($QProduct->price_5 > 0 && $QShop->level_5_active == 1){
 									$product_price = $QProduct->price_5;
 								}
 							break;
