@@ -2362,17 +2362,20 @@ class Api extends CI_Controller {
 					}
 				}
 			}else{
-				$Delete = $this->db->where("toko_id",$QShop->id)->where("member_id",$QUser->id)->delete("tb_join_in");
-				$Delete = $this->db->where("toko_id",$QShop->id)->where("member_id",$QUser->id)->delete("tb_cart");
-				
-				$Delete = $this->db
+				$QFavorites = $this->db
+						->select("tf.id")
 						->join("tb_product tp","tp.id = tf.product_id")
 						->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
-						->join("tb_toko tt","tt.id = ttcp.toko_id")
 						->where("ttcp.toko_id",$QShop->id)
 						->where("tf.member_id",$QUser->id)
-						->delete("tb_favorite tf");
-					
+						->result();
+				
+				foreach($QFavorites as $QFavorite){
+					$Delete = $this->db->where("id",$QFavorite->id)->delete("tb_favorite");
+				}
+				
+				$Delete = $this->db->where("toko_id",$QShop->id)->where("member_id",$QUser->id)->delete("tb_join_in");
+				$Delete = $this->db->where("toko_id",$QShop->id)->where("member_id",$QUser->id)->delete("tb_cart");		
 				$Delete = $this->db->where("id",$QFollow->id)->delete("tb_toko_member");
 				
 				if($Delete){
@@ -2381,7 +2384,6 @@ class Api extends CI_Controller {
 					$this->response->send(array("result"=>0,"message"=>"Anda tidak dapat keluar dari keanggotaan toko ini","messageCode"=>10), true);
 				}
 			}
-		
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
@@ -3179,6 +3181,44 @@ class Api extends CI_Controller {
 			
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function doUserImageUpload(){
+		$ci = & get_instance();
+        $ci->load->library('upload');
+		$ci->load->library('image_lib');
+		
+        $config['upload_path'] 		= "assets/pic/member/"; 
+        $config['allowed_types'] 	= "gif|jpg|png|jpeg|bmp";
+        $config['max_size'] 		= 1000;
+        $config['encrypt_name'] 	= TRUE;
+        $ci->upload->initialize($config);
+        
+		$result = '';
+        if($ci->upload->do_upload($name)){
+            $data=$ci->upload->data();
+            $ci->image_lib->clear();
+			
+            $image['image_library'] = "GD2";
+            $image['source_image'] 	= $data['full_path'];
+            $image['new_image'] 	= $url.'resize/'.$data['file_name'];
+            $size 					= getimagesize($_FILES[$name]["tmp_name"]);
+            $image['maintain_ratio']= TRUE;
+			$image['master_dim'] 	= 'auto';
+			$image['width'] 		= $width;
+			$image['height'] 		= $height;
+            
+			$ci->image_lib->initialize($image);
+            $ci->image_lib->resize();
+            $result 	= $data['file_name'];
+            
+			if($picture!=null){
+                @unlink($url.$picture);
+                @unlink($url."resize/".$picture);
+            }
+        }else{
+			$result = 'error';
 		}
 	}
 	
