@@ -3186,40 +3186,79 @@ class Api extends CI_Controller {
 	}
 	
 	public function doUserImageUpload(){
-		$ci = & get_instance();
-        $ci->load->library('upload');
-		$ci->load->library('image_lib');
-		
-        $config['upload_path'] 		= "assets/pic/member/"; 
-        $config['allowed_types'] 	= "gif|jpg|png|jpeg|bmp";
-        $config['max_size'] 		= 1000;
-        $config['encrypt_name'] 	= TRUE;
-        $ci->upload->initialize($config);
-        
-		$result = '';
-        if($ci->upload->do_upload($name)){
-            $data=$ci->upload->data();
-            $ci->image_lib->clear();
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
 			
-            $image['image_library'] = "GD2";
-            $image['source_image'] 	= $data['full_path'];
-            $image['new_image'] 	= $url.'resize/'.$data['file_name'];
-            $size 					= getimagesize($_FILES[$name]["tmp_name"]);
-            $image['maintain_ratio']= TRUE;
-			$image['master_dim'] 	= 'auto';
-			$image['width'] 		= $width;
-			$image['height'] 		= $height;
-            
-			$ci->image_lib->initialize($image);
-            $ci->image_lib->resize();
-            $result 	= $data['file_name'];
-            
-			if($picture!=null){
-                @unlink($url.$picture);
-                @unlink($url."resize/".$picture);
-            }
-        }else{
-			$result = 'error';
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			$file = "file";
+			$url = "assets/pic/user/";
+			$width = 325;
+			$height = 325;
+			
+			$ci = & get_instance();
+			$ci->load->library('upload');
+			$ci->load->library('image_lib');
+			
+			$config['upload_path'] 		= $url; 
+			$config['allowed_types'] 	= "gif|jpg|png|jpeg|bmp";
+			$config['max_size'] 		= 1000;
+			$config['encrypt_name'] 	= TRUE;
+			
+			$ci->upload->initialize($config);
+			
+			if($ci->upload->do_upload($file)){
+				$data=$ci->upload->data();
+				$ci->image_lib->clear();
+				
+				$image['image_library'] = "GD2";
+				$image['source_image'] 	= $data['full_path'];
+				$image['new_image'] 	= $url.'resize/'.$data['file_name'];
+				$size 					= getimagesize($_FILES[$file]["tmp_name"]);
+				$image['maintain_ratio']= TRUE;
+				$image['master_dim'] 	= 'auto';
+				$image['width'] 		= $width;
+				$image['height'] 		= $height;
+				
+				$ci->image_lib->initialize($image);
+				$ci->image_lib->resize();
+				
+				if(!empty($data['file_name'])){
+					$Data = array(
+							"image"=>$data['file_name'],
+						);
+						
+					$Save = $this->db->where("id",$QUser->id)->update("tb_member",$Data);
+					
+					if($Save){
+						$this->response->send(array("result"=>1,"message"=>"Gambar telah diubah","messageCode"=>3), true);
+					}else{
+						$this->response->send(array("result"=>0,"message"=>"Gambar tidak dapat diupload","messageCode"=>4), true);
+					}
+				}else{
+					$this->response->send(array("result"=>0,"message"=>"Gambar tidak dapat diupload","messageCode"=>5), true);
+				}
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Gambar tidak dapat diupload","messageCode"=>6), true);
+			}
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
 	}
 	
