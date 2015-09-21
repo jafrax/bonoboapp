@@ -3436,7 +3436,7 @@ class Api extends CI_Controller {
 		if($QProduct->stock_type == 0){
 			$long = $this->hs_datetime->countDate(date("Y-m-d H:i:s"),$QProduct->end_date);
 			if($long <= 0){
-				$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia [11], Tanggal sekarang (".date("Y-m-d H:i:s")."), Kadaluarsa (".$QProduct->end_date."), Long (".$long.")","messageCode"=>11), true);
+				$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia [11]","messageCode"=>11), true);
 				return false;
 			}
 		}
