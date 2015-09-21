@@ -2368,6 +2368,7 @@ class Api extends CI_Controller {
 						->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
 						->where("ttcp.toko_id",$QShop->id)
 						->where("tf.member_id",$QUser->id)
+						->get("tb_favorite tf")
 						->result();
 				
 				foreach($QFavorites as $QFavorite){
