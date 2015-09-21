@@ -2362,17 +2362,21 @@ class Api extends CI_Controller {
 					}
 				}
 			}else{
-				$Delete = $this->db->where("toko_id",$QShop->id)->where("member_id",$QUser->id)->delete("tb_join_in");
-				$Delete = $this->db->where("toko_id",$QShop->id)->where("member_id",$QUser->id)->delete("tb_cart");
-				/*
-				$Delete = $this->db
+				$QFavorites = $this->db
+						->select("tf.id")
 						->join("tb_product tp","tp.id = tf.product_id")
 						->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
-						->join("tb_toko tt","tt.id = ttcp.toko_id")
 						->where("ttcp.toko_id",$QShop->id)
 						->where("tf.member_id",$QUser->id)
-						->delete("tb_favorite tf");
-				*/	
+						->get("tb_favorite tf")
+						->result();
+				
+				foreach($QFavorites as $QFavorite){
+					$Delete = $this->db->where("id",$QFavorite->id)->delete("tb_favorite");
+				}
+				
+				$Delete = $this->db->where("toko_id",$QShop->id)->where("member_id",$QUser->id)->delete("tb_join_in");
+				$Delete = $this->db->where("toko_id",$QShop->id)->where("member_id",$QUser->id)->delete("tb_cart");		
 				$Delete = $this->db->where("id",$QFollow->id)->delete("tb_toko_member");
 				
 				if($Delete){
@@ -2381,7 +2385,6 @@ class Api extends CI_Controller {
 					$this->response->send(array("result"=>0,"message"=>"Anda tidak dapat keluar dari keanggotaan toko ini","messageCode"=>10), true);
 				}
 			}
-		
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
@@ -3182,6 +3185,83 @@ class Api extends CI_Controller {
 		}
 	}
 	
+	public function doUserImageUpload(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			$file = "file";
+			$url = "assets/pic/user/";
+			$width = 325;
+			$height = 325;
+			
+			$ci = & get_instance();
+			$ci->load->library('upload');
+			$ci->load->library('image_lib');
+			
+			$config['upload_path'] 		= $url; 
+			$config['allowed_types'] 	= "gif|jpg|png|jpeg|bmp";
+			$config['max_size'] 		= 1000;
+			$config['encrypt_name'] 	= TRUE;
+			
+			$ci->upload->initialize($config);
+			
+			if($ci->upload->do_upload($file)){
+				$data=$ci->upload->data();
+				$ci->image_lib->clear();
+				
+				$image['image_library'] = "GD2";
+				$image['source_image'] 	= $data['full_path'];
+				$image['new_image'] 	= $url.'resize/'.$data['file_name'];
+				$size 					= getimagesize($_FILES[$file]["tmp_name"]);
+				$image['maintain_ratio']= TRUE;
+				$image['master_dim'] 	= 'auto';
+				$image['width'] 		= $width;
+				$image['height'] 		= $height;
+				
+				$ci->image_lib->initialize($image);
+				$ci->image_lib->resize();
+				
+				if(!empty($data['file_name'])){
+					$Data = array(
+							"image"=>$data['file_name'],
+						);
+						
+					$Save = $this->db->where("id",$QUser->id)->update("tb_member",$Data);
+					
+					if($Save){
+						$this->response->send(array("result"=>1,"message"=>"Gambar telah diubah","messageCode"=>3), true);
+					}else{
+						$this->response->send(array("result"=>0,"message"=>"Gambar tidak dapat diupload","messageCode"=>4), true);
+					}
+				}else{
+					$this->response->send(array("result"=>0,"message"=>"Gambar tidak dapat diupload","messageCode"=>5), true);
+				}
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Gambar tidak dapat diupload","messageCode"=>6), true);
+			}
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
 	public function doCartProductDelete(){
 		try{
 			/*
@@ -3375,18 +3455,18 @@ class Api extends CI_Controller {
 		}
 		
 		if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
-			$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu [1]","messageCode"=>1), true);
+			$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
 			return false;
 		}
 		
 		$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
 		if(empty($QUser)){
-			$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu [2]","messageCode"=>2), true);
+			$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
 			return false;
 		}
 		
 		if($this->response->post("product") == "" || $this->response->postDecode("product") == ""){
-			$this->response->send(array("result"=>0,"message"=>"Belum ada product yang di kirim [3]","messageCode"=>3), true);
+			$this->response->send(array("result"=>0,"message"=>"Belum ada product yang di kirim","messageCode"=>3), true);
 			return false;
 		}
 		
@@ -3399,44 +3479,44 @@ class Api extends CI_Controller {
 					->row();
 					
 		if(empty($QProduct)){
-			$this->response->send(array("result"=>0,"message"=>"Barang sudah tidak tersedia [4]","messageCode"=>4), true);
+			$this->response->send(array("result"=>0,"message"=>"Barang sudah tidak tersedia","messageCode"=>4), true);
 			return false;
 		}
 		
 		if($this->response->post("varians") == "" || $this->response->postDecode("varians") == ""){
-			$this->response->send(array("result"=>0,"message"=>"Tidak ada data varians yang dikirim [5]","messageCode"=>5), true);
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada data varians yang dikirim","messageCode"=>5), true);
 			return false;
 		}
 		
 		if($this->response->post("stock_type") == "" || $this->response->postDecode("stock_type") == ""){
-			$this->response->send(array("result"=>0,"message"=>"Tidak ada data tipe stok [6]","messageCode"=>6), true);
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada data tipe stok","messageCode"=>6), true);
 			return false;
 		}
 		
 		if($this->response->post("price") == "" || $this->response->postDecode("price") == ""){
-			$this->response->send(array("result"=>0,"message"=>"Tidak ada data harga barang [7]","messageCode"=>7), true);
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada data harga barang","messageCode"=>7), true);
 			return false;
 		}
 		
 		if($this->response->post("min_order") == "" || $this->response->postDecode("min_order") == ""){
-			$this->response->send(array("result"=>0,"message"=>"Tidak ada data minimal order [8]","messageCode"=>8), true);
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada data minimal order","messageCode"=>8), true);
 			return false;
 		}
 		
 		if($QProduct->active == 0){
-			$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia [9]","messageCode"=>9), true);
+			$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia","messageCode"=>9), true);
 			return false;
 		}
 		
 		if($QProduct->stock_type != $this->response->postDecode("stock_type")){
-			$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia [10]","messageCode"=>10), true);
+			$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia","messageCode"=>10), true);
 			return false;
 		}
 		
 		if($QProduct->stock_type == 0){
 			$long = $this->hs_datetime->countDate(date("Y-m-d H:i:s"),$QProduct->end_date);
-			if($long >= 0){
-				$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia [11]","messageCode"=>11), true);
+			if($long <= 0){
+				$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia","messageCode"=>11), true);
 				return false;
 			}
 		}
@@ -3459,7 +3539,7 @@ class Api extends CI_Controller {
 			->row();
 						
 		if(empty($QShopMember)){
-			$this->response->send(array("result"=>0,"message"=>"Anda sudah tidak tergabung dengan toko \"".$QProduct->shop_name."\" [12]","messageCode"=>12), true);
+			$this->response->send(array("result"=>0,"message"=>"Anda sudah tidak tergabung dengan toko \"".$QProduct->shop_name."\"","messageCode"=>12), true);
 			return false;
 		}
 		
@@ -3497,12 +3577,12 @@ class Api extends CI_Controller {
 		
 		
 		if($product_price != (float) $this->response->postDecode("price")){
-			$this->response->send(array("result"=>0,"message"=>"Harga sudah berubah [13]","messageCode"=>13), true);
+			$this->response->send(array("result"=>0,"message"=>"Harga sudah berubah","messageCode"=>13), true);
 			return false;
 		}
 		
 		if($QProduct->min_order != (float) $this->response->postDecode("min_order")){
-			$this->response->send(array("result"=>0,"message"=>"Data produk sudah berubah [14]","messageCode"=>14), true);
+			$this->response->send(array("result"=>0,"message"=>"Data produk sudah berubah","messageCode"=>14), true);
 			return false;
 		}
 		
@@ -3519,7 +3599,7 @@ class Api extends CI_Controller {
 				$QVarian = $this->db->where("id",$this->response->postDecode("varian".$i))->get("tb_product_varian")->row();
 				
 				if(empty($QVarian)){
-					$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia [15]","messageCode"=>15), true);
+					$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia","messageCode"=>15), true);
 					$isVarianValid = false;
 					continue;
 				}else{
@@ -3532,7 +3612,7 @@ class Api extends CI_Controller {
 					*/
 					if($QProduct->stock_type == 1 && $QProduct->stock_type_detail == 0){
 						if($QVarian->stock_qty < (float) $this->response->postDecode("varian".$i."_qty")){
-							$this->response->send(array("result"=>0,"message"=>"Stok barang tidak tersedia [16]","messageCode"=>16), true);
+							$this->response->send(array("result"=>0,"message"=>"Stok barang tidak tersedia","messageCode"=>16), true);
 							$isVarianValid = false;
 							continue;
 						}
@@ -3548,7 +3628,7 @@ class Api extends CI_Controller {
 		}
 		
 		if($QProduct->min_order > $buy_qty){
-			$this->response->send(array("result"=>0,"message"=>"Jumlah pembelian kurang dari minimal order [17]","messageCode"=>17), true);
+			$this->response->send(array("result"=>0,"message"=>"Jumlah pembelian kurang dari minimal order","messageCode"=>17), true);
 			return false;
 		}
 		
@@ -3797,6 +3877,9 @@ class Api extends CI_Controller {
 	
 	public function doCartSaveValidation(){
 		try{
+			$isCartValid = true;
+			$MessageProducts = array();
+			
 			/*
 			*	------------------------------------------------------------------------------
 			*	Validation POST data
@@ -3807,7 +3890,7 @@ class Api extends CI_Controller {
 			}
 			
 			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
-				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu [1]","messageCode"=>1), true);
+				$this->response->send(array("message"=>"Anda belum login, silahkan login dahulu [1]","messageCode"=>1),true);
 				return;
 			}
 			
@@ -3817,12 +3900,12 @@ class Api extends CI_Controller {
 				->row();
 						
 			if(empty($QUser)){
-				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu [2]","messageCode"=>2), true);
+				$this->response->send(array("message"=>"Anda belum login, silahkan login dahulu [2]","messageCode"=>2), true);
 				return;
 			}
 			
 			if($this->response->post("cart") == "" || $this->response->postDecode("cart") == ""){
-				$this->response->send(array("result"=>0,"message"=>"Tidak ada data belanja yang dipilih [3]","messageCode"=>3), true);
+				$this->response->send(array("message"=>"Tidak ada data belanja yang dipilih [3]","messageCode"=>3),true);
 				return;
 			}
 			
@@ -3833,7 +3916,7 @@ class Api extends CI_Controller {
 				->row();
 				
 			if(empty($QCart)){
-				$this->response->send(array("result"=>0,"message"=>"Data belanja sudah tidak tersedia [4]","messageCode"=>4), true);
+				$this->response->send(array("message"=>"Data belanja sudah tidak tersedia [4]","messageCode"=>4),true);
 				return;
 			}
 			
@@ -3843,7 +3926,7 @@ class Api extends CI_Controller {
 					->row();
 					
 			if(empty($QShop)){
-				$this->response->send(array("result"=>0,"message"=>"Toko tidak ditemukan [5]","messageCode"=>5), true);
+				$this->response->send(array("message"=>"Toko tidak ditemukan [5]","messageCode"=>5),true);
 				return;
 			}
 			
@@ -3854,12 +3937,12 @@ class Api extends CI_Controller {
 					->row();
 					
 			if(empty($QShopMember)){
-				$this->response->send(array("result"=>0,"message"=>"Anda sudah tidak tergabung dengan toko \"".$QShop->name."\"  [6]","messageCode"=>6), true);
+				$this->response->send(array("message"=>"Anda sudah tidak tergabung dengan toko \"".$QShop->name."\"  [6]","messageCode"=>6),true);
 				return;
 			}
 			
 			if($this->response->post("cart_products") == "" || $this->response->postDecode("cart_products") == ""){
-				$this->response->send(array("result"=>0,"message"=>"Tidak ada products dalam daftar belanjaan [7]","messageCode"=>7), true);
+				$this->response->send(array("message"=>"Tidak ada products dalam daftar belanjaan [7]","messageCode"=>7),true);
 				return;
 			}
 			
@@ -3868,67 +3951,88 @@ class Api extends CI_Controller {
 			*	Check data cart products
 			*	------------------------------------------------------------------------------
 			*/
-			$isProductValid = true;
+			
 			for($p=0;$p<= ((float) $this->response->postDecode("cart_products")) - 1;$p++){
 				if($this->response->post("cart_product".$p) != "" || $this->response->postDecode("cart_product".$p) != ""){
+					$MessageProduct = array();
+					$FormCartProduct = $this->response->postDecode("cart_product".$p);
 					$QCartProduct = $this->db->where("id",$this->response->postDecode("cart_product".$p))->get("tb_cart_product")->row();
 					
 					if(empty($QCartProduct)){
-						$this->response->send(array("result"=>0,"message"=>"Data cart barang tidak ditemukan [8]","messageCode"=>8), true);
-						$isProductValid = false;
-						continue;
+						if(empty($MessageProduct)){
+							$isCartValid = false;
+							$MessageProduct = array("product"=>$FormCartProduct,"message"=>"Data cart barang tidak ditemukan [8]");
+							array_push($MessageProducts,$MessageProduct);
+						}
 					}
 					
 					$QProduct = $this->db->where("id",$QCartProduct->product_id)->get("tb_product")->row();
 					
 					if(empty($QProduct)){
-						$this->response->send(array("result"=>0,"message"=>"Tidak ada product dalam daftar belanjaan [9]","messageCode"=>9), true);
-						$isProductValid = false;
-						continue;
+						if(empty($MessageProduct)){
+							$isCartValid = false;
+							$MessageProduct = array("product"=>$FormCartProduct,"message"=>"Tidak ada product dalam daftar belanjaan [9]");
+							array_push($MessageProducts,$MessageProduct);
+						}
 					}
 					
 					if($QProduct->active == 0){
-						$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia [10]","messageCode"=>10), true);
-						$isProductValid = false;
-						continue;
+						if(empty($MessageProduct)){
+							$isCartValid = false;
+							$MessageProduct = array("product"=>$FormCartProduct,"message"=>"Barang tidak tersedia [10]");
+							array_push($MessageProducts,$MessageProduct);
+						}
 					}
 					
 					if($QProduct->stock_type == 0){
 						$long = $this->hs_datetime->countDate(date("Y-m-d H:i:s"),$QProduct->end_date);
-						if($long >= 0){
-							$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia [12]","messageCode"=>12), true);
-							return false;
+						if($long <= 0){
+							if(empty($MessageProduct)){
+								$isCartValid = false;
+								$MessageProduct = array("product"=>$FormCartProduct,"message"=>"Barang tidak tersedia [11]");
+								array_push($MessageProducts,$MessageProduct);
+							}
 						}
 					}
 					
 					if($QProduct->stock_type != $this->response->postDecode("cart_product".$p."_stock_type")){
-						$this->response->send(array("result"=>0,"message"=>"Data barang telah berubah [13]","messageCode"=>13), true);
-						$isProductValid = false;
-						continue;
+						if(empty($MessageProduct)){
+							$isCartValid = false;
+							$MessageProduct = array("product"=>$FormCartProduct,"message"=>"Data barang telah berubah [12]");
+							array_push($MessageProducts,$MessageProduct);
+						}
 					}
 						
 					if($this->response->post("cart_product".$p."_stock_type") == "" || $this->response->postDecode("cart_product".$p."_stock_type") == ""){
-						$this->response->send(array("result"=>0,"message"=>"Tidak ada data stock type yang dikirim [14]","messageCode"=>14), true);
-						$isProductValid = false;
-						continue;
+						if(empty($MessageProduct)){
+							$isCartValid = false;
+							$MessageProduct = array("product"=>$FormCartProduct,"message"=>"Tidak ada data stock type yang dikirim [13]");
+							array_push($MessageProducts,$MessageProduct);
+						}
 					}
 					
 					if($this->response->post("cart_product".$p."_min_order") == "" || $this->response->postDecode("cart_product".$p."_min_order") == ""){
-						$this->response->send(array("result"=>0,"message"=>"Tidak ada data minimal order yang dikirim [15]","messageCode"=>15), true);
-						$isProductValid = false;
-						continue;
+						if(empty($MessageProduct)){
+							$isCartValid = false;
+							$MessageProduct = array("product"=>$FormCartProduct,"message"=>"Tidak ada data minimal order yang dikirim [14]");
+							array_push($MessageProducts,$MessageProduct);
+						}
 					}
 					
 					if($this->response->post("cart_product".$p."_price") == "" || $this->response->postDecode("cart_product".$p."_price") == ""){
-						$this->response->send(array("result"=>0,"message"=>"Tidak ada data harga yang dikirim [16]","messageCode"=>16), true);
-						$isProductValid = false;
-						continue;
+						if(empty($MessageProduct)){
+							$isCartValid = false;
+							$MessageProduct = array("product"=>$FormCartProduct,"message"=>"Tidak ada data harga yang dikirim [15]");
+							array_push($MessageProducts,$MessageProduct);
+						}
 					}
 					
 					if($QProduct->min_order != (float)$this->response->postDecode("cart_product".$p."_min_order")){
-						$this->response->send(array("result"=>0,"message"=>"Data barang telah diubah [17]","messageCode"=>17), true);
-						$isProductValid = false;
-						continue;
+						if(empty($MessageProduct)){
+							$isCartValid = false;
+							$MessageProduct = array("product"=>$FormCartProduct,"message"=>"Data barang telah diubah [16]");
+							array_push($MessageProducts,$MessageProduct);
+						}
 					}
 					
 					/*
@@ -3971,9 +4075,11 @@ class Api extends CI_Controller {
 					}
 					
 					if($QProduct->min_order != (float) $this->response->postDecode("cart_product".$p."_min_order")){
-						$this->response->send(array("result"=>0,"message"=>"Data barang telah diubah [18]","messageCode"=>18), true);
-						$isProductValid = false;
-						continue;
+						if(empty($MessageProduct)){
+							$isCartValid = false;
+							$MessageProduct = array("product"=>$FormCartProduct,"message"=>"Data barang telah diubah [17]");
+							array_push($MessageProducts,$MessageProduct);
+						}
 					}
 					
 					/*
@@ -3983,9 +4089,11 @@ class Api extends CI_Controller {
 					*/
 					
 					if($this->response->post("cart_product".$p."_varians") == "" || $this->response->postDecode("cart_product".$p."_varians") == ""){
-						$this->response->send(array("result"=>0,"message"=>"Tidak ada data varian yang dikirim [19]","messageCode"=>19), true);
-						$isProductValid = false;
-						continue;
+						if(empty($MessageProduct)){
+							$isCartValid = false;
+							$MessageProduct = array("product"=>$FormCartProduct,"message"=>"Tidak ada data varian yang dikirim [18]");
+							array_push($MessageProducts,$MessageProduct);
+						}
 					}
 					$message = "";
 					$buy_qty = 0;
@@ -3997,9 +4105,11 @@ class Api extends CI_Controller {
 									->row();
 							
 							if(empty($QCartVarian)){
-								$this->response->send(array("result"=>0,"message"=>"Varian sudah tidak tersedia [20]","messageCode"=>20), true);
-								$isProductValid = false;
-								continue;
+								if(empty($MessageProduct)){
+									$isCartValid = false;
+									$MessageProduct = array("product"=>$FormCartProduct,"message"=>"Varian sudah tidak tersedia [19]");
+									array_push($MessageProducts,$MessageProduct);
+								}
 							}
 							
 							$QVarian = $this->db
@@ -4008,18 +4118,22 @@ class Api extends CI_Controller {
 								->row();
 								
 							if(empty($QVarian)){
-								$this->response->send(array("result"=>0,"message"=>"Varian sudah tidak tersedia [21]","messageCode"=>21), true);
-								$isProductValid = false;
-								continue;
+								if(empty($MessageProduct)){
+									$isCartValid = false;
+									$MessageProduct = array("product"=>$FormCartProduct,"message"=>"Varian sudah tidak tersedia [20]");
+									array_push($MessageProducts,$MessageProduct);
+								}
 							}
 								
 							if($this->response->post("cart_product".$p."_varian".$v."_quantity") != "" && $this->response->postDecode("cart_product".$p."_varian".$v."_quantity") != ""){
 								if($this->response->postDecode("cart_product".$p."_varian".$v."_quantity") != "0"){
 									if($QProduct->stock_type == 1 && $QProduct->stock_type_detail == 0){
 										if($QVarian->stock_qty < intval($this->response->postDecode("cart_product".$p."_varian".$v."_quantity"))){
-											$this->response->send(array("result"=>0,"message"=>"Stok tidak mencukupi [22]","messageCode"=>22), true);
-											$isProductValid = false;
-											continue;
+											if(empty($MessageProduct)){
+												$isCartValid = false;
+												$MessageProduct = array("product"=>$FormCartProduct,"message"=>"Stok tidak mencukupi [21]");
+												array_push($MessageProducts,$MessageProduct);
+											}
 										}
 									}
 									
@@ -4030,18 +4144,20 @@ class Api extends CI_Controller {
 					}
 					
 					if($QProduct->min_order > $buy_qty){
-						$this->response->send(array("result"=>0,"message"=>"Jumlah pembelian \"".$QProduct->name."\" kurang dari minimal order [23]","messageCode"=>23), true);
-						$isProductValid = false;
-						continue;
+						if(empty($MessageProduct)){
+							$isCartValid = false;
+							$MessageProduct = array("product"=>$FormCartProduct,"message"=>"Jumlah pembelian \"".$QProduct->name."\" kurang dari minimal order [22]");
+							array_push($MessageProducts,$MessageProduct);
+						}
 					}
 				}
 			}
 			
-			if(!$isProductValid){
-				return;
+			if($isCartValid){
+				$this->response->send(array("result"=>1,"message"=>"Cart sudah valid","messageCode"=>23), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Cart tidak valid","message_products"=>$MessageProducts,"messageCode"=>24), true);
 			}
-			
-			$this->response->send(array("result"=>1,"message"=>"Cart sudah valid [24]","messageCode"=>24), true);
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
