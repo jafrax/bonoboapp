@@ -16,7 +16,8 @@ echo"
 	</div>
 </div>		
 		
-										<!-- hapus -->
+		
+												<!-- hapus -->
 												<div id='delete_nota' class='modal confirmation'>
 													<div class='modal-header red'>
 														<i class='mdi-navigation-close left'></i> <span id='head-del'> produk
@@ -28,6 +29,26 @@ echo"
 														<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
 													</div>
 												</div>		
+		
+		
+		
+								       <div id='batalnota' class='modal confirmation'>
+												<div class='modal-header red'>
+													<i class='mdi-navigation-close left' ></i> Batal produk
+												</div>
+												<form class='modal-content'>
+													<p>Apakah Anda yakin ingin membatalkan pesanan?</p>
+													<!-- <p id=idbatal></p> -->
+													
+													<input type=checkbox class=filled-in id=batal-cek- /><label  for=batal-cek- />Kembalikan stok?</label>
+												</form>
+												<div class='modal-footer'>
+													<!-- <p id=proses > -->
+													<p> <button type=button onclick=javascript:batal_nota() class=btn-flat modal-action modal-close waves-effect >YA</button></p>
+													<a class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
+												</div>
+											</div>
+		
 		
 		<div class='col s12 m12 l12'>
 					<div class='formain'>
@@ -172,20 +193,7 @@ echo"
 												
 											echo"												
 								            </div>
-								            <div id='batalnota' class='modal confirmation'>
-												<div class='modal-header red'>
-													<i class='mdi-navigation-close left'></i> Batal produk
-												</div>
-												<form class='modal-content'>
-													<p>Apakah Anda yakin ingin membatalkan pesanan?</p>
-													<p id=idbatal></p>
-													
-												</form>
-												<div class='modal-footer'>
-													<p id=proses >
-													<a class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
-												</div>
-											</div>
+								     
 								            <div id='bayarnota' class='modal  modal-fixed-footer'>
 												<div class='modal-header red'>
 													<i class='mdi-action-label-outline left'></i> Pilih metode transaksi

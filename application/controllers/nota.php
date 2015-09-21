@@ -80,7 +80,7 @@ class Nota extends CI_Controller {
 			return;
 		}
 		if ($cek == 1) {
-			//echo "string";
+			
 			$produk = $this->model_nota->get_nota_product_by_id($id);				
 				foreach ($produk->result() as $row) {
 					$stok 	= $row->quantity;
@@ -94,6 +94,7 @@ class Nota extends CI_Controller {
 		$update = $this->db->set('status',2)->where('id',$id)->update('tb_invoice');
 		if ($update) {
 			echo "1";
+			
 		}
 	}
 

@@ -7,6 +7,7 @@
 var offset=5;
 var scrolling=true;
 var idbarang=0;
+var idbatal=0;
 $(window).scroll(function () {      
         if ($(window).scrollTop() == ( $(document).height() - $(window).height()) && scrolling==true) {
             $('#preloader').slideDown();
@@ -89,12 +90,29 @@ function cek_all_nota(){
 }
 function batal_nota(){
 	id=idbatal;
-    $('#btn-batal-'+id).html('loading...');
-    $('#btn-batal-'+id).fadeTo('slow',0.5);
+   // $('#btn-batal-'+id).html('loading...');
+    //$('#btn-batal-'+id).fadeTo('slow',0.5);
     var cek = 0;
     if ($('#batal-cek-'+id).is(':checked')) {
         cek = 1;
     };
+    
+    $.ajax({
+        type: 'POST',
+        data: 'id='+id+'&cek='+cek,
+        url: base_url+'nota/nota_batal',
+        success: function(msg) {
+            if (msg == 1) {             
+            	location.reload();
+                Materialize.toast('Nota telah dihapus', 4000);
+                
+            };              
+        } 
+    });
+    
+    
+    /*
+    
     $.ajax({
         type: 'POST',
         data: 'id='+id+'&cek='+cek,
@@ -107,11 +125,11 @@ function batal_nota(){
                 $('#lunas-'+id).html('Batal');
                 $('#lunas-'+id).addClass('grey-text');
                 $('#lunas-'+id).addClass('red-text');
-                $('.modal-trigger').leanModal();
-            };
+                $('.modal-trigger').clossModal();
+            }; 
         } 
     });
-
+*/
 }
 
 
@@ -121,18 +139,15 @@ function bayarnota(e){
 
 
 function batalnota(e){
-	
-	//if($('#idbatal'))
-	//$('#idbatal').remov();
-	//$('#proses').remov();
-	
+	//var idbatal=0;
+	/*
 	var div = document.createElement('div');
 		div.innerHTML = "<input type=checkbox class=filled-in id=batal-cek-"+e+" /><label  for=batal-cek-"+e+" />Kembalikan stok?</label>";
 	$('#idbatal').append(div);
 	$('#proses').append("<button type=button onclick=javascript:batal_nota("+e+") class=btn-flat modal-action modal-close waves-effect >YA</button>");
+	*/
 	$('#batalnota').openModal();
-
-	
+	idbatal =e ;
 	 }
 
 
