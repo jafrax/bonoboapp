@@ -74,7 +74,7 @@ echo"
 											<option value='3'>Semua Status</option>
 										</select>									
 									</div>
-									<div class='input-field col s12 m3 left'>
+									<div class='input-field col s12 m4 left'>
 										<select class='select-standar' id='tipe_stok' onchange=javascript:change_stock()>
 											<option value='0'>Pre Order</option>
 											<option value='1'>Ready Stok</option>
