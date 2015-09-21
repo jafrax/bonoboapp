@@ -38,6 +38,37 @@ class Daftar_toko extends CI_Controller {
             $this->template->bonobo_admin('daftar_toko/bg_daftartoko', $this->data);
         } 
     }
+    
+    
+    
+    function UploadExcel(){
+    	$table = 'statement';
+    	$filename ='expense.xls';
+    
+    	$pathToFile = './uploads/' . $filename;
+    
+    	//           print_r($pathToFile);die;
+    	$valuesSql="";
+    	$this->load->library('Excel_Reader');
+    	$data = new Excel_Reader($pathToFile);
+    	$sql = "INSERT INTO $table (";
+    	for($index = 1;$index <= $data->sheets[0]['numCols']; $index++){
+    		$sql.= strtolower($data->sheets[0]['cells'][1][$index]) . ", ";
+    	}
+    
+    	$sql = rtrim($sql, ", ")." ) VALUES ( ";
+    	for ($i = 2; $i <= $data->sheets[0]['numRows']; $i++) {
+    		$valuesSQL = '';
+    		for ($j = 1; $j <= $data->sheets[0]['numCols']; $j++) {
+    			$valuesSql .= "\"" . $data->sheets[0]['cells'][$i][$j] . "\", ";
+    		}
+    		echo $sql . rtrim($valuesSql, ", ")." ) <br>";
+    	}                                           // add this line
+    
+    
+    }
+    
+    
 	
 	public function delete(){
 		if($_POST != null){

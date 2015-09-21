@@ -121,13 +121,20 @@ function bayarnota(e){
 
 
 function batalnota(e){
-	idbatal=0;
 	
-	$('#idbatal').append("<input type=checkbox class=filled-in id=batal-cek-"+e+" /><label  for=batal-cek-"+e+" />Kembalikan stok?</label>");
+	//if($('#idbatal'))
+	//$('#idbatal').remov();
+	//$('#proses').remov();
+	
+	var div = document.createElement('div');
+		div.innerHTML = "<input type=checkbox class=filled-in id=batal-cek-"+e+" /><label  for=batal-cek-"+e+" />Kembalikan stok?</label>";
+	$('#idbatal').append(div);
 	$('#proses').append("<button type=button onclick=javascript:batal_nota("+e+") class=btn-flat modal-action modal-close waves-effect >YA</button>");
 	$('#batalnota').openModal();
-	idbatal=e; 
+
+	
 	 }
+
 
 function delitem(e){
 	 idbarang=0;

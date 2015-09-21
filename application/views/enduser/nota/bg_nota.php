@@ -16,8 +16,7 @@ echo"
 	</div>
 </div>		
 		
-		
-												<!-- hapus -->
+										<!-- hapus -->
 												<div id='delete_nota' class='modal confirmation'>
 													<div class='modal-header red'>
 														<i class='mdi-navigation-close left'></i> <span id='head-del'> produk

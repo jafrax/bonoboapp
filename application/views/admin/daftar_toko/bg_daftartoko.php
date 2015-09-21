@@ -1,5 +1,7 @@
 <?php
 echo"
+		
+		
 <!-- Right side column. Contains the navbar and content of the page -->
 		<aside class='right-side'>
 			<!-- Content Header (Page header) -->
@@ -84,7 +86,11 @@ echo"
 																			<p>
 																				Suspend Toko ".$nama."
 																			</p>
+																						
+																			
 																		</div><!-- /.box-body -->
+																						
+																						
 																		<div class='box-footer'>
 																			<button type='button' class='btn btn-danger tombol-ok".$row->id."' data-dismiss='modal' onclick=javascript:toko_suspend('".$row->id."')>Ok</button>
 																			<button type='button' class='btn btn-danger delete-cancel' data-dismiss='modal'>Cancel</button>
