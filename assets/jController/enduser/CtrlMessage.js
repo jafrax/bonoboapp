@@ -276,6 +276,7 @@ function CtrlMessageNew(){
 			data: "member="+memberTo.value+"&message="+txtMessage.value+"&checkbox="+checked,
 			url: base_url+'message/doMessageNewSend',
 			success: function(result) {
+				 location.reload();
 				var response = JSON.parse(result);
 				if(response.result == 1){
 					top.location.href = base_url+"message";
