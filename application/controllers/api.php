@@ -2364,7 +2364,7 @@ class Api extends CI_Controller {
 			}else{
 				$Delete = $this->db->where("toko_id",$QShop->id)->where("member_id",$QUser->id)->delete("tb_join_in");
 				$Delete = $this->db->where("toko_id",$QShop->id)->where("member_id",$QUser->id)->delete("tb_cart");
-				/*
+				
 				$Delete = $this->db
 						->join("tb_product tp","tp.id = tf.product_id")
 						->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
@@ -2372,7 +2372,7 @@ class Api extends CI_Controller {
 						->where("ttcp.toko_id",$QShop->id)
 						->where("tf.member_id",$QUser->id)
 						->delete("tb_favorite tf");
-				*/	
+					
 				$Delete = $this->db->where("id",$QFollow->id)->delete("tb_toko_member");
 				
 				if($Delete){
@@ -3435,8 +3435,8 @@ class Api extends CI_Controller {
 		
 		if($QProduct->stock_type == 0){
 			$long = $this->hs_datetime->countDate(date("Y-m-d H:i:s"),$QProduct->end_date);
-			if($long >= 0){
-				$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia [11]","messageCode"=>11), true);
+			if($long <= 0){
+				$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia [11], Tanggal sekarang (".date("Y-m-d H:i:s")."), Kadaluarsa (".$QProduct->end_date."), Long (".$long.")","messageCode"=>11), true);
 				return false;
 			}
 		}
@@ -3895,7 +3895,7 @@ class Api extends CI_Controller {
 					
 					if($QProduct->stock_type == 0){
 						$long = $this->hs_datetime->countDate(date("Y-m-d H:i:s"),$QProduct->end_date);
-						if($long >= 0){
+						if($long <= 0){
 							$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia [12]","messageCode"=>12), true);
 							return false;
 						}
