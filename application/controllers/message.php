@@ -41,7 +41,7 @@ class Message extends CI_Controller {
 		if(empty($Member)){
 			return false;
 		}
-		
+
 		$date = date("Y-m-d H:i:s");
 		
 		$Data = array(
@@ -223,7 +223,17 @@ class Message extends CI_Controller {
 		}
 		
 		
-		$date 		= date('Y-m-d H:i');
+		
+
+		//jangan dobel
+		/* $cek =$this->model_toko_message->cekmeseg($_SESSION["bonobo"]["id"],$this->response->post("id"),$this->response->post("message"),date('Y-m-d H:i'))->row();
+		 
+		 if(!empty($cek)){
+		 		$Save = $this->doMessageAdd($_SESSION["bonobo"]["id"],$this->response->post("id"),$this->response->post("message"));
+		 }else{
+		 	$this->response->send(array("result"=>0,"message"=>"Pesan gagal kirim ","messageCode"=>6));
+		 }
+		*/
 		
 		$Save = $this->doMessageAdd($_SESSION["bonobo"]["id"],$this->response->post("id"),$this->response->post("message"));
 		

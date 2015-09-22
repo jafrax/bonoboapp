@@ -59,8 +59,8 @@ echo"</div>
 			</div>
 		</form>
 	</div>	
-	
-	<script>
+
+			<script>
 		var ctrlMessageDetail = new CtrlMessageDetail();
 		ctrlMessageDetail.init();
 		ctrlMessageDetail.setMember(".$Member->id.");

@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
+/* editor
 * CONTROLLER PRODUK WEBSITE
 * This controler for screen index
 *
