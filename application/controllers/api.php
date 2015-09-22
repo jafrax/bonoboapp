@@ -3362,6 +3362,8 @@ class Api extends CI_Controller {
 	
 	public function doInvoiceConfirm(){
 		try{
+			$this->response->send(array("result"=>0,"message"=>"Fitur ini belum dapat digunakan !","messageCode"=>1), true);
+			return;
 			/*
 			*	------------------------------------------------------------------------------
 			*	Validation POST data

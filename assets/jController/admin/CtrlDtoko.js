@@ -79,7 +79,6 @@ function toko_suspend(id) {
     });   
 }
 function toko_unsuspend(id) {
-
     $.ajax({
         type    : "POST",
         url     : base_url+"admin/daftar_toko/unsuspend",
