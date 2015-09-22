@@ -72,14 +72,7 @@ class Produk extends CI_Controller {
 				$deskripsi 		= $this->template->clearInput($this->input->post('deskripsi'));
 				$stok 			= $this->template->clearInput($this->input->post('stok'));
 				$stok_utama 	= $this->template->clearInput($this->input->post('stok_utama'));
-				//$harga_pembelian= $this->template->clearInput($this->input->post('harga_pembelian'));
-				$str= $this->template->clearInput($this->input->post('harga_pembelian'));
-				$hrg=(explode(".",$str)); $harga=""; $harga= $hrg[0].$hrg[1].$hrg[2];
-					
-				$harga_pembelian = 0;
-				$harga_pembelian=$harga_pembelian+$harga;
-				
-				
+				$harga_pembelian= $this->template->clearInput($this->input->post('harga_pembelian'));
 					
 				
 				$total_picture 	= $this->template->clearInput($this->input->post('total_picture'));
@@ -107,7 +100,7 @@ class Produk extends CI_Controller {
 					'min_order'					=> $min_order,
 					'description'				=> $deskripsi,
 					'stock_type'				=> $tipe,
-					'price_base'				=> $harga_pembelian,
+					'price_base'				=> str_replace('.','',$harga_pembelian),
 					'price_1'					=> str_replace('.','',$harga_level_1),
 					'price_2'					=> str_replace('.','',$harga_level_2),
 					'price_3'					=> str_replace('.','',$harga_level_3),
@@ -204,12 +197,7 @@ class Produk extends CI_Controller {
 				$deskripsi 		= $this->template->clearInput($this->input->post('deskripsi'));
 				$stok 			= $this->template->clearInput($this->input->post('stok'));
 				$stok_utama 	= $this->template->clearInput($this->input->post('stok_utama'));
-				//$harga_pembelian= $this->template->clearInput($this->input->post('harga_pembelian'));
-				$str= $this->template->clearInput($this->input->post('harga_pembelian'));
-				$hrg=(explode(".",$str)); $harga=""; $harga= $hrg[0].$hrg[1].$hrg[2];
-									
-				$harga_pembelian = 0;
-				$harga_pembelian=$harga_pembelian+$harga;
+				$harga_pembelian= $this->template->clearInput($this->input->post('harga_pembelian'));
 				
 				$total_picture 	= $this->template->clearInput($this->input->post('total_picture'));
 				$total_varian 	= $this->template->clearInput($this->input->post('total_varian'));
@@ -235,7 +223,7 @@ class Produk extends CI_Controller {
 					'unit'						=> $satuan,
 					'min_order'					=> $min_order,
 					'description'				=> $deskripsi,					
-					'price_base'				=> $harga_pembelian,
+					'price_base'				=> str_replace('.','',$harga_pembelian),
 					'price_1'					=> str_replace('.','',$harga_level_1),
 					'price_2'					=> str_replace('.','',$harga_level_2),
 					'price_3'					=> str_replace('.','',$harga_level_3),
@@ -549,13 +537,7 @@ class Produk extends CI_Controller {
 				$satuan 		= $this->template->clearInput($this->input->post('satuan'));
 				$min_order 		= $this->template->clearInput($this->input->post('min_order'));
 				$deskripsi 		= $this->template->clearInput($this->input->post('deskripsi'));				
-				//$harga_pembelian= $this->template->clearInput($this->input->post('harga_pembelian'));
-				$str= $this->template->clearInput($this->input->post('harga_pembelian'));
-				$hrg=(explode(".",$str)); $harga=""; $harga= $hrg[0].$hrg[1].$hrg[2];
-									
-				$harga_pembelian = 0;
-				$harga_pembelian=$harga_pembelian+$harga;
-				
+				$harga_pembelian= $this->template->clearInput($this->input->post('harga_pembelian'));
 				
 				$total_picture 	= $this->template->clearInput($this->input->post('total_picture'));				
 				$total_varian 	= $this->template->clearInput($this->input->post('total_varian'));
@@ -587,7 +569,7 @@ class Produk extends CI_Controller {
 					'unit'						=> $satuan,
 					'min_order'					=> $min_order,
 					'description'				=> $deskripsi,					
-					'price_base'				=> $harga_pembelian,
+					'price_base'				=> str_replace('.','',$harga_pembelian),
 					'price_1'					=> str_replace('.','',$harga_level_1),
 					'price_2'					=> str_replace('.','',$harga_level_2),
 					'price_3'					=> str_replace('.','',$harga_level_3),
@@ -697,15 +679,8 @@ class Produk extends CI_Controller {
 				$satuan 		= $this->template->clearInput($this->input->post('satuan'));
 				$min_order 		= $this->template->clearInput($this->input->post('min_order'));
 				$deskripsi 		= $this->template->clearInput($this->input->post('deskripsi'));				
-				//$harga_pembelian= $this->template->clearInput($this->input->post('harga_pembelian'));
-				$str= $this->template->clearInput($this->input->post('harga_pembelian'));
-				$hrg=(explode(".",$str)); $harga=""; $harga= $hrg[0].$hrg[1].$hrg[2];
-									
-				$harga_pembelian = 0;
-				$harga_pembelian=$harga_pembelian+$harga;
-				
-			
-				
+				$harga_pembelian= $this->template->clearInput($this->input->post('harga_pembelian'));
+					
 				$total_picture 	= $this->template->clearInput($this->input->post('total_picture'));
 				$total_varian 	= $this->template->clearInput($this->input->post('total_varian'));
 				$gunakan_varian = $this->template->clearInput($this->input->post('gunakan_varian'));
@@ -730,7 +705,7 @@ class Produk extends CI_Controller {
 					'unit'						=> $satuan,
 					'min_order'					=> $min_order,
 					'description'				=> $deskripsi,					
-					'price_base'				=> $harga_pembelian,
+					'price_base'				=> str_replace('.','',$harga_pembelian),
 					'price_1'					=> str_replace('.','',$harga_level_1),
 					'price_2'					=> str_replace('.','',$harga_level_2),
 					'price_3'					=> str_replace('.','',$harga_level_3),

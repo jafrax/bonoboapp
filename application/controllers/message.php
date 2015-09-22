@@ -210,6 +210,7 @@ class Message extends CI_Controller {
 		}
 	}
 	
+	
 	public function doMessageSend(){
 		if($this->response->post("id") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada data yang dipilih","messageCode"=>1));
@@ -220,6 +221,9 @@ class Message extends CI_Controller {
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada pesan yang dikirim","messageCode"=>3));
 			return;
 		}
+		
+		
+		$date 		= date('Y-m-d H:i');
 		
 		$Save = $this->doMessageAdd($_SESSION["bonobo"]["id"],$this->response->post("id"),$this->response->post("message"));
 		
