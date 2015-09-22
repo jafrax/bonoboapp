@@ -59,6 +59,8 @@ class Index extends CI_Controller {
 				$repassword = mysql_real_escape_string($this->input->post('rePassword'));
 				$verify 	= $this->template->rand(20);
 
+				
+				
 				$param  = array(					
 					"name"=>$name,
 					"email"=>$email,

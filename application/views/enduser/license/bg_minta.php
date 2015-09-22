@@ -81,7 +81,7 @@ echo "
 									<span>Handphone</span>
 									<input name='hp' id='hp' type='text' maxlength='12' class='numbersOnly validate' placeholder='Handphone'>
 								</div>
-								<label id='error-captcha'  style='display:none;'></label>
+								<label id='error-captcha' class='error-captcha' style='display:none;'></label>
 								<div class='input-field col s12 m12 l12 nolpad'>
 									<span>".$captcha."</span>
 									
