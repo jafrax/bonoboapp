@@ -93,6 +93,7 @@ input.valid[type="text"], input.valid[type="text"]:focus, input.valid[type="pass
 .error-chosen{ position: relative!important; top: 0; right:0; text-align:right; }
 .notif-error{ position: relative; padding:8px 0 10px 0; text-align:center; color:#ef5350!important;  }
 .error-image{ position: relative!important; color:#ef5350!important; top:-5px!important;}
+.error-captcha{ color:#ef5350!important; }
 #recaptcha_response_field{ height:1rem!important; background: #fff; }
 .filled-in[type="checkbox"]:not(:checked) + label::after{ background-color: rgba(0,0,0,0.1)!important; border: 1px solid #26a69a!important;}
 [type="checkbox"].filled-in:not(:checked)+label:before{ border:none;}

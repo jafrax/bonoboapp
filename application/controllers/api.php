@@ -579,11 +579,11 @@ class Api extends CI_Controller {
 			$QInvoices = $QInvoices->where("status",$this->response->postDecode("status"));
 		}		
 		
-		if($this->response->post("lastId") != "" && (float) $this->response->postDecode("lastId") > 0){
+		if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && intval($this->response->postDecode("lastId")) > 0){
 			$QInvoices = $QInvoices->where("id < ",$this->response->postDecode("lastId"));
 		}
 		
-		$QInvoices = $QInvoices->limit($this->paging_limit,$this->paging_offset);
+		$QInvoices = $QInvoices->limit(5,$this->paging_offset);
 		$QInvoices = $QInvoices->order_by("id","DESC");
 		$QInvoices = $QInvoices->get("tb_invoice");
 		$QInvoices = $QInvoices->result();
