@@ -73,8 +73,6 @@ class Produk extends CI_Controller {
 				$stok 			= $this->template->clearInput($this->input->post('stok'));
 				$stok_utama 	= $this->template->clearInput($this->input->post('stok_utama'));
 				$harga_pembelian= $this->template->clearInput($this->input->post('harga_pembelian'));
-					
-				
 				$total_picture 	= $this->template->clearInput($this->input->post('total_picture'));
 				$total_varian 	= $this->template->clearInput($this->input->post('total_varian'));
 				$gunakan_varian = $this->template->clearInput($this->input->post('gunakan_varian'));

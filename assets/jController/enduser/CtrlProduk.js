@@ -3,7 +3,7 @@
 /*
 * MAIN SCROOL AJAX
 */
-var offset_rs=10;
+var offset_rs=100;
 var scrolling_rs=true;
 
 $(window).scroll(function () {      
@@ -51,7 +51,7 @@ $(window).scroll(function () {
         }
     });
 
-var offset_po=10;
+var offset_po=100;
 var scrolling_po=true;
 
 $(window).scroll(function () {      
@@ -378,7 +378,7 @@ function picture_upload(id){
 }
 
 function remove_picture(id) {
-   /*$('#div_'+id).remove();   
+   $('#div_'+id).remove();   
     var hitung = $('.picture-area .card').length;
     if (hitung == 0) {
         tot_picture = tot_picture+1;
@@ -386,7 +386,7 @@ function remove_picture(id) {
         $('.picture-area').append(box_picture(tot_picture));
     }
 
-    if (hitung < 3) {$('#add-poto').show();};*/
+    if (hitung < 3) {$('#add-poto').show();};
   var loc = base_url+"html/images/comp/product_large.png";
   $('#'+id).val('');
   $('#img_'+id).attr("src",loc);

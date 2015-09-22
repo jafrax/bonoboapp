@@ -22,10 +22,17 @@ $(document).ready(function() {
 			
         },
     });
+            $("input.ribuan").priceFormat({     
+        limit: 9,
+        centsLimit: 0,
+        centsSeparator: "",
+        thousandsSeparator: ".",
+        prefix: "",
+    });
 })
 
 function dkurir_modal_add() {
-	$.ajax({
+		$.ajax({
             type    : "POST",
             url     : base_url+"admin/kurir_detail/add_dk",
             success : function(response){

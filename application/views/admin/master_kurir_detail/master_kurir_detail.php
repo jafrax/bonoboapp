@@ -50,7 +50,7 @@ echo "
 							<th>No</th>
 							<th>Lokasi Awal</th>
 							<th>Lokasi Tujuan</th>
-							<th>Harga Per Kg</th>
+							<th>Harga Per Kg (Rp.)</th>
 							<th>Action</th>
 						</tr>
 					</thead>
@@ -76,7 +76,7 @@ echo "
 								<span id='tc-".$row->id."'> ".$row->location_to_city." </span> /
 								<span id='tk-".$row->id."'> ".$row->location_to_kecamatan." </span>
 							</td>
-							<td><span id='pr-".$row->id."'>".$row->price."</span></td>
+							<td><span id='pr-".$row->id."'>Rp. ".$row->price."</span></td>
 							<td>
 								<button data-toggle='modal' data-target='.bs-edit-modal-sm-".$row->id."' class='btn btn-primary btn-sm' onClick=javascript:dkurir_modal('".$row->id."') >Edit</button>
 							</td>
@@ -113,7 +113,7 @@ echo "
 							<th>No</th>
 							<th>Lokasi Awal</th>
 							<th>Lokasi Tujuan</th>
-							<th>Harga Per Kg</th>
+							<th>Harga Per Kg (Rp.)</th>
 							<th>Action</th>
 					</tfoot>
 				</table>
