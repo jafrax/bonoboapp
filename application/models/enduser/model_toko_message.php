@@ -45,6 +45,7 @@ class Model_toko_message extends CI_Model {
 						->where("ttm.member_id",$member)
 						->order_by("tm.id","DESC")
 						->limit($limit,$offset)
+						//->group_by('tm.message','tm.create_date')
 						->get("tb_toko_message ttm");
 	}
 	
@@ -72,6 +73,17 @@ class Model_toko_message extends CI_Model {
 						->where("p.id",$value)						
 						->get("tb_product p");
 	}
+	
+	public function cekmeseg($ShopId,$MemberId,$Message,$date){
+		return $this->db->select(" tm.message as message , tm.create_date  as create_date ")
+		->join("tb_message tm","ttm.message_id = tm.id")
+		->where("ttm.toko_id",$ShopId)
+		->where("ttm.member_id",$MemberId)
+		->where("tm.message",$Message)
+		->where("tm.create_date",$date)
+		->get("tb_toko_message ttm");
+	}
+	
 	
 }
 
