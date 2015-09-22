@@ -72,11 +72,10 @@ echo"
 								Nama Bank
 							</div>
 							<div id='divCmbBank' class='input-field col s12 m12'>
-								<select name='cmbBank' class='select-standar'>
+								<select name='cmbBank' class='select-standar' >
 									<option value='' disabled selected>Bank BCA</option>
 									<option value='' disabled selected>Bank Mandiri</option>
 									<option value='' disabled selected>Bank BNI</option>
-									<option value='' disabled selected>Bank BCA</option>
 									<option value='' disabled selected>Bank BRI</option>
 									<option value='' disabled selected>Bank BTN</option>
 									<option value='' disabled selected>Bank Lainnya</option>

@@ -119,6 +119,10 @@ class Kurir_detail extends CI_Controller {
 				$tkota    	= $this->db->escape_str($this->input->post('tkota'));
 				$tkecamatan    	= $this->db->escape_str($this->input->post('tkecamatan'));
 				$hargapkg    	= $this->db->escape_str($this->input->post('hargapkg'));
+				//$str = $this->db->escape_str($this->input->post('hargapkg'));
+            	//$hg = (explode(".",$str)); $harga = ""; $harga=$hg[1].$hg[2].$hg[3];
+            	 //$hargapkg = 0;
+            	//$hargapkg = $hargapkg+$harga;
                 $data_edit  = array(
 								'location_from_province' => $fprovince ,
 								'location_from_city'=>$fkota,
@@ -126,7 +130,7 @@ class Kurir_detail extends CI_Controller {
 								'location_to_province'=>$tprovince,
 								'location_to_city'=>$tkota,
 								'location_to_kecamatan'=>$tkecamatan,
-								'price'=>$hargapkg,
+								'price'=> str_replace('.','',$hargapkg),
 								'update_date'	=> date("Y-m-d H:i:s"),
 								'update_user'   => $_SESSION['bonobo_admin']->email
 				);
@@ -159,6 +163,12 @@ class Kurir_detail extends CI_Controller {
             $tkota    	= $this->db->escape_str($this->input->post('tkota'));
             $tkecamatan    	= $this->db->escape_str($this->input->post('tkecamatan'));
             $hargapkg    	= $this->db->escape_str($this->input->post('hargapkg'));
+            //$str = $this->db->escape_str($this->input->post('hargapkg'));
+            //$hg = (explode(".",$str)); $harga = ""; $harga=$hg[1].$hg[2].$hg[3];
+
+            // $hargapkg = 0;
+            //$hargapkg = $hargapkg+$harga;
+            //$hargapkg    	= $this->db->escape_str($hg[1].$hg[2].$hg[3]);
 			 $data_add  = array(
 								'courier_id' 	=>$_SESSION['kurir_detail'],
 								'location_from_province' => $fprovince ,
@@ -167,7 +177,7 @@ class Kurir_detail extends CI_Controller {
 								'location_to_province'=>$tprovince,
 								'location_to_city'=>$tkota,
 								'location_to_kecamatan'=>$tkecamatan,
-								'price'=> $hargapkg,
+								'price'=> str_replace('.','',$hargapkg),
 								'create_date'	=> date("Y-m-d H:i:s"),
 								'create_user'   => $_SESSION['bonobo_admin']->email
             );

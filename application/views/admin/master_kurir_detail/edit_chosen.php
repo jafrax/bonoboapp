@@ -53,8 +53,8 @@ echo "
 			}	
 		echo"</select></div>
 		<div class='form-group'>
-			<label for=''>Harga per Kg</label>
-			<input type='text' class='form-control rupiah'  id='hargapkg' maxlength='11'  name='hargapkg' value='$price' >
+			<label for=''>Harga per Kg (Rp.)</label>
+			<input type='text' class='form-control ribuan'  id='hargapkg' maxlength='11'  name='hargapkg' value='$price' >
 			<label id='edit_num$idedit' class='error-required' style='display:none'>cannot be empty</label>
 		</div>
 	</div><!-- /.box-body -->					
@@ -62,6 +62,7 @@ echo "
 		<button type='button' class='btn btn-primary form-dkurir-edit-btn' onclick=javascript:submit_data_edit('form-dkurir-edit$idedit','admin/kurir_detail/edit') >Submit</button>
 		<button type='button' class='btn btn-primary' data-dismiss='modal' >Cancel</button>
 	</div>
+	<script type='text/javascript' src='".base_url("")."assets/jController/admin/CtrlDkurir.js'></script>
 </form>			
 ";
 

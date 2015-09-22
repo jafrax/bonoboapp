@@ -166,7 +166,7 @@ class Toko extends CI_Controller {
 			}
 			
 			$Data = array(
-					"pm_store_payment"=>$pm_store_payment,
+					"txtLevel2"=>$pm_store_payment,
 					"pm_transfer"=>$pm_transfer,
 				);
 			$step=$_SESSION['bonobo']['step'];
@@ -179,6 +179,7 @@ class Toko extends CI_Controller {
 	}
 	
 	public function step4(){
+
 		$step=$_SESSION['bonobo']['step'];
 			if($step != 0){
 				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',4)->update('tb_toko');
@@ -350,18 +351,24 @@ class Toko extends CI_Controller {
 	public function doStep1Save(){
 		
 		/*$username = $_REQUEST['txtTagname'];
-		$cek=$this->db->where('tag_name',$username)->get('tb_toko');
-		
-		if($cek->num_rows()>0){
+		$valid = "true";		
+	    $cek=$this->db->where('tag_name',$username)->get('tb_toko');
+
+	    if($cek->num_rows()>0){
 			$valid = "false";
-			$this->response->send(array("result"=>0,"message"=>"PIN TOKO tidak tersedia","messageCode"=>1));
-		}else{
-			$step=$_SESSION['bonobo']['step'];
-			if($step != 0){
-			$update = $this->db->where('tag_name',$_SESSION['bonobo']['id'])->set('step',2)->update('tb_toko');
-			}
-		}
-		//}
+	    }else{
+
+ 			$cek2=$this->db->where('tag_name',$username)->where('id',$_SESSION['bonobo']['id'])-> get('tb_toko');
+ 			
+ 			if($cek2->num_rows()>0){
+
+			$valid = "false";
+
+				}else{
+
+			$valid = "true";
+	    } }
+	    echo $valid;
 		
 		/*if($this->response->post("txtName") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Field nama masih kosong","messageCode"=>1));
@@ -696,7 +703,8 @@ class Toko extends CI_Controller {
 					"update_user"=>$_SESSION['bonobo']['email'],
 				);
 				
-				$respon=$this->model_toko->get_rekeningsama22($this->response->post("txtNo"));
+				$respon=$this->model_toko->get_rekeningsama2($this->response->post("txtNo"));
+				//ori = $respon=$this->model_toko->get_rekeningsama22($this->response->post("txtNo"));
 				if($respon > 0){
 					$this->response->send(array("result"=>0,"message"=>"Tidak dapat menyimpan data bank","messageCode"=>5));
 				}else{
@@ -858,6 +866,7 @@ class Toko extends CI_Controller {
                
                 if($this->response->post("chkLevel1") != ""){
                         $chkLevel1 = 1;
+
                 }
                 if($this->response->post("chkLevel2") != ""){
                         $chkLevel2 = 1;
@@ -972,7 +981,7 @@ class Toko extends CI_Controller {
 	public function step8ComboboxBank(){
 		$Banks = $this->model_bank->get()->result();
 		$ShopBank = $this->model_toko_bank->get_by_id($this->response->post("id"))->row();
-		/*
+		
 		echo"<select id='cmbBank' name='cmbBank' class='select-standar'><option value='' disabled selected>Pilih Bank</option>";
 		
 		foreach($Banks as $Bank){
@@ -988,9 +997,9 @@ class Toko extends CI_Controller {
 			}
 		}
 			
-		echo"</select><script>$('.select-standar').chosen();</script>";*/
+		echo"</select><script>$('.select-standar').chosen();</script>";
 
-		echo "<select name='cmbBank' class='browser-default' onchange=javascript:pilihngebank()>
+		/*echo "<select name='cmbBank' class='browser-default' onchange=javascript:pilihngebank()>
 				<option value='Bank BCA' >Bank BCA</option>
 				<option value='Bank Mandiri' >Bank Mandiri</option>
 				<option value='Bank BNI' >Bank BNI</option>
@@ -998,28 +1007,27 @@ class Toko extends CI_Controller {
 				<option value='Bank BRI' >Bank BRI</option>
 				<option value='Bank BTN' >Bank BTN</option>
 				<option value='lainnya' >Bank Lainnya</option>
-			</select>";
+			</select>";*/
 	}
 	
 	public function step8ComboboxBankadd(){
 		$Banks = $this->model_bank->get()->result();
-		/*
+		
 		echo"<select id='cmbBank' name='cmbBank' class='select-standar'><option value='' disabled selected>Pilih Bank</option>";
 		
 		foreach($Banks as $Bank){
 				echo"<option value='".$Bank->id."'>".$Bank->name."</option>";
 		}
 			
-		echo"</select><script>$('.select-standar').chosen();</script>";*/
-		echo "<select name='cmbBank' class='browser-default' onchange=javascript:pilihngebank()>
+		echo"</select><script>$('.select-standar').chosen();</script>";
+		/*echo "<select name='cmbBank' class='browser-default' onchange=javascript:pilihngebank()>
 				<option value='Bank BCA' >Bank BCA</option>
 				<option value='Bank Mandiri' >Bank Mandiri</option>
 				<option value='Bank BNI' >Bank BNI</option>
-				<option value='Bank BCA' >Bank BCA</option>
 				<option value='Bank BRI' >Bank BRI</option>
 				<option value='Bank BTN' >Bank BTN</option>
 				<option value='lainnya' >Bank Lainnya</option>
-			</select>";
+			</select>";*/
 	}
 
 	function step6(){

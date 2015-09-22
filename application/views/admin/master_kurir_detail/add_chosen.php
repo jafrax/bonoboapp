@@ -58,10 +58,10 @@ echo"
 	</select>
 </div>
 <div class='form-group'>
-	<label for=''>Harga per Kg</label>
+	<label for=''>Harga per Kg (Rp.)</label>
 	<input type='text' class='form-control ribuan'  id='hargapkg' name='hargapkg'>
 </div>
-<script type='text/javascript' src='".base_url("")."assets/jController/admin/CtrlMkurir.js'></script>
+<script type='text/javascript' src='".base_url("")."assets/jController/admin/CtrlDkurir.js'></script>
 
 ";
 
