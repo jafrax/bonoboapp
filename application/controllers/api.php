@@ -3393,12 +3393,67 @@ class Api extends CI_Controller {
 				return;
 			}
 			
+			if($this->response->post("price") == "" || $this->response->postDecode("price") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada jumlah yang ditransfer","messageCode"=>3), true);
+				return;
+			}
+			
+			if($this->response->post("from_bank") == "" || $this->response->postDecode("from_bank") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data bank tujuan pengiriman","messageCode"=>3), true);
+				return;
+			}
+			
+			if($this->response->post("from_acc_name") == "" || $this->response->postDecode("from_acc_name") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data nama akun tujuan pengiriman","messageCode"=>3), true);
+				return;
+			}
+			
+			if($this->response->post("from_acc_no") == "" || $this->response->postDecode("from_acc_no") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data nomor rekening tujuan pengiriman","messageCode"=>3), true);
+				return;
+			}
+			
+			if($this->response->post("to_bank") == "" || $this->response->postDecode("to_bank") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data bank asal pengirim","messageCode"=>3), true);
+				return;
+			}
+			
+			if($this->response->post("to_acc_name") == "" || $this->response->postDecode("to_acc_name") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data nama akun asal pengirim","messageCode"=>3), true);
+				return;
+			}
+			
+			if($this->response->post("to_acc_no") == "" || $this->response->postDecode("to_acc_no") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data nomor rekening asal pengirim","messageCode"=>3), true);
+				return;
+			}
+			
+			$date = date("Y-m-d H:i:s");
+			
 			$Data = array(
+					"invoice_id"=>$QInvoice->id,
+					"price"=>$this->response->postDecode("price"),
+					"from_bank"=>$this->response->postDecode("from_bank"),
+					"from_acc_name"=>$this->response->postDecode("from_acc_name"),
+					"from_acc_no"=>$this->response->postDecode("from_acc_no"),
+					"to_bank"=>$this->response->postDecode("to_bank"),
+					"to_acc_name"=>$this->response->postDecode("to_acc_name"),
+					"to_acc_no"=>$this->response->postDecode("to_acc_no"),
+					"create_date"=>$date,
+					"create_user"=>$QUser->email,
+					"update_date"=>$date,
+					"update_user"=>$QUser->email,
+				);
+				
+			$Save = $this->db->insert("tb_invoice_transfer_confirm",$Data);
+			
+			if($Save){
+				$Data = array(
 					"member_confirm"=>1,
 				);
 			
-			$Save = $this->db->where("id",$QInvoice->id)->update("tb_invoice",$Data);
-			if($Save){
+				$Save = $this->db->where("id",$QInvoice->id)->update("tb_invoice",$Data);
+			
 				$this->response->send(array("result"=>1,"message"=>"Konfirmasi pembayaran telah di kirimkan","messageCode"=>5), true);
 				return;
 			}else{
