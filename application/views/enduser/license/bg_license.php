@@ -61,7 +61,7 @@ echo "
 								</div>
 							</div>
 							<div class='nolautomar captcha' style=' overflow:hidden; text-align:center; float:none; padding:15px 0; ' >
-								<label id='error-captcha'  style='display:none;color:red'></label>
+								<label id='error-captcha' class='error-captcha'></label>
 								".$captcha."								
 							</div>
 							<div class='nolautomar center'>
