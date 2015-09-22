@@ -649,7 +649,7 @@ class Api extends CI_Controller {
 				*/
 				$product = array();
 				if(!empty($QInvoiceProduct->product_id)){
-					$product = $this->getProductById($QInvoiceProduct->product_id,$user);
+					$product = $this->getProductById($QInvoiceProduct->product_id,$user_id);
 				}
 				
 				/*
@@ -680,7 +680,7 @@ class Api extends CI_Controller {
 								"id"=>$QVarian->id,
 								"name"=>$QVarian->name,
 								"stock_qty"=>$QVarian->stock_qty,
-								"product"=>$this->getProductById($QVarian->product_id,$user),
+								"product"=>$this->getProductById($QVarian->product_id,$user_id),
 							);
 					}
 					
@@ -748,7 +748,7 @@ class Api extends CI_Controller {
 					"location_to_postal"=>$QInvoice->location_to_postal,
 					"create_date"=>$QInvoice->create_date,
 					"update_date"=>$QInvoice->update_date,
-					"shop"=>$this->getShopById($QInvoice->toko_id,$user),
+					"shop"=>$this->getShopById($QInvoice->toko_id,$user_id),
 					"courier"=>$Courier,
 					"courier_custom"=>$CourierCustom,
 					"courier_type"=>$QInvoice->courier_type,
@@ -1467,7 +1467,7 @@ class Api extends CI_Controller {
 						"location_to_postal"=>$QInvoice->location_to_postal,
 						"create_date"=>$QInvoice->create_date,
 						"update_date"=>$QInvoice->update_date,
-						"shop"=>$this->getShopById($QInvoice->toko_id,$user),
+						"shop"=>$this->getShopById($QInvoice->toko_id,$QUser->id),
 					);
 				
 				array_push($Invoices,$Invoice);
