@@ -248,6 +248,7 @@ class Api extends CI_Controller {
 		$QShopProducts = $this->db
 						->select("tp.id")
 						->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
+						->where(" ((tp.stock_type = 0 AND tp.end_date >= '".date("Y-m-d H:i:s")."') OR tp.stock_type = 1) ",null,false)
 						->where("ttcp.toko_id",$QShop->id)
 						->where("tp.active",1)
 						->get("tb_product tp")
@@ -826,19 +827,9 @@ class Api extends CI_Controller {
 							->result();
 			
 			foreach($QBanks as $QBank){
-				if(@getimagesize(base_url("assets/pic/bank/".$QBank->image))){
-					$BankImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/bank/resize/".$QBank->image)));
-					$BankImageHigh = base_url("image.php?q=100&fe=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
-				}else{
-					$BankImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
-					$BankImageHigh = $BankImageTumb;
-				}
-			
 				$Bank = array(
 						"id"=>$QBank->id,
 						"name"=>$QBank->name,
-						"image_tumb"=>$BankImageTumb,
-						"image_high"=>$BankImageHigh,
 					);
 				
 				array_push($Banks,$Bank);				
@@ -858,7 +849,6 @@ class Api extends CI_Controller {
 	
 	public function doLogin(){
 		try {
-			
 			/*
 			*	------------------------------------------------------------------------------
 			*	Validation POST data
@@ -1193,29 +1183,18 @@ class Api extends CI_Controller {
 			*/
 			
 			$QBanks = $this->db
-					->select("tmb.id, tmb.acc_name as acc_name, tmb.acc_no as acc_no, mb.id as bank_id, mb.name as bank_name")
-					->join("ms_bank mb","tmb.bank_id = mb.id")
+					->select("tmb.id, tmb.bank_name, tmb.acc_name as acc_name, tmb.acc_no as acc_no")
 					->where("tmb.member_id",$QUser->id)
 					->get("tb_member_bank tmb")
 					->result();
 			
 			$Banks = array();
 			foreach($QBanks as $QBank){
-				if(@getimagesize(base_url("assets/pic/bank/".$QBank->image))){
-					$BankImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/bank/resize/".$QBank->image)));
-					$BankImageHigh = base_url("image.php?q=100&fe=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
-				}else{
-					$BankImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
-					$BankImageHigh = $BankImageTumb;
-				}
-			
 				$Bank = array(
 						"id"=>$QBank->id,
+						"bank_name"=>$QBank->bank_name,
 						"acc_name"=>$QBank->acc_name,
 						"acc_no"=>$QBank->acc_no,
-						"bank_name"=>$QBank->bank_name,
-						"image_tumb"=>$BankImageTumb,
-						"image_high"=>$BankImageHigh,
 					);
 					
 				array_push($Banks,$Bank);
@@ -1843,8 +1822,8 @@ class Api extends CI_Controller {
 			$QProduct = $QProduct->select("tp.id, tp.stock_type, tp.end_date");
 			$QProduct = $QProduct->join("tb_toko_category_product tkcp","tkcp.id = tp.toko_category_product_id");
 			$QProduct = $QProduct->where("tp.active",1);
-			$QProduct = $QProduct->where(" ((tp.stock_type = 0 AND end_date >= '".date("Y-m-d H:i:s")."') OR stock_type = 1) ",null,false);
-			$QProduct = $QProduct->where("tkcp.toko_id in (SELECT toko_id FROM tb_toko_member WHERE member_id = ".$QUser->id.")",null,false);
+			$QProduct = $QProduct->where(" ((tp.stock_type = 0 AND tp.end_date >= '".date("Y-m-d H:i:s")."') OR tp.stock_type = 1) ",null,false);
+			$QProduct = $QProduct->where("tkcp.toko_id in (SELECT ttm.toko_id FROM tb_toko_member ttm WHERE ttm.member_id = ".$QUser->id.")",null,false);
 			
 			if($this->response->post("keyword") != "" && $this->response->postDecode("keyword") != ""){
 				$QProduct = $QProduct->where("tp.name LIKE ","%".$this->response->postDecode("keyword")."%");
@@ -1912,9 +1891,9 @@ class Api extends CI_Controller {
 			$QProduct = $QProduct->select("tp.id, tp.stock_type, tp.end_date");
 			$QProduct = $QProduct->join("tb_toko_category_product tkcp","tkcp.id = tp.toko_category_product_id");
 			$QProduct = $QProduct->where("tp.active",1);
-			$QProduct = $QProduct->where(" ((tp.stock_type = 0 AND end_date >= '".date("Y-m-d H:i:s")."') OR stock_type = 1) ",null,false);
-			$QProduct = $QProduct->where("tkcp.toko_id in (SELECT toko_id FROM tb_toko_member WHERE member_id = ".$QUser->id.")",null,false);
-			$QProduct = $QProduct->where("tp.id in (SELECT product_id FROM tb_favorite WHERE member_id = ".$QUser->id.")",null,false);
+			$QProduct = $QProduct->where(" ((tp.stock_type = 0 AND tp.end_date >= '".date("Y-m-d H:i:s")."') OR tp.stock_type = 1) ",null,false);
+			$QProduct = $QProduct->where("tkcp.toko_id in (SELECT ttm.toko_id FROM tb_toko_member ttm WHERE ttm.member_id = ".$QUser->id.")",null,false);
+			$QProduct = $QProduct->where("tp.id in (SELECT tf.product_id FROM tb_favorite tf WHERE tf.member_id = ".$QUser->id.")",null,false);
 			
 			if($this->response->post("keyword") != "" && $this->response->postDecode("keyword") != ""){
 				$QProduct = $QProduct->where("tp.name LIKE ","%".$this->response->postDecode("keyword")."%");
@@ -2324,7 +2303,7 @@ class Api extends CI_Controller {
 			$QProduct = $QProduct->join("tb_toko_category_product tkcp","tkcp.id = tp.toko_category_product_id");
 			$QProduct = $QProduct->where("tkcp.toko_id", $QShop->id);
 			$QProduct = $QProduct->where("tp.active", 1);
-			$QProduct = $QProduct->where(" ((tp.stock_type = 0 AND end_date >= '".date("Y-m-d H:i:s")."') OR stock_type = 1) ",null,false);
+			$QProduct = $QProduct->where(" ((tp.stock_type = 0 AND tp.end_date >= '".date("Y-m-d H:i:s")."') OR tp.stock_type = 1) ",null,false);
 			
 			if($this->response->post("keyword") != "" && $this->response->postDecode("keyword") != ""){
 				$QProduct = $QProduct->where("tp.name LIKE ","%".$this->response->postDecode("keyword")."%");
@@ -3040,14 +3019,8 @@ class Api extends CI_Controller {
 				return;
 			}
 			
-			if($this->response->post("bank") == "" || $this->response->postDecode("bank") == ""){
+			if($this->response->post("bank_name") == "" || $this->response->postDecode("bank_name") == ""){
 				$this->response->send(array("result"=>0,"message"=>"Nama bank belum dipilih","messageCode"=>3), true);
-				return;
-			}
-			
-			$QBank = $this->db->where("name",$this->response->postDecode("bank"))->get("ms_bank")->row();
-			if(empty($QBank)){
-				$this->response->send(array("result"=>0,"message"=>"Nama bank yang dipilih tidak ditemukan","messageCode"=>4), true);
 				return;
 			}
 			
@@ -3070,8 +3043,8 @@ class Api extends CI_Controller {
 			
 			if($this->response->post("user_bank") == "" || $this->response->postDecode("user_bank") == ""){
 				$Data = array(
-						"bank_id"=>$QBank->id,
 						"member_id"=>$QUser->id,
+						"bank_name"=>$this->response->postDecode("bank_name"),
 						"acc_name"=>$this->response->postDecode("acc_name"),
 						"acc_no"=>$this->response->postDecode("acc_no"),
 						"create_date"=>$Date,
@@ -3083,8 +3056,8 @@ class Api extends CI_Controller {
 				$Save = $this->db->insert("tb_member_bank",$Data);
 			}else{
 				$Data = array(
-						"bank_id"=>$QBank->id,
 						"member_id"=>$QUser->id,
+						"bank_name"=>$this->response->postDecode("bank_name"),
 						"acc_name"=>$this->response->postDecode("acc_name"),
 						"acc_no"=>$this->response->postDecode("acc_no"),
 						"update_date"=>$Date,
@@ -3097,8 +3070,8 @@ class Api extends CI_Controller {
 			if($Save){
 				if($this->response->post("user_bank") == "" || $this->response->postDecode("user_bank") == ""){
 					$QUserBank = $this->db
-								->where("bank_id",$QBank->id)
 								->where("member_id",$QUser->id)
+								->where("bank_name",$this->response->postDecode("bank_name"))
 								->where("acc_name",$this->response->postDecode("acc_name"))
 								->where("acc_no",$this->response->postDecode("acc_no"))
 								->where("create_date",$Date)
@@ -3113,36 +3086,14 @@ class Api extends CI_Controller {
 								->get("tb_member_bank")
 								->row();
 				}
+				
 				$UserBank = array();
 				if(!empty($QUserBank)){
-					$QBank = $this->db
-							->where("id",$QUserBank->bank_id)
-							->get("ms_bank")
-							->row();
-					
-					$Bank = array();
-					if(!empty($QBank)){
-						if(@getimagesize(base_url("assets/pic/bank/".$QBank->image))){
-							$BankImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/bank/resize/".$QBank->image)));
-							$BankImageHigh = base_url("image.php?q=100&fe=".base64_encode(base_url("assets/pic/bank/".$QBank->image)));
-						}else{
-							$BankImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
-							$BankImageHigh = $BankImageTumb;
-						}
-				
-						$Bank = array(
-								"id"=>$QBank->id,
-								"name"=>$QBank->name,
-								"image_tumb"=>$BankImageTumb,
-								"image_high"=>$BankImageHigh,
-							);
-					}
-					
 					$UserBank = array(
 							"id"=>$QUserBank->id,
+							"bank_name"=>$QUserBank->bank_name,
 							"acc_name"=>$QUserBank->acc_name,
 							"acc_no"=>$QUserBank->acc_no,
-							"bank"=>$Bank,
 						);
 				}
 							
@@ -3442,12 +3393,67 @@ class Api extends CI_Controller {
 				return;
 			}
 			
+			if($this->response->post("price") == "" || $this->response->postDecode("price") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada jumlah yang ditransfer","messageCode"=>3), true);
+				return;
+			}
+			
+			if($this->response->post("from_bank") == "" || $this->response->postDecode("from_bank") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data bank tujuan pengiriman","messageCode"=>3), true);
+				return;
+			}
+			
+			if($this->response->post("from_acc_name") == "" || $this->response->postDecode("from_acc_name") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data nama akun tujuan pengiriman","messageCode"=>3), true);
+				return;
+			}
+			
+			if($this->response->post("from_acc_no") == "" || $this->response->postDecode("from_acc_no") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data nomor rekening tujuan pengiriman","messageCode"=>3), true);
+				return;
+			}
+			
+			if($this->response->post("to_bank") == "" || $this->response->postDecode("to_bank") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data bank asal pengirim","messageCode"=>3), true);
+				return;
+			}
+			
+			if($this->response->post("to_acc_name") == "" || $this->response->postDecode("to_acc_name") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data nama akun asal pengirim","messageCode"=>3), true);
+				return;
+			}
+			
+			if($this->response->post("to_acc_no") == "" || $this->response->postDecode("to_acc_no") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada data nomor rekening asal pengirim","messageCode"=>3), true);
+				return;
+			}
+			
+			$date = date("Y-m-d H:i:s");
+			
 			$Data = array(
+					"invoice_id"=>$QInvoice->id,
+					"price"=>$this->response->postDecode("price"),
+					"from_bank"=>$this->response->postDecode("from_bank"),
+					"from_acc_name"=>$this->response->postDecode("from_acc_name"),
+					"from_acc_no"=>$this->response->postDecode("from_acc_no"),
+					"to_bank"=>$this->response->postDecode("to_bank"),
+					"to_acc_name"=>$this->response->postDecode("to_acc_name"),
+					"to_acc_no"=>$this->response->postDecode("to_acc_no"),
+					"create_date"=>$date,
+					"create_user"=>$QUser->email,
+					"update_date"=>$date,
+					"update_user"=>$QUser->email,
+				);
+				
+			$Save = $this->db->insert("tb_invoice_transfer_confirm",$Data);
+			
+			if($Save){
+				$Data = array(
 					"member_confirm"=>1,
 				);
 			
-			$Save = $this->db->where("id",$QInvoice->id)->update("tb_invoice",$Data);
-			if($Save){
+				$Save = $this->db->where("id",$QInvoice->id)->update("tb_invoice",$Data);
+			
 				$this->response->send(array("result"=>1,"message"=>"Konfirmasi pembayaran telah di kirimkan","messageCode"=>5), true);
 				return;
 			}else{
