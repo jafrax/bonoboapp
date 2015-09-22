@@ -187,7 +187,6 @@
 						          	</div>
 									
 						          	<div class='row '>
-							            
 							            <ul class='collapsible ' data-collapsible='accordion'>";
 							            if ($row->member_confirm == 1) {
 							            	$rekening_tujuan = $this->model_nota->get_rek_tujuan($row->id);
