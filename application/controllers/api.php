@@ -3362,8 +3362,6 @@ class Api extends CI_Controller {
 	
 	public function doInvoiceConfirm(){
 		try{
-			$this->response->send(array("result"=>0,"message"=>"Fitur ini belum dapat digunakan !","messageCode"=>1), true);
-			return;
 			/*
 			*	------------------------------------------------------------------------------
 			*	Validation POST data
@@ -3456,7 +3454,7 @@ class Api extends CI_Controller {
 			
 				$Save = $this->db->where("id",$QInvoice->id)->update("tb_invoice",$Data);
 			
-				$this->response->send(array("result"=>1,"message"=>"Konfirmasi pembayaran telah di kirimkan","messageCode"=>5), true);
+				$this->response->send(array("result"=>1,"message"=>"Konfirmasi pembayaran telah dikirimkan","messageCode"=>5), true);
 				return;
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Tidak dapat mengirim konfirmasi pembayaran nota anda","messageCode"=>6), true);
@@ -4274,6 +4272,7 @@ class Api extends CI_Controller {
 	
 	public function doCartSave(){
 		try{
+		
 			/*
 			*	------------------------------------------------------------------------------
 			*	Validation POST data
@@ -5147,7 +5146,7 @@ class Api extends CI_Controller {
 					*	Membuat object Invoice
 					*	------------------------------------------------------------------------------
 					*/
-					$Invoice = $this->getInvoiceById($QInvoice->id);
+					$Invoice = $this->getInvoiceById($QInvoice->id,$QUser->id);
 					
 					/*
 					*	------------------------------------------------------------------------------
