@@ -134,44 +134,45 @@ echo"
 							<div class=' s12 m12' id='nota-".$row->id."'>
       							<div class='notacard card-panel grey lighten-5 z-depth-1'>
 						          	<div class='row '>		
-						          		<div class='checkitem col s12 m1'>
+						          		<div class='checkitem col s0 m0'>
 							            	<input type='checkbox' class='filled-in cek_nota' id='cek-nota-".$i."'  />
       										<label for='cek-nota-".$i."'></label>
       										<input type='hidden' id='cek-$i' value='".$row->id."' />
 							            </div>
-							            <div class='col s6 m4'>	
-      										<h6 class='blue-text'><span class='grey-text '>INVOICE NO</span> <a href='".base_url()."nota/detail/".$row->invoice_no."' >".$row->invoice_no."</a></h6>
-							            	<h5>Rp. ".number_format($row->price_total, 0 , ',' , '.')."</h5> 
-							              	<h6 class='blue-text'>".$row->member_name."</h6>  ";
+							            <div class='col s6 m7'>	
+      									<div class='col s4 m4'><h6 class='blue-text'><span class='grey-text '>INVOICE NO</span> <a href='".base_url()."nota/detail/".$row->invoice_no."' >".$row->invoice_no."</a></h6> </div>
+      									";
+									
+
+									$old_date 	= $row->create_date;
+									$old_date_timestamp = strtotime($old_date);
+									$date 		= date('d M Y');
+									$ago 		= $this->template->xTimeAgoDesc($old_date,date('Y-m-d H:i:s'));
+									
+										if ($row->stock_type == 1) {
+											echo "<div class='col s12 m3'><span class='labelbudge green lighten-2 center'>READY STOK </span> </div>";
+										}else{
+											echo "<div class='col s12 m3'><span class='labelbudge pink lighten-2 center'>PRE ORDER </span> </div>";
+										}
+							
+								            if ($row->status == 0 ) {
+								            	echo "<div class='col s12 m4' id='lokasi-btn-35' align='right'><h5 class='red-text right' id='lunas-".$row->id."'>Belum Lunas</h5></div>";
+								            }elseif ($row->status == 1) {								            	
+								            	echo "<div class='col s12 m4' id='lokasi-btn-35' align='right'><h5 class='green-text right' id='lunas-".$row->id."'>Lunas</h5></div>";
+								            }elseif ($row->status == 2) {
+								            	echo "<div class='col s12 m4' id='lokasi-btn-35' align='right'><h5 class='grey-text right' id='lunas-".$row->id."'>Batal</h5></div>";
+								            }	echo"
+											
+								     	  			
+							              <div class='col s6 m12'> <h5>Rp. ".number_format($row->price_total, 0 , ',' , '.')."</h5> </div>
+							              <div class='col s6 m12'> <h6 class='blue-text'>".$row->member_name."</h6> 	</div>
+							             </div >
+							             
+							            <div class='col s4 m4 right' > 
+							              	<div class='col s8 m8 right '>  $date ($ago) <br> </div> ";
 							              
 							              	echo "
-							              	<!--<h6 class='blue-text'><span class='grey-text '>INVOICE NO</span> <a href='".base_url()."nota/detail/".$row->invoice_no."' >".$row->invoice_no."</a></h6>  	-->
-							            </div >
-							            <div class='col s10 m7 right' align='right'> ";
-							              	
-							              	$old_date 	= $row->create_date;
-							              	$old_date_timestamp = strtotime($old_date);
-							              	$date 		= date('d M Y');
-							              	
-							              	$ago 		= $this->template->xTimeAgoDesc($old_date,date('Y-m-d H:i:s'));
-							              	
-							              	if ($row->stock_type == 1) {
-							              		echo "<div class='col s8 m12 right '><span class='labelbudge green lighten-2 center'>READY STOK </span> $date ( $ago ) </div>";
-							              	}else{
-							              		echo "<div class='col s8 m12 right '><span class='labelbudge pink lighten-2 center'>PRE ORDER </span>$date ( $ago )</div>";
-							              	} 	
-							              	echo "
-							      				              			
-							              	
-							                <div class='col s12 m12'>";
-								            if ($row->status == 0 ) {
-								            	echo "<div class='col s8 m9' id='lokasi-btn-35' align='right'><h5 class='red-text right' id='lunas-".$row->id."'>Belum Lunas</h5></div>";
-								            }elseif ($row->status == 1) {								            	
-								            	echo "<div class='col s8 m9' id='lokasi-btn-35' align='right'><h5 class='green-text right' id='lunas-".$row->id."'>Lunas</h5></div>";
-								            }elseif ($row->status == 2) {
-								            	echo "<div class='col s8 m9' id='lokasi-btn-35' align='right'><h5 class='grey-text right' id='lunas-".$row->id."'>Batal</h5></div>";
-								            }	echo"
-											<div class='col s8 m3 right' id='lokasi-btn-".$row->id."'>";
+							              			<div class='col s4 m6 ' id='lokasi-btn-".$row->id."'>";
 											if ($row->status != 2) {
 												if ($row->status != 1) {
 													echo"
@@ -180,9 +181,7 @@ echo"
 												//echo "<button href='javascript:void(0);' onclick=batalnota(".$row->id."); class='btn modal-trigger waves-effect red white-text waves-light right' type='button' name='action' >Batal</button>";
 											echo"												
 								            </div>
-													
-								
-								     		</div>
+							              	
 								            <div id='bayarnota' class='modal  modal-fixed-footer'>
 												<div class='modal-header red'>
 													<i class='mdi-action-label-outline left'></i> Pilih metode transaksi
@@ -247,7 +246,7 @@ echo"
 											}
 											echo"
 											</div>
-											<p class='tool col s12 m12'>
+											<p class='tool col s6 m6 right'>
 												<!-- hapus nota -->
 												<a class='modal-trigger red-text right' onclick=delitem(".$row->id."); ><i class='mdi-navigation-close col s1  small'></i></a>
 												<a class='modal-trigger red-text right' onclick=delitem(".$row->id."); ><i class='mdi-action-delete col s1 small'></i></a>

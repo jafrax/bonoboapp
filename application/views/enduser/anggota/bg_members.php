@@ -32,6 +32,7 @@ echo"
 if(sizeOf($Members) <= 0){
 	echo"Anda tidak mempunyai anggota";
 }else{
+	
 	foreach($Members as $Member){
 		$hasil_nama=$this->template->limitc($Member->name);
 		$Level = "Unknown";
@@ -142,8 +143,10 @@ echo"
 		var ctrlAnggotaMembers = new CtrlAnggotaMembers();
 		ctrlAnggotaMembers.init();
 	</script>
+
+					
 <script>
-var offset=16;
+var offset=6;
 var scrolling=true;
 
 $(window).scroll(function () {      
@@ -163,7 +166,7 @@ $(window).scroll(function () {
                     if (msg){
                         $('#ajax-div').append(msg);
                         $('#preloader').slideUp();
-                        offset      = offset+16;
+                        offset      = offset + 6;
                         scrolling   = true;
 
                         $('.modal-trigger').leanModal();
@@ -179,6 +182,7 @@ $(window).scroll(function () {
         }
     });
 </script>
+							
 ";
 
 ?>

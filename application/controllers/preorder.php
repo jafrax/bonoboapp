@@ -126,5 +126,14 @@ class Preorder extends CI_Controller {
 
 		$this->ajax_load($id);
 	}
+	
+public function selesai_satu(){
+		//$id	= $this->uri->segment(4);
+		//echo $id;
+		$id = $this->input->post('id');
+		$this->db->where('id',$id)->set('status_pre_order',1)->update('tb_invoice');
+	}
+	
+	
 }
 

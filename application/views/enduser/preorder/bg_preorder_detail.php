@@ -40,7 +40,8 @@ echo "
 									<label for='keyword_nota'>Cari</label>
 								</div>
 								<div class='input-field col s4 m4  nolpad'>
-									<select class='select-standar' id='search_by'>										
+									<select class='select-standar' id='search_by'>
+										<option value='' >Semua</option>
 										<option value='member_name'>Nama Pembeli</option>
 										<option value='invoice_no'>No Nota</option>
 										<option value='price_total'>Jumlah Tagihan</option>

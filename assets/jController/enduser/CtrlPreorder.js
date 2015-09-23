@@ -139,11 +139,13 @@ function selesaikan(){
 }
 
 function selesai(id){
-    $.ajax({
+	//alert(id);
+	$.ajax({
         type: 'POST',
         data: 'id='+id,
         async: false,
-        url: base_url+'preorder/selesai_satu',
+        url: base_url+'preorder/selesai_satu/',
+       
         success: function(msg) {          
             //$('#btn-batal-'+id).fadeOut();
             $('#tombol-'+id).fadeOut();

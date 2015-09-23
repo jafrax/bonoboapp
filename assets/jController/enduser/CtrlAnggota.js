@@ -471,6 +471,7 @@ function save_level () {
 		success: function(result) {
 			var response = JSON.parse(result);
 			if(response.result == 1){
+				location.reload();
 				$('#label_level_'+id).html('Level : '+response.message);
 				Materialize.toast(response.notif, 4000);
 			}else{

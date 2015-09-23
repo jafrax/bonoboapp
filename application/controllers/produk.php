@@ -777,9 +777,10 @@ class Produk extends CI_Controller {
 					
 						if ($no_varian->num_rows() > 0) {
 							$this->db->where('product_id',$id)->where('name !=','null')->delete('tb_product_varian');
-							$this->db->set('stock_qty',$stok_utama)->where('product_id',$id)->where('name','null')->update('tb_product_varian');
+							//$this->db->set('stock_qty',$stok_utama)->where('product_id',$id)->where('name','null')->update('tb_product_varian');
 						}else{
-							if($stok_utama=''){
+							
+							if(empty($stok_utama) ){
 								$stok_utama=1;
 							}
 							$this->db->where('product_id',$id)->delete('tb_product_varian');
@@ -812,7 +813,7 @@ class Produk extends CI_Controller {
 								if ($_POST['nama_varian_'.$i] != '') {
 									$nama_varian = $this->template->clearInput($this->input->post('nama_varian_'.$i));
 									$stok_varian = $this->template->clearInput($this->input->post('stok_varian_'.$i));
-									if ($stok_varian ==""){
+									if (empty($stok_varian)){
 										$stok_varian=1;
 									}
 									$this->db->set('product_id',$id)

@@ -39,7 +39,16 @@ class Model_preorder extends CI_Model
 						->join('tb_product_varian v','v.id=iv.product_varian_id')
 						->join('tb_product p','p.id=v.product_id');
 		if (isset($_SESSION['keyword'])) {
+			if ($_SESSION['search'] =''){
 			$this->db->like($_SESSION['search'],$_SESSION['keyword']);
+			}else{
+				$this->db->like('i.member_name ', $_SESSION['keyword']);
+				$this->db->or_like('i.invoice_no', $_SESSION['keyword']);
+				$this->db->or_like('i.price_total', $_SESSION['keyword']);
+				$this->db->where("(i.member_name OR i.invoice_no  OR i.price_total )", NULL);
+				//$this->db->like("(i.member_name OR i.invoice_no OR i.price_total )", $_SESSION['keyword']);
+				
+			}
 		}
 		if (isset($_SESSION['selesai'])) {
 			$this->db->where('status_pre_order',$_SESSION['selesai']);

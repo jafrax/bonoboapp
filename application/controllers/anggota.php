@@ -13,7 +13,7 @@ set_time_limit (99999999999);
 
 class Anggota extends CI_Controller {
 	
-	var $limit = 20;
+	var $limit = 10;
 	var $offset = 0;
 	
 	function __construct(){
@@ -213,8 +213,10 @@ class Anggota extends CI_Controller {
 		$data["countNewMember"] = $this->countNewMember();
 
 		$page 	= $this->uri->segment(3);        
-        $limit 	= 16;
-
+        $limit 	= 6;
+		echo $page;
+		
+        
         if(!$page){
         	$offset = 0;
         }else{
