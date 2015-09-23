@@ -4765,7 +4765,7 @@ class Api extends CI_Controller {
 						"location_to_kecamatan"=>"",
 						"location_to_postal"=>"",
 						"status"=>0,
-						"stock_type"=>1,
+						"stock_type"=>$QCart->stock_type,
 						"create_date"=>$Date,
 						"create_user"=>$QUser->email,
 						"update_date"=>$Date,
@@ -4797,7 +4797,7 @@ class Api extends CI_Controller {
 						"location_to_kecamatan"=>$this->response->postDecode("kecamatan"),
 						"location_to_postal"=>$this->response->postDecode("location_postal"),
 						"status"=>0,
-						"stock_type"=>1,
+						"stock_type"=>$QCart->stock_type,
 						"create_date"=>$Date,
 						"create_user"=>$QUser->email,
 						"update_date"=>$Date,
@@ -4829,7 +4829,7 @@ class Api extends CI_Controller {
 						"location_to_kecamatan"=>$this->response->postDecode("kecamatan"),
 						"location_to_postal"=>$this->response->postDecode("location_postal"),
 						"status"=>0,
-						"stock_type"=>1,
+						"stock_type"=>$QCart->stock_type,
 						"create_date"=>$Date,
 						"create_user"=>$QUser->email,
 						"update_date"=>$Date,
@@ -4872,7 +4872,7 @@ class Api extends CI_Controller {
 						->where("location_to_kecamatan","")
 						->where("location_to_postal","")
 						->where("status",0)
-						->where("stock_type",1)
+						->where("stock_type",$QCart->stock_type)
 						->where("create_date",$Date)
 						->where("create_user",$QUser->email)
 						->where("update_date",$Date)
@@ -4906,7 +4906,7 @@ class Api extends CI_Controller {
 						->where("location_to_kecamatan",$this->response->postDecode("kecamatan"))
 						->where("location_to_postal",$this->response->postDecode("location_postal"))
 						->where("status",0)
-						->where("stock_type",1)
+						->where("stock_type",$QCart->stock_type)
 						->where("create_date",$Date)
 						->where("create_user",$QUser->email)
 						->where("update_date",$Date)
@@ -4939,7 +4939,7 @@ class Api extends CI_Controller {
 						->where("location_to_kecamatan",$this->response->postDecode("kecamatan"))
 						->where("location_to_postal",$this->response->postDecode("location_postal"))
 						->where("status",0)
-						->where("stock_type",1)
+						->where("stock_type",$QCart->stock_type)
 						->where("create_date",$Date)
 						->where("create_user",$QUser->email)
 						->where("update_date",$Date)
