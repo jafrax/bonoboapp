@@ -3,7 +3,7 @@
 /*
 * MAIN SCROOL AJAX
 */
-var offset_rs=100;
+var offset_rs=10;
 var scrolling_rs=true;
 
 $(window).scroll(function () {      
