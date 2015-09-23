@@ -1653,8 +1653,8 @@ class Api extends CI_Controller {
 							->join("tb_message tm","tm.id = tmm.message_id")
 							->where("tmm.member_id",$QUser->id)
 							->where("tmm.toko_id",$QShop->id)
-							->limit($this->paging_limit,$this->paging_offset)
 							->order_by("tmm.id","DESC")
+							->group_by("tmm.toko_id")
 							->get("tb_member_message tmm")
 							->result();
 			
@@ -3362,8 +3362,6 @@ class Api extends CI_Controller {
 	
 	public function doInvoiceConfirm(){
 		try{
-			$this->response->send(array("result"=>0,"message"=>"Fitur ini belum dapat digunakan !","messageCode"=>1), true);
-			return;
 			/*
 			*	------------------------------------------------------------------------------
 			*	Validation POST data
@@ -3456,7 +3454,7 @@ class Api extends CI_Controller {
 			
 				$Save = $this->db->where("id",$QInvoice->id)->update("tb_invoice",$Data);
 			
-				$this->response->send(array("result"=>1,"message"=>"Konfirmasi pembayaran telah di kirimkan","messageCode"=>5), true);
+				$this->response->send(array("result"=>1,"message"=>"Konfirmasi pembayaran telah dikirimkan","messageCode"=>5), true);
 				return;
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Tidak dapat mengirim konfirmasi pembayaran nota anda","messageCode"=>6), true);
@@ -4274,6 +4272,7 @@ class Api extends CI_Controller {
 	
 	public function doCartSave(){
 		try{
+		
 			/*
 			*	------------------------------------------------------------------------------
 			*	Validation POST data
@@ -4766,7 +4765,7 @@ class Api extends CI_Controller {
 						"location_to_kecamatan"=>"",
 						"location_to_postal"=>"",
 						"status"=>0,
-						"stock_type"=>1,
+						"stock_type"=>$QCart->stock_type,
 						"create_date"=>$Date,
 						"create_user"=>$QUser->email,
 						"update_date"=>$Date,
@@ -4798,7 +4797,7 @@ class Api extends CI_Controller {
 						"location_to_kecamatan"=>$this->response->postDecode("kecamatan"),
 						"location_to_postal"=>$this->response->postDecode("location_postal"),
 						"status"=>0,
-						"stock_type"=>1,
+						"stock_type"=>$QCart->stock_type,
 						"create_date"=>$Date,
 						"create_user"=>$QUser->email,
 						"update_date"=>$Date,
@@ -4830,7 +4829,7 @@ class Api extends CI_Controller {
 						"location_to_kecamatan"=>$this->response->postDecode("kecamatan"),
 						"location_to_postal"=>$this->response->postDecode("location_postal"),
 						"status"=>0,
-						"stock_type"=>1,
+						"stock_type"=>$QCart->stock_type,
 						"create_date"=>$Date,
 						"create_user"=>$QUser->email,
 						"update_date"=>$Date,
@@ -4873,7 +4872,7 @@ class Api extends CI_Controller {
 						->where("location_to_kecamatan","")
 						->where("location_to_postal","")
 						->where("status",0)
-						->where("stock_type",1)
+						->where("stock_type",$QCart->stock_type)
 						->where("create_date",$Date)
 						->where("create_user",$QUser->email)
 						->where("update_date",$Date)
@@ -4907,7 +4906,7 @@ class Api extends CI_Controller {
 						->where("location_to_kecamatan",$this->response->postDecode("kecamatan"))
 						->where("location_to_postal",$this->response->postDecode("location_postal"))
 						->where("status",0)
-						->where("stock_type",1)
+						->where("stock_type",$QCart->stock_type)
 						->where("create_date",$Date)
 						->where("create_user",$QUser->email)
 						->where("update_date",$Date)
@@ -4940,7 +4939,7 @@ class Api extends CI_Controller {
 						->where("location_to_kecamatan",$this->response->postDecode("kecamatan"))
 						->where("location_to_postal",$this->response->postDecode("location_postal"))
 						->where("status",0)
-						->where("stock_type",1)
+						->where("stock_type",$QCart->stock_type)
 						->where("create_date",$Date)
 						->where("create_user",$QUser->email)
 						->where("update_date",$Date)
@@ -5147,7 +5146,7 @@ class Api extends CI_Controller {
 					*	Membuat object Invoice
 					*	------------------------------------------------------------------------------
 					*/
-					$Invoice = $this->getInvoiceById($QInvoice->id);
+					$Invoice = $this->getInvoiceById($QInvoice->id,$QUser->id);
 					
 					/*
 					*	------------------------------------------------------------------------------
