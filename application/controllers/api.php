@@ -447,39 +447,10 @@ class Api extends CI_Controller {
 		return $Product;
 	}
 	
-	private function getCartsByUser($user){
-		/*
-		*	------------------------------------------------------------------------------
-		*	Menghapus data cart yang status pre order
-		*	------------------------------------------------------------------------------
-		*/
+	private function getCartById($cart_id,$user_id){
+		$QCart = $this->db->where("id",$cart_id)->get("tb_cart")->row();
 		
-		$Deletes = $this->db
-			->where("member_id",$user)
-			->where("stock_type",0)
-			->delete("tb_cart");
-	
-		/*
-		*	------------------------------------------------------------------------------
-		*	Mengambil query data carts
-		*	------------------------------------------------------------------------------
-		*/
-		$Carts = array();
-		
-		$QCarts = $this->db;
-		$QCarts = $QCarts->where("tc.member_id",$user);
-		$QCarts = $QCarts->where("tc.stock_type",1);
-		
-		if($this->response->post("lastId") != "" && (float) $this->response->postDecode("lastId") > 0){
-			$QCarts = $QCarts->where("tc.id < ",$this->response->postDecode("lastId"));
-		}
-		
-		$QCarts = $QCarts->limit(5,$this->paging_offset);
-		$QCarts = $QCarts->order_by("id","DESC");
-		$QCarts = $QCarts->get("tb_cart tc");
-		$QCarts = $QCarts->result();
-		
-		foreach($QCarts as $QCart){
+		if(!empty($QCart)){
 			/*
 			*	------------------------------------------------------------------------------
 			*	Mengambil query data cart products
@@ -519,7 +490,7 @@ class Api extends CI_Controller {
 									"id"=>$QProductVarian->id,
 									"name"=>$QProductVarian->name,
 									"stock_qty"=>$QProductVarian->stock_qty,
-									"product"=>$this->getProductById($QProductVarian->product_id,$user),
+									"product"=>$this->getProductById($QProductVarian->product_id,$user_id),
 								);
 					
 					$CartVarian = array(
@@ -539,7 +510,7 @@ class Api extends CI_Controller {
 				$CartProduct = array(
 							"id"=>$QCartProduct->id,
 							"price_product"=>$QCartProduct->price_product,
-							"product"=>$this->getProductById($QCartProduct->product_id,$user),
+							"product"=>$this->getProductById($QCartProduct->product_id,$user_id),
 							"cart_varians"=>$CartVarians,
 						);
 				
@@ -555,14 +526,13 @@ class Api extends CI_Controller {
 					"id"=>$QCart->id,
 					"price_total"=>$QCart->price_total,
 					"stock_type"=>$QCart->stock_type,
-					"shop"=>$this->getShopById($QCart->toko_id,$user),
+					"shop"=>$this->getShopById($QCart->toko_id,$user_id),
 					"cart_products"=>$CartProducts,
 				);
-			
-			array_push($Carts,$Cart);
+			return $Cart;
+		}else{
+			return null;
 		}
-		
-		return $Carts;
 	}
 	
 	
@@ -1295,7 +1265,7 @@ class Api extends CI_Controller {
 		}
 	}
 	
-	public function getUserCarts(){
+	public function getUserCart(){
 		try {
 			
 			/*
@@ -1318,17 +1288,25 @@ class Api extends CI_Controller {
 				return;
 			}
 			
+			if($this->response->post("cart") == "" || $this->response->postDecode("cart") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada cart yang dipilih","messageCode"=>3), true);
+				return;
+			}
+			
 			/*
 			*	------------------------------------------------------------------------------
 			*	create object user data to response
 			*	------------------------------------------------------------------------------
 			*/
-			$Object = array(
-					"result"=>1,
-					"carts"=>$this->getCartsByUser($QUser->id),
-				);
 			
-			$this->response->send($Object, true);
+			$QCart = $this->db->where("id",$this->response->postDecode("cart"))->get("tb_cart")->row();
+			
+			if(!empty($QCart)){
+				$Cart = $this->getCartById($QCart->id,$QUser->id);
+				$this->response->send(array("result"=>1,"cart"=>$Cart), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada cart yang ditemukan","messageCode"=>4), true);
+			}
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
@@ -1369,6 +1347,86 @@ class Api extends CI_Controller {
 				$this->response->send(array("result"=>1,"invoice"=>$Invoice), true);
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Tidak ada nota yang ditemukan","messageCode"=>4), true);
+			}
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function getUserCarts(){
+		try {
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>3), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Menghapus data cart yang status pre order
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$Deletes = $this->db
+				->where("member_id",$QUser->id)
+				->where("stock_type",0)
+				->delete("tb_cart");
+		
+	
+			/*
+			*	------------------------------------------------------------------------------
+			*	Mengambil query data carts
+			*	------------------------------------------------------------------------------
+			*/
+			$QCarts = $this->db;
+			$QCarts = $QCarts->where("tc.member_id",$QUser->id);
+			$QCarts = $QCarts->where("tc.stock_type",1);
+			
+			if($this->response->post("lastId") != "" && (float) $this->response->postDecode("lastId") > 0){
+				$QCarts = $QCarts->where("tc.id < ",$this->response->postDecode("lastId"));
+			}
+			
+			$QCarts = $QCarts->limit(5,$this->paging_offset);
+			$QCarts = $QCarts->order_by("id","DESC");
+			$QCarts = $QCarts->get("tb_cart tc");
+			$QCarts = $QCarts->result();
+			
+			$Carts = array();
+			foreach($QCarts as $QCart){
+				/*
+				*	------------------------------------------------------------------------------
+				*	Membuat object Cart
+				*	------------------------------------------------------------------------------
+				*/
+				$Cart = array(
+						"id"=>$QCart->id,
+						"price_total"=>$QCart->price_total,
+						"stock_type"=>$QCart->stock_type,
+						"shop"=>$this->getShopById($QCart->toko_id,$QUser->id),
+					);
+				
+				array_push($Carts,$Cart);
+			}
+			
+			if(sizeOf($QCarts) > 0){
+				$this->response->send(array("result"=>1,"carts"=>$Carts), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada cart","messageCode"=>4), true);
 			}
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
@@ -1560,7 +1618,7 @@ class Api extends CI_Controller {
 							->select("tmm.id,tmm.toko_name,tmm.toko_id,tm.message as message,tm.title,tm.image,tmm.flag_read as isread,tmm.flag_from as isfrom")
 							->join("tb_message tm","tm.id = tmm.message_id")
 							->where("tmm.member_id",$QUser->id)
-							->group_by("tmm.toko_name")
+							->group_by("tmm.toko_id")
 							->get("tb_member_message tmm")
 							->result();
 			
@@ -1681,7 +1739,6 @@ class Api extends CI_Controller {
 							"image_high"=>$ImageHigh,
 							"isread"=>$QMessage->isread,
 							"isfrom"=>$QMessage->isfrom,
-							"shop"=>$this->getShopById($QShop->id,$QUser->id),
 						);
 				array_push($Messages,$Message);
 			}
