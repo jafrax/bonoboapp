@@ -1653,8 +1653,8 @@ class Api extends CI_Controller {
 							->join("tb_message tm","tm.id = tmm.message_id")
 							->where("tmm.member_id",$QUser->id)
 							->where("tmm.toko_id",$QShop->id)
-							->limit($this->paging_limit,$this->paging_offset)
 							->order_by("tmm.id","DESC")
+							->group_by("tmm.toko_id")
 							->get("tb_member_message tmm")
 							->result();
 			
