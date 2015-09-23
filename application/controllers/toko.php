@@ -706,7 +706,7 @@ class Toko extends CI_Controller {
 				$respon=$this->model_toko->get_rekeningsama2($this->response->post("txtNo"));
 				//ori = $respon=$this->model_toko->get_rekeningsama22($this->response->post("txtNo"));
 				if($respon > 0){
-					$this->response->send(array("result"=>0,"message"=>"Tidak dapat menyimpan data bank","messageCode"=>5));
+					$this->response->send(array("result"=>0,"message"=>"Tidak dapat menyimpan data bank, Nomor Rekening telah digunakan di Toko Anda","messageCode"=>5));
 				}else{
 					$Save = $this->db->insert("tb_toko_bank",$Data);
 					if($Save){
@@ -718,7 +718,7 @@ class Toko extends CI_Controller {
 		}else{
 			$Data = array(
 					"toko_id"=>$_SESSION["bonobo"]["id"],
-					"bank_name"=>$this->response->post("cmbBank"),
+					"bank_name"=>$bank,
 					"acc_name"=>$this->response->post("txtName"),
 					"acc_no"=>$this->response->post("txtNo"),
 					"update_user"=>$_SESSION['bonobo']['email'],
@@ -982,20 +982,24 @@ class Toko extends CI_Controller {
 		$Banks = $this->model_bank->get()->result();
 		$ShopBank = $this->model_toko_bank->get_by_id($this->response->post("id"))->row();
 		
-		echo"<select id='cmbBank' name='cmbBank' class='select-standar'><option value='' disabled selected>Pilih Bank</option>";
+		echo"<select id='cmbBank' name='cmbBank' class='select-standar' onchange=javascript:pilihngebank() ><option value='' disabled selected>Pilih Bank</option>";
 		
 		foreach($Banks as $Bank){
 			if(!empty($ShopBank)){
 				if($Bank->id != $ShopBank->bank_id){
 					echo"<option value='".$Bank->name."'>".$Bank->name."</option>";
-				}else{
+				}
+				else{
 					
 					echo "<option value='".$ShopBank->bank_id."' selected>".$ShopBank->bank_name."</option>";
 				}
+
 			}else{
-				echo"<option value='".$Bank->id."'>".$Bank->name."</option>";
+				echo"<option value='".$Bank->name."'>".$Bank->name."</option>";
 			}
 		}
+
+				echo "<option value='lainnya' >Bank Lainnya</option>";
 			
 		echo"</select><script>$('.select-standar').chosen();</script>";
 
@@ -1013,11 +1017,12 @@ class Toko extends CI_Controller {
 	public function step8ComboboxBankadd(){
 		$Banks = $this->model_bank->get()->result();
 		
-		echo"<select id='cmbBank' name='cmbBank' class='select-standar'><option value='' disabled selected>Pilih Bank</option>";
+		echo"<select id='cmbBank' name='cmbBank' class='select-standar' onchange=javascript:pilihngebank() ><option value='' disabled selected>Pilih Bank</option>";
 		
 		foreach($Banks as $Bank){
 				echo"<option value='".$Bank->name."'>".$Bank->name."</option>";
 		}
+				echo "<option value='lainnya' >Bank Lainnya</option>";
 			
 		echo"</select><script>$('.select-standar').chosen();</script>";
 		/*echo "<select name='cmbBank' class='browser-default' onchange=javascript:pilihngebank()>
