@@ -24,6 +24,7 @@ if ($produk->num_rows() == 0) {
 										<input type='hidden' id='cek-$i' value='".$row->id."'>
 									</p>
 									<div class='col s12 m3 l2'>";
+
 										if ($image) {
 											echo "<img src='".base_url()."assets/pic/product/resize/".$image->file."' class='responsive-img userimg'>";											
 										}else{
@@ -38,11 +39,15 @@ if ($produk->num_rows() == 0) {
 											$stok =  $this->model_produk->get_varian_produk($row->id);
 											foreach ($stok->result() as $row_stok) {
 												echo"
-												<p class='input-field col s12 m12 l7 nolpad'>
-													<input onkeyup=javascript:change_stock(".$row_stok->id.") type='text' maxlength='9' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate numbersOnly stok-".$row_stok->id."'>";
-													if ($row_stok->name != 'null') {
-														echo "<label for='stok'>".$row_stok->name."</label>";
+													<p class='input-field col s12 m12 l7 nolpad'>";
+													if ($row->unit !='') {
+														echo "<i class='prefix prefix-gan'>".$row->unit."</i>";
 													}
+													if ($row_stok->name != 'null') {
+														echo "<span for='stok'>".$row_stok->name."</span>";
+													}
+													echo"<input onkeyup=javascript:change_stock(".$row_stok->id.") type='text' maxlength='9' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate numbersOnly stok-".$row_stok->id."'>";									
+													
 													
 													if ($row_stok->stock_qty == 0) {
 														echo"<span class='label red right habis-".$row_stok->id."'>Stok habis</span>";
@@ -56,16 +61,17 @@ if ($produk->num_rows() == 0) {
 											$stok =  $this->model_produk->get_varian_produk($row->id);
 												foreach ($stok->result() as $row_stok) {
 													echo"
-													<p class='col s12 m12 l12 '>	";													
+													<p class='col s12 m12 l12 '>	";		
+
 														if ($row_stok->name != 'null') {
 															echo "
-															<div class=' col s12 m12'>
+															<div class='input-col s12 m12'>
 																
 																<label for='varian'><b class='label-stock'>".$row_stok->name."</b> Stok : <span class='text-green'>selalu tersedia</span></label>
 															</div>";
 														}else if($row_stok->name == 'null'){
 															echo "
-															<div class=' col s12 m12'>																
+															<div class='input-col s12 m12'>																
 																<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
 															</div>";
 														}
