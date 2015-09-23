@@ -51,7 +51,7 @@ $(window).scroll(function () {
         }
     });
 
-var offset_po=100;
+var offset_po=10;
 var scrolling_po=true;
 
 $(window).scroll(function () {      
