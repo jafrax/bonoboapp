@@ -605,11 +605,18 @@ class Toko extends CI_Controller {
 		}
 		
 		$price = str_replace(".", "", str_replace('Rp. ', '', $this->response->post("txtRatePrice"))) ;
+
+		$province = $this->response->post("cmbProvince");
+		//$city = $this->response->post("cmbCity");
+		//$kecamatan = $this->response-post("cmbKecamatan");
 		//echo $price;
 		if($this->response->post("txtRateId") == ""){
 			$Data = array(
 					"courier_custom_id"=>$this->response->post("customCourier"),
-					"location_to_province"=>$this->response->post("cmbProvince"),
+					"location_to_province"=>$province,
+					//"location_to_city"=>$city,
+					//"location_to_kecamatan"=>$kecamatan,
+					//"location_to_province"=>$this->response->post("cmbProvince"),
 					"location_to_city"=>$this->response->post("cmbCity"),
 					"location_to_kecamatan"=>$this->response->post("cmbKecamatan"),
 					"price"=> $price,
@@ -618,14 +625,17 @@ class Toko extends CI_Controller {
 					"update_date"=>date("Y-m-d H:i:s"),
 					"update_user"=>$_SESSION['bonobo']['email'],
 				);
-			
-			$Save = $this->db->insert("tb_courier_custom_rate",$Data);
+			$count = $this->db->where('location_to_province',$province)->/*where('courier_custom_id',$_SESSION['bonobo']['id'])->*/get('tb_courier_custom_rate')->num_rows();
+			if ($count == 0){
+				$Save = $this->db->insert('tb_courier_custom_rate',$Data);
+			//}
+			//$Save = $this->db->insert("tb_courier_custom_rate",$Data);
 			if($Save){
 				$this->response->send(array("result"=>1,"message"=>"Rate telah disimpan","messageCode"=>4));
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Rate tidak dapat disimpan","messageCode"=>5));
 			}
-		}else{
+		}}else{
 			$Data = array(
 					"courier_custom_id"=>$this->response->post("customCourier"),
 					"location_to_province"=>$this->response->post("cmbProvince"),
@@ -991,7 +1001,7 @@ class Toko extends CI_Controller {
 				}
 				else{
 					
-					echo "<option value='".$ShopBank->bank_id."' selected>".$ShopBank->bank_name."</option>";
+					echo "<option value='".$ShopBank->bank_id."' selected>".$ShopBank->bank_id."</option>";
 				}
 
 			}else{
