@@ -673,7 +673,10 @@ class Toko extends CI_Controller {
 	}
 
 	public function doStep8Save(){
-
+		if($bank = $this->response->post("cmbBank")==""){
+			$this->response->send(array("result"=>0,"message"=>"Pilih Banknya dulu ya ......","messageCode"=>1));
+			return;
+		}
 		
 		if($this->response->post("txtName") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Nama pemilik rekening masih kosong","messageCode"=>2));
@@ -991,7 +994,7 @@ class Toko extends CI_Controller {
 				}
 				else{
 					
-					echo "<option value='".$ShopBank->bank_id."' selected>".$ShopBank->bank_name."</option>";
+					echo "<option value='".$ShopBank->bank_name."' selected>".$ShopBank->bank_name."</option>";
 				}
 
 			}else{
