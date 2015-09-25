@@ -136,7 +136,7 @@ echo"
 													echo"
 													<input onkeyup=javascript:change_stock(".$row_stok->id.") type='text' maxlength='9' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate numbersOnly s6 stok-".$row_stok->id."'>";
 													if ($row_stok->name != 'null') {
-														echo "<label for='stok'>".$row_stok->name."</label>";
+														echo "<label for='stok' class='active'>".$row_stok->name."</label>";
 													}
 													
 													if ($row_stok->stock_qty == 0) {
