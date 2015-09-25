@@ -674,7 +674,7 @@ class Toko extends CI_Controller {
 
 	public function doStep8Save(){
 		if($bank = $this->response->post("cmbBank")==""){
-			$this->response->send(array("result"=>0,"message"=>"Pilih Banknya dulu ya ......","messageCode"=>1));
+			$this->response->send(array("result"=>0,"message"=>"Pilihan Bank masih kosong","messageCode"=>1));
 			return;
 		}
 		
@@ -866,7 +866,27 @@ class Toko extends CI_Controller {
                 $chkLevel3 = 0;
                 $chkLevel4 = 0;
                 $chkLevel5 = 0;
-               
+
+                $txtLevel2 = $this->response->post("txtLevel2");
+                $txtLevel3 = $this->response->post("txtLevel3");
+                $txtLevel4 = $this->response->post("txtLevel4");
+                $txtLevel5 = $this->response->post("txtLevel5");
+        
+                if($txtLevel2 == ""){
+                	$txtLevel2 = "Harga Member Langganan";
+                }
+
+                if($txtLevel3 == ""){
+                	$txtLevel3 = "Harga Khusus 1";
+                }
+
+                if($txtLevel4 == ""){
+                	$txtLevel4 = "Harga Khusus 2";
+                }
+
+                if($txtLevel5 == ""){
+					$txtLevel5 = "Harga Khusus 3";	
+				}
                 if($this->response->post("chkLevel1") != ""){
                         $chkLevel1 = 1;
 
@@ -899,10 +919,10 @@ class Toko extends CI_Controller {
 				}
                 $Data = array(
                                 "level_1_name"=>$this->response->post("txtLevel1"),
-                                "level_2_name"=>$this->response->post("txtLevel2"),
-                                "level_3_name"=>$this->response->post("txtLevel3"),
-                                "level_4_name"=>$this->response->post("txtLevel4"),
-                                "level_5_name"=>$this->response->post("txtLevel5"),
+                                "level_2_name"=>$txtLevel2,
+                                "level_3_name"=>$txtLevel3,
+                                "level_4_name"=>$txtLevel4,
+                                "level_5_name"=>$txtLevel5,
                                 "level_1_active"=>$chkLevel1,
                                 "level_2_active"=>$chkLevel2,
                                 "level_3_active"=>$chkLevel3,
