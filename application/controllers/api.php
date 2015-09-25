@@ -1961,7 +1961,7 @@ class Api extends CI_Controller {
 			}
 			
 			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && intval($this->response->postDecode("lastId")) > 0){
-				$QProduct = $QProduct->where("tp.id < ",intval($this->response->postDecode("lastId")));
+				$QProduct = $QProduct->where("tp.id < ",$this->response->postDecode("lastId"));
 			}
 			
 			$QProduct = $QProduct->limit($this->paging_limit,$this->paging_offset);

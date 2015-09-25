@@ -785,6 +785,7 @@ class Produk extends CI_Controller {
 							if($stok_utama=''){
 								$stok_utama=1;
 							}
+							
 							$this->db->where('product_id',$id)->where('name !=','null')->delete('tb_product_varian');
 							$this->db->set('stock_qty',$stok_utama)->where('product_id',$id)->where('name','null')->update('tb_product_varian');
 						}else{
