@@ -1960,7 +1960,7 @@ class Api extends CI_Controller {
 				$QProduct = $QProduct->where("tp.stock_type",$this->response->postDecode("stock_type"));
 			}
 			
-			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && intval($this->response->postDecode("lastId")) > 0){
+			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && $this->response->postDecode("lastId") > 0){
 				$QProduct = $QProduct->where("tp.id < ",$this->response->postDecode("lastId"));
 			}
 			
