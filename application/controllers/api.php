@@ -1879,7 +1879,6 @@ class Api extends CI_Controller {
 			$QProduct = $QProduct->select("tp.id, tp.stock_type, tp.end_date");
 			$QProduct = $QProduct->join("tb_toko_category_product tkcp","tkcp.id = tp.toko_category_product_id");
 			$QProduct = $QProduct->where("tp.active",1);
-			$QProduct = $QProduct->where(" ((tp.stock_type = 0 AND tp.end_date >= '".date("Y-m-d H:i:s")."') OR tp.stock_type = 1) ",null,false);
 			$QProduct = $QProduct->where("tkcp.toko_id in (SELECT ttm.toko_id FROM tb_toko_member ttm WHERE ttm.member_id = ".$QUser->id.")",null,false);
 			
 			if($this->response->post("keyword") != "" && $this->response->postDecode("keyword") != ""){
@@ -1887,10 +1886,17 @@ class Api extends CI_Controller {
 			}
 			
 			if($this->response->post("stock_type") != "" && $this->response->postDecode("stock_type") != ""){
-				$QProduct = $QProduct->where("tp.stock_type",$this->response->postDecode("stock_type"));
+				if($this->response->postDecode("stock_type") == 0){
+					$QProduct = $QProduct->where("tp.stock_type",$this->response->postDecode("stock_type"));
+					$QProduct = $QProduct->where("tp.end_date >= ",date("Y-m-d H:i:s"));
+				}else{
+					$QProduct = $QProduct->where("tp.stock_type",$this->response->postDecode("stock_type"));
+				}
+			}else{
+				$QProduct = $QProduct->where(" ((tp.stock_type = 0 AND tp.end_date >= '".date("Y-m-d H:i:s")."') OR tp.stock_type = 1) ",null,false);
 			}
 			
-			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && $this->response->postDecode("lastId") > "0"){
+			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && $this->response->postDecode("lastId") > 0){
 				$QProduct = $QProduct->where("tp.id < ",$this->response->postDecode("lastId"));
 			}
 			
@@ -1948,7 +1954,6 @@ class Api extends CI_Controller {
 			$QProduct = $QProduct->select("tp.id, tp.stock_type, tp.end_date");
 			$QProduct = $QProduct->join("tb_toko_category_product tkcp","tkcp.id = tp.toko_category_product_id");
 			$QProduct = $QProduct->where("tp.active",1);
-			$QProduct = $QProduct->where(" ((tp.stock_type = 0 AND tp.end_date >= '".date("Y-m-d H:i:s")."') OR tp.stock_type = 1) ",null,false);
 			$QProduct = $QProduct->where("tkcp.toko_id in (SELECT ttm.toko_id FROM tb_toko_member ttm WHERE ttm.member_id = ".$QUser->id.")",null,false);
 			$QProduct = $QProduct->where("tp.id in (SELECT tf.product_id FROM tb_favorite tf WHERE tf.member_id = ".$QUser->id.")",null,false);
 			
@@ -1957,7 +1962,14 @@ class Api extends CI_Controller {
 			}
 			
 			if($this->response->post("stock_type") != "" && $this->response->postDecode("stock_type") != ""){
-				$QProduct = $QProduct->where("tp.stock_type",$this->response->postDecode("stock_type"));
+				if($this->response->postDecode("stock_type") == 0){
+					$QProduct = $QProduct->where("tp.stock_type",$this->response->postDecode("stock_type"));
+					$QProduct = $QProduct->where("tp.end_date >= ",date("Y-m-d H:i:s"));
+				}else{
+					$QProduct = $QProduct->where("tp.stock_type",$this->response->postDecode("stock_type"));
+				}
+			}else{
+				$QProduct = $QProduct->where(" ((tp.stock_type = 0 AND tp.end_date >= '".date("Y-m-d H:i:s")."') OR tp.stock_type = 1) ",null,false);
 			}
 			
 			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && $this->response->postDecode("lastId") > 0){
