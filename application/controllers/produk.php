@@ -776,6 +776,15 @@ class Produk extends CI_Controller {
 						$no_varian = $this->model_produk->get_varian_produk_null($id);
 					
 						if ($no_varian->num_rows() > 0) {
+							/*
+							*	----------------------------------------------------------------
+							*	Change by Pangeran Embun cause this error when $stok_utama is empty
+							*   and i don't know the data source from where? please re source this code Mr. Udin Sedunia
+							*	----------------------------------------------------------------
+							*/
+							if($stok_utama=''){
+								$stok_utama=1;
+							}
 							$this->db->where('product_id',$id)->where('name !=','null')->delete('tb_product_varian');
 							$this->db->set('stock_qty',$stok_utama)->where('product_id',$id)->where('name','null')->update('tb_product_varian');
 						}else{
