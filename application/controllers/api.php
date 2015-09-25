@@ -1401,7 +1401,7 @@ class Api extends CI_Controller {
 				$QCarts = $QCarts->where("tc.id < ",$this->response->postDecode("lastId"));
 			}
 			
-			$QCarts = $QCarts->limit(5,$this->paging_offset);
+			$QCarts = $QCarts->limit($this->paging_limit,$this->paging_offset);
 			$QCarts = $QCarts->order_by("id","DESC");
 			$QCarts = $QCarts->get("tb_cart tc");
 			$QCarts = $QCarts->result();
@@ -1472,7 +1472,7 @@ class Api extends CI_Controller {
 				$QInvoices = $QInvoices->where("id < ",$this->response->postDecode("lastId"));
 			}
 			
-			$QInvoices = $QInvoices->limit(5,$this->paging_offset);
+			$QInvoices = $QInvoices->limit($this->paging_limit,$this->paging_offset);
 			$QInvoices = $QInvoices->order_by("id","DESC");
 			$QInvoices = $QInvoices->get("tb_invoice");
 			$QInvoices = $QInvoices->result();
@@ -4607,8 +4607,8 @@ class Api extends CI_Controller {
 							->row();
 							
 				if(!empty($LastInvoice)){
-					$LastInvoiceDates = explode(" ",$LastInvoice->create_date);
-					if( $LastInvoiceDates[0] != date("Y-m-d")){
+					$long = $this->hs_datetime->countDate($LastInvoice->create_date,date("Y-m-d H:i:s"));
+					if($long != 0){
 						$seq_no = 1;
 						$seq_alphabet = "A";
 					}
