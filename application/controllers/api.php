@@ -16,7 +16,7 @@ set_time_limit (60000);
 class Api extends CI_Controller {
 	var $paging_limit = 10;
 	var $paging_offset = 0;
-	var $quality = 90;
+	var $quality = 60;
 	
 	function __construct(){
         parent::__construct();
@@ -1468,7 +1468,7 @@ class Api extends CI_Controller {
 				$QInvoices = $QInvoices->where("status",$this->response->postDecode("status"));
 			}		
 			
-			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && intval($this->response->postDecode("lastId")) > 0){
+			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && $this->response->postDecode("lastId") > 0){
 				$QInvoices = $QInvoices->where("id < ",$this->response->postDecode("lastId"));
 			}
 			
