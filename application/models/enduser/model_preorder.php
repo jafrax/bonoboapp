@@ -29,7 +29,7 @@ class Model_preorder extends CI_Model
 						->join('tb_invoice_varian iv','iv.invoice_product_id=ip.id')
 						->join('tb_product_varian v','v.id=iv.product_varian_id')
 						->join('tb_product p','p.id=v.product_id')
-						->group_by('i.invoice_no')
+						->group_by('i.id')
 						->get('tb_invoice i');
 	}
 	
@@ -41,7 +41,7 @@ class Model_preorder extends CI_Model
 		->join('tb_invoice_varian iv','iv.invoice_product_id=ip.id')
 		->join('tb_product_varian v','v.id=iv.product_varian_id')
 		->join('tb_product p','p.id=v.product_id')
-		->group_by('i.invoice_no')
+		->group_by('i.id')
 		->get('tb_invoice i');
 	}
 
@@ -75,7 +75,7 @@ class Model_preorder extends CI_Model
 		->where('invoice_id',$id)
 		->join('tb_invoice_product ip','ip.invoice_id=i.id')
 		->join('tb_invoice_varian iv','iv.invoice_product_id=ip.id')
-		->group_by('i.invoice_no')
+		->group_by('i.id')
 		->get('tb_invoice i');
 	}
 	
