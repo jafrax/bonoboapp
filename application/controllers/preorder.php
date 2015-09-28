@@ -55,9 +55,10 @@ class Preorder extends CI_Controller {
 		unset($_SESSION['keyword']);
 		unset($_SESSION['sort']);
 		unset($_SESSION['selesai']);
-
-		$data['nota']	= $this->model_preorder->get_nota($id);
-		$this->template->bonobo('preorder/bg_preorder_detail',$data);
+	
+			$data['nota']	= $this->model_preorder->get_nota($id);
+			$this->template->bonobo('preorder/bg_preorder_detail',$data);
+		
 	}
 
 	public function selesai_semua(){
@@ -128,8 +129,6 @@ class Preorder extends CI_Controller {
 	}
 	
 public function selesai_satu(){
-		//$id	= $this->uri->segment(4);
-		//echo $id;
 		$id = $this->input->post('id');
 		$this->db->where('id',$id)->set('status_pre_order',1)->update('tb_invoice');
 	}

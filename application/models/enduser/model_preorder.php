@@ -22,15 +22,63 @@ class Model_preorder extends CI_Model
 	
 	
 	function get_belum_selesai($id){
-		return $this->db->where('i.status_pre_order',0)
+		return $this->db->select('i.id ')
+						->where('i.status_pre_order',0)
 						->where('p.id',$id)
 						->join('tb_invoice_product ip','ip.invoice_id=i.id')
 						->join('tb_invoice_varian iv','iv.invoice_product_id=ip.id')
 						->join('tb_product_varian v','v.id=iv.product_varian_id')
 						->join('tb_product p','p.id=v.product_id')
+						->group_by('i.invoice_no')
 						->get('tb_invoice i');
 	}
+	
+	function get_sudah_selesai($id){
+		return $this->db->select('i.id ')
+		->where('i.status_pre_order',1)
+		->where('p.id',$id)
+		->join('tb_invoice_product ip','ip.invoice_id=i.id')
+		->join('tb_invoice_varian iv','iv.invoice_product_id=ip.id')
+		->join('tb_product_varian v','v.id=iv.product_varian_id')
+		->join('tb_product p','p.id=v.product_id')
+		->group_by('i.invoice_no')
+		->get('tb_invoice i');
+	}
 
+	
+	function get_lusin_pre_order($id){
+		return $this->db->select(' iv.quantity as jumlah ')
+		->where('i.status',0)
+		->where('p.id',$id)
+		->join('tb_invoice_product ip','ip.invoice_id=i.id')
+		->join('tb_invoice_varian iv','iv.invoice_product_id=ip.id')
+		->join('tb_product_varian v','v.id=iv.product_varian_id')
+		->join('tb_product p','p.id=v.product_id')
+		->get('tb_invoice i');
+	}
+	
+	
+	function get_lusin_lunas($id){
+		return $this->db->select(' iv.quantity as jumlah ')
+		->where('i.status',1)
+		->where('p.id',$id)
+		->join('tb_invoice_product ip','ip.invoice_id=i.id')
+		->join('tb_invoice_varian iv','iv.invoice_product_id=ip.id')
+		->join('tb_product_varian v','v.id=iv.product_varian_id')
+		->join('tb_product p','p.id=v.product_id')
+		->get('tb_invoice i');
+	}
+	
+	
+	function get_jumlah_item($id){
+		return $this->db->select(' iv.quantity as jumlah ')
+		->where('invoice_no',$id)
+		->join('tb_invoice_product ip','ip.invoice_id=i.id')
+		->join('tb_invoice_varian iv','iv.invoice_product_id=ip.id')
+		->get('tb_invoice i');
+	}
+	
+	
 	function get_nota($id){
 		 $this->db->select('i.*')
 						->where('p.id',$id)
@@ -39,16 +87,11 @@ class Model_preorder extends CI_Model
 						->join('tb_product_varian v','v.id=iv.product_varian_id')
 						->join('tb_product p','p.id=v.product_id');
 		if (isset($_SESSION['keyword'])) {
-			if ($_SESSION['search'] =''){
-			$this->db->like($_SESSION['search'],$_SESSION['keyword']);
+			if ($_SESSION['search'] ==''){
+				$this->db->where("(member_name like '%".$_SESSION['keyword']."%' OR invoice_no like '%".$_SESSION['keyword']."%' OR price_total like '%".$_SESSION['keyword']."%') ",null);
 			}else{
-				$this->db->like('i.member_name ', $_SESSION['keyword']);
-				$this->db->or_like('i.invoice_no', $_SESSION['keyword']);
-				$this->db->or_like('i.price_total', $_SESSION['keyword']);
-				$this->db->where("(i.member_name OR i.invoice_no  OR i.price_total )", NULL);
-				//$this->db->like("(i.member_name OR i.invoice_no OR i.price_total )", $_SESSION['keyword']);
-				
-			}
+				$this->db->like($_SESSION['search'],$_SESSION['keyword']);
+				}
 		}
 		if (isset($_SESSION['selesai'])) {
 			$this->db->where('status_pre_order',$_SESSION['selesai']);
@@ -58,9 +101,11 @@ class Model_preorder extends CI_Model
 		}else{
 			$this->db->order_by('i.create_date','DESC');
 		}
-		return	$this->db->get('tb_invoice i');
+		return	$this->db->group_by('i.invoice_no')->get('tb_invoice i');
+		
+		
 	}
-
+	
 	function get_image($id){
 		return $this->db->where('id',$id)->get('tb_member');
 	}

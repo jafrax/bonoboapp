@@ -78,17 +78,7 @@ echo "
 			      								<label for='cek-nota-".$i."'></label>	
 			      								<input type='hidden' id='cek-$i' value='".$row->id."' />								
 											</div>
-								            <div class='col s6 m2'>";
-												$image = $this->model_preorder->get_image($row->member_id);
-
-									            if ($image->row()->image != '') {
-									            	echo "<img src='".base_url()."assets/pic/user/resize/".$image->row()->image."' alt='' class=' responsive-img col'> ";
-									            }else{
-									            	echo "<img src='".base_url()."html/images/comp/male.png' alt='' class=' responsive-img col'> ";
-									            }
-									              echo"								              	
-								            </div>
-								            <div class='col s12 m4'>
+								            <div class='col s12 m6'>
 								              	<h5 class='blue-text'>".$row->invoice_no."</h5>
 								              	<h6 class='blue-text'>".$row->member_name."</h6>";
 								              	if ($row->status == 0 ) {
@@ -99,8 +89,16 @@ echo "
 									            	echo "<span class='labelbudge grey lighten-2'>BATAL</span>";
 									            }
 								              	
+									            $jmlitem= 0;
+									            $count_item = $this->model_preorder->get_jumlah_item($row->invoice_no);
+									            foreach ($count_item->result() as $item) {
+									            	$jmlitem= $jmlitem + $item->jumlah;
+									            }
+									            
+									            
 								              	echo "
 								              	<h5>Rp. ".number_format($row->price_total, 2 , ',' , '.')."</h5>
+								              	<h6> Jumlah pesanan $jmlitem</h6>
 								            </div>								           
 								            <div class='col s12 m5'>";
 							            		$old_date = $row->create_date;
@@ -111,12 +109,12 @@ echo "
 								              	<p class='col blue-grey-text lighten-3 right'>$date ( $ago )</p><br>";
 								              	if ($row->status_pre_order == 0) {
 								              		echo "
-													<h5 class='col red-text right' id='selesai-".$row->id."'>Belum Selesai</h5><br><br><br>
-													<button onclick=javascript:selesai(".$row->id."); class='btn-flat waves-effect red white-text waves-light right' id='tombol-".$row->id."' type='button' name='action'>Selesai</button>
+													<h5 class='col red-text right' id='selesai-".$row->id."'>OPEN</h5><br><br><br>
+													<button onclick=javascript:selesai(".$row->id."); class='btn-flat waves-effect red white-text waves-light right' id='tombol-".$row->id."' type='button' name='action'>CLOSE</button>
 													";
 												}else{
 													echo "
-													<h5 class='col green-text right'>Selesai</h5>													
+													<h5 class='col green-text right'>CLOSE</h5>													
 													";
 												}
 												echo "
