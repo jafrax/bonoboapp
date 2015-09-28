@@ -211,7 +211,7 @@ class Toko extends CI_Controller {
 			$dm_store_delivery = 0;
 			
 			
-			if($this->response->post("chkPickUpStore") != ""){
+			if($this->response->post("chkPickUpStore") == ""){
 				$dm_pick_up_store = 1;
 			}
 			
@@ -222,6 +222,7 @@ class Toko extends CI_Controller {
 			if($this->response->post("chkStoreDelivery") != ""){
 				$dm_store_delivery = 1;
 			}
+			
 			
 			$Data = array(
 					"dm_pick_up_store"=>$dm_pick_up_store,
@@ -517,6 +518,7 @@ class Toko extends CI_Controller {
 	}
 	
 	public function doStep7CourierSave(){
+		
 		if($this->response->post("name") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Nama masih kosong","messageCode"=>1));
 			return;
