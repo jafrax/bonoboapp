@@ -72,9 +72,10 @@ class Model_preorder extends CI_Model
 	
 	function get_jumlah_item($id){
 		return $this->db->select(' iv.quantity as jumlah ')
-		->where('invoice_no',$id)
+		->where('invoice_id',$id)
 		->join('tb_invoice_product ip','ip.invoice_id=i.id')
 		->join('tb_invoice_varian iv','iv.invoice_product_id=ip.id')
+		->group_by('i.invoice_no')
 		->get('tb_invoice i');
 	}
 	
@@ -101,7 +102,7 @@ class Model_preorder extends CI_Model
 		}else{
 			$this->db->order_by('i.create_date','DESC');
 		}
-		return	$this->db->group_by('i.invoice_no')->get('tb_invoice i');
+		return	$this->db->group_by('i.id')->get('tb_invoice i');
 		
 		
 	}

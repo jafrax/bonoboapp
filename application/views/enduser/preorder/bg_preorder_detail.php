@@ -57,7 +57,7 @@ echo "
 								</div>
 								
 								<div class='input-field col'>
-									<button class='btn-flat waves-effect red white-text waves-light left' onclick=javascript:selesaikan()>Selesai</button>
+									<button class='btn-flat waves-effect red white-text waves-light left' onclick=javascript:selesaikan()>CLOSE</button>
 								</div>								
 							</div>
 
@@ -90,7 +90,7 @@ echo "
 									            }
 								              	
 									            $jmlitem= 0;
-									            $count_item = $this->model_preorder->get_jumlah_item($row->invoice_no);
+									            $count_item = $this->model_preorder->get_jumlah_item($row->id);
 									            foreach ($count_item->result() as $item) {
 									            	$jmlitem= $jmlitem + $item->jumlah;
 									            }
