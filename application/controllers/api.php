@@ -16,7 +16,7 @@ set_time_limit (60000);
 class Api extends CI_Controller {
 	var $paging_limit = 10;
 	var $paging_offset = 0;
-	var $quality = 90;
+	var $quality = 60;
 	
 	function __construct(){
         parent::__construct();
@@ -248,7 +248,7 @@ class Api extends CI_Controller {
 		$QShopProducts = $this->db
 						->select("tp.id")
 						->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
-						->where(" ((tp.stock_type = 0 AND tp.end_date >= '".date("Y-m-d H:i:s")."') OR tp.stock_type = 1) ",null,false)
+						->where(" ((tp.stock_type = 0 AND tp.end_date >= '".date("Y-m-d")."') OR tp.stock_type = 1) ",null,false)
 						->where("ttcp.toko_id",$QShop->id)
 						->where("tp.active",1)
 						->get("tb_product tp")
@@ -447,39 +447,10 @@ class Api extends CI_Controller {
 		return $Product;
 	}
 	
-	private function getCartsByUser($user){
-		/*
-		*	------------------------------------------------------------------------------
-		*	Menghapus data cart yang status pre order
-		*	------------------------------------------------------------------------------
-		*/
+	private function getCartById($cart_id,$user_id){
+		$QCart = $this->db->where("id",$cart_id)->get("tb_cart")->row();
 		
-		$Deletes = $this->db
-			->where("member_id",$user)
-			->where("stock_type",0)
-			->delete("tb_cart");
-	
-		/*
-		*	------------------------------------------------------------------------------
-		*	Mengambil query data carts
-		*	------------------------------------------------------------------------------
-		*/
-		$Carts = array();
-		
-		$QCarts = $this->db;
-		$QCarts = $QCarts->where("tc.member_id",$user);
-		$QCarts = $QCarts->where("tc.stock_type",1);
-		
-		if($this->response->post("lastId") != "" && (float) $this->response->postDecode("lastId") > 0){
-			$QCarts = $QCarts->where("tc.id < ",$this->response->postDecode("lastId"));
-		}
-		
-		$QCarts = $QCarts->limit(5,$this->paging_offset);
-		$QCarts = $QCarts->order_by("id","DESC");
-		$QCarts = $QCarts->get("tb_cart tc");
-		$QCarts = $QCarts->result();
-		
-		foreach($QCarts as $QCart){
+		if(!empty($QCart)){
 			/*
 			*	------------------------------------------------------------------------------
 			*	Mengambil query data cart products
@@ -519,7 +490,7 @@ class Api extends CI_Controller {
 									"id"=>$QProductVarian->id,
 									"name"=>$QProductVarian->name,
 									"stock_qty"=>$QProductVarian->stock_qty,
-									"product"=>$this->getProductById($QProductVarian->product_id,$user),
+									"product"=>$this->getProductById($QProductVarian->product_id,$user_id),
 								);
 					
 					$CartVarian = array(
@@ -539,7 +510,7 @@ class Api extends CI_Controller {
 				$CartProduct = array(
 							"id"=>$QCartProduct->id,
 							"price_product"=>$QCartProduct->price_product,
-							"product"=>$this->getProductById($QCartProduct->product_id,$user),
+							"product"=>$this->getProductById($QCartProduct->product_id,$user_id),
 							"cart_varians"=>$CartVarians,
 						);
 				
@@ -555,14 +526,13 @@ class Api extends CI_Controller {
 					"id"=>$QCart->id,
 					"price_total"=>$QCart->price_total,
 					"stock_type"=>$QCart->stock_type,
-					"shop"=>$this->getShopById($QCart->toko_id,$user),
+					"shop"=>$this->getShopById($QCart->toko_id,$user_id),
 					"cart_products"=>$CartProducts,
 				);
-			
-			array_push($Carts,$Cart);
+			return $Cart;
+		}else{
+			return null;
 		}
-		
-		return $Carts;
 	}
 	
 	
@@ -1295,7 +1265,7 @@ class Api extends CI_Controller {
 		}
 	}
 	
-	public function getUserCarts(){
+	public function getUserCart(){
 		try {
 			
 			/*
@@ -1318,17 +1288,25 @@ class Api extends CI_Controller {
 				return;
 			}
 			
+			if($this->response->post("cart") == "" || $this->response->postDecode("cart") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada cart yang dipilih","messageCode"=>3), true);
+				return;
+			}
+			
 			/*
 			*	------------------------------------------------------------------------------
 			*	create object user data to response
 			*	------------------------------------------------------------------------------
 			*/
-			$Object = array(
-					"result"=>1,
-					"carts"=>$this->getCartsByUser($QUser->id),
-				);
 			
-			$this->response->send($Object, true);
+			$QCart = $this->db->where("id",$this->response->postDecode("cart"))->get("tb_cart")->row();
+			
+			if(!empty($QCart)){
+				$Cart = $this->getCartById($QCart->id,$QUser->id);
+				$this->response->send(array("result"=>1,"cart"=>$Cart), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada cart yang ditemukan","messageCode"=>4), true);
+			}
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
@@ -1375,6 +1353,86 @@ class Api extends CI_Controller {
 		}
 	}
 	
+	public function getUserCarts(){
+		try {
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>3), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Menghapus data cart yang status pre order
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$Deletes = $this->db
+				->where("member_id",$QUser->id)
+				->where("stock_type",0)
+				->delete("tb_cart");
+		
+	
+			/*
+			*	------------------------------------------------------------------------------
+			*	Mengambil query data carts
+			*	------------------------------------------------------------------------------
+			*/
+			$QCarts = $this->db;
+			$QCarts = $QCarts->where("tc.member_id",$QUser->id);
+			$QCarts = $QCarts->where("tc.stock_type",1);
+			
+			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && $this->response->postDecode("lastId") > 0){
+				$QCarts = $QCarts->where("tc.id < ",$this->response->postDecode("lastId"));
+			}
+			
+			$QCarts = $QCarts->limit($this->paging_limit,$this->paging_offset);
+			$QCarts = $QCarts->order_by("id","DESC");
+			$QCarts = $QCarts->get("tb_cart tc");
+			$QCarts = $QCarts->result();
+			
+			$Carts = array();
+			foreach($QCarts as $QCart){
+				/*
+				*	------------------------------------------------------------------------------
+				*	Membuat object Cart
+				*	------------------------------------------------------------------------------
+				*/
+				$Cart = array(
+						"id"=>$QCart->id,
+						"price_total"=>$QCart->price_total,
+						"stock_type"=>$QCart->stock_type,
+						"shop"=>$this->getShopById($QCart->toko_id,$QUser->id),
+					);
+				
+				array_push($Carts,$Cart);
+			}
+			
+			if(sizeOf($QCarts) > 0){
+				$this->response->send(array("result"=>1,"carts"=>$Carts), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada cart","messageCode"=>4), true);
+			}
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
 	public function getUserInvoices(){
 		try {
 			
@@ -1410,11 +1468,11 @@ class Api extends CI_Controller {
 				$QInvoices = $QInvoices->where("status",$this->response->postDecode("status"));
 			}		
 			
-			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && intval($this->response->postDecode("lastId")) > 0){
+			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && $this->response->postDecode("lastId") > 0){
 				$QInvoices = $QInvoices->where("id < ",$this->response->postDecode("lastId"));
 			}
 			
-			$QInvoices = $QInvoices->limit(5,$this->paging_offset);
+			$QInvoices = $QInvoices->limit($this->paging_limit,$this->paging_offset);
 			$QInvoices = $QInvoices->order_by("id","DESC");
 			$QInvoices = $QInvoices->get("tb_invoice");
 			$QInvoices = $QInvoices->result();
@@ -1560,7 +1618,7 @@ class Api extends CI_Controller {
 							->select("tmm.id,tmm.toko_name,tmm.toko_id,tm.message as message,tm.title,tm.image,tmm.flag_read as isread,tmm.flag_from as isfrom")
 							->join("tb_message tm","tm.id = tmm.message_id")
 							->where("tmm.member_id",$QUser->id)
-							->group_by("tmm.toko_name")
+							->group_by("tmm.toko_id")
 							->get("tb_member_message tmm")
 							->result();
 			
@@ -1681,7 +1739,6 @@ class Api extends CI_Controller {
 							"image_high"=>$ImageHigh,
 							"isread"=>$QMessage->isread,
 							"isfrom"=>$QMessage->isfrom,
-							"shop"=>$this->getShopById($QShop->id,$QUser->id),
 						);
 				array_push($Messages,$Message);
 			}
@@ -1822,7 +1879,6 @@ class Api extends CI_Controller {
 			$QProduct = $QProduct->select("tp.id, tp.stock_type, tp.end_date");
 			$QProduct = $QProduct->join("tb_toko_category_product tkcp","tkcp.id = tp.toko_category_product_id");
 			$QProduct = $QProduct->where("tp.active",1);
-			$QProduct = $QProduct->where(" ((tp.stock_type = 0 AND tp.end_date >= '".date("Y-m-d H:i:s")."') OR tp.stock_type = 1) ",null,false);
 			$QProduct = $QProduct->where("tkcp.toko_id in (SELECT ttm.toko_id FROM tb_toko_member ttm WHERE ttm.member_id = ".$QUser->id.")",null,false);
 			
 			if($this->response->post("keyword") != "" && $this->response->postDecode("keyword") != ""){
@@ -1830,10 +1886,17 @@ class Api extends CI_Controller {
 			}
 			
 			if($this->response->post("stock_type") != "" && $this->response->postDecode("stock_type") != ""){
-				$QProduct = $QProduct->where("tp.stock_type",$this->response->postDecode("stock_type"));
+				if($this->response->postDecode("stock_type") == 0){
+					$QProduct = $QProduct->where("tp.stock_type",$this->response->postDecode("stock_type"));
+					$QProduct = $QProduct->where("tp.end_date >= ",date("Y-m-d"));
+				}else{
+					$QProduct = $QProduct->where("tp.stock_type",$this->response->postDecode("stock_type"));
+				}
+			}else{
+				$QProduct = $QProduct->where(" ((tp.stock_type = 0 AND tp.end_date >= '".date("Y-m-d")."') OR tp.stock_type = 1) ",null,false);
 			}
 			
-			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && $this->response->postDecode("lastId") > "0"){
+			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && $this->response->postDecode("lastId") > 0){
 				$QProduct = $QProduct->where("tp.id < ",$this->response->postDecode("lastId"));
 			}
 			
@@ -1891,7 +1954,6 @@ class Api extends CI_Controller {
 			$QProduct = $QProduct->select("tp.id, tp.stock_type, tp.end_date");
 			$QProduct = $QProduct->join("tb_toko_category_product tkcp","tkcp.id = tp.toko_category_product_id");
 			$QProduct = $QProduct->where("tp.active",1);
-			$QProduct = $QProduct->where(" ((tp.stock_type = 0 AND tp.end_date >= '".date("Y-m-d H:i:s")."') OR tp.stock_type = 1) ",null,false);
 			$QProduct = $QProduct->where("tkcp.toko_id in (SELECT ttm.toko_id FROM tb_toko_member ttm WHERE ttm.member_id = ".$QUser->id.")",null,false);
 			$QProduct = $QProduct->where("tp.id in (SELECT tf.product_id FROM tb_favorite tf WHERE tf.member_id = ".$QUser->id.")",null,false);
 			
@@ -1900,11 +1962,18 @@ class Api extends CI_Controller {
 			}
 			
 			if($this->response->post("stock_type") != "" && $this->response->postDecode("stock_type") != ""){
-				$QProduct = $QProduct->where("tp.stock_type",$this->response->postDecode("stock_type"));
+				if($this->response->postDecode("stock_type") == 0){
+					$QProduct = $QProduct->where("tp.stock_type",$this->response->postDecode("stock_type"));
+					$QProduct = $QProduct->where("tp.end_date >= ",date("Y-m-d"));
+				}else{
+					$QProduct = $QProduct->where("tp.stock_type",$this->response->postDecode("stock_type"));
+				}
+			}else{
+				$QProduct = $QProduct->where(" ((tp.stock_type = 0 AND tp.end_date >= '".date("Y-m-d")."') OR tp.stock_type = 1) ",null,false);
 			}
 			
-			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && intval($this->response->postDecode("lastId")) > 0){
-				$QProduct = $QProduct->where("tp.id < ",intval($this->response->postDecode("lastId")));
+			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && $this->response->postDecode("lastId") > 0){
+				$QProduct = $QProduct->where("tp.id < ",$this->response->postDecode("lastId"));
 			}
 			
 			$QProduct = $QProduct->limit($this->paging_limit,$this->paging_offset);
@@ -2303,7 +2372,7 @@ class Api extends CI_Controller {
 			$QProduct = $QProduct->join("tb_toko_category_product tkcp","tkcp.id = tp.toko_category_product_id");
 			$QProduct = $QProduct->where("tkcp.toko_id", $QShop->id);
 			$QProduct = $QProduct->where("tp.active", 1);
-			$QProduct = $QProduct->where(" ((tp.stock_type = 0 AND tp.end_date >= '".date("Y-m-d H:i:s")."') OR tp.stock_type = 1) ",null,false);
+			$QProduct = $QProduct->where(" ((tp.stock_type = 0 AND tp.end_date >= '".date("Y-m-d")."') OR tp.stock_type = 1) ",null,false);
 			
 			if($this->response->post("keyword") != "" && $this->response->postDecode("keyword") != ""){
 				$QProduct = $QProduct->where("tp.name LIKE ","%".$this->response->postDecode("keyword")."%");
@@ -3552,18 +3621,18 @@ class Api extends CI_Controller {
 		}
 		
 		if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
-			$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+			$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu [1]","messageCode"=>1), true);
 			return false;
 		}
 		
 		$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
 		if(empty($QUser)){
-			$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+			$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu [2]","messageCode"=>2), true);
 			return false;
 		}
 		
 		if($this->response->post("product") == "" || $this->response->postDecode("product") == ""){
-			$this->response->send(array("result"=>0,"message"=>"Belum ada product yang di kirim","messageCode"=>3), true);
+			$this->response->send(array("result"=>0,"message"=>"Belum ada product yang di kirim [3]","messageCode"=>3), true);
 			return false;
 		}
 		
@@ -3576,44 +3645,44 @@ class Api extends CI_Controller {
 					->row();
 					
 		if(empty($QProduct)){
-			$this->response->send(array("result"=>0,"message"=>"Barang sudah tidak tersedia","messageCode"=>4), true);
+			$this->response->send(array("result"=>0,"message"=>"Barang sudah tidak tersedia [4]","messageCode"=>4), true);
 			return false;
 		}
 		
 		if($this->response->post("varians") == "" || $this->response->postDecode("varians") == ""){
-			$this->response->send(array("result"=>0,"message"=>"Tidak ada data varians yang dikirim","messageCode"=>5), true);
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada data varians yang dikirim [5]","messageCode"=>5), true);
 			return false;
 		}
 		
 		if($this->response->post("stock_type") == "" || $this->response->postDecode("stock_type") == ""){
-			$this->response->send(array("result"=>0,"message"=>"Tidak ada data tipe stok","messageCode"=>6), true);
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada data tipe stok [6]","messageCode"=>6), true);
 			return false;
 		}
 		
 		if($this->response->post("price") == "" || $this->response->postDecode("price") == ""){
-			$this->response->send(array("result"=>0,"message"=>"Tidak ada data harga barang","messageCode"=>7), true);
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada data harga barang [7]","messageCode"=>7), true);
 			return false;
 		}
 		
 		if($this->response->post("min_order") == "" || $this->response->postDecode("min_order") == ""){
-			$this->response->send(array("result"=>0,"message"=>"Tidak ada data minimal order","messageCode"=>8), true);
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada data minimal order [8]","messageCode"=>8), true);
 			return false;
 		}
 		
 		if($QProduct->active == 0){
-			$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia","messageCode"=>9), true);
+			$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia [9]","messageCode"=>9), true);
 			return false;
 		}
 		
 		if($QProduct->stock_type != $this->response->postDecode("stock_type")){
-			$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia","messageCode"=>10), true);
+			$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia [10]","messageCode"=>10), true);
 			return false;
 		}
 		
 		if($QProduct->stock_type == 0){
 			$long = $this->hs_datetime->countDate(date("Y-m-d H:i:s"),$QProduct->end_date);
 			if($long <= 0){
-				$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia","messageCode"=>11), true);
+				$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia [11]","messageCode"=>11), true);
 				return false;
 			}
 		}
@@ -3636,7 +3705,7 @@ class Api extends CI_Controller {
 			->row();
 						
 		if(empty($QShopMember)){
-			$this->response->send(array("result"=>0,"message"=>"Anda sudah tidak tergabung dengan toko \"".$QProduct->shop_name."\"","messageCode"=>12), true);
+			$this->response->send(array("result"=>0,"message"=>"Anda sudah tidak tergabung dengan toko \"".$QProduct->shop_name."\"  [12]","messageCode"=>12), true);
 			return false;
 		}
 		
@@ -3646,7 +3715,7 @@ class Api extends CI_Controller {
 				->row();
 		
 		if(empty($QShop)){
-			$this->response->send(array("result"=>0,"message"=>"Produk dari toko \"".$QProduct->shop_name."\" sudah tidak valid","messageCode"=>13), true);
+			$this->response->send(array("result"=>0,"message"=>"Produk dari toko \"".$QProduct->shop_name."\" sudah tidak valid  [13]","messageCode"=>13), true);
 			return false;
 		}
 		
@@ -3684,12 +3753,12 @@ class Api extends CI_Controller {
 		
 		
 		if($product_price != (float) $this->response->postDecode("price")){
-			$this->response->send(array("result"=>0,"message"=>"Harga sudah berubah","messageCode"=>14), true);
+			$this->response->send(array("result"=>0,"message"=>"Harga sudah berubah [14]","messageCode"=>14), true);
 			return false;
 		}
 		
 		if($QProduct->min_order != (float) $this->response->postDecode("min_order")){
-			$this->response->send(array("result"=>0,"message"=>"Data produk sudah berubah","messageCode"=>15), true);
+			$this->response->send(array("result"=>0,"message"=>"Data produk sudah berubah [15]","messageCode"=>15), true);
 			return false;
 		}
 		
@@ -3706,7 +3775,7 @@ class Api extends CI_Controller {
 				$QVarian = $this->db->where("id",$this->response->postDecode("varian".$i))->get("tb_product_varian")->row();
 				
 				if(empty($QVarian)){
-					$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia","messageCode"=>16), true);
+					$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia [16]","messageCode"=>16), true);
 					$isVarianValid = false;
 					continue;
 				}else{
@@ -3719,7 +3788,7 @@ class Api extends CI_Controller {
 					*/
 					if($QProduct->stock_type == 1 && $QProduct->stock_type_detail == 0){
 						if($QVarian->stock_qty < (float) $this->response->postDecode("varian".$i."_qty")){
-							$this->response->send(array("result"=>0,"message"=>"Stok barang tidak tersedia","messageCode"=>17), true);
+							$this->response->send(array("result"=>0,"message"=>"Stok barang tidak tersedia [17]","messageCode"=>17), true);
 							$isVarianValid = false;
 							continue;
 						}
@@ -3735,7 +3804,7 @@ class Api extends CI_Controller {
 		}
 		
 		if($QProduct->min_order > $buy_qty){
-			$this->response->send(array("result"=>0,"message"=>"Jumlah pembelian kurang dari minimal order","messageCode"=>18), true);
+			$this->response->send(array("result"=>0,"message"=>"Jumlah pembelian kurang dari minimal order [18]","messageCode"=>18), true);
 			return false;
 		}
 		
@@ -4550,8 +4619,8 @@ class Api extends CI_Controller {
 							->row();
 							
 				if(!empty($LastInvoice)){
-					$LastInvoiceDates = explode(" ",$LastInvoice->create_date);
-					if( $LastInvoiceDates[0] != date("Y-m-d")){
+					$long = $this->hs_datetime->countDate($LastInvoice->create_date,date("Y-m-d H:i:s"));
+					if($long != 0){
 						$seq_no = 1;
 						$seq_alphabet = "A";
 					}

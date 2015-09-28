@@ -44,7 +44,7 @@ if ($produk->num_rows() == 0) {
 														echo "<i class='prefix prefix-gan'>".$row->unit."</i>";
 													}
 													if ($row_stok->name != 'null') {
-														echo "<span for='stok'>".$row_stok->name."</span>";
+														echo "<label for='stok' class='active'>".$row_stok->name."</label>";
 													}
 													echo"<input onkeyup=javascript:change_stock(".$row_stok->id.") type='text' maxlength='9' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate numbersOnly stok-".$row_stok->id."'>";									
 													
@@ -104,6 +104,7 @@ if ($produk->num_rows() == 0) {
 											</div>
 										</div>
 									</div>
+
 								</li>";
 							}
 ?>		

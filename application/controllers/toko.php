@@ -603,13 +603,14 @@ class Toko extends CI_Controller {
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada kecamatan yang dipilih","messageCode"=>4));
 			return;
 		}
-		
+		$courier = $this->response->post('customCourier');
+		$province = $this->response->post('cmbProvince');
 		$price = str_replace(".", "", str_replace('Rp. ', '', $this->response->post("txtRatePrice"))) ;
 		//echo $price;
 		if($this->response->post("txtRateId") == ""){
 			$Data = array(
-					"courier_custom_id"=>$this->response->post("customCourier"),
-					"location_to_province"=>$this->response->post("cmbProvince"),
+					"courier_custom_id"=>$courier,
+					"location_to_province"=>$province,
 					"location_to_city"=>$this->response->post("cmbCity"),
 					"location_to_kecamatan"=>$this->response->post("cmbKecamatan"),
 					"price"=> $price,
@@ -618,13 +619,15 @@ class Toko extends CI_Controller {
 					"update_date"=>date("Y-m-d H:i:s"),
 					"update_user"=>$_SESSION['bonobo']['email'],
 				);
-			
+			$count = $this->db->where('location_to_province',$province)->/*where('courier_custom_id',$courier)->*/get('tb_courier_custom_rate',$courier)->num_rows();
+			if($count==0){
 			$Save = $this->db->insert("tb_courier_custom_rate",$Data);
 			if($Save){
 				$this->response->send(array("result"=>1,"message"=>"Rate telah disimpan","messageCode"=>4));
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Rate tidak dapat disimpan","messageCode"=>5));
 			}
+		}
 		}else{
 			$Data = array(
 					"courier_custom_id"=>$this->response->post("customCourier"),
@@ -673,7 +676,10 @@ class Toko extends CI_Controller {
 	}
 
 	public function doStep8Save(){
-
+		if($bank = $this->response->post("cmbBank")==""){
+			$this->response->send(array("result"=>0,"message"=>"Pilihan Bank masih kosong","messageCode"=>1));
+			return;
+		}
 		
 		if($this->response->post("txtName") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Nama pemilik rekening masih kosong","messageCode"=>2));
@@ -863,7 +869,27 @@ class Toko extends CI_Controller {
                 $chkLevel3 = 0;
                 $chkLevel4 = 0;
                 $chkLevel5 = 0;
-               
+
+                $txtLevel2 = $this->response->post("txtLevel2");
+                $txtLevel3 = $this->response->post("txtLevel3");
+                $txtLevel4 = $this->response->post("txtLevel4");
+                $txtLevel5 = $this->response->post("txtLevel5");
+        
+                if($txtLevel2 == ""){
+                	$txtLevel2 = "Harga Member Langganan";
+                }
+
+                if($txtLevel3 == ""){
+                	$txtLevel3 = "Harga Khusus 1";
+                }
+
+                if($txtLevel4 == ""){
+                	$txtLevel4 = "Harga Khusus 2";
+                }
+
+                if($txtLevel5 == ""){
+					$txtLevel5 = "Harga Khusus 3";	
+				}
                 if($this->response->post("chkLevel1") != ""){
                         $chkLevel1 = 1;
 
@@ -896,10 +922,10 @@ class Toko extends CI_Controller {
 				}
                 $Data = array(
                                 "level_1_name"=>$this->response->post("txtLevel1"),
-                                "level_2_name"=>$this->response->post("txtLevel2"),
-                                "level_3_name"=>$this->response->post("txtLevel3"),
-                                "level_4_name"=>$this->response->post("txtLevel4"),
-                                "level_5_name"=>$this->response->post("txtLevel5"),
+                                "level_2_name"=>$txtLevel2,
+                                "level_3_name"=>$txtLevel3,
+                                "level_4_name"=>$txtLevel4,
+                                "level_5_name"=>$txtLevel5,
                                 "level_1_active"=>$chkLevel1,
                                 "level_2_active"=>$chkLevel2,
                                 "level_3_active"=>$chkLevel3,
@@ -991,7 +1017,7 @@ class Toko extends CI_Controller {
 				}
 				else{
 					
-					echo "<option value='".$ShopBank->bank_id."' selected>".$ShopBank->bank_name."</option>";
+					echo "<option value='".$ShopBank->bank_name."' selected>".$ShopBank->bank_name."</option>";
 				}
 
 			}else{
