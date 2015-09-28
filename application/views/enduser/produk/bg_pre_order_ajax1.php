@@ -39,17 +39,46 @@ if ($produk->num_rows() == 0) {
 										}else{
 											echo "<img src='".base_url()."html/images/comp/product.png' class='responsive-img userimg'>";
 										}
+
 									echo"	
 									</div>
+
 									<div class='col s12 m8 l9'>
 										<p class='titleproduct'><a href='".base_url()."produk/edit_pre_order/".base64_encode($row->id)."'><b >".$row->name."</b></a></p>
-										</p>
+										</p>";
+											//if ($row->stock_type_detail == 1) {
+											$stok =  $this->model_produk->get_varian_produk($row->id);
+												foreach ($stok->result() as $row_stok) {
+													echo"
+													<p class='col s12 m12 l12 '>	";													
+														if ($row_stok->name != 'null') {
+															echo "
+															<div class=' col s12 m12'>
+																<label for='varian'><b class='label-stock'>".$row_stok->name."</b></label>
+															</div>";
+														}else if($row_stok->name == 'null'){
+															echo "
+															<div class=' col s12 m12'>																
+															<!--	<label for='varian'><span class='text-green'>selalu tersedia</span></label> -->
+															</div>";
+														}
+
+													echo"
+													</p>";
+												}
+										//}
+										echo"
+
+
 										<p class='input-field col s12 m12 l6 nolpad'>
 											<input id='tanggal-".$row->id."' name='tanggal-".$row->id."' onchange=javascript:change_date(".$row->id.") type='text' data-value='".$date."'  placeholder='Tanggal Berakhir' class='validate datepicker '>
 											<span class='label red right kadal-".$row->id."' style='display:$kadal'>Kadaluarsa</span>
 										</p>
 
+
+
 										<div class='col s12 m12 l12 '>";
+
 										if ($row->active == 0) {
 											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."'>DRAFT</button>";
 										}else{

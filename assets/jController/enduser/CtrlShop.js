@@ -882,17 +882,17 @@ function CtrlShopStep5(){
 			$('#formStep7').validate({
 				rules:{
 					//txtLevel1     : {remote: base_url+"toko/ceklevel1"},
-					txtLevel22     : {remote: base_url+"toko/ceklevel2"},
-					txtLevel33     : {remote: base_url+"toko/ceklevel3"},
-					txtLevel44     : {remote: base_url+"toko/ceklevel4"},
-					txtLevel55     : {remote: base_url+"toko/ceklevel5"},
+					//txtLevel22     : {remote: base_url+"toko/ceklevel2"},
+					//txtLevel33     : {remote: base_url+"toko/ceklevel3"},
+					//txtLevel44     : {remote: base_url+"toko/ceklevel4"},
+					//txtLevel55     : {remote: base_url+"toko/ceklevel5"},
 				},
 				messages: {
 					//txtLevel1: {remote: message_alert("Nama Level Harga Telah Digunakan"),},
-					txtLevel22: {remote: message_alert("Nama Level Harga Telah Digunakan"),},
-					txtLevel33: {remote: message_alert("Nama Level Harga Telah Digunakan"),},
-					txtLevel44: {remote: message_alert("Nama Level Harga Telah Digunakan"),},
-					txtLevel55: {remote: message_alert("Nama Level Harga Telah Digunakan"),},
+					//txtLevel22: {remote: message_alert("Nama Level Harga Telah Digunakan"),},
+					//txtLevel33: {remote: message_alert("Nama Level Harga Telah Digunakan"),},
+					//txtLevel44: {remote: message_alert("Nama Level Harga Telah Digunakan"),},
+					//txtLevel55: {remote: message_alert("Nama Level Harga Telah Digunakan"),},
 				},
     });
 		}

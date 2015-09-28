@@ -604,22 +604,23 @@ class Toko extends CI_Controller {
 			return;
 		}
 		$courier = $this->response->post('customCourier');
-		$province = $this->response->post('cmbProvince');
+		$kecamatan = $this->response->post('cmbKecamatan');
+		//$province = $this->response->post('cmbProvince');
 		$price = str_replace(".", "", str_replace('Rp. ', '', $this->response->post("txtRatePrice"))) ;
 		//echo $price;
 		if($this->response->post("txtRateId") == ""){
 			$Data = array(
 					"courier_custom_id"=>$courier,
-					"location_to_province"=>$province,
+					"location_to_province"=>$this->response->post("cmbProvince"),
 					"location_to_city"=>$this->response->post("cmbCity"),
-					"location_to_kecamatan"=>$this->response->post("cmbKecamatan"),
+					"location_to_kecamatan"=>$kecamatan,
 					"price"=> $price,
 					"create_date"=>date("Y-m-d H:i:s"),
 					"create_user"=>$_SESSION['bonobo']['email'],
 					"update_date"=>date("Y-m-d H:i:s"),
 					"update_user"=>$_SESSION['bonobo']['email'],
 				);
-			$count = $this->db->where('location_to_province',$province)->/*where('courier_custom_id',$courier)->*/get('tb_courier_custom_rate',$courier)->num_rows();
+			$count = $this->db->where('location_to_kecamatan',$kecamatan)->where('id',$_SESSION['bonobo']['id'])->get('tb_courier_custom_rate',$courier)->num_rows();
 			if($count==0){
 			$Save = $this->db->insert("tb_courier_custom_rate",$Data);
 			if($Save){
@@ -870,11 +871,17 @@ class Toko extends CI_Controller {
                 $chkLevel4 = 0;
                 $chkLevel5 = 0;
 
+                $txtLevel1 = $this->response->post("txtLevel1");
                 $txtLevel2 = $this->response->post("txtLevel2");
                 $txtLevel3 = $this->response->post("txtLevel3");
                 $txtLevel4 = $this->response->post("txtLevel4");
                 $txtLevel5 = $this->response->post("txtLevel5");
         
+
+				if($txtLevel1 == ""){
+					$txtLevel1 ="Harga Umum";
+				}
+
                 if($txtLevel2 == ""){
                 	$txtLevel2 = "Harga Member Langganan";
                 }
@@ -912,7 +919,8 @@ class Toko extends CI_Controller {
 						for ($a=1;$a <= 5;$a++){						
 							if ($i != $a && $this->response->post("chkLevel".$a) == 1){
 								if ($this->response->post("txtLevel".$i) == $this->response->post("txtLevel".$a)){
-									$this->response->send(array("result"=>0,"message"=>"Gagal menyimpan. Form tidak boleh kosong " ,"messageCode"=>0));
+									$this->response->send(array("result"=>0,"message"=>"Data tidak boleh sama" ,"messageCode"=>0));
+
 									//echo json_encode("Data ".$this->response->post("txtLevel".$i)." tidak boleh sama");
 									return;
 								}

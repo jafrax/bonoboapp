@@ -453,7 +453,7 @@ class Produk extends CI_Controller {
 	public function ready_product(){
 		$id 	= $this->input->post('id');
 
-		$this->db->where('id',$id)->set('stock_type',1)->update('tb_product');
+		$this->db->where('id',$id)->set('stock_type',1)->set('end_date',date('Y-m-d'))->update('tb_product');
 		echo "4";
 	}
 
