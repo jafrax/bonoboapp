@@ -146,7 +146,7 @@ echo"
 
 					
 <script>
-var offset=10;
+var offset=12;
 var scrolling=true;
 
 $(window).scroll(function () {      
@@ -166,7 +166,7 @@ $(window).scroll(function () {
                     if (msg){
                         $('#ajax-div').append(msg);
                         $('#preloader').slideUp();
-                        offset      = offset + 6;
+                        offset      = offset + 12;
                         scrolling   = true;
 
                         $('.modal-trigger').leanModal();

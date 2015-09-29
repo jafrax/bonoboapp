@@ -497,6 +497,8 @@ class Produk extends CI_Controller {
             $offset_pre = $page;
         }
 
+        echo $page;
+        
 		if ($uri == '') {
 			redirect('produk/pre_order/1');	
 		}

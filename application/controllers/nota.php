@@ -118,6 +118,10 @@ class Nota extends CI_Controller {
 		$id 		= $this->input->post('id');
 		$metode 	= $this->input->post('metode');
 		$rekening 	= $this->input->post('rekening');
+		$to_bank	=0 ;
+		$to_acc_no 	=0;
+		$to_acc_name ='';
+		
 
 		$cek_id	= $this->model_nota->get_nota_by_id($id);
 
@@ -138,7 +142,26 @@ class Nota extends CI_Controller {
 				}
 			
 		}
-
+	//ambil nilai bank
+	$row_tb_bank = 	$this->model_nota->get_toko_bank($rekening);
+	foreach ($row_tb_bank->result() as $row_bank) {
+		$to_bank	= $row_bank->bank_name;
+		$to_acc_no 	= $row_bank->acc_no;
+		$to_acc_name =$row_bank->acc_name;
+		
+	}
+		
+		
+	$cek_bank_transfer = $this->model_nota->get_tranfer($id);
+	if($cek_bank_transfer){
+		echo "update";
+		$this->db->where('invoice_id',$row->product_varian_id)->set('to_bank',$to_bank)->set('to_acc_no',$to_acc_no)->set('to_acc_name',$to_acc_name)->update('tb_invoice_transfer_confirm');
+	}else{
+		echo "imsert";
+	}
+	
+		
+		
 		$update = $this->db->set('status',1)->where('id',$id)->update('tb_invoice');
 		if ($update) {
 			echo "1";
@@ -328,6 +351,8 @@ class Nota extends CI_Controller {
 		$this->ajax_load();
 	}
 
+
+	
 	public function tipe_bayar(){
 		$code = $this->input->post('code');
 

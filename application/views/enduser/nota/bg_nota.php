@@ -1,7 +1,6 @@
 <?php
-
 echo"
-
+		
 		<!-- buat notif dari opsi GO -->
 <div id='produk_go' class='modal confirmation'>
 	<div class='modal-header red'>
@@ -32,7 +31,7 @@ echo"
 		
 		
 		
-								       <div id='batalnota' class='modal confirmation'>
+								      		 <div id='batalnota' class='modal confirmation'>
 												<div class='modal-header red'>
 													<i class='mdi-navigation-close left' ></i> Batal produk
 												</div>
@@ -112,10 +111,29 @@ echo"
 								</div>
 								<div class='input-field col s12 m4'>
 									<button class='waves-effect waves-light btn deep-orange darken-1 left' onclick=javascript:go_konfirm()>GO</button>
-								</div>								
+								</div>	";
+							
+								$date 		= date('d M Y');
+								//date('Y-m-d', strtotime('-6 days', strtotime( variabel_tgl_awal )))
+								$tanggalawal = date('d M Y', strtotime('-1 month', strtotime( $date )));
+								//date('Y-m-d', strtotime('-6 year', strtotime( variabel_tgl_awal )))
+								
+								echo "
+								<div class='input-field col s2'>
+									<input id='tgl_awal' name='tgl_awal' type='text' placeholder='".$tanggalawal."' class='datepicker validate' >
+									<label for='tgl_awal'>FROM DATE <span class='text-red'></span></label>
+									<label class='error' for='tgl_pre_order'></label>
+								</div>
+								<div class='input-field col s2'>
+									<input id='tgl_akhir' name='tgl_akhir' type='text' placeholder='".$date."' class='datepicker validate' >
+									<label for='tgl_akhir'>TO DATE<span class='text-red'></span></label>
+									<label class='error' for='tgl_pre_order'></label>
+								</div>
+		
 							</div>
 						</div>
-
+		
+											
 						<div class='row formbody' id='ajax-div'>";
 						if ($nota->num_rows() == 0) {
 							if (isset($_SESSION['keyword'])) {
@@ -140,7 +158,11 @@ echo"
       										<input type='hidden' id='cek-$i' value='".$row->id."' />
 							            </div>
 							            <div class='col s6 m7'>	
-      									<div class='col s4 m4'><h6 class='blue-text'><span class='grey-text '>INVOICE NO</span> <a href='".base_url()."nota/detail/".$row->invoice_no."' >".$row->invoice_no."</a></h6> </div>
+      									<div class='col s4 m4'>
+      									<h6 class='blue-text'><span class='grey-text '>INVOICE NO</span> <a href='".base_url()."nota/detail/".$row->invoice_no."' >".$row->invoice_no."</a></h6> 
+      									<h5>Rp. ".number_format($row->price_total, 0 , ',' , '.')."</h5> 
+							            <h6 class='blue-text'>".$row->member_name."</h6> 	
+      									</div>
       									";
 									
 
@@ -150,38 +172,38 @@ echo"
 									$ago 		= $this->template->xTimeAgoDesc($old_date,date('Y-m-d H:i:s'));
 									
 										if ($row->stock_type == 1) {
-											echo "<div class='col s12 m3'><span class='labelbudge green lighten-2 center'>READY STOK </span> </div>";
+											echo "<div class='col s6 m3'><span class='labelbudge green lighten-2 center'>READY STOK </span> </div>";
 										}else{
-											echo "<div class='col s12 m3'><span class='labelbudge pink lighten-2 center'>PRE ORDER </span> </div>";
+											echo "<div class='col s6 m3'><span class='labelbudge pink lighten-2 center'>PRE ORDER </span> </div>";
 										}
 							
 								            if ($row->status == 0 ) {
-								            	echo "<div class='col s12 m4' id='lokasi-btn-35' align='right'><h5 class='red-text right' id='lunas-".$row->id."'>Belum Lunas</h5></div>";
+								            	echo "<div class='col s6 m4' id='lokasi-btn-35' align='right'><h5 class='red-text right' id='lunas-".$row->id."'>Belum Lunas</h5></div>";
 								            }elseif ($row->status == 1) {								            	
-								            	echo "<div class='col s12 m4' id='lokasi-btn-35' align='right'><h5 class='green-text right' id='lunas-".$row->id."'>Lunas</h5></div>";
+								            	echo "<div class='col s6 m4' id='lokasi-btn-35' align='right'><h5 class='green-text right' id='lunas-".$row->id."'>Lunas</h5></div>";
 								            }elseif ($row->status == 2) {
-								            	echo "<div class='col s12 m4' id='lokasi-btn-35' align='right'><h5 class='grey-text right' id='lunas-".$row->id."'>Batal</h5></div>";
+								            	echo "<div class='col s6 m4' id='lokasi-btn-35' align='right'><h5 class='grey-text right' id='lunas-".$row->id."'>Batal</h5></div>";
 								            }	echo"
 											
 								     	  			
-							              <div class='col s6 m12'> <h5>Rp. ".number_format($row->price_total, 0 , ',' , '.')."</h5> </div>
-							              <div class='col s6 m12'> <h6 class='blue-text'>".$row->member_name."</h6> 	</div>
+							               
 							             </div >
 							             
 							            <div class='col s4 m4 right' > 
-							              	<div class='col s8 m8 right '>  $date ($ago) <br> </div> ";
+							              	<div class='col s8 m9 right '>  $date ($ago) <br> </div> ";
 							              
 							              	echo "
 							              			<div class='col s4 m6 ' id='lokasi-btn-".$row->id."'>";
 											if ($row->status != 2) {
 												if ($row->status != 1) {
-													echo"
-												<button href='javascript:void(0);' onclick=bayarnota(".$row->id.");   class='btn modal-trigger waves-effect orange darken-1 white-text waves-light right' type='button' name='action'>Bayar</button>";
+													echo" <br>
+												<button href='javascript:void(0);' onclick=bayarnota(".$row->id.",'".$row->invoice_no."','".$row->price_total."');   class='btn modal-trigger waves-effect orange darken-1 white-text waves-light right' type='button' name='action'>Bayar</button>";
 												}
 												//echo "<button href='javascript:void(0);' onclick=batalnota(".$row->id."); class='btn modal-trigger waves-effect red white-text waves-light right' type='button' name='action' >Batal</button>";
 											echo"												
 								            </div>
 							              	
+													
 								            <div id='bayarnota' class='modal  modal-fixed-footer'>
 												<div class='modal-header red'>
 													<i class='mdi-action-label-outline left'></i> Pilih metode transaksi
@@ -207,17 +229,12 @@ echo"
 																
 															echo "
 															</select>
-															";
-															
-														
-														echo "
-														
-														
-														<p>No. Transaksi : <span class='blue-text'>".$row->invoice_no."</span></p>
+						
+														<p>No. Transaksi : <span id='nota' class='blue-text'></span></p>
 														<p>Tanggal Konfirmasi : <span class='blue-text'>$date</span></p>
-														<p>Jumlah yang di bayar : <span class='blue-text'>Rp. ".number_format($row->price_total, 2 , ',' , '.')."</span></p><br>
+														<p>Jumlah yang di bayar : <span id='bayar' class='blue-text'>Rp. ".number_format($row->price_total, 2 , ',' , '.')."</span></p><br>
 														<p id='rekening-".$row->id."' style='display:$show_rek;'>
-															<label for='metode'>Pilih Rekening Tujuan</label>
+															<label for='metode'>Pilih Rekening Tujuan   </label>
 															<select id='rek-".$row->id."' class='select-standar'>
 																<option value='' disabled >Pilih Rekening Tujuan</option>";
 																if ($row->member_confirm == 1) {
@@ -231,14 +248,14 @@ echo"
 																foreach ($rekening->result() as $row_rk) {
 																	$select = '';
 																	if ($row_rk->id == $selected) {$select = 'selected';}
-																	echo "<option $select value='".$row_rk->id."'>".$row_rk->name."</option>";
+																	echo "<option $select value='".$row_rk->id."'>".$row_rk->name." ( ".$row_rk->no." ) </option>";
 																}
 																echo"
 															</select>
 													</p>
 												</form>
 												<div class='modal-footer'>
-													<a class='modal-action modal-close waves-effect waves-red btn-flat' onclick=javascript:konfirmasi(".$row->id.")>Konfirmasi</a>
+													<a class='modal-action modal-close waves-effect waves-red btn-flat' onclick=javascript:konfirmasi()>Konfirmasi</a>
 													<a class='modal-action modal-close waves-effect waves-red btn-flat'>Batal</a>		
 												</div>";
 											}else{
@@ -248,55 +265,14 @@ echo"
 											</div>
 											<p class='tool col s6 m6 right'>
 												<!-- hapus nota -->
+													<br>
 												<a class='modal-trigger red-text right' onclick=batalnota(".$row->id."); ><i class='mdi-navigation-close col s1  small'></i></a>
 												<a class='modal-trigger red-text right' onclick=delitem(".$row->id."); ><i class='mdi-action-delete col s1 small'></i></a>
 												<a href='".base_url()."nota/cetak/".$row->invoice_no."' onclick='window.open(\"".base_url()."nota/cetak/".$row->invoice_no."\", \"newwindow\", \"width=800, height=600\"); return false;' class=' red-text right '><i class='mdi-action-print col s1 small'></i></a>
 											</p>											
 							            </div>
 						          	</div>
-														<!--  view tab -->
 														
-														<!--
-														 <div class='row'>
-														    <div class='col s6'>
-														      <ul class='tabs'>
-														        <li class='tab col s3'><a href='#test1'><div class='collapsible-header'><i class='mdi-action-receipt'></i>Notes</div></a></li>
-														        <li class='tab col s3'><a href='#test2'><div class='collapsible-header'><i class='mdi-action-description'></i>Shipment Detail</div></a></li>
-														        <li class='tab col s3'><a href='#test3'></a></li>
-														      </ul>
-														    </div>
-															<div id='test1' class='col s12'>
-															<a class='right col s2 m1 center' onclick=javascript:edit_notes(".$row->id.") >Edit</a>
-										                	<textarea disabled class='materialize-textarea notes-".$row->id."' name='notes-".$row->id."'>".$row->notes."</textarea>
-										                	<a class='tombol-notes-".$row->id." right col s2 m1 center' onclick=javascript:simpan_notes(".$row->id.") style='display: none;'>Simpan</a>
-												            <a class='tombol-notes-".$row->id." right col s2 m1 center red-text' onclick=javascript:batal_notes(".$row->id.") style='display: none;'>Batal</a>
-														    
-												            <div id='test2' class='col s12'>
-												            <dt><b>Pengiriman : </b></dt>
-									                		<dd>".$row->shipment_service."</dd>
-										                	<dt><b>Resi : </b></dt>
-										                	<dd>".$row->shipment_no."</dd>
-										                	<dt><b>Biaya Pengiriman : </b></dt>
-										                	<dd>".$row->price_shipment."</dd>
-										                	<dt><b>Nama Penerima : </b></dt>
-										                	<dd>".$row->recipient_name."</dd>
-										                	<dt><b>No. Telp. Penerima : </b></dt>
-										                	<dd>".$row->recipient_phone."</dd>
-										                	<dt><b>Provinsi Penerima : </b></dt>
-										                	<dd>".$row->location_to_province."</dd>
-										                	<dt><b>Kabupaten/Kota Penerima : </b></dt>
-										                	<dd>".$row->location_to_city."</dd>
-										                	<dt><b>Kecamatan Penerima : </b></dt>
-										                	<dd>".$row->location_to_kecamatan."</dd>
-										                	<dt><b>Kode Pos Penerima : </b></dt>
-										                	<dd>".$row->location_to_postal."</dd>
-										                	<dt><b>Alamat Penerima : </b></dt>
-										                	<dd>".$row->recipient_address."</dd>
-									                		</div>
-														    <div id='test3' class='col s12'>Test 3</div>
-														  </div>
-														
-														-->
 						          	<div class='row '>
 							            <ul class='collapsible ' data-collapsible='accordion'>";
 							            if ($row->member_confirm == 1 ) {
