@@ -105,6 +105,7 @@ class Produk extends CI_Controller {
 					'price_4'					=> str_replace('.','',$harga_level_4),
 					'price_5'					=> str_replace('.','',$harga_level_5),
 					'create_user'				=> $_SESSION['bonobo']['email'],
+					'end_date'					=> date('Y-m-d'),
 					'create_date'				=> date('Y-m-d H:i:s'),
 					'update_user'				=> $_SESSION['bonobo']['email']
 					);
@@ -124,6 +125,7 @@ class Produk extends CI_Controller {
 										->set('product_id',$id)
 										->set('create_user',$_SESSION['bonobo']['email'])
 										->set('create_date',date('Y-m-d H:i:s'))
+										->set('end_date',date('Y-m-d'))
 										->set('update_user',$_SESSION['bonobo']['email'])
 										->insert('tb_product_image');
 								}
@@ -452,6 +454,7 @@ class Produk extends CI_Controller {
 
 	public function ready_product(){
 		$id 	= $this->input->post('id');
+
 
 		$this->db->where('id',$id)->set('stock_type',1)->set('end_date',date('Y-m-d'))->update('tb_product');
 		echo "4";
