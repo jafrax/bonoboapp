@@ -42,7 +42,7 @@ class Api extends CI_Controller {
 		}
 		
 		$QShop = $this->db
-				->where("id",$QProduct->shop_id)
+				->where("id",$shop_id)
 				->get("tb_toko")
 				->row();
 		
@@ -3390,7 +3390,7 @@ class Api extends CI_Controller {
 			
 			$config['upload_path'] 		= $url; 
 			$config['allowed_types'] 	= "gif|jpg|png|jpeg|bmp";
-			$config['max_size'] 		= 1000;
+			$config['max_size'] 		= 3000;
 			$config['encrypt_name'] 	= TRUE;
 			
 			$ci->upload->initialize($config);
@@ -3879,6 +3879,7 @@ class Api extends CI_Controller {
 			}
 			
 			$isSaved = true;
+			$date = date("Y-m-d H:i:s");
 			
 			/*
 			*	------------------------------------------------------------------------------
@@ -3912,8 +3913,9 @@ class Api extends CI_Controller {
 			*	Jika cart tidak ada maka simpan cart baru ke database
 			*	------------------------------------------------------------------------------
 			*/
+			
 			if(empty($QCart)){
-				$date = date("Y-m-d H:i:s");
+				
 				
 				$Data = array(
 					"member_id"=>$QUser->id,
