@@ -567,7 +567,7 @@ class Api extends CI_Controller {
 							
 					array_push($CartVarians,$CartVarian);
 					
-					$UserPrice = $this->getPrice($user_id,$QCart->toko_id,$QCartProduct->product_id)
+					$UserPrice = $this->getPrice($user_id,$QCart->toko_id,$QCartProduct->product_id);
 					$priceCartProduct = $priceCartProduct + ($QCartVarian->quantity * $UserPrice);
 				}
 				
