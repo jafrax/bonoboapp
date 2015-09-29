@@ -143,7 +143,7 @@ class Nota extends CI_Controller {
 			
 		}
 	//ambil nilai bank
-	$row_tb_bank = 	$this->model_nota->get_toko_bank($rekening);
+/*	$row_tb_bank = 	$this->model_nota->get_toko_bank($rekening);
 	foreach ($row_tb_bank->result() as $row_bank) {
 		$to_bank	= $row_bank->bank_name;
 		$to_acc_no 	= $row_bank->acc_no;
@@ -159,7 +159,7 @@ class Nota extends CI_Controller {
 	}else{
 		echo "imsert";
 	}
-	
+*/	
 		
 		
 		$update = $this->db->set('status',1)->where('id',$id)->update('tb_invoice');
