@@ -1048,53 +1048,30 @@ class Api extends CI_Controller {
 					->row();
 			
 			if(!empty($QUser)){
-				$verify_code 	= $this->template->rand(20);
-				$save	= $this->db->set('verified_code',$verify_code)->where('id',$QUser->id)->update('tb_member');
-						
-				$message ="
-						Hi ".$QUser->name.", To reset your password, <br>
-						Click this link below or copy and paste this link in your browser:<br>
-						<a href='".base_url("api/doForgotPasswordProcess/".base64_encode($QUser->email)."/".base64_encode($verify_code))."'>".base_url("api/doForgotPasswordProcess/".base64_encode($QUser->email)."/".base64_encode($verify_code))."</a><br><br>		
-						Thanks, Bonobo.com
-					";
+				$newpassword 	= $this->template->rand(6);
 				
-				$sendEmail = $this->template->send_email($QUser->email,'Reset password bonobo account',$message);
+				$Save	= $this->db
+					->set('password',md5($newpassword))
+					->where('id',$QUser->id)
+					->update('tb_member');
 				
-				$this->response->send(array("result"=>1,"message"=>"Kami telah mengirimkan email konfirmasi, silahkan buka email anda dan aktivasi akun anda.","messageCode"=>2), true);
+				if($Save){
+					$message ="
+							Hi ".$QUser->name." <br><br>
+							Anda telah mengatur ulang akun anda, berikut adalah data akun anda :<br>
+							Username : ".$QUser->email."<br>
+							Password : ".$newpassword."<br><br>
+							Terimakasih,
+						";
+					
+					$sendEmail = $this->template->send_email($QUser->email,'Reset password bonobo account',$message);
+					
+					$this->response->send(array("result"=>1,"message"=>"Kami telah mengirimkan password baru ke alamat email anda","messageCode"=>2), true);
+				}else{
+					$this->response->send(array("result"=>0,"message"=>"Tidak dapat mereset password anda","messageCode"=>3), true);
+				}
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Email anda belum terdaftar.","messageCode"=>3), true);
-			}
-		} catch (Exception $e) {
-			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
-		}
-	}
-	
-	public function doForgotPasswordProcess(){
-		try {
-		
-			if($this->uri->segment(3) == null){
-				$this->response->send(array("result"=>0,"message"=>"Invalid data","messageCode"=>1), false);
-				return;
-			}
-			
-			if($this->uri->segment(4) == null){
-				$this->response->send(array("result"=>0,"message"=>"Invalid data validation","messageCode"=>2), false);
-				return;
-			}
-			
-			$email	= base64_decode($this->uri->segment(3));
-			$verify_code	= base64_decode($this->uri->segment(4));
-			
-			$QUser = $this->db
-					->where("email", $email)
-					->where("verified_code", $verify_code)
-					->get("tb_member")
-					->row();
-			
-			if(!empty($QUser)){
-				$this->response->send(array("result"=>1,"message"=>"Password telah direset","messageCode"=>3), false);
-			}else{
-				$this->response->send(array("result"=>0,"message"=>"Akun tidak terdaftar.","messageCode"=>4), false);
 			}
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
