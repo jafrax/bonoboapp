@@ -1018,9 +1018,10 @@ class Toko extends CI_Controller {
 		$Banks = $this->model_bank->get()->result();
 		$ShopBank = $this->model_toko_bank->get_by_id($this->response->post("id"))->row();
 		
-		echo"<select id='cmbBank' name='cmbBank' class='select-standar' onchange=javascript:pilihngebank() ><option value='' disabled selected>Pilih Bank</option>";
+		echo "<input type= 'text' id='cmbBank' name='cmbBank'></input>";
+		//echo"<select id='cmbBank' name='cmbBank' class='select-standar' onchange=javascript:pilihngebank() ><option value='' disabled selected>Pilih Bank</option>";
 		
-		foreach($Banks as $Bank){
+		/*foreach($Banks as $Bank){
 			if(!empty($ShopBank)){
 				if($Bank->id != $ShopBank->bank_id){
 					echo"<option value='".$Bank->name."'>".$Bank->name."</option>";
