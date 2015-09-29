@@ -46,8 +46,7 @@ class Model_nota extends CI_Model
 		return $this->db->select('p.*')->where('i.toko_id',$_SESSION['bonobo']['id'])->where('i.invoice_no',$id)->join('tb_invoice i','i.id=p.invoice_id')->get('tb_invoice_product p');
 	}
 
-	function get_nota_product_image($id)
-	{
+	function get_nota_product_image($id){
 		return $this->db->where('ip.id',$id)->get('tb_invoice_product ip');
 	}
 
@@ -62,10 +61,21 @@ class Model_nota extends CI_Model
 	}
 
 	function get_rekening(){
-		return $this->db->select('t.id id,t.bank_name name')
+		return $this->db->select('t.id id,t.bank_name name, acc_name acc, acc_no no')
 						->where('t.toko_id',$_SESSION['bonobo']['id'])
 						->get('tb_toko_bank t');
 	}
+	
+
+	function get_toko_bank($id){
+		return $this->db->where('id',$id)->get('tb_toko_bank');
+	}
+	
+	
+	function get_tranfer($id){
+		return $this->db->where('id',$id)->get('tb_invoice_transfer_confirm');
+	}
+	
 	function get_toko(){
 		return $this->db->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
 	}

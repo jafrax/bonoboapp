@@ -8,6 +8,7 @@ var offset=5;
 var scrolling=true;
 var idbarang=0;
 var idbatal=0;
+var idbayar=0;
 $(window).scroll(function () {      
         if ($(window).scrollTop() == ( $(document).height() - $(window).height()) && scrolling==true) {
             $('#preloader').slideDown();
@@ -133,10 +134,16 @@ function batal_nota(){
 }
 
 
-function bayarnota(e){
-	 $('#bayarnota').openModal();
-	}
 
+
+function bayarnota(id,nota,nominal){
+	idbayar=0;
+	$('#bayar').html('Rp '+nominal);
+	$('#nota').html(nota);
+	$('#bayarnota').openModal();
+	idbayar=id
+}
+	
 
 function batalnota(e){
 	idbatal=0;
@@ -257,10 +264,12 @@ function change_metode(id){
 	};
 }
 
-function konfirmasi(id){
+function konfirmasi(){
+	id=idbayar
 	var metode 		= $('#metode-'+id).val();
 	var rekening 	= $('#rek-'+id).val();	
-
+	//alert('metode'+metode);
+	//alert('rek'+rekening);
 	$.ajax({
         type: 'POST',
         data: 'id='+id+'&metode='+metode+'&rekening='+rekening,
@@ -274,9 +283,11 @@ function konfirmasi(id){
                 $('#lunas-'+id).removeClass('red-text');
                 $('#lunas-'+id).addClass('green-text');
         		Materialize.toast('Nota telah di konfirmasi', 4000);
+        		location.reload();
         	}else{
                 Materialize.toast('Pemesanan tidak dapat diproses', 3000);
                 Materialize.toast('Cek stok barang Anda', 4000);
+                location.reload();
             };          	
         } 
     });

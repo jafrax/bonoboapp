@@ -605,14 +605,14 @@ class Toko extends CI_Controller {
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada kecamatan yang dipilih","messageCode"=>4));
 			return;
 		}
-		$courier = $this->response->post('customCourier');
+
 		$kecamatan = $this->response->post('cmbKecamatan');
 		//$province = $this->response->post('cmbProvince');
 		$price = str_replace(".", "", str_replace('Rp. ', '', $this->response->post("txtRatePrice"))) ;
 		//echo $price;
 		if($this->response->post("txtRateId") == ""){
 			$Data = array(
-					"courier_custom_id"=>$courier,
+					"courier_custom_id"=>$this->response->post('customCourier'),
 					"location_to_province"=>$this->response->post("cmbProvince"),
 					"location_to_city"=>$this->response->post("cmbCity"),
 					"location_to_kecamatan"=>$kecamatan,
@@ -622,7 +622,7 @@ class Toko extends CI_Controller {
 					"update_date"=>date("Y-m-d H:i:s"),
 					"update_user"=>$_SESSION['bonobo']['email'],
 				);
-			$count = $this->db->where('location_to_kecamatan',$kecamatan)->where('id',$_SESSION['bonobo']['id'])->get('tb_courier_custom_rate',$courier)->num_rows();
+			$count = $this->db->where('location_to_kecamatan',$kecamatan)->where("create_user",$_SESSION["bonobo"]["email"])->get('tb_courier_custom_rate')->num_rows();
 			if($count==0){
 			$Save = $this->db->insert("tb_courier_custom_rate",$Data);
 			if($Save){
