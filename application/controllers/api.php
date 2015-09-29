@@ -1910,7 +1910,31 @@ class Api extends CI_Controller {
 				array_push($Invites,$Invite);
 			}
 			
-			$this->response->send(array("result"=>1,"messages"=>$Messages,"invites"=>$QInvites), true);
+			/*
+			*	------------------------------------------------------------------------------
+			*	Menghitung jumlah cart product dan seller
+			*	------------------------------------------------------------------------------
+			*/
+			$QCartProducts = $this->db
+					->select("tcp.id")
+					->join("tb_cart tc","tc.id = tcp.cart_id")
+					->where("tc.member_id",$QUser->id)
+					->where("tc.stock_type",1)
+					->get("tb_cart_product tcp")
+					->result();
+					
+			$cartProducts = sizeOf($QCartProducts);
+			
+			$QCartShops = $this->db
+					->select("tc.id")
+					->where("tc.member_id",$QUser->id)
+					->where("tc.stock_type",1)
+					->get("tb_cart tc")
+					->result();
+					
+			$cartShops = sizeOf($QCartShops);
+			
+			$this->response->send(array("result"=>1,"messages"=>$Messages,"invites"=>$QInvites,"cartProducts"=>$cartProducts,"cartShops"=>$cartShops), true);
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
