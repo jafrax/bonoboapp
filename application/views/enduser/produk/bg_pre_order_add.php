@@ -192,7 +192,7 @@ echo "
 								</ul>
 								<ul class='col s12 m12 cek-stok nolmar nolpad' style='display:none'>								
 									<li class='input-field col s12 m12'>
-										<a class='btn-flat left' id='add-varian' onclick=javascript:addVarianPr()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
+										<a class='btn-flat left' id='add-varianPr' onclick=javascript:addVarianPr()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
 									</li>
 								</ul>
 								<ul class='col s12 m12 uncek-stok' >

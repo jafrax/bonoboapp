@@ -213,7 +213,7 @@ echo "
 									}
 									
 									$addVar = 'block';
-									if ($varian_null->num_rows() < 5) {
+									if ($varian_null->num_rows() > 5) {
 										$addVar = 'none';
 									}
 									

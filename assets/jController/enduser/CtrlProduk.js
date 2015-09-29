@@ -459,7 +459,7 @@ function addVarian() {
 
 }
 
-
+var tot_varian= 1;
 function addVarianPr() {  
 	  tot_varian = tot_varian+1;
 	  var hitung = $('#tempat-varian .varsto').length;
