@@ -658,11 +658,11 @@ function CtrlShopStep7(){
 				$('.selectize').selectize();
 				initComboBox();
 				$('#formStep5Rate').validate({
-					//ignore: ":hidden:not(select)",
+					ignore: ":hidden:not(select)",
 					rules:{
 						txtRatePrice: {
 							maxlength:15,
-							required: true,
+							//required: true,
 							
 						},
 						cmbProvince: {
