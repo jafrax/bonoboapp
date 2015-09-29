@@ -214,7 +214,7 @@ class Anggota extends CI_Controller {
 
 		$page 	= $this->uri->segment(3);        
         $limit 	= 6;
-		echo $page;
+		//echo $page;
 		
         
         if(!$page){

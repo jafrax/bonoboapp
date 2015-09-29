@@ -146,7 +146,7 @@ echo"
 
 					
 <script>
-var offset=6;
+var offset=10;
 var scrolling=true;
 
 $(window).scroll(function () {      
