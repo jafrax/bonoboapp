@@ -1267,7 +1267,6 @@ class Api extends CI_Controller {
 	
 	public function getUserCart(){
 		try {
-			
 			/*
 			*	------------------------------------------------------------------------------
 			*	Validation POST data
@@ -3681,7 +3680,7 @@ class Api extends CI_Controller {
 		
 		if($QProduct->stock_type == 0){
 			$long = $this->hs_datetime->countDate(date("Y-m-d H:i:s"),$QProduct->end_date);
-			if($long <= 0){
+			if($long < 0){
 				$this->response->send(array("result"=>0,"message"=>"Barang tidak tersedia [11]","messageCode"=>11), true);
 				return false;
 			}
@@ -4162,7 +4161,7 @@ class Api extends CI_Controller {
 					
 					if($QProduct->stock_type == 0){
 						$long = $this->hs_datetime->countDate(date("Y-m-d H:i:s"),$QProduct->end_date);
-						if($long <= 0){
+						if($long < 0){
 							if(empty($MessageProduct)){
 								$isCartValid = false;
 								$MessageProduct = array("product"=>$FormCartProduct,"message"=>"Barang tidak tersedia [11]");
@@ -4342,6 +4341,7 @@ class Api extends CI_Controller {
 	public function doCartSave(){
 		try{
 		
+			
 			/*
 			*	------------------------------------------------------------------------------
 			*	Validation POST data
@@ -4619,7 +4619,7 @@ class Api extends CI_Controller {
 							->row();
 							
 				if(!empty($LastInvoice)){
-					$long = $this->hs_datetime->countDate($LastInvoice->create_date,date("Y-m-d H:i:s"));
+					$long = $this->hs_datetime->countDate($LastInvoice->create_date,date("Y-m-d"));
 					if($long != 0){
 						$seq_no = 1;
 						$seq_alphabet = "A";
@@ -5038,8 +5038,8 @@ class Api extends CI_Controller {
 								->row();
 								
 					if(!empty($LastInvoice)){
-						$LastInvoiceDates = explode(" ",$LastInvoice->create_date);
-						if( $LastInvoiceDates[0] == date("Y-m-d")){
+						$long = $this->hs_datetime->countDate($LastInvoice->create_date,date("Y-m-d"));
+						if($long == 0){
 							if($QShop->invoice_seq_no >= 999){
 								$seq_no_new = 1;
 								$seq_alphabet_new++;
