@@ -73,11 +73,11 @@ function generate(){
 			url:base_url+'admin/license/generate',
 			data:$('#form-generate').serialize(),
 			success:function(msg){
-				if(msg == 2){
+				/*if(msg == 2){
 					$('#btn-generate').fadeTo(1,'slow');
 					$('#btn-generate').html("Generate");
 					notif('Toko masih memiliki License Code aktif','error');
-				}else if (msg != 0) {
+				}else*/ if (msg != 0) {
 					$('#btn-generate').fadeTo(1,'slow');
 					$('#btn-generate').html("Generate");
 					notif('License telah di generate','success');

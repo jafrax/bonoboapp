@@ -661,8 +661,9 @@ function CtrlShopStep7(){
 					ignore: ":hidden:not(select)",
 					rules:{
 						txtRatePrice: {
-							required: true,
 							maxlength:15,
+							//required: true,
+							
 						},
 						cmbProvince: {
 							required: true,
