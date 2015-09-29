@@ -585,9 +585,17 @@ class Api extends CI_Controller {
 				*	Membuat object Cart Product
 				*	------------------------------------------------------------------------------
 				*/
+				
+				if(@getimagesize(base_url("assets/pic/invoice/product/".$QInvoiceProduct->image))){
+					$InvoiceImageHigh = base_url("image.php?q=70&fe=".base64_encode(base_url("assets/pic/invoice/product/".$QInvoiceProduct->image)));
+				}else{
+					$InvoiceImageHigh = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+				}
+				
 				$CartProduct = array(
 							"id"=>$QCartProduct->id,
 							"price_product"=>$priceCartProduct,
+							"product_image"=>$InvoiceImageHigh,
 							"product"=>$this->getProductById($QCartProduct->product_id,$user_id),
 							"cart_varians"=>$CartVarians,
 						);
@@ -4821,47 +4829,7 @@ class Api extends CI_Controller {
 						->row();
 				
 				if(!empty($QProduct)){
-					$product_price = $QProduct->price_1;
-					
-					$QShopMember = $this->db
-						->where("toko_id",$QShop->id)
-						->where("member_id",$QUser->id)
-						->get("tb_toko_member")
-						->row();
-									
-					if(!empty($QShopMember)){
-						switch($QShopMember->price_level){
-							case "1":
-								if($QProduct->price_1 > 0 && $QShop->level_1_active == 1){
-									$product_price = $QProduct->price_1;
-								}
-							break;
-							
-							case "2":
-								if($QProduct->price_2 > 0 && $QShop->level_2_active == 1){
-									$product_price = $QProduct->price_2;
-								}
-							break;
-							
-							case "3":
-								if($QProduct->price_3 > 0 && $QShop->level_3_active == 1){
-									$product_price = $QProduct->price_3;
-								}
-							break;
-							
-							case "4":
-								if($QProduct->price_4 > 0 && $QShop->level_4_active == 1){
-									$product_price = $QProduct->price_4;
-								}
-							break;
-							
-							case "5":
-								if($QProduct->price_5 > 0 && $QShop->level_5_active == 1){
-									$product_price = $QProduct->price_5;
-								}
-							break;
-						}
-					}
+					$product_price = $this->getPrice($QUser->id,$QShop->id,$QProduct->id);
 				}
 				
 				/*
@@ -5188,12 +5156,24 @@ class Api extends CI_Controller {
 						->result();
 						
 					foreach($QCartProducts as $QCartProduct){
+						$price_unit = $this->getPrice($QUser->id,$QShop->id,$QCartProduct->product_id);
+						$product_image = "";
+						
+						$ProductImage = $this->db->where("product_id",$QCartProduct->product_id)->get("tb_product_image")->row();
+						
+						if(!empty($ProductImage)){
+							$product_image = $ProductImage->file;
+							
+							copy("assets/pic/product/".$ProductImage->file,"assets/pic/invoice/product/".$ProductImage->file);
+						}
+						
 						$Data = array(
 								"invoice_id"=>$QInvoice->id,
 								"product_id"=>$QCartProduct->product_id,
 								"price_product"=>$QCartProduct->price_product,
 								"product_name"=>$QCartProduct->product_name,
-								"product_image"=>"",
+								"price_unit"=>$price_unit,
+								"product_image"=>$product_image,
 								"product_description"=>$QCartProduct->product_description,
 								"create_date"=>$Date,
 								"create_user"=>$QUser->email,
@@ -5214,7 +5194,8 @@ class Api extends CI_Controller {
 								->where("product_id",$QCartProduct->product_id)
 								->where("price_product",$QCartProduct->price_product)
 								->where("product_name",$QCartProduct->product_name)
-								->where("product_image","")
+								->where("price_unit",$price_unit)
+								->where("product_image",$product_image)
 								->where("product_description",$QCartProduct->product_description)
 								->where("create_date",$Date)
 								->where("create_user",$QUser->email)
@@ -5299,11 +5280,17 @@ class Api extends CI_Controller {
 								*	Membuat object Invoice Product
 								*	------------------------------------------------------------------------------
 								*/
+								if(@getimagesize(base_url("assets/pic/invoice/product/".$QInvoiceProduct->image))){
+									$InvoiceImageHigh = base_url("image.php?q=70&fe=".base64_encode(base_url("assets/pic/invoice/product/".$QInvoiceProduct->image)));
+								}else{
+									$InvoiceImageHigh = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+								}
+								
 								$InvoiceProduct = array(
 									"id"=>$QInvoiceProduct->id,
 									"price_product"=>$QInvoiceProduct->price_product,
 									"product_name"=>$QInvoiceProduct->product_name,
-									"product_image"=>"",
+									"product_image"=>$InvoiceImageHigh,
 									"product_description"=>$QInvoiceProduct->product_description,
 									"product"=>$this->getProductById($QInvoiceProduct->product_id,$QUser->id),
 									"invoice_varians"=>$InvoiceVarians,
