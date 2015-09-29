@@ -794,6 +794,7 @@ function CtrlShopStep8(){
 				if(response.result == 1){
 					formStep8Add = $hs("formStep6Add");
 					formStep8Add.txtId.value = response.id;
+					formStep8Add.cmbBank.value = response.bank_name;
 					formStep8Add.txtName.value = response.acc_name;
 					formStep8Add.txtNo.value = response.acc_no;
 					initValidation();

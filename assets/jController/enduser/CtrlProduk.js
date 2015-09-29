@@ -722,7 +722,7 @@ function delete_produk_go () {
           
         }
       });
-    }   if (i == total_produk) {if (a > 0 && option != 1) {location.reload();}else{Materialize.toast('Tidak ada produk yang dipilih', 4000);}}; 
+    }   if (i == total_produk) {if (a > 0 && option != 1) {location.reload();}else{Materialize.toast('Produk telah dihapus', 4000);}}; 
   }
 }
 
