@@ -105,6 +105,7 @@ echo"
 							}
 							$i=0;
 							foreach ($produk->result() as $row) {
+
 								$i++;
 								$image = $this->model_produk->get_one_image($row->id)->row();
 								
@@ -130,7 +131,11 @@ echo"
 										}else{
 											echo "<img src='".base_url()."html/images/comp/product.png' class='responsive-img userimg'>";
 										}
+												if($row->sku_no != 'null'){
+														echo "<center><label for='stok'>Kode Barang : <br>".$row->sku_no."</label>";
+													}
 									echo"	
+
 									</div>
 									<div class='col s12 m8 l9'>
 										<p class='titleproduct'><a href='".base_url()."produk/edit_pre_order/".base64_encode($row->id)."'><b >".$row->name."</b></a></p>
@@ -139,8 +144,10 @@ echo"
 										//if ($row->stock_type_detail == 1)  {
 											$stok =  $this->model_produk->get_varian_produk($row->id);
 												foreach ($stok->result() as $row_stok) {
+
 													echo"
-													<p class='col s12 m12 l12 '>	";													
+													<p class='col s12 m12 l12 '>	";
+
 														if ($row_stok->name != 'null') {
 															echo "
 															<div class=' col s12 m12'>
