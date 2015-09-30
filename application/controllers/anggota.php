@@ -202,7 +202,7 @@ class Anggota extends CI_Controller {
 			$data["keyword"] = $this->response->post("keyword");
 		}
 		
-		$data["Members"] = $this->model_member->get_tm_member_by_shop($data["shop"]->id, $data["keyword"])->result();
+		$data["Members"] = $this->model_member->get_tm_member_by_shop($data["shop"]->id, $data["keyword"],12)->result();
 		
 		$this->template->bonobo("anggota/bg_members",$data);
 	}
@@ -213,7 +213,7 @@ class Anggota extends CI_Controller {
 		$data["countNewMember"] = $this->countNewMember();
 
 		$page 	= $this->uri->segment(3);        
-        $limit 	= 6;
+        $limit 	= 12;
 		//echo $page;
 		
         

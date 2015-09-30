@@ -4395,10 +4395,10 @@ class Api extends CI_Controller {
 						break;
 					}
 					
-					if($QProduct->min_order != (float) $this->response->postDecode("cart_product".$p."_min_order")){
+					if($product_price != (float) $this->response->postDecode("cart_product".$p."_price")){
 						if(empty($MessageProduct)){
 							$isCartValid = false;
-							$MessageProduct = array("product"=>$FormCartProduct,"message"=>"Data barang telah diubah [18]");
+							$MessageProduct = array("product"=>$FormCartProduct,"message"=>"Harga barang telah diubah [18]");
 							array_push($MessageProducts,$MessageProduct);
 						}
 					}
