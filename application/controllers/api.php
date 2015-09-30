@@ -586,16 +586,9 @@ class Api extends CI_Controller {
 				*	------------------------------------------------------------------------------
 				*/
 				
-				if(@getimagesize(base_url("assets/pic/invoice/product/".$QInvoiceProduct->image))){
-					$InvoiceImageHigh = base_url("image.php?q=70&fe=".base64_encode(base_url("assets/pic/invoice/product/".$QInvoiceProduct->image)));
-				}else{
-					$InvoiceImageHigh = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
-				}
-				
 				$CartProduct = array(
 							"id"=>$QCartProduct->id,
 							"price_product"=>$priceCartProduct,
-							"product_image"=>$InvoiceImageHigh,
 							"product"=>$this->getProductById($QCartProduct->product_id,$user_id),
 							"cart_varians"=>$CartVarians,
 						);
@@ -753,7 +746,7 @@ class Api extends CI_Controller {
 					*	Membuat object Invoice Varian
 					*	------------------------------------------------------------------------------
 					*/
-				
+					
 					$InvoiceVarian = array(
 								"id"=>$QInvoiceVarian->id,
 								"quantity"=>$QInvoiceVarian->quantity,
@@ -769,11 +762,17 @@ class Api extends CI_Controller {
 				*	Membuat object Invoice Product
 				*	------------------------------------------------------------------------------
 				*/
+				if(@getimagesize(base_url("assets/pic/invoice/product/".$QInvoiceProduct->product_image))){
+					$InvoiceImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/pic/invoice/product/".$QInvoiceProduct->product_image)));
+				}else{
+					$InvoiceImageTumb = base_url("image.php?q=".$this->quality."&fe=".base64_encode(base_url("assets/image/img_default_photo.jpg")));
+				}
+				
 				$InvoiceProduct = array(
 							"id"=>$QInvoiceProduct->id,
 							"price_product"=>$QInvoiceProduct->price_product,
 							"product_name"=>$QInvoiceProduct->product_name,
-							"product_image"=>$QInvoiceProduct->product_image,
+							"product_image"=>$InvoiceImageTumb,
 							"product_description"=>$QInvoiceProduct->product_description,
 							"product"=>$product,
 							"invoice_varians"=>$InvoiceVarians,
