@@ -822,7 +822,8 @@ function set_rules (e) {
         required: true,
         maxlength:20,
         remote: base_url+"produk/rules_kategori",
-        messages: {remote: message_alert('Nama kategori sudah ada')}
+        messages: {remote: message_alert('Nama kategori sudah ada')
+      }
     });
   });
 }

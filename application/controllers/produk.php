@@ -499,8 +499,6 @@ class Produk extends CI_Controller {
             $offset_pre = $page;
         }
 
-        echo $page;
-        
 		if ($uri == '') {
 			redirect('produk/pre_order/1');	
 		}
@@ -508,8 +506,7 @@ class Produk extends CI_Controller {
 		$data['produk'] 	= $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],0,$uri,$limit_pre,$offset_pre);
 		$data['total'] 		= $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],0,$uri)->num_rows();
 		$data['kategori']	= $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
-		
-		
+
 		if ($this->input->post('ajax')) {
 			if ($data['produk']->num_rows() > 0){
                 $satu = $this->load->view('enduser/produk/bg_pre_order_ajax1', $data,TRUE);
@@ -518,7 +515,7 @@ class Produk extends CI_Controller {
             }else{
             	echo json_encode(array('msg' => 'habis'));
             }
-        } else { 
+        } else {
             $this->template->bonobo('produk/bg_pre_order',$data);
         }
 		
