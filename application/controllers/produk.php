@@ -125,7 +125,6 @@ class Produk extends CI_Controller {
 										->set('product_id',$id)
 										->set('create_user',$_SESSION['bonobo']['email'])
 										->set('create_date',date('Y-m-d H:i:s'))
-										->set('end_date',date('Y-m-d'))
 										->set('update_user',$_SESSION['bonobo']['email'])
 										->insert('tb_product_image');
 								}

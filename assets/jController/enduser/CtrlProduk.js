@@ -819,7 +819,9 @@ function set_rules (e) {
   Materialize.updateTextFields();
   $("input[id*=nama_"+e+"]").each(function () {
     $(this).rules('add', {
-        required: true,maxlength:20,remote: base_url+"produk/rules_kategori",
+        required: true,
+        maxlength:20,
+        remote: base_url+"produk/rules_kategori",
         messages: {remote: message_alert('Nama kategori sudah ada')}
     });
   });
