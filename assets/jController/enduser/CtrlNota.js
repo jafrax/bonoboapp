@@ -9,6 +9,9 @@ var scrolling=true;
 var idbarang=0;
 var idbatal=0;
 var idbayar=0;
+var tipe = 0;
+var rek =0 ;
+
 $(window).scroll(function () {      
         if ($(window).scrollTop() == ( $(document).height() - $(window).height()) && scrolling==true) {
             $('#preloader').slideDown();
@@ -254,20 +257,22 @@ function go(){
 
 
 
-function change_metode(id){
-	var metode = $('#metode-'+id).val();
-
+function change_metode(){
+	var metode = $('#metode').val();
+	tipe = metode 
 	if (metode == 1) {
-		$('#rekening-'+id).hide();
+		$('#rekening').hide();
+		
 	}else{
-		$('#rekening-'+id).fadeIn();
+		$('#rekening').fadeIn();
+		
 	};
 }
 
 function konfirmasi(){
 	id=idbayar
-	var metode 		= $('#metode-'+id).val();
-	var rekening 	= $('#rek-'+id).val();	
+	var metode 		= $('#metode').val();
+	var rekening 	= $('#rek').val();	
 	//alert('metode'+metode);
 	//alert('rek'+rekening);
 	$.ajax({
@@ -283,11 +288,11 @@ function konfirmasi(){
                 $('#lunas-'+id).removeClass('red-text');
                 $('#lunas-'+id).addClass('green-text');
         		Materialize.toast('Nota telah di konfirmasi', 4000);
-        		//location.reload();
+        		location.reload();
         	}else{
                 Materialize.toast('Pemesanan tidak dapat diproses', 3000);
                 Materialize.toast('Cek stok barang Anda', 4000);
-                //location.reload();
+                location.reload();
             };          	
         } 
     });

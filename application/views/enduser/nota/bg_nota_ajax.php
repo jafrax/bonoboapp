@@ -121,7 +121,7 @@
 														
 															echo
 															";
-															<select id='metode-".$row->id."' class='select-standar' onchange=javascript:change_metode(".$row->id.")>
+															<select id='metode' class='select-standar' onchange=javascript:change_metode()>
 															";
 															if ($toko->pm_store_payment == 1) {
 																echo "<option value='1'>Bayar ditempat</option>";
@@ -143,9 +143,9 @@
 														<p>No. Transaksi : <span id='nota-' class='blue-text'>".$row->invoice_no."</span></p>
 														<p>Tanggal Konfirmasi : <span class='blue-text'>$date</span></p>
 														<p>Jumlah yang di bayar : <span class='blue-text'>Rp. ".number_format($row->price_total, 2 , ',' , '.')."</span></p><br>
-														<p id='rekening-".$row->id."' style='display:$show_rek;'>
+														<p id='rekening' style='display:$show_rek;'>
 															<label for='metode'>Pilih Rekening Tujuan   </label>
-															<select id='rek-".$row->id."' class='select-standar'>
+															<select id='rek' class='select-standar'>
 																<option value='' disabled >Pilih Rekening Tujuan</option>";
 																if ($row->member_confirm == 1) {
 																	$rekening_tujuan = $this->model_nota->get_rek_tujuan($row->id);
@@ -165,7 +165,7 @@
 													</p>
 												</form>
 												<div class='modal-footer'>
-													<a class='modal-action modal-close waves-effect waves-red btn-flat' onclick=javascript:konfirmasi(".$row->id.")>Konfirmasi</a>
+													<a class='modal-action modal-close waves-effect waves-red btn-flat' onclick=javascript:konfirmasi()>Konfirmasi</a>
 													<a class='modal-action modal-close waves-effect waves-red btn-flat'>Batal</a>		
 												</div>";
 											}else{
