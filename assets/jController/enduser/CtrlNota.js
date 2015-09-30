@@ -283,11 +283,11 @@ function konfirmasi(){
                 $('#lunas-'+id).removeClass('red-text');
                 $('#lunas-'+id).addClass('green-text');
         		Materialize.toast('Nota telah di konfirmasi', 4000);
-        		location.reload();
+        		//location.reload();
         	}else{
                 Materialize.toast('Pemesanan tidak dapat diproses', 3000);
                 Materialize.toast('Cek stok barang Anda', 4000);
-                location.reload();
+                //location.reload();
             };          	
         } 
     });
