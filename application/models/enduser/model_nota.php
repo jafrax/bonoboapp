@@ -11,6 +11,16 @@ class Model_nota extends CI_Model
 	function get_nota($limit=1000000,$offset=0){
 		$this->db->limit($limit,$offset);
 		$this->db->where('toko_id',$_SESSION['bonobo']['id']);
+		
+		if (isset($_SESSION['date_from'])) {
+			$this->db->where('DATE(create_date) >=', $_SESSION['date_from']);
+		}elseif(isset($_SESSION['date_to'])) {
+			$this->db->where('DATE(create_date) <=', $_SESSION['date_to']);
+		}else{
+		$where = "DATE(create_date) BETWEEN '".$_SESSION['date_from']."' AND '".$_SESSION['date_to']."' ";
+		$this->where($where);
+		}
+		
 		if (isset($_SESSION['tipe_bayar'])) {
 			$this->db->where('status',$_SESSION['tipe_bayar']);
 		}

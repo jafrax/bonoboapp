@@ -288,15 +288,49 @@ function konfirmasi(){
                 $('#lunas-'+id).removeClass('red-text');
                 $('#lunas-'+id).addClass('green-text');
         		Materialize.toast('Nota telah di konfirmasi', 4000);
-        		location.reload();
+        		//location.reload();
         	}else{
                 Materialize.toast('Pemesanan tidak dapat diproses', 3000);
                 Materialize.toast('Cek stok barang Anda', 4000);
-                location.reload();
+                //location.reload();
             };          	
         } 
     });
 }
+
+
+
+function change_date_from(){
+	  var date = $('input[name="tgl_awal'+'_submit"]').val();
+	  $.ajax({
+	    type: 'POST',
+	    async: false,
+	    data: 'date='+date,
+	    url: base_url+'nota/change_date_from',
+	    success: function(msg) {
+	      if (msg == 'sukses') {        
+	      }else{
+	      };
+	    } 
+	  });
+	}
+
+
+function change_date_to(){
+	  var date = $('input[name="tgl_akhir'+'_submit"]').val();
+	  $.ajax({
+	    type: 'POST',
+	    async: false,
+	    data: 'date='+date,
+	    url: base_url+'nota/change_date_to',
+	    success: function(msg) {
+	      if (msg == 'sukses') {        
+	      }else{
+	      };
+	    } 
+	  });
+	}
+
 
 
 function set_location(){

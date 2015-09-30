@@ -120,12 +120,12 @@ echo"
 								
 								echo "
 								<div class='input-field col s2'>
-									<input id='tgl_awal' name='tgl_awal' type='text' placeholder='".$tanggalawal."' class='datepicker validate' >
+									<input id='tgl_awal' name='tgl_awal' type='text' onchange=javascript:change_date_from()  placeholder='".$tanggalawal."' class='datepicker validate' >
 									<label for='tgl_awal'>FROM DATE <span class='text-red'></span></label>
 									<label class='error' for='tgl_pre_order'></label>
 								</div>
 								<div class='input-field col s2'>
-									<input id='tgl_akhir' name='tgl_akhir' type='text' placeholder='".$date."' class='datepicker validate' >
+									<input id='tgl_akhir' name='tgl_akhir' type='text' onchange=javascript:change_date_to()  placeholder='".$date."' class='datepicker validate' >
 									<label for='tgl_akhir'>TO DATE<span class='text-red'></span></label>
 									<label class='error' for='tgl_pre_order'></label>
 								</div>
@@ -170,6 +170,7 @@ echo"
 									$old_date_timestamp = strtotime($old_date);
 									$date 		= date('d M Y');
 									$ago 		= $this->template->xTimeAgoDesc($old_date,date('Y-m-d H:i:s'));
+									$tanggal = date('d M Y', strtotime('-0 days', strtotime( $old_date )));
 									
 										if ($row->stock_type == 1) {
 											echo "<div class='col s6 m3'><span class='labelbudge green lighten-2 center'>READY STOK </span> </div>";
@@ -190,7 +191,7 @@ echo"
 							             </div >
 							             
 							            <div class='col s4 m4 right' > 
-							              	<div class='col s8 m9 right '>  $date ($ago) <br> </div> ";
+							              	<div class='col s8 m9 right '>  $tanggal ($ago) <br> </div> ";
 							              
 							              	echo "
 							              			<div class='col s4 m6 ' id='lokasi-btn-".$row->id."'>";
@@ -208,16 +209,9 @@ echo"
 												<div class='modal-header red'>
 													<i class='mdi-action-label-outline left'></i> Pilih metode transaksi
 												</div>
-												
-								            		<form class='modal-content' id='form-komfirmasi-".$row->id."'>
-													
-														<label for='metode'>Pilih metode transaksi</label>
-														"; 
-														
-															echo
-															";
-															<select id='metode' class='select-standar' onchange=javascript:change_metode()>
-															";
+													<form class='modal-content' id='form-komfirmasi-".$row->id."'>
+														<label for='metode'>Pilih metode transaksi</label>		
+															<select id='metode' class='select-standar' onchange=javascript:change_metode()>	";
 															if ($toko->pm_store_payment == 1) {
 																echo "<option value='1'>Bayar ditempat</option>";
 																$show_rek = 'none';
@@ -281,7 +275,7 @@ echo"
 							            		$rekening1 = $rekening_tujuan->row();
 								            	echo"
 									            <li class=''>
-									                <div class='collapsible-header truncate'><p class='red-text'><i class='mdi-content-flag'></i> Pembeli telah melakukan konfirmasi. <span class='blue-text'>Klik disini</span> untuk detail</p></div>
+									                <div class='collapsible-header truncate'><p class='red-text'><i class='mdi-content-flag'></i> Nota sudah dikonfirmasi. <span class='blue-text'>Klik disini</span> untuk detail</p></div>
 									                <div class='collapsible-body' style='display: none;'>
 									                	<div class='col s12 m6'>									       		
 									                		<p><b>Bank Asal :</b><br>

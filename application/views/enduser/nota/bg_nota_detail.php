@@ -13,7 +13,7 @@ echo "
 										echo "<button id='btn-batal-".$nota->id."' data-target='batal_nota_".$nota->id."' class=' modal-trigger btn-flat waves-effect red darken-1 white-text waves-light' type='button' name='action'>Batal</button>";
 										if ($nota->status != 1) {
 											echo"
-										<button id='btn-bayar-".$nota->id."' data-target='bayar-".$nota->id."' class='btn modal-trigger waves-effect orange darken-1 white-text waves-light ' type='button' name='action'>Bayar</button>";
+										<button href='javascript:void(0);' onclick=bayarnota(".$nota->id.",'".$nota->invoice_no."','".$nota->price_total."'); class='btn modal-trigger waves-effect orange darken-1 white-text waves-light ' type='button' name='action'>Bayar</button>";
 										}
 									echo"
 									<h6 class='hide-on-med-and-up'><br></h6>	
@@ -31,15 +31,15 @@ echo "
 											<button type='button' onclick=javascript:batal_nota(".$nota->id.") class='btn-flat modal-action modal-close waves-effect '>YA</button>
 										</div>
 									</div>
-									<div id='bayar-".$nota->id."' class='modal  modal-fixed-footer'>
+													
+													
+									<div id='bayarnota' class='modal  modal-fixed-footer'>
 										<div class='modal-header red'>
 											<i class='mdi-action-label-outline left'></i> Pilih metode transaksi
 										</div>
 										<form class='modal-content' id='form-komfirmasi-".$nota->id."'>
-											
-												<label for='metode'>Pilih metode transaksi</label>
-												<select id='metode-".$nota->id."' class='select-standar' onchange=javascript:change_metode(".$nota->id.")>
-													";
+											<span for='metode'>Pilih metode transaksi</label>
+												<select id='metode' class='select-standar' onchange=javascript:change_metode()>	";
 													if ($toko->pm_store_payment == 1) {
 														echo "<option value='1'>Bayar ditempat</option>";
 														$show_rek = 'none';
@@ -48,19 +48,16 @@ echo "
 														echo "<option value='2' "; if ($nota->member_confirm == 1) {echo 'selected';$show_rek = 'block';} echo ">Transfer via bank</option>";
 														
 													}
-													
 													$date 		= date('d M Y');
-													
 												echo"
 												</select>
-												
 												<p>No. Transaksi : <span class='blue-text'>".$nota->invoice_no."</span></p>
 												<p>Tanggal Konfirmasi : <span class='blue-text'>$date</span></p>
-												<p>Jumlah yang di bayar : <span class='blue-text'>Rp. ".number_format($nota->price_total, 2 , ',' , '.')."</span></p><br>
-												<p id='rekening-".$nota->id."' style='display:$show_rek;'>
+												<p>Jumlah yang di bayar : <span id='bayar' class='blue-text'>Rp. ".number_format($nota->price_total, 2 , ',' , '.')."</span></p><br>
+												<p id='rekening' style='display:$show_rek;'>
 
-													<label for='metode'>Pilih Rekening Tujuan</label>
-													<select id='rek-".$nota->id."' class='select-standar'>
+													<span for='metode'>Pilih Rekening Tujuan</label>
+													<select id='rek' class='select-standar'>
 														<option value='' disabled >Pilih Rekening Tujuan</option>";
 														if ($nota->member_confirm == 1) {
 															$rekening_tujuan = $this->model_nota->get_rek_tujuan($nota->id);
@@ -69,14 +66,14 @@ echo "
 														foreach ($rekening->result() as $row_rk) {
 															$select = '';
 															if ($row_rk->id == $selected) {$select = 'selected';}
-															echo "<option $select value='".$row_rk->id."'>".$row_rk->name."</option>";
+															echo "<option $select value='".$row_rk->id."'>".$row_rk->name." ( ".$row_rk->no." ) </option>";
 														}
 														echo"
 													</select>
 											</p>
 										</form>
 										<div class='modal-footer'>
-											<a class='modal-action modal-close waves-effect waves-red btn-flat' onclick=javascript:konfirmasi(".$nota->id.")>Konfirmasi</a>
+											<a class='modal-action modal-close waves-effect waves-red btn-flat' onclick=javascript:konfirmasi()>Konfirmasi</a>
 											<a class='modal-action modal-close waves-effect waves-red btn-flat'>Batal</a>		
 										</div>
 									</div>";
@@ -100,9 +97,9 @@ echo "
 									<p>Apakah anda yakin ingin menghapus nota dari <b>'".$nota->member_name."'</b> ?</p>
 								</form>
 								<div class='modal-footer'>
-									<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
 									<button type='button' onclick=javascript:delete_nota2(".$nota->id.") class='btn-flat modal-action modal-close waves-effect '>YA</button>
-								</div>
+									<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
+									</div>
 							</div>
 						</div>
 

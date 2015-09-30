@@ -19,10 +19,18 @@ class Nota extends CI_Controller {
 			return;
 		}
 		$this->template->cek_license();
-		$this->load->model("enduser/model_nota");		
+		$this->load->model("enduser/model_nota");	
+		
+		
     }
+    
+    
 	
 	public function index(){		
+		
+		$_SESSION['date_to'] 	= date('Y-m-d');
+		$_SESSION['date_from'] 	= date('Y-m-d', strtotime('-1 month', strtotime( date('Y-m-d') )));
+		
 		//$data['nota']		= $this->model_nota->get_nota();
 		$data['rekening']	= $this->model_nota->get_rekening();
 		$data['toko']		= $this->model_nota->get_toko()->row();	
@@ -51,6 +59,55 @@ class Nota extends CI_Controller {
             $this->template->bonobo('nota/bg_nota', $data);
         }		
 	}
+	
+	
+
+	public function change_date_from(){
+		$date 	= $this->input->post('date');
+
+		if($date == ''){
+			$date 	= date('Y-m-d', strtotime('-1 month', strtotime( date('Y-m-d') )));
+		}else{
+		$old_date 			= $date;
+		$old_date_timestamp = strtotime($old_date);
+		$new_date 			= date('Y-m-d', $old_date_timestamp);
+	
+		if (date('Y-m-d') > $new_date) {
+			echo "Lebih dari hari ini ";
+			
+		}elseif ($_SESSION['date_from'] > $_SESSION['date_to'])	{
+			echo "Lebih dari to date ";
+		}else{
+			unset($_SESSION['date_from']);
+			$_SESSION['date_from'] = $new_date;
+			echo "sukses";
+			
+		}
+		
+		$this->ajax_load();
+	}}
+	
+
+	public function change_date_to(){
+		$date 	= $this->input->post('date');
+		if($date == ''){
+			$date	= date('Y-m-d');
+		}else{
+		$old_date 			= $date;
+		$old_date_timestamp = strtotime($old_date);
+		$new_date 			= date('Y-m-d', $old_date_timestamp);
+	
+		if (date('Y-m-d') > $new_date) {
+			echo "kadaluarsa";
+		}else{
+			unset($_SESSION['date_to']);
+			$_SESSION['date_to'] = $new_date;
+			echo "sukses";
+		}
+		
+		$this->ajax_load();
+	}}
+	
 
 	public function change_note(){
 		$id 	= $this->input->post('id');
@@ -156,7 +213,7 @@ class Nota extends CI_Controller {
 	}
 	
 	//ambil total transaksi invoice
-	$row_invoice = 	$this->model_nota->get_nota_by_id($rekening);
+	$row_invoice = 	$this->model_nota->get_nota_by_id($id);
 	foreach ($row_invoice->result() as $row_inv) {
 		$price_total	= $row_inv->price_total;
 	}
@@ -180,10 +237,11 @@ class Nota extends CI_Controller {
 		);
 		
 		$insert = $this->db->insert('tb_invoice_transfer_confirm',$data);
+		$this->db->where('id',$id)->set('member_confirm',1)->update('tb_invoice');
 		
 	}else{
-		$this->db->where('invoice_id',$id)->set('to_bank',$to_bank)->set('to_acc_no',$to_acc_no)->set('to_acc_name',$to_acc_name)->update('tb_invoice_transfer_confirm');
-		
+		$this->db->where('invoice_id',$id)->set('to_bank',$to_bank)->set('to_acc_no',$to_acc_no)->set('to_acc_name',$to_acc_name)->set('price',$price_total)->update('tb_invoice_transfer_confirm');
+		$this->db->where('id',$id)->set('member_confirm',1)->update('tb_invoice');
 	}
 	}
 		

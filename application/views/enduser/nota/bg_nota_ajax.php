@@ -1,5 +1,5 @@
 <?php
-						$i = 0;
+						$i = 5;
 						foreach ($nota->result() as $row) {
 							$i++;
 							echo"
@@ -53,13 +53,12 @@
 										
 							<!-- nota -->
 									
-							<!-- nota -->
 							<div class=' s12 m12' id='nota-".$row->id."'>
       							<div class='notacard card-panel grey lighten-5 z-depth-1'>
 						          	<div class='row '>		
 						          		<div class='checkitem col s0 m0'>
 							            	<input type='checkbox' class='filled-in cek_nota' id='cek-nota-".$i."'  />
-      										<label for='cek-nota-".$i."'></label>
+      										<label for='cek-nota-".$i."'> </label>
       										<input type='hidden' id='cek-$i' value='".$row->id."' />
 							            </div>
 							            <div class='col s6 m7'>	
@@ -75,6 +74,7 @@
 									$old_date_timestamp = strtotime($old_date);
 									$date 		= date('d M Y');
 									$ago 		= $this->template->xTimeAgoDesc($old_date,date('Y-m-d H:i:s'));
+									$tanggal = date('d M Y', strtotime('-0 days', strtotime( $old_date )));
 									
 										if ($row->stock_type == 1) {
 											echo "<div class='col s6 m3'><span class='labelbudge green lighten-2 center'>READY STOK </span> </div>";
@@ -95,14 +95,14 @@
 							             </div >
 							             
 							            <div class='col s4 m4 right' > 
-							              	<div class='col s8 m9 right '>  $date ($ago) <br> </div> ";
+							              	<div class='col s8 m9 right '>  $tanggal ($ago) <br> </div> ";
 							              
 							              	echo "
 							              			<div class='col s4 m6 ' id='lokasi-btn-".$row->id."'>";
 											if ($row->status != 2) {
 												if ($row->status != 1) {
 													echo" <br>
-												<button href='javascript:void(0);' onclick=bayarnota(".$row->id.");   class='btn modal-trigger waves-effect orange darken-1 white-text waves-light right' type='button' name='action'>Bayar</button>";
+												<button href='javascript:void(0);' onclick=bayarnota(".$row->id.",'".$row->invoice_no."','".$row->price_total."');   class='btn modal-trigger waves-effect orange darken-1 white-text waves-light right' type='button' name='action'>Bayar</button>";
 												}
 												//echo "<button href='javascript:void(0);' onclick=batalnota(".$row->id."); class='btn modal-trigger waves-effect red white-text waves-light right' type='button' name='action' >Batal</button>";
 											echo"												
@@ -111,7 +111,7 @@
 													
 								            <div id='bayarnota' class='modal  modal-fixed-footer'>
 												<div class='modal-header red'>
-													<i class='mdi-action-label-outline left'></i> Pilih metode transaksi 
+													<i class='mdi-action-label-outline left'></i> Pilih metode transaksi
 												</div>
 												
 								            		<form class='modal-content' id='form-komfirmasi-".$row->id."'>
@@ -134,15 +134,10 @@
 																
 															echo "
 															</select>
-															";
-															
-														
-														echo "
-														
-														
-														<p>No. Transaksi : <span id='nota-' class='blue-text'>".$row->invoice_no."</span></p>
+						
+														<p>No. Transaksi : <span id='nota' class='blue-text'></span></p>
 														<p>Tanggal Konfirmasi : <span class='blue-text'>$date</span></p>
-														<p>Jumlah yang di bayar : <span class='blue-text'>Rp. ".number_format($row->price_total, 2 , ',' , '.')."</span></p><br>
+														<p>Jumlah yang di bayar : <span id='bayar' class='blue-text'>Rp. ".number_format($row->price_total, 2 , ',' , '.')."</span></p><br>
 														<p id='rekening' style='display:$show_rek;'>
 															<label for='metode'>Pilih Rekening Tujuan   </label>
 															<select id='rek' class='select-standar'>
@@ -182,7 +177,6 @@
 											</p>											
 							            </div>
 						          	</div>
-									
 							
 									
 									
@@ -194,7 +188,7 @@
 							            		$rekening1 = $rekening_tujuan->row();
 								            	echo"
 									            <li class=''>
-									                <div class='collapsible-header truncate'><p class='red-text'><i class='mdi-content-flag'></i> Pembeli telah melakukan konfirmasi. <span class='blue-text'>Klik disini</span> untuk detail</p></div>
+									                <div class='collapsible-header truncate'><p class='red-text'><i class='mdi-content-flag'></i> Nota sudah dikonfirmasi. <span class='blue-text'>Klik disini</span> untuk detail</p></div>
 									                <div class='collapsible-body' style='display: none;'>
 									                	<div class='col s12 m6'>									       		
 									                		<p><b>Bank Asal :</b><br>

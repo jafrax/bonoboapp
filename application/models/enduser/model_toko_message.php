@@ -45,7 +45,6 @@ class Model_toko_message extends CI_Model {
 						->where("ttm.member_id",$member)
 						->order_by("tm.id","DESC")
 						->limit($limit,$offset)
-						//->group_by('tm.message','tm.create_date')
 						->get("tb_toko_message ttm");
 	}
 	
