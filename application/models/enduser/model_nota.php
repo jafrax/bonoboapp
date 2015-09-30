@@ -73,7 +73,7 @@ class Model_nota extends CI_Model
 	
 	
 	function get_tranfer($id){
-		return $this->db->where('id',$id)->get('tb_invoice_transfer_confirm');
+		return $this->db->where('invoice_id',$id)->get('tb_invoice_transfer_confirm');
 	}
 	
 	function get_toko(){

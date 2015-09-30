@@ -121,6 +121,7 @@ class Nota extends CI_Controller {
 		$to_bank	=0 ;
 		$to_acc_no 	=0;
 		$to_acc_name ='';
+		$price_total = 0;
 		
 
 		$cek_id	= $this->model_nota->get_nota_by_id($id);
@@ -142,30 +143,58 @@ class Nota extends CI_Controller {
 				}
 			
 		}
-	//ambil nilai bank
-/*	$row_tb_bank = 	$this->model_nota->get_toko_bank($rekening);
+	
+	echo "masuk proses";	
+	echo "metode".$metode;
+	echo "rek".$rekening;
+	if($metode > 1 ){
+	//ambil data bank
+	echo "jika transfer ..";
+	$row_tb_bank = 	$this->model_nota->get_toko_bank($rekening);
 	foreach ($row_tb_bank->result() as $row_bank) {
 		$to_bank	= $row_bank->bank_name;
 		$to_acc_no 	= $row_bank->acc_no;
 		$to_acc_name =$row_bank->acc_name;
 		
 	}
+	
+	echo "bang apa ? ".$to_bank;
+	//ambil total transaksi invoice
+	$row_invoice = 	$this->model_nota->get_nota_by_id($rekening);
+	foreach ($row_invoice->result() as $row_inv) {
+		$price_total	= $row_inv->price_total;
+	}
 		
-		
+	//cek tranfer jika sudah ada	
 	$cek_bank_transfer = $this->model_nota->get_tranfer($id);
 	if($cek_bank_transfer){
 		echo "update";
 		$this->db->where('invoice_id',$row->product_varian_id)->set('to_bank',$to_bank)->set('to_acc_no',$to_acc_no)->set('to_acc_name',$to_acc_name)->update('tb_invoice_transfer_confirm');
 	}else{
-		echo "imsert";
+		echo "insert ";
+		$data = array(	'invoice_id'		=> $id,
+						'price'				=> $price_total,
+						'from_bank'			=> null,
+						'from_acc_no'		=> null,
+						'from_acc_name'		=> null,
+						'to_bank'			=> $to_bank,
+						'to_acc_no'			=> $to_acc_no,
+						'to_acc_name'		=> $to_acc_name,
+						'create_date'		=> date('Y-m-d H:i:s'),	
+						'create_user'		=> $_SESSION['bonobo']['email'],
+						'update_date'		=> date('Y-m-d H:i:s'),
+						'update_user'		=> $_SESSION['bonobo']['email']
+					);
+		
+		$insert = $this->db->insert('tb_invoice_transfer_confirm',$data);
+		
 	}
-*/	
+	}
 		
-		
-		$update = $this->db->set('status',1)->where('id',$id)->update('tb_invoice');
-		if ($update) {
-			echo "1";
-		}
+		//$update = $this->db->set('status',1)->where('id',$id)->update('tb_invoice');
+		//if ($update) {
+			//echo "1";
+		//}
 	}
 
 	public function set_location(){
