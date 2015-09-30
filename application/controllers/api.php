@@ -1976,7 +1976,7 @@ class Api extends CI_Controller {
 			$QProduct = $QProduct->where("tkcp.toko_id in (SELECT ttm.toko_id FROM tb_toko_member ttm WHERE ttm.member_id = ".$QUser->id.")",null,false);
 			
 			if($this->response->post("keyword") != "" && $this->response->postDecode("keyword") != ""){
-				$QProduct = $QProduct->where("tp.name LIKE ","%".$this->response->postDecode("keyword")."%");
+				$QProduct = $QProduct->where("(tp.name LIKE '%".$this->response->postDecode("keyword")."%' OR tp.sku_no LIKE '%".$this->response->postDecode("keyword")."%')",null,false);
 			}
 			
 			if($this->response->post("stock_type") != "" && $this->response->postDecode("stock_type") != ""){
