@@ -129,15 +129,21 @@ echo"
 											foreach ($stok->result() as $row_stok) {
 												echo"
 												<p class='input-field col s12 m12 l7 nolpad'>";
+														if($row->sku_no != 'null'){
+														echo "<label for='stok'>".$row->sku_no."</label>";
+													}
 													if ($row->unit !='') {
 														echo "<i class='prefix prefix-gan'>".$row->unit."</i>";
 													}
+
+
 													
 													echo"
 													<input onkeyup=javascript:change_stock(".$row_stok->id.") type='text' maxlength='9' name='stok-".$row_stok->id."' value='".$row_stok->stock_qty."' placeholder='Stok' class='validate numbersOnly s6 stok-".$row_stok->id."'>";
 													if ($row_stok->name != 'null') {
-														echo "<label for='stok' class='active'>".$row_stok->name."</label>";
+														echo "<label for='stok' class='active'>".$row_stok->name."</label>" ;
 													}
+												
 													
 													if ($row_stok->stock_qty == 0) {
 														echo"<span class='label red right habis-".$row_stok->id."'>Stok habis</span>";
@@ -240,6 +246,7 @@ echo"
 													if ($row->unit !='') {
 														echo "<i class='prefix prefix-gan'>".$row->unit."</i>";
 													}
+												
 													if ($row_stok->name != 'null') {
 														echo "<span for='stok'>".$row_stok->name."</span>";
 													}

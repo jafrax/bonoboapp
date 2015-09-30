@@ -191,9 +191,9 @@ echo"
 								</li>";
 							}
 							echo"
-							</div>
 							<input type='hidden' id='total_produk' value='$i'>
 							<input type='hidden' id='uri' value='$uri3'>
+							</div>
 							<div id='dua'>";
 							$a=0;
 							foreach ($produk->result() as $row) {
@@ -211,8 +211,7 @@ echo"
 										<input type='checkbox' class='filled-in cek_produk' onclick=javascript:ngeklik('cek-1-$a','cek-2-$a') id='cek-2-$a'  />
 										<label for='cek-2-$a'></label>
 									</p>
-									<div class='card-image waves-effect waves-block waves-light cropimg'>
-									";
+									<div class='card-image waves-effect waves-block waves-light cropimg'>";
 										if ($image) {
 											echo "<img src='".base_url()."assets/pic/product/resize/".$image->file."' class='activator'>";											
 										}else{
