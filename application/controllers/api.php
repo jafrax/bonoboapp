@@ -773,6 +773,8 @@ class Api extends CI_Controller {
 							"price_product"=>$QInvoiceProduct->price_product,
 							"product_name"=>$QInvoiceProduct->product_name,
 							"product_image"=>$InvoiceImageTumb,
+							"product_sku_no"=>$QInvoiceProduct->product_sku_no,
+							"product_unit"=>$QInvoiceProduct->product_unit,
 							"product_description"=>$QInvoiceProduct->product_description,
 							"product"=>$product,
 							"invoice_varians"=>$InvoiceVarians,
@@ -4415,6 +4417,7 @@ class Api extends CI_Controller {
 							array_push($MessageProducts,$MessageProduct);
 						}
 					}
+					
 					$message = "";
 					$buy_qty = 0;
 					for($v=0;$v<= ((float) $this->response->postDecode("cart_product".$p."_varians")) - 1;$v++){
@@ -4456,7 +4459,7 @@ class Api extends CI_Controller {
 											}
 										}
 										
-										$buy_qty = $buy_qty + intval($this->response->postDecode("cart_product".$p."_varian".$v."_quantity"));
+										$buy_qty = $buy_qty + (float) $this->response->postDecode("cart_product".$p."_varian".$v."_quantity");
 									}
 								}
 							}
@@ -5180,7 +5183,7 @@ class Api extends CI_Controller {
 					*	------------------------------------------------------------------------------
 					*/
 					$QCartProducts = $this->db
-						->select("tcp.*, tp.id as product_id, tp.name as product_name, tp.description as product_description, tp.price_base")
+						->select("tcp.*, tp.id as product_id, tp.name as product_name, tp.description as product_description, tp.price_base, tp.sku_no as product_sku_no, tp.unit as product_unit")
 						->join("tb_product tp","tcp.product_id = tp.id")
 						->where("tcp.cart_id",$QCart->id)
 						->get("tb_cart_product tcp")
@@ -5201,11 +5204,13 @@ class Api extends CI_Controller {
 						$Data = array(
 								"invoice_id"=>$QInvoice->id,
 								"product_id"=>$QCartProduct->product_id,
-								"price_product"=>$QCartProduct->price_product,
 								"product_name"=>$QCartProduct->product_name,
-								"price_unit"=>$price_unit,
+								"product_sku_no"=>$QCartProduct->product_sku_no,
+								"product_unit"=>$QCartProduct->product_unit,
 								"product_image"=>$product_image,
 								"product_description"=>$QCartProduct->product_description,
+								"price_product"=>$QCartProduct->price_product,
+								"price_unit"=>$price_unit,
 								"create_date"=>$Date,
 								"create_user"=>$QUser->email,
 								"update_date"=>$Date,
@@ -5223,11 +5228,13 @@ class Api extends CI_Controller {
 							$QInvoiceProduct = $this->db
 								->where("invoice_id",$QInvoice->id)
 								->where("product_id",$QCartProduct->product_id)
-								->where("price_product",$QCartProduct->price_product)
 								->where("product_name",$QCartProduct->product_name)
-								->where("price_unit",$price_unit)
 								->where("product_image",$product_image)
+								->where("product_sku_no",$QCartProduct->product_sku_no)
+								->where("product_unit",$QCartProduct->product_unit)
 								->where("product_description",$QCartProduct->product_description)
+								->where("price_product",$QCartProduct->price_product)
+								->where("price_unit",$price_unit)
 								->where("create_date",$Date)
 								->where("create_user",$QUser->email)
 								->where("update_date",$Date)
@@ -5322,6 +5329,8 @@ class Api extends CI_Controller {
 									"price_product"=>$QInvoiceProduct->price_product,
 									"product_name"=>$QInvoiceProduct->product_name,
 									"product_image"=>$InvoiceImageHigh,
+									"product_sku_no"=>$QInvoiceProduct->product_sku_no,
+									"product_unit"=>$QInvoiceProduct->product_unit,
 									"product_description"=>$QInvoiceProduct->product_description,
 									"product"=>$this->getProductById($QInvoiceProduct->product_id,$QUser->id),
 									"invoice_varians"=>$InvoiceVarians,
