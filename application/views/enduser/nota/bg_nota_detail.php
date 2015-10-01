@@ -275,7 +275,7 @@ echo "
 											<label>Jenis Pengiriman</label>
 											<select class='selectize' name='kurir'>
 												<option value='' disabled selected>Pilih Jenis Pengiriman</option>
-												<option value='Ambil di toko'>Ambil di toko</option>";
+												<!-- <option value='Ambil di toko'>Ambil di toko</option> -->";
 												$toko_kurir = $this->model_nota->get_toko_kurir($nota->toko_id);
 												foreach ($toko_kurir->result() as $kurir_t) {
 													$select = '';

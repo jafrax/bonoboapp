@@ -98,7 +98,7 @@ class Model_nota extends CI_Model
 	}
 
 	function get_kustom_kurir($id){
-		return $this->db->where('toko_id',$id)->get('tb_courier_custom');
+		return $this->db->where('toko_id',$id)->where('toko_id',$_SESSION['bonobo']['id'])->get('tb_courier_custom');
 	}
 
 	function get_province(){
