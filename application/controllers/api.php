@@ -1684,13 +1684,7 @@ class Api extends CI_Controller {
 			*	------------------------------------------------------------------------------
 			*/
 			$Messages = array();
-			$QMessages = $this->db
-							->select("tmm.id,tmm.toko_name,tmm.toko_id,tm.message as message,tm.title,tm.image,tmm.flag_read as isread,tmm.flag_from as isfrom")
-							->join("tb_message tm","tm.id = tmm.message_id")
-							->where("tmm.member_id",$QUser->id)
-							->group_by("tmm.toko_id")
-							->get("tb_member_message tmm")
-							->result();
+			$QMessages = $this->db->query("SELECT `tmm`.`id`, `tmm`.`toko_name`, `tmm`.`toko_id`, `tm`.`message` as message, `tm`.`title`, `tm`.`image`, `tmm`.`flag_read` as isread, `tmm`.`flag_from` as isfrom FROM (SELECT tmma.* FROM tb_member_message tmma WHERE `tmma`.`member_id` =  '".$QUser->id."' ORDER BY tmma.id DESC) tmm JOIN `tb_message` tm ON `tm`.`id` = `tmm`.`message_id` GROUP BY `tmm`.`toko_id`")->result();		
 			
 			foreach($QMessages as $QMessage){
 				if($QMessage->image != ""){
@@ -1782,7 +1776,7 @@ class Api extends CI_Controller {
 							->where("tmm.member_id",$QUser->id)
 							->where("tmm.toko_id",$QShop->id)
 							->order_by("tmm.id","DESC")
-							->group_by("tmm.toko_id")
+							->limit($this->limit,$this->offset)
 							->get("tb_member_message tmm")
 							->result();
 			
@@ -1864,7 +1858,6 @@ class Api extends CI_Controller {
 							->where("tmm.member_id",$QUser->id)
 							->where("tmm.flag_read",0)
 							->where("tmm.flag_api",0)
-							->limit(1,0)
 							->get("tb_member_message tmm")
 							->result();
 			
@@ -1893,7 +1886,6 @@ class Api extends CI_Controller {
 			$QInvites = $this->db
 						->where("member_id",$QUser->id)
 						->where("flag_api",0)
-						->limit(1,$this->paging_offset)
 						->get("tb_invite")
 						->result();
 						
