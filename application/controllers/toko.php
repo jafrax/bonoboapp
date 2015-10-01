@@ -166,7 +166,8 @@ class Toko extends CI_Controller {
 			}
 			
 			$Data = array(
-					"txtLevel2"=>$pm_store_payment,
+				"pm_store_payment"=>$pm_store_payment,
+					//"txtLevel2"=>$pm_store_payment,
 					"pm_transfer"=>$pm_transfer,
 				);
 			$step=$_SESSION['bonobo']['step'];
@@ -174,7 +175,10 @@ class Toko extends CI_Controller {
 				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',5)->update('tb_toko');
 			}
 			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
-			$this->response->send(array("result"=>1,"message"=>"Data berhasil disimpan","messageCode"=>1));
+			
+			$this->response->send(array("result"=>0,"message"=>"Data berhasil disimpan","messageCode"=>1));
+			redirect("toko/step5");
+		
 		}
 	}
 	
