@@ -101,8 +101,8 @@ echo"
 	<footer>
 		<div class='row footer'>
 			<div class='col s12' align='right'>
-				<a href='' >Syarat dan ketentuan</a>
-				<a href='' >Kebijakan privasi</a>
+				<a href='".base_url("index/tos")."' >Syarat dan ketentuan</a>
+				<a href='".base_url("index/pp")."' >Kebijakan privasi</a>
 				<a href='' >Tentang kami</a>
 			</div>
 		</div>

@@ -67,9 +67,9 @@ echo "
 
 						<div class='row formbody container_custom'>
 							<p>								
-									<h2 class='light title-faq '>Selamat datang di www.bonobo.com.</h2><br>
-									<p>Syarat & ketentuan yang ditetapkan di bawah ini mengatur pemakaian jasa yang ditawarkan oleh PT. Bonobo terkait penggunaan situs www.bonobo.com. Pengguna disarankan membaca dengan seksama karena dapat berdampak kepada hak dan kewajiban Pengguna di bawah hukum.</p>
-									<p>Dengan mendaftar dan/atau menggunakan situs www.bonobo.com, maka pengguna dianggap telah membaca, mengerti, memahami dan menyutujui semua isi dalam Syarat & ketentuan. Syarat & ketentuan ini merupakan bentuk kesepakatan yang dituangkan dalam sebuah perjanjian yang sah antara Pengguna dengan PT. VisiONE System. Jika pengguna tidak menyetujui salah satu, sebagian, atau seluruh isi Syarat & ketentuan, maka pengguna tidak diperkenankan menggunakan layanan di www.bonobo.com.</p>
+									<h2 class='light title-faq '>Selamat datang di www.bonoboapp.com.</h2><br>
+									<p>Syarat & ketentuan yang ditetapkan di bawah ini mengatur pemakaian jasa yang ditawarkan oleh PT. Bonobo terkait penggunaan situs www.bonoboapp.com. Pengguna disarankan membaca dengan seksama karena dapat berdampak kepada hak dan kewajiban Pengguna di bawah hukum.</p>
+									<p>Dengan mendaftar dan/atau menggunakan situs www.bonoboapp.com, maka pengguna dianggap telah membaca, mengerti, memahami dan menyutujui semua isi dalam Syarat & ketentuan. Syarat & ketentuan ini merupakan bentuk kesepakatan yang dituangkan dalam sebuah perjanjian yang sah antara Pengguna dengan PT. VisiONE System. Jika pengguna tidak menyetujui salah satu, sebagian, atau seluruh isi Syarat & ketentuan, maka pengguna tidak diperkenankan menggunakan layanan di www.bonoboapp.com.</p>
 									<p class='light'>
 									<ul>										
 										<li><a href='#definisi'>A. Definisi</a></li>
