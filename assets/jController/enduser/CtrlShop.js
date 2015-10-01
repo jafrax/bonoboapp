@@ -413,7 +413,8 @@ function CtrlShopStep4(){
 					 Materialize.toast(response.message, 4000);
 				}else{
 					window.location.href = base_url+'toko/step5';  
-				}
+				} 
+				
 			}
 		});
 		
