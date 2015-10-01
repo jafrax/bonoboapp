@@ -1776,7 +1776,7 @@ class Api extends CI_Controller {
 							->where("tmm.member_id",$QUser->id)
 							->where("tmm.toko_id",$QShop->id)
 							->order_by("tmm.id","DESC")
-							->limit($this->limit,$this->offset)
+							->limit($this->paging_limit,$this->paging_offset)
 							->get("tb_member_message tmm")
 							->result();
 			
@@ -1804,7 +1804,15 @@ class Api extends CI_Controller {
 							"isread"=>$QMessage->isread,
 							"isfrom"=>$QMessage->isfrom,
 						);
+						
 				array_push($Messages,$Message);
+				
+				$Data = array(
+						"flag_read"=>1,
+						"flag_api"=>1,
+					);
+				
+				$Save = $this->db->where("id",$QMessage->id)->update("tb_member_message",$Data);
 			}
 			
 			/*
