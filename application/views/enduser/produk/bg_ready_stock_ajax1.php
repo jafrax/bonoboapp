@@ -30,6 +30,9 @@ if ($produk->num_rows() == 0) {
 										}else{
 											echo "<img src='".base_url()."html/images/comp/product.png' class='responsive-img userimg'>";
 										}
+										if($row->sku_no != 'null'){
+											echo "<center><label for='stok'>".$row->sku_no."</center></label>";
+										}
 									echo"	
 									</div>
 									<div class='col s12 m8 l9'>
@@ -39,11 +42,9 @@ if ($produk->num_rows() == 0) {
 											$stok =  $this->model_produk->get_varian_produk($row->id);
 											foreach ($stok->result() as $row_stok) {
 												echo"
-													
+
 													<p class='input-field col s12 m12 l7 nolpad'>";
-														if($row->sku_no != 'null'){
-														echo "<label for='stok'>".$row->sku_no."</label>";
-													}
+
 													if ($row->unit !='') {
 														echo "<i class='prefix prefix-gan'>".$row->unit."</i>";
 													}
