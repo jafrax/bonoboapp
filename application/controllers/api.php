@@ -5676,7 +5676,7 @@ class Api extends CI_Controller {
 									
 					if(!empty($QProductImage)){
 						$image = $QProductImage->file;
-						$title = $QProduct->name;
+						$title = $QProduct->name."\n".$QProduct->sku_no;
 					}
 				}
 			}
