@@ -42,7 +42,7 @@ echo "
 <tr>
 <td align="center" colspan="3"><h4 class='titmain'><b> <?php  echo "$toko->name" ;?>  </b></h4></td>
 <td align="center" colspan="2"></td>
-<td align="center" colspan="5"><h4 class='titmain'><b> <?php echo "Nama Pemesan : " ?>  </b></h4></td>
+<td align="center" colspan="5"><h4 class='titmain'>&nbsp;<b> <?php echo "Nama Pemesan : " ?>  </b></h4></td>
 </tr>
 <tr>
 <td align="center" colspan="3"><h4 class='titmain'><b> <?php  echo "$toko->address" ;?>  </b></h4></td>
@@ -73,21 +73,23 @@ echo "
 <?php 
 foreach ($produk->result() as $row_p) {
 $image = $this->model_nota->get_nota_product_image($row_p->id)->row();
+$images = base_url("html/images/comp/product.png");
+if(!empty($image->product_image)){
+	$images = base_url("assets/pic/invoice/product/".$image->product_image);
+}
 //$images = base_url()."html/images/comp/product.png";
-if (count($image) > 0 ) {
+/*if (count($image) > 0 ) {
 //if (file_exists(base_url()."assets/pic/invoice/product/".$image->product_image)) {
 		$images = base_url()."assets/pic/invoice/product/".$image->product_image;
 	}else{
 		$images = base_url()."html/images/comp/product.png";
 	//}
-} 
+}*/ 
 ?>
-
-
-
 <tr>
-  <td colspan="2" rowspan="5"><img src="<?php echo $images; ?>" width="50" height="50" ></td>
+  <td colspan="2" rowspan="5"><div align="left"><img src="<?php echo $images; ?>" width="100" height="100" align="middle" ></div></td>
   <td colspan="7"><h4 class='titmain'><b> <?php echo $row_p->product_name; ?></b></h4>  </td>
+
   <td width="128" rowspan="5">
     <?php 
 $varian = $this->model_nota->get_varian_product($row_p->id);
@@ -110,9 +112,8 @@ foreach ($varian->result() as $row_v) {
     
   </td>
   </tr>
-
 <tr>
-  <td colspan="7"><?php $satuan= $row_p->price_product /$total ; echo "Harga Satuan @Rp".number_format($satuan); ?></td>
+  <td colspan="7"><?php echo $row_p->product_sku_no; ?></td>
 </tr>
 
 <tr>
