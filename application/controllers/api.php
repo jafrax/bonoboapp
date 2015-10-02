@@ -4816,18 +4816,16 @@ class Api extends CI_Controller {
 						}
 					}
 				}else if($this->response->postDecode("courier_type") == "2"){
-					if(!empty($QShopLocation)){
-						$QCourierRate = $this->db
-								->where("courier_custom_id",$QCourier->id)
-								->where("location_to_province",$this->response->postDecode("province"))
-								->where("location_to_city",$this->response->postDecode("city"))
-								->where("location_to_kecamatan",$this->response->postDecode("kecamatan"))
-								->get("tb_courier_custom_rate")
-								->row();
+					$QCourierRate = $this->db
+							->where("courier_custom_id",$QCourier->id)
+							->where("location_to_province",$this->response->postDecode("province"))
+							->where("location_to_city",$this->response->postDecode("city"))
+							->where("location_to_kecamatan",$this->response->postDecode("kecamatan"))
+							->get("tb_courier_custom_rate")
+							->row();
 
-						if(!empty($QCourierRate)){
-							$shipment_rate = $QCourierRate->price;
-						}
+					if(!empty($QCourierRate)){
+						$shipment_rate = $QCourierRate->price;
 					}
 				}else{
 					$shipment_rate = 0;
@@ -5392,59 +5390,65 @@ class Api extends CI_Controller {
 				return;
 			}
 			
-			if($this->response->post("courier") == "" || $this->response->postDecode("courier") == ""){
-				$this->response->send(array("result"=>0,"message"=>"Tidak ada kurir yang dipilih","messageCode"=>3), true);
-				return;
-			}
-			
-			$QCourier = $this->db->where("name",$this->response->postDecode("courier"))->get("ms_courier")->row();
-			if(empty($QCourier)){
-				$this->response->send(array("result"=>0,"message"=>"Kurir yang dipilih tidak ditemukan.","messageCode"=>4), true);
-				return;
-			}
-			
 			if($this->response->post("shop") == "" || $this->response->postDecode("shop") == ""){
-				$this->response->send(array("result"=>0,"message"=>"Tidak ada toko yang dipilih","messageCode"=>5), true);
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada toko yang dipilih","messageCode"=>3), true);
 				return;
 			}
 			
 			$QShop = $this->db->where("id",$this->response->postDecode("shop"))->get("tb_toko")->row();
 			if(empty($QShop)){
-				$this->response->send(array("result"=>0,"message"=>"Toko yang dipilih tidak ditemukan","messageCode"=>6), true);
-				return;
-			}
-			
-			if(empty($QShop->location_id)){
-				$this->response->send(array("result"=>0,"message"=>"Tidak dapat menemukan biaya pengiriman untuk toko ini","messageCode"=>7), true);
-				return;
-			}
-			
-			$ShopLocation = $this->db
-						->where("id",$QShop->location_id)
-						->get("ms_location")
-						->row();
-			
-			if(empty($ShopLocation)){
-				$this->response->send(array("result"=>0,"message"=>"Tidak dapat menemukan biaya pengiriman untuk toko ini","messageCode"=>8), true);
+				$this->response->send(array("result"=>0,"message"=>"Toko yang dipilih tidak ditemukan","messageCode"=>4), true);
 				return;
 			}
 			
 			if($this->response->post("province") == "" || $this->response->postDecode("province") == ""){
-				$this->response->send(array("result"=>0,"message"=>"Tidak ada product yang dipilih","messageCode"=>9), true);
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada propinsi yang dipilih","messageCode"=>5), true);
 				return;
 			}
 			
 			if($this->response->post("city") == "" || $this->response->postDecode("city") == ""){
-				$this->response->send(array("result"=>0,"message"=>"Tidak ada product yang dipilih","messageCode"=>10), true);
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada kota yang dipilih","messageCode"=>6), true);
 				return;
 			}
 			
 			if($this->response->post("kecamatan") == "" || $this->response->postDecode("kecamatan") == ""){
-				$this->response->send(array("result"=>0,"message"=>"Tidak ada product yang dipilih","messageCode"=>11), true);
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada kecamatan yang dipilih","messageCode"=>7), true);
 				return;
 			}
 			
-			$QRate = $this->db
+			if($this->response->post("courier_type") == "" || $this->response->postDecode("courier_type") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada tipe kurir yang dipilih","messageCode"=>8), true);
+				return;
+			}
+			
+			if($this->response->postDecode("courier_type") == 1){
+				if($this->response->post("courier") == "" || $this->response->postDecode("courier") == ""){
+					$this->response->send(array("result"=>0,"message"=>"Tidak ada kurir yang dipilih","messageCode"=>9), true);
+					return;
+				}
+			
+				if(empty($QShop->location_id)){
+					$this->response->send(array("result"=>0,"message"=>"Tidak dapat menemukan lokasi toko","messageCode"=>10), true);
+					return;
+				}
+				
+				$ShopLocation = $this->db
+							->where("id",$QShop->location_id)
+							->get("ms_location")
+							->row();
+				
+				if(empty($ShopLocation)){
+					$this->response->send(array("result"=>0,"message"=>"Tidak dapat menemukan lokasi toko","messageCode"=>11), true);
+					return;
+				}
+			
+				$QCourier = $this->db->where("name",$this->response->postDecode("courier"))->get("ms_courier")->row();
+				if(empty($QCourier)){
+					$this->response->send(array("result"=>0,"message"=>"Kurir yang dipilih tidak ditemukan.","messageCode"=>12), true);
+					return;
+				}
+				
+				$QRate = $this->db
 				->where("courier_id",$QCourier->id)
 				->where("location_from_province",$ShopLocation->province)
 				->where("location_from_city",$ShopLocation->city)
@@ -5455,12 +5459,38 @@ class Api extends CI_Controller {
 				->get("tb_courier_rate")
 				->row();
 				
-			if(!empty($QRate)){
-				$this->response->send(array("result"=>1,"price"=>$QRate->price,"messageCode"=>12), true);
+				if(!empty($QRate)){
+					$this->response->send(array("result"=>1,"price"=>$QRate->price,"messageCode"=>13), true);
+				}else{
+					$this->response->send(array("result"=>0,"message"=>"Tidak dapat menemukan biaya pengiriman untuk toko ini","messageCode"=>14), true);
+				}
+			}else if($this->response->postDecode("courier_type") == 2){
+				if($this->response->post("courier_custom") == "" || $this->response->postDecode("courier_custom") == ""){
+					$this->response->send(array("result"=>0,"message"=>"Tidak ada kurir yang dipilih","messageCode"=>9), true);
+					return;
+				}
+				$QCourier = $this->db->where("name",$this->response->postDecode("courier_custom"))->where("toko_id",$QShop->id)->get("tb_courier_custom")->row();
+				if(empty($QCourier)){
+					$this->response->send(array("result"=>0,"message"=>" : Kurir yang dipilih tidak ditemukan.","messageCode"=>15), true);
+					return;
+				}
+				
+				$QRate = $this->db
+				->where("courier_custom_id",$QCourier->id)
+				->where("location_to_province",$this->response->postDecode("province"))
+				->where("location_to_city",$this->response->postDecode("city"))
+				->where("location_to_kecamatan",$this->response->postDecode("kecamatan"))
+				->get("tb_courier_custom_rate")
+				->row();
+				
+				if(!empty($QRate)){
+					$this->response->send(array("result"=>1,"price"=>$QRate->price,"messageCode"=>16), true);
+				}else{
+					$this->response->send(array("result"=>0,"message"=>"Tidak dapat menemukan biaya pengiriman untuk toko ini","messageCode"=>17), true);
+				}
 			}else{
-				$this->response->send(array("result"=>0,"message"=>"Tidak dapat menemukan biaya pengiriman untuk toko ini","messageCode"=>13), true);
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada biaya pengiriman","messageCode"=>17), true);
 			}
-		
 		} catch (Exception $e) {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
