@@ -49,10 +49,11 @@ function CtrlMessage(){
 	}
 	
 	function popupDelete(e,n){
-		//messageDeleteID.value = e;
+		messageDeleteID.value = e;
 		//var str = n; 
-    	var res = n.replace(/+/g, " ");
-		messageDeleteName.innerHTML = res;
+    //var res = n.replace(/+/g, " ");
+		messageDeleteName.innerHTML = n.replace(/\+/gi, " ");
+		//str.replace(/blue/gi, "red")
 	}
 	
 	function showNewMessage(){

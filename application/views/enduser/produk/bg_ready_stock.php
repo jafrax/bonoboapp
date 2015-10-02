@@ -132,10 +132,12 @@ echo"
 									echo"	
 									</div>
 									<div class='col s12 m8 l9'>
-										<p class='titleproduct'><a href='".base_url()."produk/edit/".base64_encode($row->id)."'><b >".$karakter."</b></a>";
-										if($row->sku_no != 'null'){
+										<p class='titleproduct'><a href='".base_url()."produk/edit/".base64_encode($row->id)."'><b >".$karakter."</b></a> ";
+										if($row->sku_no!= null){
 											echo "<label for='stok'> (Kode barang : ".$row->sku_no.")</label>";
-										}	
+										}	else{
+											echo "<label for='stok'> </label>";
+										}
 										echo "</p>
 										</p>";
 										if ($row->stock_type_detail == 0) {

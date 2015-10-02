@@ -175,9 +175,15 @@ class Toko extends CI_Controller {
 				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',5)->update('tb_toko');
 			}
 			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
-			redirect("toko/step5", 'refresh');
+			//redirect("toko/step5", 'refresh');
 		//	redirect('same_controller/method', 'refresh');
-			$this->response->send(array("result"=>0,"message"=>"Data berhasil disimpan","messageCode"=>1));
+
+			if($Save){
+				$this->response->send(array("result"=>1,"message"=>"Data berhasil disimpan","messageCode"=>1));
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Data tidak berhasil disimpan","messageCode"=>1));
+			}
+			
 	
 		
 		}

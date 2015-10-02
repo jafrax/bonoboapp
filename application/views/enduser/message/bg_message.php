@@ -73,7 +73,7 @@ echo"
 										<p><b class='userangoota'>".$Message->qmember_name."</b></p>															
 										<p>".$this->template->limitChar($MessageLast->message,50)." </p>
 										".$MessageStatus."
-										<a href='#popupDelete' onclick=ctrlMessage.popupDelete(".$Message->member_id.",'".$Message->qmember_name."'); class='modal-trigger btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
+										<a href='#popupDelete' onclick=ctrlMessage.popupDelete(".$Message->member_id.",'".urlencode($Message->qmember_name)."'); class='modal-trigger btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
 									</div>
 								</li>
 							";

@@ -414,7 +414,7 @@ function CtrlShopStep4(){
 				if(response.result == 0){
 					 Materialize.toast(response.message, 4000);
 				}else{
-					window.location.href = base_url+'toko/step5';  
+					top.location.href = base_url+'toko/step5';  
 				} 
 				
 			}
