@@ -44,7 +44,13 @@ if ($produk->num_rows() == 0) {
 									</div>
 
 									<div class='col s12 m8 l9'>
-										<p class='titleproduct'><a href='".base_url()."produk/edit_pre_order/".base64_encode($row->id)."'><b >".$row->name."</b></a></p>
+										<p class='titleproduct'><a href='".base_url()."produk/edit_pre_order/".base64_encode($row->id)."'><b >".$row->name."</b></a>  ";  
+											if($row->sku_no != null){
+																echo "<label for='stok'>(Kode Barang : ".$row->sku_no.")</label>";
+																}else{
+											echo "<label for='stok'> </label>";
+										}
+										echo"</p>
 										</p>";
 											//if ($row->stock_type_detail == 1) {
 											$stok =  $this->model_produk->get_varian_produk($row->id);

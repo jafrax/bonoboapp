@@ -7,7 +7,7 @@ function CtrlShopStep1(){
 	var formStep1,formStep1JQuery;
 	var intAttributeCount;
 	var divCity, divKecamatan, divAttributes;
-	var imgShopLogo, txtShopLogoFile, aShopLogoDelete;
+	var imgShopLogo, gambar_default, txtShopLogoFile, aShopLogoDelete;
 	var btnNext, btnSave;
 	var aAttributeAdd,txtPostal;
 	
@@ -26,6 +26,7 @@ function CtrlShopStep1(){
 		divAttributes = $("#divAttributes");
 		
 		imgShopLogo = $hs("imgShopLogo");
+		gambar_default = $hs("gambar_default");
 		txtShopLogoFile = $hs("txtShopLogoFile");
 		intAttributeCount = $hs("intAttributeCount");
 		
@@ -361,6 +362,7 @@ function CtrlShopStep1(){
 	
 	function doImageDelete(){
 		imgShopLogo.src = base_url+"assets/image/img_default_photo.jpg";
+		gambar_default.value = 1;
 	}
 }
 function CtrlShopStep4(){
@@ -412,7 +414,7 @@ function CtrlShopStep4(){
 				if(response.result == 0){
 					 Materialize.toast(response.message, 4000);
 				}else{
-					window.location.href = base_url+'toko/step5';  
+					top.location.href = base_url+'toko/step5';  
 				} 
 				
 			}

@@ -50,7 +50,10 @@ function CtrlMessage(){
 	
 	function popupDelete(e,n){
 		messageDeleteID.value = e;
-		messageDeleteName.innerHTML = "'"+n.replace("+"," ")+"'";
+		//var str = n; 
+    //var res = n.replace(/+/g, " ");
+		messageDeleteName.innerHTML = n.replace(/\+/gi, " ");
+		//str.replace(/blue/gi, "red")
 	}
 	
 	function showNewMessage(){

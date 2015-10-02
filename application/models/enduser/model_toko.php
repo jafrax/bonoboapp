@@ -31,6 +31,11 @@ class Model_toko extends CI_Model {
 						->get("tb_toko tt");
 	}
 	
+	public function get_image_by_id($id){
+		return $this->db->select('tt.image')
+						->where('tt.id',$id)
+						->get('tb_toko tt');
+	}
 	
 	public function get_by_id($id){
 		return $this->db->select('tt.*, mc.name as category_name, ml.kecamatan as location_kecamatan, ml.city as location_city, ml.province as location_province')

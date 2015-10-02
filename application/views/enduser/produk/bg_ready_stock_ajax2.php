@@ -15,6 +15,9 @@ if ($produk->num_rows() == 0) {
 							foreach ($produk->result() as $row) {
 								$a++;
 								$image = $this->model_produk->get_one_image($row->id)->row();
+								//menghilangkan karakter Â
+								$sunting = "Sunting Produk »";
+								$clean = str_replace(chr(194)," ",$sunting);
 								echo "
 								<div class='card col s12 m4 l3 nolpad produk-".$row->id."' >
 									<p class='checkiniabs'>
@@ -31,9 +34,10 @@ if ($produk->num_rows() == 0) {
 									echo"										
 									</div>
 									<div class='card-content'>
-										<div class='card-title activator grey-text text-darken-4 small-text'><b>".$row->name."</b> <i class='mdi-navigation-more-vert right'></i></div>
-										<p><a class='small-text' href='".base_url()."produk/edit/".base64_encode($row->id)."'>Sunting Produk »</a></p>
+										<div class='card-title activator grey-text text-darken-4  small-text'><b>".$row->name."</b><i class='mdi-navigation-more-vert right'></i></div>
+										<p><a class='small-text' href='".base_url()."produk/edit/".base64_encode($row->id)."'>".$clean."</a></p>
 									</div>
+					
 									<div class='card-reveal nolpad'>
 										<span class='card-title grey-text text-darken-4'><i class='mdi-navigation-close right'></i></span>
 										<p>

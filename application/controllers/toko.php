@@ -175,11 +175,16 @@ class Toko extends CI_Controller {
 				$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',5)->update('tb_toko');
 			}
 			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
-			if($Save){   
-			$this->response->send(array("result"=>0,"message"=>"Data berhasil disimpan","messageCode"=>1));
-	redirect("toko/step5");
-		}
+			//redirect("toko/step5", 'refresh');
+		//	redirect('same_controller/method', 'refresh');
+
+			if($Save){
+				$this->response->send(array("result"=>1,"message"=>"Data berhasil disimpan","messageCode"=>1));
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Data tidak berhasil disimpan","messageCode"=>1));
+			}
 			
+	
 		
 		}
 	}
@@ -426,6 +431,8 @@ class Toko extends CI_Controller {
 		$kecamatan = $this->response->post("cmbKecamatan");
 		$city = $this->response->post("cmbCity");
 		$province = $this->response->post("cmbProvince");
+
+		$gambar_default = $this->response->post("gambar_default");
 		
 		$QLocation = $this->model_location->get_by_filter($postal,$kecamatan,$city,$province)->row();
 		if(!empty($QLocation)){
@@ -458,6 +465,7 @@ class Toko extends CI_Controller {
 				$_SESSION['bonobo']['image'] = $Unggah;
 			}
 			
+			//if()
 			
 			$Data = array(
 				"name"=>$this->response->post("txtName"),
@@ -471,7 +479,19 @@ class Toko extends CI_Controller {
 				"category_id"=>$Category,
 				"location_id"=>$Location,
 			);
-		}else{
+	//	}elseif($gambar_default!=null){
+			
+		}
+		else
+		{
+			//if($gambar_default==1){
+				
+				//unlink('9ce7404d746b69ec73a8ea07fc07af63.jpg');
+			//	redirect('toko/step7');
+		//	}else{
+
+		//	}
+		//	
 			$Data = array(
 				"name"=>$this->response->post("txtName"),
 				"tag_name"=>$this->response->post("txtTagname"),
@@ -483,6 +503,7 @@ class Toko extends CI_Controller {
 				"category_id"=>$Category,
 				"location_id"=>$Location,
 			);
+
 		}
 		$step=$_SESSION['bonobo']['step'];
 		if($step != 0){
