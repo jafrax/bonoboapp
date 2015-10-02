@@ -42,6 +42,8 @@ echo "
 												<div class='col s12 m7 l6'>
 													<p class=' blue-grey-text lighten-3 right small-text'>$ago</p>
 													<p><a href='".base_url()."preorder/detail/".base64_encode($row->id)."/".base64_encode($row->name)."' ><b class='userangoota'>".$row->name."</b></a></p>				
+													<b class='userangoota'>Kode Barang : ".$row->sku_no."</b>
+													<br>
 													<br>
 													<span class='red-text' id='counter-".$row->id."'> $jmlPreOrder Lusin Pre Order</span>	
 													<br>
