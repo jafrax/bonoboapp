@@ -331,8 +331,6 @@ function change_date_to(){
 	  });
 	}
 
-
-
 function set_location(){
     var postal = $('#postal-code').val();
     if (postal.length == 5) {        
@@ -515,8 +513,29 @@ function delete_nota2(id){
         } 
     });
 }
+function batal_nota2(id){
+    //id=idbatal;
+   // $('#btn-batal-'+id).html('loading...');
+    //$('#btn-batal-'+id).fadeTo('slow',0.5);
+    var cek = 0;
+    if ($('#batal-cek-'+id).is(':checked')) {
+        cek = 1;
+    };
+    
+    $.ajax({
+        type: 'POST',
+        data: 'id='+id+'&cek='+cek,
+        url: base_url+'nota/nota_batal2',
+        success: function(msg) {
+            if (msg == 1) {             
+                location.reload();
+                Materialize.toast('Nota telah dihapus', 4000);
+                
+            };              
+        } 
+    });
 
-
+}
 
 
 

@@ -19,7 +19,7 @@ echo "
 									<h6 class='hide-on-med-and-up'><br></h6>	
 									<div id='batal_nota_".$nota->id."' class='modal confirmation'>
 										<div class='modal-header red'>
-											<i class='mdi-navigation-close left'></i> Hapus produk
+											<i class='mdi-navigation-close left'></i> Batalkan Pesanan
 										</div>
 										<form class='modal-content'>
 											<p>Apakah Anda yakin ingin membatalkan pesanan?</p>
@@ -27,8 +27,9 @@ echo "
       												<label for='batal-cek-".$nota->id."'>Kembalikan stok?</label></p>
 										</form>
 										<div class='modal-footer'>
+										<button type='button' onclick=javascript:batal_nota2(".$nota->id.") class='btn-flat modal-action modal-close waves-effect '>YA</button>
 											<a class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
-											<button type='button' onclick=javascript:batal_nota(".$nota->id.") class='btn-flat modal-action modal-close waves-effect '>YA</button>
+											
 										</div>
 									</div>
 													
@@ -158,9 +159,10 @@ echo "
 														$total = $row_v->quantity * $row_p->price_unit;
 														if ($row_v->varian_name == 'null') {
 															echo "	<dt style='text-align:left'><b>Jumlah : </b></dt>
-							                						<dd>".$row_v->quantity."</dd>";
+							                						<dd>".$row_v->quantity."
+							                						".$row_p->product_unit."</dd>";
 														}else{
-															echo "	<dt style='text-align:left'><b>".$row_v->varian_name."</b><span class='grey-text'> x ".$row_v->quantity."</span></dt>
+															echo "	<dt style='text-align:left'><b>".$row_v->varian_name."</b><span class='grey-text'> x ".$row_v->quantity." ".$row_p->product_unit."</span></dt>
 							                						<dd>= Rp. ".number_format($total, 0 , ',' , '.')."</dd>";															
 														}
 													}

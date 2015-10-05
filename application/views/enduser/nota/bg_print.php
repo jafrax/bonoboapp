@@ -6,13 +6,16 @@ echo "
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'/>
 <title>Bonobo</title>
 </head>
-<body class='cbp-spmenu-push cbp-spmenu-push-toleft'>
-";
+<body class='cbp-spmenu-push cbp-spmenu-push-toleft'>";
+$image_toko = base_url("html/images/comp/product.png");
+if(!empty($_SESSION['bonobo']['image']) && @getimagesize(base_url()."assets/pic/shop/".$_SESSION['bonobo']['image'])){
+	$image_toko = base_url()."assets/pic/shop/".$_SESSION['bonobo']['image']	;
+}
 ?>
 
 <table width="100%" border=1 cellspacing="0" >
 <tr>
- <td  align="left" colspan="10" ><img src="<?php echo base_url()."assets/pic/shop/".$_SESSION['bonobo']['image']; ?>" width="50" height="50" /></td>		
+ <td  align="left" colspan="10" ><img src="<?php echo $image_toko ?>" width="50" height="50" /></td>		
 </tr>
 <tr>
  <td  align="left" colspan="10" ><?php echo $_SESSION['bonobo']['name']; ?></td>		
@@ -42,7 +45,7 @@ echo "
 <tr>
 <td align="center" colspan="3"><h4 class='titmain'><b> <?php  echo "$toko->name" ;?>  </b></h4></td>
 <td align="center" colspan="2"></td>
-<td align="center" colspan="5"><h4 class='titmain'>&nbsp;<b> <?php echo "Nama Pemesan : " ?>  </b></h4></td>
+<td align="center" colspan="5"><h4 class='titmain'><b> <?php echo "Nama Pemesan : " ?>  </b></h4></td>
 </tr>
 <tr>
 <td align="center" colspan="3"><h4 class='titmain'><b> <?php  echo "$toko->address" ;?>  </b></h4></td>
@@ -74,8 +77,8 @@ echo "
 foreach ($produk->result() as $row_p) {
 $image = $this->model_nota->get_nota_product_image($row_p->id)->row();
 $images = base_url("html/images/comp/product.png");
-if(!empty($image->product_image)){
-	$images = base_url("assets/pic/invoice/product/".$image->product_image);
+if(!empty($image->product_image) && @getimagesize(base_url("assets/pic/invoice/product/".$image->product_image))){
+	$images = base_url("assets/pic/invoice/product/".$image->product_image)	;
 }
 //$images = base_url()."html/images/comp/product.png";
 /*if (count($image) > 0 ) {
@@ -83,13 +86,14 @@ if(!empty($image->product_image)){
 		$images = base_url()."assets/pic/invoice/product/".$image->product_image;
 	}else{
 		$images = base_url()."html/images/comp/product.png";
-	//}
-}*/ 
+	//}*/
 ?>
-<tr>
-  <td colspan="2" rowspan="5"><div align="left"><img src="<?php echo $images; ?>" width="100" height="100" align="middle" ></div></td>
-  <td colspan="7"><h4 class='titmain'><b> <?php echo $row_p->product_name; ?></b></h4>  </td>
 
+
+
+<tr>
+  <td colspan="2" rowspan="5"><img src="<?php echo $images; ?>" width="90" height="90" ></td>
+  <td colspan="7"><h4 class='titmain'><b> <?php echo $row_p->product_name; ?></b></h4>  </td>
   <td width="128" rowspan="5">
     <?php 
 $varian = $this->model_nota->get_varian_product($row_p->id);
@@ -101,7 +105,7 @@ foreach ($varian->result() as $row_v) {
 	?>
   <table  border="0">
     <tr>
-      <td><?  echo $row_v->varian_name; echo " = "; echo $row_v->quantity; ?></td>
+      <td><?  echo $row_v->varian_name; echo " = "; echo $row_v->quantity; echo $row_p->product_unit;?></td>
       </tr>
   </table>
   <?   }
@@ -112,12 +116,14 @@ foreach ($varian->result() as $row_v) {
     
   </td>
   </tr>
+
 <tr>
-  <td colspan="7"><?php echo $row_p->product_sku_no; ?></td>
+  <!-- <td colspan="7"><?php $satuan= $row_p->price_product /$total ; //echo "Harga Satuan @Rp".number_format($satuan); ?></td> -->
+	<td colspan="7"><?php echo "Harga Satuan @Rp".number_format($row_p->price_unit);?></td>
 </tr>
 
 <tr>
-  <td colspan="7"><?php echo "Total = ".$total; ?></td>
+  <td colspan="7"><?php echo "Total = ".$total ; ?><?php echo $row_p->product_unit ;?></td>
 </tr>
 
 <tr>
@@ -142,7 +148,7 @@ foreach ($varian->result() as $row_v) {
 
 <tr>
 <td colspan="2"><h4 class='titmain' ><b>Total Nota : </b></h4></td>
-<td width="87" align="right"><?php  echo number_format($nota->price_item) ;?></td>
+<td width="87" align="right"><?php  echo "Rp" .number_format($nota->price_item) ;?></td>
 <td colspan="7"></td>
 </tr>
 
@@ -166,7 +172,7 @@ if ($nota->invoice_seq_payment > 0) {
 </tr>
 <tr>
 <td colspan="2"><h4 class='titmain'><b>Total Transaksi :  </b></h4></td>
-<td align="right" ><?php echo number_format($nota->price_total); ?></td>
+<td align="right" ><?php echo "Rp" .number_format($nota->price_total); ?></td>
 <td colspan="7"></td>	
 </tr>
 <tr>
