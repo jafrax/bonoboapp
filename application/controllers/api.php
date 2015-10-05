@@ -771,6 +771,7 @@ class Api extends CI_Controller {
 				$InvoiceProduct = array(
 							"id"=>$QInvoiceProduct->id,
 							"price_product"=>$QInvoiceProduct->price_product,
+							"price_unit"=>$QInvoiceProduct->price_unit,
 							"product_name"=>$QInvoiceProduct->product_name,
 							"product_image"=>$InvoiceImageTumb,
 							"product_sku_no"=>$QInvoiceProduct->product_sku_no,
@@ -5325,6 +5326,7 @@ class Api extends CI_Controller {
 								$InvoiceProduct = array(
 									"id"=>$QInvoiceProduct->id,
 									"price_product"=>$QInvoiceProduct->price_product,
+									"price_unit"=>$QInvoiceProduct->price_unit,
 									"product_name"=>$QInvoiceProduct->product_name,
 									"product_image"=>$InvoiceImageHigh,
 									"product_sku_no"=>$QInvoiceProduct->product_sku_no,
