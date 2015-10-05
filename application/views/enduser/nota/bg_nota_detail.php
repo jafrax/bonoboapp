@@ -146,7 +146,7 @@ echo "
 											<div class='col s8 m8'>
 												<p class='blue-text'>".$row_p->product_name."</p>
 												<p class='cyan-text'>Kode Barang : ".$row_p->product_sku_no."</p>
-												<p><span class='blue-text'>@</span> Rp. ".number_format($row_p->price_product, 0 , ',' , '.')."</p>
+												<p><span class='blue-text'>@</span> Rp. ".number_format($row_p->price_unit, 0 , ',' , '.')."</p>
 												<p><dl class='dl-horizontal col s12 ' >
 	
 							                	
@@ -155,7 +155,7 @@ echo "
 												$varian = $this->model_nota->get_varian_product($row_p->id);
 												if ($varian->num_rows() > 0) {
 													foreach ($varian->result() as $row_v) {
-														$total = $row_v->quantity * $row_p->price_product;
+														$total = $row_v->quantity * $row_p->price_unit;
 														if ($row_v->varian_name == 'null') {
 															echo "	<dt style='text-align:left'><b>Jumlah : </b></dt>
 							                						<dd>".$row_v->quantity."</dd>";
