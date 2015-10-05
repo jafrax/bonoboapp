@@ -159,7 +159,7 @@ class Nota extends CI_Controller {
 		$id 	= $this->input->post('id');
 		$cek 	= $this->input->post('cek');
 
-		$cek_id	= $this->model_nota->get_nota_by_id_invoice($id);
+		$cek_id	= $this->model_nota->get_nota_by_id($id);
 
 		if ($cek_id->num_rows == 0) {
 			echo "0";
