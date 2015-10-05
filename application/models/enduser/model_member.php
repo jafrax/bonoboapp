@@ -71,6 +71,9 @@ class Model_member extends CI_Model {
 					->order_by("tji.id","DESC")
 					->get("tb_join_in tji");
 	}
+
+	
+
 	public function get_bl_by_id($id){
 		return $this->db
 					->select("ttb.*")

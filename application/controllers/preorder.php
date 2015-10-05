@@ -37,10 +37,12 @@ class Preorder extends CI_Controller {
         }
 		
         $data['produk'] = $this->model_preorder->get_product_preorder($limit,$offset);
+        $data['opset'] = $offset;
+        $data['limit']= $limit;
         
 		if ($this->input->post('ajax')) {
 			if ($data['produk']->num_rows() > 0){
-                $this->load->view('enduser/preorder/bg_preorder_ajax', $data);
+                $this->load->view('enduser/preorder/bg_preorder_ajax', $data,$offset);
             }
         } else {
             	$this->template->bonobo('preorder/bg_preorder', $data);

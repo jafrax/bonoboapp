@@ -165,7 +165,7 @@ echo "
 									$tersedia = 'none';
 									$guna_stok= 'block';
 								};
-
+								$jumlah = $this->model_produk->get_varian_produk($produk->id);
 								$varian_null = $this->model_produk->get_varian_produk_null($produk->id);
 								if ($varian_null->num_rows() > 0) {
 									$checked 	= '';
@@ -227,14 +227,17 @@ echo "
 										}
 									}
 									
+									$jum = $jumlah->num_rows();
 									$addVar = 'block';
-									if ($varian_null->num_rows() > 5) {
+									if ( $jum < 1) {
 										$addVar = 'none';
 									}
-									
+									 if($jum >= 5){
+										$addVar = 'none';
+									}
 									echo"
 								</ul>
-								<ul class='col s12 m12 cek-stok' style='display:$cek_stok'>								
+								<ul class='col s12 m12 cek-stok' style='display:$cek_stok'>							
 									<li class='input-field col s12 m12 nolmar'>
 										<a class='btn-flat left' id='add-varian' style='display:$addVar' onclick=javascript:addVarian()><b class='blue-text'><i class='mdi-content-add-box left'></i>TAMBAH VARIAN</b></a>
 									</li>

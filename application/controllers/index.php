@@ -73,6 +73,8 @@ class Index extends CI_Controller {
 					"status"=> 2,
 					"step"=>1,
 					"stock_adjust"=>1,
+					"invoice_seq_alphabet"=>'A',
+					"invoice_seq_no"=>1,
 					"dm_pick_up_store"=>1,
 					"create_date"=>date("Y-m-d H:i:s"),
 					"create_user"=>$email,

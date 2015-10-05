@@ -1011,10 +1011,11 @@ class Produk extends CI_Controller {
 	public function delete_kategori(){
 		$id = $this->input->post('id');
 		$produk = $this->model_produk->count_product_by_category($id);
-		if ($produk > 0) {
+		/*if ($produk > 0) {
+			
 			echo "Kategori masih memiliki produk";
 			return;
-		}
+		}*/
 		$delete = $this->db->where('id',$id)->delete('tb_toko_category_product');
 		if ($delete) {
 			echo "1";

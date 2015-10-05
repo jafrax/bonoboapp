@@ -20,7 +20,7 @@
 									
 										$ago 		= $this->template->xTimeAgoDesc($row->create_date,date('Y-m-d H:i:s'));
 										echo "
-										<li class='col s12 m6 l6 nolpad nolmar' id='li-".$row->id."'>
+										<li class='col s12 m6 l6 nolpad nolmar' id='li-".$row->id."'>  
 											<div class='listpesanpreorder'>
 												<div class='prordercrop col s12 m5 l4 nolpad'>";
 												if ($row->image) {

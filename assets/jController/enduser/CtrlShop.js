@@ -575,7 +575,7 @@ function CtrlShopStep7(){
 	}
 	
 	function doRateSave(){
-		if ($('#formStep5Rate').valid()) {
+		if ($('#formStep5Rate').valiformStep5Rated()) {
 			$.ajax({
 				type: 'POST',
 				data: $('#formStep5Rate').serialize()+"&customCourier="+txtCustomCourierId.value,
@@ -648,6 +648,7 @@ function CtrlShopStep7(){
 		}else{
 			$('#header-rate').html('Edit pengiriman');
 		}
+
 		$.ajax({
 			type: 'POST',
 			data: "id="+e,
@@ -660,13 +661,13 @@ function CtrlShopStep7(){
 				divKecamatan = $("#divKecamatan");
 				$('.selectize').selectize();
 				initComboBox();
+
 				$('#formStep5Rate').validate({
 					ignore: ":hidden:not(select)",
 					rules:{
 						txtRatePrice: {
 							maxlength:15,
-							//required: true,
-							
+							//required: true,							
 						},
 						cmbProvince: {
 							required: true,

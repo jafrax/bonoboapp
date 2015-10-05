@@ -68,15 +68,15 @@ echo "
 						<div class='row formbody'>
 							<p>
 								<h2 class='light title-faq '>Apa itu kode Aktivasi?</h2>
-									<p class='light'>Kode aktivasi merupakan kode yang diberikan oleh Admin Bonobo kepada setiap Pengguna (Toko) yang mendaftarkan akun di Bonobo.com.<br> Setiap kode ini bersifat unik dan hanya bisa digunakan 1 kali.</p><br>
+									<p class='light'>Kode aktivasi merupakan kode yang diberikan oleh Admin Bonobo kepada setiap Pengguna (Toko) yang mendaftarkan akun di Bonoboapp.com.<br> Setiap kode ini bersifat unik dan hanya bisa digunakan 1 kali.</p><br>
 
 									<h2 class='light title-faq '>Kegunaan kode aktivasi?</h2>
-									<p class='light'>Kode aktivasi digunakan untuk melakukan validasi atas akun Anda.<br> Tanpa kode aktivasi, Anda tidak dapat menggunakan fitur-fitur yang ada di Bonobo.com. </p><br>
+									<p class='light'>Kode aktivasi digunakan untuk melakukan validasi atas akun Anda.<br> Tanpa kode aktivasi, Anda tidak dapat menggunakan fitur-fitur yang ada di Bonoboapp.com. </p><br>
 
 									<h2 class='light title-faq '>Kapan saya harus memasukkan kode Aktivasi?</h2>
-									<p class='light'>- Saat Anda pertama kali mendaftarkan Akun Anda di Bonobo.com.<br> Di sini anda perlu memasukkan kode aktivasi untuk mem-validasi Akun Anda.</p>
+									<p class='light'>- Saat Anda pertama kali mendaftarkan Akun Anda di Bonoboapp.com.<br> Di sini anda perlu memasukkan kode aktivasi untuk mem-validasi Akun Anda.</p>
 									 
-									<p class='light'>- Saat akun Anda expired. Setiap akun di Bonobo.com memiliki masa berlaku tertentu. Anda bisa melihat sisa hari aktif akun Anda di menu profile.<br> Jika akun anda sudah expired, maka Anda perlu memasukkan kode aktivasi kembali untuk memperpanjang akun Anda.</p><br>
+									<p class='light'>- Saat akun Anda expired. Setiap akun di Bonoboapp.com memiliki masa berlaku tertentu. Anda bisa melihat sisa hari aktif akun Anda di menu profile.<br> Jika akun anda sudah expired, maka Anda perlu memasukkan kode aktivasi kembali untuk memperpanjang akun Anda.</p><br>
 
 									<h2 class='light title-faq '>Bagaimana saya mendapatkan kode Aktivasi?</h2>
 									<p class='light'>Dengan melakukan langkah mudah berikut:<br>
@@ -86,7 +86,7 @@ echo "
 									- Setelah Anda menyelesaikan langkah tersebut, kode aktivasi akan dikirimkan kepada Anda melalui email.</p><br>
 
 									<p class='light'>Saya masih memiliki pertanyaan lanjutan
-									Silakan kirimkan pertanyaan Anda ke <a href='mailto:cs@bonobo.com'>CS@bonobo.com.</a><br> Kami akan segera menjawab pertanyaan Anda.</p>
+									Silakan kirimkan pertanyaan Anda ke <a href='mailto:cs@bonoboapp.com'>CS@bonoboapp.com.</a><br> Kami akan segera menjawab pertanyaan Anda.</p>
 							</p>
 						</div>
 					</form>
