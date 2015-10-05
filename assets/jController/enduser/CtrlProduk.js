@@ -807,7 +807,8 @@ function delete_kategori(id){
             $('#kategori-'+id).fadeOut().remove();
             $('.modal-trigger').leanModal();            
           }else{
-            Materialize.toast('Gagal '+msg, 4000);   
+            
+           // Materialize.toast('Gagal '+msg, 4000);   
             $('.modal-trigger').leanModal();         
           };          
         }

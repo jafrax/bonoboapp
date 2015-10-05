@@ -44,12 +44,20 @@ class Model_produk extends CI_Model
 		return $this->db->where('product_id',$id)->get('tb_product_varian');	
 	}
 
+
+
 	function get_varian_produk_null($id){
 		return $this->db->where('product_id',$id)->where('name','null')->get('tb_product_varian');
 	}
 
 	function count_product_by_category($id){
 		return $this->db->where('toko_category_product_id',$id)->get('tb_product')->num_rows();
+	}
+
+	function delete_produk_by_category($id,$shop){
+		return $this->db->where('toko_category_product_id',$id)
+					//	->where('toko_id',$shop)
+						->delete('tb_toko_category_product');
 	}
 
 }

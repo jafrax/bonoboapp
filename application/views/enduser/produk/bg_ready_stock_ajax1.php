@@ -30,9 +30,9 @@ if ($produk->num_rows() == 0) {
 										}else{
 											echo "<img src='".base_url()."html/images/comp/product.png' class='responsive-img userimg'>";
 										}
-										if($row->sku_no != 'null'){
+										/*if($row->sku_no != 'null'){
 											echo "<center><label for='stok'>".$row->sku_no."</center></label>";
-										}
+										}*/
 									echo"	
 									</div>
 									<div class='col s12 m8 l9'>

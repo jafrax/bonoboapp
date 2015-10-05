@@ -913,7 +913,7 @@ class Toko extends CI_Controller {
         
 
 				if($txtLevel1 == ""){
-					$txtLevel1 ="Harga Umum";
+					$txtLevel1 ="ga Umum";
 				}
 
                 if($txtLevel2 == ""){

@@ -3,7 +3,7 @@ echo "
 				<div class='col s12 m12 l12'>
 					<div class='formain'>
 						<div class='formhead'>
-							<h2 class='titmain'><b>PEMESANAN PRE ORDER</b></h2>
+							<h2 class='titmain'><b>PEMESANAN PRE ORDER</b></h2> 
 						</div>
 						<div class='row formbody'>
 							<div class='col s12 m12'>
@@ -33,7 +33,7 @@ echo "
 											<div class='listpesanpreorder'>
 												<div class='prordercrop col s12 m6 l4 nolpad'>";
 												if ($row->image) {
-													echo "<img src='".base_url()."assets/pic/product/resize/".$row->image."' class='responsive-img'>";
+													echo "<img src='".base_url()."assets/pic/product/resize/".$row->image."' class='responsive-img'>"; 
 												}else{
 													echo "<img src='assets/image/img_default_logo.jpg' class='responsive-img'>";
 												}
