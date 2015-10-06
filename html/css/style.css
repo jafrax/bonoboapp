@@ -114,7 +114,8 @@ header,section,content,footer{ width:100%; }
 .menucontent li a:hover{ color:#039be5; }
 .menucontent li a.active{ color:#313131; font-weight:bold; }
 
-.menucontent .langkah{ padding:0px; }
+.menucontent .langkah{ padding:0px; border-bottom:0px; background-color:none; }
+.menucontent .langkah a{ padding:0px; }
 .menucontent .langkah .card-panel{ border-bottom:1px dotted #ccc; margin:0px; padding:0px 15px; line-height:50px; border-radius:0px; box-shadow:none; background-color: #edefed; }
 .menucontent .langkah.active .card-panel{ margin:0px; padding:0px 15px; line-height:50px; border-radius:0px;
 	-webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
