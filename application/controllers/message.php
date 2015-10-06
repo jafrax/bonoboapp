@@ -167,6 +167,27 @@ class Message extends CI_Controller {
 		$this->load->view("enduser/message/bg_message_contact",$data);
 	}
 	
+	public function getUpdateMessageDetail(){
+		if($this->response->post("member") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada kontak yang aktif","messageCode"=>1));
+			return;
+		}
+		
+		$QMessages = $this->db
+				->select("tm.*")
+				->join("tb_message tm","tm.id = ttm.message_id")
+				->where("ttm.member_id",$this->response->post("member"))
+				->where("flag_read",0)
+				->get("tb_toko_message ttm")
+				->result();
+		
+		if(sizeOf($QMessages) > 0){
+			$this->response->send(array("result"=>1,"messages"=>$QMessages));
+		}else{
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada pesan baru","messageCode"=>2));
+		}
+	}
+	
 	public function doDelete(){
 		if($this->response->post("id") == ""){
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada data yang dipilih","messageCode"=>1));
@@ -221,19 +242,6 @@ class Message extends CI_Controller {
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada pesan yang dikirim","messageCode"=>3));
 			return;
 		}
-		
-		
-		
-
-		//jangan dobel
-		/* $cek =$this->model_toko_message->cekmeseg($_SESSION["bonobo"]["id"],$this->response->post("id"),$this->response->post("message"),date('Y-m-d H:i'))->row();
-		 
-		 if(!empty($cek)){
-		 		$Save = $this->doMessageAdd($_SESSION["bonobo"]["id"],$this->response->post("id"),$this->response->post("message"));
-		 }else{
-		 	$this->response->send(array("result"=>0,"message"=>"Pesan gagal kirim ","messageCode"=>6));
-		 }
-		*/
 		
 		$Message = $this->doMessageAdd($_SESSION["bonobo"]["id"],$this->response->post("id"),$this->response->post("message"));
 		
