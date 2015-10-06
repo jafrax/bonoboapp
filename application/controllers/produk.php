@@ -39,8 +39,8 @@ class Produk extends CI_Controller {
 			redirect('produk/index/1');	
 		}
 
-		$data['produk'] 	= $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],1,$uri,$limit_pro,$offset_pro);
-		$data['total'] 		= $this->model_produk->get_produk_by_id($_SESSION['bonobo']['id'],1,$uri)->num_rows();
+		$data['produk'] 	= $this->model_produk->get_produk_ready_stock_by_id($_SESSION['bonobo']['id'],1,$uri,$limit_pro,$offset_pro);
+		$data['total'] 		= $this->model_produk->get_produk_ready_stock_by_id($_SESSION['bonobo']['id'],1,$uri)->num_rows();
 		$data['kategori']	= $this->model_produk->get_kategori($_SESSION['bonobo']['id']);
 
 		if ($this->input->post('ajax')) {
@@ -473,6 +473,9 @@ class Produk extends CI_Controller {
 
 	public function set_search(){
 		$_SESSION['keyword'] = $this->input->post('keyword');
+	}
+	public function set_search_ready_stock(){
+		$_SESSION['keyword_ready_stock'] = $this->input->post('keyword_ready_stock');
 	}
 
 

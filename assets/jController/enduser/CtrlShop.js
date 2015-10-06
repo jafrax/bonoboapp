@@ -586,8 +586,10 @@ function CtrlShopStep7(){
 					$('#divFormRate').closeModal();
 					if(response.result == 1){
 						initCustomeCourierTable(txtCustomCourierId.value);
+					//	Materialize.toast('Silahkan pilih file format gambar .jpg, .png'.result, 4000);
 					}else{
 						Materialize.toast(response.message, 4000);
+						//Materialize.toast('gagal !', 4000);
 					}
 				}
 			});

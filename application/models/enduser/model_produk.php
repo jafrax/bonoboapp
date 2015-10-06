@@ -28,6 +28,14 @@ class Model_produk extends CI_Model
 				$this->db->limit($limit,$offset);
 		return	$this->db->where('p.active',$active)->join('tb_toko_category_product c','c.id=p.toko_category_product_id')->order_by('p.id','DESC')->get('tb_product p');
 	}
+
+	function get_produk_ready_stock_by_id($id,$stok=1,$active=1,$limit=1000000,$offset=0){		
+		$this->db->select('p.id id,p.name name,p.unit unit,p.end_date end_date,p.stock_type stock_type,p.stock_type_detail stock_type_detail,p.active active,c.name kategori,p.sku_no sku_no')->where('c.toko_id',$id)->where('p.stock_type',$stok);
+				if (isset($_SESSION['keyword_ready_stock'])) {$this->db->where("(p.name like '%".$_SESSION['keyword_ready_stock']."%' OR sku_no like '%".$_SESSION['keyword_ready_stock']."%')",null, false);}
+				if (isset($_SESSION['filter_kategori'])) {$this->db->where('c.id',$_SESSION['filter_kategori']);}
+				$this->db->limit($limit,$offset);
+		return	$this->db->where('p.active',$active)->join('tb_toko_category_product c','c.id=p.toko_category_product_id')->order_by('p.id','DESC')->get('tb_product p');
+	}
 	
 
 	function get_one_produk($id){

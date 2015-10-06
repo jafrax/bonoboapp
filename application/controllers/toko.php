@@ -662,6 +662,8 @@ class Toko extends CI_Controller {
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Rate tidak dapat disimpan","messageCode"=>5));
 			}
+		}else{
+			$this->response->send(array("result"=>0,"message"=>"Alamat sudah ada !","messageCode"=>5));
 		}
 		}else{
 			$Data = array(
@@ -678,7 +680,7 @@ class Toko extends CI_Controller {
 				$this->response->send(array("result"=>1,"message"=>"Rate telah disimpan","messageCode"=>6));
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Rate tidak dapat disimpan","messageCode"=>7));
-			}
+			}								
 		}
 	}
 	
