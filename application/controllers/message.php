@@ -93,7 +93,8 @@ class Message extends CI_Controller {
 				$Save1 = $this->db->insert("tb_toko_message",$Data1);
 				$Save2 = $this->db->insert("tb_member_message",$Data2);
 				
-				return true;
+				
+				return $QMessage;
 			}else{
 				return false;
 			}
@@ -155,16 +156,43 @@ class Message extends CI_Controller {
 		}
 		$uri3   = $this->uri->segment(3);
 		
-		
 		if (empty($uri3)) {
 			$offset = $this->offset; 
 		}else{
 			$offset = $uri3; 
 			}
 			
-		$data["Messages"] = $this->model_toko_message->get_by_shop_grouping($_SESSION["bonobo"]["id"], $data["keyword"],100 ,$offset);
+		$data["Messages"] = $this->model_toko_message->get_by_shop_grouping_last_user($_SESSION["bonobo"]["id"], $data["keyword"], $this->response->post("lastUserID"), 5 ,$offset);
 		
 		$this->load->view("enduser/message/bg_message_contact",$data);
+	}
+	
+	public function getUpdateMessageDetail(){
+		if($this->response->post("member") == ""){
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada kontak yang aktif","messageCode"=>1));
+			return;
+		}
+		
+		$QMessages = $this->db
+				->select("tm.*,ttm.id as toko_message_id")
+				->join("tb_message tm","tm.id = ttm.message_id")
+				->where("ttm.member_id",$this->response->post("member"))
+				->where("ttm.flag_read",0)
+				->get("tb_toko_message ttm")
+				->result();
+		
+		if(sizeOf($QMessages) > 0){
+			foreach($QMessages as $QMessage){
+				$Data = array(
+						"flag_read"=>1,
+					);
+					
+				$Save = $this->db->where("id",$QMessage->toko_message_id)->update("tb_toko_message",$Data);
+			}
+			$this->response->send(array("result"=>1,"messages"=>$QMessages));
+		}else{
+			$this->response->send(array("result"=>0,"message"=>"Tidak ada pesan baru","messageCode"=>2));
+		}
 	}
 	
 	public function doDelete(){
@@ -222,23 +250,10 @@ class Message extends CI_Controller {
 			return;
 		}
 		
+		$Message = $this->doMessageAdd($_SESSION["bonobo"]["id"],$this->response->post("id"),$this->response->post("message"));
 		
-		
-
-		//jangan dobel
-		/* $cek =$this->model_toko_message->cekmeseg($_SESSION["bonobo"]["id"],$this->response->post("id"),$this->response->post("message"),date('Y-m-d H:i'))->row();
-		 
-		 if(!empty($cek)){
-		 		$Save = $this->doMessageAdd($_SESSION["bonobo"]["id"],$this->response->post("id"),$this->response->post("message"));
-		 }else{
-		 	$this->response->send(array("result"=>0,"message"=>"Pesan gagal kirim ","messageCode"=>6));
-		 }
-		*/
-		
-		$Save = $this->doMessageAdd($_SESSION["bonobo"]["id"],$this->response->post("id"),$this->response->post("message"));
-		
-		if($Save){
-			$this->response->send(array("result"=>1,"message"=>"Pesan telah dikirim","messageCode"=>4));
+		if($Message != false){
+			$this->response->send(array("result"=>1,"message"=>$Message,"messageCode"=>4));
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Pesan tidak dapat dikirim","messageCode"=>6));
 		}
