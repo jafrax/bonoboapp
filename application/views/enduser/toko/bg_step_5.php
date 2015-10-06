@@ -167,7 +167,7 @@ echo"
 		<div class='modal-header deep-orange' id='header-rate'>
 			<i class='material-icons left'>check</i> Tambah pengiriman
 		</div>
-		<div class='modal-content nolpad nolmar' id='divFormRateContent'>
+		<div class='modal-content' id='divFormRateContent'>
 		</div>
 		<div class='modal-footer'>
 			<button id='btnFormRateSave' class='btn-flat waves-effect waves-light' type='submit' name='action'>Simpan</button>

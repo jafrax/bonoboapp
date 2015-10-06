@@ -179,7 +179,7 @@ echo "
 									<li class='varsto nolmar' id='li_varian_1'>
 										<div class='input-field col s12 m5'>
 											<span for='varian'>Varian <span class='text-red'>*</span></span>
-											<input id='varian' name='nama_varian_1' type='text' maxlength='30' placeholder='Ex : Merah' class='validate' >
+											<input id='varian' name='nama_varian_1' type='text' maxlength='15' placeholder='Ex : Merah' class='validate' >
 										</div>
 										<div class='input-field col s11 m5 tersedia' style='display:none'>
 											<label >Stok : <span class='text-green'>selalu tersedia</span></label>

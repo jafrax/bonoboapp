@@ -147,7 +147,8 @@ $(document).ready(function() {
           deskripsi               : {maxlength:250},
           stok                    : {required: true,maxlength:50},
           stok_varian_1           : {required: true,maxlength:10},
-          nama_varian_1           : {required: true,maxlength:10},
+          nama_edit_varian_1      : {required: true,maxlength:15},
+          nama_varian_1           : {required: true,maxlength:15},
           harga_pembelian         : {digits: false,maxlength:11},
           harga_level_1           : {required: true,digits: false,maxlength:11},
           harga_level_2           : {digits: false,maxlength:11},
@@ -171,6 +172,9 @@ $(document).ready(function() {
           pic_5: {
                 filesize: message_alert('Terlalu besar, maksimal 1 MB'),
               },
+        //  berat: {
+       //         number: message_alert('Maksimal harga 999.999.999'),
+        //  },
           harga_pembelian: {
                 maxlength: message_alert('Maksimal harga 999.999.999'),
               },
@@ -234,6 +238,9 @@ $(document).ready(function() {
           pic_5: {
                 filesize: message_alert('Terlalu besar, maksimal 1 MB'),
               },
+       //   berat: {
+       //         number: message_alert('Maksimal harga 999.999.999'),
+       //   },
           harga_pembelian: {
                 maxlength: message_alert('Maksimal harga 999.999.999'),
               },
@@ -482,7 +489,7 @@ function boxVarianPr(id) {
   var stok      = $('#stokPr').val();
   if (stok == 1) {
       var varian = "<li class='varsto nolmar' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 '>"                      
-                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' maxlength='30' placeholder='Ex : Merah' class='validate'>"
+                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' maxlength='15' placeholder='Ex : Merah' class='validate'>"
                       +"<label for='varian'>Varian</label>"
                     +"</div>"
                       +"<div class='input-field col s1 m1' >"
@@ -491,7 +498,7 @@ function boxVarianPr(id) {
                     +"</li>";
    }else if (stok == 0) {
       var varian = "<li class='varsto nolmar' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 '>"                      
-                      +"<input id='varian' name='nama_varian_"+tot_varian+"' maxlength='30' type='text' placeholder='Ex : Merah' class='validate'>"
+                      +"<input id='varian' name='nama_varian_"+tot_varian+"' maxlength='15' type='text' placeholder='Ex : Merah' class='validate'>"
                       +"<label for='varian'>Varian</label>"
                     +"</div>"
                       +"<div class='input-field col s1 m1' >"
@@ -508,7 +515,7 @@ function boxVarian(id) {
   if (stok == 1) {
       var varian = "<li class='varsto nolmar' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 '>" 
                       +"<span for='varian'>Varian <span class='text-red'>*</span></span>"                     
-                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' maxlength='30' placeholder='Ex : Merah' class='validate'>"
+                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' maxlength='15' placeholder='Ex : Merah' class='validate'>"
                     +"</div>"
                     +"<div class='input-field col s11 m5 tersedia'>"
                         +"<label >Stok : <span class='text-green'>selalu tersedia</span></label>"
@@ -524,7 +531,7 @@ function boxVarian(id) {
    }else if (stok == 0) {
       var varian = "<li class='varsto nolmar' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 '>"                      
                       +"<span for='varian'>Varian <span class='text-red'>*</span></span>"
-                      +"<input id='varian' name='nama_varian_"+tot_varian+"' maxlength='30' type='text' placeholder='Ex : Merah' class='validate'>"
+                      +"<input id='varian' name='nama_varian_"+tot_varian+"' maxlength='15' type='text' placeholder='Ex : Merah' class='validate'>"
                     +"</div>"
                     +"<div class='input-field col s11 m5 tersedia' style='display:none'>"
                         +"<label >Stok : <span class='text-green'>selalu tersedia</span></label>"

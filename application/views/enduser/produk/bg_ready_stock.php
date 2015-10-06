@@ -138,7 +138,29 @@ echo"
 										}	else{
 											echo "<label for='stok'> </label>";
 										}
-										echo "</p>
+
+										if ($row->active == 0) {
+											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."'>DRAFT</button>";
+										}else{
+											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."' style='display:none;'>DRAFT</button>";
+										}
+											echo"
+											<a href='#delete_produk_".$row->id."' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
+											<div id='delete_produk_".$row->id."' class='modal confirmation'>
+												<div class='modal-header red'>
+													<i class='mdi-navigation-close left'></i> Hapus produk
+												</div>
+												<form class='modal-content'>
+													<p>Apakah anda yakin ingin menghapus <b>'".$row->name."'</b> ?</p>
+												</form>
+												<div class='modal-footer'>													
+													<button type='button' onclick=javascript:delete_produk(".$row->id.",\"$uri2\") class='btn-flat modal-action modal-close waves-effect '>YA</button>
+													<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
+												</div>
+											</div>
+										
+
+										</p>
 										</p>";
 										if ($row->stock_type_detail == 0) {
 											$stok =  $this->model_produk->get_varian_produk($row->id);
@@ -191,27 +213,6 @@ echo"
 										}
 										echo"
 
-										<div class='col s12 m12 l12 '>";
-										if ($row->active == 0) {
-											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."'>DRAFT</button>";
-										}else{
-											echo "<button class='waves-effect waves-light btn-flat grey lighten-2 disabled draft-".$row->id."' style='display:none;'>DRAFT</button>";
-										}
-											echo"
-											<a href='#delete_produk_".$row->id."' class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
-											<div id='delete_produk_".$row->id."' class='modal confirmation'>
-												<div class='modal-header red'>
-													<i class='mdi-navigation-close left'></i> Hapus produk
-												</div>
-												<form class='modal-content'>
-													<p>Apakah anda yakin ingin menghapus <b>'".$row->name."'</b> ?</p>
-												</form>
-												<div class='modal-footer'>													
-													<button type='button' onclick=javascript:delete_produk(".$row->id.",\"$uri2\") class='btn-flat modal-action modal-close waves-effect '>YA</button>
-													<a href='javascript:void(0)' class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
-												</div>
-											</div>
-										</div>
 									</div>
 								</li>";
 							}

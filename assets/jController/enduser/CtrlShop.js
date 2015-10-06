@@ -575,7 +575,7 @@ function CtrlShopStep7(){
 	}
 	
 	function doRateSave(){
-		if ($('#formStep5Rate').valiformStep5Rated()) {
+	//	if ($('#formStep5Rate').validformStep5Rated()) {
 			$.ajax({
 				type: 'POST',
 				data: $('#formStep5Rate').serialize()+"&customCourier="+txtCustomCourierId.value,
@@ -591,7 +591,7 @@ function CtrlShopStep7(){
 					}
 				}
 			});
-		};		
+		//};		
 	}
 	
 	function doRateDelete(e){
