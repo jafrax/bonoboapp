@@ -2,7 +2,7 @@
 
 echo"
 	<h4>".$Member->name."</h4>
-	<div class='content-pesan' onscroll=javascript:scrollme() style='max-height: 300px; overflow: auto;'>		
+	<div class='content-pesan' onscroll=javascript:ctrlMessageDetail.doScroll(); style='max-height: 300px; overflow: auto;'>		
 		<!-- <div class='row'><div class='pesanku'><img src='images/comp/male.png'><br>Keterangan Gambar</div></div> -->
 		<div id='loader-message' style='text-align:center;display:none'><img src='".base_url()."html/images/comp/loading.GIF' ></div>
 		<div id='habis' style='display:none;font-size:12px;text-align:center;margin:20px' class='green-text'><p >Pesan sudah ditempilkan semua</p></div>
@@ -29,7 +29,6 @@ foreach(array_reverse($Messages) as $Message){
 	}
 
 	if($Message->flag_from == 0){
-		
 		if($Message->title <> "" or $Message->image <> "" ){
 		echo "<div class='row'><div class='pesanku'><img src='".base_url()."assets/pic/product/resize/".$Message->image."' ><br>$Message->title <br><span class='deep-orange-text text-lighten-5' style='font-size:10px;text-align:right;'>$jam</span></div></div> ";
 		}
@@ -48,7 +47,7 @@ echo"</div>
 		<form id='formMessageDetail' class='col s12 '>
 			<div class='row'>
 				<div class='input-field col s12'>
-					<textarea id='txtMessage' name='txtMessage' class='materialize-textarea'></textarea>
+					<textarea id='txtMessage' name='txtMessage' class='materialize-textarea' style='max-height:200px!important;'></textarea>
 					<label for='txtMessage'>Balasan</label>
 				</div>
 				<div class='input-field col s12'>
@@ -60,43 +59,10 @@ echo"</div>
 		</form>
 	</div>	
 
-			<script>
+	<script>
 		var ctrlMessageDetail = new CtrlMessageDetail();
 		ctrlMessageDetail.init();
 		ctrlMessageDetail.setMember(".$Member->id.");
-		var offset=10;
-		var scrolling=false;
-		function scrollme () {
-		    if ($('.content-pesan').scrollTop() == 0 && scrolling==true) {
-		        $('#loader-message').slideDown();
-		        
-		        scrolling       = false;
-		        var total_nota  = $('#total-message').val();
-		        var member  	= $('#member').val();
-		        var url         = base_url+'message/ajax_message/'+offset;
-		        $.ajax({
-		            type: 'POST',
-		            data: 'ajax=1&member='+member,
-		            url: url,
-		            async: false,
-		            success: function(msg) {
-		                if (msg){
-		                    $('#message-ajax').prepend(msg);
-		                    $('#loader-message').slideUp();
-		                    offset      = offset+10;
-		                    $('.content-pesan').scrollTop(600);
-		                    scrolling   = true;                    
-		                    $('#total-message').val(total_nota+10);
-		                }else{
-		                    $('#loader-message').slideUp();
-		                    scrolling   = false;
-		                    $('#habis').slideDown();
-		                }
-		            }
-		        });
-		        return false;
-		    }
-		}
 	</script>
 ";
 

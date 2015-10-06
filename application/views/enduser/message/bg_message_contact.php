@@ -31,7 +31,9 @@ foreach($Messages->result() as $Message){
 	
 	echo"
 		<script>
-			ctrlMessage.setLastUserID('".$Message->qmember_id."');
+			$( document ).ready(function() {
+				ctrlMessage.setLastUserID('".$Message->qmember_id."');
+			});
 		</script>
 	";
 }

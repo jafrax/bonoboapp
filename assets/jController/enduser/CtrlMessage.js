@@ -231,6 +231,7 @@ function CtrlMessage(){
 function CtrlMessageDetail(){
 	this.init = init;
 	this.setMember = setMember;
+	this.doScroll = doScroll;
 	
 	var formMessageDetail;
 	var btnSend;
@@ -252,6 +253,42 @@ function CtrlMessageDetail(){
 		};
 	}
 	
+	function doScroll(){
+		var offset=10;
+		var scrolling=true;
+		
+		if ($('.content-pesan').scrollTop() == 0 && scrolling==true) {
+			$('#loader-message').slideDown();
+			
+			scrolling       = false;
+			var total_nota  = $('#total-message').val();
+			var member  	= $('#member').val();
+			var url         = base_url+'message/ajax_message/'+offset;
+			
+			$.ajax({
+				type: 'POST',
+				data: 'ajax=1&member='+member,
+				url: url,
+				async: false,
+				success: function(msg) {
+					if (msg){
+						$('#message-ajax').prepend(msg);
+						$('#loader-message').slideUp();
+						offset      = offset+10;
+						$('.content-pesan').scrollTop(50);
+						scrolling   = true;                    
+						$('#total-message').val(total_nota+10);
+					}else{
+						$('#loader-message').slideUp();
+						scrolling   = false;
+						$('#habis').slideDown();
+					}
+				}
+			});
+			return false;
+		}
+	}
+	
 	function doSend(){
 		if(formMessageDetail.txtMessage.value == ""){
 			Materialize.toast("Anda belum menulis pesan", 4000);			
@@ -265,8 +302,11 @@ function CtrlMessageDetail(){
 			success: function(result) {
 				var response = JSON.parse(result);
 				if(response.result == 1){
+					var date = new Date(response.message.create_date);
 					
-					ctrlMessage.showMessageDetail(member);
+					$("#message-ajax").append("<div class='row'><div class='pesanmu'>"+response.message.message+" <br><span class='deep-orange-text text-lighten-5' style='font-size:10px;text-align:right;'>"+date.getHours() + ":" + date.getMinutes()+"</span></div></div>");
+					formMessageDetail.txtMessage.value = "";
+					
 					ctrlMessage.showContactDetail(member);
 				}else{
 					Materialize.toast(response.message, 4000);

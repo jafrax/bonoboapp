@@ -93,7 +93,8 @@ class Message extends CI_Controller {
 				$Save1 = $this->db->insert("tb_toko_message",$Data1);
 				$Save2 = $this->db->insert("tb_member_message",$Data2);
 				
-				return true;
+				
+				return $QMessage;
 			}else{
 				return false;
 			}
@@ -234,10 +235,10 @@ class Message extends CI_Controller {
 		 }
 		*/
 		
-		$Save = $this->doMessageAdd($_SESSION["bonobo"]["id"],$this->response->post("id"),$this->response->post("message"));
+		$Message = $this->doMessageAdd($_SESSION["bonobo"]["id"],$this->response->post("id"),$this->response->post("message"));
 		
-		if($Save){
-			$this->response->send(array("result"=>1,"message"=>"Pesan telah dikirim","messageCode"=>4));
+		if($Message != false){
+			$this->response->send(array("result"=>1,"message"=>$Message,"messageCode"=>4));
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Pesan tidak dapat dikirim","messageCode"=>6));
 		}
