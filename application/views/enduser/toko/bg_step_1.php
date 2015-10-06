@@ -132,7 +132,7 @@ if(sizeOf($Attributes) <= 0){
 				<div class='col s12 m5'>
 					<input name='txtAttributeValue".$no."' maxlength='15' length='15' placeholder='081xxxxxxx' type='text' class='validate' value='".$Attribute->value."'>
 				</div>
-				<div class='col s12 m5'>
+				<div >
 					<a class='btn-floating btn-xs waves-effect waves-light red right' onclick=javascript:deletestep1(".$no.",".$Attribute->id.")>
 						<i class='mdi-navigation-close'></i>
 					</a>
