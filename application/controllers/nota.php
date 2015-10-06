@@ -136,8 +136,8 @@ class Nota extends CI_Controller {
 			echo "0";
 			return;
 		}
-		$cek= $this->model_nota->get_toko()->row();
-		if ($cek == 1) {
+		//$cek= $this->model_nota->get_toko()->row();
+		if ($cek = 1) {
 			
 			$produk = $this->model_nota->get_nota_product_by_id($id);				
 				foreach ($produk->result() as $row) {

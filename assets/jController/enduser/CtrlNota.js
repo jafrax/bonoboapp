@@ -94,7 +94,7 @@ function cek_all_nota(){
 }
 function batal_nota(){
 	id=idbatal;
-   // $('#btn-batal-'+id).html('loading...');
+    //$('#btn-batal-'+id).html('loading...');
     //$('#btn-batal-'+id).fadeTo('slow',0.5);
     var cek = 0;
     if ($('#batal-cek-'+id).is(':checked')) {
@@ -108,7 +108,7 @@ function batal_nota(){
         success: function(msg) {
             if (msg == 1) {             
             	location.reload();
-                Materialize.toast('Nota telah dihapus', 4000);
+                Materialize.toast('Nota telah dibatalkan', 4000);
                 
             };              
         } 

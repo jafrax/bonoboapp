@@ -9,7 +9,7 @@ class Model_preorder extends CI_Model
 	}
 
 	function get_product_preorder($limit=1000000,$offset=0){
-		return $this->db->select('p.sku_no sku_no,p.name name,p.id id,i.file image,p.create_date create_date')
+		return $this->db->select('p.sku_no sku_no,p.unit unit, p.name name,p.id id,i.file image,p.create_date create_date')
 						->limit($limit,$offset)
 						->where('c.toko_id',$_SESSION['bonobo']['id'])
 						->where('stock_type',0)

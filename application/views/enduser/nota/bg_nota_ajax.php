@@ -46,7 +46,7 @@
 												</form>
 												<div class='modal-footer'>
 													<!-- <p id=proses > -->
-													<p> <button type=button onclick=javascript:batal_nota() class=btn-flat modal-action modal-close waves-effect >YA</button></p>
+													<p> <button type=button onclick=javascript:batal_nota() class='btn-flat modal-action modal-close waves-effect' >YA</button></p>
 													<a class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
 												</div>
 											</div>

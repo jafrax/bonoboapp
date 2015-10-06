@@ -45,9 +45,9 @@ echo "
 													<b class='userangoota'>Kode Barang : ".$row->sku_no."</b>
 													<br>
 													<br>
-													<span class='red-text' id='counter-".$row->id."'> $jmlPreOrder Lusin Pre Order</span>	
+													<span class='red-text' id='counter-".$row->id."'> $jmlPreOrder /".$row->unit." Pre Order</span>	
 													<br>
-													<span class='blue-text' id='counter-".$row->id."'> $jmlLunas Lusin Lunas</span>
+													<span class='blue-text' id='counter-".$row->id."'> $jmlLunas /".$row->unit." Lunas</span>
 																										
 												</div>
 												<div class='col s12'>
