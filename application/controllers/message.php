@@ -155,14 +155,13 @@ class Message extends CI_Controller {
 		}
 		$uri3   = $this->uri->segment(3);
 		
-		
 		if (empty($uri3)) {
 			$offset = $this->offset; 
 		}else{
 			$offset = $uri3; 
 			}
 			
-		$data["Messages"] = $this->model_toko_message->get_by_shop_grouping($_SESSION["bonobo"]["id"], $data["keyword"],100 ,$offset);
+		$data["Messages"] = $this->model_toko_message->get_by_shop_grouping_last_user($_SESSION["bonobo"]["id"], $data["keyword"], $this->response->post("lastUserID"), 5 ,$offset);
 		
 		$this->load->view("enduser/message/bg_message_contact",$data);
 	}
