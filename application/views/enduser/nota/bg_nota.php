@@ -85,7 +85,7 @@ echo"
 								</div>
 								<div class='input-field col s8 m8 l3 nolpad'>									
 									<i class='mdi-action-search prefix'></i>
-									<input type='text' class='validate' id='keyword_nota'>
+									<input type='text' class='validate' id='keyword_nota' value='"; if (isset($_SESSION['keyword'])) {echo $_SESSION['keyword'];} echo"'>
 									<label for='keyword_nota'>Cari</label>
 								</div>
 								<div class='input-field col s4 m4 l2 nolpad'>

@@ -42,8 +42,8 @@ class Nota extends CI_Controller {
         	unset($_SESSION['tipe_bayar']);
 			unset($_SESSION['tipe_stok']);
 			unset($_SESSION['flagger']);
-			unset($_SESSION['search']);
-			unset($_SESSION['keyword']);
+			//unset($_SESSION['search']);
+			//unset($_SESSION['keyword']);
         	$offset = $this->offset;
         }else{
             $offset = $page;
@@ -136,7 +136,8 @@ class Nota extends CI_Controller {
 			echo "0";
 			return;
 		}
-		if ($cek == 1) {
+		$cek= $this->model_nota->get_toko()->row();
+		if ($cek -> stock_adjust == 1) {
 			
 			$produk = $this->model_nota->get_nota_product_by_id($id);				
 				foreach ($produk->result() as $row) {
