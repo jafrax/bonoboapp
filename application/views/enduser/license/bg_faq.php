@@ -96,15 +96,17 @@ echo "
 		</div>
 	</div>
 </content>
-<footer class='page-footer grey darken-3'>
-
+<footer class='page-footer grey darken-3 nolmar nolpad'>
+		
 	<div class='footer-copyright grey darken-4'>
-		<div class='container'> 2015 Bonobo
-			<a class='grey-text text-lighten-4 right' href='javascript:void(0)'>Tentang Kami</a>
-			<a class='grey-text text-lighten-4 right' href='".base_url('index/pp')."'>Kebijakan privasi</a>
-			<a class='grey-text text-lighten-4 right' href='".base_url('index/tos')."'>Syarat dan ketentuan</a>
-		</div>
+		<div class='containermain'>
+			<a class='grey-text text-lighten-3' href='javascript:void(0)'>Tentang Kami</a>
+			<a class='grey-text text-lighten-3' href='".base_url('index/pp')."'>Kebijakan privasi</a>
+			<a class='grey-text text-lighten-3' href='".base_url('index/tos')."'>Syarat dan ketentuan</a>
+			<a href='http://www.bonoboapp.com' align='center'>&copy 2015 Bonobo, Inc. All rights reserved.</a>
+		</div>		
 	</div>
+
 </footer>
 
 <script type='text/javascript' src='".base_url()."html/js/jquery-2.1.4.min.js'></script>

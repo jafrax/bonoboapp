@@ -3,7 +3,7 @@
 echo"
 	<div class='col s12 m12 l3'>
 		<ul class='menucontent'>
-			<li><a href='".base_url("anggota")."'>ANGGOTA BARU</a> <span class='new badge'>".$countNewMember."</span></li>
+			<li><a href='".base_url("anggota")."'>ANGGOTA BARU <span class='new badge'>".$countNewMember."</span></a></li>
 			<li><a href='".base_url("anggota/invite")."'>KIRIM UNDANGAN</a></li>
 			<li><a href='".base_url("anggota/members")."' class='active'>DAFTAR ANGGOTA</a></li>
 			<li><a href='".base_url("anggota/blacklist")."'>BLACKLIST</a></li>

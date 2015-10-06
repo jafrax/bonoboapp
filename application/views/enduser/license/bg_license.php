@@ -27,9 +27,15 @@ echo "
 
 
 					if (date('Y-m-d') < $_SESSION['bonobo']['expired_on']) {
-						echo "<div class='card-panel red panel-day-left'>
-				      <span class='white-text '>Sisa waktu aktif akun Anda : <b class='white-text' style='text-decoration:underline; font-size:24px'>".$years." Tahun, ".$months." Bulan, ".$days." Hari lagi</b></span><br>
-				      <span class='white-text '>Masa aktif sampai tanggal : <b class='white-text' style='text-decoration:underline; font-size:24px'>".$date."</b></span>
+						echo "<div class='colmasaactive red accent-1 panel-day-left'>
+						<div>
+							<h5 class='white-text light center'>Sisa waktu aktif akun Anda </h5>
+							<h5 class='center'><b class='white-text' >".$years." Tahun, ".$months." Bulan, ".$days." Hari lagi</b></h5>
+						</div>
+						<div>
+					      <h5 class='white-text light center'>Masa aktif sampai tanggal</h5>
+					      <h5 class='center'><b class='white-text' >".$date."</b></h5>
+					    </div>
 				    </div>";
 					}
 					echo"
@@ -44,19 +50,19 @@ echo "
 									<h5><br></h5>
 								</div>
 								<div class='input-field col s12 m6 l3 nolpad'>
-									<input id='kode1' name='kode1' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='XXXX'>
+									<input id='kode1' name='kode1' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='****'>
 									<label for='kode1' class='error '></label>
 								</div>
 								<div class='input-field col s12 m6 l3 nolpad'>
-									<input id='kode2' name='kode2' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='XXXX'>
+									<input id='kode2' name='kode2' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='****'>
 									<label for='kode2' class='error '></label>
 								</div>
 								<div class='input-field col s12 m6 l3 nolpad'>
-									<input id='kode3' name='kode3' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='XXXX'>
+									<input id='kode3' name='kode3' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='****'>
 									<label for='kode3' class='error '></label>
 								</div>
 								<div class='input-field col s12 m6 l3 nolpad'>
-									<input id='kode4' name='kode4' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='XXXX'>
+									<input id='kode4' name='kode4' type='text' class='center-align validate numbersOnly' maxlength='4' placeholder='****'>
 									<label for='kode4' class='error '></label>
 								</div>
 							</div>

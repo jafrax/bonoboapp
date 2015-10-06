@@ -59,18 +59,16 @@ echo"
 	
 	<!-- Modal Structure -->
 	<div id='popupFormAdd' class='modal modal-fixed-footer'>
-		<div class='modal-header red'>
+		<div class='modal-header deep-orange'>
 			
 		</div>
 		<div class='modal-content'>								      
 			<div class='col s12 m12 l12 nolmar nolpad'>
 				<form id='formStep6Add'>
 					<input type='hidden' name='txtId' value=''>
-					<div class='row formbody nolmar nolpad'>
+					<div class='row formbody nolmar nolpad' style='min-height:0;'>
 						<div class='col m12 nolmar nolpad' id='iki-edit'>
-							<div class='input-field col s12 m12'>
-								Nama Bank
-							</div>
+							<div class='col s12 m12'><span>Nama Bank</span></div>
 							<div id='divCmbBank' class='input-field col s12 m12'>
 								<select name='cmbBank' class='select-standar' >
 									<option value='' disabled selected>Bank BCA</option>

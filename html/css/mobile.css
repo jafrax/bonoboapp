@@ -47,6 +47,8 @@
 	.menu-left .fa{ font-size:34px; margin: 12px 0 0 -25px; color:#818181; }
 	.padhead { padding:0; }
 
+	.titmain{ font-size:24px; }
+
 	.mobleft{ overflow: hidden; }
 	.mobleft li{ width:100%; }
 	.mobleft li a{ height:50px; font-size:14px; line-height:35px; }
@@ -61,6 +63,7 @@
 
 	.center-mobile {text-align: center;float: none;}	
 
+	.colmasaactive h5{ font-size:18px; }
 
 	/*COMPONENT*/
 	.input-field p{ padding-left: 0px!important; }

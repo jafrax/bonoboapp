@@ -47,7 +47,6 @@ echo "
 						<li><a href='".base_url("index/logout")."'>Logout</a></li>
 					</ul>
 				</div>
-				
 
 			</div>
 		</div>
@@ -68,18 +67,18 @@ echo "
 						</div>
 						<div class='row formbody'>
 							<div class='nolautomar'>
-								<div class='linehead center'><h5>Lengkapi data berikut untuk melakukan pemesanan</h5></div>
+								<div class='linehead center'><h5 class='light'>Lengkapi data berikut untuk melakukan pemesanan</h5></div>
 								<div class='input-field col s12 m12 l12 nolpad'>
 									<span>Nama</span>
-									<input name='nama' id='nama' type='text' maxlength='50' class=' validate' placeholder='Nama'>
+									<input name='nama' id='nama' type='text' maxlength='50' class=' validate' placeholder='Masukkan nama anda'>
 								</div>
 								<div class='input-field col s12 m12 l12 nolpad'>
 									<span>No Telepon</span>
-									<input name='telp' id='telp' type='text' maxlength='12' class='numbersOnly validate' placeholder='No Telepon'>
+									<input name='telp' id='telp' type='text' maxlength='12' class='numbersOnly validate' placeholder='Masukkan No Telepon'>
 								</div>
 								<div class='input-field col s12 m12 l12 nolpad'>
 									<span>Handphone</span>
-									<input name='hp' id='hp' type='text' maxlength='12' class='numbersOnly validate' placeholder='Handphone'>
+									<input name='hp' id='hp' type='text' maxlength='12' class='numbersOnly validate' placeholder='Masukkan Handphone'>
 								</div>
 								<label id='error-captcha' class='error-captcha' style='display:none;'></label>
 								<div class='input-field col s12 m12 l12 nolpad'>
@@ -98,14 +97,18 @@ echo "
 		</div>
 	</div>
 </content>
-<footer class='page-footer grey darken-3'>	
+
+<footer class='page-footer grey darken-3 nolmar nolpad'>
+		
 	<div class='footer-copyright grey darken-4'>
-		<div class='container'> 2015 Bonobo
-			<a class='grey-text text-lighten-4 right' href='javascript:void(0)'>Tentang Kami</a>
-			<a class='grey-text text-lighten-4 right' href='".base_url('index/pp')."'>Kebijakan privasi</a>
-			<a class='grey-text text-lighten-4 right' href='".base_url('index/tos')."'>Syarat dan ketentuan</a>
-		</div>
+		<div class='containermain'>
+			<a class='grey-text text-lighten-3' href='javascript:void(0)'>Tentang Kami</a>
+			<a class='grey-text text-lighten-3' href='".base_url('index/pp')."'>Kebijakan privasi</a>
+			<a class='grey-text text-lighten-3' href='".base_url('index/tos')."'>Syarat dan ketentuan</a>
+			<a href='http://www.bonoboapp.com' align='center'>&copy 2015 Bonobo, Inc. All rights reserved.</a>
+		</div>		
 	</div>
+
 </footer>
 
 <script type='text/javascript' src='".base_url()."html/js/jquery-2.1.4.min.js'></script>
