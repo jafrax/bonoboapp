@@ -236,6 +236,7 @@ function CtrlMessageDetail(){
 	var formMessageDetail;
 	var btnSend;
 	var member;
+	var lastMessage = "";
 	
 	function init(){
 		initComponent();
@@ -295,6 +296,13 @@ function CtrlMessageDetail(){
 			return;
 		}
 		
+		if(lastMessage == formMessageDetail.txtMessage.value){
+			Materialize.toast("Anda tidak dapat mengirim pesan yang sama", 4000);			
+			return;
+		}
+		
+		lastMessage = formMessageDetail.txtMessage.value;
+		
 		$.ajax({
 			type: 'POST',
 			data: "id="+member+"&message="+formMessageDetail.txtMessage.value,
@@ -304,10 +312,12 @@ function CtrlMessageDetail(){
 				if(response.result == 1){
 					var date = new Date(response.message.create_date);
 					
-					$("#message-ajax").append("<div class='row'><div class='pesanmu'>"+response.message.message+" <br><span class='deep-orange-text text-lighten-5' style='font-size:10px;text-align:right;'>"+date.getHours() + ":" + date.getMinutes()+"</span></div></div>");
+					$("#message-ajax").append("<div class='row'><div class='pesanmu'>"+response.message.message.replace(/(?:\r\n|\r|\n)/g, '<br />')+" <br><span class='deep-orange-text text-lighten-5' style='font-size:10px;text-align:right;'>"+date.getHours() + ":" + date.getMinutes()+"</span></div></div>");
 					formMessageDetail.txtMessage.value = "";
 					
 					ctrlMessage.showContactDetail(member);
+					
+					$(".content-pesan").animate({ scrollTop: $(".content-pesan")[0].scrollHeight }, "slow");
 				}else{
 					Materialize.toast(response.message, 4000);
 				}
