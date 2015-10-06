@@ -49,6 +49,9 @@ class Model_nota extends CI_Model
 	function get_nota_by_id($id){
 		return $this->db->where('id',$id)->get('tb_invoice');
 	}
+	function get_nota_by_id_invoice($id){
+		return $this->db->where('id',$id)->get('tb_invoice_product');
+	}
 	function get_nota_invoice($id){
 		return $this->db->where('invoice_no',$id)->where('toko_id',$_SESSION['bonobo']['id'])->get('tb_invoice');
 	}
@@ -98,7 +101,7 @@ class Model_nota extends CI_Model
 	}
 
 	function get_kustom_kurir($id){
-		return $this->db->where('toko_id',$id)->get('tb_courier_custom');
+		return $this->db->where('toko_id',$id)->where('toko_id',$_SESSION['bonobo']['id'])->get('tb_courier_custom');
 	}
 
 	function get_province(){

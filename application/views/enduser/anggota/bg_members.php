@@ -14,7 +14,7 @@ echo"
 	<div class='col s12 m12 l9'>
 		<div class='formain'>
 			<div class='formhead'>
-				<h2 class='titmain'><b>DAFTAR ANGGOTA</b> <span>( ".sizeOf($Members)." Anggota )</span></h2>
+				<h2 class='titmain'><b>DAFTAR ANGGOTA</b> <span>( ".sizeOf($jumlah)." Anggota )</span></h2>
 			</div>
 			<div id='notifMember' align='center' style='display:none;'></div>
 			<ul class='row formbody'>

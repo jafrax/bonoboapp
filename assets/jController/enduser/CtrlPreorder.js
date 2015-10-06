@@ -26,11 +26,11 @@ $(window).scroll(function () {
                     if (msg){
                         $('#ajax-div').append(msg);
                         $('#preloader').slideUp();
-                        offset      = offset+5;
-                        scrolling   = true;                        
+                         offset_rs      = offset_rs+10;
+                        scrolling_rs   = true;                        
                     }else{
                         $('#preloader').slideUp();
-                        scrolling   = false;
+                        scrolling_rs   = false;
                         $('#habis').slideDown();
                     }
                 }

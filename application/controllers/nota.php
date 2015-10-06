@@ -155,6 +155,35 @@ class Nota extends CI_Controller {
 		}
 	}
 
+	public function nota_batal2(){
+		$id 	= $this->input->post('id');
+		$cek 	= $this->input->post('cek');
+
+		$cek_id	= $this->model_nota->get_nota_by_id($id);
+
+		if ($cek_id->num_rows == 0) {
+			echo "0";
+			return;
+		}
+		if ($cek == 1) {
+			
+			$produk = $this->model_nota->get_nota_product_by_id($id);				
+				foreach ($produk->result() as $row) {
+					$stok 	= $row->quantity;
+					$oldstok= $this->db->where('id',$row->product_varian_id)->get('tb_product_varian')->row()->stock_qty;
+
+					$this->db->where('id',$row->product_varian_id)->set('stock_qty',$oldstok+$stok)->update('tb_product_varian');
+				}
+			
+		}
+
+		$update = $this->db->set('status',2)->where('id',$id)->update('tb_invoice');
+		if ($update) {
+			echo "1";
+			
+		}
+	}
+
 	public function nota_delete(){
 		$id 	= $this->input->post('id');
 

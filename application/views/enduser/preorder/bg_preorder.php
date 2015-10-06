@@ -3,7 +3,7 @@ echo "
 				<div class='col s12 m12 l12'>
 					<div class='formain'>
 						<div class='formhead'>
-							<h2 class='titmain'><b>PEMESANAN PRE ORDER</b></h2>
+							<h2 class='titmain'><b>PEMESANAN PRE ORDER</b></h2> 
 						</div>
 						<div class='row formbody'>
 							<div class='col s12 m12'>
@@ -33,7 +33,7 @@ echo "
 											<div class='listpesanpreorder'>
 												<div class='prordercrop col s12 m6 l4 nolpad'>";
 												if ($row->image) {
-													echo "<img src='".base_url()."assets/pic/product/resize/".$row->image."' class='responsive-img'>";
+													echo "<img src='".base_url()."assets/pic/product/resize/".$row->image."' class='responsive-img'>"; 
 												}else{
 													echo "<img src='assets/image/img_default_logo.jpg' class='responsive-img'>";
 												}
@@ -42,6 +42,8 @@ echo "
 												<div class='col s12 m7 l6'>
 													<p class=' blue-grey-text lighten-3 right small-text'>$ago</p>
 													<p><a href='".base_url()."preorder/detail/".base64_encode($row->id)."/".base64_encode($row->name)."' ><b class='userangoota'>".$row->name."</b></a></p>				
+													<b class='userangoota'>Kode Barang : ".$row->sku_no."</b>
+													<br>
 													<br>
 													<span class='red-text' id='counter-".$row->id."'> $jmlPreOrder Lusin Pre Order</span>	
 													<br>

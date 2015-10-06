@@ -19,7 +19,7 @@ echo "
 									<h6 class='hide-on-med-and-up'><br></h6>	
 									<div id='batal_nota_".$nota->id."' class='modal confirmation'>
 										<div class='modal-header red'>
-											<i class='mdi-navigation-close left'></i> Hapus produk
+											<i class='mdi-navigation-close left'></i> Batalkan Pesanan
 										</div>
 										<form class='modal-content'>
 											<p>Apakah Anda yakin ingin membatalkan pesanan?</p>
@@ -27,8 +27,9 @@ echo "
       												<label for='batal-cek-".$nota->id."'>Kembalikan stok?</label></p>
 										</form>
 										<div class='modal-footer'>
+										<button type='button' onclick=javascript:batal_nota2(".$nota->id.") class='btn-flat modal-action modal-close waves-effect '>YA</button>
 											<a class=' modal-action modal-close waves-effect waves-light btn-flat'>TIDAK</a>
-											<button type='button' onclick=javascript:batal_nota(".$nota->id.") class='btn-flat modal-action modal-close waves-effect '>YA</button>
+											
 										</div>
 									</div>
 													
@@ -132,15 +133,20 @@ echo "
 							<div class='col s12 m12'>";
 								foreach ($produk->result() as $row_p) {
 									$image = $this->model_nota->get_nota_product_image($row_p->id)->row();
-									if (count($image) > 0 ) {
+									$images = base_url("html/images/comp/product.png");
+									if(!empty($image->product_image)){
+										$images = base_url("assets/pic/invoice/product/".$image->product_image);
+									}
+									/*if (count($image) > 0 ) {
 											$images = base_url()."assets/pic/invoice/product/".$image->product_image;
 										}else{
 										$images = base_url()."html/images/comp/product.png";
-									}
+									}*/
 									echo "<div class='nota-product col s12 m6'>
 											<img src='".$images."' class='responsive-img col s4 m4 left'>
 											<div class='col s8 m8'>
 												<p class='blue-text'>".$row_p->product_name."</p>
+												<p class='cyan-text'>Kode Barang : ".$row_p->product_sku_no."</p>
 												<p><span class='blue-text'>@</span> Rp. ".number_format($row_p->price_unit, 0 , ',' , '.')."</p>
 												<p><dl class='dl-horizontal col s12 ' >
 	
@@ -150,12 +156,14 @@ echo "
 												$varian = $this->model_nota->get_varian_product($row_p->id);
 												if ($varian->num_rows() > 0) {
 													foreach ($varian->result() as $row_v) {
+														$total = $row_v->quantity * $row_p->price_unit;
 														if ($row_v->varian_name == 'null') {
 															echo "	<dt style='text-align:left'><b>Jumlah : </b></dt>
-							                						<dd>".$row_v->quantity."</dd>";
+							                						<dd>".$row_v->quantity."
+							                						".$row_p->product_unit."</dd>";
 														}else{
-															echo "	<dt style='text-align:left'><b>".$row_v->varian_name."</b><span class='grey-text'> x ".$row_v->quantity."</span></dt>
-							                						<dd>= Rp. ".number_format($row_v->price_varian, 0 , ',' , '.')."</dd>";															
+															echo "	<dt style='text-align:left'><b>".$row_v->varian_name."</b><span class='grey-text'> x ".$row_v->quantity." ".$row_p->product_unit."</span></dt>
+							                						<dd>= Rp. ".number_format($total, 0 , ',' , '.')."</dd>";															
 														}
 													}
 												}
@@ -275,7 +283,7 @@ echo "
 											<label>Jenis Pengiriman</label>
 											<select class='selectize' name='kurir'>
 												<option value='' disabled selected>Pilih Jenis Pengiriman</option>
-												<option value='Ambil di toko'>Ambil di toko</option>";
+												<!-- <option value='Ambil di toko'>Ambil di toko</option> -->";
 												$toko_kurir = $this->model_nota->get_toko_kurir($nota->toko_id);
 												foreach ($toko_kurir->result() as $kurir_t) {
 													$select = '';

@@ -3,11 +3,17 @@ function CtrlMessage(){
 	this.popupDelete = popupDelete;
 	this.showMessageDetail = showMessageDetail;
 	this.showContactDetail = showContactDetail;
+	this.doScrollContact = doScrollContact;
+	this.setKeyword = setKeyword;
+	this.setLastUserID = setLastUserID;
 
+	var keyword = "";
+	var lastUserID = 0;
 	var messageContent;
 	var messageDeleteID, messageDeleteName;
 	var btnMessageReads;
 	var aMessageDeletesYes, aMessageDeleteYes, aMessageDeleteNo, aMessageNew;
+	var offset_c=5;
 	
 	function init(){
 		initComponent();
@@ -48,9 +54,49 @@ function CtrlMessage(){
 		};
 	}
 	
+	function doScrollContact(){
+		if ($('#contact-scroll').scrollTop() == ($('#contact-scroll').get(0).scrollHeight - $('#contact-scroll').height()) && scroll == true) {
+			$('#loader-contact').slideDown();
+			
+			scroll      = false;		        
+			var id  	= $('#member').val();
+			var url 	= base_url+'message/showContactDetail/'+id;
+
+		   // $('#contact-scroll').scrollTo(0, ($('#contact-scroll').get(0).scrollHeight - 50) );
+			$.ajax({
+				type: 'POST',
+				data: 'ajax=1&keyword='+keyword+'&id='+ id + "&lastUserID="+lastUserID,
+				url: url,
+				async: false,
+				success: function(msg) {
+					if (msg){
+						$('#contact-pesan').append(msg);
+						$('#loader-contact').slideUp();
+						offset_c = offset_c + 5;		                    
+						scroll   = true;		                    
+					}else{
+						$('#loader-contact').slideUp();
+						scroll   = false;
+						$('#habis-contact').slideDown();
+					}
+				}
+			});
+			return false;
+		}
+	}
+	
+	
+	function setKeyword(e){
+		keyword = e;
+	}
+	
+	function setLastUserID(e){
+		lastUserID = e;
+	}
+	
 	function popupDelete(e,n){
 		messageDeleteID.value = e;
-		messageDeleteName.innerHTML = "'"+n.replace("+"," ")+"'";
+		messageDeleteName.innerHTML = n.replace(/\+/gi, " ");
 	}
 	
 	function showNewMessage(){
@@ -72,10 +118,12 @@ function CtrlMessage(){
 			success: function(result) {
 				messageContent.html(result);
 				ctrlMessage.showContactDetail(e);
+				
 				scrolling   = true;
 				$('.modal-trigger').leanModal();
 				$(".content-pesan").animate({ scrollTop: $(".content-pesan")[0].scrollHeight }, "slow");
 				Materialize.updateTextFields();
+				
 				$.ajax({
 					type:'POST',
 					url: base_url+"notif",
@@ -106,6 +154,14 @@ function CtrlMessage(){
 	}
 
 	function showContactDetail(e){
+		/*
+		*	-------------------------------------------------	
+		*	Turn Off This Function because this function 
+		*	the keyword search contact not support on this 
+		*	function.
+		*	Turn Off by : Heri Siswanto Bayu Nugroho
+		*	Date : 06 Oct 2015
+		*	-------------------------------------------------
 		$.ajax({
 			type: 'POST',
 			data: "id="+e,
@@ -115,6 +171,7 @@ function CtrlMessage(){
 				$('.modal-trigger').leanModal();
 			}
 		});
+		*/
 	}
 	
 	function doDeletes(){

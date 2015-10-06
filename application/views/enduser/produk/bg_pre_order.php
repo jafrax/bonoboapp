@@ -131,14 +131,26 @@ echo"
 										}else{
 											echo "<img src='".base_url()."html/images/comp/product.png' class='responsive-img userimg'>";
 										}
-												if($row->sku_no != 'null'){
-														echo "<center><label for='stok'>Kode Barang : <br>".$row->sku_no."</label>";
-													}
-									echo"	
+												//if($row->sku_no != 'null'){
+												//		echo "<center><label for='stok'>Kode Barang : <br>".$row->sku_no."</label>";
+												//	}
+									
+									if(strlen($row->name)<26){
+										$karakter =$row->name;
+										
+									}else{
+										$karakter = substr($row->name, 0, 22)."..."; 
+									}echo"	
 
 									</div>
 									<div class='col s12 m8 l9'>
-										<p class='titleproduct'><a href='".base_url()."produk/edit_pre_order/".base64_encode($row->id)."'><b >".$row->name."</b></a></p>
+										<p class='titleproduct'><a href='".base_url()."produk/edit_pre_order/".base64_encode($row->id)."'><b >".$karakter."</b></a> "; 
+										if($row->sku_no != null){
+																echo "<label for='stok'>(Kode Barang : ".$row->sku_no.")</label>";
+																}else{
+											echo "<label for='stok'> </label>";
+										}	
+										echo"</p>
 										</p> ";
 										
 										//if ($row->stock_type_detail == 1)  {

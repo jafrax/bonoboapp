@@ -23,8 +23,8 @@ class Model_produk extends CI_Model
 	
 	function get_produk_by_id($id,$stok=1,$active=1,$limit=1000000,$offset=0){		
 		$this->db->select('p.id id,p.name name,p.unit unit,p.end_date end_date,p.stock_type stock_type,p.stock_type_detail stock_type_detail,p.active active,c.name kategori,p.sku_no sku_no')->where('c.toko_id',$id)->where('p.stock_type',$stok);
-				if (isset($_SESSION['keyword'])) {$this->db->like('p.name',$_SESSION['keyword']);}
-				if (isset($_SESSION['filter_kategori'])) {$this->db->like('c.id',$_SESSION['filter_kategori']);}
+				if (isset($_SESSION['keyword'])) {$this->db->where("(p.name like '%".$_SESSION['keyword']."%' OR sku_no like '%".$_SESSION['keyword']."%')",null, false);}
+				if (isset($_SESSION['filter_kategori'])) {$this->db->where('c.id',$_SESSION['filter_kategori']);}
 				$this->db->limit($limit,$offset);
 		return	$this->db->where('p.active',$active)->join('tb_toko_category_product c','c.id=p.toko_category_product_id')->order_by('p.id','DESC')->get('tb_product p');
 	}
@@ -44,12 +44,20 @@ class Model_produk extends CI_Model
 		return $this->db->where('product_id',$id)->get('tb_product_varian');	
 	}
 
+
+
 	function get_varian_produk_null($id){
 		return $this->db->where('product_id',$id)->where('name','null')->get('tb_product_varian');
 	}
 
 	function count_product_by_category($id){
 		return $this->db->where('toko_category_product_id',$id)->get('tb_product')->num_rows();
+	}
+
+	function delete_produk_by_category($id,$shop){
+		return $this->db->where('toko_category_product_id',$id)
+					//	->where('toko_id',$shop)
+						->delete('tb_toko_category_product');
 	}
 
 }

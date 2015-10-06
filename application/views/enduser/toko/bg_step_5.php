@@ -75,12 +75,14 @@ echo"	</div>
 						<label for='txtCourierName".$no."'>Nama Kurir</label>
 					</div>
 					<div class='input-field col s12 m12 l6'>
-						<button type='button' class='waves-effect waves-light btn-floating ' href='javascript:void(0);' onclick=delitem.idrow(".$no.");><i class='material-icons left'>check</i>Simpan</button> 
+						
+						<button type='button' class='waves-effect waves-light btn-floating ' href='javascript:void(0);' onclick=ctrlShopStep7.doCourierSave(".$no.");><i class='material-icons left'>check</i>Simpan</button>
 						<button type='button' class='waves-effect waves-light btn-floating red' href='javascript:void(0);' onclick=ctrlShopStep7.doCourierDelete(".$no.");><i class='mdi-navigation-close left'></i>Hapus</button> 
 						<button type='button' class='waves-effect waves-light btn-floating blue' id='aCourierDetail".$no."' href='javascript:void(0);' onclick=ctrlShopStep7.showDetail(".$no."); style='display:none;'><i class='material-icons left'>list</i>Detail</button> 
 					</div>
 				</div>
 		";
+		//<!--<button type='button' class='waves-effect waves-light btn-floating ' href='javascript:void(0);' onclick=delitem.idrow(".$no.");><i class='material-icons left'>check</i>Simpan</button> -->
 	}else{
 		foreach($CustomeCouriers as $CustomeCourier){
 			echo"

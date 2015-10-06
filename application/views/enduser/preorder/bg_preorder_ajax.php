@@ -20,7 +20,7 @@
 									
 										$ago 		= $this->template->xTimeAgoDesc($row->create_date,date('Y-m-d H:i:s'));
 										echo "
-										<li class='col s12 m6 l6 nolpad nolmar' id='li-".$row->id."'>
+										<li class='col s12 m6 l6 nolpad nolmar' id='li-".$row->id."'>  
 											<div class='listpesanpreorder'>
 												<div class='prordercrop col s12 m5 l4 nolpad'>";
 												if ($row->image) {
@@ -32,7 +32,7 @@
 												</div>
 												<div class='col s12 m7 l6'>
 													<p class=' blue-grey-text lighten-3 right small-text'>$ago</p>
-													<p><a href='".base_url()."preorder/detail/".base64_encode($row->id)."/".base64_encode($row->name)."' ><b class='userangoota'>".$row->name."</b></p>				
+													<p><a href='".base_url()."preorder/detail/".base64_encode($row->id)."/".base64_encode($row->name)."' ><b class='userangoota'>".$row->name."</b></a></p>				
 													<br>
 													<span class='red-text' id='counter-".$row->id."'>$jmlPreOrder Lusin Pre Order</span>	
 													<br>

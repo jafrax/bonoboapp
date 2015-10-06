@@ -116,11 +116,11 @@ class Anggota extends CI_Controller {
 			}
 			
 
-			$cek1 = $this->db->where('email',$data["email"])->get('tb_invite');
-			if($cek1->num_rows() > 0){
-				$data["notif"] = "Sudah pernah diundang";
-				$valid = false; //tb_invite
-			}
+			//$cek1 = $this->db->where('email',$data["email"])->get('tb_invite');
+			//if($cek1->num_rows() > 0){
+			//	$data["notif"] = "Sudah pernah diundang";
+			//	$valid = false; //tb_invite
+		//	}
 			
 			
 			
@@ -197,7 +197,9 @@ class Anggota extends CI_Controller {
 		$data["keyword"] = "";
 		$data["shop"] = $this->model_member->get_toko_by_id($_SESSION['bonobo']['id'])->row();
 		$data["countNewMember"] = $this->countNewMember();
+		$data['jumlah']= $this->model_member->get_tm_member_by_shop($data["shop"]->id, $data["keyword"])->result();
 		
+
 		if($this->response->post("keyword") != ""){
 			$data["keyword"] = $this->response->post("keyword");
 		}

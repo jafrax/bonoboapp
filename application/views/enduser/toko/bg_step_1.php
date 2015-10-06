@@ -69,6 +69,7 @@ echo"
 							<img id='imgShopLogo' src='".$ShopImage."' class='responsive-img circle-logo' style='cursor:pointer; width:100%;height: auto;'>
 							<input id='txtShopLogoFile' name='txtShopLogoFile' type='file' style='display:none;height: auto;' data-type='image' autofocus class='txtShopLogoFile'>
 							<span id='untukgambar' style='color:red;'></span>
+							<input id='gambar_default' type='hidden' name='gambar_default' value='0'> 
 						</div>
 					</div>
 				</div>

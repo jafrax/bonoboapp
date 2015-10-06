@@ -82,13 +82,13 @@ echo"
 													<div class='input-field col s12'>														
 														<input id='nama_".$row->id."' name='nama_kategori' maxlength='20' type='text' value='".$row->name."' class='validate' required>
 														<label for='nama_".$row->id."'>Kategori</label>	
-														<label class='error' for='nama_".$row->id."'></label>													
+														<label  class='error' for='nama_".$row->id."'></label>													
 													</div>
 											    </p>
 											</form>
 											<div class='modal-footer'>
 												<a href='javascript:void(0)' onclick=javascript:edit_kategori('".$row->id."') class=' modal-action btn-flat teal-text'>YA</a>
-												<a href='javascript:void(0)' class=' modal-action modal-close btn-flat red-text'>TIDAK</a>
+												<a href='javascript:void(0)' onClick='window.location.reload()' class=' modal-action modal-close btn-flat red-text'>TIDAK</a>
 											</div>
 										</div>
 									</div>

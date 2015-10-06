@@ -43,7 +43,7 @@ echo"
 						</form>
 						</li>
 					</ul>
-					<ul class='row' id='contact-scroll' style='max-height: 500px; overflow: auto;' onscroll=javascript:scrollContact()>
+					<ul class='row' id='contact-scroll' style='max-height: 500px; overflow: auto;' onscroll=javascript:ctrlMessage.doScrollContact()>
 						<div id='contact-pesan'>
 
 						";
@@ -73,9 +73,17 @@ echo"
 										<p><b class='userangoota'>".$Message->qmember_name."</b></p>															
 										<p>".$this->template->limitChar($MessageLast->message,50)." </p>
 										".$MessageStatus."
-										<a href='#popupDelete' onclick=ctrlMessage.popupDelete(".$Message->member_id.",'".urlencode($Message->member_name)."'); class='modal-trigger btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
+										<a href='#popupDelete' onclick=ctrlMessage.popupDelete(".$Message->member_id.",'".urlencode($Message->qmember_name)."'); class='modal-trigger btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
 									</div>
 								</li>
+							";
+							
+							echo"
+								<script>
+									$( document ).ready(function() {
+										ctrlMessage.setLastUserID('".$Message->qmember_id."');
+									});
+								</script>
 							";
 						}
 
@@ -121,11 +129,13 @@ echo"
 			<a href='javascript:void(0);' class=' modal-action modal-close waves-effect waves-red btn-flat'>TIDAK</a>
 		</div>
 	</div>
-	
+";
+
+echo"
 	<script>
 		var ctrlMessage = new CtrlMessage();
+		ctrlMessage.setKeyword('".$keyword."');
 		ctrlMessage.init();
-		
 	</script>
 ";
 

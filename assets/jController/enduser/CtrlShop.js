@@ -7,7 +7,7 @@ function CtrlShopStep1(){
 	var formStep1,formStep1JQuery;
 	var intAttributeCount;
 	var divCity, divKecamatan, divAttributes;
-	var imgShopLogo, txtShopLogoFile, aShopLogoDelete;
+	var imgShopLogo, gambar_default, txtShopLogoFile, aShopLogoDelete;
 	var btnNext, btnSave;
 	var aAttributeAdd,txtPostal;
 	
@@ -26,6 +26,7 @@ function CtrlShopStep1(){
 		divAttributes = $("#divAttributes");
 		
 		imgShopLogo = $hs("imgShopLogo");
+		gambar_default = $hs("gambar_default");
 		txtShopLogoFile = $hs("txtShopLogoFile");
 		intAttributeCount = $hs("intAttributeCount");
 		
@@ -361,6 +362,7 @@ function CtrlShopStep1(){
 	
 	function doImageDelete(){
 		imgShopLogo.src = base_url+"assets/image/img_default_photo.jpg";
+		gambar_default.value = 1;
 	}
 }
 function CtrlShopStep4(){
@@ -412,8 +414,9 @@ function CtrlShopStep4(){
 				if(response.result == 0){
 					 Materialize.toast(response.message, 4000);
 				}else{
-					window.location.href = base_url+'toko/step5';  
-				}
+					top.location.href = base_url+'toko/step5';  
+				} 
+				
 			}
 		});
 		
@@ -572,7 +575,7 @@ function CtrlShopStep7(){
 	}
 	
 	function doRateSave(){
-		if ($('#formStep5Rate').valid()) {
+		if ($('#formStep5Rate').valiformStep5Rated()) {
 			$.ajax({
 				type: 'POST',
 				data: $('#formStep5Rate').serialize()+"&customCourier="+txtCustomCourierId.value,
@@ -645,6 +648,7 @@ function CtrlShopStep7(){
 		}else{
 			$('#header-rate').html('<i class=material-icons left>check</i>Edit pengiriman');
 		}
+
 		$.ajax({
 			type: 'POST',
 			data: "id="+e,
@@ -657,13 +661,13 @@ function CtrlShopStep7(){
 				divKecamatan = $("#divKecamatan");
 				$('.selectize').selectize();
 				initComboBox();
+
 				$('#formStep5Rate').validate({
 					ignore: ":hidden:not(select)",
 					rules:{
 						txtRatePrice: {
 							maxlength:15,
-							//required: true,
-							
+							//required: true,							
 						},
 						cmbProvince: {
 							required: true,
