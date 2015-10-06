@@ -37,8 +37,8 @@ echo"
 							<li class='col s12 listanggodaf'>					
 								<div class='input-field col s12 m6 l4 nolpad nolmar right'>
 									<i class='mdi-action-search prefix'></i>
-									<input placeholder='Cari' id='keyword' type='text' class='validate' value='"; if (isset($_SESSION['keyword'])) {echo $_SESSION['keyword'];} echo"'>
-									<!-- <label for='keyword'>Cari produk</label > -->
+									<input placeholder='Cari' id='keyword_ready_stock' type='text' class='validate' value='"; if (isset($_SESSION['keyword_ready_stock'])) {echo $_SESSION['keyword_ready_stock'];} echo"'>
+									<!-- <label for='keyword_ready_stock'>Cari produk</label > -->
 								</div>
 								<div class='input-field col s12 m6 l6 nolpad nolmar left'>
 									<div class='col s12 m8 l6'>
@@ -94,9 +94,9 @@ echo"
 
 							<div id='satu' class='ready_stock'>";
 							if ($produk->num_rows() == 0) {
-									if (isset($_SESSION['keyword'])) {
-										echo "Produk \"".$_SESSION['keyword']."\" tidak ditemukan";
-										unset($_SESSION['keyword']);
+									if (isset($_SESSION['keyword_ready_stock'])) {
+										echo "Produk \"".$_SESSION['keyword_ready_stock']."\" tidak ditemukan";
+										unset($_SESSION['keyword_ready_stock']);
 									}else{
 										echo "Produk ready stock kosong";
 									}

@@ -294,6 +294,20 @@ $(document).ready(function() {
       });
     }
   });
+  
+   $('#keyword_ready_stock').keypress(function(e) {
+    if (e.which == 13) {
+      var keyword_ready_stock = $('#keyword_ready_stock').val();
+      $.ajax({
+        type: 'POST',
+        data: 'keyword_ready_stock='+keyword_ready_stock,
+        url: base_url+'produk/set_search_ready_stock',
+        success: function(msg) {
+          location.reload();
+        } 
+      });
+    }
+  });  
 
   $('#nama_kategori').keypress(function(e) {
     if (e.which == 13) {

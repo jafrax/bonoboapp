@@ -163,7 +163,8 @@ class Anggota extends CI_Controller {
 							<i>\"".$data["message"]."\"</i><br><br>
 							Bonobo merupakan aplikasi Private untuk Bisnis. Temukan berbagai kemudahan melihat dan memesan barang hanya di Bonobo.
 							<br><br>
-							Download aplikasinya sekarang di Google Play Store: <a href='play.google.com/store/apps/bonoboapp'><img src='".base_url()."assets/image/playstore.png'></a>
+							Download aplikasinya sekarang di <a href='bonoboapp.com/html/download.html'><img src='".base_url()."html/images/comp/logo/e_logo.png'></a>
+							<br><br>																							
 							<br><br>
 							Terima Kasih,
 							<br>
