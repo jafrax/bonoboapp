@@ -4,7 +4,6 @@ echo"
 	<form id='formStep5Rate'>
 		<input type='hidden' name='txtRateId' value='".(empty($Rate) ? "" : $Rate->id != null ? $Rate->id : "")."'>
 				<div class='col m12'>
-				<div class='input-field col s12 m12' style='min-height:25px;'></div>
 				<div class='input-field col s12 m4'>							
 					Provinsi								
 				</div>
@@ -82,7 +81,6 @@ echo"
 						<input placeholder='Nominal' name='txtRatePrice' type='text' class='validate price' maxlength='18' value='".(empty($Rate) ? "" : $Rate->id != null ? $Rate->price : "")."'>										
 					</p>
 				</div>
-				<div class='input-field col s12 m12' style='min-height:150px;'></div>
 			</div>
 
 	</form>
