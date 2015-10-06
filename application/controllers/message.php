@@ -174,14 +174,21 @@ class Message extends CI_Controller {
 		}
 		
 		$QMessages = $this->db
-				->select("tm.*")
+				->select("tm.*,ttm.id as toko_message_id")
 				->join("tb_message tm","tm.id = ttm.message_id")
 				->where("ttm.member_id",$this->response->post("member"))
-				->where("flag_read",0)
+				->where("ttm.flag_read",0)
 				->get("tb_toko_message ttm")
 				->result();
 		
 		if(sizeOf($QMessages) > 0){
+			foreach($QMessages as $QMessage){
+				$Data = array(
+						"flag_read"=>1,
+					);
+					
+				$Save = $this->db->where("id",$QMessage->toko_message_id)->update("tb_toko_message",$Data);
+			}
 			$this->response->send(array("result"=>1,"messages"=>$QMessages));
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Tidak ada pesan baru","messageCode"=>2));

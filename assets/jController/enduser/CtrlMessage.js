@@ -332,21 +332,26 @@ function CtrlMessageDetail(){
 	}
 	
 	function initUpdateMessage(){
-		if(member != null){
-			setInterval(function(){ 
+		setInterval(function(){ 
+			if(member != null){
 				$.ajax({
 					type: 'POST',
 					data: "member="+member,
 					url: base_url+'message/getUpdateMessageDetail',
 					success: function(result) {
+					
 						var response = JSON.parse(result);
 						if(response.result == 1){
-							var date = new Date(response.message.create_date);
-							
-							$("#message-ajax").append("<div class='row'><div class='pesanmu'>"+response.message.message.replace(/(?:\r\n|\r|\n)/g, '<br />')+" <br><span class='deep-orange-text text-lighten-5' style='font-size:10px;text-align:right;'>"+date.getHours() + ":" + date.getMinutes()+"</span></div></div>");
-							formMessageDetail.txtMessage.value = "";
-							
-							ctrlMessage.showContactDetail(member);
+							for(var i = 0; i <= response.messages.length - 1;i++){
+								var object = response.messages[i];
+								var date = new Date(object.create_date);
+								
+								if(object.flag_from == 0){
+									$("#message-ajax").append("<div class='row'><div class='pesanmu'>"+object.message.replace(/(?:\r\n|\r|\n)/g, '<br />')+" <br><span class='deep-orange-text text-lighten-5' style='font-size:10px;text-align:right;'>"+date.getHours() + ":" + date.getMinutes()+"</span></div></div>");
+								}else{
+									$("#message-ajax").append("<div class='row'><div class='pesanku'>"+object.message.replace(/(?:\r\n|\r|\n)/g, '<br />')+" <br><span class='deep-orange-text text-lighten-5' style='font-size:10px;text-align:right;'>"+date.getHours() + ":" + date.getMinutes()+"</span></div></div>");
+								}
+							}
 							
 							$(".content-pesan").animate({ scrollTop: $(".content-pesan")[0].scrollHeight }, "slow");
 						}else{
@@ -356,10 +361,8 @@ function CtrlMessageDetail(){
 						}
 					}
 				});
-				
-			}, 5000);
-		}
-        
+			}
+		}, 5000);
 	}
 }
 
