@@ -137,7 +137,7 @@ class Nota extends CI_Controller {
 			return;
 		}
 		$cek= $this->model_nota->get_toko()->row();
-		if ($cek -> stock_adjust == 1) {
+		if ($cek == 1) {
 			
 			$produk = $this->model_nota->get_nota_product_by_id($id);				
 				foreach ($produk->result() as $row) {
