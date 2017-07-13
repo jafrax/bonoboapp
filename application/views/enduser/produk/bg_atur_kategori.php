@@ -73,7 +73,7 @@ echo"
 											</div>
 										</div>
 
-										<div id='edit_kategori_".$row->id."' class='modal confirmation'>
+										<div id='edit_kategori_".$row->id."' class='modal confirmation' onClose='window.location.reload()'>
 											<div class='modal-header deep-orange'>
 												<i class='mdi-action-spellcheck left'></i> Edit Kategori
 											</div>

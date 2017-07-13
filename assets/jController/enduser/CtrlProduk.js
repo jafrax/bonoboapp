@@ -141,14 +141,15 @@ $(document).ready(function() {
           pic_3                   : {accept: 'image/*',filesize: 1000000},
           pic_4                   : {accept: 'image/*',filesize: 1000000},
           pic_5                   : {accept: 'image/*',filesize: 1000000},
-          berat                   : {number:true,maxlength:50},
+                 //edited by Arif 8 Oktober 2015
+         // berat                   : {number:true,maxlength:50},
+          berat                   : {maxlength:9},
           satuan                  : {maxlength:5},
-          min_order               : {digits: true,maxlength:11},
+          min_order               : {digits: true,maxlength:5},
           deskripsi               : {maxlength:250},
           stok                    : {required: true,maxlength:50},
           stok_varian_1           : {required: true,maxlength:10},
-          nama_edit_varian_1      : {required: true,maxlength:15},
-          nama_varian_1           : {required: true,maxlength:15},
+          nama_varian_1           : {required: true,maxlength:15},          
           harga_pembelian         : {digits: false,maxlength:11},
           harga_level_1           : {required: true,digits: false,maxlength:11},
           harga_level_2           : {digits: false,maxlength:11},
@@ -172,9 +173,9 @@ $(document).ready(function() {
           pic_5: {
                 filesize: message_alert('Terlalu besar, maksimal 1 MB'),
               },
-        //  berat: {
-       //         number: message_alert('Maksimal harga 999.999.999'),
-        //  },
+          berat: {
+                pattern: message_alert('Silahkan masukkan angka desimal. ex:123,12 !'),
+              },
           harga_pembelian: {
                 maxlength: message_alert('Maksimal harga 999.999.999'),
               },
@@ -202,7 +203,7 @@ $(document).ready(function() {
       rules:{
           tipe                    : {required: true,maxlength:100},
           nama                    : {required: true,maxlength:50},
-          tgl_pre_order_submit    : {required: true,maxlength:50},
+          tgl_pre_order           : {required: true,maxlength:50},
           sku                     : {maxlength:20},
           kategori                : {required: true,maxlength:50},
           pic_1                   : {accept: 'image/*',filesize: 1000000},
@@ -210,10 +211,13 @@ $(document).ready(function() {
           pic_3                   : {accept: 'image/*',filesize: 1000000},
           pic_4                   : {accept: 'image/*',filesize: 1000000},
           pic_5                   : {accept: 'image/*',filesize: 1000000},
-          berat                   : {number:true,maxlength:50},
+          //edited by Arif 8 Oktober 2015
+         // berat                   : {number:true,maxlength:50},
+          berat                   : {maxlength:9},
           satuan                  : {maxlength:5},
-          min_order               : {digits: true,maxlength:11},
+          min_order               : {digits: true,maxlength:5},
           deskripsi               : {maxlength:250},
+          nama_edit_varian_1      : {required: true,maxlength:15},
           stok                    : {required: true,maxlength:50},
           harga_pembelian         : {digits: false,maxlength:11},
           harga_level_1           : {required: true,digits: false,maxlength:11},
@@ -238,9 +242,9 @@ $(document).ready(function() {
           pic_5: {
                 filesize: message_alert('Terlalu besar, maksimal 1 MB'),
               },
-       //   berat: {
-       //         number: message_alert('Maksimal harga 999.999.999'),
-       //   },
+          berat: {
+                pattern: message_alert('Silahkan masukkan angka desimal. ex:123,12 !'),
+          },
           harga_pembelian: {
                 maxlength: message_alert('Maksimal harga 999.999.999'),
               },
@@ -378,7 +382,29 @@ function click_picture_edit(file) {
    $('#'+file).click();
 }
 
-function picture_upload(id){
+// not resize
+// function picture_upload(id){
+//    var URL     = window.URL || window.webkitURL;
+//    var input   = document.querySelector('#'+id);
+//    var preview = document.querySelector('#img_'+id);
+//    var img     = $(input).val();
+
+//     switch(img.substring(img.lastIndexOf('.') + 1).toLowerCase()){
+//         case 'jpg': case 'png':
+//             preview.src = URL.createObjectURL(input.files[0]);
+//             $('#rem_'+id).show();
+//             break;
+//         default:
+//             $(input).val('');
+//             // error message here
+//             Materialize.toast('Silahkan pilih file format gambar .jpg / .png.', 4000);
+//             break;
+//     }
+     
+// }
+
+// with resize
+function picture_upload(id,image_resize){
    var URL     = window.URL || window.webkitURL;
    var input   = document.querySelector('#'+id);
    var preview = document.querySelector('#img_'+id);
@@ -386,6 +412,42 @@ function picture_upload(id){
 
     switch(img.substring(img.lastIndexOf('.') + 1).toLowerCase()){
         case 'jpg': case 'png':
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var canvas        = document.createElement("canvas");
+                    var ctx           = canvas.getContext("2d");
+
+                    img=new Image();
+                    img.onload=function(){
+                          var MAX_WIDTH = 325;
+                          var MAX_HEIGHT = 325;
+                          var width = img.width;
+                          var height = img.height;
+                  
+                          if (width > height) {
+                            if (width > MAX_WIDTH) {
+                              height *= MAX_WIDTH / width;
+                              width = MAX_WIDTH;
+                            }
+                          } else {
+                            if (height > MAX_HEIGHT) {
+                              width *= MAX_HEIGHT / height;
+                              height = MAX_HEIGHT;
+                            }
+                          }
+                          canvas.width = width;
+                          canvas.height = height;
+                          var ctx = canvas.getContext("2d");
+                          ctx.drawImage(img, 0, 0, width, height);
+                          
+                          image_resize.value = canvas.toDataURL('image/png');
+                    }
+                    img.src = e.target.result;
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
             preview.src = URL.createObjectURL(input.files[0]);
             $('#rem_'+id).show();
             break;
@@ -395,11 +457,10 @@ function picture_upload(id){
             Materialize.toast('Silahkan pilih file format gambar .jpg / .png.', 4000);
             break;
     }
-     
 }
 
 function remove_picture(id) {
-   $('#div_'+id).remove();   
+   //$('#div_'+id).remove();   
     var hitung = $('.picture-area .card').length;
     if (hitung == 0) {
         tot_picture = tot_picture+1;
@@ -502,18 +563,18 @@ function addVarianPr() {
 function boxVarianPr(id) {
   var stok      = $('#stokPr').val();
   if (stok == 1) {
-      var varian = "<li class='varsto nolmar' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 '>"                      
-                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' maxlength='15' placeholder='Ex : Merah' class='validate'>"
-                      +"<label for='varian'>Varian</label>"
-                    +"</div>"
+      var varian = "<li class='varsto nolmar' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 '>"  
+                      +"<span for='varian'>Varian <span class='text-red'>*</span></span>"                      
+                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' maxlength='15' placeholder='Ex : Merah' class='validate' required>"
+                      +"</div>"
                       +"<div class='input-field col s1 m1' >"
                       +"<a onclick=javascript:deleteVarian('li_varian_"+tot_varian+"'); class='btn-floating waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
                     +"</div>"
                     +"</li>";
    }else if (stok == 0) {
-      var varian = "<li class='varsto nolmar' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 '>"                      
-                      +"<input id='varian' name='nama_varian_"+tot_varian+"' maxlength='15' type='text' placeholder='Ex : Merah' class='validate'>"
-                      +"<label for='varian'>Varian</label>"
+      var varian = "<li class='varsto nolmar' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 '>" 
+                      +"<span for='varian'>Varian <span class='text-red'>*</span></span>"                       
+                      +"<input id='varian' name='nama_varian_"+tot_varian+"' maxlength='15' type='text' placeholder='Ex : Merah' class='validate' required>"
                     +"</div>"
                       +"<div class='input-field col s1 m1' >"
                       +"<a onclick=javascript:deleteVarian('li_varian_"+tot_varian+"'); class='btn-floating waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
@@ -529,14 +590,14 @@ function boxVarian(id) {
   if (stok == 1) {
       var varian = "<li class='varsto nolmar' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 '>" 
                       +"<span for='varian'>Varian <span class='text-red'>*</span></span>"                     
-                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' maxlength='15' placeholder='Ex : Merah' class='validate'>"
+                      +"<input id='varian' name='nama_varian_"+tot_varian+"' type='text' maxlength='15' placeholder='Ex : Merah' class='validate' required>"
                     +"</div>"
                     +"<div class='input-field col s11 m5 tersedia'>"
                         +"<label >Stok : <span class='text-green'>selalu tersedia</span></label>"
                       +"</div>"
                       +"<div class='input-field col s11 m5 pakai-stok'  style='display:none'>"
-                        +"<span for='varian'>Stok <span class='text-red'>*</span></span>"
-                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='text' maxlength='10' placeholder='Jumlah stok' class='validate numbersOnly'>"
+                        +"<span for='varian'>Stok <span class='text-red'>*</span></span>" 
+                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='text' maxlength='10' placeholder='Jumlah stok' class='validate numbersOnly' required>"
                       +"</div>"
                       +"<div class='input-field col s1 m1' >"
                       +"<a onclick=javascript:deleteVarian('li_varian_"+tot_varian+"'); class='btn-floating waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
@@ -545,14 +606,14 @@ function boxVarian(id) {
    }else if (stok == 0) {
       var varian = "<li class='varsto nolmar' id='li_varian_"+tot_varian+"'><div class='input-field col s12 m5 '>"                      
                       +"<span for='varian'>Varian <span class='text-red'>*</span></span>"
-                      +"<input id='varian' name='nama_varian_"+tot_varian+"' maxlength='15' type='text' placeholder='Ex : Merah' class='validate'>"
+                      +"<input id='varian' name='nama_varian_"+tot_varian+"' maxlength='15' type='text' placeholder='Ex : Merah' class='validate' required>"
                     +"</div>"
                     +"<div class='input-field col s11 m5 tersedia' style='display:none'>"
                         +"<label >Stok : <span class='text-green'>selalu tersedia</span></label>"
                       +"</div>"
                       +"<div class='input-field col s11 m5 pakai-stok'>"
                         +"<span for='varian'>Stok <span class='text-red'>*</span></span>"
-                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='text' maxlength='10' placeholder='Jumlah stok' class='validate numbersOnly'>"
+                        +"<input id='varian' name='stok_varian_"+tot_varian+"' type='text' maxlength='10' placeholder='Jumlah stok' class='validate numbersOnly' required>"
                       +"</div>"
                       +"<div class='input-field col s1 m1' >"
                       +"<a onclick=javascript:deleteVarian('li_varian_"+tot_varian+"'); class='btn-floating waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>"
@@ -837,14 +898,15 @@ function delete_kategori(id){
 }
 
 function set_rules (e) {
-  $("#form_edit_kategori_"+e).validate(); //sets up the validator
+ $("#form_edit_kategori_"+e).validate(); //sets up the validator
   Materialize.updateTextFields();
   $("input[id*=nama_"+e+"]").each(function () {
     $(this).rules('add', {
         required: true,
         maxlength:20,
         remote: base_url+"produk/rules_kategori",
-        messages: {remote: message_alert('Nama kategori sudah ada')
+        messages: {
+          remote: message_alert('Nama kategori sudah ada')
       }
     });
   });
@@ -868,11 +930,14 @@ function edit_kategori(id){
             scrolling_kat   = true; 
             $('#habis').slideUp();
           }else{
-            //Materialize.toast('Gagal!. Nama kategori sudah tersedia', 4000);
+           // Materialize.toast('Gagal!. Nama kategori sudah tersedia', 4000);
+            $('.error').delay(300).fadeOut('slow');
           };
         }
     });
-  };  
+  }else{
+    $('.error').delay(300).fadeOut('slow');
+  }  
 }
 
 function cari_kategori(e){
@@ -905,11 +970,17 @@ function change_date(id){
       if (msg == 'sukses') {        
        // $('.draft-'+id).fadeOut();
         $('.kadal-'+id).fadeOut();
-        $('.date-'+id).html(date);
+        var mounth = ["Jan", "Feb", "Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        var myarr = date.split("-");
+        var myvar = myarr[2] + " " + mounth[myarr[1]-1]+" "+ myarr[0];
+       $('.date-'+id).html(myvar);
       }else{
         //$('.draft-'+id).fadeIn();
         $('.kadal-'+id).fadeIn();
-        $('.date-'+id).html(date);       
+        var mounth = ["Jan", "Feb", "Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        var myarr = date.split("-");
+        var myvar = myarr[2] + " " + mounth[myarr[1]-1]+" "+ myarr[0];
+       $('.date-'+id).html(myvar);     
       };
     } 
   });

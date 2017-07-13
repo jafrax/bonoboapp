@@ -342,7 +342,7 @@ class Api extends CI_Controller {
 		$Shop = array(
 			"id"=>$QShop->id,
 			"name"=>$QShop->name,
-			"description"=>$QShop->description,
+			"description"=>nl2br($QShop->description),
 			"phone"=>$QShop->phone,
 			"tag_name"=>$QShop->tag_name,
 			"keyword"=>$QShop->keyword,
@@ -486,7 +486,7 @@ class Api extends CI_Controller {
 		$Product = array(
 				"id"=>$QProduct->id,
 				"name"=>$QProduct->name,
-				"description"=>$QProduct->description,
+				"description"=>nl2br($QProduct->description),
 				"sku_no"=>$QProduct->sku_no,
 				"weight"=>$QProduct->weight,
 				"unit"=>$QProduct->unit,
@@ -501,6 +501,8 @@ class Api extends CI_Controller {
 				"price_4"=>$QProduct->price_4,
 				"price_5"=>$QProduct->price_5,
 				"end_date"=>$QProduct->end_date,
+				"create_date"=>$QProduct->create_date,
+				"update_date"=>$QProduct->update_date,
 				"favorite"=>$isFavorite,
 				"shop_category"=>$ShopCategory,
 				"images"=>$ProductImages,
@@ -1685,7 +1687,7 @@ class Api extends CI_Controller {
 			*	------------------------------------------------------------------------------
 			*/
 			$Messages = array();
-			$QMessages = $this->db->query("SELECT `tmm`.`id`, `tmm`.`toko_name`, `tmm`.`toko_id`, `tm`.`message` as message, `tm`.`title`, `tm`.`image`, `tmm`.`flag_read` as isread, `tmm`.`flag_from` as isfrom FROM (SELECT tmma.* FROM tb_member_message tmma WHERE `tmma`.`member_id` =  '".$QUser->id."' ORDER BY tmma.id DESC) tmm JOIN `tb_message` tm ON `tm`.`id` = `tmm`.`message_id` GROUP BY `tmm`.`toko_id`")->result();		
+			$QMessages = $this->db->query("SELECT `tmm`.`id`, `tmm`.`toko_name`, `tmm`.`toko_id`, `tmm`.`create_date`, `tm`.`message` as message, `tm`.`title`, `tm`.`image`, `tmm`.`flag_read` as isread, `tmm`.`flag_from` as isfrom FROM (SELECT tmma.* FROM tb_member_message tmma WHERE `tmma`.`member_id` =  '".$QUser->id."' ORDER BY tmma.id DESC) tmm JOIN `tb_message` tm ON `tm`.`id` = `tmm`.`message_id` GROUP BY `tmm`.`toko_id`")->result();		
 			
 			foreach($QMessages as $QMessage){
 				if($QMessage->image != ""){
@@ -1704,12 +1706,13 @@ class Api extends CI_Controller {
 				$Message = array(
 						"id"=>$QMessage->id,
 						"shop_name"=>$QMessage->toko_name,
-						"message"=>$QMessage->message,
+						"message"=>nl2br($QMessage->message),
 						"title"=>$QMessage->title,
 						"image_tumb"=>$ImageTumb,
 						"image_high"=>$ImageHigh,
 						"isread"=>$QMessage->isread,
 						"isfrom"=>$QMessage->isfrom,
+						"create_date"=>$QMessage->create_date,
 						"shop"=>$this->getShopById($QMessage->toko_id,$QUser->id),
 					);
 				
@@ -1772,7 +1775,7 @@ class Api extends CI_Controller {
 			*/
 			$Messages = array();
 			$QMessages = $this->db
-							->select("tmm.id,tmm.toko_name,tmm.toko_id,tm.message as message,tm.title,tm.image,tmm.flag_read as isread,tmm.flag_from as isfrom")
+							->select("tmm.id,tmm.toko_name,tmm.create_date,tmm.toko_id,tm.message as message,tm.title,tm.image,tmm.flag_read as isread,tmm.flag_from as isfrom")
 							->join("tb_message tm","tm.id = tmm.message_id")
 							->where("tmm.member_id",$QUser->id)
 							->where("tmm.toko_id",$QShop->id)
@@ -1798,12 +1801,13 @@ class Api extends CI_Controller {
 				$Message = array(
 							"id"=>$QMessage->id,
 							"shop_name"=>$QMessage->toko_name,
-							"message"=>$QMessage->message,
+							"message"=>nl2br($QMessage->message),
 							"title"=>$QMessage->title,
 							"image_tumb"=>$ImageTumb,
 							"image_high"=>$ImageHigh,
 							"isread"=>$QMessage->isread,
 							"isfrom"=>$QMessage->isfrom,
+							"create_date"=>$QMessage->create_date,
 						);
 						
 				array_push($Messages,$Message);
@@ -1893,9 +1897,10 @@ class Api extends CI_Controller {
 			*/
 			$Invites = array();
 			$QInvites = $this->db
-						->where("member_id",$QUser->id)
-						->where("flag_api",0)
-						->get("tb_invite")
+						->where("ti.toko_id not in (SELECT ttm.toko_id FROM tb_toko_member ttm WHERE ttm.member_id = ".$QUser->id.")",null,false)
+						->where("ti.member_id",$QUser->id)
+						->where("ti.flag_api",0)
+						->get("tb_invite ti")
 						->result();
 						
 			foreach($QInvites as $QInvite){
@@ -1992,22 +1997,27 @@ class Api extends CI_Controller {
 			}
 			
 			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && $this->response->postDecode("lastId") > 0){
-				$QProduct = $QProduct->where("tp.id < ",$this->response->postDecode("lastId"));
+				/*
+				*	Karena sintax order by di rubah dari ordered by ID menjadi ordered by update_date,
+				* 	maka query paging harus juga di ganti menggunakan offset
+				*/
+				//$QProduct = $QProduct->where("tp.id < ",$this->response->postDecode("lastId"));
+				
+				$this->paging_offset = $this->response->postDecode("lastId");
 			}
 			
 			$QProduct = $QProduct->limit($this->paging_limit,$this->paging_offset);
-			$QProduct = $QProduct->order_by("tp.id","Desc");
+			$QProduct = $QProduct->order_by("tp.update_date","Desc");
 			$QProduct = $QProduct->get("tb_product tp");
 			$QProducts = $QProduct->result();
 			
 			if(sizeOf($QProducts) > 0){
-				$message= "";
 				$Products = array();
 				foreach($QProducts as $QProduct){
 						$Product = $this->getProductById($QProduct->id,$QUser->id);
 						array_push($Products,$Product);
 				}
-				$this->response->send(array("result"=>1,"message"=>$message,"products"=>$Products), true);
+				$this->response->send(array("result"=>1,"products"=>$Products), true);
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Tidak ada produk yang ditemukan","messageCode"=>4), true);
 			}
@@ -2053,7 +2063,7 @@ class Api extends CI_Controller {
 			$QProduct = $QProduct->where("tp.id in (SELECT tf.product_id FROM tb_favorite tf WHERE tf.member_id = ".$QUser->id.")",null,false);
 			
 			if($this->response->post("keyword") != "" && $this->response->postDecode("keyword") != ""){
-				$QProduct = $QProduct->where("tp.name LIKE ","%".$this->response->postDecode("keyword")."%");
+				$QProduct = $QProduct->where("(tp.name LIKE '%".$this->response->postDecode("keyword")."%' OR tp.sku_no LIKE '%".$this->response->postDecode("keyword")."%')",null,false);
 			}
 			
 			if($this->response->post("stock_type") != "" && $this->response->postDecode("stock_type") != ""){
@@ -2068,11 +2078,17 @@ class Api extends CI_Controller {
 			}
 			
 			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && $this->response->postDecode("lastId") > 0){
-				$QProduct = $QProduct->where("tp.id < ",$this->response->postDecode("lastId"));
+				/*
+				*	Karena sintax order by di rubah dari ordered by ID menjadi ordered by update_date,
+				* 	maka query paging harus juga di ganti menggunakan offset
+				*/
+				//$QProduct = $QProduct->where("tp.id < ",$this->response->postDecode("lastId"));
+				
+				$this->paging_offset = $this->response->postDecode("lastId");
 			}
 			
 			$QProduct = $QProduct->limit($this->paging_limit,$this->paging_offset);
-			$QProduct = $QProduct->order_by("tp.id","Desc");
+			$QProduct = $QProduct->order_by("tp.update_date","Desc");
 			$QProduct = $QProduct->get("tb_product tp");
 			$QProducts = $QProduct->result();
 			
@@ -2372,7 +2388,7 @@ class Api extends CI_Controller {
 			*/
 			$ShopProducts = $this->db
 						->select("tp.id")
-						->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id")
+						->join("tb_toko_category_product ttcp","ttcp.id = tp.toko_category_product_id","left")
 						->where("ttcp.toko_id",$QShop->id)
 						->get("tb_product tp")
 						->result();
@@ -2464,21 +2480,27 @@ class Api extends CI_Controller {
 			*/
 			$QProduct = $this->db;
 			$QProduct = $QProduct->select("tp.id, tp.stock_type, tp.end_date");
-			$QProduct = $QProduct->join("tb_toko_category_product tkcp","tkcp.id = tp.toko_category_product_id");
+			$QProduct = $QProduct->join("tb_toko_category_product tkcp","tkcp.id = tp.toko_category_product_id","left");
 			$QProduct = $QProduct->where("tkcp.toko_id", $QShop->id);
 			$QProduct = $QProduct->where("tp.active", 1);
 			$QProduct = $QProduct->where(" ((tp.stock_type = 0 AND tp.end_date >= '".date("Y-m-d")."') OR tp.stock_type = 1) ",null,false);
 			
 			if($this->response->post("keyword") != "" && $this->response->postDecode("keyword") != ""){
-				$QProduct = $QProduct->where("tp.name LIKE ","%".$this->response->postDecode("keyword")."%");
+				$QProduct = $QProduct->where("(tp.name LIKE '%".$this->response->postDecode("keyword")."%' OR tp.sku_no LIKE '%".$this->response->postDecode("keyword")."%')",null,false);
 			}
 			
 			if($this->response->post("lastId") != "" && $this->response->postDecode("lastId") != "" && intval($this->response->postDecode("lastId")) > 0){
-				$QProduct = $QProduct->where("tp.id < ",$this->response->postDecode("lastId"));
+				/*
+				*	Karena sintax order by di rubah dari ordered by ID menjadi ordered by update_date,
+				* 	maka query paging harus juga di ganti menggunakan offset
+				*/
+				//$QProduct = $QProduct->where("tp.id < ",$this->response->postDecode("lastId"));
+				
+				$this->paging_offset = $this->response->postDecode("lastId");
 			}
 			
 			$QProduct = $QProduct->limit($this->paging_limit,$this->paging_offset);
-			$QProduct = $QProduct->order_by("tp.id","Desc");
+			$QProduct = $QProduct->order_by("tp.update_date","Desc");
 			$QProduct = $QProduct->get("tb_product tp");
 			$QProducts = $QProduct->result();
 			
@@ -2624,7 +2646,7 @@ class Api extends CI_Controller {
 		}
 	}
 	
-	
+	/*
 	public function getFavoriteProducts(){
 		try {
 		
@@ -2632,7 +2654,7 @@ class Api extends CI_Controller {
 			*	------------------------------------------------------------------------------
 			*	Validation POST data
 			*	------------------------------------------------------------------------------
-			*/
+			*
 			if(!$this->isValidApi($this->response->postDecode("api_key"))){
 				return;
 			}
@@ -2652,7 +2674,7 @@ class Api extends CI_Controller {
 			*	------------------------------------------------------------------------------
 			*	Query mengambil data produk berdasarkan filter dan paging
 			*	------------------------------------------------------------------------------
-			*/
+			*
 			$QProduct = $this->db;
 			$QProduct = $QProduct->select("tp.*,tkcp.id as category_id, tkcp.name as category_name, tkcp.toko_id as toko_id");
 			$QProduct = $QProduct->join("tb_toko_category_product tkcp","tp.toko_category_product_id = tkcp.id");
@@ -2693,7 +2715,7 @@ class Api extends CI_Controller {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
 	}
-	
+	*/
 	public function getProduct(){
 		try {
 		
@@ -4489,8 +4511,6 @@ class Api extends CI_Controller {
 	
 	public function doCartSave(){
 		try{
-		
-			
 			/*
 			*	------------------------------------------------------------------------------
 			*	Validation POST data
@@ -5181,6 +5201,8 @@ class Api extends CI_Controller {
 					*	Simpan data invoice product dari cart product
 					*	------------------------------------------------------------------------------
 					*/
+					$productMessage = "";
+					
 					$QCartProducts = $this->db
 						->select("tcp.*, tp.id as product_id, tp.name as product_name, tp.description as product_description, tp.price_base, tp.sku_no as product_sku_no, tp.unit as product_unit")
 						->join("tb_product tp","tcp.product_id = tp.id")
@@ -5249,6 +5271,8 @@ class Api extends CI_Controller {
 								*	------------------------------------------------------------------------------
 								*/
 								
+								$varianMessage = "";
+								
 								$QCartVarians = $this->db
 									->select("tcv.*, tpv.name as varian_name")
 									->join("tb_product_varian tpv","tcv.product_varian_id = tpv.id")
@@ -5308,6 +5332,15 @@ class Api extends CI_Controller {
 													
 												$Save = $this->db->where("id",$ProductVarian->id)->update("tb_product_varian",$Data);
 											}
+											
+											/*
+											*	------------------------------------------------------------------------------
+											*	Membuat message Invoice varian
+											*	------------------------------------------------------------------------------
+											*/
+											
+											$varianMessagePrice = $InvoiceVarian["quantity"] * $price_unit;
+											$varianMessage = $varianMessage . "<tr><td width='150px'>".$InvoiceVarian["varian_name"]."</td><td width='100px'>".$InvoiceVarian["quantity"]." ".$QInvoiceProduct->product_unit."</td><td width='100px'>Rp. ".$varianMessagePrice.",-</td></tr>";
 										}
 									}
 								}
@@ -5337,6 +5370,21 @@ class Api extends CI_Controller {
 								);
 								
 								array_push($InvoiceProducts,$InvoiceProduct);
+								
+								/*
+								*	------------------------------------------------------------------------------
+								*	Membuat message Invoice Product
+								*	------------------------------------------------------------------------------
+								*/
+								$productMessage = $productMessage . "<table>
+									<tbody>
+									<tr><td width='150px'><i>Nama Barang</td><td>".$InvoiceProduct["product_name"]."</td></tr>
+									<tr><td><i>Kode Barang</td><td>".$InvoiceProduct["product_sku_no"]."</td></tr>
+									<tr><td><i>Harga Satuan</td><td>Rp. ".$InvoiceProduct["price_unit"].",-/".$InvoiceProduct["product_unit"]."</td></tr>
+									<tr><td><i>Varian</td><td align='left'><table>".$varianMessage."</table></td></tr>
+									</tbody>
+									</table>
+									<div style='border-bottom:solid 1px #a5a5a5;margin:15px 0px 15px 0px;'></div>";
 							}
 						}
 					}
@@ -5350,6 +5398,43 @@ class Api extends CI_Controller {
 					*/
 					$Invoice = $this->getInvoiceById($QInvoice->id,$QUser->id);
 					
+					/*
+					*	------------------------------------------------------------------------------
+					*	Mengirim email
+					*	------------------------------------------------------------------------------
+					*/
+					$CourierName = "";
+					
+					if($this->response->postDecode("courier_type") != "0"){
+						$CourierName = $QCourier->name;
+					}
+					
+					$message = "
+						<h2>No. Transaksi: ".$Invoice["invoice_no"]."</h2>
+						Dear ".$QUser->name.",<br>
+						<br>
+						Terima kasih telah berbelanja di Bonobo. Berikut adalah penjelasan tagihan pembayaran Anda.<br><br>
+
+						<table>
+							<thead><tr><th colspan='2' align='left'>No. Transaksi: ".$Invoice["invoice_no"]."</th></tr></thead>
+						<tbody>
+						<tr><td width='150px'><i>Waktu transaksi</td><th align='left'>".$this->hs_datetime->getDate4String($Date)."</th></tr>
+						<tr><td><i>Harga produk</td><th align='left'>Rp. ".$Invoice["price_item"].",-</th></tr>
+						<tr><td><i>Biaya kirim</td><th align='left'>Rp. ".$Invoice["price_shipment"].",-</th></tr>
+						<tr><td><i>Kode unik</td><th align='left'>".$Invoice["invoice_seq_payment"]."</th></tr>
+						<tr><td><i>Total harga</td><th align='left'>Rp. ".$Invoice["price_total"].",-</th></tr>
+						<tr><td><i>Nama pembeli</td><th align='left'>".$QUser->name."</th></tr>
+						<tr><td><i>Toko</td><th align='left'>".$QShop->name."</th></tr>
+						<tr><td><i>Kurir</td><th align='left'>".$CourierName."</th></tr>
+						<tr><td>Catatan pembeli</td><th align='left'>\"".$Invoice["notes"]."\"</th></tr>
+						</tbody>
+						</table>
+						<br><br>".$productMessage;
+				
+		
+				
+					$sendEmail = $this->template->send_email($QUser->email,'Detail Pemesanan',$message);
+				
 					/*
 					*	------------------------------------------------------------------------------
 					*	Hapus data Cart dan ambil data Toko
@@ -5498,13 +5583,14 @@ class Api extends CI_Controller {
 		}
 	}
 	
+	/*
 	public function getMessages(){
 		try{
 			/*
 			*	------------------------------------------------------------------------------
 			*	Validation POST data
 			*	------------------------------------------------------------------------------
-			*/
+			
 			if(!$this->isValidApi($this->response->postDecode("api_key"))){
 				return;
 			}
@@ -5524,7 +5610,7 @@ class Api extends CI_Controller {
 			*	------------------------------------------------------------------------------
 			*	Query ambil data messages
 			*	------------------------------------------------------------------------------
-			*/
+			
 			
 			$QMessages = $this->db;
 			$QMessages = $QMessages->select("tmm.*,tm.message");
@@ -5546,7 +5632,7 @@ class Api extends CI_Controller {
 			*	------------------------------------------------------------------------------
 			*	Membentuk object Messages
 			*	------------------------------------------------------------------------------
-			*/
+			
 			$Messages = array();
 			foreach($QMessages as $QMessage){
 				$Shop = $this->getShopById($QMessage->toko_id,$QUser->id);
@@ -5554,9 +5640,10 @@ class Api extends CI_Controller {
 				$Message = array(
 						"id"=>$QMessage->id,
 						"shop_name"=>$QMessage->toko_name,
-						"message"=>$QMessage->message,
+						"message"=>nl2br($QMessage->message),
 						"flag_from"=>$QMessage->flag_from,
 						"flag_read"=>$QMessage->flag_read,
+						"create_date"=>$QMessage->create_date,
 						"shop"=>$Shop,
 					);
 				
@@ -5573,8 +5660,9 @@ class Api extends CI_Controller {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
 	}
+	*/
 	
-	public function doMessageDelete(){
+	public function doMessageDeletes(){
 		try{
 			/*
 			*	------------------------------------------------------------------------------
@@ -5610,6 +5698,54 @@ class Api extends CI_Controller {
 			$Delete = $this->db
 					->where("member_id",$QUser->id)
 					->where("toko_id",$this->response->postDecode("shop"))
+					->delete("tb_member_message");
+					
+			if($Delete){
+				$this->response->send(array("result"=>1,"message"=>"Pesan telah dihapus","messageCode"=>4), true);
+			}else{
+				$this->response->send(array("result"=>0,"message"=>"Pesan tidak dapat dihapus.","messageCode"=>5), true);
+			}
+			
+		} catch (Exception $e) {
+			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
+		}
+	}
+	
+	public function doMessageDelete(){
+		try{
+			/*
+			*	------------------------------------------------------------------------------
+			*	Validation POST data
+			*	------------------------------------------------------------------------------
+			*/
+			if(!$this->isValidApi($this->response->postDecode("api_key"))){
+				return;
+			}
+			
+			if($this->response->post("user") == "" || $this->response->postDecode("user") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>1), true);
+				return;
+			}
+			
+			$QUser = $this->db->where("id",$this->response->postDecode("user"))->get("tb_member")->row();
+			if(empty($QUser)){
+				$this->response->send(array("result"=>0,"message"=>"Anda belum login, silahkan login dahulu","messageCode"=>2), true);
+				return;
+			}
+			
+			if($this->response->post("message") == "" || $this->response->postDecode("message") == ""){
+				$this->response->send(array("result"=>0,"message"=>"Tidak ada pesan yang dipilih","messageCode"=>3), true);
+				return;
+			}
+			
+			/*
+			*	------------------------------------------------------------------------------
+			*	Query delete messages
+			*	------------------------------------------------------------------------------
+			*/
+			
+			$Delete = $this->db
+					->where("id",$this->response->postDecode("message"))
 					->delete("tb_member_message");
 					
 			if($Delete){
@@ -5768,12 +5904,13 @@ class Api extends CI_Controller {
 					$Messages = array(
 								"id"=>$QUserMessage->id,
 								"shop_name"=>$QUserMessage->toko_name,
-								"message"=>$QMessage->message,
+								"message"=>nl2br($QMessage->message),
 								"title"=>$QMessage->title,
 								"image_tumb"=>$ImageTumb,
 								"image_high"=>$ImageHigh,
 								"isfrom"=>$QUserMessage->flag_from,
 								"isread"=>$QUserMessage->flag_read,
+								"create_date"=>$QMessage->create_date,
 								"shop"=>$Shop,
 							);
 					
@@ -6053,5 +6190,6 @@ class Api extends CI_Controller {
 			$this->response->send(array("result"=>0,"message"=>"Server Error : ".$e,"messageCode"=>9999), true);
 		}
 	} 
+	
 }
 

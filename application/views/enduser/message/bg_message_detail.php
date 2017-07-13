@@ -8,6 +8,7 @@ echo"
 		<div id='habis' style='display:none;font-size:12px;text-align:center;margin:20px' class='green-text'><p >Pesan sudah ditempilkan semua</p></div>
 		<div id='message-ajax'>
 ";
+
 $date = '0000-00-00';
 $total_message = count($Messages);
 foreach(array_reverse($Messages) as $Message){

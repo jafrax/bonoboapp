@@ -93,7 +93,12 @@ class Anggota extends CI_Controller {
 				$data["notif"] = "Email harus diisi";
 				$valid = false;
 			}
-						
+			
+			$data["member"] = $this->model_toko->cek_email($data["email"])->row();			
+			if(count($data['member']) > 0){
+				$data["notif"] = "email tidak dapat diundang ";
+				$valid = false; //tb_toko_email_toko_lain
+			}
 
 			$data["member"] = $this->model_toko_anggota->get_member_blacklist($_SESSION['bonobo']['id'],$data["email"])->row();
 			if(count($data['member']) > 0){
@@ -102,10 +107,17 @@ class Anggota extends CI_Controller {
 			}
 			
 			
+
 			$data["member"] = $this->model_toko_anggota->get_member_toko($_SESSION['bonobo']['id'],$data["email"])->row();
 			if(count($data['member']) > 0){
 				$data["notif"] = "Sudah jadi anggota  ";
 				$valid = false; //tb_toko_member
+			}else{
+				$cek1 = $this->db->where('email',$data["email"])->get('tb_invite');
+			if($cek1->num_rows() > 0){
+				$data["notif"] = "Sudah pernah diundang";
+				$valid = false; //tb_invite
+			}
 			}
 				
 			
@@ -116,11 +128,11 @@ class Anggota extends CI_Controller {
 			}
 			
 
-			//$cek1 = $this->db->where('email',$data["email"])->get('tb_invite');
-			//if($cek1->num_rows() > 0){
-			//	$data["notif"] = "Sudah pernah diundang";
-			//	$valid = false; //tb_invite
-		//	}
+			// $cek1 = $this->db->where('email',$data["email"])->get('tb_invite');
+			// if($cek1->num_rows() > 0){
+			// 	$data["notif"] = "Sudah pernah diundang";
+			// 	$valid = false; //tb_invite
+			// }
 			
 			
 			

@@ -55,7 +55,7 @@ echo"
 				</div>
 				<div id='divKecamatan' class='input-field col s12 m8'>
 					<p>
-						<select name='cmbKecamatan' id='cmbKecamatan' class='selectize'  disabled>
+						<select name='cmbKecamatan' id='cmbKecamatan' class='selectize' style='height: 10px; ' disabled>
 ";
 
 	if(!empty($Rate)){
@@ -78,8 +78,10 @@ echo"
 				</div>
 				<div class='input-field col s12 m8'>
 					<p>
-						<input placeholder='Nominal' name='txtRatePrice' type='text' class='validate price' maxlength='18' value='".(empty($Rate) ? "" : $Rate->id != null ? $Rate->price : "")."'>										
+						<input placeholder='Nominal' id='txtRatePrice' name='txtRatePrice' type='text' class='validate price' maxlength='18' value='".(empty($Rate) ? "" : $Rate->id != null ? $Rate->price : "")."'>										
+					<label class='error' for='txtRatePrice'></label>
 					</p>
+
 				</div>
 			</div>
 

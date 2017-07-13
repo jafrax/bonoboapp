@@ -28,7 +28,7 @@ echo"
 		<form id='formMessageNew' class='col s12'>
 			<div class='row'>
 				<div class='input-field col s12'>
-					<textarea id='txtMessage' name='txtMessage' class='materialize-textarea' autofocus ></textarea>
+					<textarea id='txtMessage' name='txtMessage' class='materialize-textarea' autofocus style='max-height:200px!important;'></textarea>
 					<label for='txtMessage'>Isi Pesan</label>
 				</div>
 				<div class='input-field col s12'>

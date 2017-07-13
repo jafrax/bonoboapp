@@ -102,7 +102,11 @@ $(document).ready(function() {
     	thousandsSeparator: ".",
     	prefix: "",
 	});
-		
+	$('input.berat').priceFormat({
+	    prefix: '',
+	    centsSeparator: ',',
+	    thousandsSeparator: '.'
+	});	
 	Materialize.updateTextFields();
 });
 

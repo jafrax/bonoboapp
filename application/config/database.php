@@ -19,10 +19,10 @@ if($active_online){
 		$db['default']['database'] = 'bonoboxa_trial';
 	}
 }else{
-	$db['default']['hostname'] = '192.168.0.253';
-	$db['default']['username'] = 'admin';
-	$db['default']['password'] = 'admin';
-	$db['default']['database'] = 'visione_bonobo';
+	$db['default']['hostname'] = 'localhost';
+	$db['default']['username'] = 'root';
+	$db['default']['password'] = '';
+	$db['default']['database'] = 'bonobo';
 }
 
 $db['default']['dbdriver'] = 'mysql';

@@ -28,8 +28,8 @@ class Nota extends CI_Controller {
 	
 	public function index(){		
 		
-		$_SESSION['date_to'] 	= date('Y-m-d');
-		$_SESSION['date_from'] 	= date('Y-m-d', strtotime('-1 month', strtotime( date('Y-m-d') )));
+		$_SESSION['filter_nota']['date_to'] 	= date('Y-m-d');
+		$_SESSION['filter_nota']['date_from'] 	= date('Y-m-d', strtotime('-1 month', strtotime( date('Y-m-d') )));
 		
 		//$data['nota']		= $this->model_nota->get_nota();
 		$data['rekening']	= $this->model_nota->get_rekening();
@@ -38,12 +38,37 @@ class Nota extends CI_Controller {
 		$page 	= $this->uri->segment(3);        
         $limit 	= $this->limit;
         if(!$page){
-        	unset($_SESSION['sort']);
-        	unset($_SESSION['tipe_bayar']);
-			unset($_SESSION['tipe_stok']);
-			unset($_SESSION['flagger']);
-			//unset($_SESSION['search']);
-			//unset($_SESSION['keyword']);
+        	unset($_SESSION['filter_nota']);
+        	
+        	$offset = $this->offset;
+        }else{
+            $offset = $page;
+        }
+        
+        $data['nota'] = $this->model_nota->get_nota($limit,$offset);
+        
+		if ($this->input->post('ajax')) {
+			if ($data['nota']->num_rows() > 0){
+                $this->load->view('enduser/nota/bg_nota_ajax', $data);
+            }
+        } else {
+            $this->template->bonobo('nota/bg_nota', $data);
+        }		
+	}
+
+
+	public function index2(){		
+		
+		
+		//$data['nota']		= $this->model_nota->get_nota();
+		$data['rekening']	= $this->model_nota->get_rekening();
+		$data['toko']		= $this->model_nota->get_toko()->row();	
+
+		$page 	= $this->uri->segment(3);        
+        $limit 	= $this->limit;
+        if(!$page){
+        	unset($_SESSION['filter_nota']);
+        	
         	$offset = $this->offset;
         }else{
             $offset = $page;
@@ -75,11 +100,11 @@ class Nota extends CI_Controller {
 		if (date('Y-m-d') > $new_date) {
 			echo "Lebih dari hari ini ";
 			
-		}elseif ($_SESSION['date_from'] > $_SESSION['date_to'])	{
+		}elseif ($_SESSION['filter_nota']['date_from'] > $_SESSION['filter_nota']['date_to'])	{
 			echo "Lebih dari to date ";
 		}else{
-			unset($_SESSION['date_from']);
-			$_SESSION['date_from'] = $new_date;
+			unset($_SESSION['filter_nota']['date_from']);
+			$_SESSION['filter_nota']['date_from'] = $new_date;
 			echo "sukses";
 			
 		}
@@ -100,13 +125,29 @@ class Nota extends CI_Controller {
 		if (date('Y-m-d') > $new_date) {
 			echo "kadaluarsa";
 		}else{
-			unset($_SESSION['date_to']);
-			$_SESSION['date_to'] = $new_date;
+			unset($_SESSION['filter_nota']['date_to']);
+			$_SESSION['filter_nota']['date_to'] = $new_date;
 			echo "sukses";
 		}
 		
 		$this->ajax_load();
 	}}
+
+	public function filter_dates(){
+		$date_from =$this->input->post('tgl_awal');
+		$date_to = $this->input->post('tgl_akhir');
+
+		//if($date_from && $date_to !=''){
+		$_SESSION['filter_nota']['date_from']  = $date_from;
+		$_SESSION['filter_nota']['date_to'] = $date_to;
+		//echo $date_from." ".$_SESSION['date_from'];
+	/*}else{
+		unset($_SESSION['date_from']);
+		unset($_SESSION['date_to']);
+	}*/
+		$this->ajax_load();
+
+	}
 	
 
 	public function change_note(){
@@ -137,7 +178,7 @@ class Nota extends CI_Controller {
 			return;
 		}
 		//$cek= $this->model_nota->get_toko()->row();
-		if ($cek = 1) {
+		if ($cek != null) {
 			
 			$produk = $this->model_nota->get_nota_product_by_id($id);				
 				foreach ($produk->result() as $row) {
@@ -166,8 +207,7 @@ class Nota extends CI_Controller {
 			echo "0";
 			return;
 		}
-		if ($cek == 1) {
-			
+		if ($cek != null) {
 			$produk = $this->model_nota->get_nota_product_by_id($id);				
 				foreach ($produk->result() as $row) {
 					$stok 	= $row->quantity;
@@ -456,9 +496,9 @@ class Nota extends CI_Controller {
 		$code = $this->input->post('code');
 
 		if ($code == 1) {
-			$_SESSION['sort'] = 'ASC';
+			$_SESSION['filter_nota']['sort'] = 'ASC';
 		}elseif ($code == 2) {
-			$_SESSION['sort'] = 'DESC';
+			$_SESSION['filter_nota']['sort'] = 'DESC';
 		}
 
 		$this->ajax_load();
@@ -470,11 +510,11 @@ class Nota extends CI_Controller {
 		$code = $this->input->post('code');
 
 		if ($code == 1) {
-			$_SESSION['tipe_bayar'] = 0;
+			$_SESSION['filter_nota']['tipe_bayar'] = 0;
 		}elseif ($code == 2) {
-			$_SESSION['tipe_bayar'] = 1;
+			$_SESSION['filter_nota']['tipe_bayar'] = 1;
 		}elseif ($code == 3) {
-			unset($_SESSION['tipe_bayar']);
+			unset($_SESSION['filter_nota']['tipe_bayar']);
 		}
 
 		$this->ajax_load();
@@ -484,23 +524,23 @@ class Nota extends CI_Controller {
 		$code = $this->input->post('code');
 
 		if ($code == 0) {
-			$_SESSION['tipe_stok'] = 0;
+			$_SESSION['filter_nota']['tipe_stok'] = 0;
 		}elseif ($code == 1) {
-			$_SESSION['tipe_stok'] = 1;
+			$_SESSION['filter_nota']['tipe_stok'] = 1;
 		}elseif ($code == 1) {
-			unset($_SESSION['tipe_stok']);
+			unset($_SESSION['filter_nota']['tipe_stok']);
 		}
 
 		$this->ajax_load();
 	}
 
 	public function set_flag(){
-		$_SESSION['flagger'] = 1;
+		$_SESSION['filter_nota']['flagger'] = 1;
 		$this->ajax_load();
 	}
 
 	public function unset_flag(){
-		unset($_SESSION['flagger']);
+		unset($_SESSION['filter_nota']['flagger']);
 		$this->ajax_load();
 	}
 
@@ -508,11 +548,11 @@ class Nota extends CI_Controller {
 		$keyword = $this->input->post('keyword');
 		$search = $this->input->post('search');
 		if ($keyword != '') {
-			$_SESSION['search'] = $search;
-			$_SESSION['keyword'] = $keyword;
+			$_SESSION['filter_nota']['search'] = $search;
+			$_SESSION['filter_nota']['keyword'] = $keyword;
 		}else{
-			unset($_SESSION['search']);
-			unset($_SESSION['keyword']);
+			unset($_SESSION['filter_nota']['search']);
+			unset($_SESSION['filter_nota']['keyword']);
 		}
 		
 		$this->ajax_load();

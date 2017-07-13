@@ -27,6 +27,7 @@ $(document).ready(function() {
         thousandsSeparator: ".",
         prefix: "Rp.",
     });
+        
 })
 
 function kurir_modal_add() {

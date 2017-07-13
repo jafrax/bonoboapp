@@ -160,9 +160,9 @@ class Message extends CI_Controller {
 			$offset = $this->offset; 
 		}else{
 			$offset = $uri3; 
-			}
+		}
 			
-		$data["Messages"] = $this->model_toko_message->get_by_shop_grouping_last_user($_SESSION["bonobo"]["id"], $data["keyword"], $this->response->post("lastUserID"), 5 ,$offset);
+		$data["Messages"] = $this->model_toko_message->get_by_shop_grouping($_SESSION["bonobo"]["id"], $data["keyword"], 5 ,$offset);
 		
 		$this->load->view("enduser/message/bg_message_contact",$data);
 	}
@@ -250,9 +250,13 @@ class Message extends CI_Controller {
 			return;
 		}
 		
-		$Message = $this->doMessageAdd($_SESSION["bonobo"]["id"],$this->response->post("id"),$this->response->post("message"));
+		$QMessage = $this->doMessageAdd($_SESSION["bonobo"]["id"],$this->response->post("id"),$this->response->post("message"));
 		
-		if($Message != false){
+		if($QMessage != false){
+			$Message = array(
+					"message"=>$QMessage->message,
+					"create_date"=>$this->hs_datetime->getTime4String($QMessage->create_date),
+				);
 			$this->response->send(array("result"=>1,"message"=>$Message,"messageCode"=>4));
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Pesan tidak dapat dikirim","messageCode"=>6));

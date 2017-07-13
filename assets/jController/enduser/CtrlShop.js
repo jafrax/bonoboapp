@@ -7,7 +7,7 @@ function CtrlShopStep1(){
 	var formStep1,formStep1JQuery;
 	var intAttributeCount;
 	var divCity, divKecamatan, divAttributes;
-	var imgShopLogo, gambar_default, txtShopLogoFile, aShopLogoDelete;
+	var imgShopLogo, gambar_default, txtShopLogoFile, aShopLogoDelete, nama_default;
 	var btnNext, btnSave;
 	var aAttributeAdd,txtPostal;
 	
@@ -27,6 +27,7 @@ function CtrlShopStep1(){
 		
 		imgShopLogo = $hs("imgShopLogo");
 		gambar_default = $hs("gambar_default");
+		nama_default = $hs("nama_default");
 		txtShopLogoFile = $hs("txtShopLogoFile");
 		intAttributeCount = $hs("intAttributeCount");
 		
@@ -348,12 +349,15 @@ function CtrlShopStep1(){
 
 		switch(img.substring(img.lastIndexOf('.') + 1).toLowerCase()){
 			case 'jpg': case 'png':
+				gambar_default.value = 0;
 				imgShopLogo.src = URL.createObjectURL(txtShopLogoFile.files[0]);  
+				
 				break;
 			default:
 				$('#txtShopLogoFile').val('');
 				// error message here
 				Materialize.toast('Silahkan pilih file format gambar .jpg / .png', 4000);
+				
 				break;
 		}
 			
@@ -363,6 +367,12 @@ function CtrlShopStep1(){
 	function doImageDelete(){
 		imgShopLogo.src = base_url+"assets/image/img_default_photo.jpg";
 		gambar_default.value = 1;
+		 //var Node1 = document.getElementById("imgShopLogo");
+ 	//	Node1.removeChild(Node1.childNodes[0]);
+ 		
+		
+
+				
 	}
 }
 function CtrlShopStep4(){
@@ -436,6 +446,7 @@ function CtrlShopStep7(){
 	this.loadComboboxCity = loadComboboxCity;
 	this.loadComboboxKecamatan = loadComboboxKecamatan;
 	this.initPopupRateAdd = initPopupRateAdd;
+	this.initPopupRateedit = initPopupRateedit;
 	
 	var sequence = 1;
 	var divCustomCourier,divShipment,divDetail,divCustomeCourierTable,divFormRateContent,divCity,divKecamatan;
@@ -575,7 +586,7 @@ function CtrlShopStep7(){
 	}
 	
 	function doRateSave(){
-	//	if ($('#formStep5Rate').validformStep5Rated()) {
+		if ($('#formStep5Rate').valid()) {
 			$.ajax({
 				type: 'POST',
 				data: $('#formStep5Rate').serialize()+"&customCourier="+txtCustomCourierId.value,
@@ -583,9 +594,10 @@ function CtrlShopStep7(){
 				success: function(result) {
 					var response = JSON.parse(result);
 					$('.modal-trigger').leanModal();
-					$('#divFormRate').closeModal();
+				//	$('#divFormRate').closeModal();
 					if(response.result == 1){
 						initCustomeCourierTable(txtCustomCourierId.value);
+						Materialize.toast(response.message, 4000);
 					//	Materialize.toast('Silahkan pilih file format gambar .jpg, .png'.result, 4000);
 					}else{
 						Materialize.toast(response.message, 4000);
@@ -593,7 +605,9 @@ function CtrlShopStep7(){
 					}
 				}
 			});
-		//};		
+		}else{
+			$(".error").delay(500).slideUp("slow");
+		}		
 	}
 	
 	function doRateDelete(e){
@@ -606,6 +620,7 @@ function CtrlShopStep7(){
 				$('.modal-trigger').leanModal();
 				if(response.result == 1){
 					initCustomeCourierTable(txtCustomCourierId.value);
+					Materialize.toast(response.message, 4000);
 				}else{
 					Materialize.toast(response.message, 4000);
 				}
@@ -649,12 +664,67 @@ function CtrlShopStep7(){
 			$('#header-rate').html('<i class=material-icons left>check</i>Tambah pengiriman');
 		}else{
 			$('#header-rate').html('<i class=material-icons left>check</i>Edit pengiriman');
+			// $('#divKecamatan').removeAttr('disabled');
+			// $('#cmbKecamatan').removeAttr('disabled');
+			// $('#divCity').removeAttr('disabled');
+			// $('#cmbCity').removeAttr('disabled');
+			
 		}
 
 		$.ajax({
 			type: 'POST',
 			data: "id="+e,
 			url: base_url+'toko/step7Form/',
+			success: function(result) {
+				$('.modal-trigger').leanModal();
+				divFormRateContent.html(result);
+				
+				divCity = $("#divCity");
+				divKecamatan = $("#divKecamatan");
+				$('.selectize').selectize();
+				initComboBox();
+
+				$('#formStep5Rate').validate({
+					ignore: ":hidden:not(select)",
+					rules:{
+						txtRatePrice: {
+							maxlength:15,
+							//required: true,							
+						},
+						// cmbCity: {
+						// 	required: true,
+						// },
+						// cmbProvince: {
+						// 	required: true,
+						// },
+						
+						// cmbKecamatan: {
+						// 	required: true,
+						// },
+					},
+				});
+
+
+			}
+		});
+	}
+	
+	function initPopupRateedit(e){
+		if (e == 'empty'){
+			$('#header-rate').html('<i class=material-icons left>check</i>Tambah pengiriman');
+		}else{
+			$('#header-rate').html('<i class=material-icons left>check</i>Edit pengiriman');
+			// $('#divKecamatan').removeAttr('disabled');
+			// $('#cmbKecamatan').removeAttr('disabled');
+			// $('#divCity').removeAttr('disabled');
+			// $('#cmbCity').removeAttr('disabled');
+			
+		}
+
+		$.ajax({
+			type: 'POST',
+			data: "id="+e,
+			url: base_url+'toko/step7Formedit/',
 			success: function(result) {
 				$('.modal-trigger').leanModal();
 				divFormRateContent.html(result);
@@ -680,12 +750,14 @@ function CtrlShopStep7(){
 						cmbKecamatan: {
 							required: true,
 						},
-					}
+					},
 				});
+
+				
 			}
 		});
 	}
-	
+
 	function loadComboboxCity(){
 		$('#loader-kota').show();
 		$.ajax({
@@ -773,7 +845,6 @@ function CtrlShopStep8(){
 			success: function(result) {
 				$('.modal-header').html('<i class="mdi-maps-local-atm left"></i>Akun Baru');
 				$("#divCmbBank").html(result);
-				
 			}
 		});
 	}
@@ -1189,7 +1260,7 @@ function set_kecamatan(){
     $('#loader-kec').show();
     $.ajax({
 		type: 'POST',
-		data: 'kota='+kota,
+		data: 'kota='+kota+'&province='+$('#province').val(),
 		url: base_url+'toko/comboboxKecamatan', 
 		success: function(kec) {
 			$('#panggon-kecamatan').html(kec);
@@ -1306,7 +1377,11 @@ $(document).ready(function () {
 		  		event.preventDefault();
 			};
 	  	}
-	  
+	  if ( $( "#chkExpedition" ).is(":checked") ||  $( "#chkPickUpStore" ).is(":checked") ||  $( "#chkStoreDelivery" ).is(":checked")){
+	  }else{
+	  	Materialize.toast("Silahkan pilih salah satu jenis ekspedisi", 4000);
+		  		event.preventDefault();
+	  }
 	});
 })
 function c_password(selection,url) {
@@ -1336,8 +1411,10 @@ function pilihngebank () {
 
 	if (pilihan == 'lainnya') {
 		$('#bank-lain').fadeIn();
+		nama_default.value = 1;
 	}else{
 		$('#bank-lain').fadeOut();
+		nama_default.value = 0;
 	};
 }
 
@@ -1380,13 +1457,16 @@ function cek_pin () {
         type: "POST",
         url: base_url+'toko/rules_pin',
 		data:"txtTagname="+$('#txtTagname').val(),            
+       	dataType: "json",
         success: function (response) {
-			if (response == 'true') {					
+			if (response.result == 1) {					
+				$('#notifTagnameS').html(response.message);
 				$('#notifTagname').hide();
 				$('#notifTagnameS').slideDown();
 			}else{
-				$('#notifTagnameS').hide();
+				$('#notifTagname').html(response.message);
 				$('#notifTagname').slideDown();
+				$('#notifTagnameS').hide();
 			};
         }
     });    

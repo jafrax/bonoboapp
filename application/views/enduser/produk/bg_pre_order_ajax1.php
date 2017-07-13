@@ -99,6 +99,7 @@ if ($produk->num_rows() == 0) {
 
 
 										<p class='input-field col s12 m12 l6 nolpad'>
+
 											<input id='tanggal-".$row->id."' name='tanggal-".$row->id."' onchange=javascript:change_date(".$row->id.") type='text' data-value='".$date."'  placeholder='Tanggal Berakhir' class='validate datepicker '>
 											<span class='label red right kadal-".$row->id."' style='display:$kadal'>Kadaluarsa</span>
 										</p>
@@ -107,7 +108,8 @@ if ($produk->num_rows() == 0) {
 
 										
 									</div>
-								</li>";
+								</li>
+								";
 							}
 
 

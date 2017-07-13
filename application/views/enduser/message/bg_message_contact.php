@@ -28,13 +28,5 @@ foreach($Messages->result() as $Message){
 			</div>
 		</li>
 	";
-	
-	echo"
-		<script>
-			$( document ).ready(function() {
-				ctrlMessage.setLastUserID('".$Message->qmember_id."');
-			});
-		</script>
-	";
 }
 ?>

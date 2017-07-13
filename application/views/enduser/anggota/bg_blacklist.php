@@ -48,7 +48,7 @@ if(sizeOf($Members) <= 0){
 				<div class='col s12 m5 l4'>
 					<img src='".$MemberImage."' class='responsive-img userimg'>
 				</div>
-				<div class='col s12 m7 l8'>
+				<div class='col s12 m7 l7'>
 					<p><a href='#popupBlacklist' onclick=ctrlAnggotaBlacklist.popupDetail2(".$Member->id."); class='modal-trigger'><b class='userangoota'>".$Member->name."</b></a></p>
 					<a href='#popupDelete' onclick=ctrlAnggotaBlacklist.popupDelete(".$Member->id.",'".urlencode($Member->name)."'); class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>
 				</div>

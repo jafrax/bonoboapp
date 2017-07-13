@@ -170,8 +170,14 @@
 											</div>
 											<p class='tool col s6 m6 right'>
 												<!-- hapus nota -->
-													<br>
-												<a class='modal-trigger red-text right' onclick=batalnota(".$row->id."); ><i class='mdi-navigation-close col s1  small'></i></a>
+													<br>";
+														if($row->status !=2){
+											if($row->status !=1){
+												echo" <a class='modal-trigger red-text right' onclick=batalnota(".$row->id."); ><i class='mdi-navigation-close col s1  small'></i></a>";
+											}
+										}
+											echo "
+												<!-- <a class='modal-trigger red-text right' onclick=batalnota(".$row->id."); ><i class='mdi-navigation-close col s1  small'></i></a> -->
 												<a class='modal-trigger red-text right' onclick=delitem(".$row->id."); ><i class='mdi-action-delete col s1 small'></i></a>
 												<a href='".base_url()."nota/cetak/".$row->invoice_no."' onclick='window.open(\"".base_url()."nota/cetak/".$row->invoice_no."\", \"newwindow\", \"width=800, height=600\"); return false;' class=' red-text right '><i class='mdi-action-print col s1 small'></i></a>
 											</p>											

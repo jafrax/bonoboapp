@@ -41,3 +41,27 @@ function valaid(id){
 		$('label.error').delay(5000).slideUp('slow');
 	}
 }
+
+function r_password(selection,url,uri) {
+    if ($("#"+selection).valid()) {
+    	var uri = uri;
+        $.ajax({
+            type    : "POST",
+            url     : base_url+url,
+            data    : $("#"+selection).serialize(),
+            dataType: 'json',
+            success : function(response){
+            	
+                if (response.msg == "success") {
+                     window.location.href = base_url+'admin/index/dashboard';
+                }else{
+                 	window.location.href = uri;
+                }
+            },
+            error : function(){
+                
+            }
+        });
+    }
+}
+

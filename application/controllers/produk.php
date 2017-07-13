@@ -66,10 +66,11 @@ class Produk extends CI_Controller {
 				$nama 			= $this->template->clearInput($this->input->post('nama'));
 				$sku 			= $this->template->clearInput($this->input->post('sku'));
 				$kategori 		= $this->template->clearInput($this->input->post('kategori'));
-				$berat 			= round($this->input->post('berat'),2);
+				$berat 			= str_replace(".","",$this->input->post('berat'));
+				//$berat 			= round($this->input->post('berat'),2);
 				$satuan 		= $this->template->clearInput($this->input->post('satuan'));
 				$min_order 		= $this->template->clearInput($this->input->post('min_order'));
-				$deskripsi 		= $this->template->clearInput($this->input->post('deskripsi'));
+				$deskripsi 		= $this->input->post('deskripsi');	
 				$stok 			= $this->template->clearInput($this->input->post('stok'));
 				$stok_utama 	= $this->template->clearInput($this->input->post('stok_utama'));
 				$harga_pembelian= $this->template->clearInput($this->input->post('harga_pembelian'));
@@ -93,7 +94,7 @@ class Produk extends CI_Controller {
 					'active'					=> $action,
 					'name'						=> $nama,
 					'sku_no'					=> $sku,
-					'weight'					=> $berat,
+					'weight'					=> str_replace(',','.',$berat),
 					'unit'						=> $satuan,
 					'min_order'					=> $min_order,
 					'description'				=> $deskripsi,
@@ -119,7 +120,7 @@ class Produk extends CI_Controller {
 					for($i=1;$i<=5;$i++){
 						if($pic <= 5){
 							if(isset($_FILES['pic_'.$i]['name'])){
-								$picture = $this->template->upload_picture($url,'pic_'.$i);
+								$picture = $this->template->upload_picture_not_resize($url,'pic_'.$i,$_POST['image_resize_'.$i]);
 								if($picture != 'error'){
 									$this->db->set('file',$picture)
 										->set('product_id',$id)
@@ -190,10 +191,11 @@ class Produk extends CI_Controller {
 				$nama 			= $this->template->clearInput($this->input->post('nama'));
 				$sku 			= $this->template->clearInput($this->input->post('sku'));
 				$kategori 		= $this->template->clearInput($this->input->post('kategori'));
-				$berat 			= round($this->input->post('berat'),2);
+				$berat 			= str_replace(".","",$this->input->post('berat'));
+				//$berat 			= round($this->input->post('berat'),2);
 				$satuan 		= $this->template->clearInput($this->input->post('satuan'));
 				$min_order 		= $this->template->clearInput($this->input->post('min_order'));
-				$deskripsi 		= $this->template->clearInput($this->input->post('deskripsi'));
+				$deskripsi 		= $this->input->post('deskripsi');	
 				$stok 			= $this->template->clearInput($this->input->post('stok'));
 				$stok_utama 	= $this->template->clearInput($this->input->post('stok_utama'));
 				$harga_pembelian= $this->template->clearInput($this->input->post('harga_pembelian'));
@@ -218,7 +220,7 @@ class Produk extends CI_Controller {
 					'active'					=> $action,
 					'name'						=> $nama,
 					'sku_no'					=> $sku,
-					'weight'					=> $berat,
+					'weight'					=> str_replace(',','.',$berat),
 					'unit'						=> $satuan,
 					'min_order'					=> $min_order,
 					'description'				=> $deskripsi,					
@@ -240,7 +242,7 @@ class Produk extends CI_Controller {
 					$pic 	= $this->model_produk->get_one_image($id);
 					foreach($pic->result() as $item){
 						if(isset($_FILES['pic_edit_'.$item->id]['name'])){
-							$picture = $this->template->upload_picture($url,'pic_edit_'.$item->id,$item->file);
+							$picture = $this->template->upload_picture_not_resize($url,'pic_edit_'.$item->id,$_POST['image_resize_'.$item->id],$item->file);
 							if($picture != 'error'){
 								$this->db->set('file',$picture)
 									->set('update_user',$_SESSION['bonobo']['email'])
@@ -260,7 +262,7 @@ class Produk extends CI_Controller {
 					for($i=1;$i<=$total_picture;$i++){
 						if($pic <= 5){
 							if(isset($_FILES['pic_'.$i]['name'])){
-								$picture = $this->template->upload_picture($url,'pic_'.$i);
+								$picture = $this->template->upload_picture_not_resize($url,'pic_'.$i,$_POST['image_resize_'.$i]);
 								if($picture != 'error'){
 									$this->db->set('file',$picture)
 										->set('product_id',$id)
@@ -535,10 +537,11 @@ class Produk extends CI_Controller {
 				$sku 			= $this->template->clearInput($this->input->post('sku'));
 				$tgl_pre_order	= $this->template->clearInput($this->input->post('tgl_pre_order_submit'));
 				$kategori 		= $this->template->clearInput($this->input->post('kategori'));
-				$berat 			= $this->template->clearInput(round($this->input->post('berat'),2));
+				//$berat 			= $this->template->clearInput(round($this->input->post('berat'),2));
+				$berat 			= str_replace(".","",$this->input->post('berat'));
 				$satuan 		= $this->template->clearInput($this->input->post('satuan'));
 				$min_order 		= $this->template->clearInput($this->input->post('min_order'));
-				$deskripsi 		= $this->template->clearInput($this->input->post('deskripsi'));				
+				$deskripsi 		= $this->input->post('deskripsi');				
 				$harga_pembelian= $this->template->clearInput($this->input->post('harga_pembelian'));
 				
 				$total_picture 	= $this->template->clearInput($this->input->post('total_picture'));				
@@ -550,7 +553,7 @@ class Produk extends CI_Controller {
 				$harga_level_3 	= $this->template->clearInput($this->input->post('harga_level_3'));
 				$harga_level_4 	= $this->template->clearInput($this->input->post('harga_level_4'));
 				$harga_level_5 	= $this->template->clearInput($this->input->post('harga_level_5'));
-				
+
 				if ($tgl_pre_order == '') {
 					$tgl_pre_order = date('Y-m-d');
 				}
@@ -558,6 +561,7 @@ class Produk extends CI_Controller {
 				if(empty($min_order) | $min_order == "0" | intval($min_order) <= 0){
 					$min_order = 1;
 				}
+
 
 				$data = array(
 					'stock_type_detail'			=> $stok,
@@ -567,7 +571,7 @@ class Produk extends CI_Controller {
 					'name'						=> $nama,
 					'sku_no'					=> $sku,
 					'end_date'					=> $tgl_pre_order,
-					'weight'					=> $berat,
+					'weight'					=> str_replace(',','.',$berat),
 					'unit'						=> $satuan,
 					'min_order'					=> $min_order,
 					'description'				=> $deskripsi,					
@@ -592,7 +596,7 @@ class Produk extends CI_Controller {
 					for($i=1;$i<=$total_picture;$i++){
 						if($pic <= 5){
 							if(isset($_FILES['pic_'.$i]['name'])){
-								$picture = $this->template->upload_picture($url,'pic_'.$i);
+								$picture = $this->template->upload_picture_not_resize($url,'pic_'.$i,$_POST['image_resize_'.$i]);
 								if($picture != 'error'){
 									$this->db->set('file',$picture)
 										->set('product_id',$id)
@@ -677,10 +681,11 @@ class Produk extends CI_Controller {
 				$sku 			= $this->template->clearInput($this->input->post('sku'));
 				$tgl_pre_order	= $this->template->clearInput($this->input->post('tgl_pre_order_submit'));
 				$kategori 		= $this->template->clearInput($this->input->post('kategori'));
-				$berat 			= $this->template->clearInput(round($this->input->post('berat'),2));
+				//$berat 			= $this->template->clearInput(round($this->input->post('berat'),2));
+				$berat 			= str_replace(".","",$this->input->post('berat'));
 				$satuan 		= $this->template->clearInput($this->input->post('satuan'));
 				$min_order 		= $this->template->clearInput($this->input->post('min_order'));
-				$deskripsi 		= $this->template->clearInput($this->input->post('deskripsi'));				
+				$deskripsi 		= $this->input->post('deskripsi');				
 				$harga_pembelian= $this->template->clearInput($this->input->post('harga_pembelian'));
 					
 				$total_picture 	= $this->template->clearInput($this->input->post('total_picture'));
@@ -703,7 +708,7 @@ class Produk extends CI_Controller {
 					'name'						=> $nama,
 					'sku_no'					=> $sku,
 					'end_date'					=> $tgl_pre_order,
-					'weight'					=> $berat,
+					'weight'					=> str_replace(',','.',$berat),
 					'unit'						=> $satuan,
 					'min_order'					=> $min_order,
 					'description'				=> $deskripsi,					
@@ -725,7 +730,7 @@ class Produk extends CI_Controller {
 					$pic 	= $this->model_produk->get_one_image($id);
 					foreach($pic->result() as $item){
 						if(isset($_FILES['pic_edit_'.$item->id]['name'])){
-							$picture = $this->template->upload_picture($url,'pic_edit_'.$item->id,$item->file);
+							$picture = $this->template->upload_picture_not_resize($url,'pic_edit_'.$item->id,$_POST['image_resize_'.$item->id],$item->file);
 							if($picture != 'error'){
 								$this->db->set('file',$picture)
 									->set('update_user',$_SESSION['bonobo']['email'])
@@ -762,7 +767,7 @@ class Produk extends CI_Controller {
 					for($i=1;$i<=$total_picture;$i++){
 						if($pic <= 5){
 							if(isset($_FILES['pic_'.$i]['name'])){
-								$picture = $this->template->upload_picture($url,'pic_'.$i);
+								$picture = $this->template->upload_picture_not_resize($url,'pic_'.$i,$_POST['image_resize_'.$i]);
 								if($picture != 'error'){
 									$this->db->set('file',$picture)
 									->set('product_id',$id)
@@ -875,6 +880,7 @@ class Produk extends CI_Controller {
 	public function change_date(){
 		$id 	= $this->input->post('id');
 		$date 	= $this->input->post('date');
+
 
 		$old_date 			= $date;
 		$old_date_timestamp = strtotime($old_date);

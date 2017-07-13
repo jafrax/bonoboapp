@@ -67,24 +67,19 @@ class Toko extends CI_Controller {
 
 	public function rules_pin(){
 		$username = $_REQUEST['txtTagname'];
-		$valid = "true";		
-	    $cek=$this->db->where('tag_name',$username)->get('tb_toko');
+	    $cek=$this->db->where('tag_name',$username)->where('id !=',$_SESSION['bonobo']['id'])->get('tb_toko');
 
 	    if($cek->num_rows()>0){
-			$valid = "false";
+			$this->response->send(array("result"=>0,"message"=>"Pin tidak tersedia","messageCode"=>1));
 	    }else{
-
  			$cek2=$this->db->where('tag_name',$username)->where('id',$_SESSION['bonobo']['id'])-> get('tb_toko');
- 			
- 			if($cek2->num_rows()>0){
-
-			$valid = "false";
-
-				}else{
-
-			$valid = "true";
-	    } }
-	    echo $valid;
+ 			if($cek2->num_rows()>0){		
+				$this->response->send(array("result"=>1,"message"=>"Ini pin anda","messageCode"=>2));
+			}else{
+				$this->response->send(array("result"=>1,"message"=>"Pin tersedia","messageCode"=>3));
+	    	} 
+		}
+	    
 	}
 	
 	public function comboboxprov(){
@@ -235,7 +230,6 @@ class Toko extends CI_Controller {
 			if($this->response->post("chkStoreDelivery") != ""){
 				$dm_store_delivery = 1;
 			}
-	
 			
 			$Data = array(
 					"dm_pick_up_store"=>$dm_pick_up_store,
@@ -355,6 +349,17 @@ class Toko extends CI_Controller {
 		$this->load->view("enduser/toko/bg_step_5_form",$data);
 	}
 	
+	public function step7Formedit(){
+		$data["Provinces"] = $this->model_location->get_provinces()->result();
+		
+
+		//$data["Cities"] = $this->model_location->get_cities()->result();
+		//$data["Kecamatans"] = $this->model_location->get_kecamatans()->result();
+		$data["Rate"] = $this->model_courier_custom_rate->get_by_id($this->response->post("id"))->row();
+		$data["Cities"] = $this->model_location->get_cities_by_provincee($data["Rate"]->location_to_province)->result();
+		$data["Kecamatans"] = $this->model_location->get_kecamatans_by_city_provincee($data["Rate"]->location_to_city,$data["Rate"]->location_to_province)->result();
+		$this->load->view("enduser/toko/bg_step_5_form_edit",$data);
+	}
 	public function step7Table(){
 		if($this->response->post("courier") == ""){
 			echo "Tidak ada data";
@@ -417,7 +422,13 @@ class Toko extends CI_Controller {
 			return;
 		}*/
 		
-		
+		$username = $_REQUEST['txtTagname'];
+	    $cek=$this->db->where('tag_name',$username)->where('id !=',$_SESSION['bonobo']['id'])->get('tb_toko');
+
+	    if($cek->num_rows()>0){
+			$this->response->send(array("result"=>0,"message"=>"Pin tidak tersedia","messageCode"=>1));
+			return;
+	    }
 		
 		
 		$QCategory = $this->model_category->get_by_id($this->response->post("cmbCategory"))->row();
@@ -433,12 +444,21 @@ class Toko extends CI_Controller {
 		$province = $this->response->post("cmbProvince");
 
 		$gambar_default = $this->response->post("gambar_default");
+		if($postal == "0" || $postal==""){
+			$QLocation = $this->model_location->get_by_filter(null,$kecamatan,$city,$province)->row();
+		}else{
+			$QLocation = $this->model_location->get_by_filter($postal,$kecamatan,$city,$province)->row();
+		}
 		
-		$QLocation = $this->model_location->get_by_filter($postal,$kecamatan,$city,$province)->row();
+
+
 		if(!empty($QLocation)){
-			$Location = $QLocation->id;
+			$Location = $QLocation->id;		
 		}else{
 			$QLocation = $this->model_location->get_by_filter(null,$kecamatan,$city,$province)->row();
+		}
+
+
 			if(!empty($QLocation)){
 				$Location = $QLocation->id;
 			}else{
@@ -448,70 +468,103 @@ class Toko extends CI_Controller {
 					
 			
 			$UploadPath    = 'assets/pic/shop/';
-			$Upload = $this->template->upload_picture($UploadPath,"txtShopLogoFile");
+			//$Upload = $this->template->upload_picture($UploadPath,"txtShopLogoFile");
 			if(!empty($_FILES['txtShopLogoFile']) && isset($_FILES['txtShopLogoFile']['name']) && !empty($_FILES['txtShopLogoFile']['name'])){
-			$UploadPath    = 'assets/pic/shop/';
-			$Upload = $this->template->upload_picture($UploadPath,"txtShopLogoFile");
-			
-			if($Upload == 'error'){
-				$Unggah = "";
-
-				$this->response->send(array("result"=>0,"message"=>"Ukuran gambar maksimum 1 Mb ! ","messageCode"=>1));
-
-				return;
-				redirect("toko/");
-			}else{
-				$Unggah=$Upload;
-				$_SESSION['bonobo']['image'] = $Unggah;
-			}
-			
-			//if()
-			
-			$Data = array(
-				"name"=>$this->response->post("txtName"),
-				"tag_name"=>$this->response->post("txtTagname"),
-				"keyword"=>$this->response->post("txtKeyword"),
-				"description"=>$this->response->post("txtDescription"),
-				"phone"=>$this->response->post("txtPhone"),
-				"address"=>$this->response->post("txtAddress"),
-				"postal"=>$postal,
-				"image"=>$Unggah,
-				"category_id"=>$Category,
-				"location_id"=>$Location,
-			);
-	//	}elseif($gambar_default!=null){
-			
-		}
-		else
-		{
-			//if($gambar_default==1){
+				$UploadPath    = 'assets/pic/shop/';
+				$Upload = $this->template->upload_picture($UploadPath,"txtShopLogoFile");
 				
-				//unlink('9ce7404d746b69ec73a8ea07fc07af63.jpg');
-			//	redirect('toko/step7');
-		//	}else{
+				if($Upload == 'error'){
+					$Unggah = "";
 
-		//	}
-		//	
-			$Data = array(
-				"name"=>$this->response->post("txtName"),
-				"tag_name"=>$this->response->post("txtTagname"),
-				"keyword"=>$this->response->post("txtKeyword"),
-				"description"=>$this->response->post("txtDescription"),
-				"phone"=>$this->response->post("txtPhone"),
-				"address"=>$this->response->post("txtAddress"),
-				"postal"=>$postal,
-				"category_id"=>$Category,
-				"location_id"=>$Location,
-			);
+					$this->response->send(array("result"=>0,"message"=>"Ukuran gambar maksimum 1 Mb ! ","messageCode"=>1));
 
-		}
+					return;
+					redirect("toko/");
+				}else{
+					$Unggah=$Upload;
+					$_SESSION['bonobo']['image'] = $Unggah;
+				}
+				
+				//8 Oktober 2015 by Arif
+				if($gambar_default==1){
+					$Data = array(
+						"name"=>$this->response->post("txtName"),
+						"tag_name"=>$this->response->post("txtTagname"),
+						"keyword"=>$this->response->post("txtKeyword"),
+						"description"=>$this->response->post("txtDescription"),
+						"phone"=>$this->response->post("txtPhone"),
+						"address"=>$this->response->post("txtAddress"),
+						"postal"=>$postal,
+						"image"=>"",
+						"category_id"=>$Category,
+						"location_id"=>$Location,
+					);
+					
+					$get_image = $this->model_toko->get_image_by_id($_SESSION['bonobo']['id'])->row();                   
+					@unlink('assets/pic/shop/'.$get_image->image);
+					@unlink('assets/pic/shop/resize/'.$get_image->image);
+					unset($_SESSION['bonobo']['image']);
+				
+				}else{
+					$Data = array(
+						"name"=>$this->response->post("txtName"),
+						"tag_name"=>$this->response->post("txtTagname"),
+						"keyword"=>$this->response->post("txtKeyword"),
+						"description"=>$this->response->post("txtDescription"),
+						"phone"=>$this->response->post("txtPhone"),
+						"address"=>$this->response->post("txtAddress"),
+						"postal"=>$postal,
+						"image"=>$Unggah,
+						"category_id"=>$Category,
+						"location_id"=>$Location,
+					);
+				}
+			}else{
+				if($gambar_default==1){
+					$Data = array(
+						"name"=>$this->response->post("txtName"),
+						"tag_name"=>$this->response->post("txtTagname"),
+						"keyword"=>$this->response->post("txtKeyword"),
+						"description"=>$this->response->post("txtDescription"),
+						"phone"=>$this->response->post("txtPhone"),
+						"address"=>$this->response->post("txtAddress"),
+						"postal"=>$postal,
+						"image"=>"",
+						"category_id"=>$Category,
+						"location_id"=>$Location,
+					);
+					$get_image = $this->model_toko->get_image_by_id($_SESSION['bonobo']['id'])->row();   
+					$path =  'assets/pic/shop/'.$get_image->image;
+					$path1 = 'assets/pic/shop/resize/'.$get_image->image;
+					   
+					@unlink($path);
+					@unlink($path1);
+					unset($_SESSION['bonobo']['image']);
+					
+				}else{
+				$Data = array(
+						"name"=>$this->response->post("txtName"),
+						"tag_name"=>$this->response->post("txtTagname"),
+						"keyword"=>$this->response->post("txtKeyword"),
+						"description"=>$this->response->post("txtDescription"),
+						"phone"=>$this->response->post("txtPhone"),
+						"address"=>$this->response->post("txtAddress"),
+						"postal"=>$postal,
+						"category_id"=>$Category,
+						"location_id"=>$Location,
+					);
+				}
+			}
+		
 		$step=$_SESSION['bonobo']['step'];
 		if($step != 0){
 			$update = $this->db->where('id',$_SESSION['bonobo']['id'])->set('step',2)->update('tb_toko');
 		}	
+
+
 			$Save = $this->db->where("id",$_SESSION["bonobo"]["id"])->update("tb_toko",$Data);
 			if($Save){
-
+				
 				$_SESSION['bonobo']['name'] = $this->response->post("txtName");
 				if($this->response->post("intAttributeCount") > 0){
 					for($i=1;$i<=$this->response->post("intAttributeCount");$i++){
@@ -546,7 +599,9 @@ class Toko extends CI_Controller {
 			}else{
 				$this->response->send(array("result"=>0,"message"=>"Informasi tidak dapat disimpan","messageCode"=>1));
 			}
-		}	
+
+
+
 	}
 	
 	public function doStep7CourierSave(){
@@ -658,9 +713,9 @@ class Toko extends CI_Controller {
 			if($count==0){
 			$Save = $this->db->insert("tb_courier_custom_rate",$Data);
 			if($Save){
-				$this->response->send(array("result"=>1,"message"=>"Rate telah disimpan","messageCode"=>4));
+				$this->response->send(array("result"=>1,"message"=>"Alamat telah disimpan","messageCode"=>4));
 			}else{
-				$this->response->send(array("result"=>0,"message"=>"Rate tidak dapat disimpan","messageCode"=>5));
+				$this->response->send(array("result"=>0,"message"=>"Alamat tidak dapat disimpan","messageCode"=>5));
 			}
 		}else{
 			$this->response->send(array("result"=>0,"message"=>"Alamat sudah ada !","messageCode"=>5));
@@ -677,9 +732,9 @@ class Toko extends CI_Controller {
 			
 			$Save = $this->db->where("id",$this->response->post("txtRateId"))->update("tb_courier_custom_rate",$Data);
 			if($Save){
-				$this->response->send(array("result"=>1,"message"=>"Rate telah disimpan","messageCode"=>6));
+				$this->response->send(array("result"=>1,"message"=>"Alamat telah disimpan","messageCode"=>6));
 			}else{
-				$this->response->send(array("result"=>0,"message"=>"Rate tidak dapat disimpan","messageCode"=>7));
+				$this->response->send(array("result"=>0,"message"=>"Alamat tidak dapat disimpan","messageCode"=>7));
 			}								
 		}
 	}
@@ -715,6 +770,10 @@ class Toko extends CI_Controller {
 	public function doStep8Save(){
 		if($bank = $this->response->post("cmbBank")==""){
 			$this->response->send(array("result"=>0,"message"=>"Pilihan Bank masih kosong","messageCode"=>1));
+			return;
+		}
+		if($gambar_default = $this->response->post("nama_default")==1 && $this->response->post("txtBank")==""){
+			$this->response->send(array("result"=>0,"message"=>"Nama Bank masih kosong","messageCode"=>1));
 			return;
 		}
 		
@@ -915,7 +974,7 @@ class Toko extends CI_Controller {
         
 
 				if($txtLevel1 == ""){
-					$txtLevel1 ="ga Umum";
+					$txtLevel1 ="Harga Member Umum";
 				}
 
                 if($txtLevel2 == ""){
@@ -933,6 +992,9 @@ class Toko extends CI_Controller {
                 if($txtLevel5 == ""){
 					$txtLevel5 = "Harga Khusus 3";	
 				}
+
+				$txtlevarr = array($txtLevel1,$txtLevel2, $txtLevel3,$txtLevel4,$txtLevel5); 
+				
                 if($this->response->post("chkLevel1") != ""){
                         $chkLevel1 = 1;
 
@@ -950,22 +1012,25 @@ class Toko extends CI_Controller {
                         $chkLevel5 = 1;
                 }
 				
-				for ($i=1;$i <= 5;$i++){
-					if ($this->response->post("chkLevel".$i) == 1){
-						for ($a=1;$a <= 5;$a++){						
-							if ($i != $a && $this->response->post("chkLevel".$a) == 1){
-								if ($this->response->post("txtLevel".$i) == $this->response->post("txtLevel".$a)){
-									$this->response->send(array("result"=>0,"message"=>"Data tidak boleh sama" ,"messageCode"=>0));
-
-									//echo json_encode("Data ".$this->response->post("txtLevel".$i)." tidak boleh sama");
+				for ($i=1;$i <= 5;$i++){// perulangan 1-5
+					if ($this->response->post("chkLevel".$i) == 1){ // jika hasil respon chklevel == 1 yang artinya tidak kosong
+						
+						for ($a=1;$a <= 5;$a++){						//perulangan 1-5
+							if ($i != $a && $this->response->post("chkLevel".$a) == 1){ // jika i != a dan chk level tidak kosong									
+								if ($txtlevarr[$i-1] == $txtlevarr[$a-1]){ // txt level 
+									$this->response->send(array("result"=>0,"message"=>"Data tidak boleh sama".$this->response->post("txtLevel".$i) ,"messageCode"=>0));
 									return;
+									//echo json_encode("Data ".$this->response->post("txtLevel".$i)." tidak boleh sama");
+									
 								}
 							}
 						}
 					}
 				}
                 $Data = array(
-                                "level_1_name"=>$this->response->post("txtLevel1"),
+                	//change by arif 12 Oktober 2015
+                              // "level_1_name"=>$this->response->post("txtLevel1"),
+                				"level_1_name"=>$txtLevel1,
                                 "level_2_name"=>$txtLevel2,
                                 "level_3_name"=>$txtLevel3,
                                 "level_4_name"=>$txtLevel4,
@@ -1009,10 +1074,13 @@ class Toko extends CI_Controller {
 	}
 	
 	public function comboboxKecamatan(){
-		//$Kecamatans = $this->model_location->get_kecamatans_by_city_province($this->response->post("city"),$this->response->post("province"),$this->response->post("zip_code"))->result();
-		$Kecamatans = $this->model_toko->get_kecamatan($this->input->post("kota"))->result();
-		echo"<select name='cmbKecamatan' id='tkecamatan' onchange=javacript:set_location() class='selectize cmbKecamatan'><option value='' disabled selected>Pilih Kecamatan</option>";
-
+		//$provin = $this->response->post("province");
+		//$kota = $this->response->post("kota");
+		$Kecamatans = $this->model_location->get_kecamatans_by_city_provincee($this->response->post("kota"),$this->response->post("province"))->result();
+		//$Kecamatans = $this->model_location->get_kecamatans_by_city_province($this->response->post("kota"),$this->response->post("province"),null)->result();
+		//$Kecamatans = $this->model_toko->get_kecamatan($this->input->post("kota"))->result();
+		echo"<select name='cmbKecamatan' id='tkecamatan' onchange=javacript:set_location() class='selectize cmbKecamatan'><option value='' disabled selected>Pilih Kecamatan </option>";
+		
 		foreach($Kecamatans as $Kecamatan){
 			echo"<option value='".$Kecamatan->kecamatan."' >".$Kecamatan->kecamatan."</option>";
 		}
@@ -1291,6 +1359,14 @@ class Toko extends CI_Controller {
 	    echo $valid;
 	}
 
-	
+	function delete_session_image(){
+		if(!empty($_POST['sure'])){ 
+     $sure = $_POST['sure'];
+     if($sure == 1){
+       unset($_SESSION['bonobo']['image']);
+     }
+	}
+
+	}
 }
 

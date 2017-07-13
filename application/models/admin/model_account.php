@@ -26,4 +26,17 @@ class Model_account extends CI_Model {
         $this->db->order_by("name","asc");
 		return $this->db->get('tb_admin');
     }
+
+   public function get_by_email($email){
+        return $this->db->select('tt.*')
+                        ->where("tt.email",$email)
+                        ->get("tb_admin tt");
+    }
+    
+    public function reset_akun($data){
+        $this->db->like('token',$data['token']);
+        $this->db->like('email',$data['email']);
+        return $this->db->get('tb_admin');
+    }
+
 }

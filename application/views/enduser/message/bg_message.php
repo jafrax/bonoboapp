@@ -23,18 +23,19 @@ echo"
 							$jedul = 'block';
 						}
 							echo "
-							<div class='input-field col s12 m12'>
-								<button id='btnMessageReads' style='display:$jedul' class='btn waves-effect waves-light col s12 m12' type='cancel' name='action'>
+							<div class='input-field col s12 m12' style='display:$jedul'>
+								<button id='btnMessageReads'  class='btn waves-effect waves-light col s12 m12' type='cancel' name='action'>
 									Tandai semua 'Sudah dibaca'
 								</button>
 							</div>
-							<div class='input-field col s12 m12'>
-								<a href='#popupDeletes' style='display:$jedul' class='modal-trigger btn waves-effect waves-light deep-orange darken-1 col s12 m12'>
+							<div class='input-field col s12 m12' style='display:$jedul'>
+								<a href='#popupDeletes' class='modal-trigger btn waves-effect waves-light deep-orange darken-1 col s12 m12'>
 									Hapus semua
 								</a>
 							</div>							
 						</li>
 					</ul>
+					
 					<ul class='row '>
 						<li class='col s12 listanggodaf'>
 						<form method='POST' action='".base_url("message/")."'>							
@@ -43,61 +44,53 @@ echo"
 						</form>
 						</li>
 					</ul>
-					<ul class='row' id='contact-scroll' style='max-height: 500px; overflow: auto;' onscroll=javascript:ctrlMessage.doScrollContact()>
-						<div id='contact-pesan'>
+						
+					<div id='contact-pesan' class='row' style='max-height: 310px; overflow: auto;' onscroll=javascript:ctrlMessage.doScrollContact()>";
 
-						";
-
-						foreach($Messages->result() as $Message){
-							$MessageStatus = "";
-							$MemberImage = base_url("assets/image/img_default_logo.jpg");
-							
-							if(!empty($Message->qmember_image) && file_exists("./assets/pic/user/".$Message->qmember_image)){
-								$MemberImage = base_url("assets/pic/user/resize/".$Message->qmember_image);
-							}
-							
-							$MessageNew = $this->model_toko_message->get_by_shop_member_new($_SESSION["bonobo"]["id"],$Message->member_id)->result();
-							if(sizeOf($MessageNew) > 0){
-								$MessageStatus = "<p class='red-text'>Pesan baru</p>";
-							}
-							
-							$MessageLast = $this->model_toko_message->get_by_shop_member_last($_SESSION["bonobo"]["id"],$Message->member_id)->row();
-							
-							echo"
-								<li class='col s12 m12 listanggodaf waves-effect' onclick=ctrlMessage.showMessageDetail(".$Message->member_id.")>
-									<div class='col s3 m5 l4'>
-										<img src='".$MemberImage."' class='responsive-img userimg'>
-									</div>
-									<div class='col s9 m7 l8'>
-										<p class=' blue-grey-text lighten-3 right'>".$this->hs_datetime->getTime4String($MessageLast->create_date)."</p>
-										<p><b class='userangoota'>".$Message->qmember_name."</b></p>															
-										<p>".$this->template->limitChar($MessageLast->message,50)." </p>
-										".$MessageStatus."
-										<a href='#popupDelete' onclick=ctrlMessage.popupDelete(".$Message->member_id.",'".urlencode($Message->qmember_name)."'); class='modal-trigger btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
-									</div>
-								</li>
-							";
-							
-							echo"
-								<script>
-									$( document ).ready(function() {
-										ctrlMessage.setLastUserID('".$Message->qmember_id."');
-									});
-								</script>
-							";
+					foreach($Messages->result() as $Message){
+						$MessageStatus = "";
+						$MemberImage = base_url("assets/image/img_default_logo.jpg");
+						
+						if(!empty($Message->qmember_image) && file_exists("./assets/pic/user/".$Message->qmember_image)){
+							$MemberImage = base_url("assets/pic/user/resize/".$Message->qmember_image);
 						}
-
+						
+						$MessageNew = $this->model_toko_message->get_by_shop_member_new($_SESSION["bonobo"]["id"],$Message->member_id)->result();
+						if(sizeOf($MessageNew) > 0){
+							$MessageStatus = "<p class='red-text'>Pesan baru</p>";
+						}
+						
+						$MessageLast = $this->model_toko_message->get_by_shop_member_last($_SESSION["bonobo"]["id"],$Message->member_id)->row();
+						
 						echo"
-						</div>
+							<li class='col s12 m12 listanggodaf waves-effect' onclick=ctrlMessage.showMessageDetail(".$Message->member_id.")>
+								<div class='col s3 m5 l4'>
+									<img src='".$MemberImage."' class='responsive-img userimg'>
+								</div>
+								<div class='col s9 m7 l8'>
+									<p class=' blue-grey-text lighten-3 right'>".$this->hs_datetime->getTime4String($MessageLast->create_date)."</p>
+									<p><b class='userangoota'>".$Message->qmember_name."</b></p>															
+									<p>".$this->template->limitChar($MessageLast->message,50)." </p>
+									".$MessageStatus."
+									<a href='#popupDelete' onclick=ctrlMessage.popupDelete(".$Message->member_id.",'".urlencode($Message->qmember_name)."'); class='modal-trigger btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
+								</div>
+							</li>
+						";
+					}
+
+					echo"
 						<div id='loader-contact' style='text-align:center;display:none'><img src='".base_url()."html/images/comp/loading.GIF' width='40px'></div>
 						<div id='habis-contact' style='display:none;font-size:12px;text-align:center;margin:20px' class='blue-text'><p >Contact sudah ditampilkan semua</p></div>
-					</ul>
+					</div>
+					
 				</div>
-				<div class='col s12 m8' id='messageContent'>";
-						if ($Messages->num_rows() == 0) {
-							echo "<center>Anda tidak memiliki pesan</center>";
-						}
-				echo"
+				<div class='col s12 m8' id='messageContent'>
+				
+				";
+					if ($Messages->num_rows() == 0) {
+						echo "<center>Anda tidak memiliki pesan</center>";
+					}
+			echo"
 				</div>
 			</div>
 		</div>

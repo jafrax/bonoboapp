@@ -1368,6 +1368,7 @@ $.extend($.fn, {
 function message_alert(e) {
 	return "<i class='fa fa-warning'></i> "+e+" !";
 }
+
 /*
 function message_alert(e) {
 	return "<span class='input-group alert alert-danger'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span> "+e+"</span>";

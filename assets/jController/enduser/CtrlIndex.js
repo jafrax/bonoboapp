@@ -215,8 +215,10 @@ function CtrlSignin(){
 			rules:{
 				email: {
 					required: true,
-					email: true,
 					maxlength:50,
+					//pattern: /^(\d+|\d+,\d{1,2})$/
+					//pattern : /^\w+([\.-]?\w+)*@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/,
+					email: true,
 				},
 				password: {
 					required: true,
@@ -227,6 +229,7 @@ function CtrlSignin(){
 			messages: {
 				email:{
 					required: message_alert("Field ini dibutuhkan"),
+					//pattern :  message_alert("Email tidak validdd"),
 					email: message_alert("Email tidak valid"),
 					maxlength: message_alert("Masukkan maksimal 50 karakter"),
 				},
@@ -238,6 +241,9 @@ function CtrlSignin(){
 			}
 		});
 	}
+
+
+	
 	
 	$(function() {
 		lblMailNotif.delay(5000).slideUp('slow');
@@ -371,7 +377,14 @@ function r_password(selection,url) {
 
 	/*EMAIL ONLY*/
 	jQuery('.emailLow').keyup(function () { 
-	    this.value = this.value.toLowerCase().replace(/ /g, '');
+
+	//change by arif 9 Oktober 2015		  
+    var start = this.selectionStart,
+    end = this.selectionEnd;
+    $(this).val( $(this).val().toLowerCase().replace(/ /g, '') );
+    this.setSelectionRange(start, end);
+    
+	    //this.value = this.value.toLowerCase().replace(/ /g, '');
 	});
 	/*EMAIL ONLY*/
 	

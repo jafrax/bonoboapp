@@ -27,7 +27,8 @@ echo "
                 </div>
                 <div class='footer'>                                                               
                     <button type='submit' class='btn bg-olive btn-block'  onClick=javascript:valaid('fsignin') >Sign me in</button>                    
-                    <p><a href='#'>I forgot my password</a></p>
+                    <p><a href='".base_url()."admin/index/forgot_password'>I forgot my password</a></p>
+                    
                 </div>
             </form>
         </div>

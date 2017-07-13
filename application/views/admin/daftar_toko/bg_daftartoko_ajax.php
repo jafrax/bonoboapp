@@ -11,6 +11,7 @@ echo"
 			</th>
 			<th>No</th>
 			<th>Nama Toko</th>
+			<th>PIN Toko</th>
 			<th>Email</th>
 			<th>Account Status</th>
 			<th>Berlaku s/d</th>
@@ -34,6 +35,7 @@ echo"
 				</td>
 				<td>$i</td>
 				<td>".$nama."</td>
+				<td>".$row->tag_name."</td>
 				<td>".$row->email."</td>
 				<td>";
 					if($row->status == 2){
@@ -115,6 +117,7 @@ echo"
 			</th>
 			<th>No</th>
 			<th>Nama Toko</th>
+			<th>PIN Toko</th>
 			<th>Email</th>
 			<th>Account Status</th>
 			<th>Berlaku s/d</th>

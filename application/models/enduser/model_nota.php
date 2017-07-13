@@ -12,36 +12,41 @@ class Model_nota extends CI_Model
 		$this->db->limit($limit,$offset);
 		$this->db->where('toko_id',$_SESSION['bonobo']['id']);
 		
-		if (isset($_SESSION['date_from'])) {
-			$this->db->where('DATE(create_date) >=', $_SESSION['date_from']);
-		}elseif(isset($_SESSION['date_to'])) {
-			$this->db->where('DATE(create_date) <=', $_SESSION['date_to']);
-		}else{
-		$where = "DATE(create_date) BETWEEN '".$_SESSION['date_from']."' AND '".$_SESSION['date_to']."' ";
-		$this->where($where);
-		}
-		
-		if (isset($_SESSION['tipe_bayar'])) {
-			$this->db->where('status',$_SESSION['tipe_bayar']);
-		}
-		if (isset($_SESSION['tipe_stok'])) {
-			$this->db->where('stock_type',$_SESSION['tipe_stok']);
-		}
-		if (isset($_SESSION['flagger'])) {
-			$this->db->where('member_confirm',1);
-		}
-		if (isset($_SESSION['search'])) {
-			if ($_SESSION['search'] == 'semua') {
-				$this->db->where("(member_name like '%".$_SESSION['keyword']."%' OR invoice_no like '%".$_SESSION['keyword']."%' OR price_total like '%".$_SESSION['keyword']."%') AND id != ",0,true);
+		if(isset($_SESSION['filter_nota'])){
+			if(isset($_SESSION['filter_nota']['date_from']) AND isset($_SESSION['filter_nota']['date_to'])){
+				$where = "DATE(create_date) BETWEEN '".$_SESSION['filter_nota']['date_from']."' AND '".$_SESSION['filter_nota']['date_to']."' ";
+				$this->db->where($where,null,false);
+			}else if (isset($_SESSION['filter_nota']['date_from'])) {
+				$this->db->where('DATE(create_date) >=', $_SESSION['filter_nota']['date_from']);
+			}elseif(isset($_SESSION['filter_nota']['date_to'])) {
+				$this->db->where('DATE(create_date) <=', $_SESSION['filter_nota']['date_to']);
+			}
+			
+			if (isset($_SESSION['filter_nota']['tipe_bayar'])) {
+				$this->db->where('status',$_SESSION['filter_nota']['tipe_bayar']);
+			}
+			if (isset($_SESSION['filter_nota']['tipe_stok'])) {
+				$this->db->where('stock_type',$_SESSION['filter_nota']['tipe_stok']);
+			}
+			if (isset($_SESSION['filter_nota']['flagger'])) {
+				$this->db->where('member_confirm',1);
+			}
+			if (isset($_SESSION['filter_nota']['search'])) {
+				if ($_SESSION['filter_nota']['search'] == 'semua') {
+					$this->db->where("(member_name like '%".$_SESSION['filter_nota']['keyword']."%' OR invoice_no like '%".$_SESSION['filter_nota']['keyword']."%' OR price_total like '%".$_SESSION['filter_nota']['keyword']."%') AND id != ",0,true);
+				}else{
+					$this->db->like($_SESSION['filter_nota']['search'],$_SESSION['filter_nota']['keyword']);				
+				}
+			}
+			if (isset($_SESSION['filter_nota']['sort'])) {
+				$this->db->order_by('create_date',$_SESSION['filter_nota']['sort']);
 			}else{
-				$this->db->like($_SESSION['search'],$_SESSION['keyword']);				
+				$this->db->order_by('create_date','DESC');
 			}
 		}
-		if (isset($_SESSION['sort'])) {
-			$this->db->order_by('create_date',$_SESSION['sort']);
-		}else{
-			$this->db->order_by('create_date','DESC');
-		}
+		
+		
+		
 			
 		return $this->db->get('tb_invoice');
 	}
@@ -95,6 +100,11 @@ class Model_nota extends CI_Model
 	function get_rek_tujuan($id){
 		return $this->db->where('invoice_id',$id)->get('tb_invoice_transfer_confirm');
 	}
+	//made function for ambil di toko 12-10-2015 09.02
+	function get_toko_pickup($id){
+		return $this->db->where('id',$_SESSION['bonobo']['id'])->get('tb_toko');
+	}
+
 
 	function get_toko_kurir($id){
 		return $this->db->select('m.name name')->where('t.toko_id',$id)->join('ms_courier m','m.id=t.courier_id')->get('tb_toko_courier t');	

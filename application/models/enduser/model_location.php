@@ -65,12 +65,20 @@ class Model_location extends CI_Model {
 	}
 	
 	public function get_kecamatans_by_city_province($c,$p,$z=null){
+		if($z==null){
+				return $this->db
+					->where("city",$c)
+					->where("province",$p)
+					->group_by("kecamatan")
+					->get("ms_location");
+		}else{
 		return $this->db
 					->where("city",$c)
 					->where("postal_code",$z)
 					->where("province",$p)
 					->group_by("kecamatan")
 					->get("ms_location");
+		}
 	}
 	public function get_kecamatans_by_city_provincee($c,$p){
 		return $this->db

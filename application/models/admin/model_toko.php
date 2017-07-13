@@ -20,6 +20,7 @@ class Model_toko extends CI_Model {
         if($search != "all-search"){
             $this->db->like("name",$search);
 			$this->db->or_like("email",$search);
+			$this->db->or_like("tag_name",$search);
         }
 		$this->db->limit($limit,$offset);
         $this->db->order_by("name","asc");

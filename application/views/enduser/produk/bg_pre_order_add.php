@@ -94,7 +94,8 @@ echo "
 												<a class='delimg' id='rem_pic_1' style='display:none' onclick=javascript:remove_picture('pic_1')><i class='mdi-navigation-close right'></i></a>
 												<div class='card-image img-product waves-effect waves-block waves-light'>
 													<img id='img_pic_1' onclick=javascript:click_picture('pic_1') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
-													<input type='file' class='pic_product' name='pic_1' id='pic_1' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
+													<input type='file' class='pic_product' name='pic_1' id='pic_1' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id,image_resize_1)>
+													<input id='image_resize_1' type='hidden' name='image_resize_1' />
 												</div>
 																						
 											</div><label for='pic_1' class='error error-image' generated='true'></label>										
@@ -104,7 +105,8 @@ echo "
 												<a class='delimg' id='rem_pic_2' style='display:none' onclick=javascript:remove_picture('pic_2')><i class='mdi-navigation-close right'></i></a>
 												<div class='card-image img-product waves-effect waves-block waves-light'>
 													<img id='img_pic_2' onclick=javascript:click_picture('pic_2') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
-													<input type='file' class='pic_product' name='pic_2' id='pic_2' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
+													<input type='file' class='pic_product' name='pic_2' id='pic_2' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id,image_resize_2)>
+													<input id='image_resize_2' type='hidden' name='image_resize_2' />
 												</div>
 																					
 											</div><label for='pic_2' class='error error-image' generated='true'></label>											
@@ -114,7 +116,8 @@ echo "
 												<a class='delimg' id='rem_pic_3' style='display:none' onclick=javascript:remove_picture('pic_3')><i class='mdi-navigation-close right'></i></a>
 												<div class='card-image img-product waves-effect waves-block waves-light'>
 													<img id='img_pic_3' onclick=javascript:click_picture('pic_3') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
-													<input type='file' class='pic_product' name='pic_3' id='pic_3' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
+													<input type='file' class='pic_product' name='pic_3' id='pic_3' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id,image_resize_3)>
+													<input id='image_resize_3' type='hidden' name='image_resize_3' />
 												</div>
 																						
 											</div><label for='pic_3' class='error error-image' generated='true'></label>										
@@ -124,7 +127,8 @@ echo "
 												<a class='delimg' id='rem_pic_4' style='display:none' onclick=javascript:remove_picture('pic_4')><i class='mdi-navigation-close right'></i></a>
 												<div class='card-image img-product waves-effect waves-block waves-light'>
 													<img id='img_pic_4' onclick=javascript:click_picture('pic_4') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
-													<input type='file' class='pic_product' name='pic_4' id='pic_4' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
+													<input type='file' class='pic_product' name='pic_4' id='pic_4' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id,image_resize_4)>
+													<input id='image_resize_4' type='hidden' name='image_resize_4' />
 												</div>
 																						
 											</div><label for='pic_4' class='error error-image' generated='true'></label>										
@@ -134,7 +138,8 @@ echo "
 												<a class='delimg' id='rem_pic_5' style='display:none' onclick=javascript:remove_picture('pic_5')><i class='mdi-navigation-close right'></i></a>
 												<div class='card-image img-product waves-effect waves-block waves-light'>
 													<img id='img_pic_5' onclick=javascript:click_picture('pic_5') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
-													<input type='file' class='pic_product' name='pic_5' id='pic_5' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
+													<input type='file' class='pic_product' name='pic_5' id='pic_5' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id,image_resize_5)>
+													<input id='image_resize_5' type='hidden' name='image_resize_5' />
 												</div>
 																						
 											</div><label for='pic_5' class='error error-image' generated='true'></label>										
@@ -150,7 +155,7 @@ echo "
 								</div>
 
 								<div class='input-field col s12'>
-									<input id='perkiraan_berat' placeholder='0.00' type='text' name='berat' class='validate' maxlength='9'>
+									<input id='perkiraan_berat' placeholder='0,00' type='text' name='berat' class='validate berat' maxlength='9'>
 									<label for='perkiraan_berat'>Perkiraan Berat <span>( Kilogram)</span></label>
 								</div>
 								<div class='input-field col s12'>
@@ -181,7 +186,7 @@ echo "
 									<li class='varsto nolmar' id='li_varian_1'>
 										<div class='input-field col s12 m5'>
 											<span for='varian'>Varian <span class='text-red'>*</span></span>
-											<input id='varian' name='nama_varian_1' type='text' maxlength='30' placeholder='Ex : Merah' class='validate' >
+											<input id='varian' name='nama_varian_1' type='text' maxlength='30' placeholder='Ex : Merah' class='validate' required>
 										</div>
 										
 										

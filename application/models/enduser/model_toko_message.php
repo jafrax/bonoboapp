@@ -32,21 +32,7 @@ class Model_toko_message extends CI_Model {
 						->where("ttm.toko_id",$shop)
 						->like("tmm.name",$keyword)
 						->group_by("ttm.member_id")
-						->order_by("max(ttm.id)","DESC")
-						->limit($limit,$offset)
-						->get("tb_toko_message ttm");
-		
-	}
-	
-	public function get_by_shop_grouping_last_user($shop,$keyword="",$lastUserID=0,$limit=5,$offset=0){
-		return $this->db->select("ttm.*, tm.message as message, tmm.id as qmember_id, tmm.name as qmember_name, tmm.image as qmember_image")
-						->join("tb_message tm","ttm.message_id = tm.id")
-						->join("tb_member tmm","ttm.member_id = tmm.id")
-						->where("ttm.member_id < ",$lastUserID)
-						->where("ttm.toko_id",$shop)
-						->like("tmm.name",$keyword)
-						->group_by("ttm.member_id")
-						->order_by("max(ttm.member_id)","DESC")
+						->order_by("ttm.member_id","DESC")
 						->limit($limit,$offset)
 						->get("tb_toko_message ttm");
 		

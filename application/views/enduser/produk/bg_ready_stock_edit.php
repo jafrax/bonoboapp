@@ -1,5 +1,11 @@
 <?php
 $uri3 = $this->uri->segment(3);
+$weight= $produk->berat;
+
+$weights = explode(".",$weight);
+if(!isset($weights[1])){
+	$weight = $weight * 100;
+}
 echo "
 <div id='delete_produk' class='modal confirmation'>
 	<div class='modal-header red'>
@@ -94,7 +100,8 @@ echo "
 														<a class='delimg' id='rem_pic_edit_".$item->id."' onclick=javascript:remove_picture('pic_edit_".$item->id."')><i class='mdi-navigation-close right'></i></a>
 														<div class='card-image img-product waves-effect waves-block waves-light'>
 															<img id='img_pic_edit_".$item->id."' onclick=javascript:click_picture_edit('pic_edit_".$item->id."') class='responsive-img img-product' src='".base_url()."assets/pic/product/resize/".$item->file."'>
-															<input type='file' class='pic_edit_product' name='pic_edit_".$item->id."' id='pic_edit_".$item->id."' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
+															<input type='file' class='pic_edit_product' name='pic_edit_".$item->id."' id='pic_edit_".$item->id."' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id,image_resize_".$item->id.")>
+															<input id='image_resize_".$item->id."' type='hidden' name='image_resize_".$item->id."' />
 														</div>
 													</div>
 													<label for='pic_edit_".$item->id."' class='error error-image' generated='true'></label>																				
@@ -111,7 +118,8 @@ echo "
 													<a class='delimg' id='rem_pic_".$i."' style='display:none' onclick=javascript:remove_picture('pic_".$i."')><i class='mdi-navigation-close right'></i></a>
 													<div class='card-image img-product waves-effect waves-block waves-light'>
 														<img id='img_pic_".$i."' onclick=javascript:click_picture('pic_".$i."') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
-														<input type='file' class='pic_product' name='pic_".$i."' id='pic_".$i."' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
+														<input type='file' class='pic_product' name='pic_".$i."' id='pic_".$i."' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id,image_resize_".$i.")>
+														<input id='image_resize_".$i."' type='hidden' name='image_resize_".$i."' />
 													</div>
 												</div>		
 												<label for='pic_".$i."' class='error error-image' generated='true'></label>																		
@@ -129,7 +137,7 @@ echo "
 								</div>
 
 								<div class='input-field col s12'>
-									<input id='perkiraan_berat' placeholder='0.00' type='text' name='berat' class='validate' value='".$produk->berat."'>
+									<input id='perkiraan_berat' placeholder='0,00' type='text' name='berat' class='validate berat' value='".$weight."'>
 									<label for='perkiraan_berat'>Perkiraan Berat <span>( Kilogram)</span></label>
 								</div>
 								<div class='input-field col s12'>
@@ -191,15 +199,15 @@ echo "
 										foreach ($varian->result() as $row_var) {
 											echo"<li class='varsto nolmar' id='li_edit_varian_".$row_var->id."'>
 													<div class='input-field col s12 m5 nolmar'>
-														<span for='varian'>Varian </span>
-														<input id='varian' name='nama_edit_varian_".$row_var->id."' maxlength='15' value='".$row_var->name."' type='text' placeholder='Ex : Merah' >
+														<span for='varian'>Varian </span><span class='text-red'>*</span>
+														<input id='varian' name='nama_edit_varian_".$row_var->id."' maxlength='15' value='".$row_var->name."' type='text' placeholder='Ex : Merah' required>
 													</div>
 													<div class='input-field col s11 m5 tersedia' style='display:$tersedia'>
 														<label >Stok : <span class='text-green'>selalu tersedia</span></label>
 													</div>
 													<div class='input-field col s11 m5 pakai-stok' style='display:$guna_stok'>
-														<span for='varian'>Stok </span>
-														<input id='varian' name='stok_edit_varian_".$row_var->id."' value='".$row_var->stock_qty."' type='text' maxlength='9' placeholder='Jumlah stok' class='validate numbersOnly'>										
+														<span for='varian'>Stok </span><span class='text-red'>*</span>
+														<input id='varian' name='stok_edit_varian_".$row_var->id."' value='".$row_var->stock_qty."' type='text' maxlength='9' placeholder='Jumlah stok' class='validate numbersOnly' required>										
 													</div>
 													<div class='input-field col s1 m1' >
 														<a onclick=javascript:deleteVarian('li_edit_varian_".$row_var->id."'); class='btn-floating waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
@@ -218,7 +226,7 @@ echo "
 											</div>
 											<div class='input-field col s11 m5 pakai-stok' style='display:$guna_stok'>
 												<span for='varian'>Stok </span>
-												<input id='varian' name='stok_varian_1' type='text' placeholder='Jumlah stok' maxlength='9' class='validate numbersOnly'>										
+												<input id='varian' name='stok_varian_1' type='text' placeholder='Jumlah stok' maxlength='15' class='validate numbersOnly'>										
 											</div>
 											<div class='input-field col s1 m1' >
 												<a onclick=javascript:deleteVarian('li_varian_1'); class='btn-floating waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
@@ -248,7 +256,7 @@ echo "
 											<label for='varian'>Stok : <span class='text-green'>selalu tersedia</span></label>
 										</div>
 										<div class='input-field col s12 m6 pakai-stok' style='display:$guna_stok'>
-											<input id='varian' name='stok_utama' type='text' placeholder='Jumlah stok' maxlength='9' value='$stok_utama' class='validate numbersOnly'>
+											<input id='varian' name='stok_utama' type='text' placeholder='Jumlah stok' maxlength='15' value='$stok_utama' class='validate numbersOnly'>
 											<label for='varian'>Stok <span></span></label>
 										</div>
 									</li>

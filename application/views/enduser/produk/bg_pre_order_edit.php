@@ -1,5 +1,12 @@
 <?php
 $uri3 = $this->uri->segment(3);
+$weight= $produk->berat;
+
+$weights = explode(".",$weight);
+if(!isset($weights[1])){
+	$weight = $weight * 100;
+}
+
 echo "
 <div id='delete_produk' class='modal confirmation'>
 	<div class='modal-header red'>
@@ -103,7 +110,8 @@ echo "
 															<a class='delimg' id='rem_pic_edit_".$item->id."' onclick=javascript:remove_picture('pic_edit_".$item->id."')><i class='mdi-navigation-close right'></i></a>
 															<div class='card-image img-product waves-effect waves-block waves-light'>
 																<img id='img_pic_edit_".$item->id."' onclick=javascript:click_picture_edit('pic_edit_".$item->id."') class='responsive-img img-product' src='".base_url()."assets/pic/product/resize/".$item->file."'>
-																<input type='file' class='pic_edit_product' name='pic_edit_".$item->id."' id='pic_edit_".$item->id."' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
+																<input type='file' class='pic_edit_product' name='pic_edit_".$item->id."' id='pic_edit_".$item->id."' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id,image_resize_".$item->id.")>
+																<input id='image_resize_".$item->id."' type='hidden' name='image_resize_".$item->id."' />
 															</div>
 															<label for='pic_edit_".$item->id."' class='error error-image' generated='true'></label>										
 														</div>										
@@ -120,7 +128,8 @@ echo "
 														<a class='delimg' id='rem_pic_".$i."' style='display:none' onclick=javascript:remove_picture('pic_".$i."')><i class='mdi-navigation-close right'></i></a>
 														<div class='card-image img-product waves-effect waves-block waves-light'>
 															<img id='img_pic_".$i."' onclick=javascript:click_picture('pic_".$i."') class='responsive-img img-product' src='".base_url()."html/images/comp/product_large.png'>
-															<input type='file' class='pic_product' name='pic_".$i."' id='pic_".$i."' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id)>
+															<input type='file' class='pic_product' name='pic_".$i."' id='pic_".$i."' style='opacity: 0.0;width:1px; height:1px' OnChange=javascript:picture_upload(this.id,image_resize_".$i.")>
+															<input id='image_resize_".$i."' type='hidden' name='image_resize_".$i."' />
 														</div>
 														<label for='pic_".$i."' class='error error-image' generated='true'></label>										
 													</div>										
@@ -138,7 +147,7 @@ echo "
 								</div>
 
 								<div class='input-field col s12'>
-									<input id='perkiraan_berat' placeholder='0.00' type='text' name='berat' class='validate' value='".$produk->berat."'>
+									<input id='perkiraan_berat' placeholder='0,00' type='text' name='berat' class='validate berat' value='".$weight."'>
 									<label for='perkiraan_berat'>Perkiraan Berat <span>( Kilogram)</span></label>
 								</div>
 								<div class='input-field col s12'>
@@ -201,8 +210,8 @@ echo "
 										foreach ($varian->result() as $row_var) {
 											echo"<li class='varsto nolmar' id='li_edit_varian_".$row_var->id."'>
 													<div class='input-field col s12 m5 '>
-														<input id='varian' name='nama_edit_varian_".$row_var->id."' maxlength='30' value='".$row_var->name."' type='text' placeholder='Ex : Merah' class='validate'>
-														<label for='varian'>Varian </label>
+														<span for='varian'>Varian <span class='text-red'>*</span></span>  
+														<input id='varian' name='nama_edit_varian_".$row_var->id."' maxlength='30' value='".$row_var->name."' type='text' placeholder='Ex : Merah' class='validate' required>
 													</div>
 													<div class='input-field col s1 m1'>
 														<a onclick=javascript:deleteVarian('li_edit_varian_".$row_var->id."'); class='btn-floating btn-xs waves-effect waves-red white right'><i class='mdi-navigation-close blue-grey-text'></i></a>
@@ -212,8 +221,17 @@ echo "
 									
 									}
 									
+									// $addVar = 'block';
+									// if ($varian_null->num_rows() > 5) {
+									// 	$addVar = 'none';
+									// }
+									$jumlah = $this->model_produk->get_varian_produk($produk->id);
+									$jum = $jumlah->num_rows();
 									$addVar = 'block';
-									if ($varian_null->num_rows() > 5) {
+									if ( $jum < 1) {
+										$addVar = 'none';
+									}
+									 if($jum >= 5){
 										$addVar = 'none';
 									}
 									

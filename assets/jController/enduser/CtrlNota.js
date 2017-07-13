@@ -18,7 +18,7 @@ $(window).scroll(function () {
             
             scrolling       = false;
             var total_nota  = $('#total-nota').val();
-            var url         = base_url+'nota/index/'+offset;
+            var url         = base_url+'nota/index2/'+offset;
             
             window.scrollTo(0, ($(window).scrollTop()-50) );
 
@@ -52,7 +52,21 @@ $(window).scroll(function () {
 * END MAIN SCROOL AJAX
 */
 
-
+function initCalendar(){
+        $('.datepicker_nota').pickadate({
+        selectMonths: true, // Creates a dropdown to control month      
+        monthsFull: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+        monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+        selectYears: 15, // Creates a dropdown of 15 years to control year
+        today: 'Hari ini',
+        clear: 'Hapus',
+        close: 'Tutup',
+        format:'yyyy-mm-dd',
+        //format:'dd-mm-yyyy'
+        //formatSubmit: 'yyyy-mm-dd',
+        
+    });
+}
 
 
 // Notes nota ======================================================================================
@@ -97,7 +111,8 @@ function batal_nota(){
     //$('#btn-batal-'+id).html('loading...');
     //$('#btn-batal-'+id).fadeTo('slow',0.5);
     var cek = 0;
-    if ($('#batal-cek-'+id).is(':checked')) {
+    //if ($('#batal-cek-'+id).is(':checked')) {
+        if ($('#batal-cek-').is(':checked')) {
         cek = 1;
     };
     
@@ -331,6 +346,30 @@ function change_date_to(){
 	  });
 	}
 
+function filter_date(){
+    var date_from = $('#tgl_awal').val();
+    var date_to = $('#tgl_akhir').val();
+
+    $.ajax({
+        type:'POST',
+        data:'tgl_awal='+date_from+'&tgl_akhir='+date_to,
+        url: base_url+'nota/filter_dates',
+        success: function(msg) {   
+            if (msg != 0) {
+                    $('#ajax-div').html(msg);
+                    $('#ajax-div').fadeTo('slow',1);
+                    $('.modal-trigger').leanModal();
+                }else{
+                    $('#ajax-div').html("<center>Nota tidak ditemukan</center>");
+                    $('#ajax-div').fadeTo('slow',1);
+                    Materialize.toast('Nota tidak ditemukan!', 4000);
+                    $('.modal-trigger').leanModal();
+                }; 
+           
+        }
+    });
+}
+
 function set_location(){
     var postal = $('#postal-code').val();
     if (postal.length == 5) {        
@@ -518,7 +557,7 @@ function batal_nota2(id){
    // $('#btn-batal-'+id).html('loading...');
     //$('#btn-batal-'+id).fadeTo('slow',0.5);
     var cek = 0;
-    if ($('#batal-cek-'+id).is(':checked')) {
+    if ($('#batal-cek-').is(':checked')) {
         cek = 1;
     };
     
@@ -529,7 +568,7 @@ function batal_nota2(id){
         success: function(msg) {
             if (msg == 1) {             
                 location.reload();
-                Materialize.toast('Nota telah dihapus', 4000);
+                Materialize.toast('Nota telah dibatalkan', 4000);
                 
             };              
         } 

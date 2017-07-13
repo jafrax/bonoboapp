@@ -80,7 +80,7 @@ echo"
 					echo "
 						<div id='lblNotif' class='notif-error'></div>
 						<div class='input-field col s12'>
-							<input id='email' name='email' type='text' class='validate emailLow' autofocus='' maxlength='50' placeholder='ex : email@mail.com' tabindex='1'>
+							<input id='email' name='email' type='text'  class='validate emailLow'  autofocus='' maxlength='50' placeholder='ex : email@mail.com' tabindex='1'>
 							<label for='email'>Email</label>
 							<label id='notifEmail' class='error' style='display:none;'><i class='fa fa-warning'></i> Harus diisi !</label>
 						</div>

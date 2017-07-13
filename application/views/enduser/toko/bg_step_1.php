@@ -32,6 +32,7 @@ echo"
 					  <a class='btn waves-effect waves-blue blue' onclick=javascript:cek_pin()>Cek Ketersediaan PIN</a>
 					<span id='notifTagname' class='red-text' style='display:none;'>PIN TOKO tidak tersedia</span>
 					<span id='notifTagnameS' class='green-text' style='display:none;'>PIN TOKO tersedia</span>
+					
 				</div>
 							
 				<div class='col s12 m8' style='display:none;'>
@@ -193,7 +194,7 @@ echo"
 					<label>Kota <img width='16px' id='loader-kota' style='display:none' src='".base_url()."html/images/comp/loading.GIF' /></label>
 					<label id='notifCity' class='error error-chosen' style='display:none;'></label>
 					<div id='panggon-city' class='input-field'>";
-					echo "	<select  class='selectize cmbCity' name='cmbCity' id='city' onchange=javascript:set_kecamatan()>
+					echo "	<select  class='selectize cmbCity' name='cmbCity' id='cmbCity' onchange=javascript:set_kecamatan()>
 												<option value='' disabled selected>Pilih Kota</option>	";
 												
 							if ($Shopp->num_rows() > 0) {
@@ -217,7 +218,7 @@ echo"
 					<label>Kecamatan <img id='loader-kec' style='display:none' width='16px' src='".base_url()."html/images/comp/loading.GIF' /></label>
 					<label id='notifKecamatan' class='error error-chosen' style='display:none;'></label>
 					<div id='panggon-kecamatan' class='input-field'>";
-						echo "<select  class='selectize cmbKecamatan' name='cmbKecamatan' id='kecamatan'  >
+						echo "<select  class='selectize cmbKecamatan' name='cmbKecamatan' id='tkecamatan'  >
 							<option value='' disabled selected>Pilih Kecamatan</option>";
 							if ($Shopp->num_rows() > 0) {
 								foreach($Shopp->result() as $row_x){

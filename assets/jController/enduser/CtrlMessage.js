@@ -5,15 +5,14 @@ function CtrlMessage(){
 	this.showContactDetail = showContactDetail;
 	this.doScrollContact = doScrollContact;
 	this.setKeyword = setKeyword;
-	this.setLastUserID = setLastUserID;
-
+	
 	var keyword = "";
-	var lastUserID = 0;
 	var messageContent;
 	var messageDeleteID, messageDeleteName;
 	var btnMessageReads;
 	var aMessageDeletesYes, aMessageDeleteYes, aMessageDeleteNo, aMessageNew;
 	var offset_c=5;
+	var scroll = true;
 	
 	function init(){
 		initComponent();
@@ -55,29 +54,29 @@ function CtrlMessage(){
 	}
 	
 	function doScrollContact(){
-		if ($('#contact-scroll').scrollTop() == ($('#contact-scroll').get(0).scrollHeight - $('#contact-scroll').height()) && scroll == true) {
+		if ($('#contact-pesan').scrollTop() == ($('#contact-pesan').get(0).scrollHeight - $('#contact-pesan').height()) && scroll == true) {
 			$('#loader-contact').slideDown();
 			
 			scroll      = false;		        
 			var id  	= $('#member').val();
-			var url 	= base_url+'message/showContactDetail/'+id;
+			var url 	= base_url+'message/showContactDetail/'+offset_c;
 
-		   // $('#contact-scroll').scrollTo(0, ($('#contact-scroll').get(0).scrollHeight - 50) );
 			$.ajax({
 				type: 'POST',
-				data: 'ajax=1&keyword='+keyword+'&id='+ id + "&lastUserID="+lastUserID,
+				data: 'ajax=1&keyword='+keyword+'&id='+id,
 				url: url,
 				async: false,
 				success: function(msg) {
 					if (msg){
 						$('#contact-pesan').append(msg);
 						$('#loader-contact').slideUp();
+						
 						offset_c = offset_c + 5;		                    
 						scroll   = true;		                    
 					}else{
 						$('#loader-contact').slideUp();
-						scroll   = false;
 						$('#habis-contact').slideDown();
+						scroll   = false;
 					}
 				}
 			});
@@ -88,10 +87,6 @@ function CtrlMessage(){
 	
 	function setKeyword(e){
 		keyword = e;
-	}
-	
-	function setLastUserID(e){
-		lastUserID = e;
 	}
 	
 	function popupDelete(e,n){
@@ -236,6 +231,8 @@ function CtrlMessageDetail(){
 	var formMessageDetail;
 	var btnSend;
 	var member;
+	var offset=10;
+	var scrolling=true;
 	var lastMessage = "";
 	
 	function init(){
@@ -256,9 +253,6 @@ function CtrlMessageDetail(){
 	}
 	
 	function doScroll(){
-		var offset=10;
-		var scrolling=true;
-		
 		if ($('.content-pesan').scrollTop() == 0 && scrolling==true) {
 			$('#loader-message').slideDown();
 			
@@ -276,14 +270,16 @@ function CtrlMessageDetail(){
 					if (msg){
 						$('#message-ajax').prepend(msg);
 						$('#loader-message').slideUp();
-						offset      = offset+10;
 						$('.content-pesan').scrollTop(50);
-						scrolling   = true;                    
 						$('#total-message').val(total_nota+10);
+						
+						offset      = offset+10;
+						scrolling   = true;
 					}else{
 						$('#loader-message').slideUp();
-						scrolling   = false;
 						$('#habis').slideDown();
+						
+						scrolling   = false;
 					}
 				}
 			});
@@ -311,9 +307,9 @@ function CtrlMessageDetail(){
 			success: function(result) {
 				var response = JSON.parse(result);
 				if(response.result == 1){
-					var date = new Date(response.message.create_date);
 					
-					$("#message-ajax").append("<div class='row'><div class='pesanmu'>"+response.message.message.replace(/(?:\r\n|\r|\n)/g, '<br />')+" <br><span class='deep-orange-text text-lighten-5' style='font-size:10px;text-align:right;'>"+date.getHours() + ":" + date.getMinutes()+"</span></div></div>");
+					
+					$("#message-ajax").append("<div class='row'><div class='pesanmu'>"+response.message.message.replace(/(?:\r\n|\r|\n)/g, '<br />')+" <br><span class='deep-orange-text text-lighten-5' style='font-size:10px;text-align:right;'>"+response.message.create_date+"</span></div></div>");
 					formMessageDetail.txtMessage.value = "";
 					
 					ctrlMessage.showContactDetail(member);
@@ -323,7 +319,6 @@ function CtrlMessageDetail(){
 					Materialize.toast(response.message, 4000);
 				}
 			}
-					
 		});
 	}
 	
@@ -339,7 +334,6 @@ function CtrlMessageDetail(){
 					data: "member="+member,
 					url: base_url+'message/getUpdateMessageDetail',
 					success: function(result) {
-					
 						var response = JSON.parse(result);
 						if(response.result == 1){
 							for(var i = 0; i <= response.messages.length - 1;i++){
@@ -420,10 +414,9 @@ function CtrlMessageNew(){
 			data: "member="+memberTo.value+"&message="+txtMessage.value+"&checkbox="+checked,
 			url: base_url+'message/doMessageNewSend',
 			success: function(result) {
-				 location.reload();
-				var response = JSON.parse(result);
+				 var response = JSON.parse(result);
 				if(response.result == 1){
-					top.location.href = base_url+"message";
+					top.location.reload();
 				}else{
 					Materialize.toast(response.message, 4000);
 				}

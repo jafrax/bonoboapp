@@ -85,7 +85,7 @@ echo"
 								</div>
 								<div class='input-field col s8 m8 l3 nolpad'>									
 									<i class='mdi-action-search prefix'></i>
-									<input type='text' class='validate' id='keyword_nota' value='"; if (isset($_SESSION['keyword'])) {echo $_SESSION['keyword'];} echo"'>
+									<input type='text' class='validate' id='keyword_nota' value='"; if (isset($_SESSION['filter_nota']['keyword'])) {echo $_SESSION['filter_nota']['keyword'];} echo"'>
 									<label for='keyword_nota'>Cari</label>
 								</div>
 								<div class='input-field col s4 m4 l2 nolpad'>
@@ -109,26 +109,29 @@ echo"
 										<option value='1'>Hapus</option>										
 									</select>									
 								</div>
+								
 								<div class='input-field col s12 m4'>
 									<button class='waves-effect waves-light btn deep-orange darken-1 left' onclick=javascript:go_konfirm()>GO</button>
 								</div>	";
 							
-								$date 		= date('d M Y');
+								$date 		= date('d/m/Y');
 								//date('Y-m-d', strtotime('-6 days', strtotime( variabel_tgl_awal )))
-								$tanggalawal = date('d M Y', strtotime('-1 month', strtotime( $date )));
+								$tanggalawal = date('d/m/Y', strtotime('-1 month', strtotime( $date )));
 								//date('Y-m-d', strtotime('-6 year', strtotime( variabel_tgl_awal )))
 								
 								echo "
 								<div class='input-field col s2'>
-									<input id='tgl_awal' name='tgl_awal' type='text' onchange=javascript:change_date_from()  placeholder='".$tanggalawal."' class='datepicker validate' >
+									<input id='tgl_awal' name='tgl_awal' type='text' onchange=javascript:change_date_from()  placeholder='".$tanggalawal."' class='datepicker_nota validate' >
 									<label for='tgl_awal'>FROM DATE <span class='text-red'></span></label>
-									<label class='error' for='tgl_pre_order'></label>
+									<label class='error' for='tgl_awal'></label>
 								</div>
 								<div class='input-field col s2'>
-									<input id='tgl_akhir' name='tgl_akhir' type='text' onchange=javascript:change_date_to()  placeholder='".$date."' class='datepicker validate' >
+									<input id='tgl_akhir' name='tgl_akhir' type='text' onchange=javascript:change_date_to()  placeholder='".$date."' class='datepicker_nota validate' >
 									<label for='tgl_akhir'>TO DATE<span class='text-red'></span></label>
-									<label class='error' for='tgl_pre_order'></label>
+									<label class='error' for='tgl_akhir'></label>
+									<button class='waves-effect waves-light btn deep-orange darken-1 right' onclick=javascript:filter_date()>Search</button>
 								</div>
+							
 		
 							</div>
 						</div>
@@ -136,8 +139,8 @@ echo"
 											
 						<div class='row formbody' id='ajax-div'>";
 						if ($nota->num_rows() == 0) {
-							if (isset($_SESSION['keyword'])) {
-								echo "<center>Produk \"".$_SESSION['keyword']."\" tidak ditemukan</center>";
+							if (isset($_SESSION['filter_nota']['keyword'])) {
+								echo "<center>Produk \"".$_SESSION['filter_nota']['keyword']."\" tidak ditemukan</center>";
 							}else{
 								echo "<center>Nota kosong</center>";
 							}
@@ -362,7 +365,16 @@ echo"
 																<span>Jenis Pengiriman</span>
 																<select class='selectize' name='kurir'>
 																	<option value='' disabled selected>Pilih Jenis Pengiriman</option>
-																	<option value='Ambil di toko'>Ambil di toko</option>";
+																	<!--<option value='Ambil di toko'>Ambil di toko</option>-->";
+																	$toko_pickup = $this->model_nota->get_toko_pickup($row->toko_id);
+																	foreach ($toko_pickup->result() as $pickup_r) {
+																		$select ='';
+																		if($pickup_r->name == $row->dm_pick_up_store) {$select = 'selected';}
+																		echo "<option $select value='".$pickup_r->name."'>".$pickup_r->dm_pick_up_store."</option>";
+																		/*elseif($row->dm_pick_up_store == 1){
+																			echo"<option $select value =  Ambil di Toko </option>";
+																		}*/
+																	}
 																	$toko_kurir = $this->model_nota->get_toko_kurir($row->toko_id);
 																	foreach ($toko_kurir->result() as $kurir_t) {
 																		$select = '';
@@ -442,5 +454,6 @@ echo"
 				</div>
 									
 				<script type='text/javascript' src='".base_url("")."assets/jController/enduser/CtrlNota.js'></script>
+				<script>initCalendar();</script>
 ";
 ?>

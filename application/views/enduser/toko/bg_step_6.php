@@ -82,6 +82,7 @@ echo"
 							<div class='input-field col s12 m12' id='bank-lain' style='display:none'>
 								<span for='txtBank'>Nama Bank</span>
 								<input id='txtBank' value='Bank ' name='txtBank' type='text' class='validate'>
+								<input id='nama_default' type='hidden' name='nama_default' value='0'> 
 							</div>
 							<div class='input-field col s12 m12'>
 								<span for='txtName'>Nama Pemilik Rekening</span>
@@ -98,7 +99,7 @@ echo"
 		</div>
 		<div class='modal-footer'>
 			<button type='button' id='btnSave' class='modal-action waves-effect waves-green btn-flat '>Simpan</button>
-			<a href='javascript:void(0);' class='modal-action modal-close waves-effect waves-red btn-flat '>Batal</a>
+			<a href='javascript:void(0);' onclick='window.location.reload()' class='modal-action modal-close waves-effect waves-red btn-flat '>Batal</a>
 		</div>
 	</div>
 ";

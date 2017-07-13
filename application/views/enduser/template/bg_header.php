@@ -53,17 +53,20 @@ echo"
 
 ?>
 
-<script type='text/javascript'>
-	var $_Tawk_API={},$_Tawk_LoadStart=new Date();
-	(function(){
-		var s1=document.createElement('script'),s0=document.getElementsByTagName('script')[0];
-		s1.async=true;
-		s1.src='https://embed.tawk.to/55be11445355f0e91c613ea6/default';
-		s1.charset='UTF-8';
-		s1.setAttribute('crossorigin','*');
-		s0.parentNode.insertBefore(s1,s0);
-	})();
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5668e8d50c2fc456799e304f/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
 </script>
+<!--End of Tawk.to Script-->
 
 
 <?php
@@ -75,10 +78,10 @@ echo"
 		<ul class='col s12 navmob mobleft'>
 			<li class='usermob'>
 				<div class='usermain left'>";
-					if ($_SESSION['bonobo']['image']) {
+					if (isset($_SESSION['bonobo']['image'])) {
 						echo "<img class='responsive-img userdum' src='".base_url()."assets/pic/shop/resize/".$_SESSION['bonobo']['image']."' />";
 					}else{
-						echo "<img class='responsive-img userdum' src='".base_url()."html/images/comp/male.png' />";
+						echo "<img class='responsive-img userdum' src='".base_url()."html/images/comp/male.png' /> ";
 					}
 					echo "
 					<text>".$_SESSION['bonobo']['name']."</text>
@@ -109,10 +112,10 @@ echo"
 				</div>
 				<div class='col s5 m8 l10'>
 					<div class='usermain right'>";
-						if ($_SESSION['bonobo']['image']) {
+						if (isset($_SESSION['bonobo']['image']) && $_SESSION['bonobo']['image']!="") {
 							echo "<img class='responsive-img userdum' src='".base_url()."assets/pic/shop/resize/".$_SESSION['bonobo']['image']."' />";
 						}else{
-							echo "<img class='responsive-img userdum' src='".base_url()."html/images/comp/male.png' />";
+							echo "<img class='responsive-img userdum' src='".base_url()."html/images/comp/male.png' /> ";
 						}
 						echo "
 						<a class='dropdown-button right' data-beloworigin='true' href='#' data-activates='duser' >

@@ -29,7 +29,7 @@
 					<img src='".$MemberImage."' class='responsive-img userimg'>
 					<input type='hidden' id='price_level_".$Member->id."' value='".$ShopMember->price_level."'>
 				</div> 
-				<div class='col s12 m7 l8'>				
+				<div class='col s12 m7 l7'>				
 					<p><a href='#popupMembers' onclick=ctrlAnggotaMembers.popupDetail(".$Member->id."); class='modal-trigger tooltipped' data-position='top' data-delay='50' data-tooltip='".$Member->name."'><b class='userangoota'>".$hasil_nama."</b></a></p>
 					<p><a href='#setting_harga' onclick=ctrlAnggotaMembers.popupEdit(".$Member->id."); class='modal-trigger' ><b id='label_level_".$Member->id."'>Level : ".$Level."</b></a></p>
 					<a href='#popupDelete' onclick=ctrlAnggotaMembers.popupDelete(".$Member->id.",'".base64_encode($Member->name)."'); class='modal-trigger btn-floating btn-xs waves-effect waves-light red right'><i class='mdi-navigation-close'></i></a>

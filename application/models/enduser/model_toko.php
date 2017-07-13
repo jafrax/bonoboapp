@@ -58,6 +58,13 @@ class Model_toko extends CI_Model {
 						 ->where('tt.verified_code',$uri_veri)
 						 ->get('tb_toko tt');
 	}
+	//dibuat oleh arif 9-10-2015
+	public function cek_email($email){
+      return	$this->db->select('tt.*')
+						 ->where('tt.email',$email)
+						 ->get('tb_toko tt');  
+    }
+
 	// diabuat oleh adi 04-08-2015
 	public function cek_status_level_toko($data){
          $this->db->where('tt.id',$data['id_toko']);

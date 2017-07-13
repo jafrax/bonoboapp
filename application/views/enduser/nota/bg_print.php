@@ -94,6 +94,7 @@ if(!empty($image->product_image) && @getimagesize(base_url("assets/pic/invoice/p
 <tr>
   <td colspan="2" rowspan="5"><img src="<?php echo $images; ?>" width="90" height="90" ></td>
   <td colspan="7"><h4 class='titmain'><b> <?php echo $row_p->product_name; ?></b></h4>  </td>
+  <!-- <td colspan="7"><?php echo $row_p->product_sku_no;?></td>-->
   <td width="128" rowspan="5">
     <?php 
 $varian = $this->model_nota->get_varian_product($row_p->id);
@@ -105,10 +106,10 @@ foreach ($varian->result() as $row_v) {
 	?>
   <table  border="0">
     <tr>
-      <td><?  echo $row_v->varian_name; echo " = "; echo $row_v->quantity; echo $row_p->product_unit;?></td>
+      <td><?php  echo $row_v->varian_name; echo " = "; echo $row_v->quantity; echo $row_p->product_unit;?></td>
       </tr>
   </table>
-  <?   }
+  <?php   }
 	}
 }
 ?>
